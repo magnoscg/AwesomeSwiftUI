@@ -8,6 +8,7 @@ import {
   docsAssets,
   findStale,
   loadCatalog,
+  previewPlan,
   renderDocsPages,
   renderOutputs,
 } from './catalog-lib.mjs';
@@ -256,6 +257,23 @@ describe('invalid previews', () => {
     assertRejected({ preview: null }, /missing GlowButton\.webp/);
   });
 
+  it('allows a new component without one when asked to', () => {
+    const root = makeRoot();
+    addComponent(root, { preview: null });
+
+    const { components, errors } = loadCatalog(root, { requirePreview: false });
+
+    assert.deepEqual(errors, []);
+    assert.equal(components.length, 1);
+  });
+
+  it('still rejects an invalid one when it is not required', () => {
+    const root = makeRoot();
+    addComponent(root, { preview: Buffer.from('GIF89a') });
+
+    assert.match(loadCatalog(root, { requirePreview: false }).errors.join('\n'), /is not an animated WebP/);
+  });
+
   it('rejects a file that is not WebP', () => {
     assertRejected({ preview: Buffer.from('GIF89a') }, /is not an animated WebP/);
   });
@@ -376,6 +394,40 @@ describe('the Showcase registry', () => {
 
   it('escapes quotes in the text', () => {
     assert.match(registryFor(meta({ summary: 'A "glowing" button.' })), /summary: "A \\"glowing\\" button\."/);
+  });
+});
+
+describe('recording a preview', () => {
+  it('waits a few seconds for a demo that animates by itself', () => {
+    assert.deepEqual(previewPlan({}), { record: true, steps: ['sleep 4'] });
+  });
+
+  it('follows the given steps', () => {
+    assert.deepEqual(previewPlan({ previewSteps: ['tap --label Like'] }), { record: true, steps: ['tap --label Like'] });
+  });
+
+  it('leaves a manual preview alone', () => {
+    assert.deepEqual(previewPlan({ previewManual: true }), { record: false });
+  });
+
+  it('accepts the recording fields in the metadata', () => {
+    assert.deepEqual(errorsFor({ metadata: meta({ previewSteps: ['sleep 1'] }) }), []);
+    assert.deepEqual(errorsFor({ metadata: meta({ previewManual: true }) }), []);
+  });
+
+  it('rejects invalid recording fields', () => {
+    assertRejected({ metadata: meta({ previewSteps: [] }) }, /"previewSteps" must be/);
+    assertRejected({ metadata: meta({ previewManual: false }) }, /"previewManual" can only be true/);
+  });
+
+  it('keeps the recording fields out of the public catalog', () => {
+    const root = makeRoot();
+    addComponent(root, { metadata: meta({ previewSteps: ['sleep 1'] }) });
+
+    const [entry] = JSON.parse(renderOutputs(root, loadCatalog(root).components).get('catalog.json')).components;
+
+    assert.equal(entry.previewSteps, undefined);
+    assert.equal(entry.previewManual, undefined);
   });
 });
 

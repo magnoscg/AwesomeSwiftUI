@@ -1,4 +1,4 @@
-.PHONY: catalog check test preview docs docs-dev showcase-build showcase-test verify
+.PHONY: catalog check test preview record docs docs-dev showcase-build showcase-test verify
 
 PROJECT = Showcase/Showcase.xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
@@ -19,6 +19,10 @@ test:
 # make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
 preview:
 	sh scripts/make-preview.sh '$(INPUT)' 'Components/$(COMPONENT)/$(notdir $(COMPONENT)).webp'
+
+# make record COMPONENT=Buttons/PressableButtonStyle, or every component without it.
+record: showcase-build
+	node scripts/record-preview.mjs $(COMPONENT)
 
 # Builds the documentation site into docs/dist.
 docs:

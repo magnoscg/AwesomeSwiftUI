@@ -24,7 +24,11 @@ const FIELDS = [
   'minIOS',
   'apis',
   'origin',
+  'previewSteps',
+  'previewManual',
 ];
+const RECORDING_FIELDS = ['previewSteps', 'previewManual'];
+const DEFAULT_PREVIEW_SECONDS = 4;
 
 const SITE_BASE = '/AwesomeSwiftUI';
 const DOCS_PUBLIC = 'docs/public';
@@ -46,7 +50,9 @@ const BANNED_CODE = [
   [/^\s*public\s/m, 'declares something public; components are internal'],
 ];
 
-export function loadCatalog(root) {
+// `requirePreview: false` lets `generate` register a new component, so it can be
+// opened in the Showcase and recorded. `check` always requires the preview.
+export function loadCatalog(root, { requirePreview = true } = {}) {
   const errors = [];
   const components = [];
   const directory = join(root, 'Components');
@@ -63,7 +69,7 @@ export function loadCatalog(root) {
         }
         seenFiles.set(file, relative);
       }
-      const component = loadComponent(root, relative, category, name, files, errors);
+      const component = loadComponent(root, relative, category, name, files, errors, requirePreview);
       if (component) components.push(component);
     }
   }
@@ -73,7 +79,7 @@ export function loadCatalog(root) {
   return { components, errors };
 }
 
-function loadComponent(root, relative, category, name, files, errors) {
+function loadComponent(root, relative, category, name, files, errors, requirePreview) {
   const metaFile = `${name}.meta.json`;
   const sourceFile = `${name}.swift`;
   if (!files.includes(metaFile)) {
@@ -97,16 +103,16 @@ function loadComponent(root, relative, category, name, files, errors) {
   const before = errors.length;
   validateMeta(meta, relative, category, name, errors);
   if (errors.length === before) validateSource(meta, source, relative, name, errors);
-  validatePreview(root, relative, name, files, errors);
+  validatePreview(root, relative, name, files, errors, requirePreview);
   if (errors.length !== before) return null;
 
   return { ...meta, path: `${relative}/${sourceFile}`, preview: `${relative}/${name}.webp`, source };
 }
 
-function validatePreview(root, relative, name, files, errors) {
+function validatePreview(root, relative, name, files, errors, requirePreview) {
   const previewFile = `${name}.webp`;
   if (!files.includes(previewFile)) {
-    errors.push(`${relative}: missing ${previewFile}`);
+    if (requirePreview) errors.push(`${relative}: missing ${previewFile}`);
     return;
   }
   const bytes = readFileSync(join(root, relative, previewFile));
@@ -157,6 +163,10 @@ function validateMeta(meta, relative, category, name, errors) {
   if (!isTextList(meta.apis)) fail('"apis" must be a non-empty list of strings');
   if (!isTextList(meta.keywords?.en)) fail('"keywords.en" must be a non-empty list of strings');
   if (!isTextList(meta.keywords?.es)) fail('"keywords.es" must be a non-empty list of strings');
+  if (meta.previewSteps !== undefined && !isTextList(meta.previewSteps)) {
+    fail('"previewSteps" must be a non-empty list of strings');
+  }
+  if (meta.previewManual !== undefined && meta.previewManual !== true) fail('"previewManual" can only be true');
   validateOrigin(meta.origin, fail);
 }
 
@@ -279,6 +289,14 @@ function swiftString(text) {
   return JSON.stringify(text);
 }
 
+// Says how to record a component: nothing when it is recorded by hand, the given
+// interaction steps, or a few idle seconds for a demo that animates by itself.
+export function previewPlan(component) {
+  if (component.previewManual) return { record: false };
+  if (component.previewSteps) return { record: true, steps: component.previewSteps };
+  return { record: true, steps: [`sleep ${DEFAULT_PREVIEW_SECONDS}`] };
+}
+
 // Returns the components that need a newer iOS than the given major version.
 export function componentsNewerThan(components, major) {
   return components.filter((component) => Number(component.minIOS.split('.')[0]) > major);
@@ -396,10 +414,10 @@ export function findStale(root, outputs) {
 }
 
 function renderCatalogJSON(components) {
-  const entries = components.map(({ source, ...component }) => ({
-    ...component,
-    rawURL: `${RAW_BASE}/${component.path}`,
-  }));
+  const entries = components.map(({ source, ...component }) => {
+    for (const field of RECORDING_FIELDS) delete component[field];
+    return { ...component, rawURL: `${RAW_BASE}/${component.path}` };
+  });
   return `${JSON.stringify({ count: entries.length, components: entries }, null, 2)}\n`;
 }
 

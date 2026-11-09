@@ -26,7 +26,7 @@ if (!['generate', 'check', 'docs', 'prune'].includes(command) || (command === 'p
   process.exit(2);
 }
 
-const { components, errors } = loadCatalog(root);
+const { components, errors } = loadCatalog(root, { requirePreview: command !== 'generate' });
 if (errors.length > 0) {
   console.error(`The catalog has ${errors.length} problem(s):`);
   for (const error of errors) console.error(`- ${error}`);
@@ -53,6 +53,7 @@ if (command === 'generate') {
   const removed = componentsNewerThan(components, pruneMajor);
   for (const component of removed) {
     rmSync(join(root, dirname(component.path)), { recursive: true, force: true });
+    rmSync(join(root, `Showcase/ShowcaseTests/${component.name}Tests.swift`), { force: true });
   }
   for (const [path, content] of renderOutputs(root, loadCatalog(root).components)) write(path, content);
   console.log(`Removed ${removed.length} component(s) that need more than iOS ${pruneMajor}.`);
