@@ -1,0 +1,48 @@
+{
+  "id": "tab-navigation-state-preserve",
+  "name": "TabNavigationStatePreserve",
+  "title": "Tab Navigation State Preserve",
+  "category": "Navigation",
+  "summary": "A tab bar where each tab keeps its own navigation path in one store, so switching back restores your place.",
+  "keywords": {
+    "en": [
+      "tab bar",
+      "navigation stack",
+      "preserve state",
+      "restore",
+      "pop to root",
+      "tabs"
+    ],
+    "es": [
+      "barra de pestañas",
+      "pila de navegación",
+      "conservar estado",
+      "restaurar",
+      "volver al inicio",
+      "pestañas"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "TabView",
+    "Tab",
+    "NavigationStack",
+    "NavigationPath",
+    "Observable"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Recipes",
+    "sleep 1.1",
+    "tap --label Deeper",
+    "sleep 1.1",
+    "tap --label Library",
+    "sleep 1.1",
+    "tap --label Home",
+    "sleep 1.3"
+  ]
+}

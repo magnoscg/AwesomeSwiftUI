@@ -1,0 +1,48 @@
+{
+  "id": "dropdown-select-menu",
+  "name": "DropdownSelectMenu",
+  "title": "Dropdown Select Menu",
+  "category": "Menus",
+  "summary": "A custom dropdown field whose list of options grows out of it and collapses on selection.",
+  "keywords": {
+    "en": [
+      "dropdown",
+      "select",
+      "picker",
+      "menu",
+      "options",
+      "form field",
+      "combobox"
+    ],
+    "es": [
+      "desplegable",
+      "selector",
+      "menú",
+      "opciones",
+      "campo de formulario",
+      "elegir"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "overlay",
+    "alignmentGuide",
+    "ViewThatFits",
+    "zIndex"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Shipping",
+    "sleep 0.9",
+    "tap --label Express",
+    "sleep 0.9",
+    "tap --label Country",
+    "sleep 0.9",
+    "tap --label Spain",
+    "sleep 1"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "expanding-mini-player",
+  "name": "ExpandingMiniPlayer",
+  "title": "Expanding Mini Player",
+  "category": "Media",
+  "summary": "A mini player bar that morphs into a full player when it is tapped or pulled up.",
+  "keywords": {
+    "en": [
+      "mini player",
+      "music player",
+      "expand",
+      "matched geometry",
+      "now playing",
+      "drag",
+      "morph"
+    ],
+    "es": [
+      "minirreproductor",
+      "reproductor de música",
+      "expandir",
+      "arrastrar",
+      "transformación",
+      "reproduciendo"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "matchedGeometryEffect",
+    "GestureState",
+    "DragGesture",
+    "safeAreaPadding"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Open player'",
+    "sleep 1.2",
+    "tap --label Play",
+    "sleep 1",
+    "swipe --start-x 201 --start-y 260 --end-x 201 --end-y 800 --duration 0.4",
+    "sleep 1.1",
+    "swipe --start-x 160 --start-y 790 --end-x 160 --end-y 420 --duration 0.3",
+    "sleep 1.2"
+  ]
+}

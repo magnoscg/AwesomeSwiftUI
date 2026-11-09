@@ -1,0 +1,47 @@
+{
+  "id": "wheel-picker",
+  "name": "WheelPicker",
+  "title": "Wheel Picker",
+  "category": "Pickers",
+  "summary": "A vertical wheel that picks one value from a list, with rows turning in 3D as they leave the center.",
+  "keywords": {
+    "en": [
+      "wheel picker",
+      "picker",
+      "scroll wheel",
+      "3d",
+      "time picker",
+      "snap",
+      "rotation"
+    ],
+    "es": [
+      "selector de rueda",
+      "rueda",
+      "selector",
+      "desplazamiento",
+      "3d",
+      "selector de hora",
+      "rotación"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "scrollTargetBehavior",
+    "scrollPosition(id:anchor:)",
+    "visualEffect",
+    "rotation3DEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 110 --start-y 560 --end-x 110 --end-y 420 --duration 0.3",
+    "sleep 1.1",
+    "swipe --start-x 290 --start-y 430 --end-x 290 --end-y 570 --duration 0.3",
+    "sleep 1.1",
+    "swipe --start-x 110 --start-y 430 --end-x 110 --end-y 530 --duration 0.3",
+    "sleep 1"
+  ]
+}

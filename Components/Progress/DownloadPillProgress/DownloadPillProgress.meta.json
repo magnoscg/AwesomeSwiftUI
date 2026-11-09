@@ -1,0 +1,42 @@
+{
+  "id": "download-pill-progress",
+  "name": "DownloadPillProgress",
+  "title": "Download Pill Progress",
+  "category": "Progress",
+  "summary": "A capsule button that turns into a progress ring while downloading, then into a checkmark.",
+  "keywords": {
+    "en": [
+      "download",
+      "button",
+      "progress ring",
+      "morph",
+      "capsule",
+      "app store"
+    ],
+    "es": [
+      "descarga",
+      "botón",
+      "anillo de progreso",
+      "transformación",
+      "cápsula",
+      "app store"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Capsule",
+    "trim(from:to:)",
+    "transition",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Download",
+    "sleep 3.3"
+  ]
+}

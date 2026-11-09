@@ -1,0 +1,49 @@
+{
+  "id": "audio-player-card",
+  "name": "AudioPlayerCard",
+  "title": "Audio Player Card",
+  "category": "Media",
+  "summary": "A podcast-style player card with artwork, a scrubber, skip buttons and a play and pause toggle.",
+  "keywords": {
+    "en": [
+      "audio player",
+      "podcast",
+      "player card",
+      "scrubber",
+      "play pause",
+      "skip",
+      "now playing"
+    ],
+    "es": [
+      "reproductor de audio",
+      "pódcast",
+      "tarjeta",
+      "barra de progreso",
+      "reproducir",
+      "pausa",
+      "saltar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Slider",
+    "sensoryFeedback",
+    "Duration.TimeFormatStyle",
+    "symbolEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Play",
+    "sleep 1.2",
+    "tap --label 'Skip forward 15 seconds'",
+    "sleep 1.1",
+    "tap --label 'Skip back 15 seconds'",
+    "sleep 1",
+    "tap --label Pause",
+    "sleep 0.6"
+  ]
+}

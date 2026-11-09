@@ -1,0 +1,15 @@
+{
+  "id": "parallax-push-transition",
+  "name": "ParallaxPushTransition",
+  "title": "Parallax Push Transition",
+  "category": "Transitions",
+  "summary": "A custom Transition where the incoming page slides over while the outgoing page moves at a slower parallax speed.",
+  "keywords": {
+    "en": ["transition", "parallax", "push", "page transition", "slide", "custom transition"],
+    "es": ["transición", "parallax", "empujar", "cambio de página", "deslizar", "transición personalizada"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Transition", "TransitionPhase", "visualEffect"],
+  "origin": { "kind": "original" }
+}

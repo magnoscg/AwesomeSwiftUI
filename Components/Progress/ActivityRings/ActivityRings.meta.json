@@ -1,0 +1,38 @@
+{
+  "id": "activity-rings",
+  "name": "ActivityRings",
+  "title": "Activity Rings",
+  "category": "Progress",
+  "summary": "Concentric gradient rings that close as daily goals are reached.",
+  "keywords": {
+    "en": [
+      "activity rings",
+      "fitness",
+      "health",
+      "goals",
+      "circular progress",
+      "gradient",
+      "watch"
+    ],
+    "es": [
+      "anillos de actividad",
+      "ejercicio",
+      "salud",
+      "objetivos",
+      "progreso circular",
+      "degradado",
+      "reloj"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "InsettableShape",
+    "trim(from:to:)",
+    "AngularGradient",
+    "spring(duration:bounce:)"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

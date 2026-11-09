@@ -1,0 +1,15 @@
+{
+  "id": "ruler-scroll-picker",
+  "name": "RulerScrollPicker",
+  "title": "Ruler Scroll Picker",
+  "category": "Controls",
+  "summary": "A horizontal ruler of tick marks that snaps to a value under a fixed center indicator.",
+  "keywords": {
+    "en": ["ruler", "picker", "scroll", "slider", "weight", "number", "tick marks", "snap"],
+    "es": ["regla", "selector", "desplazamiento", "deslizador", "peso", "número", "marcas"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["ScrollPosition", "ScrollTargetBehavior", "onScrollGeometryChange", "onScrollPhaseChange", "sensoryFeedback", "accessibilityAdjustableAction"],
+  "origin": { "kind": "original" }
+}

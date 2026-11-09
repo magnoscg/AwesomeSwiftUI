@@ -1,0 +1,15 @@
+{
+  "id": "adaptive-columns-grid",
+  "name": "AdaptiveColumnsGrid",
+  "title": "Adaptive Columns Grid",
+  "category": "Layouts",
+  "summary": "A grid whose column count is computed from the available width, so it gives more columns on iPad and fewer on iPhone.",
+  "keywords": {
+    "en": ["grid", "columns", "responsive", "adaptive", "lazy grid", "ipad", "layout"],
+    "es": ["cuadrícula", "columnas", "adaptable", "responsive", "rejilla", "ipad", "diseño"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["LazyVGrid", "GridItem", "onGeometryChange(for:of:action:)"],
+  "origin": { "kind": "original" }
+}

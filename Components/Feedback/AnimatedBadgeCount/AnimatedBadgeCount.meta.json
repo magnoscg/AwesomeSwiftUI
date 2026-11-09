@@ -1,0 +1,38 @@
+{
+  "id": "animated-badge-count",
+  "name": "AnimatedBadgeCount",
+  "title": "Animated Badge Count",
+  "category": "Feedback",
+  "summary": "A count badge whose number rolls to its new value and whose capsule springs to fit it.",
+  "keywords": {
+    "en": [
+      "badge",
+      "count",
+      "notification",
+      "number",
+      "rolling",
+      "unread",
+      "capsule"
+    ],
+    "es": [
+      "insignia",
+      "contador",
+      "notificación",
+      "número",
+      "rodillo",
+      "sin leer",
+      "cápsula"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "contentTransition",
+    "numericText",
+    "ScaledMetric",
+    "Animation.spring"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "search-field-with-suggestions",
+  "name": "SearchFieldWithSuggestions",
+  "title": "Search Field With Suggestions",
+  "category": "Inputs",
+  "summary": "A search field that lists matching suggestions as the user types and fills the field when one is chosen.",
+  "keywords": {
+    "en": ["search", "searchable", "suggestions", "autocomplete", "completion", "filter"],
+    "es": ["búsqueda", "buscador", "sugerencias", "autocompletar", "filtro"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["searchable(text:placement:prompt:)", "searchSuggestions(_:)", "searchCompletion(_:)", "searchFocused(_:)"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.9", "type 'm'", "sleep 0.8", "type 'a'", "sleep 0.8", "type 'd'", "sleep 1", "tap --label Madrid", "sleep 1.1"]
+}

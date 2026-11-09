@@ -1,0 +1,24 @@
+{
+  "id": "drawing-pad-speed-brush",
+  "name": "DrawingPadSpeedBrush",
+  "title": "Drawing Pad Speed Brush",
+  "category": "Drawing",
+  "summary": "A drawing pad whose stroke gets thinner as the finger moves faster.",
+  "keywords": {
+    "en": ["drawing", "canvas", "brush", "sketch", "pen", "signature", "stroke", "speed"],
+    "es": ["dibujo", "lienzo", "pincel", "boceto", "bolígrafo", "firma", "trazo", "velocidad"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "DragGesture", "GestureState", "GraphicsContext", "Path"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 60 --start-y 280 --end-x 340 --end-y 340 --duration 1.5",
+    "sleep 0.4",
+    "swipe --start-x 340 --start-y 440 --end-x 60 --end-y 500 --duration 0.15",
+    "sleep 0.4",
+    "swipe --start-x 60 --start-y 600 --end-x 340 --end-y 660 --duration 1.2",
+    "sleep 0.8"
+  ]
+}

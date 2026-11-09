@@ -1,0 +1,22 @@
+{
+  "id": "read-more-text",
+  "name": "ReadMoreText",
+  "title": "Read More Text",
+  "category": "Text",
+  "summary": "A paragraph truncated with a fade that expands in place when tapped.",
+  "keywords": {
+    "en": ["read more", "expandable text", "truncate", "show more", "fade", "paragraph"],
+    "es": ["leer más", "texto expandible", "truncar", "mostrar más", "difuminado", "párrafo"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["onGeometryChange", "lineLimit", "LinearGradient", "mask"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label \"Read more\"",
+    "sleep 1.5",
+    "tap --label \"Show less\"",
+    "sleep 1.5"
+  ]
+}

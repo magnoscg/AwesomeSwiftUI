@@ -1,0 +1,38 @@
+{
+  "id": "spinning-vinyl-art",
+  "name": "SpinningVinylArt",
+  "title": "Spinning Vinyl Art",
+  "category": "Media",
+  "summary": "Circular album art on a vinyl disc that spins while playing and eases to a stop when paused.",
+  "keywords": {
+    "en": [
+      "vinyl",
+      "album art",
+      "record",
+      "spinning",
+      "rotation",
+      "music",
+      "turntable"
+    ],
+    "es": [
+      "vinilo",
+      "carátula",
+      "disco",
+      "girar",
+      "rotación",
+      "música",
+      "tocadiscos"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "TimelineView",
+    "rotationEffect",
+    "AngularGradient",
+    "task"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

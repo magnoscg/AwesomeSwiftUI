@@ -1,0 +1,39 @@
+{
+  "id": "drop-zone-highlight",
+  "name": "DropZoneHighlight",
+  "title": "Drop Zone Highlight",
+  "category": "Gestures",
+  "summary": "A drop target that highlights and shows a hint while a dragged item hovers over it and clears when the drag leaves.",
+  "keywords": {
+    "en": [
+      "drop",
+      "drag and drop",
+      "target",
+      "highlight",
+      "transferable",
+      "files",
+      "upload"
+    ],
+    "es": [
+      "soltar",
+      "arrastrar y soltar",
+      "destino",
+      "resaltar",
+      "transferible",
+      "archivos",
+      "subir"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "dropDestination",
+    "Transferable",
+    "draggable",
+    "StrokeStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

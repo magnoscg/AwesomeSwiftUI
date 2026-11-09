@@ -6,6 +6,60 @@ import SwiftUI
 enum ComponentRegistry {
     static let entries: [ShowcaseEntry] = [
         ShowcaseEntry(
+            id: "breathing-guide-circle",
+            title: "Breathing Guide Circle",
+            category: "Animations",
+            summary: "A circle that expands and contracts through breathe in, hold and breathe out phases, with a label and a countdown.",
+            keywords: ["breathing", "meditation", "mindfulness", "guide", "circle", "calm", "wellness", "respiración", "meditación", "atención plena", "guía", "círculo", "calma", "bienestar"],
+            minIOS: "18.0",
+            demo: { AnyView(BreathingGuideCircleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "keyframe-timeline-showcase",
+            title: "Keyframe Timeline Showcase",
+            category: "Animations",
+            summary: "A view animated by keyframe tracks for scale, offset and color, with the tracks and a playhead drawn on one shared timeline.",
+            keywords: ["keyframes", "keyframe animator", "timeline", "animation", "tracks", "scale", "color animation", "fotogramas clave", "línea de tiempo", "animación", "pistas", "escala", "animación de color"],
+            minIOS: "18.0",
+            demo: { AnyView(KeyframeTimelineShowcaseDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "phase-animator-cycle",
+            title: "Phase Animator Cycle",
+            category: "Animations",
+            summary: "A card that loops through several phases of scale, rotation and color.",
+            keywords: ["phase animator", "phases", "loop", "card", "animation", "rotation", "scale", "animador de fases", "fases", "bucle", "tarjeta", "animación", "rotación"],
+            minIOS: "18.0",
+            demo: { AnyView(PhaseAnimatorCycleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "split-flap-counter",
+            title: "Split Flap Counter",
+            category: "Animations",
+            summary: "A split-flap display where each digit flips down to its new value.",
+            keywords: ["split flap", "flip", "counter", "digits", "departure board", "number", "retro", "paneles abatibles", "contador", "dígitos", "número", "volteo", "panel de salidas", "retro"],
+            minIOS: "18.0",
+            demo: { AnyView(SplitFlapCounterDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "spring-study-playground",
+            title: "Spring Study Playground",
+            category: "Animations",
+            summary: "Sliders for response and damping that show how a spring moves a view and draw its curve.",
+            keywords: ["spring", "playground", "response", "damping", "bounce", "animation curve", "slider", "muelle", "resorte", "amortiguación", "rebote", "curva de animación", "deslizador"],
+            minIOS: "18.0",
+            demo: { AnyView(SpringStudyPlaygroundDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "symbol-effect-gallery",
+            title: "Symbol Effect Gallery",
+            category: "Animations",
+            summary: "A gallery of SF Symbol effects, each played on demand and labeled with its name.",
+            keywords: ["sf symbols", "symbol effect", "bounce", "pulse", "wiggle", "rotate", "breathe", "gallery", "símbolos", "efecto de símbolo", "rebote", "pulso", "galería", "icono animado"],
+            minIOS: "18.0",
+            demo: { AnyView(SymbolEffectGalleryDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-gradient-background",
             title: "Animated Gradient Background",
             category: "Backgrounds",
@@ -51,6 +105,15 @@ enum ComponentRegistry {
             demo: { AnyView(GridPulseBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "image-derived-gradient-background",
+            title: "Image Derived Gradient Background",
+            category: "Backgrounds",
+            summary: "A full-screen gradient whose colors are sampled from the pixels of an image and cross-fade when the image changes.",
+            keywords: ["background", "gradient", "image colors", "dominant color", "palette", "album art", "cross-fade", "fondo", "degradado", "colores de imagen", "color dominante", "paleta", "carátula", "fundido"],
+            minIOS: "18.0",
+            demo: { AnyView(ImageDerivedGradientBackgroundDemo()) }
+        ),
+        ShowcaseEntry(
             id: "particle-field-background",
             title: "Particle Field Background",
             category: "Backgrounds",
@@ -78,6 +141,15 @@ enum ComponentRegistry {
             demo: { AnyView(StarfieldBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "synthwave-grid-background",
+            title: "Synthwave Grid Background",
+            category: "Backgrounds",
+            summary: "A retro perspective grid that scrolls under a gradient sky with a striped sun.",
+            keywords: ["synthwave", "retrowave", "grid", "perspective", "background", "neon", "sun", "80s", "synthwave", "cuadrícula", "perspectiva", "fondo", "neón", "sol", "años 80", "retro"],
+            minIOS: "18.0",
+            demo: { AnyView(SynthwaveGridBackgroundDemo()) }
+        ),
+        ShowcaseEntry(
             id: "waves-background",
             title: "Waves Background",
             category: "Backgrounds",
@@ -96,6 +168,15 @@ enum ComponentRegistry {
             demo: { AnyView(ElasticDragButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "emoji-reaction-picker",
+            title: "Emoji Reaction Picker",
+            category: "Buttons",
+            summary: "A long-press control that reveals a row of reaction emoji, magnifies the one under the finger and selects it on release.",
+            keywords: ["emoji", "reactions", "like", "long press", "picker", "drag", "social", "emoji", "reacciones", "me gusta", "pulsación larga", "selector", "arrastrar", "red social"],
+            minIOS: "18.0",
+            demo: { AnyView(EmojiReactionPickerDemo()) }
+        ),
+        ShowcaseEntry(
             id: "expanding-search-button",
             title: "Expanding Search Button",
             category: "Buttons",
@@ -105,6 +186,15 @@ enum ComponentRegistry {
             demo: { AnyView(ExpandingSearchButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "floating-action-menu",
+            title: "Floating Action Menu",
+            category: "Buttons",
+            summary: "A plus button that rotates into a close icon and fans out its actions around it.",
+            keywords: ["floating action button", "fab", "menu", "radial", "fan", "plus button", "actions", "botón flotante", "menú", "radial", "abanico", "botón más", "acciones"],
+            minIOS: "18.0",
+            demo: { AnyView(FloatingActionMenuDemo()) }
+        ),
+        ShowcaseEntry(
             id: "gradient-border-button",
             title: "Gradient Border Button",
             category: "Buttons",
@@ -112,6 +202,15 @@ enum ComponentRegistry {
             keywords: ["gradient border", "angular gradient", "rotating", "glow", "outline", "rainbow", "button", "borde degradado", "degradado angular", "giratorio", "resplandor", "contorno", "arcoíris", "botón"],
             minIOS: "18.0",
             demo: { AnyView(GradientBorderButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "hamburger-menu-button",
+            title: "Hamburger Menu Button",
+            category: "Buttons",
+            summary: "A three-line menu button whose bars animate into a close cross when toggled.",
+            keywords: ["hamburger", "menu button", "three lines", "close", "morph", "toggle", "navigation", "hamburguesa", "botón de menú", "tres líneas", "cerrar", "transformación", "navegación"],
+            minIOS: "18.0",
+            demo: { AnyView(HamburgerMenuButtonDemo()) }
         ),
         ShowcaseEntry(
             id: "hold-to-confirm-button",
@@ -141,6 +240,15 @@ enum ComponentRegistry {
             demo: { AnyView(MorphingSubmitButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "play-pause-morph-button",
+            title: "Play Pause Morph Button",
+            category: "Buttons",
+            summary: "A play button whose triangle morphs into two pause bars by interpolating its path.",
+            keywords: ["play", "pause", "morph", "media button", "player", "shape animation", "toggle", "reproducir", "pausa", "transformación", "botón multimedia", "reproductor", "animación de forma"],
+            minIOS: "18.0",
+            demo: { AnyView(PlayPauseMorphButtonDemo()) }
+        ),
+        ShowcaseEntry(
             id: "pressable-button-style",
             title: "Pressable Button Style",
             category: "Buttons",
@@ -148,6 +256,15 @@ enum ComponentRegistry {
             keywords: ["button", "press", "tap", "scale", "spring", "feedback", "button style", "botón", "pulsar", "toque", "escala", "muelle", "rebote", "estilo de botón"],
             minIOS: "18.0",
             demo: { AnyView(PressableButtonStyleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "provider-sign-in-button-stack",
+            title: "Provider Sign In Button Stack",
+            category: "Buttons",
+            summary: "A stack of full-width sign-in buttons, each with a leading icon slot and its own loading state while authenticating.",
+            keywords: ["sign in", "login", "authentication", "providers", "loading button", "social login", "iniciar sesión", "acceso", "autenticación", "proveedores", "botón de carga", "registro"],
+            minIOS: "18.0",
+            demo: { AnyView(ProviderSignInButtonStackDemo()) }
         ),
         ShowcaseEntry(
             id: "pulse-ring-button",
@@ -166,6 +283,42 @@ enum ComponentRegistry {
             keywords: ["shimmer", "shine", "button", "light sweep", "gradient", "call to action", "glossy", "brillo", "destello", "botón", "barrido de luz", "degradado", "llamada a la acción"],
             minIOS: "18.0",
             demo: { AnyView(ShimmerButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "shrinking-extended-button",
+            title: "Shrinking Extended Button",
+            category: "Buttons",
+            summary: "An extended floating button that collapses from a labeled pill to a plain icon as the scroll view moves down.",
+            keywords: ["extended fab", "floating button", "collapse", "scroll", "pill", "compose button", "shrink", "botón flotante", "botón extendido", "contraer", "desplazamiento", "píldora", "encoger"],
+            minIOS: "18.0",
+            demo: { AnyView(ShrinkingExtendedButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "calendar-month-grid",
+            title: "Calendar Month Grid",
+            category: "Calendars",
+            summary: "A month calendar for picking one day, with swipe paging between months.",
+            keywords: ["calendar", "month", "date picker", "day", "grid", "paging", "schedule", "calendario", "mes", "selector de fecha", "día", "cuadrícula", "paginación", "agenda"],
+            minIOS: "18.0",
+            demo: { AnyView(CalendarMonthGridDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "calendar-range-selector",
+            title: "Calendar Range Selector",
+            category: "Calendars",
+            summary: "A month calendar that picks a start and an end day and shades the days between them.",
+            keywords: ["calendar", "date range", "range picker", "date picker", "booking", "month view", "start and end date", "calendario", "rango de fechas", "selector de fechas", "reserva", "vista mensual", "fecha de inicio y fin"],
+            minIOS: "18.0",
+            demo: { AnyView(CalendarRangeSelectorDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "date-strip-picker",
+            title: "Date Strip Picker",
+            category: "Calendars",
+            summary: "A horizontal strip of days that keeps the selected day centered as you scroll.",
+            keywords: ["date picker", "week strip", "horizontal calendar", "day selector", "scroll snapping", "agenda", "selector de fecha", "tira de días", "calendario horizontal", "selector de día", "agenda", "desplazamiento"],
+            minIOS: "18.0",
+            demo: { AnyView(DateStripPickerDemo()) }
         ),
         ShowcaseEntry(
             id: "avatar-stack",
@@ -204,6 +357,153 @@ enum ComponentRegistry {
             demo: { AnyView(TiltCardDemo()) }
         ),
         ShowcaseEntry(
+            id: "animated-bar-chart",
+            title: "Animated Bar Chart",
+            category: "Charts",
+            summary: "Bars that grow from the baseline one after another with a spring.",
+            keywords: ["bar chart", "chart", "graph", "animated bars", "staggered", "statistics", "gráfico de barras", "gráfica", "barras animadas", "estadísticas", "escalonado"],
+            minIOS: "18.0",
+            demo: { AnyView(AnimatedBarChartDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "animated-donut-chart",
+            title: "Animated Donut Chart",
+            category: "Charts",
+            summary: "A donut chart whose segments grow in one by one, and the selected segment lifts out.",
+            keywords: ["donut chart", "pie chart", "chart", "swift charts", "segments", "selection", "spending", "gráfico de donut", "gráfico circular", "gráfica", "sectores", "selección", "gastos"],
+            minIOS: "18.0",
+            demo: { AnyView(AnimatedDonutChartDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "contribution-heatmap",
+            title: "Contribution Heatmap",
+            category: "Charts",
+            summary: "A calendar grid of colored cells whose intensity shows the activity of each day.",
+            keywords: ["heatmap", "contribution graph", "activity", "calendar grid", "github", "streak", "mapa de calor", "gráfico de contribuciones", "actividad", "cuadrícula", "calendario", "racha"],
+            minIOS: "18.0",
+            demo: { AnyView(ContributionHeatmapDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "interactive-line-chart",
+            title: "Interactive Line Chart",
+            category: "Charts",
+            summary: "A line chart that shows a rule and a value tooltip under the finger as it scrubs along the time axis.",
+            keywords: ["line chart", "swift charts", "scrubbing", "tooltip", "selection", "stocks", "time series", "gráfico de líneas", "gráfica", "recorrer con el dedo", "globo informativo", "selección", "serie temporal"],
+            minIOS: "18.0",
+            demo: { AnyView(InteractiveLineChartDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "line-chart-draw-in",
+            title: "Line Chart Draw In",
+            category: "Charts",
+            summary: "A line chart whose line draws in from left to right while a dot follows its tip.",
+            keywords: ["line chart", "draw animation", "trim", "path", "animated chart", "graph", "gráfico de líneas", "animación de trazo", "trazado", "gráfica animada", "línea"],
+            minIOS: "18.0",
+            demo: { AnyView(LineChartDrawInDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "sparkline-stat-tile",
+            title: "Sparkline Stat Tile",
+            category: "Charts",
+            summary: "A stat tile with a small trend line behind its value.",
+            keywords: ["sparkline", "stat tile", "kpi", "dashboard", "trend", "metric card", "minigráfico", "tarjeta de estadística", "panel", "tendencia", "métrica", "indicador"],
+            minIOS: "18.0",
+            demo: { AnyView(SparklineStatTileDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "surface-3d-chart",
+            title: "Surface 3D Chart",
+            category: "Charts",
+            summary: "A 3D surface plot that rotates when dragged, with buttons for preset viewing angles.",
+            keywords: ["3d chart", "surface plot", "swift charts", "chart3d", "rotate", "math", "visualization", "gráfico 3d", "superficie", "gráfica tridimensional", "rotar", "matemáticas", "visualización"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(Surface3DChartDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "chat-auto-scroll-list",
+            title: "Chat Auto Scroll List",
+            category: "Chat",
+            summary: "A message list that stays on the newest message as messages arrive, and stops following when the user scrolls up to read.",
+            keywords: ["chat", "messages", "auto scroll", "scroll to bottom", "new messages", "conversation", "chat", "mensajes", "desplazamiento automático", "ir al final", "mensajes nuevos", "conversación"],
+            minIOS: "18.0",
+            demo: { AnyView(ChatAutoScrollListDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "chat-bubble-shape",
+            title: "Chat Bubble Shape",
+            category: "Chat",
+            summary: "A message bubble with a tail, whose corners adapt to grouped consecutive messages.",
+            keywords: ["chat bubble", "message bubble", "shape", "tail", "imessage", "grouped messages", "burbuja de chat", "burbuja de mensaje", "forma", "cola", "mensajes agrupados"],
+            minIOS: "18.0",
+            demo: { AnyView(ChatBubbleShapeDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "keyboard-tracking-input-bar",
+            title: "Keyboard Tracking Input Bar",
+            category: "Chat",
+            summary: "A composer bar pinned below its content that rises with the keyboard and grows as the user types more lines.",
+            keywords: ["composer", "input bar", "keyboard", "chat", "text field", "multiline", "message box", "barra de escritura", "campo de texto", "teclado", "chat", "multilínea", "caja de mensaje"],
+            minIOS: "18.0",
+            demo: { AnyView(KeyboardTrackingInputBarDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "nested-comment-thread",
+            title: "Nested Comment Thread",
+            category: "Chat",
+            summary: "Threaded comments with indentation, connector lines and collapsible replies.",
+            keywords: ["comments", "thread", "nested", "replies", "collapse", "discussion", "tree", "comentarios", "hilo", "anidado", "respuestas", "contraer", "discusión", "árbol"],
+            minIOS: "18.0",
+            demo: { AnyView(NestedCommentThreadDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "add-to-cart-fly-button",
+            title: "Add To Cart Fly Button",
+            category: "Commerce",
+            summary: "An add-to-cart button that sends a copy of the product image arcing into the cart badge.",
+            keywords: ["add to cart", "shopping", "ecommerce", "fly animation", "cart badge", "arc", "product", "añadir al carrito", "compras", "tienda", "animación de vuelo", "insignia del carrito", "producto"],
+            minIOS: "18.0",
+            demo: { AnyView(AddToCartFlyButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "add-to-cart-stepper",
+            title: "Add To Cart Stepper",
+            category: "Commerce",
+            summary: "An add button that morphs into a quantity stepper and collapses back to the button when the quantity returns to zero.",
+            keywords: ["add to cart", "stepper", "quantity", "morph", "ecommerce", "shopping button", "añadir al carrito", "selector de cantidad", "cantidad", "transformación", "tienda", "botón de compra"],
+            minIOS: "18.0",
+            demo: { AnyView(AddToCartStepperDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "billing-period-toggle",
+            title: "Billing Period Toggle",
+            category: "Commerce",
+            summary: "A monthly and yearly switch where the price rolls to its new value and a savings badge appears.",
+            keywords: ["billing", "pricing", "subscription", "monthly", "yearly", "paywall", "toggle", "savings", "facturación", "precio", "suscripción", "mensual", "anual", "paywall", "ahorro"],
+            minIOS: "18.0",
+            demo: { AnyView(BillingPeriodToggleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "pricing-tier-cards",
+            title: "Pricing Tier Cards",
+            category: "Commerce",
+            summary: "Snapping horizontal pricing cards with the recommended plan highlighted and enlarged.",
+            keywords: ["pricing", "plans", "tiers", "cards", "paywall", "subscription", "carousel", "precios", "planes", "tarifas", "tarjetas", "paywall", "suscripción", "carrusel"],
+            minIOS: "18.0",
+            demo: { AnyView(PricingTierCardsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "animated-radio-button",
+            title: "Animated Radio Button",
+            category: "Controls",
+            summary: "A radio button whose inner dot springs in and whose ring pulses once when selected.",
+            keywords: ["radio button", "radio", "selection", "option", "form", "choice", "pulse", "botón de opción", "radio", "selección", "opción", "formulario", "pulso"],
+            minIOS: "18.0",
+            demo: { AnyView(AnimatedRadioButtonDemo()) }
+        ),
+        ShowcaseEntry(
             id: "counter-stepper",
             title: "Counter Stepper",
             category: "Controls",
@@ -211,6 +511,24 @@ enum ComponentRegistry {
             keywords: ["stepper", "counter", "quantity", "plus minus", "numeric text", "number animation", "contador", "cantidad", "más y menos", "incrementar", "texto numérico", "animación de números"],
             minIOS: "18.0",
             demo: { AnyView(CounterStepperDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "day-night-toggle",
+            title: "Day Night Toggle",
+            category: "Controls",
+            summary: "A switch whose icon morphs between a sun and a moon while its background shifts between day and night colors.",
+            keywords: ["toggle", "switch", "dark mode", "day", "night", "sun", "moon", "theme", "interruptor", "modo oscuro", "día", "noche", "sol", "luna", "tema"],
+            minIOS: "18.0",
+            demo: { AnyView(DayNightToggleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "ruler-scroll-picker",
+            title: "Ruler Scroll Picker",
+            category: "Controls",
+            summary: "A horizontal ruler of tick marks that snaps to a value under a fixed center indicator.",
+            keywords: ["ruler", "picker", "scroll", "slider", "weight", "number", "tick marks", "snap", "regla", "selector", "desplazamiento", "deslizador", "peso", "número", "marcas"],
+            minIOS: "18.0",
+            demo: { AnyView(RulerScrollPickerDemo()) }
         ),
         ShowcaseEntry(
             id: "sliding-segmented-picker",
@@ -240,6 +558,78 @@ enum ComponentRegistry {
             demo: { AnyView(SwipeToConfirmSliderDemo()) }
         ),
         ShowcaseEntry(
+            id: "drawing-pad-speed-brush",
+            title: "Drawing Pad Speed Brush",
+            category: "Drawing",
+            summary: "A drawing pad whose stroke gets thinner as the finger moves faster.",
+            keywords: ["drawing", "canvas", "brush", "sketch", "pen", "signature", "stroke", "speed", "dibujo", "lienzo", "pincel", "boceto", "bolígrafo", "firma", "trazo", "velocidad"],
+            minIOS: "18.0",
+            demo: { AnyView(DrawingPadSpeedBrushDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "drawing-pad-undo-redo",
+            title: "Drawing Pad Undo Redo",
+            category: "Drawing",
+            summary: "A drawing pad that keeps its strokes in a history so they can be undone and redone.",
+            keywords: ["drawing", "canvas", "undo", "redo", "history", "sketch", "strokes", "dibujo", "lienzo", "deshacer", "rehacer", "historial", "boceto", "trazos"],
+            minIOS: "18.0",
+            demo: { AnyView(DrawingPadUndoRedoDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "path-trim-draw-on",
+            title: "Path Trim Draw On",
+            category: "Drawing",
+            summary: "A custom shape, such as a logo, that draws itself along its path by animating trim.",
+            keywords: ["path", "trim", "draw", "logo", "stroke", "shape", "line animation", "trazado", "dibujar", "logo", "trazo", "forma", "animación de línea"],
+            minIOS: "18.0",
+            demo: { AnyView(PathTrimDrawOnDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "polygon-morph-shape",
+            title: "Polygon Morph Shape",
+            category: "Drawing",
+            summary: "A shape that smoothly morphs between a square, a circle and a star using a custom animatable vector.",
+            keywords: ["shape", "morph", "polygon", "star", "animatable", "vector arithmetic", "path", "forma", "transformación", "polígono", "estrella", "animable", "vector", "trazado"],
+            minIOS: "18.0",
+            demo: { AnyView(PolygonMorphShapeDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "blurred-image-backdrop",
+            title: "Blurred Image Backdrop",
+            category: "Effects",
+            summary: "A full-screen backdrop made from a blurred image with a tint layer, for placing content on top of it.",
+            keywords: ["blur", "backdrop", "background", "image", "album art", "tint", "photo", "desenfoque", "fondo", "imagen", "carátula", "tinte", "foto"],
+            minIOS: "18.0",
+            demo: { AnyView(BlurredImageBackdropDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "border-beam-modifier",
+            title: "Border Beam Modifier",
+            category: "Effects",
+            summary: "A light beam with a fading tail that travels continuously around a rounded border.",
+            keywords: ["border", "beam", "glow", "highlight", "light", "animated border", "outline", "borde", "haz", "brillo", "resplandor", "luz", "borde animado", "contorno"],
+            minIOS: "18.0",
+            demo: { AnyView(BorderBeamModifierDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "coin-flip-view",
+            title: "Coin Flip View",
+            category: "Effects",
+            summary: "A coin that flips in 3D over several turns and lands on heads or tails.",
+            keywords: ["coin", "flip", "3D", "heads", "tails", "random", "toss", "moneda", "lanzar", "3D", "cara", "cruz", "aleatorio"],
+            minIOS: "18.0",
+            demo: { AnyView(CoinFlipViewDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "color-reveal-image",
+            title: "Color Reveal Image",
+            category: "Effects",
+            summary: "A black and white image that gains its color as it scrolls toward the middle or when tapped.",
+            keywords: ["image", "photo", "saturation", "grayscale", "scroll effect", "reveal", "gallery", "imagen", "foto", "saturación", "blanco y negro", "efecto de scroll", "revelar", "galería"],
+            minIOS: "18.0",
+            demo: { AnyView(ColorRevealImageDemo()) }
+        ),
+        ShowcaseEntry(
             id: "confetti-burst",
             title: "Confetti Burst",
             category: "Effects",
@@ -247,6 +637,60 @@ enum ComponentRegistry {
             keywords: ["confetti", "burst", "celebration", "particles", "success", "physics", "confeti", "explosión", "celebración", "partículas", "éxito", "física"],
             minIOS: "18.0",
             demo: { AnyView(ConfettiBurstDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "fireworks-burst",
+            title: "Fireworks Burst",
+            category: "Effects",
+            summary: "Rockets that climb to where you tap and explode into particle sparks.",
+            keywords: ["fireworks", "particles", "celebration", "explosion", "sparks", "canvas", "tap", "fuegos artificiales", "partículas", "celebración", "explosión", "chispas", "lienzo", "toque"],
+            minIOS: "18.0",
+            demo: { AnyView(FireworksBurstDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "floating-reactions-emitter",
+            title: "Floating Reactions Emitter",
+            category: "Effects",
+            summary: "Emoji that float up from the tap point with a random drift and fade out.",
+            keywords: ["reactions", "emoji", "floating", "live", "hearts", "tap", "particles", "reacciones", "emoji", "flotante", "directo", "corazones", "toque", "partículas"],
+            minIOS: "18.0",
+            demo: { AnyView(FloatingReactionsEmitterDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "flow-field-particles",
+            title: "Flow Field Particles",
+            category: "Effects",
+            summary: "Particles that drift along a smooth field of angles computed from position and time.",
+            keywords: ["flow field", "particles", "generative", "canvas", "noise", "ambient", "animated background", "campo de flujo", "partículas", "generativo", "lienzo", "ruido", "ambiente", "fondo animado"],
+            minIOS: "18.0",
+            demo: { AnyView(FlowFieldParticlesDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "globe-3d-wireframe",
+            title: "Globe 3D Wireframe",
+            category: "Effects",
+            summary: "A wireframe globe drawn on a Canvas that spins by itself and turns and tilts as the finger drags it.",
+            keywords: ["globe", "3d", "wireframe", "sphere", "earth", "rotate", "drag", "globo", "3d", "malla", "esfera", "tierra", "girar", "arrastrar"],
+            minIOS: "18.0",
+            demo: { AnyView(Globe3DWireframeDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "jiggle-edit-modifier",
+            title: "Jiggle Edit Modifier",
+            category: "Effects",
+            summary: "A view modifier that makes views wobble slightly, like app icons in edit mode.",
+            keywords: ["jiggle", "wobble", "shake", "edit mode", "home screen", "icons", "modifier", "temblor", "sacudir", "vibrar", "modo edición", "pantalla de inicio", "iconos", "modificador"],
+            minIOS: "18.0",
+            demo: { AnyView(JiggleEditModifierDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "metaball-lava-lamp",
+            title: "Metaball Lava Lamp",
+            category: "Effects",
+            summary: "Round blobs that merge and separate like a lava lamp, drawn with a blur and alpha threshold on a Canvas.",
+            keywords: ["metaball", "lava lamp", "blobs", "gooey", "merge", "canvas", "alpha threshold", "metabolas", "lámpara de lava", "manchas", "gelatinoso", "fusionar", "lienzo", "efecto líquido"],
+            minIOS: "18.0",
+            demo: { AnyView(MetaballLavaLampDemo()) }
         ),
         ShowcaseEntry(
             id: "noise-grain-overlay",
@@ -276,6 +720,51 @@ enum ComponentRegistry {
             demo: { AnyView(SpotlightOverlayDemo()) }
         ),
         ShowcaseEntry(
+            id: "touch-particle-trail",
+            title: "Touch Particle Trail",
+            category: "Effects",
+            summary: "A trail of fading particles that follows the finger while it drags.",
+            keywords: ["particles", "trail", "touch", "finger", "drag", "sparkles", "canvas", "partículas", "estela", "toque", "dedo", "arrastrar", "destellos", "lienzo"],
+            minIOS: "18.0",
+            demo: { AnyView(TouchParticleTrailDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "animated-badge-count",
+            title: "Animated Badge Count",
+            category: "Feedback",
+            summary: "A count badge whose number rolls to its new value and whose capsule springs to fit it.",
+            keywords: ["badge", "count", "notification", "number", "rolling", "unread", "capsule", "insignia", "contador", "notificación", "número", "rodillo", "sin leer", "cápsula"],
+            minIOS: "18.0",
+            demo: { AnyView(AnimatedBadgeCountDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "animated-checkmark-badge",
+            title: "Animated Checkmark Badge",
+            category: "Feedback",
+            summary: "A success badge where a circle springs in and the checkmark draws itself inside it.",
+            keywords: ["checkmark", "success", "badge", "done", "confirmation", "trim", "haptic", "marca de verificación", "éxito", "insignia", "hecho", "confirmación", "trazo", "háptica"],
+            minIOS: "18.0",
+            demo: { AnyView(AnimatedCheckmarkBadgeDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "dynamic-island-pill",
+            title: "Dynamic Island Pill",
+            category: "Feedback",
+            summary: "A black capsule at the top of the screen that grows to show a live status and shrinks back to a pill.",
+            keywords: ["dynamic island", "pill", "capsule", "live status", "expand", "morph", "now playing", "isla dinámica", "píldora", "cápsula", "estado en directo", "expandir", "transformación", "reproduciendo"],
+            minIOS: "18.0",
+            demo: { AnyView(DynamicIslandPillDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "empty-state-placeholder",
+            title: "Empty State Placeholder",
+            category: "Feedback",
+            summary: "An empty screen with a breathing symbol, a message and an optional call to action.",
+            keywords: ["empty state", "placeholder", "no content", "symbol", "call to action", "content unavailable", "estado vacío", "marcador", "sin contenido", "símbolo", "llamada a la acción", "contenido no disponible"],
+            minIOS: "18.0",
+            demo: { AnyView(EmptyStatePlaceholderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "rating-stars",
             title: "Rating Stars",
             category: "Feedback",
@@ -303,6 +792,15 @@ enum ComponentRegistry {
             demo: { AnyView(ToastBannerDemo()) }
         ),
         ShowcaseEntry(
+            id: "tooltip-popover",
+            title: "Tooltip Popover",
+            category: "Feedback",
+            summary: "A tooltip bubble that pops out of its arrow next to an anchor view and closes on a tap outside.",
+            keywords: ["tooltip", "popover", "hint", "bubble", "arrow", "anchor", "help", "información emergente", "globo", "pista", "burbuja", "flecha", "ancla", "ayuda"],
+            minIOS: "18.0",
+            demo: { AnyView(TooltipPopoverDemo()) }
+        ),
+        ShowcaseEntry(
             id: "undo-snackbar",
             title: "Undo Snackbar",
             category: "Feedback",
@@ -312,6 +810,51 @@ enum ComponentRegistry {
             demo: { AnyView(UndoSnackbarDemo()) }
         ),
         ShowcaseEntry(
+            id: "completion-swipe-row",
+            title: "Completion Swipe Row",
+            category: "Gestures",
+            summary: "A row you swipe to the right to complete, where a checkmark pops in and the row collapses.",
+            keywords: ["swipe", "row", "complete", "task", "to do", "checkmark", "list", "deslizar", "fila", "completar", "tarea", "pendiente", "marca de verificación", "lista"],
+            minIOS: "18.0",
+            demo: { AnyView(CompletionSwipeRowDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "double-tap-heart-overlay",
+            title: "Double Tap Heart Overlay",
+            category: "Gestures",
+            summary: "Double tapping a photo throws a heart at the finger and marks the photo as liked.",
+            keywords: ["double tap", "heart", "like", "photo", "overlay", "favorite", "instagram", "doble toque", "corazón", "me gusta", "foto", "superposición", "favorito"],
+            minIOS: "18.0",
+            demo: { AnyView(DoubleTapHeartOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "drag-select-grid",
+            title: "Drag Select Grid",
+            category: "Gestures",
+            summary: "A grid where dragging across tiles selects them all in one stroke, as in photo libraries.",
+            keywords: ["drag", "select", "multi-select", "grid", "photos", "tiles", "selection", "arrastrar", "seleccionar", "selección múltiple", "cuadrícula", "fotos", "mosaicos"],
+            minIOS: "18.0",
+            demo: { AnyView(DragSelectGridDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "drop-zone-highlight",
+            title: "Drop Zone Highlight",
+            category: "Gestures",
+            summary: "A drop target that highlights and shows a hint while a dragged item hovers over it and clears when the drag leaves.",
+            keywords: ["drop", "drag and drop", "target", "highlight", "transferable", "files", "upload", "soltar", "arrastrar y soltar", "destino", "resaltar", "transferible", "archivos", "subir"],
+            minIOS: "18.0",
+            demo: { AnyView(DropZoneHighlightDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "long-press-radial-menu",
+            title: "Long Press Radial Menu",
+            category: "Gestures",
+            summary: "A long press opens a ring of actions, and dragging onto one of them selects it on release.",
+            keywords: ["long press", "radial menu", "pie menu", "ring", "drag", "actions", "context menu", "pulsación larga", "menú radial", "menú circular", "anillo", "arrastrar", "acciones", "menú contextual"],
+            minIOS: "18.0",
+            demo: { AnyView(LongPressRadialMenuDemo()) }
+        ),
+        ShowcaseEntry(
             id: "pinch-zoom-view",
             title: "Pinch Zoom View",
             category: "Gestures",
@@ -319,6 +862,33 @@ enum ComponentRegistry {
             keywords: ["pinch", "zoom", "magnify", "pan", "drag", "gesture", "spring", "image viewer", "pellizcar", "zoom", "ampliar", "arrastrar", "gesto", "muelle", "visor de imágenes"],
             minIOS: "18.0",
             demo: { AnyView(PinchZoomViewDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scratch-to-reveal",
+            title: "Scratch To Reveal",
+            category: "Gestures",
+            summary: "A cover you scratch with a finger to uncover the content beneath it.",
+            keywords: ["scratch", "scratch card", "reveal", "lottery", "mask", "drag", "coupon", "rascar", "rasca y gana", "revelar", "lotería", "máscara", "arrastrar", "cupón"],
+            minIOS: "18.0",
+            demo: { AnyView(ScratchToRevealDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "snap-corner-draggable",
+            title: "Snap Corner Draggable",
+            category: "Gestures",
+            summary: "A floating view that can be dragged anywhere and springs to the nearest safe-area corner when released.",
+            keywords: ["drag", "corner", "snap", "floating", "picture in picture", "pip", "spring", "arrastrar", "esquina", "imán", "flotante", "imagen en imagen", "muelle"],
+            minIOS: "18.0",
+            demo: { AnyView(SnapCornerDraggableDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "swipe-action-row",
+            title: "Swipe Action Row",
+            category: "Gestures",
+            summary: "A row that reveals action buttons under a horizontal swipe and snaps open or closed.",
+            keywords: ["swipe", "row", "swipe actions", "delete", "archive", "list", "drag", "deslizar", "fila", "acciones", "borrar", "archivar", "lista", "arrastrar"],
+            minIOS: "18.0",
+            demo: { AnyView(SwipeActionRowDemo()) }
         ),
         ShowcaseEntry(
             id: "glass-action-menu",
@@ -393,6 +963,105 @@ enum ComponentRegistry {
             }
         ),
         ShowcaseEntry(
+            id: "before-after-slider",
+            title: "Before After Slider",
+            category: "Images",
+            summary: "Two stacked images split by a draggable handle that compares the before and after versions.",
+            keywords: ["before after", "compare", "image", "photo", "slider", "split", "handle", "antes y después", "comparar", "imagen", "foto", "deslizador", "dividir"],
+            minIOS: "18.0",
+            demo: { AnyView(BeforeAfterSliderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "blur-up-image",
+            title: "Blur Up Image",
+            category: "Images",
+            summary: "An image that goes from a blurred preview into sharp focus once the full picture arrives.",
+            keywords: ["blur up", "progressive image", "placeholder", "async image", "loading", "lazy image", "desenfoque", "imagen progresiva", "marcador de posición", "imagen asíncrona", "carga", "enfocar"],
+            minIOS: "18.0",
+            demo: { AnyView(BlurUpImageDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "circular-avatar-cropper",
+            title: "Circular Avatar Cropper",
+            category: "Images",
+            summary: "A photo you pan and pinch under a fixed circular window to choose an avatar crop.",
+            keywords: ["avatar", "crop", "cropper", "circle", "profile photo", "pinch", "pan", "avatar", "recortar", "recorte", "círculo", "foto de perfil", "pellizcar", "encuadrar"],
+            minIOS: "18.0",
+            demo: { AnyView(CircularAvatarCropperDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "crop-rectangle-overlay",
+            title: "Crop Rectangle Overlay",
+            category: "Images",
+            summary: "A crop frame with draggable corners and edges over an image, dimming the area outside the selection.",
+            keywords: ["crop", "cropper", "rectangle", "image", "photo editor", "handles", "selection", "recortar", "recorte", "rectángulo", "imagen", "editor de fotos", "selección", "tiradores"],
+            minIOS: "18.0",
+            demo: { AnyView(CropRectangleOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "double-tap-zoom-image",
+            title: "Double Tap Zoom Image",
+            category: "Images",
+            summary: "An image that zooms in on the point you double tap and returns to fit on the next double tap.",
+            keywords: ["double tap", "zoom", "image", "photo", "pan", "spatial tap", "doble toque", "zoom", "imagen", "foto", "ampliar", "desplazar"],
+            minIOS: "18.0",
+            demo: { AnyView(DoubleTapZoomImageDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "ken-burns-image",
+            title: "Ken Burns Image",
+            category: "Images",
+            summary: "A still picture that slowly zooms and pans so that it appears to move.",
+            keywords: ["ken burns", "zoom", "pan", "image", "photo", "hero", "slow motion", "ken burns", "zoom", "paneo", "imagen", "foto", "portada", "movimiento lento"],
+            minIOS: "18.0",
+            demo: { AnyView(KenBurnsImageDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "photo-adjustment-sliders",
+            title: "Photo Adjustment Sliders",
+            category: "Images",
+            summary: "Brightness, contrast, saturation and hue sliders that update a photo live as they move.",
+            keywords: ["photo editor", "adjustments", "brightness", "contrast", "saturation", "hue", "sliders", "editor de fotos", "ajustes", "brillo", "contraste", "saturación", "tono", "deslizadores"],
+            minIOS: "18.0",
+            demo: { AnyView(PhotoAdjustmentSlidersDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "photo-filter-presets",
+            title: "Photo Filter Presets",
+            category: "Images",
+            summary: "A row of preset thumbnails that apply mono, warm, cool and high contrast looks to a photo using SwiftUI modifiers.",
+            keywords: ["photo filters", "presets", "thumbnails", "black and white", "image", "saturation", "filtros de fotos", "ajustes predefinidos", "miniaturas", "blanco y negro", "imagen", "saturación"],
+            minIOS: "18.0",
+            demo: { AnyView(PhotoFilterPresetsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "photo-lightbox",
+            title: "Photo Lightbox",
+            category: "Images",
+            summary: "A full-screen photo pager where each page zooms independently and the viewer closes on a swipe down.",
+            keywords: ["lightbox", "photo viewer", "gallery", "pager", "zoom", "swipe to dismiss", "full screen", "visor de fotos", "galería", "paginador", "zoom", "deslizar para cerrar", "pantalla completa"],
+            minIOS: "18.0",
+            demo: { AnyView(PhotoLightboxDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "photo-multi-select-grid",
+            title: "Photo Multi Select Grid",
+            category: "Images",
+            summary: "A photo grid where a long press enters a multi-select mode that shows checkmarks on the chosen photos.",
+            keywords: ["photo grid", "multi select", "selection", "long press", "checkmark", "gallery", "cuadrícula de fotos", "selección múltiple", "seleccionar", "pulsación larga", "marca de verificación", "galería"],
+            minIOS: "18.0",
+            demo: { AnyView(PhotoMultiSelectGridDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scattered-photo-board",
+            title: "Scattered Photo Board",
+            category: "Images",
+            summary: "Photos scattered at slight angles on a board that can be dragged around and brought to the front on touch.",
+            keywords: ["photo board", "polaroid", "scattered", "collage", "drag", "bring to front", "moodboard", "tablero de fotos", "polaroid", "dispersas", "collage", "arrastrar", "traer al frente"],
+            minIOS: "18.0",
+            demo: { AnyView(ScatteredPhotoBoardDemo()) }
+        ),
+        ShowcaseEntry(
             id: "color-swatch-picker",
             title: "Color Swatch Picker",
             category: "Inputs",
@@ -411,6 +1080,24 @@ enum ComponentRegistry {
             demo: { AnyView(FloatingLabelTextFieldDemo()) }
         ),
         ShowcaseEntry(
+            id: "masked-text-field",
+            title: "Masked Text Field",
+            category: "Inputs",
+            summary: "A text field that formats input as the user types, such as 12/34 or a phone number, using a mask.",
+            keywords: ["text field", "mask", "input mask", "format", "phone number", "credit card", "expiry date", "campo de texto", "máscara", "formato", "número de teléfono", "tarjeta de crédito", "fecha de caducidad"],
+            minIOS: "18.0",
+            demo: { AnyView(MaskedTextFieldDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "multi-step-form",
+            title: "Multi Step Form",
+            category: "Inputs",
+            summary: "A multi-step form with a progress bar that moves forward only when the current step is valid.",
+            keywords: ["form", "wizard", "steps", "stepper", "onboarding", "validation", "progress", "formulario", "asistente", "pasos", "validación", "progreso", "registro"],
+            minIOS: "18.0",
+            demo: { AnyView(MultiStepFormDemo()) }
+        ),
+        ShowcaseEntry(
             id: "otp-code-field",
             title: "OTP Code Field",
             category: "Inputs",
@@ -418,6 +1105,87 @@ enum ComponentRegistry {
             keywords: ["otp", "one-time code", "verification", "code entry", "pin", "digits", "text field", "código de un solo uso", "verificación", "código", "pin", "dígitos", "campo de texto", "autenticación"],
             minIOS: "18.0",
             demo: { AnyView(OTPCodeFieldDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "password-strength-field",
+            title: "Password Strength Field",
+            category: "Inputs",
+            summary: "A password field with a strength meter and a checklist of rules that tick off as they are met.",
+            keywords: ["password", "secure field", "strength meter", "checklist", "validation", "sign up", "form", "contraseña", "campo seguro", "fortaleza", "lista de requisitos", "validación", "registro", "formulario"],
+            minIOS: "18.0",
+            demo: { AnyView(PasswordStrengthFieldDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "search-field-with-suggestions",
+            title: "Search Field With Suggestions",
+            category: "Inputs",
+            summary: "A search field that lists matching suggestions as the user types and fills the field when one is chosen.",
+            keywords: ["search", "searchable", "suggestions", "autocomplete", "completion", "filter", "búsqueda", "buscador", "sugerencias", "autocompletar", "filtro"],
+            minIOS: "18.0",
+            demo: { AnyView(SearchFieldWithSuggestionsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "validated-text-field",
+            title: "Validated Text Field",
+            category: "Inputs",
+            summary: "A text field that checks its value when it loses focus and shows its error only after that.",
+            keywords: ["text field", "validation", "error message", "focus", "form", "input", "campo de texto", "validación", "mensaje de error", "foco", "formulario"],
+            minIOS: "18.0",
+            demo: { AnyView(ValidatedTextFieldDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "model-availability-gate",
+            title: "Model Availability Gate",
+            category: "Intelligence",
+            summary: "A view that shows its content when the on-device model can answer, and otherwise explains why not and what the person can do.",
+            keywords: ["foundation models", "apple intelligence", "on-device model", "availability", "unavailable state", "gate", "llm", "modelo en el dispositivo", "apple intelligence", "disponibilidad", "estado no disponible", "inteligencia artificial", "comprobación"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(ModelAvailabilityGateDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "on-device-streaming-answer",
+            title: "On Device Streaming Answer",
+            category: "Intelligence",
+            summary: "An answer that fills in as the on-device model streams it, with no network request.",
+            keywords: ["foundation models", "streaming", "on-device model", "llm", "apple intelligence", "chat answer", "ai text", "respuesta en streaming", "modelo en el dispositivo", "inteligencia artificial", "apple intelligence", "texto generado", "sin conexión"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(OnDeviceStreamingAnswerDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "structured-output-form",
+            title: "Structured Output Form",
+            category: "Intelligence",
+            summary: "A form whose fields the on-device model fills in from a free-form note as a typed Generable value.",
+            keywords: ["foundation models", "generable", "structured output", "form", "autofill", "apple intelligence", "extraction", "llm", "salida estructurada", "formulario", "autorrelleno", "inteligencia artificial", "apple intelligence", "extracción de datos", "generable"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(StructuredOutputFormDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "adaptive-columns-grid",
+            title: "Adaptive Columns Grid",
+            category: "Layouts",
+            summary: "A grid whose column count is computed from the available width, so it gives more columns on iPad and fewer on iPhone.",
+            keywords: ["grid", "columns", "responsive", "adaptive", "lazy grid", "ipad", "layout", "cuadrícula", "columnas", "adaptable", "responsive", "rejilla", "ipad", "diseño"],
+            minIOS: "18.0",
+            demo: { AnyView(AdaptiveColumnsGridDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "any-layout-adaptive-switch",
+            title: "Any Layout Adaptive Switch",
+            category: "Layouts",
+            summary: "A group that animates between a row and a column when its available width changes.",
+            keywords: ["anylayout", "adaptive", "row", "column", "responsive", "hstack", "vstack", "diseño adaptable", "fila", "columna", "responsive", "cambio de disposición", "anylayout"],
+            minIOS: "18.0",
+            demo: { AnyView(AnyLayoutAdaptiveSwitchDemo()) }
         ),
         ShowcaseEntry(
             id: "bento-grid-layout",
@@ -438,6 +1206,33 @@ enum ComponentRegistry {
             demo: { AnyView(FlowTagsLayoutDemo()) }
         ),
         ShowcaseEntry(
+            id: "kanban-board",
+            title: "Kanban Board",
+            category: "Layouts",
+            summary: "Columns of cards that the user drags from one column to another.",
+            keywords: ["kanban", "board", "drag and drop", "columns", "cards", "tasks", "trello", "kanban", "tablero", "arrastrar y soltar", "columnas", "tarjetas", "tareas"],
+            minIOS: "18.0",
+            demo: { AnyView(KanbanBoardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "masonry-layout",
+            title: "Masonry Layout",
+            category: "Layouts",
+            summary: "A custom layout that places items of different heights into the shortest of several columns, like a Pinterest board.",
+            keywords: ["masonry", "pinterest", "waterfall", "custom layout", "columns", "grid", "staggered", "mampostería", "pinterest", "cascada", "diseño personalizado", "columnas", "cuadrícula"],
+            minIOS: "18.0",
+            demo: { AnyView(MasonryLayoutDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "morphing-layout-switch",
+            title: "Morphing Layout Switch",
+            category: "Layouts",
+            summary: "A switch that moves items between a list and a grid in one lazy grid, keeping the state of each cell.",
+            keywords: ["list", "grid", "toggle", "columns", "morph", "layout switch", "transition", "lista", "cuadrícula", "alternar", "columnas", "transformación", "cambio de vista", "transición"],
+            minIOS: "18.0",
+            demo: { AnyView(MorphingLayoutSwitchDemo()) }
+        ),
+        ShowcaseEntry(
             id: "radial-layout",
             title: "Radial Layout",
             category: "Layouts",
@@ -447,6 +1242,15 @@ enum ComponentRegistry {
             demo: { AnyView(RadialLayoutDemo()) }
         ),
         ShowcaseEntry(
+            id: "readable-width-container",
+            title: "Readable Width Container",
+            category: "Layouts",
+            summary: "A wrapper that caps its content to a comfortable reading width and centers it on large iPad screens.",
+            keywords: ["readable width", "max width", "ipad", "container", "centered content", "typography", "ancho de lectura", "ancho máximo", "ipad", "contenedor", "contenido centrado", "tipografía"],
+            minIOS: "18.0",
+            demo: { AnyView(ReadableWidthContainerDemo()) }
+        ),
+        ShowcaseEntry(
             id: "subview-card-container",
             title: "Subview Card Container",
             category: "Layouts",
@@ -454,6 +1258,42 @@ enum ComponentRegistry {
             keywords: ["custom container", "subviews", "viewbuilder", "container values", "foreach subviews", "cards", "ios 18", "contenedor personalizado", "subvistas", "viewbuilder", "valores de contenedor", "tarjetas", "ios 18"],
             minIOS: "18.0",
             demo: { AnyView(SubviewCardContainerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "accordion-section",
+            title: "Accordion Section",
+            category: "Lists",
+            summary: "A stack of sections where opening one section closes the others, with the content height animated.",
+            keywords: ["accordion", "expandable", "collapse", "faq", "sections", "disclosure", "acordeón", "desplegable", "expandir", "contraer", "preguntas frecuentes", "secciones"],
+            minIOS: "18.0",
+            demo: { AnyView(AccordionSectionDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "disclosure-tree-view",
+            title: "Disclosure Tree View",
+            category: "Lists",
+            summary: "A nested tree of rows that expand and collapse, indenting each level, for folders or category hierarchies.",
+            keywords: ["tree", "outline", "hierarchy", "folders", "expand", "collapse", "nested list", "árbol", "jerarquía", "carpetas", "expandir", "contraer", "lista anidada", "esquema"],
+            minIOS: "18.0",
+            demo: { AnyView(DisclosureTreeViewDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "edit-mode-multi-select",
+            title: "Edit Mode Multi Select",
+            category: "Lists",
+            summary: "A list with a Select mode that shows selection circles on each row and a bottom bar of bulk actions.",
+            keywords: ["multi select", "edit mode", "selection", "list", "bulk actions", "select all", "toolbar", "selección múltiple", "modo edición", "selección", "lista", "acciones en lote", "seleccionar todo"],
+            minIOS: "18.0",
+            demo: { AnyView(EditModeMultiSelectDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "load-more-footer",
+            title: "Load More Footer",
+            category: "Lists",
+            summary: "An infinite list footer that requests the next page when it appears and shows loading, retry and end states.",
+            keywords: ["infinite scroll", "pagination", "load more", "footer", "paging", "list", "next page", "scroll infinito", "paginación", "cargar más", "pie de lista", "lista", "siguiente página"],
+            minIOS: "18.0",
+            demo: { AnyView(LoadMoreFooterDemo()) }
         ),
         ShowcaseEntry(
             id: "reorderable-card-list",
@@ -478,6 +1318,15 @@ enum ComponentRegistry {
                 guard #available(iOS 27.0, *) else { return nil }
                 return AnyView(ReorderableGridDemo())
             }
+        ),
+        ShowcaseEntry(
+            id: "sticky-section-headers",
+            title: "Sticky Section Headers",
+            category: "Lists",
+            summary: "A scrolling list of sections whose headers pin to the top until the next header pushes them off.",
+            keywords: ["sticky header", "pinned header", "section", "list", "contacts", "scroll", "lazy stack", "cabecera fija", "cabecera anclada", "sección", "lista", "contactos", "desplazamiento"],
+            minIOS: "18.0",
+            demo: { AnyView(StickySectionHeadersDemo()) }
         ),
         ShowcaseEntry(
             id: "arc-segments-loader",
@@ -541,6 +1390,123 @@ enum ComponentRegistry {
             keywords: ["loader", "bars", "equalizer", "audio", "wave", "loading", "cargador", "barras", "ecualizador", "audio", "onda", "carga"],
             minIOS: "18.0",
             demo: { AnyView(WaveBarsLoaderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "audio-player-card",
+            title: "Audio Player Card",
+            category: "Media",
+            summary: "A podcast-style player card with artwork, a scrubber, skip buttons and a play and pause toggle.",
+            keywords: ["audio player", "podcast", "player card", "scrubber", "play pause", "skip", "now playing", "reproductor de audio", "pódcast", "tarjeta", "barra de progreso", "reproducir", "pausa", "saltar"],
+            minIOS: "18.0",
+            demo: { AnyView(AudioPlayerCardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "double-tap-seek-overlay",
+            title: "Double Tap Seek Overlay",
+            category: "Media",
+            summary: "Double tapping the left or right half of a video skips back or forward with a ripple and a seconds label.",
+            keywords: ["double tap", "seek", "video", "skip", "ripple", "gesture", "player", "doble toque", "avanzar", "retroceder", "vídeo", "ondulación", "gesto", "reproductor"],
+            minIOS: "18.0",
+            demo: { AnyView(DoubleTapSeekOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "expanding-mini-player",
+            title: "Expanding Mini Player",
+            category: "Media",
+            summary: "A mini player bar that morphs into a full player when it is tapped or pulled up.",
+            keywords: ["mini player", "music player", "expand", "matched geometry", "now playing", "drag", "morph", "minirreproductor", "reproductor de música", "expandir", "arrastrar", "transformación", "reproduciendo"],
+            minIOS: "18.0",
+            demo: { AnyView(ExpandingMiniPlayerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "shutter-capture-button",
+            title: "Shutter Capture Button",
+            category: "Media",
+            summary: "A camera shutter whose inner shape shrinks on press and flashes a ring on capture, with a photo and video toggle.",
+            keywords: ["camera", "shutter", "capture", "photo", "video", "record button", "ring", "cámara", "obturador", "capturar", "foto", "vídeo", "botón de grabar"],
+            minIOS: "18.0",
+            demo: { AnyView(ShutterCaptureButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "spinning-vinyl-art",
+            title: "Spinning Vinyl Art",
+            category: "Media",
+            summary: "Circular album art on a vinyl disc that spins while playing and eases to a stop when paused.",
+            keywords: ["vinyl", "album art", "record", "spinning", "rotation", "music", "turntable", "vinilo", "carátula", "disco", "girar", "rotación", "música", "tocadiscos"],
+            minIOS: "18.0",
+            demo: { AnyView(SpinningVinylArtDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "video-player-chrome",
+            title: "Video Player Chrome",
+            category: "Media",
+            summary: "Custom controls over any video view that show on tap, hide after a few seconds and include a scrubber.",
+            keywords: ["video player", "controls", "overlay", "auto hide", "scrubber", "chrome", "playback", "reproductor de vídeo", "controles", "superposición", "ocultar automáticamente", "barra de progreso", "reproducción"],
+            minIOS: "18.0",
+            demo: { AnyView(VideoPlayerChromeDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "video-poster-to-player",
+            title: "Video Poster To Player",
+            category: "Media",
+            summary: "A poster with a play button that opens into the playing video in the same frame through a growing circle.",
+            keywords: ["video", "poster", "thumbnail", "play button", "reveal", "transition", "inline player", "vídeo", "póster", "miniatura", "botón de reproducir", "revelar", "transición"],
+            minIOS: "18.0",
+            demo: { AnyView(VideoPosterToPlayerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "waveform-scrubber",
+            title: "Waveform Scrubber",
+            category: "Media",
+            summary: "An audio waveform of bars that you drag to seek and that fills as playback moves on.",
+            keywords: ["waveform", "audio", "scrubber", "seek", "voice note", "canvas", "bars", "forma de onda", "audio", "barra de progreso", "buscar", "nota de voz", "barras"],
+            minIOS: "18.0",
+            demo: { AnyView(WaveformScrubberDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "coach-mark-tour",
+            title: "Coach Mark Tour",
+            category: "Menus",
+            summary: "A guided tour that dims the screen and spotlights a sequence of views with a step card next to each one.",
+            keywords: ["coach mark", "tour", "onboarding", "spotlight", "tooltip", "highlight", "walkthrough", "guía", "tour", "introducción", "foco", "resaltar", "tutorial", "indicaciones"],
+            minIOS: "18.0",
+            demo: { AnyView(CoachMarkTourDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "command-palette",
+            title: "Command Palette",
+            category: "Menus",
+            summary: "A searchable sheet of commands with shortcut hints and live filtering as you type.",
+            keywords: ["command palette", "search", "actions", "shortcuts", "filter", "sheet", "command k", "paleta de comandos", "búsqueda", "acciones", "atajos", "filtrar", "hoja"],
+            minIOS: "18.0",
+            demo: { AnyView(CommandPaletteDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "context-menu-preview-card",
+            title: "Context Menu Preview Card",
+            category: "Menus",
+            summary: "A card that lifts a richer preview above its menu when you press and hold it.",
+            keywords: ["context menu", "long press", "preview", "card", "menu", "press and hold", "menú contextual", "pulsación larga", "vista previa", "tarjeta", "menú", "mantener pulsado"],
+            minIOS: "18.0",
+            demo: { AnyView(ContextMenuPreviewCardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "dropdown-select-menu",
+            title: "Dropdown Select Menu",
+            category: "Menus",
+            summary: "A custom dropdown field whose list of options grows out of it and collapses on selection.",
+            keywords: ["dropdown", "select", "picker", "menu", "options", "form field", "combobox", "desplegable", "selector", "menú", "opciones", "campo de formulario", "elegir"],
+            minIOS: "18.0",
+            demo: { AnyView(DropdownSelectMenuDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "gooey-floating-menu",
+            title: "Gooey Floating Menu",
+            category: "Menus",
+            summary: "A floating button whose option bubbles melt and merge out of it like liquid.",
+            keywords: ["gooey", "metaball", "floating action button", "fab", "menu", "liquid", "blob", "fan", "gelatinoso", "menú flotante", "botón flotante", "líquido", "fusión", "burbujas", "abanico"],
+            minIOS: "18.0",
+            demo: { AnyView(GooeyFloatingMenuDemo()) }
         ),
         ShowcaseEntry(
             id: "animatable-ring",
@@ -615,6 +1581,15 @@ enum ComponentRegistry {
             }
         ),
         ShowcaseEntry(
+            id: "adaptive-sidebar-layout",
+            title: "Adaptive Sidebar Layout",
+            category: "Navigation",
+            summary: "A split view driven by one Boolean that collapses to the detail on iPad and swaps columns on iPhone.",
+            keywords: ["sidebar", "split view", "ipad", "adaptive", "columns", "collapse", "toggle", "barra lateral", "vista dividida", "ipad", "adaptable", "columnas", "colapsar", "alternar"],
+            minIOS: "18.0",
+            demo: { AnyView(AdaptiveSidebarLayoutDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-tab-bar",
             title: "Animated Tab Bar",
             category: "Navigation",
@@ -633,6 +1608,42 @@ enum ComponentRegistry {
             demo: { AnyView(BottomDrawerDemo()) }
         ),
         ShowcaseEntry(
+            id: "breadcrumb-trail",
+            title: "Breadcrumb Trail",
+            category: "Navigation",
+            summary: "A breadcrumb path that moves its middle crumbs into a menu when it runs out of width.",
+            keywords: ["breadcrumb", "path", "trail", "hierarchy", "folders", "collapse", "ellipsis", "migas de pan", "ruta", "jerarquía", "carpetas", "colapsar", "puntos suspensivos"],
+            minIOS: "18.0",
+            demo: { AnyView(BreadcrumbTrailDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "drag-to-dismiss-screen",
+            title: "Drag To Dismiss Screen",
+            category: "Navigation",
+            summary: "A full-screen page that follows a downward drag, shrinks and fades, then leaves when released past a threshold.",
+            keywords: ["drag to dismiss", "pull down", "full screen", "swipe down", "close", "gesture", "interactive", "arrastrar para cerrar", "deslizar hacia abajo", "pantalla completa", "cerrar", "gesto", "interactivo"],
+            minIOS: "18.0",
+            demo: { AnyView(DragToDismissScreenDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "full-screen-menu-overlay",
+            title: "Full Screen Menu Overlay",
+            category: "Navigation",
+            summary: "A full-screen menu that opens over the content and brings its links in one by one.",
+            keywords: ["full screen menu", "overlay", "stagger", "hamburger", "navigation", "links", "animated", "menú a pantalla completa", "superposición", "escalonado", "hamburguesa", "navegación", "enlaces", "animado"],
+            minIOS: "18.0",
+            demo: { AnyView(FullScreenMenuOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "navigation-path-router",
+            title: "Navigation Path Router",
+            category: "Navigation",
+            summary: "A router that owns a NavigationPath so any view can push or pop screens by a typed value.",
+            keywords: ["router", "navigation path", "coordinator", "deep link", "push", "pop", "programmatic navigation", "enrutador", "ruta de navegación", "coordinador", "enlace profundo", "navegación programática", "apilar"],
+            minIOS: "18.0",
+            demo: { AnyView(NavigationPathRouterDemo()) }
+        ),
+        ShowcaseEntry(
             id: "page-dots-indicator",
             title: "Page Dots Indicator",
             category: "Navigation",
@@ -640,6 +1651,15 @@ enum ComponentRegistry {
             keywords: ["page control", "dots", "pagination", "carousel", "indicator", "onboarding", "capsule", "puntos de página", "puntos", "paginación", "carrusel", "indicador", "bienvenida", "cápsula"],
             minIOS: "18.0",
             demo: { AnyView(PageDotsIndicatorDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scroll-spy-header",
+            title: "Scroll Spy Header",
+            category: "Navigation",
+            summary: "A bar of chips that highlights the section at the top of a scroll view and jumps to a section when tapped.",
+            keywords: ["scroll spy", "sticky header", "chips", "sections", "anchor", "jump", "menu", "seguimiento de scroll", "cabecera fija", "chips", "secciones", "ancla", "saltar", "carta"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollSpyHeaderDemo()) }
         ),
         ShowcaseEntry(
             id: "scroll-to-top-button",
@@ -651,6 +1671,15 @@ enum ComponentRegistry {
             demo: { AnyView(ScrollToTopButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "search-scopes-and-suggestions",
+            title: "Search Scopes And Suggestions",
+            category: "Navigation",
+            summary: "A modifier that adds a search field with scope buttons and suggestion rows that narrow as you type.",
+            keywords: ["search", "searchable", "scopes", "suggestions", "autocomplete", "filter", "búsqueda", "buscador", "ámbitos", "sugerencias", "autocompletar", "filtro"],
+            minIOS: "18.0",
+            demo: { AnyView(SearchScopesAndSuggestionsDemo()) }
+        ),
+        ShowcaseEntry(
             id: "side-drawer",
             title: "Side Drawer",
             category: "Navigation",
@@ -658,6 +1687,141 @@ enum ComponentRegistry {
             keywords: ["side menu", "drawer", "hamburger", "navigation", "sidebar", "drag", "push", "menú lateral", "cajón", "hamburguesa", "navegación", "barra lateral", "arrastrar", "desplazar"],
             minIOS: "18.0",
             demo: { AnyView(SideDrawerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "sidebar-adaptive-tabs",
+            title: "Sidebar Adaptive Tabs",
+            category: "Navigation",
+            summary: "The same tabs as a bottom tab bar on iPhone and as a sidebar on iPad.",
+            keywords: ["tab bar", "sidebar", "ipad", "adaptive", "tabs", "TabView", "barra de pestañas", "barra lateral", "ipad", "adaptable", "pestañas"],
+            minIOS: "18.0",
+            demo: { AnyView(SidebarAdaptiveTabsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "tab-navigation-state-preserve",
+            title: "Tab Navigation State Preserve",
+            category: "Navigation",
+            summary: "A tab bar where each tab keeps its own navigation path in one store, so switching back restores your place.",
+            keywords: ["tab bar", "navigation stack", "preserve state", "restore", "pop to root", "tabs", "barra de pestañas", "pila de navegación", "conservar estado", "restaurar", "volver al inicio", "pestañas"],
+            minIOS: "18.0",
+            demo: { AnyView(TabNavigationStatePreserveDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "two-pane-split-layout",
+            title: "Two Pane Split Layout",
+            category: "Navigation",
+            summary: "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone.",
+            keywords: ["master detail", "two pane", "split", "ipad", "size class", "adaptive", "list detail", "maestro detalle", "dos paneles", "dividido", "ipad", "adaptable", "lista y detalle"],
+            minIOS: "18.0",
+            demo: { AnyView(TwoPaneSplitLayoutDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "vertical-timeline",
+            title: "Vertical Timeline",
+            category: "Patterns",
+            summary: "A vertical timeline with a connector line and done, current and upcoming steps.",
+            keywords: ["timeline", "steps", "progress", "order tracking", "stepper", "history", "status", "línea de tiempo", "pasos", "progreso", "seguimiento de pedido", "historial", "estado"],
+            minIOS: "18.0",
+            demo: { AnyView(VerticalTimelineDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "country-picker",
+            title: "Country Picker",
+            category: "Pickers",
+            summary: "A searchable list of countries with flags and dial codes that opens on the current region.",
+            keywords: ["country", "picker", "flag", "dial code", "phone prefix", "region", "search", "país", "selector", "bandera", "prefijo telefónico", "región", "búsqueda"],
+            minIOS: "18.0",
+            demo: { AnyView(CountryPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "emoji-picker",
+            title: "Emoji Picker",
+            category: "Pickers",
+            summary: "A grid of emoji grouped by category, with tabs that jump between sections and a row of recent picks.",
+            keywords: ["emoji", "picker", "grid", "smileys", "keyboard", "recent", "reactions", "emoji", "selector", "cuadrícula", "caritas", "teclado", "recientes", "reacciones"],
+            minIOS: "18.0",
+            demo: { AnyView(EmojiPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "inline-date-picker-disclosure",
+            title: "Inline Date Picker Disclosure",
+            category: "Pickers",
+            summary: "A date row that opens in place into a calendar and closes again once a day is chosen.",
+            keywords: ["date picker", "calendar", "disclosure", "inline", "expand", "collapse", "date", "selector de fecha", "calendario", "desplegable", "en línea", "expandir", "colapsar", "fecha"],
+            minIOS: "18.0",
+            demo: { AnyView(InlineDatePickerDisclosureDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "multi-photo-picker-tray",
+            title: "Multi Photo Picker Tray",
+            category: "Pickers",
+            summary: "A photo picker limited to a maximum count, with a tray of chosen thumbnails that can be removed.",
+            keywords: ["photo picker", "photos", "multiple selection", "image picker", "thumbnails", "gallery", "tray", "selector de fotos", "fotos", "selección múltiple", "imágenes", "miniaturas", "galería", "bandeja"],
+            minIOS: "18.0",
+            demo: { AnyView(MultiPhotoPickerTrayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "time-slot-grid-picker",
+            title: "Time Slot Grid Picker",
+            category: "Pickers",
+            summary: "A grid of time slots where unavailable times are disabled and the chosen slot is highlighted.",
+            keywords: ["time picker", "time slots", "booking", "appointment", "schedule", "grid", "reservation", "selector de hora", "franjas horarias", "reserva", "cita", "horario", "cuadrícula"],
+            minIOS: "18.0",
+            demo: { AnyView(TimeSlotGridPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "wheel-picker",
+            title: "Wheel Picker",
+            category: "Pickers",
+            summary: "A vertical wheel that picks one value from a list, with rows turning in 3D as they leave the center.",
+            keywords: ["wheel picker", "picker", "scroll wheel", "3d", "time picker", "snap", "rotation", "selector de rueda", "rueda", "selector", "desplazamiento", "3d", "selector de hora", "rotación"],
+            minIOS: "18.0",
+            demo: { AnyView(WheelPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "bubble-wrap-pop",
+            title: "Bubble Wrap Pop",
+            category: "Playful",
+            summary: "A sheet of bubbles that pop with a quick shrink and stay flat until reset.",
+            keywords: ["bubble wrap", "pop", "fidget", "toy", "playful", "haptics", "grid", "plástico de burbujas", "explotar", "juguete", "divertido", "vibración", "cuadrícula"],
+            minIOS: "18.0",
+            demo: { AnyView(BubbleWrapPopDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "spin-wheel-roulette",
+            title: "Spin Wheel Roulette",
+            category: "Playful",
+            summary: "A prize wheel that spins with friction and lands on a random slice.",
+            keywords: ["spin wheel", "roulette", "prize wheel", "fortune", "random", "game", "lucky draw", "ruleta", "rueda de premios", "premio", "fortuna", "aleatorio", "juego", "sorteo"],
+            minIOS: "18.0",
+            demo: { AnyView(SpinWheelRouletteDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "stories-viewer",
+            title: "Stories Viewer",
+            category: "Profiles",
+            summary: "A full-screen story pager with segmented progress bars, tap to move and hold to pause.",
+            keywords: ["stories", "story viewer", "instagram", "progress bars", "pager", "full screen", "hold to pause", "historias", "visor de historias", "instagram", "barras de progreso", "paginador", "pantalla completa", "mantener para pausar"],
+            minIOS: "18.0",
+            demo: { AnyView(StoriesViewerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "story-ring-avatar",
+            title: "Story Ring Avatar",
+            category: "Profiles",
+            summary: "An avatar with a gradient ring that spins while there are unseen stories.",
+            keywords: ["avatar", "story ring", "profile picture", "gradient ring", "unseen", "instagram", "avatar", "anillo de historias", "foto de perfil", "anillo degradado", "sin ver", "instagram"],
+            minIOS: "18.0",
+            demo: { AnyView(StoryRingAvatarDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "activity-rings",
+            title: "Activity Rings",
+            category: "Progress",
+            summary: "Concentric gradient rings that close as daily goals are reached.",
+            keywords: ["activity rings", "fitness", "health", "goals", "circular progress", "gradient", "watch", "anillos de actividad", "ejercicio", "salud", "objetivos", "progreso circular", "degradado", "reloj"],
+            minIOS: "18.0",
+            demo: { AnyView(ActivityRingsDemo()) }
         ),
         ShowcaseEntry(
             id: "circular-progress-ring",
@@ -676,6 +1840,15 @@ enum ComponentRegistry {
             keywords: ["countdown", "timer", "ring", "seconds", "progress", "time remaining", "cuenta atrás", "temporizador", "anillo", "segundos", "progreso", "tiempo restante"],
             minIOS: "18.0",
             demo: { AnyView(CountdownRingDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "download-pill-progress",
+            title: "Download Pill Progress",
+            category: "Progress",
+            summary: "A capsule button that turns into a progress ring while downloading, then into a checkmark.",
+            keywords: ["download", "button", "progress ring", "morph", "capsule", "app store", "descarga", "botón", "anillo de progreso", "transformación", "cápsula", "app store"],
+            minIOS: "18.0",
+            demo: { AnyView(DownloadPillProgressDemo()) }
         ),
         ShowcaseEntry(
             id: "gradient-progress-bar",
@@ -705,6 +1878,33 @@ enum ComponentRegistry {
             demo: { AnyView(StepProgressIndicatorDemo()) }
         ),
         ShowcaseEntry(
+            id: "auto-advance-carousel",
+            title: "Auto Advance Carousel",
+            category: "Scrolling",
+            summary: "A paged carousel that advances on a timer and pauses while the user is dragging it.",
+            keywords: ["carousel", "auto advance", "autoplay", "banner", "slideshow", "paging", "timer", "carrusel", "avance automático", "reproducción automática", "banner", "presentación", "paginación", "temporizador"],
+            minIOS: "18.0",
+            demo: { AnyView(AutoAdvanceCarouselDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "cover-flow-carousel",
+            title: "Cover Flow Carousel",
+            category: "Scrolling",
+            summary: "A horizontal carousel where the centered item faces forward and its neighbours turn away in 3D as you scroll.",
+            keywords: ["cover flow", "carousel", "3d", "albums", "horizontal scroll", "snap", "perspective", "cover flow", "carrusel", "3d", "álbumes", "desplazamiento horizontal", "perspectiva"],
+            minIOS: "18.0",
+            demo: { AnyView(CoverFlowCarouselDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "hide-on-scroll-bar",
+            title: "Hide On Scroll Bar",
+            category: "Scrolling",
+            summary: "A bottom bar that slides out of view while the user scrolls down and returns as soon as they scroll up.",
+            keywords: ["hide on scroll", "bottom bar", "tab bar", "scroll direction", "toolbar", "auto hide", "ocultar al desplazar", "barra inferior", "barra de pestañas", "dirección de desplazamiento", "barra de herramientas", "ocultación automática"],
+            minIOS: "18.0",
+            demo: { AnyView(HideOnScrollBarDemo()) }
+        ),
+        ShowcaseEntry(
             id: "infinite-marquee-row",
             title: "Infinite Marquee Row",
             category: "Scrolling",
@@ -712,6 +1912,33 @@ enum ComponentRegistry {
             keywords: ["marquee", "infinite scroll", "ticker", "chips", "loop", "auto scroll", "tags", "marquesina", "desplazamiento infinito", "chips", "bucle", "etiquetas", "automático"],
             minIOS: "18.0",
             demo: { AnyView(InfiniteMarqueeRowDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "netflix-rows-scroller",
+            title: "Netflix Rows Scroller",
+            category: "Scrolling",
+            summary: "A vertical stack of titled horizontal rows where each row scrolls on its own, like a streaming home screen.",
+            keywords: ["netflix", "streaming", "rows", "posters", "horizontal scroll", "home screen", "catalog", "netflix", "streaming", "filas", "carteles", "desplazamiento horizontal", "pantalla de inicio", "catálogo"],
+            minIOS: "18.0",
+            demo: { AnyView(NetflixRowsScrollerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "onboarding-pager",
+            title: "Onboarding Pager",
+            category: "Scrolling",
+            summary: "A full-screen onboarding flow with swipeable pages, a progress indicator and a button that advances or finishes.",
+            keywords: ["onboarding", "welcome", "pager", "walkthrough", "intro", "first launch", "tutorial", "onboarding", "bienvenida", "paginador", "recorrido", "introducción", "primer inicio", "tutorial"],
+            minIOS: "18.0",
+            demo: { AnyView(OnboardingPagerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "paged-grid-launcher",
+            title: "Paged Grid Launcher",
+            category: "Scrolling",
+            summary: "A launcher of icon grids that pages horizontally, with each page filled row by row like the iOS home screen.",
+            keywords: ["launcher", "home screen", "app grid", "icons", "paging", "springboard", "lanzador", "pantalla de inicio", "cuadrícula de apps", "iconos", "paginación", "escritorio"],
+            minIOS: "18.0",
+            demo: { AnyView(PagedGridLauncherDemo()) }
         ),
         ShowcaseEntry(
             id: "parallax-cards-row",
@@ -732,6 +1959,15 @@ enum ComponentRegistry {
             demo: { AnyView(PeekCarouselDemo()) }
         ),
         ShowcaseEntry(
+            id: "pull-progress-refresh",
+            title: "Pull Progress Refresh",
+            category: "Scrolling",
+            summary: "A custom pull to refresh whose ring fills with the pull distance and starts a refresh when released past a threshold.",
+            keywords: ["pull to refresh", "refresh", "progress ring", "scroll", "reload", "custom indicator", "deslizar para actualizar", "actualizar", "anillo de progreso", "desplazamiento", "recargar", "indicador"],
+            minIOS: "18.0",
+            demo: { AnyView(PullProgressRefreshDemo()) }
+        ),
+        ShowcaseEntry(
             id: "scroll-fade-cards",
             title: "Scroll Fade Cards",
             category: "Scrolling",
@@ -741,6 +1977,24 @@ enum ComponentRegistry {
             demo: { AnyView(ScrollFadeCardsDemo()) }
         ),
         ShowcaseEntry(
+            id: "scroll-progress-bar",
+            title: "Scroll Progress Bar",
+            category: "Scrolling",
+            summary: "A thin bar pinned to the top of a scroll view that grows with the reading progress of the content.",
+            keywords: ["scroll progress", "reading progress", "progress bar", "article", "scroll indicator", "top bar", "progreso de lectura", "barra de progreso", "desplazamiento", "artículo", "indicador", "lectura"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollProgressBarDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scroll-visibility-reveal",
+            title: "Scroll Visibility Reveal",
+            category: "Scrolling",
+            summary: "Sections fade and slide into place the first time they become visible while the user scrolls.",
+            keywords: ["scroll reveal", "appear on scroll", "fade in", "slide in", "visibility", "sections", "revelar al desplazar", "aparecer", "fundido", "entrada", "visibilidad", "secciones"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollVisibilityRevealDemo()) }
+        ),
+        ShowcaseEntry(
             id: "sticky-parallax-header",
             title: "Sticky Parallax Header",
             category: "Scrolling",
@@ -748,6 +2002,63 @@ enum ComponentRegistry {
             keywords: ["sticky header", "parallax", "stretchy", "collapsing header", "overscroll", "scroll", "hero", "cabecera fija", "paralaje", "cabecera elástica", "colapsar", "desplazamiento", "cabecera"],
             minIOS: "18.0",
             demo: { AnyView(StickyParallaxHeaderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "sticky-stacked-cards",
+            title: "Sticky Stacked Cards",
+            category: "Scrolling",
+            summary: "Cards that pile up at the top of the screen as the next card scrolls over them.",
+            keywords: ["sticky cards", "stacked cards", "pile", "scroll effect", "pinned", "card stack", "tarjetas fijas", "tarjetas apiladas", "pila", "efecto de desplazamiento", "anclado", "montón de tarjetas"],
+            minIOS: "18.0",
+            demo: { AnyView(StickyStackedCardsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "vertical-full-screen-feed",
+            title: "Vertical Full Screen Feed",
+            category: "Scrolling",
+            summary: "A vertical feed where each item fills the screen and snaps into place, in the style of short-video apps.",
+            keywords: ["vertical feed", "full screen", "paging", "short video", "reels", "snap", "stories", "feed vertical", "pantalla completa", "paginación", "vídeo corto", "reels", "encajar"],
+            minIOS: "18.0",
+            demo: { AnyView(VerticalFullScreenFeedDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "custom-detent-sheet",
+            title: "Custom Detent Sheet",
+            category: "Sheets",
+            summary: "A system sheet that snaps between custom heights using presentationDetents and a CustomPresentationDetent.",
+            keywords: ["sheet", "detents", "bottom sheet", "presentation", "custom height", "half sheet", "hoja", "alturas", "hoja inferior", "presentación", "altura personalizada", "media hoja"],
+            minIOS: "18.0",
+            demo: { AnyView(CustomDetentSheetDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "minimizing-tab-bar",
+            title: "Minimizing Tab Bar",
+            category: "Tabs",
+            summary: "A tab bar that shrinks into a compact capsule while scrolling using the system tab bar minimize behavior.",
+            keywords: ["tab bar", "minimize", "collapse", "scroll", "liquid glass", "tabs", "compact", "barra de pestañas", "minimizar", "contraer", "desplazamiento", "cristal líquido", "pestañas"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(MinimizingTabBarDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "notched-tab-bar",
+            title: "Notched Tab Bar",
+            category: "Tabs",
+            summary: "A tab bar whose background path carves a smooth notch under the selected tab that slides between items.",
+            keywords: ["tab bar", "notch", "curved tab bar", "custom shape", "floating button", "navigation", "barra de pestañas", "muesca", "barra curva", "forma personalizada", "botón flotante", "navegación"],
+            minIOS: "18.0",
+            demo: { AnyView(NotchedTabBarDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scrolling-tab-strip",
+            title: "Scrolling Tab Strip",
+            category: "Tabs",
+            summary: "A horizontal row of tabs that scrolls the selected tab into the middle, with an underline that slides between tabs.",
+            keywords: ["tabs", "tab strip", "scrollable tabs", "segmented", "categories", "underline", "pestañas", "tira de pestañas", "pestañas desplazables", "segmentos", "categorías", "subrayado"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollingTabStripDemo()) }
         ),
         ShowcaseEntry(
             id: "animated-gradient-text",
@@ -813,6 +2124,15 @@ enum ComponentRegistry {
             demo: { AnyView(MarqueeTextDemo()) }
         ),
         ShowcaseEntry(
+            id: "read-more-text",
+            title: "Read More Text",
+            category: "Text",
+            summary: "A paragraph truncated with a fade that expands in place when tapped.",
+            keywords: ["read more", "expandable text", "truncate", "show more", "fade", "paragraph", "leer más", "texto expandible", "truncar", "mostrar más", "difuminado", "párrafo"],
+            minIOS: "18.0",
+            demo: { AnyView(ReadMoreTextDemo()) }
+        ),
+        ShowcaseEntry(
             id: "rotating-words-text",
             title: "Rotating Words Text",
             category: "Text",
@@ -856,6 +2176,24 @@ enum ComponentRegistry {
             keywords: ["typewriter", "typing", "cursor", "blinking", "text animation", "terminal", "characters", "máquina de escribir", "escribir", "cursor", "parpadeo", "animación de texto", "terminal", "letras"],
             minIOS: "18.0",
             demo: { AnyView(TypewriterTextDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "collapsing-bottom-bar",
+            title: "Collapsing Bottom Bar",
+            category: "Toolbars",
+            summary: "A bottom toolbar that shrinks to a pill while scrolling down and expands back when scrolling up.",
+            keywords: ["bottom bar", "toolbar", "collapse", "scroll direction", "pill", "shrink", "barra inferior", "barra de herramientas", "contraer", "dirección de desplazamiento", "píldora", "encoger"],
+            minIOS: "18.0",
+            demo: { AnyView(CollapsingBottomBarDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "floating-dock-bar",
+            title: "Floating Dock Bar",
+            category: "Toolbars",
+            summary: "A row of icons that magnify under the finger, in the style of the macOS dock.",
+            keywords: ["dock", "magnify", "icons", "toolbar", "macos dock", "hover scale", "dock", "ampliar", "iconos", "barra de herramientas", "dock de macos", "aumentar"],
+            minIOS: "18.0",
+            demo: { AnyView(FloatingDockBarDemo()) }
         ),
         ShowcaseEntry(
             id: "blur-fade-transition",
@@ -906,6 +2244,15 @@ enum ComponentRegistry {
             demo: { AnyView(FlipCardTransitionDemo()) }
         ),
         ShowcaseEntry(
+            id: "interactive-pager-transition",
+            title: "Interactive Pager Transition",
+            category: "Transitions",
+            summary: "A page transition whose progress follows the finger during a drag and completes or cancels on release.",
+            keywords: ["pager", "interactive transition", "drag", "swipe", "parallax", "onboarding", "pages", "paginador", "transición interactiva", "arrastrar", "deslizar", "parallax", "introducción", "páginas"],
+            minIOS: "18.0",
+            demo: { AnyView(InteractivePagerTransitionDemo()) }
+        ),
+        ShowcaseEntry(
             id: "matched-hero-card",
             title: "Matched Hero Card",
             category: "Transitions",
@@ -913,6 +2260,15 @@ enum ComponentRegistry {
             keywords: ["hero animation", "matched geometry", "expanding card", "card", "detail", "morph", "app store card", "animación hero", "geometría compartida", "tarjeta expandible", "tarjeta", "detalle", "transformación"],
             minIOS: "18.0",
             demo: { AnyView(MatchedHeroCardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "parallax-push-transition",
+            title: "Parallax Push Transition",
+            category: "Transitions",
+            summary: "A custom Transition where the incoming page slides over while the outgoing page moves at a slower parallax speed.",
+            keywords: ["transition", "parallax", "push", "page transition", "slide", "custom transition", "transición", "parallax", "empujar", "cambio de página", "deslizar", "transición personalizada"],
+            minIOS: "18.0",
+            demo: { AnyView(ParallaxPushTransitionDemo()) }
         ),
         ShowcaseEntry(
             id: "slide-scale-transition",

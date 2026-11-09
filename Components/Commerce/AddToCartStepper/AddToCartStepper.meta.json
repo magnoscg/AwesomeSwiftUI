@@ -1,0 +1,51 @@
+{
+  "id": "add-to-cart-stepper",
+  "name": "AddToCartStepper",
+  "title": "Add To Cart Stepper",
+  "category": "Commerce",
+  "summary": "An add button that morphs into a quantity stepper and collapses back to the button when the quantity returns to zero.",
+  "keywords": {
+    "en": [
+      "add to cart",
+      "stepper",
+      "quantity",
+      "morph",
+      "ecommerce",
+      "shopping button"
+    ],
+    "es": [
+      "añadir al carrito",
+      "selector de cantidad",
+      "cantidad",
+      "transformación",
+      "tienda",
+      "botón de compra"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Capsule",
+    "transition",
+    "contentTransition",
+    "accessibilityAdjustableAction"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Add to cart'",
+    "sleep 0.8",
+    "tap --label 'Increase quantity'",
+    "sleep 0.6",
+    "tap --label 'Increase quantity'",
+    "sleep 0.7",
+    "tap --label 'Decrease quantity'",
+    "sleep 0.6",
+    "tap --label 'Decrease quantity'",
+    "sleep 0.6",
+    "tap --label 'Decrease quantity'",
+    "sleep 1"
+  ]
+}

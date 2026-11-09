@@ -1,0 +1,48 @@
+{
+  "id": "play-pause-morph-button",
+  "name": "PlayPauseMorphButton",
+  "title": "Play Pause Morph Button",
+  "category": "Buttons",
+  "summary": "A play button whose triangle morphs into two pause bars by interpolating its path.",
+  "keywords": {
+    "en": [
+      "play",
+      "pause",
+      "morph",
+      "media button",
+      "player",
+      "shape animation",
+      "toggle"
+    ],
+    "es": [
+      "reproducir",
+      "pausa",
+      "transformación",
+      "botón multimedia",
+      "reproductor",
+      "animación de forma"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "animatableData",
+    "Path",
+    "withAnimation"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Play",
+    "sleep 1.2",
+    "tap --label Pause",
+    "sleep 1.2",
+    "tap --label Play",
+    "sleep 1.2",
+    "tap --label Pause",
+    "sleep 0.8"
+  ]
+}

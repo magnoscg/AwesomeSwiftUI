@@ -1,0 +1,15 @@
+{
+  "id": "sticky-stacked-cards",
+  "name": "StickyStackedCards",
+  "title": "Sticky Stacked Cards",
+  "category": "Scrolling",
+  "summary": "Cards that pile up at the top of the screen as the next card scrolls over them.",
+  "keywords": {
+    "en": ["sticky cards", "stacked cards", "pile", "scroll effect", "pinned", "card stack"],
+    "es": ["tarjetas fijas", "tarjetas apiladas", "pila", "efecto de desplazamiento", "anclado", "montón de tarjetas"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["visualEffect", "GeometryProxy", "ScrollView"],
+  "origin": { "kind": "inspired", "credit": "Public web component registries" }
+}

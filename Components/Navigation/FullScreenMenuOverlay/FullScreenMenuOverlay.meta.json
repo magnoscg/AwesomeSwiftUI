@@ -1,0 +1,49 @@
+{
+  "id": "full-screen-menu-overlay",
+  "name": "FullScreenMenuOverlay",
+  "title": "Full Screen Menu Overlay",
+  "category": "Navigation",
+  "summary": "A full-screen menu that opens over the content and brings its links in one by one.",
+  "keywords": {
+    "en": [
+      "full screen menu",
+      "overlay",
+      "stagger",
+      "hamburger",
+      "navigation",
+      "links",
+      "animated"
+    ],
+    "es": [
+      "menú a pantalla completa",
+      "superposición",
+      "escalonado",
+      "hamburguesa",
+      "navegación",
+      "enlaces",
+      "animado"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "transition",
+    "Animation.delay",
+    "overlay",
+    "accessibilityAction"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap -x 368 -y 90",
+    "sleep 1.5",
+    "tap -x 357 -y 106",
+    "sleep 0.9",
+    "tap -x 368 -y 90",
+    "sleep 1.5",
+    "tap -x 123 -y 236",
+    "sleep 1.1"
+  ]
+}

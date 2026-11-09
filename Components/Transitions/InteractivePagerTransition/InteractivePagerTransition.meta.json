@@ -1,0 +1,24 @@
+{
+  "id": "interactive-pager-transition",
+  "name": "InteractivePagerTransition",
+  "title": "Interactive Pager Transition",
+  "category": "Transitions",
+  "summary": "A page transition whose progress follows the finger during a drag and completes or cancels on release.",
+  "keywords": {
+    "en": ["pager", "interactive transition", "drag", "swipe", "parallax", "onboarding", "pages"],
+    "es": ["paginador", "transición interactiva", "arrastrar", "deslizar", "parallax", "introducción", "páginas"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "accessibilityScrollAction", "accessibilityAdjustableAction"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 340 --start-y 437 --end-x 60 --end-y 437 --duration 0.9",
+    "sleep 0.9",
+    "swipe --start-x 340 --start-y 437 --end-x 240 --end-y 437 --duration 0.8",
+    "sleep 0.9",
+    "swipe --start-x 60 --start-y 437 --end-x 340 --end-y 437 --duration 0.9",
+    "sleep 0.7"
+  ]
+}

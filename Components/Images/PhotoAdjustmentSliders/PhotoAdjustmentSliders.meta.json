@@ -1,0 +1,26 @@
+{
+  "id": "photo-adjustment-sliders",
+  "name": "PhotoAdjustmentSliders",
+  "title": "Photo Adjustment Sliders",
+  "category": "Images",
+  "summary": "Brightness, contrast, saturation and hue sliders that update a photo live as they move.",
+  "keywords": {
+    "en": ["photo editor", "adjustments", "brightness", "contrast", "saturation", "hue", "sliders"],
+    "es": ["editor de fotos", "ajustes", "brillo", "contraste", "saturación", "tono", "deslizadores"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["brightness", "contrast", "saturation", "hueRotation", "Slider"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Vivid",
+    "sleep 1.2",
+    "tap --label Noir",
+    "sleep 1.2",
+    "tap --label Dream",
+    "sleep 1.2",
+    "tap --label Reset",
+    "sleep 0.8"
+  ]
+}

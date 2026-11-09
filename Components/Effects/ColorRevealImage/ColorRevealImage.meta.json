@@ -1,0 +1,24 @@
+{
+  "id": "color-reveal-image",
+  "name": "ColorRevealImage",
+  "title": "Color Reveal Image",
+  "category": "Effects",
+  "summary": "A black and white image that gains its color as it scrolls toward the middle or when tapped.",
+  "keywords": {
+    "en": ["image", "photo", "saturation", "grayscale", "scroll effect", "reveal", "gallery"],
+    "es": ["imagen", "foto", "saturación", "blanco y negro", "efecto de scroll", "revelar", "galería"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["visualEffect", "saturation", "withAnimation", "GeometryProxy.bounds(of:)"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 650 --end-x 201 --end-y 250 --duration 1",
+    "sleep 0.9",
+    "tap --label Harbor",
+    "sleep 1",
+    "tap --label Harbor",
+    "sleep 0.8"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "coin-flip-view",
+  "name": "CoinFlipView",
+  "title": "Coin Flip View",
+  "category": "Effects",
+  "summary": "A coin that flips in 3D over several turns and lands on heads or tails.",
+  "keywords": {
+    "en": ["coin", "flip", "3D", "heads", "tails", "random", "toss"],
+    "es": ["moneda", "lanzar", "3D", "cara", "cruz", "aleatorio"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["rotation3DEffect", "Animatable", "keyframeAnimator", "withAnimation", "sensoryFeedback"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label 'Flip coin'", "sleep 2", "tap --label 'Flip coin'", "sleep 2"]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "model-availability-gate",
+  "name": "ModelAvailabilityGate",
+  "title": "Model Availability Gate",
+  "category": "Intelligence",
+  "summary": "A view that shows its content when the on-device model can answer, and otherwise explains why not and what the person can do.",
+  "keywords": {
+    "en": ["foundation models", "apple intelligence", "on-device model", "availability", "unavailable state", "gate", "llm"],
+    "es": ["modelo en el dispositivo", "apple intelligence", "disponibilidad", "estado no disponible", "inteligencia artificial", "comprobación"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": ["SystemLanguageModel", "SystemLanguageModel.Availability", "ContentUnavailableView"],
+  "origin": { "kind": "original" }
+}

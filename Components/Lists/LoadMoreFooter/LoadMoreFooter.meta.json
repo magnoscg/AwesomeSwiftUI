@@ -1,0 +1,44 @@
+{
+  "id": "load-more-footer",
+  "name": "LoadMoreFooter",
+  "title": "Load More Footer",
+  "category": "Lists",
+  "summary": "An infinite list footer that requests the next page when it appears and shows loading, retry and end states.",
+  "keywords": {
+    "en": [
+      "infinite scroll",
+      "pagination",
+      "load more",
+      "footer",
+      "paging",
+      "list",
+      "next page"
+    ],
+    "es": [
+      "scroll infinito",
+      "paginación",
+      "cargar más",
+      "pie de lista",
+      "lista",
+      "siguiente página"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "onAppear",
+    "ProgressView",
+    "LazyVStack",
+    "Observable"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 220 --duration 0.6",
+    "sleep 1.4",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 220 --duration 0.6",
+    "sleep 1.4"
+  ]
+}

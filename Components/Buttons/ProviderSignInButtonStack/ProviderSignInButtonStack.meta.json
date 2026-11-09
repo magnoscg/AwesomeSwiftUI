@@ -1,0 +1,43 @@
+{
+  "id": "provider-sign-in-button-stack",
+  "name": "ProviderSignInButtonStack",
+  "title": "Provider Sign In Button Stack",
+  "category": "Buttons",
+  "summary": "A stack of full-width sign-in buttons, each with a leading icon slot and its own loading state while authenticating.",
+  "keywords": {
+    "en": [
+      "sign in",
+      "login",
+      "authentication",
+      "providers",
+      "loading button",
+      "social login"
+    ],
+    "es": [
+      "iniciar sesión",
+      "acceso",
+      "autenticación",
+      "proveedores",
+      "botón de carga",
+      "registro"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Button",
+    "ProgressView",
+    "Task",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Continue with Passkey'",
+    "sleep 1.9",
+    "tap --label 'Continue with Email'",
+    "sleep 1.9"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "hide-on-scroll-bar",
+  "name": "HideOnScrollBar",
+  "title": "Hide On Scroll Bar",
+  "category": "Scrolling",
+  "summary": "A bottom bar that slides out of view while the user scrolls down and returns as soon as they scroll up.",
+  "keywords": {
+    "en": [
+      "hide on scroll",
+      "bottom bar",
+      "tab bar",
+      "scroll direction",
+      "toolbar",
+      "auto hide"
+    ],
+    "es": [
+      "ocultar al desplazar",
+      "barra inferior",
+      "barra de pestañas",
+      "dirección de desplazamiento",
+      "barra de herramientas",
+      "ocultación automática"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onScrollGeometryChange",
+    "safeAreaInset",
+    "onGeometryChange"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

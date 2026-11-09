@@ -1,0 +1,36 @@
+{
+  "id": "vertical-timeline",
+  "name": "VerticalTimeline",
+  "title": "Vertical Timeline",
+  "category": "Patterns",
+  "summary": "A vertical timeline with a connector line and done, current and upcoming steps.",
+  "keywords": {
+    "en": [
+      "timeline",
+      "steps",
+      "progress",
+      "order tracking",
+      "stepper",
+      "history",
+      "status"
+    ],
+    "es": [
+      "línea de tiempo",
+      "pasos",
+      "progreso",
+      "seguimiento de pedido",
+      "historial",
+      "estado"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "PhaseAnimator",
+    "fixedSize",
+    "accessibilityValue"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

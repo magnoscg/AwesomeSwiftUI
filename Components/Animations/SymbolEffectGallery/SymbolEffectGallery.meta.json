@@ -1,0 +1,53 @@
+{
+  "id": "symbol-effect-gallery",
+  "name": "SymbolEffectGallery",
+  "title": "Symbol Effect Gallery",
+  "category": "Animations",
+  "summary": "A gallery of SF Symbol effects, each played on demand and labeled with its name.",
+  "keywords": {
+    "en": [
+      "sf symbols",
+      "symbol effect",
+      "bounce",
+      "pulse",
+      "wiggle",
+      "rotate",
+      "breathe",
+      "gallery"
+    ],
+    "es": [
+      "símbolos",
+      "efecto de símbolo",
+      "rebote",
+      "pulso",
+      "galería",
+      "icono animado"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "symbolEffect",
+    "symbolEffectsRemoved",
+    "BounceSymbolEffect",
+    "WiggleSymbolEffect",
+    "RotateSymbolEffect",
+    "BreatheSymbolEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Bounce",
+    "sleep 0.8",
+    "tap --label Pulse",
+    "sleep 0.8",
+    "tap --label Wiggle",
+    "sleep 0.9",
+    "tap --label Rotate",
+    "sleep 0.9",
+    "tap --label Breathe",
+    "sleep 1"
+  ]
+}

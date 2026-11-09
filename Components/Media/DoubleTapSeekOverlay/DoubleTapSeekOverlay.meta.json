@@ -1,0 +1,38 @@
+{
+  "id": "double-tap-seek-overlay",
+  "name": "DoubleTapSeekOverlay",
+  "title": "Double Tap Seek Overlay",
+  "category": "Media",
+  "summary": "Double tapping the left or right half of a video skips back or forward with a ripple and a seconds label.",
+  "keywords": {
+    "en": [
+      "double tap",
+      "seek",
+      "video",
+      "skip",
+      "ripple",
+      "gesture",
+      "player"
+    ],
+    "es": [
+      "doble toque",
+      "avanzar",
+      "retroceder",
+      "vídeo",
+      "ondulación",
+      "gesto",
+      "reproductor"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "SpatialTapGesture",
+    "accessibilityAction",
+    "task",
+    "GeometryReader"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

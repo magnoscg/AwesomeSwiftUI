@@ -1,0 +1,44 @@
+{
+  "id": "video-player-chrome",
+  "name": "VideoPlayerChrome",
+  "title": "Video Player Chrome",
+  "category": "Media",
+  "summary": "Custom controls over any video view that show on tap, hide after a few seconds and include a scrubber.",
+  "keywords": {
+    "en": [
+      "video player",
+      "controls",
+      "overlay",
+      "auto hide",
+      "scrubber",
+      "chrome",
+      "playback"
+    ],
+    "es": [
+      "reproductor de vídeo",
+      "controles",
+      "superposición",
+      "ocultar automáticamente",
+      "barra de progreso",
+      "reproducción"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Slider",
+    "task",
+    "accessibilityVoiceOverEnabled",
+    "onTapGesture"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Play",
+    "sleep 3.6",
+    "tap -x 201 -y 300",
+    "sleep 1.2"
+  ]
+}

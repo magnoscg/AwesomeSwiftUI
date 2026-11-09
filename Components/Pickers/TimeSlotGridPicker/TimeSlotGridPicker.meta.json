@@ -1,0 +1,45 @@
+{
+  "id": "time-slot-grid-picker",
+  "name": "TimeSlotGridPicker",
+  "title": "Time Slot Grid Picker",
+  "category": "Pickers",
+  "summary": "A grid of time slots where unavailable times are disabled and the chosen slot is highlighted.",
+  "keywords": {
+    "en": [
+      "time picker",
+      "time slots",
+      "booking",
+      "appointment",
+      "schedule",
+      "grid",
+      "reservation"
+    ],
+    "es": [
+      "selector de hora",
+      "franjas horarias",
+      "reserva",
+      "cita",
+      "horario",
+      "cuadrícula"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyVGrid",
+    "Date.FormatStyle",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 10:30",
+    "sleep 1",
+    "tap --label 14:00",
+    "sleep 1",
+    "tap --label 16:00",
+    "sleep 1"
+  ]
+}

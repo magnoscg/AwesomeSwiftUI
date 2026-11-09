@@ -1,0 +1,46 @@
+{
+  "id": "shrinking-extended-button",
+  "name": "ShrinkingExtendedButton",
+  "title": "Shrinking Extended Button",
+  "category": "Buttons",
+  "summary": "An extended floating button that collapses from a labeled pill to a plain icon as the scroll view moves down.",
+  "keywords": {
+    "en": [
+      "extended fab",
+      "floating button",
+      "collapse",
+      "scroll",
+      "pill",
+      "compose button",
+      "shrink"
+    ],
+    "es": [
+      "botón flotante",
+      "botón extendido",
+      "contraer",
+      "desplazamiento",
+      "píldora",
+      "encoger"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onScrollGeometryChange",
+    "ScrollGeometry",
+    "Capsule",
+    "ViewModifier"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 620 --end-x 201 --end-y 260 --duration 0.5",
+    "sleep 1.3",
+    "swipe --start-x 201 --start-y 260 --end-x 201 --end-y 760 --duration 0.5",
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 260 --end-x 201 --end-y 760 --duration 0.5",
+    "sleep 1.2"
+  ]
+}

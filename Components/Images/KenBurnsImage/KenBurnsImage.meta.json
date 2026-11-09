@@ -1,0 +1,15 @@
+{
+  "id": "ken-burns-image",
+  "name": "KenBurnsImage",
+  "title": "Ken Burns Image",
+  "category": "Images",
+  "summary": "A still picture that slowly zooms and pans so that it appears to move.",
+  "keywords": {
+    "en": ["ken burns", "zoom", "pan", "image", "photo", "hero", "slow motion"],
+    "es": ["ken burns", "zoom", "paneo", "imagen", "foto", "portada", "movimiento lento"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["scaleEffect", "repeatForever", "clipped"],
+  "origin": { "kind": "original" }
+}

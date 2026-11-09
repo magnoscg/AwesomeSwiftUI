@@ -1,0 +1,46 @@
+{
+  "id": "add-to-cart-fly-button",
+  "name": "AddToCartFlyButton",
+  "title": "Add To Cart Fly Button",
+  "category": "Commerce",
+  "summary": "An add-to-cart button that sends a copy of the product image arcing into the cart badge.",
+  "keywords": {
+    "en": [
+      "add to cart",
+      "shopping",
+      "ecommerce",
+      "fly animation",
+      "cart badge",
+      "arc",
+      "product"
+    ],
+    "es": [
+      "añadir al carrito",
+      "compras",
+      "tienda",
+      "animación de vuelo",
+      "insignia del carrito",
+      "producto"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "GeometryEffect",
+    "onGeometryChange",
+    "keyframeAnimator",
+    "contentTransition"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Add to Cart'",
+    "sleep 1.1",
+    "tap --label 'Add to Cart'",
+    "sleep 1.1",
+    "tap --label 'Add to Cart'",
+    "sleep 1.2"
+  ]
+}

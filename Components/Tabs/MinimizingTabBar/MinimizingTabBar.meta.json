@@ -1,0 +1,22 @@
+{
+  "id": "minimizing-tab-bar",
+  "name": "MinimizingTabBar",
+  "title": "Minimizing Tab Bar",
+  "category": "Tabs",
+  "summary": "A tab bar that shrinks into a compact capsule while scrolling using the system tab bar minimize behavior.",
+  "keywords": {
+    "en": ["tab bar", "minimize", "collapse", "scroll", "liquid glass", "tabs", "compact"],
+    "es": ["barra de pestañas", "minimizar", "contraer", "desplazamiento", "cristal líquido", "pestañas"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": ["tabBarMinimizeBehavior", "TabView", "Tab", "TabContentBuilder"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 650 --end-x 201 --end-y 250 --duration 0.5",
+    "sleep 1.3",
+    "swipe --start-x 201 --start-y 300 --end-x 201 --end-y 600 --duration 0.5",
+    "sleep 1.3"
+  ]
+}

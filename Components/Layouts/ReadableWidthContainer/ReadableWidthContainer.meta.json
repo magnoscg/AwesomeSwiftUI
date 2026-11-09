@@ -1,0 +1,15 @@
+{
+  "id": "readable-width-container",
+  "name": "ReadableWidthContainer",
+  "title": "Readable Width Container",
+  "category": "Layouts",
+  "summary": "A wrapper that caps its content to a comfortable reading width and centers it on large iPad screens.",
+  "keywords": {
+    "en": ["readable width", "max width", "ipad", "container", "centered content", "typography"],
+    "es": ["ancho de lectura", "ancho máximo", "ipad", "contenedor", "contenido centrado", "tipografía"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)", "ScaledMetric"],
+  "origin": { "kind": "original" }
+}

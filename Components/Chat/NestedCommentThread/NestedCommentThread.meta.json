@@ -1,0 +1,49 @@
+{
+  "id": "nested-comment-thread",
+  "name": "NestedCommentThread",
+  "title": "Nested Comment Thread",
+  "category": "Chat",
+  "summary": "Threaded comments with indentation, connector lines and collapsible replies.",
+  "keywords": {
+    "en": [
+      "comments",
+      "thread",
+      "nested",
+      "replies",
+      "collapse",
+      "discussion",
+      "tree"
+    ],
+    "es": [
+      "comentarios",
+      "hilo",
+      "anidado",
+      "respuestas",
+      "contraer",
+      "discusión",
+      "árbol"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "Path",
+    "LazyVStack",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Hide 3 replies to Marta'",
+    "sleep 1.2",
+    "tap --label 'Show 3 replies to Marta'",
+    "sleep 1.2",
+    "tap --label 'Hide 1 reply to Luis'",
+    "sleep 1.1",
+    "tap --label 'Show 1 reply to Luis'",
+    "sleep 0.8"
+  ]
+}

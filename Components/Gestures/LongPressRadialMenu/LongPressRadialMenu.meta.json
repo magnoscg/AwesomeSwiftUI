@@ -1,0 +1,39 @@
+{
+  "id": "long-press-radial-menu",
+  "name": "LongPressRadialMenu",
+  "title": "Long Press Radial Menu",
+  "category": "Gestures",
+  "summary": "A long press opens a ring of actions, and dragging onto one of them selects it on release.",
+  "keywords": {
+    "en": [
+      "long press",
+      "radial menu",
+      "pie menu",
+      "ring",
+      "drag",
+      "actions",
+      "context menu"
+    ],
+    "es": [
+      "pulsación larga",
+      "menú radial",
+      "menú circular",
+      "anillo",
+      "arrastrar",
+      "acciones",
+      "menú contextual"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "LongPressGesture",
+    "DragGesture",
+    "SequenceGesture",
+    "GestureState"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

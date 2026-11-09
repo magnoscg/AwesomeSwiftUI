@@ -1,0 +1,47 @@
+{
+  "id": "calendar-range-selector",
+  "name": "CalendarRangeSelector",
+  "title": "Calendar Range Selector",
+  "category": "Calendars",
+  "summary": "A month calendar that picks a start and an end day and shades the days between them.",
+  "keywords": {
+    "en": [
+      "calendar",
+      "date range",
+      "range picker",
+      "date picker",
+      "booking",
+      "month view",
+      "start and end date"
+    ],
+    "es": [
+      "calendario",
+      "rango de fechas",
+      "selector de fechas",
+      "reserva",
+      "vista mensual",
+      "fecha de inicio y fin"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Calendar",
+    "LazyVGrid",
+    "Date.FormatStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Tuesday, March 10, 2026'",
+    "sleep 0.9",
+    "tap --label 'Friday, March 20, 2026'",
+    "sleep 1.4",
+    "tap --label 'Monday, March 16, 2026'",
+    "sleep 0.8",
+    "tap --label 'Wednesday, March 25, 2026'",
+    "sleep 1"
+  ]
+}

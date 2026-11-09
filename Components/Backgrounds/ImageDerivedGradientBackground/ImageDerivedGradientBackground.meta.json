@@ -1,0 +1,38 @@
+{
+  "id": "image-derived-gradient-background",
+  "name": "ImageDerivedGradientBackground",
+  "title": "Image Derived Gradient Background",
+  "category": "Backgrounds",
+  "summary": "A full-screen gradient whose colors are sampled from the pixels of an image and cross-fade when the image changes.",
+  "keywords": {
+    "en": [
+      "background",
+      "gradient",
+      "image colors",
+      "dominant color",
+      "palette",
+      "album art",
+      "cross-fade"
+    ],
+    "es": [
+      "fondo",
+      "degradado",
+      "colores de imagen",
+      "color dominante",
+      "paleta",
+      "carátula",
+      "fundido"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "ImageRenderer",
+    "CGContext",
+    "LinearGradient",
+    "task(id:)"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

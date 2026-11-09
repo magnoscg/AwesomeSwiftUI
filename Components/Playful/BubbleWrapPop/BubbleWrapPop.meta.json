@@ -1,0 +1,54 @@
+{
+  "id": "bubble-wrap-pop",
+  "name": "BubbleWrapPop",
+  "title": "Bubble Wrap Pop",
+  "category": "Playful",
+  "summary": "A sheet of bubbles that pop with a quick shrink and stay flat until reset.",
+  "keywords": {
+    "en": [
+      "bubble wrap",
+      "pop",
+      "fidget",
+      "toy",
+      "playful",
+      "haptics",
+      "grid"
+    ],
+    "es": [
+      "plástico de burbujas",
+      "explotar",
+      "juguete",
+      "divertido",
+      "vibración",
+      "cuadrícula"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyVGrid",
+    "RadialGradient",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Bubble 9'",
+    "sleep 0.15",
+    "tap --label 'Bubble 16'",
+    "sleep 0.15",
+    "tap --label 'Bubble 21'",
+    "sleep 0.15",
+    "tap --label 'Bubble 27'",
+    "sleep 0.15",
+    "tap --label 'Bubble 32'",
+    "sleep 0.15",
+    "tap --label 'Bubble 14'",
+    "sleep 0.15",
+    "tap --label 'Bubble 38'",
+    "sleep 0.15",
+    "sleep 0.6"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "paged-grid-launcher",
+  "name": "PagedGridLauncher",
+  "title": "Paged Grid Launcher",
+  "category": "Scrolling",
+  "summary": "A launcher of icon grids that pages horizontally, with each page filled row by row like the iOS home screen.",
+  "keywords": {
+    "en": [
+      "launcher",
+      "home screen",
+      "app grid",
+      "icons",
+      "paging",
+      "springboard"
+    ],
+    "es": [
+      "lanzador",
+      "pantalla de inicio",
+      "cuadrícula de apps",
+      "iconos",
+      "paginación",
+      "escritorio"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "scrollTargetBehavior",
+    "scrollPosition(id:)",
+    "LazyVGrid",
+    "containerRelativeFrame"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

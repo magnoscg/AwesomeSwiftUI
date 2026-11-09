@@ -1,0 +1,15 @@
+{
+  "id": "scroll-visibility-reveal",
+  "name": "ScrollVisibilityReveal",
+  "title": "Scroll Visibility Reveal",
+  "category": "Scrolling",
+  "summary": "Sections fade and slide into place the first time they become visible while the user scrolls.",
+  "keywords": {
+    "en": ["scroll reveal", "appear on scroll", "fade in", "slide in", "visibility", "sections"],
+    "es": ["revelar al desplazar", "aparecer", "fundido", "entrada", "visibilidad", "secciones"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["onScrollVisibilityChange", "ViewModifier", "ScrollView"],
+  "origin": { "kind": "original" }
+}

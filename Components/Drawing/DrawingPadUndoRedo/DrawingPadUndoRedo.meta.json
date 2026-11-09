@@ -1,0 +1,16 @@
+{
+  "id": "drawing-pad-undo-redo",
+  "name": "DrawingPadUndoRedo",
+  "title": "Drawing Pad Undo Redo",
+  "category": "Drawing",
+  "summary": "A drawing pad that keeps its strokes in a history so they can be undone and redone.",
+  "keywords": {
+    "en": ["drawing", "canvas", "undo", "redo", "history", "sketch", "strokes"],
+    "es": ["dibujo", "lienzo", "deshacer", "rehacer", "historial", "boceto", "trazos"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "DragGesture", "GestureState", "Path"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.6", "tap --label Undo", "sleep 0.8", "tap --label Undo", "sleep 0.8", "tap --label Redo", "sleep 0.8", "tap --label Redo", "sleep 1"]
+}

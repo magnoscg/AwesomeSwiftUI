@@ -1,0 +1,26 @@
+{
+  "id": "photo-filter-presets",
+  "name": "PhotoFilterPresets",
+  "title": "Photo Filter Presets",
+  "category": "Images",
+  "summary": "A row of preset thumbnails that apply mono, warm, cool and high contrast looks to a photo using SwiftUI modifiers.",
+  "keywords": {
+    "en": ["photo filters", "presets", "thumbnails", "black and white", "image", "saturation"],
+    "es": ["filtros de fotos", "ajustes predefinidos", "miniaturas", "blanco y negro", "imagen", "saturación"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["saturation", "contrast", "brightness", "colorMultiply", "hueRotation"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Mono",
+    "sleep 1",
+    "tap --label Warm",
+    "sleep 1",
+    "tap --label Cool",
+    "sleep 1",
+    "tap --label Punch",
+    "sleep 1"
+  ]
+}

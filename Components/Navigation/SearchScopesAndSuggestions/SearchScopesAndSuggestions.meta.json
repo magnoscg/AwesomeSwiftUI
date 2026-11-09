@@ -1,0 +1,36 @@
+{
+  "id": "search-scopes-and-suggestions",
+  "name": "SearchScopesAndSuggestions",
+  "title": "Search Scopes And Suggestions",
+  "category": "Navigation",
+  "summary": "A modifier that adds a search field with scope buttons and suggestion rows that narrow as you type.",
+  "keywords": {
+    "en": [
+      "search",
+      "searchable",
+      "scopes",
+      "suggestions",
+      "autocomplete",
+      "filter"
+    ],
+    "es": [
+      "búsqueda",
+      "buscador",
+      "ámbitos",
+      "sugerencias",
+      "autocompletar",
+      "filtro"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "searchable(text:isPresented:prompt:)",
+    "searchScopes(_:activation:_:)",
+    "searchSuggestions",
+    "searchCompletion"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "command-palette",
+  "name": "CommandPalette",
+  "title": "Command Palette",
+  "category": "Menus",
+  "summary": "A searchable sheet of commands with shortcut hints and live filtering as you type.",
+  "keywords": {
+    "en": [
+      "command palette",
+      "search",
+      "actions",
+      "shortcuts",
+      "filter",
+      "sheet",
+      "command k"
+    ],
+    "es": [
+      "paleta de comandos",
+      "búsqueda",
+      "acciones",
+      "atajos",
+      "filtrar",
+      "hoja"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "searchable",
+    "List",
+    "Section",
+    "ContentUnavailableView"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Public web component registries"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Open commands'",
+    "sleep 1.2",
+    "type 'ne'",
+    "sleep 0.7",
+    "type 'w'",
+    "sleep 1.1",
+    "tap --label 'New Folder'",
+    "sleep 1"
+  ]
+}

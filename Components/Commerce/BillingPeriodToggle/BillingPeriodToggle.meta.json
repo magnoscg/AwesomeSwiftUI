@@ -1,0 +1,16 @@
+{
+  "id": "billing-period-toggle",
+  "name": "BillingPeriodToggle",
+  "title": "Billing Period Toggle",
+  "category": "Commerce",
+  "summary": "A monthly and yearly switch where the price rolls to its new value and a savings badge appears.",
+  "keywords": {
+    "en": ["billing", "pricing", "subscription", "monthly", "yearly", "paywall", "toggle", "savings"],
+    "es": ["facturación", "precio", "suscripción", "mensual", "anual", "paywall", "ahorro"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["matchedGeometryEffect", "contentTransition", "AnyLayout", "sensoryFeedback"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.6", "tap --label Yearly", "sleep 1.4", "tap --label Monthly", "sleep 1.2", "tap --label Yearly", "sleep 1"]
+}

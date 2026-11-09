@@ -1,0 +1,24 @@
+{
+  "id": "pricing-tier-cards",
+  "name": "PricingTierCards",
+  "title": "Pricing Tier Cards",
+  "category": "Commerce",
+  "summary": "Snapping horizontal pricing cards with the recommended plan highlighted and enlarged.",
+  "keywords": {
+    "en": ["pricing", "plans", "tiers", "cards", "paywall", "subscription", "carousel"],
+    "es": ["precios", "planes", "tarifas", "tarjetas", "paywall", "suscripción", "carrusel"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ScrollView", "scrollTargetBehavior", "scrollPosition", "onGeometryChange", "sensoryFeedback"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 330 --start-y 470 --end-x 70 --end-y 470 --duration 0.4",
+    "sleep 1",
+    "swipe --start-x 70 --start-y 470 --end-x 330 --end-y 470 --duration 0.4",
+    "sleep 1",
+    "tap --label 'Choose Pro'",
+    "sleep 1"
+  ]
+}

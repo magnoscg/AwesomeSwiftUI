@@ -1,0 +1,24 @@
+{
+  "id": "scattered-photo-board",
+  "name": "ScatteredPhotoBoard",
+  "title": "Scattered Photo Board",
+  "category": "Images",
+  "summary": "Photos scattered at slight angles on a board that can be dragged around and brought to the front on touch.",
+  "keywords": {
+    "en": ["photo board", "polaroid", "scattered", "collage", "drag", "bring to front", "moodboard"],
+    "es": ["tablero de fotos", "polaroid", "dispersas", "collage", "arrastrar", "traer al frente"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "rotationEffect", "zIndex"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 60 --start-y 200 --end-x 290 --end-y 450 --duration 0.7",
+    "sleep 0.4",
+    "swipe --start-x 76 --start-y 663 --end-x 100 --end-y 440 --duration 0.6",
+    "sleep 0.4",
+    "swipe --start-x 340 --start-y 204 --end-x 215 --end-y 200 --duration 0.6",
+    "sleep 0.9"
+  ]
+}

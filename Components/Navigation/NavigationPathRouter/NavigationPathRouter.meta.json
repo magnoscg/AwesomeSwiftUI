@@ -1,0 +1,48 @@
+{
+  "id": "navigation-path-router",
+  "name": "NavigationPathRouter",
+  "title": "Navigation Path Router",
+  "category": "Navigation",
+  "summary": "A router that owns a NavigationPath so any view can push or pop screens by a typed value.",
+  "keywords": {
+    "en": [
+      "router",
+      "navigation path",
+      "coordinator",
+      "deep link",
+      "push",
+      "pop",
+      "programmatic navigation"
+    ],
+    "es": [
+      "enrutador",
+      "ruta de navegación",
+      "coordinador",
+      "enlace profundo",
+      "navegación programática",
+      "apilar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "NavigationStack",
+    "NavigationPath",
+    "navigationDestination(for:destination:)",
+    "Observable"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Profile",
+    "sleep 1.2",
+    "tap --label Settings",
+    "sleep 1.2",
+    "tap --label About",
+    "sleep 1.2",
+    "tap --label Root",
+    "sleep 1.2"
+  ]
+}
