@@ -1,0 +1,37 @@
+{
+  "id": "breathing-guide-circle",
+  "name": "BreathingGuideCircle",
+  "title": "Breathing Guide Circle",
+  "category": "Animations",
+  "summary": "A circle that expands and contracts through breathe in, hold and breathe out phases, with a label and a countdown.",
+  "keywords": {
+    "en": [
+      "breathing",
+      "meditation",
+      "mindfulness",
+      "guide",
+      "circle",
+      "calm",
+      "wellness"
+    ],
+    "es": [
+      "respiración",
+      "meditación",
+      "atención plena",
+      "guía",
+      "círculo",
+      "calma",
+      "bienestar"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TimelineView",
+    "Circle",
+    "scaleEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

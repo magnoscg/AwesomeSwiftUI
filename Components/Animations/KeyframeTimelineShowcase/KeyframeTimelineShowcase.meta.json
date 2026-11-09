@@ -1,0 +1,39 @@
+{
+  "id": "keyframe-timeline-showcase",
+  "name": "KeyframeTimelineShowcase",
+  "title": "Keyframe Timeline Showcase",
+  "category": "Animations",
+  "summary": "A view animated by keyframe tracks for scale, offset and color, with the tracks and a playhead drawn on one shared timeline.",
+  "keywords": {
+    "en": [
+      "keyframes",
+      "keyframe animator",
+      "timeline",
+      "animation",
+      "tracks",
+      "scale",
+      "color animation"
+    ],
+    "es": [
+      "fotogramas clave",
+      "línea de tiempo",
+      "animación",
+      "pistas",
+      "escala",
+      "animación de color"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "KeyframeAnimator",
+    "KeyframeTrack",
+    "CubicKeyframe",
+    "SpringKeyframe",
+    "LinearKeyframe",
+    "Canvas"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
