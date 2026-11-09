@@ -69,6 +69,7 @@ struct MarqueeText: View {
             }
             .lineLimit(1)
             .fixedSize()
+            .accessibilityRepresentation { EmptyView() }
             .offset(x: -offset(at: context.date))
         }
     }

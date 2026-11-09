@@ -50,7 +50,7 @@ struct InfiniteMarqueeRow<Content: View>: View {
             row.onGeometryChange(for: CGFloat.self) { $0.size.width } action: { contentWidth = $0 }
 
             ForEach(1..<copies, id: \.self) { _ in
-                row.accessibilityHidden(true)
+                row.accessibilityRepresentation { EmptyView() }
             }
         }
         .fixedSize()

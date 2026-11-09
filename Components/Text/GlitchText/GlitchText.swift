@@ -40,6 +40,7 @@ struct GlitchText: View {
         let isVisible = !isBursting || noise(tick, seed: seed + 20) > 0.2
 
         return Text(text)
+            .accessibilityRepresentation { EmptyView() }
             .foregroundStyle(color)
             .offset(x: x * maxOffset, y: y * maxOffset)
             .opacity(isVisible ? 1 : 0)

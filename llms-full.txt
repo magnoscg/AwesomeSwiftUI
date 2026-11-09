@@ -5205,10 +5205,11 @@ struct FloatingLabelTextField: View {
                 .foregroundStyle(isFocused ? tint : Color.secondary)
                 .scaleEffect(isFloating ? 0.78 : 1, anchor: .leading)
                 .offset(y: isFloating ? -labelLift : 0)
-                .accessibilityHidden(true)
+                .accessibilityRepresentation { EmptyView() }
                 .allowsHitTesting(false)
 
             TextField(title, text: $text, prompt: Text(verbatim: ""))
+                .accessibilityLabel(title)
                 .font(.body)
                 .focused($isFocused)
                 .tint(tint)
@@ -5301,7 +5302,6 @@ struct OTPCodeField: View {
                 digitBox(at: index)
             }
         }
-        .accessibilityHidden(true)
         .background {
             TextField(title, text: $code)
                 .textContentType(.oneTimeCode)
@@ -5337,6 +5337,7 @@ struct OTPCodeField: View {
                         .font(.system(.title, design: .rounded, weight: .semibold))
                         .monospacedDigit()
                         .transition(reduceMotion ? .identity : .scale(scale: 0.4).combined(with: .opacity))
+                        .accessibilityRepresentation { EmptyView() }
                 }
             }
     }
@@ -7298,8 +7299,11 @@ struct SymbolDrawOn: View {
             .symbolEffect(.drawOff.byLayer, isActive: !isDrawn)
             .symbolEffectsRemoved(reduceMotion)
             .opacity(reduceMotion && !isDrawn ? 0 : 1)
-            .accessibilityHidden(label == nil)
-            .accessibilityLabel(label ?? "")
+            .accessibilityRepresentation {
+                if let label {
+                    Image(systemName: systemName).accessibilityLabel(label)
+                }
+            }
     }
 }
 
@@ -8552,6 +8556,7 @@ struct LiquidFillProgress: View {
             .minimumScaleFactor(0.4)
             .lineLimit(1)
             .padding(12)
+            .accessibilityRepresentation { EmptyView() }
     }
 }
 
@@ -8827,7 +8832,7 @@ struct InfiniteMarqueeRow<Content: View>: View {
             row.onGeometryChange(for: CGFloat.self) { $0.size.width } action: { contentWidth = $0 }
 
             ForEach(1..<copies, id: \.self) { _ in
-                row.accessibilityHidden(true)
+                row.accessibilityRepresentation { EmptyView() }
             }
         }
         .fixedSize()
@@ -9460,6 +9465,7 @@ struct BouncyLettersText: View {
         let height = hopHeight
 
         return Text(String(character))
+            .accessibilityRepresentation { EmptyView() }
             .keyframeAnimator(initialValue: BouncyLetterPose(), repeating: true) { view, pose in
                 view
                     .scaleEffect(x: 2 - pose.stretch, y: pose.stretch, anchor: .bottom)
@@ -9677,6 +9683,7 @@ struct GlitchText: View {
         let isVisible = !isBursting || noise(tick, seed: seed + 20) > 0.2
 
         return Text(text)
+            .accessibilityRepresentation { EmptyView() }
             .foregroundStyle(color)
             .offset(x: x * maxOffset, y: y * maxOffset)
             .opacity(isVisible ? 1 : 0)
@@ -10016,6 +10023,7 @@ struct MarqueeText: View {
             }
             .lineLimit(1)
             .fixedSize()
+            .accessibilityRepresentation { EmptyView() }
             .offset(x: -offset(at: context.date))
         }
     }

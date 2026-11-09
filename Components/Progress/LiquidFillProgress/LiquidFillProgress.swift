@@ -65,6 +65,7 @@ struct LiquidFillProgress: View {
             .minimumScaleFactor(0.4)
             .lineLimit(1)
             .padding(12)
+            .accessibilityRepresentation { EmptyView() }
     }
 }
 

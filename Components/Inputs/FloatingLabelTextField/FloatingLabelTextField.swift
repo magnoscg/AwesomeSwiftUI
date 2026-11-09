@@ -26,10 +26,11 @@ struct FloatingLabelTextField: View {
                 .foregroundStyle(isFocused ? tint : Color.secondary)
                 .scaleEffect(isFloating ? 0.78 : 1, anchor: .leading)
                 .offset(y: isFloating ? -labelLift : 0)
-                .accessibilityHidden(true)
+                .accessibilityRepresentation { EmptyView() }
                 .allowsHitTesting(false)
 
             TextField(title, text: $text, prompt: Text(verbatim: ""))
+                .accessibilityLabel(title)
                 .font(.body)
                 .focused($isFocused)
                 .tint(tint)

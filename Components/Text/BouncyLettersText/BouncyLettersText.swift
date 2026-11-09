@@ -45,6 +45,7 @@ struct BouncyLettersText: View {
         let height = hopHeight
 
         return Text(String(character))
+            .accessibilityRepresentation { EmptyView() }
             .keyframeAnimator(initialValue: BouncyLetterPose(), repeating: true) { view, pose in
                 view
                     .scaleEffect(x: 2 - pose.stretch, y: pose.stretch, anchor: .bottom)

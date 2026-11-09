@@ -31,7 +31,6 @@ struct OTPCodeField: View {
                 digitBox(at: index)
             }
         }
-        .accessibilityHidden(true)
         .background {
             TextField(title, text: $code)
                 .textContentType(.oneTimeCode)
@@ -67,6 +66,7 @@ struct OTPCodeField: View {
                         .font(.system(.title, design: .rounded, weight: .semibold))
                         .monospacedDigit()
                         .transition(reduceMotion ? .identity : .scale(scale: 0.4).combined(with: .opacity))
+                        .accessibilityRepresentation { EmptyView() }
                 }
             }
     }

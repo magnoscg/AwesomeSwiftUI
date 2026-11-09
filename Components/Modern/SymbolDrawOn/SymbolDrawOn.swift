@@ -21,8 +21,11 @@ struct SymbolDrawOn: View {
             .symbolEffect(.drawOff.byLayer, isActive: !isDrawn)
             .symbolEffectsRemoved(reduceMotion)
             .opacity(reduceMotion && !isDrawn ? 0 : 1)
-            .accessibilityHidden(label == nil)
-            .accessibilityLabel(label ?? "")
+            .accessibilityRepresentation {
+                if let label {
+                    Image(systemName: systemName).accessibilityLabel(label)
+                }
+            }
     }
 }
 
