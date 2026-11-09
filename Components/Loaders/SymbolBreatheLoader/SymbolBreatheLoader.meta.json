@@ -1,0 +1,15 @@
+{
+  "id": "symbol-breathe-loader",
+  "name": "SymbolBreatheLoader",
+  "title": "Symbol Breathe Loader",
+  "category": "Loaders",
+  "summary": "A loading indicator made of an SF Symbol that uses the breathe and rotate symbol effects.",
+  "keywords": {
+    "en": ["loader", "sf symbols", "symbol effect", "breathe", "rotate", "loading"],
+    "es": ["cargador", "símbolo", "efecto de símbolo", "respirar", "rotación", "carga"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["symbolEffect", "BreatheSymbolEffect", "RotateSymbolEffect"],
+  "origin": { "kind": "original" }
+}

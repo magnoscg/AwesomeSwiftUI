@@ -1,0 +1,15 @@
+{
+  "id": "blob-morph-loader",
+  "name": "BlobMorphLoader",
+  "title": "Blob Morph Loader",
+  "category": "Loaders",
+  "summary": "A soft gradient blob drawn in a canvas that keeps changing shape while content loads.",
+  "keywords": {
+    "en": ["loader", "blob", "morph", "canvas", "organic", "spinner", "loading"],
+    "es": ["cargador", "mancha", "transformación", "lienzo", "orgánico", "carga", "animación"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext", "Path"],
+  "origin": { "kind": "original" }
+}
