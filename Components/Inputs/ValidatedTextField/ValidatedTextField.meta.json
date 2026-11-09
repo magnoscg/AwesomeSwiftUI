@@ -1,0 +1,16 @@
+{
+  "id": "validated-text-field",
+  "name": "ValidatedTextField",
+  "title": "Validated Text Field",
+  "category": "Inputs",
+  "summary": "A text field that checks its value when it loses focus and shows its error only after that.",
+  "keywords": {
+    "en": ["text field", "validation", "error message", "focus", "form", "input"],
+    "es": ["campo de texto", "validación", "mensaje de error", "foco", "formulario"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TextField", "FocusState", "onChange(of:initial:_:)", "AccessibilityNotification"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.4", "tap --label Email", "sleep 0.2", "type 'oscar'", "sleep 0.4", "tap --label Name", "sleep 1.2", "tap --label Email", "sleep 0.2", "type '@mail.com'", "sleep 0.8", "tap --label Name", "sleep 0.8"]
+}

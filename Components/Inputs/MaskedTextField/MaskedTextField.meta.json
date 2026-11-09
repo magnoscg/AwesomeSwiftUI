@@ -1,0 +1,30 @@
+{
+  "id": "masked-text-field",
+  "name": "MaskedTextField",
+  "title": "Masked Text Field",
+  "category": "Inputs",
+  "summary": "A text field that formats input as the user types, such as 12/34 or a phone number, using a mask.",
+  "keywords": {
+    "en": ["text field", "mask", "input mask", "format", "phone number", "credit card", "expiry date"],
+    "es": ["campo de texto", "máscara", "formato", "número de teléfono", "tarjeta de crédito", "fecha de caducidad"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["TextField", "onChange(of:initial:_:)", "Character"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label \"Card number\"",
+    "sleep 0.4",
+    "type '4242424242424242'",
+    "sleep 0.6",
+    "tap --label \"Expiry date\"",
+    "sleep 0.3",
+    "type '1228'",
+    "sleep 0.6",
+    "tap --label Phone",
+    "sleep 0.3",
+    "type '6125550199'",
+    "sleep 1"
+  ]
+}
