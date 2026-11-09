@@ -1,0 +1,20 @@
+{
+  "id": "pull-progress-refresh",
+  "name": "PullProgressRefresh",
+  "title": "Pull Progress Refresh",
+  "category": "Scrolling",
+  "summary": "A custom pull to refresh whose ring fills with the pull distance and starts a refresh when released past a threshold.",
+  "keywords": {
+    "en": ["pull to refresh", "refresh", "progress ring", "scroll", "reload", "custom indicator"],
+    "es": ["deslizar para actualizar", "actualizar", "anillo de progreso", "desplazamiento", "recargar", "indicador"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["onScrollGeometryChange", "onScrollPhaseChange", "ScrollView", "ProgressView"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 240 --end-x 201 --end-y 700 --duration 1",
+    "sleep 2.4"
+  ]
+}

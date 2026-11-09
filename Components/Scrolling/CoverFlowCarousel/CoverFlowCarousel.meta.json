@@ -1,0 +1,37 @@
+{
+  "id": "cover-flow-carousel",
+  "name": "CoverFlowCarousel",
+  "title": "Cover Flow Carousel",
+  "category": "Scrolling",
+  "summary": "A horizontal carousel where the centered item faces forward and its neighbours turn away in 3D as you scroll.",
+  "keywords": {
+    "en": [
+      "cover flow",
+      "carousel",
+      "3d",
+      "albums",
+      "horizontal scroll",
+      "snap",
+      "perspective"
+    ],
+    "es": [
+      "cover flow",
+      "carrusel",
+      "3d",
+      "álbumes",
+      "desplazamiento horizontal",
+      "perspectiva"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "scrollTargetBehavior",
+    "scrollPosition(id:anchor:)",
+    "visualEffect",
+    "rotation3DEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

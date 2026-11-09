@@ -1,0 +1,15 @@
+{
+  "id": "vertical-full-screen-feed",
+  "name": "VerticalFullScreenFeed",
+  "title": "Vertical Full Screen Feed",
+  "category": "Scrolling",
+  "summary": "A vertical feed where each item fills the screen and snaps into place, in the style of short-video apps.",
+  "keywords": {
+    "en": ["vertical feed", "full screen", "paging", "short video", "reels", "snap", "stories"],
+    "es": ["feed vertical", "pantalla completa", "paginación", "vídeo corto", "reels", "encajar"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["scrollTargetBehavior", "containerRelativeFrame", "scrollPosition", "ImageRenderer"],
+  "origin": { "kind": "original" }
+}

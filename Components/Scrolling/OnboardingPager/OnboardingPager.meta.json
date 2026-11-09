@@ -1,0 +1,47 @@
+{
+  "id": "onboarding-pager",
+  "name": "OnboardingPager",
+  "title": "Onboarding Pager",
+  "category": "Scrolling",
+  "summary": "A full-screen onboarding flow with swipeable pages, a progress indicator and a button that advances or finishes.",
+  "keywords": {
+    "en": [
+      "onboarding",
+      "welcome",
+      "pager",
+      "walkthrough",
+      "intro",
+      "first launch",
+      "tutorial"
+    ],
+    "es": [
+      "onboarding",
+      "bienvenida",
+      "paginador",
+      "recorrido",
+      "introducción",
+      "primer inicio",
+      "tutorial"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TabView",
+    "page(indexDisplayMode:)",
+    "symbolEffect",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Continue",
+    "sleep 1.2",
+    "tap --label Continue",
+    "sleep 1.2",
+    "tap --label 'Get Started'",
+    "sleep 0.8"
+  ]
+}
