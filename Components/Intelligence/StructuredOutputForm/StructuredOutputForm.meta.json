@@ -1,0 +1,16 @@
+{
+  "id": "structured-output-form",
+  "name": "StructuredOutputForm",
+  "title": "Structured Output Form",
+  "category": "Intelligence",
+  "summary": "A form whose fields the on-device model fills in from a free-form note as a typed Generable value.",
+  "keywords": {
+    "en": ["foundation models", "generable", "structured output", "form", "autofill", "apple intelligence", "extraction", "llm"],
+    "es": ["salida estructurada", "formulario", "autorrelleno", "inteligencia artificial", "apple intelligence", "extracción de datos", "generable"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "27.0",
+  "apis": ["Generable", "Guide", "LanguageModelSession", "streamResponse(to:generating:options:contextOptions:metadata:)", "ContextOptions"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label 'Fill in the form'", "sleep 5"]
+}

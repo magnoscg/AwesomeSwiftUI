@@ -1,0 +1,16 @@
+{
+  "id": "on-device-streaming-answer",
+  "name": "OnDeviceStreamingAnswer",
+  "title": "On Device Streaming Answer",
+  "category": "Intelligence",
+  "summary": "An answer that fills in as the on-device model streams it, with no network request.",
+  "keywords": {
+    "en": ["foundation models", "streaming", "on-device model", "llm", "apple intelligence", "chat answer", "ai text"],
+    "es": ["respuesta en streaming", "modelo en el dispositivo", "inteligencia artificial", "apple intelligence", "texto generado", "sin conexión"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": ["LanguageModelSession", "streamResponse(to:options:)", "prewarm(promptPrefix:)", "SystemLanguageModel"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.4", "tap --label 'Why is the sky blue?'", "sleep 3.2", "tap --label 'Why is the sea salty?'", "sleep 2.4"]
+}
