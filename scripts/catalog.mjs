@@ -2,16 +2,27 @@
 // `generate` rewrites the files derived from the metadata. `check` changes
 // nothing and fails if a component breaks a rule or a generated file is stale.
 // `docs` writes the uncommitted files the documentation site is built from.
+// `prune <major>` is for CI runners with an older SDK: it deletes the components
+// that need a newer iOS, so its result must never be committed.
 import { copyFileSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DOCS_CATALOG, docsAssets, findStale, loadCatalog, renderDocsPages, renderOutputs } from './catalog-lib.mjs';
+import {
+  DOCS_CATALOG,
+  componentsNewerThan,
+  docsAssets,
+  findStale,
+  loadCatalog,
+  renderDocsPages,
+  renderOutputs,
+} from './catalog-lib.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const command = process.argv[2];
+const pruneMajor = Number(process.argv[3]);
 
-if (!['generate', 'check', 'docs'].includes(command)) {
-  console.error('Usage: node scripts/catalog.mjs <generate|check|docs>');
+if (!['generate', 'check', 'docs', 'prune'].includes(command) || (command === 'prune' && !Number.isInteger(pruneMajor))) {
+  console.error('Usage: node scripts/catalog.mjs <generate|check|docs|prune <major>>');
   process.exit(2);
 }
 
@@ -38,6 +49,13 @@ if (command === 'generate') {
     process.exit(1);
   }
   console.log(`The catalog is valid: ${components.length} component(s).`);
+} else if (command === 'prune') {
+  const removed = componentsNewerThan(components, pruneMajor);
+  for (const component of removed) {
+    rmSync(join(root, dirname(component.path)), { recursive: true, force: true });
+  }
+  for (const [path, content] of renderOutputs(root, loadCatalog(root).components)) write(path, content);
+  console.log(`Removed ${removed.length} component(s) that need more than iOS ${pruneMajor}.`);
 } else {
   // Starting clean keeps a removed component from surviving in the site.
   rmSync(join(root, DOCS_CATALOG), { recursive: true, force: true });

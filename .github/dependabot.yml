@@ -1,0 +1,32 @@
+# Monthly, grouped updates for the workflow actions and the site's
+# dependencies, into develop. A release has to be a week old before it is
+# offered, like the minimum release age the maintainer's pnpm enforces.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci
+      include: scope
+
+  - package-ecosystem: npm
+    directory: /docs
+    target-branch: develop
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      docs:
+        patterns: ['*']
+    commit-message:
+      prefix: build
+      include: scope
