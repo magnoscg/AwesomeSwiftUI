@@ -1,0 +1,3 @@
+# AwesomeSwiftUI: every component with its source
+
+Copy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT.
