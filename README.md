@@ -12,9 +12,9 @@ install: find a component, copy its file, use it.
 
 </div>
 
-> **Status: early days.** The foundation of the repository, the catalog tooling
-> and the Showcase app are in place. The documentation site and the first
-> components come next.
+> **Status: early days.** The foundation of the repository, the catalog tooling,
+> the Showcase app and the source of the documentation site are in place. CI,
+> publishing the site and the first components come next.
 
 ## What it will be
 

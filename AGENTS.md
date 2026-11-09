@@ -20,7 +20,7 @@ easy to copy matters as much as the code itself.
 | `scripts/` | Validates the components and generates the files below | In place |
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the table between the `catalog` markers | In place |
-| `docs/` | The GitHub Pages site, built with Astro Starlight | Planned |
+| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed | In place |
 | `.github/` | Issue and pull request templates | In place |
 
 Update the State column when a planned part lands.
@@ -35,6 +35,8 @@ make catalog         # rewrite the generated files after changing a component
 make check           # fail if a component breaks a rule or a generated file is stale
 make test            # the tests of the catalog tooling
 make preview         # turn a recording into a component's preview
+make docs            # build the site into docs/dist
+make docs-dev        # run the site locally
 make showcase-build  # compile the Showcase app and every component
 make showcase-test   # run the Swift Testing suite in the simulator
 make verify          # check, test and showcase-test
@@ -48,7 +50,10 @@ make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 16,OS=18.5'
 ```
 
 A change is done when `make verify` passes. A component that claims an older
-iOS should also pass `make showcase-test` on that runtime.
+iOS should also pass `make showcase-test` on that runtime, and a change to the
+site should also pass `make docs`.
+
+The site uses pnpm. Pin dependencies to exact versions.
 
 ## Component metadata
 
