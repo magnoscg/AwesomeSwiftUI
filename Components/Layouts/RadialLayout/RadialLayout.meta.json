@@ -1,0 +1,49 @@
+{
+  "id": "radial-layout",
+  "name": "RadialLayout",
+  "title": "Radial Layout",
+  "category": "Layouts",
+  "summary": "A custom Layout that spreads views around a circle and animates as the count changes.",
+  "keywords": {
+    "en": [
+      "radial",
+      "circle",
+      "custom layout",
+      "circular menu",
+      "orbit",
+      "ring",
+      "animated"
+    ],
+    "es": [
+      "radial",
+      "círculo",
+      "diseño personalizado",
+      "menú circular",
+      "órbita",
+      "anillo",
+      "animado"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Layout",
+    "Angle",
+    "ProposedViewSize",
+    "contentTransition"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Remove",
+    "sleep 0.9",
+    "tap --label Remove",
+    "sleep 0.9"
+  ]
+}
