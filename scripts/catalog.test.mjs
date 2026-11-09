@@ -35,9 +35,17 @@ function swift(name = 'GlowButton', body = '') {
   return `// SPDX-License-Identifier: MIT\nimport SwiftUI\n${body}\nstruct ${name}Demo: View {}\n#Preview { ${name}Demo() }\n`;
 }
 
-function addComponent(root, { category = 'Buttons', name = 'GlowButton', metadata = meta(), source = swift(name) } = {}) {
+function animatedWebP() {
+  return Buffer.concat([Buffer.from('RIFF\0\0\0\0WEBPVP8X'), Buffer.alloc(14), Buffer.from('ANIM')]);
+}
+
+function addComponent(
+  root,
+  { category = 'Buttons', name = 'GlowButton', metadata = meta(), source = swift(name), preview = animatedWebP() } = {},
+) {
   const directory = join(root, 'Components', category, name);
   mkdirSync(directory, { recursive: true });
+  if (preview !== null) writeFileSync(join(directory, `${name}.webp`), preview);
   if (metadata !== null) {
     const text = typeof metadata === 'string' ? metadata : JSON.stringify(metadata);
     writeFileSync(join(directory, `${name}.meta.json`), text);
@@ -118,14 +126,31 @@ describe('a valid component', () => {
     assert.match(readme, /One \\\| two\./);
   });
 
-  it('records a preview only when the gif exists', () => {
+  it('shows its preview in the README', () => {
     const root = makeRoot();
-    const directory = addComponent(root);
-    assert.equal(loadCatalog(root).components[0].preview, null);
+    addComponent(root);
 
-    writeFileSync(join(directory, 'GlowButton.gif'), '');
+    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
 
-    assert.equal(loadCatalog(root).components[0].preview, 'Components/Buttons/GlowButton/GlowButton.gif');
+    assert.match(readme, /<img src="Components\/Buttons\/GlowButton\/GlowButton\.webp" width="120" alt="Glow Button preview">/);
+  });
+
+  it('escapes quotes in the alt text of its preview', () => {
+    const root = makeRoot();
+    addComponent(root, { metadata: meta({ title: 'The "Glow" Button' }) });
+
+    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
+
+    assert.match(readme, /alt="The &quot;Glow&quot; Button preview"/);
+  });
+
+  it('records the path of its preview', () => {
+    const root = makeRoot();
+    addComponent(root);
+
+    const [entry] = JSON.parse(renderOutputs(root, loadCatalog(root).components).get('catalog.json')).components;
+
+    assert.equal(entry.preview, 'Components/Buttons/GlowButton/GlowButton.webp');
   });
 
   it('accepts @available without a minor version', () => {
@@ -216,6 +241,33 @@ describe('invalid components', () => {
     writeFileSync(join(second, 'Shared.swift'), '');
 
     assert.match(loadCatalog(root).errors.join('\n'), /file name Shared\.swift is also used/);
+  });
+});
+
+describe('invalid previews', () => {
+  it('rejects a component without one', () => {
+    assertRejected({ preview: null }, /missing GlowButton\.webp/);
+  });
+
+  it('rejects a file that is not WebP', () => {
+    assertRejected({ preview: Buffer.from('GIF89a') }, /is not an animated WebP/);
+  });
+
+  it('rejects a still WebP', () => {
+    assertRejected({ preview: Buffer.from('RIFF\0\0\0\0WEBPVP8 ') }, /is not an animated WebP/);
+  });
+
+  it('rejects a file over the size limit', () => {
+    const preview = Buffer.concat([animatedWebP(), Buffer.alloc(2 * 1024 * 1024)]);
+
+    assertRejected({ preview }, /is larger than 2 MB/);
+  });
+
+  it('leaves the component out of the catalog', () => {
+    const root = makeRoot();
+    addComponent(root, { preview: null });
+
+    assert.deepEqual(loadCatalog(root).components, []);
   });
 });
 

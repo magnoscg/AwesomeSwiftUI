@@ -1,4 +1,4 @@
-.PHONY: catalog check test showcase-build showcase-test verify
+.PHONY: catalog check test preview showcase-build showcase-test verify
 
 PROJECT = Showcase/Showcase.xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
@@ -15,6 +15,10 @@ check:
 
 test:
 	node --test scripts/catalog.test.mjs
+
+# make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
+preview:
+	sh scripts/make-preview.sh '$(INPUT)' 'Components/$(COMPONENT)/$(notdir $(COMPONENT)).webp'
 
 # pipefail keeps xcodebuild's failure from being hidden by the pipe.
 showcase-build:

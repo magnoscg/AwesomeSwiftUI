@@ -26,7 +26,8 @@ const FIELDS = [
   'origin',
 ];
 
-const REGISTRY_PATH = 'Showcase/Showcase/Generated/ComponentRegistry.swift';
+const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
+const REGISTRY_PATH ='Showcase/Showcase/Generated/ComponentRegistry.swift';
 const README_START = '<!-- catalog:start -->';
 const README_END = '<!-- catalog:end -->';
 
@@ -91,10 +92,32 @@ function loadComponent(root, relative, category, name, files, errors) {
   const before = errors.length;
   validateMeta(meta, relative, category, name, errors);
   if (errors.length === before) validateSource(meta, source, relative, name, errors);
+  validatePreview(root, relative, name, files, errors);
   if (errors.length !== before) return null;
 
-  const preview = files.includes(`${name}.gif`) ? `${relative}/${name}.gif` : null;
-  return { ...meta, path: `${relative}/${sourceFile}`, preview, source };
+  return { ...meta, path: `${relative}/${sourceFile}`, preview: `${relative}/${name}.webp`, source };
+}
+
+function validatePreview(root, relative, name, files, errors) {
+  const previewFile = `${name}.webp`;
+  if (!files.includes(previewFile)) {
+    errors.push(`${relative}: missing ${previewFile}`);
+    return;
+  }
+  const bytes = readFileSync(join(root, relative, previewFile));
+  if (!isAnimatedWebP(bytes)) errors.push(`${relative}: ${previewFile} is not an animated WebP`);
+  if (bytes.length > MAX_PREVIEW_BYTES) {
+    errors.push(`${relative}: ${previewFile} is larger than ${MAX_PREVIEW_BYTES / 1024 / 1024} MB`);
+  }
+}
+
+// The ANIM chunk sits near the start of the file and only exists in animations.
+function isAnimatedWebP(bytes) {
+  return (
+    bytes.toString('latin1', 0, 4) === 'RIFF' &&
+    bytes.toString('latin1', 8, 12) === 'WEBP' &&
+    bytes.subarray(0, 4096).includes('ANIM', 0, 'latin1')
+  );
 }
 
 function validateMeta(meta, relative, category, name, errors) {
@@ -328,10 +351,10 @@ function renderReadmeCatalog(components) {
       .filter((component) => component.category === category)
       .map(
         (component) =>
-          `| [${component.title}](${component.path}) | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`,
+          `| <img src="${component.preview}" width="120" alt="${escapeAttribute(component.title)} preview"> | [${component.title}](${component.path}) | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`,
       );
     sections.push(
-      [`### ${category}`, '', '| Component | What it does | iOS | Level |', '|---|---|---|---|', ...rows].join('\n'),
+      [`### ${category}`, '', '| Preview | Component | What it does | iOS | Level |', '|---|---|---|---|---|', ...rows].join('\n'),
     );
   }
   return sections.join('\n\n');
@@ -370,6 +393,10 @@ function withoutLineComments(source) {
 
 function escapeCell(text) {
   return text.replaceAll('|', '\\|');
+}
+
+function escapeAttribute(text) {
+  return text.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
 }
 
 function isText(value) {
