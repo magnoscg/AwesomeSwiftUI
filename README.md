@@ -5,6 +5,7 @@
 *Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
 
 [![CI](https://github.com/magnoscg/AwesomeSwiftUI/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/AwesomeSwiftUI/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/magnoscg/AwesomeSwiftUI)](https://github.com/magnoscg/AwesomeSwiftUI/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/magnoscg/AwesomeSwiftUI)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/magnoscg/AwesomeSwiftUI)](https://github.com/magnoscg/AwesomeSwiftUI/stargazers)
 
@@ -13,8 +14,7 @@ install: find a component, copy its file, use it.
 
 </div>
 
-> **Status: pre-release.** 100 components are in place, and the first release is
-> being prepared.
+**[Browse the catalog](https://magnoscg.github.io/AwesomeSwiftUI/)**
 
 ## At a glance
 
