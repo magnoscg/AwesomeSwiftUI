@@ -66,7 +66,7 @@ if (command === 'generate') {
   rmSync(join(root, DOCS_CATALOG), { recursive: true, force: true });
   rmSync(join(root, 'docs/public/previews'), { recursive: true, force: true });
   for (const [path, content] of renderDocsPages(components)) write(path, content);
-  for (const [source, destination] of docsAssets(components)) {
+  for (const [source, destination] of docsAssets()) {
     mkdirSync(dirname(join(root, destination)), { recursive: true });
     copyFileSync(join(root, source), join(root, destination));
   }
