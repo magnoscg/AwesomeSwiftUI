@@ -1,0 +1,47 @@
+{
+  "id": "glass-tag-cloud",
+  "name": "GlassTagCloud",
+  "title": "Glass Tag Cloud",
+  "category": "Glass",
+  "summary": "Tags of tinted, interactive Liquid Glass that melt together when they get close.",
+  "keywords": {
+    "en": [
+      "tags",
+      "tag cloud",
+      "chips",
+      "flow layout",
+      "liquid glass",
+      "glass",
+      "merge",
+      "filter"
+    ],
+    "es": [
+      "etiquetas",
+      "nube de etiquetas",
+      "filtros",
+      "cristal líquido",
+      "cristal",
+      "fusionar",
+      "diseño fluido"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "glassEffect",
+    "GlassEffectContainer",
+    "Layout"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Tight spacing'",
+    "sleep 1.2",
+    "tap --label Glass",
+    "sleep 0.8",
+    "tap --label 'Tight spacing'",
+    "sleep 1.2"
+  ]
+}

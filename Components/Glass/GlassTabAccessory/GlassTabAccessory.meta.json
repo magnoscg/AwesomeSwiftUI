@@ -1,0 +1,45 @@
+{
+  "id": "glass-tab-accessory",
+  "name": "GlassTabAccessory",
+  "title": "Glass Tab Accessory",
+  "category": "Glass",
+  "summary": "A tab view with a Liquid Glass accessory above a tab bar that minimizes on scroll.",
+  "keywords": {
+    "en": [
+      "tab bar",
+      "tab view",
+      "accessory",
+      "mini player",
+      "now playing",
+      "minimize",
+      "liquid glass",
+      "scroll"
+    ],
+    "es": [
+      "barra de pestañas",
+      "accesorio",
+      "minirreproductor",
+      "minimizar",
+      "cristal líquido",
+      "desplazamiento"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "TabView",
+    "tabViewBottomAccessory",
+    "tabBarMinimizeBehavior",
+    "tabViewBottomAccessoryPlacement"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 200 --start-y 650 --end-x 200 --end-y 250 --duration 0.5",
+    "sleep 1.3",
+    "swipe --start-x 200 --start-y 250 --end-x 200 --end-y 650 --duration 0.5",
+    "sleep 1.3"
+  ]
+}
