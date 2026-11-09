@@ -1,0 +1,24 @@
+{
+  "id": "undo-snackbar",
+  "name": "UndoSnackbar",
+  "title": "Undo Snackbar",
+  "category": "Feedback",
+  "summary": "A bottom bar with an Undo button and a shrinking timer line.",
+  "keywords": {
+    "en": ["snackbar", "undo", "timer", "countdown", "bottom bar", "toast", "feedback"],
+    "es": ["snackbar", "deshacer", "temporizador", "cuenta atrás", "barra inferior", "aviso", "archivar"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ViewModifier", "withAnimation", "AccessibilityNotification.Announcement", "task"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Archive",
+    "sleep 1.6",
+    "touch -x 346 -y 800 --down --up",
+    "sleep 1.2",
+    "tap --label Archive",
+    "sleep 1.8"
+  ]
+}
