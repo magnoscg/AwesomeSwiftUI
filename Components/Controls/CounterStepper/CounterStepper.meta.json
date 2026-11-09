@@ -1,0 +1,48 @@
+{
+  "id": "counter-stepper",
+  "name": "CounterStepper",
+  "title": "Counter Stepper",
+  "category": "Controls",
+  "summary": "Minus and plus buttons around a number that rolls as it changes and stops at its limits.",
+  "keywords": {
+    "en": [
+      "stepper",
+      "counter",
+      "quantity",
+      "plus minus",
+      "numeric text",
+      "number animation"
+    ],
+    "es": [
+      "contador",
+      "cantidad",
+      "más y menos",
+      "incrementar",
+      "texto numérico",
+      "animación de números"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "contentTransition",
+    "ContentTransition.numericText",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Increase",
+    "sleep 0.7",
+    "tap --label Increase",
+    "sleep 0.8",
+    "tap --label Decrease",
+    "sleep 0.7",
+    "tap --label Decrease",
+    "sleep 0.7",
+    "tap --label Decrease",
+    "sleep 0.8"
+  ]
+}

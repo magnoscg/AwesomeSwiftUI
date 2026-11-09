@@ -1,0 +1,45 @@
+{
+  "id": "sliding-segmented-picker",
+  "name": "SlidingSegmentedPicker",
+  "title": "Sliding Segmented Picker",
+  "category": "Controls",
+  "summary": "A segmented picker whose selected pill glides between the options.",
+  "keywords": {
+    "en": [
+      "segmented control",
+      "picker",
+      "tabs",
+      "sliding pill",
+      "selection",
+      "matched geometry"
+    ],
+    "es": [
+      "control segmentado",
+      "selector",
+      "pestañas",
+      "píldora deslizante",
+      "selección",
+      "geometría compartida"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "matchedGeometryEffect",
+    "Namespace"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Week",
+    "sleep 0.9",
+    "tap --label Year",
+    "sleep 0.9",
+    "tap --label Day",
+    "sleep 0.9",
+    "tap --label Month",
+    "sleep 0.9"
+  ]
+}
