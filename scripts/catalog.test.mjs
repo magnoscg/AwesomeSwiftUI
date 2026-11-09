@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import { findStale, loadCatalog, renderOutputs } from './catalog-lib.mjs';
 
@@ -277,6 +277,49 @@ describe('invalid source', () => {
   }
 });
 
+describe('the Showcase registry', () => {
+  const REGISTRY = 'Showcase/Showcase/Generated/ComponentRegistry.swift';
+
+  function registryFor(metadata = meta()) {
+    const root = makeRoot();
+    addComponent(root, {
+      metadata,
+      source: swift('GlowButton', metadata.minIOS === '18.0' ? '' : `@available(iOS ${metadata.minIOS}, *)\nstruct Glass {}`),
+    });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    return renderOutputs(root, components).get(REGISTRY);
+  }
+
+  it('is an empty list when there are no components', () => {
+    const registry = renderOutputs(makeRoot(), []).get(REGISTRY);
+
+    assert.match(registry, /static let entries: \[ShowcaseEntry\] = \[\]/);
+  });
+
+  it('calls the demo directly at the baseline', () => {
+    const registry = registryFor();
+
+    assert.match(registry, /demo: \{ AnyView\(GlowButtonDemo\(\)\) \}/);
+    assert.doesNotMatch(registry, /#available/);
+  });
+
+  it('gates the demo of a newer component', () => {
+    const registry = registryFor(meta({ minIOS: '26.0' }));
+
+    assert.match(registry, /guard #available\(iOS 26\.0, \*\) else \{ return nil \}/);
+    assert.match(registry, /return AnyView\(GlowButtonDemo\(\)\)/);
+  });
+
+  it('includes the keywords of both languages', () => {
+    assert.match(registryFor(), /keywords: \["button", "boton"\]/);
+  });
+
+  it('escapes quotes in the text', () => {
+    assert.match(registryFor(meta({ summary: 'A "glowing" button.' })), /summary: "A \\"glowing\\" button\."/);
+  });
+});
+
 describe('generated files', () => {
   it('fails clearly when the README has no markers', () => {
     const root = makeRoot('No markers\n');
@@ -302,7 +345,10 @@ describe('generated files', () => {
     addComponent(root);
     const { components } = loadCatalog(root);
     const first = renderOutputs(root, components);
-    for (const [path, content] of first) writeFileSync(join(root, path), content);
+    for (const [path, content] of first) {
+      mkdirSync(dirname(join(root, path)), { recursive: true });
+      writeFileSync(join(root, path), content);
+    }
 
     const second = renderOutputs(root, loadCatalog(root).components);
 

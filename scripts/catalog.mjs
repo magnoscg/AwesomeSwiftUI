@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // `generate` rewrites the files derived from the metadata. `check` changes
 // nothing and fails if a component breaks a rule or a generated file is stale.
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { findStale, loadCatalog, renderOutputs } from './catalog-lib.mjs';
@@ -24,7 +24,10 @@ if (errors.length > 0) {
 const outputs = renderOutputs(root, components);
 
 if (command === 'generate') {
-  for (const [path, content] of outputs) writeFileSync(join(root, path), content);
+  for (const [path, content] of outputs) {
+    mkdirSync(dirname(join(root, path)), { recursive: true });
+    writeFileSync(join(root, path), content);
+  }
   console.log(`Generated ${outputs.size} files for ${components.length} component(s).`);
 } else {
   const stale = findStale(root, outputs);

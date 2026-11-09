@@ -1,4 +1,9 @@
-.PHONY: catalog check test
+.PHONY: catalog check test showcase-build showcase-test verify
+
+PROJECT = Showcase/Showcase.xcodeproj
+DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
+XCBEAUTIFY := $(if $(shell which xcbeautify),| xcbeautify)
+XCODEBUILD = xcodebuild -project $(PROJECT) -scheme Showcase -destination '$(DESTINATION)'
 
 # Rewrites the files generated from the component metadata.
 catalog:
@@ -10,3 +15,13 @@ check:
 
 test:
 	node --test scripts/catalog.test.mjs
+
+# pipefail keeps xcodebuild's failure from being hidden by the pipe.
+showcase-build:
+	( set -o pipefail; $(XCODEBUILD) build $(XCBEAUTIFY) )
+
+showcase-test:
+	( set -o pipefail; $(XCODEBUILD) test $(XCBEAUTIFY) )
+
+# Everything that has to pass before a pull request.
+verify: check test showcase-test
