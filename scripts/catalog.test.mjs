@@ -3,7 +3,14 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
-import { docsAssets, findStale, loadCatalog, renderDocsPages, renderOutputs } from './catalog-lib.mjs';
+import {
+  componentsNewerThan,
+  docsAssets,
+  findStale,
+  loadCatalog,
+  renderDocsPages,
+  renderOutputs,
+} from './catalog-lib.mjs';
 
 const README = 'Intro\n\n<!-- catalog:start -->\n\nold\n\n<!-- catalog:end -->\n\nOutro\n';
 const roots = [];
@@ -370,6 +377,22 @@ describe('the Showcase registry', () => {
   it('escapes quotes in the text', () => {
     assert.match(registryFor(meta({ summary: 'A "glowing" button.' })), /summary: "A \\"glowing\\" button\."/);
   });
+});
+
+describe('components for an older SDK', () => {
+  const versions = [
+    ['18.0', false],
+    ['26.0', false],
+    ['26.4', false],
+    ['27.0', true],
+    ['27.2', true],
+  ];
+
+  for (const [minIOS, expected] of versions) {
+    it(`${expected ? 'selects' : 'keeps'} iOS ${minIOS} when the SDK stops at 26`, () => {
+      assert.equal(componentsNewerThan([{ minIOS }], 26).length, expected ? 1 : 0);
+    });
+  }
 });
 
 describe('the documentation site', () => {

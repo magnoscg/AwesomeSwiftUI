@@ -279,6 +279,11 @@ function swiftString(text) {
   return JSON.stringify(text);
 }
 
+// Returns the components that need a newer iOS than the given major version.
+export function componentsNewerThan(components, major) {
+  return components.filter((component) => Number(component.minIOS.split('.')[0]) > major);
+}
+
 // Returns the catalog pages of the site, keyed by their path from the repository
 // root. They are built on demand and never committed.
 export function renderDocsPages(components) {
