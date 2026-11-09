@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import { findStale, loadCatalog, renderOutputs } from './catalog-lib.mjs';
 
@@ -35,9 +35,17 @@ function swift(name = 'GlowButton', body = '') {
   return `// SPDX-License-Identifier: MIT\nimport SwiftUI\n${body}\nstruct ${name}Demo: View {}\n#Preview { ${name}Demo() }\n`;
 }
 
-function addComponent(root, { category = 'Buttons', name = 'GlowButton', metadata = meta(), source = swift(name) } = {}) {
+function animatedWebP() {
+  return Buffer.concat([Buffer.from('RIFF\0\0\0\0WEBPVP8X'), Buffer.alloc(14), Buffer.from('ANIM')]);
+}
+
+function addComponent(
+  root,
+  { category = 'Buttons', name = 'GlowButton', metadata = meta(), source = swift(name), preview = animatedWebP() } = {},
+) {
   const directory = join(root, 'Components', category, name);
   mkdirSync(directory, { recursive: true });
+  if (preview !== null) writeFileSync(join(directory, `${name}.webp`), preview);
   if (metadata !== null) {
     const text = typeof metadata === 'string' ? metadata : JSON.stringify(metadata);
     writeFileSync(join(directory, `${name}.meta.json`), text);
@@ -118,14 +126,31 @@ describe('a valid component', () => {
     assert.match(readme, /One \\\| two\./);
   });
 
-  it('records a preview only when the gif exists', () => {
+  it('shows its preview in the README', () => {
     const root = makeRoot();
-    const directory = addComponent(root);
-    assert.equal(loadCatalog(root).components[0].preview, null);
+    addComponent(root);
 
-    writeFileSync(join(directory, 'GlowButton.gif'), '');
+    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
 
-    assert.equal(loadCatalog(root).components[0].preview, 'Components/Buttons/GlowButton/GlowButton.gif');
+    assert.match(readme, /<img src="Components\/Buttons\/GlowButton\/GlowButton\.webp" width="120" alt="Glow Button preview">/);
+  });
+
+  it('escapes quotes in the alt text of its preview', () => {
+    const root = makeRoot();
+    addComponent(root, { metadata: meta({ title: 'The "Glow" Button' }) });
+
+    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
+
+    assert.match(readme, /alt="The &quot;Glow&quot; Button preview"/);
+  });
+
+  it('records the path of its preview', () => {
+    const root = makeRoot();
+    addComponent(root);
+
+    const [entry] = JSON.parse(renderOutputs(root, loadCatalog(root).components).get('catalog.json')).components;
+
+    assert.equal(entry.preview, 'Components/Buttons/GlowButton/GlowButton.webp');
   });
 
   it('accepts @available without a minor version', () => {
@@ -219,6 +244,33 @@ describe('invalid components', () => {
   });
 });
 
+describe('invalid previews', () => {
+  it('rejects a component without one', () => {
+    assertRejected({ preview: null }, /missing GlowButton\.webp/);
+  });
+
+  it('rejects a file that is not WebP', () => {
+    assertRejected({ preview: Buffer.from('GIF89a') }, /is not an animated WebP/);
+  });
+
+  it('rejects a still WebP', () => {
+    assertRejected({ preview: Buffer.from('RIFF\0\0\0\0WEBPVP8 ') }, /is not an animated WebP/);
+  });
+
+  it('rejects a file over the size limit', () => {
+    const preview = Buffer.concat([animatedWebP(), Buffer.alloc(2 * 1024 * 1024)]);
+
+    assertRejected({ preview }, /is larger than 2 MB/);
+  });
+
+  it('leaves the component out of the catalog', () => {
+    const root = makeRoot();
+    addComponent(root, { preview: null });
+
+    assert.deepEqual(loadCatalog(root).components, []);
+  });
+});
+
 describe('invalid source', () => {
   it('rejects a missing MIT header', () => {
     assertRejected({ source: 'import SwiftUI\nstruct GlowButtonDemo {}\n#Preview {}\n' }, /first line must be/);
@@ -277,6 +329,49 @@ describe('invalid source', () => {
   }
 });
 
+describe('the Showcase registry', () => {
+  const REGISTRY = 'Showcase/Showcase/Generated/ComponentRegistry.swift';
+
+  function registryFor(metadata = meta()) {
+    const root = makeRoot();
+    addComponent(root, {
+      metadata,
+      source: swift('GlowButton', metadata.minIOS === '18.0' ? '' : `@available(iOS ${metadata.minIOS}, *)\nstruct Glass {}`),
+    });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    return renderOutputs(root, components).get(REGISTRY);
+  }
+
+  it('is an empty list when there are no components', () => {
+    const registry = renderOutputs(makeRoot(), []).get(REGISTRY);
+
+    assert.match(registry, /static let entries: \[ShowcaseEntry\] = \[\]/);
+  });
+
+  it('calls the demo directly at the baseline', () => {
+    const registry = registryFor();
+
+    assert.match(registry, /demo: \{ AnyView\(GlowButtonDemo\(\)\) \}/);
+    assert.doesNotMatch(registry, /#available/);
+  });
+
+  it('gates the demo of a newer component', () => {
+    const registry = registryFor(meta({ minIOS: '26.0' }));
+
+    assert.match(registry, /guard #available\(iOS 26\.0, \*\) else \{ return nil \}/);
+    assert.match(registry, /return AnyView\(GlowButtonDemo\(\)\)/);
+  });
+
+  it('includes the keywords of both languages', () => {
+    assert.match(registryFor(), /keywords: \["button", "boton"\]/);
+  });
+
+  it('escapes quotes in the text', () => {
+    assert.match(registryFor(meta({ summary: 'A "glowing" button.' })), /summary: "A \\"glowing\\" button\."/);
+  });
+});
+
 describe('generated files', () => {
   it('fails clearly when the README has no markers', () => {
     const root = makeRoot('No markers\n');
@@ -302,7 +397,10 @@ describe('generated files', () => {
     addComponent(root);
     const { components } = loadCatalog(root);
     const first = renderOutputs(root, components);
-    for (const [path, content] of first) writeFileSync(join(root, path), content);
+    for (const [path, content] of first) {
+      mkdirSync(dirname(join(root, path)), { recursive: true });
+      writeFileSync(join(root, path), content);
+    }
 
     const second = renderOutputs(root, loadCatalog(root).components);
 

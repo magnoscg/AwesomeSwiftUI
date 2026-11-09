@@ -12,8 +12,8 @@ install: find a component, copy its file, use it.
 
 </div>
 
-> **Status: early days.** The foundation of the repository and the catalog
-> tooling are in place. The demo app, the documentation site and the first
+> **Status: early days.** The foundation of the repository, the catalog tooling
+> and the Showcase app are in place. The documentation site and the first
 > components come next.
 
 ## What it will be
@@ -45,7 +45,7 @@ Components/
     <Name>/
       <Name>.swift       The component, a demo and a preview, in one file
       <Name>.meta.json   Keywords, minimum iOS, APIs used, difficulty, origin
-      <Name>.gif         What it looks like
+      <Name>.webp        An animated preview of what it looks like
 ```
 
 ## The rules every component keeps
@@ -57,6 +57,7 @@ Components/
   `@available` and in its metadata. It adds a fallback only where one is
   natural.
 - **Accessible.** It respects Reduce Motion, Dynamic Type and VoiceOver.
+- **Visible.** Every component has an animated preview, here and on the site.
 - **Clean origin.** Original work, or code under a compatible license with its
   notice kept. See [where code may come from](CONTRIBUTING.md#where-code-may-come-from).
 
