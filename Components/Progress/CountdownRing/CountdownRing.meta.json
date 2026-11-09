@@ -1,0 +1,15 @@
+{
+  "id": "countdown-ring",
+  "name": "CountdownRing",
+  "title": "Countdown Ring",
+  "category": "Progress",
+  "summary": "A ring that empties and a number that counts down to a date.",
+  "keywords": {
+    "en": ["countdown", "timer", "ring", "seconds", "progress", "time remaining"],
+    "es": ["cuenta atrás", "temporizador", "anillo", "segundos", "progreso", "tiempo restante"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["TimelineView", "trim", "contentTransition", "task(id:)"],
+  "origin": { "kind": "original" }
+}

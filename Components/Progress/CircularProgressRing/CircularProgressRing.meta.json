@@ -1,0 +1,15 @@
+{
+  "id": "circular-progress-ring",
+  "name": "CircularProgressRing",
+  "title": "Circular Progress Ring",
+  "category": "Progress",
+  "summary": "An animated gradient ring that shows progress with a percentage in the middle.",
+  "keywords": {
+    "en": ["progress", "ring", "circular", "gradient", "percentage", "activity ring"],
+    "es": ["progreso", "anillo", "circular", "degradado", "porcentaje", "indicador"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["trim", "AngularGradient", "contentTransition", "numericText"],
+  "origin": { "kind": "original" }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "gradient-progress-bar",
+  "name": "GradientProgressBar",
+  "title": "Gradient Progress Bar",
+  "category": "Progress",
+  "summary": "A rounded progress bar with a gradient fill that glows more strongly as it advances.",
+  "keywords": {
+    "en": ["progress", "bar", "gradient", "glow", "download", "linear progress"],
+    "es": ["progreso", "barra", "degradado", "brillo", "descarga", "resplandor"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["GeometryReader", "LinearGradient", "shadow"],
+  "origin": { "kind": "original" }
+}
