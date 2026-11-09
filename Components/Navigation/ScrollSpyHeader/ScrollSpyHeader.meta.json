@@ -1,0 +1,50 @@
+{
+  "id": "scroll-spy-header",
+  "name": "ScrollSpyHeader",
+  "title": "Scroll Spy Header",
+  "category": "Navigation",
+  "summary": "A bar of chips that highlights the section at the top of a scroll view and jumps to a section when tapped.",
+  "keywords": {
+    "en": [
+      "scroll spy",
+      "sticky header",
+      "chips",
+      "sections",
+      "anchor",
+      "jump",
+      "menu"
+    ],
+    "es": [
+      "seguimiento de scroll",
+      "cabecera fija",
+      "chips",
+      "secciones",
+      "ancla",
+      "saltar",
+      "carta"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onScrollTargetVisibilityChange",
+    "onScrollGeometryChange",
+    "scrollTargetLayout",
+    "ScrollViewReader",
+    "matchedGeometryEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 200 --duration 0.7",
+    "sleep 1",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 200 --duration 0.7",
+    "sleep 1",
+    "tap --label Desserts",
+    "sleep 1.3",
+    "tap --label Starters",
+    "sleep 1.2"
+  ]
+}

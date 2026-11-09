@@ -1,0 +1,46 @@
+{
+  "id": "drag-to-dismiss-screen",
+  "name": "DragToDismissScreen",
+  "title": "Drag To Dismiss Screen",
+  "category": "Navigation",
+  "summary": "A full-screen page that follows a downward drag, shrinks and fades, then leaves when released past a threshold.",
+  "keywords": {
+    "en": [
+      "drag to dismiss",
+      "pull down",
+      "full screen",
+      "swipe down",
+      "close",
+      "gesture",
+      "interactive"
+    ],
+    "es": [
+      "arrastrar para cerrar",
+      "deslizar hacia abajo",
+      "pantalla completa",
+      "cerrar",
+      "gesto",
+      "interactivo"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "GestureState",
+    "withAnimation(_:completionCriteria:_:completion:)",
+    "onGeometryChange"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Open",
+    "sleep 1",
+    "swipe --start-x 201 --start-y 250 --end-x 201 --end-y 340 --duration 0.5",
+    "sleep 1",
+    "swipe --start-x 201 --start-y 250 --end-x 201 --end-y 760 --duration 0.6",
+    "sleep 1.2"
+  ]
+}

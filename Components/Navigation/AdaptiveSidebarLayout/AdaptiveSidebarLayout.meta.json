@@ -1,0 +1,47 @@
+{
+  "id": "adaptive-sidebar-layout",
+  "name": "AdaptiveSidebarLayout",
+  "title": "Adaptive Sidebar Layout",
+  "category": "Navigation",
+  "summary": "A split view driven by one Boolean that collapses to the detail on iPad and swaps columns on iPhone.",
+  "keywords": {
+    "en": [
+      "sidebar",
+      "split view",
+      "ipad",
+      "adaptive",
+      "columns",
+      "collapse",
+      "toggle"
+    ],
+    "es": [
+      "barra lateral",
+      "vista dividida",
+      "ipad",
+      "adaptable",
+      "columnas",
+      "colapsar",
+      "alternar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "NavigationSplitView",
+    "NavigationSplitViewVisibility",
+    "NavigationSplitViewColumn",
+    "toolbar(removing:)"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Drafts",
+    "sleep 1.4",
+    "tap --label Folders",
+    "sleep 1.2",
+    "tap --label Starred",
+    "sleep 1.4"
+  ]
+}

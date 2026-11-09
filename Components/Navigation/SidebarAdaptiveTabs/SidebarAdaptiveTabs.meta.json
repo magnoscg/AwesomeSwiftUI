@@ -1,0 +1,45 @@
+{
+  "id": "sidebar-adaptive-tabs",
+  "name": "SidebarAdaptiveTabs",
+  "title": "Sidebar Adaptive Tabs",
+  "category": "Navigation",
+  "summary": "The same tabs as a bottom tab bar on iPhone and as a sidebar on iPad.",
+  "keywords": {
+    "en": [
+      "tab bar",
+      "sidebar",
+      "ipad",
+      "adaptive",
+      "tabs",
+      "TabView"
+    ],
+    "es": [
+      "barra de pestañas",
+      "barra lateral",
+      "ipad",
+      "adaptable",
+      "pestañas"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TabView",
+    "Tab",
+    "sidebarAdaptable"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Explore",
+    "sleep 1",
+    "tap --label Library",
+    "sleep 1",
+    "tap --label Profile",
+    "sleep 1",
+    "tap --label Home",
+    "sleep 1"
+  ]
+}
