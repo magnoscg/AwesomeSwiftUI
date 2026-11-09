@@ -1,0 +1,26 @@
+{
+  "id": "scrolling-tab-strip",
+  "name": "ScrollingTabStrip",
+  "title": "Scrolling Tab Strip",
+  "category": "Tabs",
+  "summary": "A horizontal row of tabs that scrolls the selected tab into the middle, with an underline that slides between tabs.",
+  "keywords": {
+    "en": ["tabs", "tab strip", "scrollable tabs", "segmented", "categories", "underline"],
+    "es": ["pestañas", "tira de pestañas", "pestañas desplazables", "segmentos", "categorías", "subrayado"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ScrollViewReader", "scrollTo", "matchedGeometryEffect", "ScrollView"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Sports",
+    "sleep 1",
+    "tap --label Food",
+    "sleep 1",
+    "tap --label Design",
+    "sleep 1",
+    "tap --label Food",
+    "sleep 1"
+  ]
+}

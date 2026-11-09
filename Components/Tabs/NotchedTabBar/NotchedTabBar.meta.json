@@ -1,0 +1,26 @@
+{
+  "id": "notched-tab-bar",
+  "name": "NotchedTabBar",
+  "title": "Notched Tab Bar",
+  "category": "Tabs",
+  "summary": "A tab bar whose background path carves a smooth notch under the selected tab that slides between items.",
+  "keywords": {
+    "en": ["tab bar", "notch", "curved tab bar", "custom shape", "floating button", "navigation"],
+    "es": ["barra de pestañas", "muesca", "barra curva", "forma personalizada", "botón flotante", "navegación"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Path", "addQuadCurve", "Shape", "animatableData", "GeometryReader"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Search",
+    "sleep 1",
+    "tap --label Profile",
+    "sleep 1",
+    "tap --label Saved",
+    "sleep 1",
+    "tap --label Home",
+    "sleep 1"
+  ]
+}
