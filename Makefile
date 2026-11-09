@@ -1,4 +1,4 @@
-.PHONY: catalog check test preview showcase-build showcase-test verify
+.PHONY: catalog check test preview docs docs-dev showcase-build showcase-test verify
 
 PROJECT = Showcase/Showcase.xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
@@ -19,6 +19,17 @@ test:
 # make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
 preview:
 	sh scripts/make-preview.sh '$(INPUT)' 'Components/$(COMPONENT)/$(notdir $(COMPONENT)).webp'
+
+# Builds the documentation site into docs/dist.
+docs:
+	node scripts/catalog.mjs docs
+	pnpm --dir docs install --frozen-lockfile
+	pnpm --dir docs build
+
+docs-dev:
+	node scripts/catalog.mjs docs
+	pnpm --dir docs install --frozen-lockfile
+	pnpm --dir docs dev
 
 # pipefail keeps xcodebuild's failure from being hidden by the pipe.
 showcase-build:

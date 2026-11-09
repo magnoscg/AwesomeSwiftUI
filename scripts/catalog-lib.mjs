@@ -26,6 +26,11 @@ const FIELDS = [
   'origin',
 ];
 
+const SITE_BASE = '/AwesomeSwiftUI';
+const DOCS_PUBLIC = 'docs/public';
+export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
+// Longer than any run of backticks a Swift file is likely to hold.
+const SOURCE_FENCE = '`````';
 const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
 const REGISTRY_PATH ='Showcase/Showcase/Generated/ComponentRegistry.swift';
 const README_START = '<!-- catalog:start -->';
@@ -274,6 +279,107 @@ function swiftString(text) {
   return JSON.stringify(text);
 }
 
+// Returns the catalog pages of the site, keyed by their path from the repository
+// root. They are built on demand and never committed.
+export function renderDocsPages(components) {
+  const pages = new Map([[`${DOCS_CATALOG}/index.mdx`, renderDocsIndex(components)]]);
+  for (const component of components) {
+    pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.md`, renderDocsPage(component));
+  }
+  return pages;
+}
+
+function renderDocsIndex(components) {
+  const frontmatter = [
+    '---',
+    'title: Catalog',
+    'description: Every component in AwesomeSwiftUI, with an animated preview.',
+    'sidebar:',
+    '  label: All components',
+    '  order: 0',
+    '---',
+    '',
+  ];
+  if (components.length === 0) return [...frontmatter, 'No components yet.', ''].join('\n');
+
+  const cards = components.flatMap((component) => [
+    `  <Card title={${JSON.stringify(component.title)}}>`,
+    `    <img src={${JSON.stringify(docsPreview(component))}} alt={${JSON.stringify(`${component.title} preview`)}} width="160" />`,
+    `    <p>{${JSON.stringify(component.summary)}}</p>`,
+    `    <p><a href={${JSON.stringify(docsPage(component))}}>iOS {${JSON.stringify(component.minIOS)}}+ · {${JSON.stringify(component.category)}}</a></p>`,
+    '  </Card>',
+  ]);
+  return [
+    ...frontmatter,
+    "import { Card, CardGrid } from '@astrojs/starlight/components';",
+    '',
+    '<CardGrid>',
+    ...cards,
+    '</CardGrid>',
+    '',
+  ].join('\n');
+}
+
+function renderDocsPage(component) {
+  const keywords = [...component.keywords.en, ...component.keywords.es].map(escapeHTML).join(', ');
+  const apis = component.apis.map((api) => `\`${api}\``).join(', ');
+  return [
+    '---',
+    `title: ${JSON.stringify(component.title)}`,
+    `description: ${JSON.stringify(component.summary)}`,
+    '---',
+    '',
+    escapeHTML(component.summary),
+    '',
+    `<img src="${docsPreview(component)}" alt="${escapeAttribute(component.title)} preview" width="320">`,
+    '',
+    '| | |',
+    '|---|---|',
+    `| Category | ${component.category} |`,
+    `| Minimum iOS | ${component.minIOS} |`,
+    `| Level | ${component.difficulty} |`,
+    `| APIs | ${apis} |`,
+    `| Origin | ${renderDocsOrigin(component.origin)} |`,
+    `| Keywords | ${escapeCell(keywords)} |`,
+    '',
+    '## Use it',
+    '',
+    `Copy this code into your project, or [download the file](${RAW_BASE}/${component.path}).`,
+    '',
+    `${SOURCE_FENCE}swift title="${component.name}.swift"`,
+    component.source.trimEnd(),
+    SOURCE_FENCE,
+    '',
+  ].join('\n');
+}
+
+function renderDocsOrigin(origin) {
+  if (origin.kind === 'original') return 'Original';
+  if (origin.kind === 'adapted') return `Adapted from [the source](${origin.url}), ${escapeHTML(origin.license)}`;
+  const credit = escapeHTML(origin.credit);
+  return origin.url ? `Inspired by [${credit}](${origin.url})` : `Inspired by ${credit}`;
+}
+
+function docsPreview(component) {
+  return `${SITE_BASE}/previews/${component.name}.webp`;
+}
+
+function docsPage(component) {
+  return `${SITE_BASE}/catalog/${component.category.toLowerCase()}/${component.id}/`;
+}
+
+// Returns the files the site serves as they are: from the repository root to
+// their place in docs/public.
+export function docsAssets(components) {
+  const assets = new Map(
+    ['catalog.json', 'llms.txt', 'llms-full.txt'].map((file) => [file, `${DOCS_PUBLIC}/${file}`]),
+  );
+  for (const component of components) {
+    assets.set(component.preview, `${DOCS_PUBLIC}/previews/${component.name}.webp`);
+  }
+  return assets;
+}
+
 // Returns the generated files whose content on disk is missing or out of date.
 export function findStale(root, outputs) {
   const stale = [];
@@ -393,6 +499,10 @@ function withoutLineComments(source) {
 
 function escapeCell(text) {
   return text.replaceAll('|', '\\|');
+}
+
+function escapeHTML(text) {
+  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
 function escapeAttribute(text) {
