@@ -1,0 +1,15 @@
+{
+  "id": "day-night-toggle",
+  "name": "DayNightToggle",
+  "title": "Day Night Toggle",
+  "category": "Controls",
+  "summary": "A switch whose icon morphs between a sun and a moon while its background shifts between day and night colors.",
+  "keywords": {
+    "en": ["toggle", "switch", "dark mode", "day", "night", "sun", "moon", "theme"],
+    "es": ["interruptor", "modo oscuro", "día", "noche", "sol", "luna", "tema"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ToggleStyle", "contentTransition", "symbolEffect", "accessibilityRepresentation"],
+  "origin": { "kind": "original" }
+}
