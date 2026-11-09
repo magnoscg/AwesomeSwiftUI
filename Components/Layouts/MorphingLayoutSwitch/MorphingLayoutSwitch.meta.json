@@ -1,0 +1,16 @@
+{
+  "id": "morphing-layout-switch",
+  "name": "MorphingLayoutSwitch",
+  "title": "Morphing Layout Switch",
+  "category": "Layouts",
+  "summary": "A switch that moves items between a list and a grid, with matched geometry joining the two.",
+  "keywords": {
+    "en": ["list", "grid", "toggle", "matched geometry", "morph", "layout switch", "transition"],
+    "es": ["lista", "cuadrícula", "alternar", "geometría", "transformación", "cambio de vista", "transición"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["matchedGeometryEffect(id:in:properties:anchor:isSource:)", "LazyVGrid", "LazyVStack", "AnyLayout"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label 'Show grid'", "sleep 1.2", "tap --label 'Show list'", "sleep 1.2", "tap --label 'Show grid'", "sleep 1.2"]
+}

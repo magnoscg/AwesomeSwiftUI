@@ -1,0 +1,15 @@
+{
+  "id": "masonry-layout",
+  "name": "MasonryLayout",
+  "title": "Masonry Layout",
+  "category": "Layouts",
+  "summary": "A custom layout that places items of different heights into the shortest of several columns, like a Pinterest board.",
+  "keywords": {
+    "en": ["masonry", "pinterest", "waterfall", "custom layout", "columns", "grid", "staggered"],
+    "es": ["mampostería", "pinterest", "cascada", "diseño personalizado", "columnas", "cuadrícula"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Layout", "LayoutSubviews", "ProposedViewSize"],
+  "origin": { "kind": "original" }
+}
