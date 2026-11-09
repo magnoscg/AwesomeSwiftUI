@@ -1,0 +1,26 @@
+{
+  "id": "swipe-action-row",
+  "name": "SwipeActionRow",
+  "title": "Swipe Action Row",
+  "category": "Gestures",
+  "summary": "A row that reveals action buttons under a horizontal swipe and snaps open or closed.",
+  "keywords": {
+    "en": ["swipe", "row", "swipe actions", "delete", "archive", "list", "drag"],
+    "es": ["deslizar", "fila", "acciones", "borrar", "archivar", "lista", "arrastrar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "simultaneousGesture", "accessibilityActions"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 340 --start-y 185 --end-x 120 --end-y 185 --duration 0.3",
+    "sleep 1",
+    "tap -x 100 -y 185",
+    "sleep 0.5",
+    "swipe --start-x 340 --start-y 281 --end-x 120 --end-y 281 --duration 0.3",
+    "sleep 0.8",
+    "tap -x 346 -y 281",
+    "sleep 1.2"
+  ]
+}

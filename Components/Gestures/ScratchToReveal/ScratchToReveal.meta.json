@@ -1,0 +1,24 @@
+{
+  "id": "scratch-to-reveal",
+  "name": "ScratchToReveal",
+  "title": "Scratch To Reveal",
+  "category": "Gestures",
+  "summary": "A cover you scratch with a finger to uncover the content beneath it.",
+  "keywords": {
+    "en": ["scratch", "scratch card", "reveal", "lottery", "mask", "drag", "coupon"],
+    "es": ["rascar", "rasca y gana", "revelar", "lotería", "máscara", "arrastrar", "cupón"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "GraphicsContext.BlendMode", "DragGesture", "mask"],
+  "origin": { "kind": "inspired", "credit": "Kavsoft tutorials" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 40 --start-y 360 --end-x 362 --end-y 360 --duration 0.4",
+    "swipe --start-x 362 --start-y 405 --end-x 40 --end-y 405 --duration 0.4",
+    "swipe --start-x 40 --start-y 450 --end-x 362 --end-y 450 --duration 0.4",
+    "swipe --start-x 362 --start-y 495 --end-x 40 --end-y 495 --duration 0.4",
+    "swipe --start-x 40 --start-y 540 --end-x 362 --end-y 540 --duration 0.4",
+    "sleep 1.2"
+  ]
+}

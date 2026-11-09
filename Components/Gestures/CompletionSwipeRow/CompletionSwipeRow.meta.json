@@ -1,0 +1,47 @@
+{
+  "id": "completion-swipe-row",
+  "name": "CompletionSwipeRow",
+  "title": "Completion Swipe Row",
+  "category": "Gestures",
+  "summary": "A row you swipe to the right to complete, where a checkmark pops in and the row collapses.",
+  "keywords": {
+    "en": [
+      "swipe",
+      "row",
+      "complete",
+      "task",
+      "to do",
+      "checkmark",
+      "list"
+    ],
+    "es": [
+      "deslizar",
+      "fila",
+      "completar",
+      "tarea",
+      "pendiente",
+      "marca de verificación",
+      "lista"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "GestureState",
+    "withAnimation",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 40 --start-y 170 --end-x 120 --end-y 170 --duration 0.4",
+    "sleep 0.7",
+    "swipe --start-x 40 --start-y 170 --end-x 360 --end-y 170 --duration 0.5",
+    "sleep 1.2",
+    "swipe --start-x 40 --start-y 170 --end-x 360 --end-y 170 --duration 0.5",
+    "sleep 1.2"
+  ]
+}
