@@ -6,6 +6,11 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- 149 components, for 249 in all, in 35 categories, including charts, pickers,
+  calendars, chat, media, image viewers and on-device intelligence.
+
 ## 0.1.0 - 2026-11-09
 
 ### Added
