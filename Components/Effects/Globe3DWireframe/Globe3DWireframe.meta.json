@@ -1,0 +1,47 @@
+{
+  "id": "globe-3d-wireframe",
+  "name": "Globe3DWireframe",
+  "title": "Globe 3D Wireframe",
+  "category": "Effects",
+  "summary": "A wireframe globe drawn on a Canvas that spins by itself and turns and tilts as the finger drags it.",
+  "keywords": {
+    "en": [
+      "globe",
+      "3d",
+      "wireframe",
+      "sphere",
+      "earth",
+      "rotate",
+      "drag"
+    ],
+    "es": [
+      "globo",
+      "3d",
+      "malla",
+      "esfera",
+      "tierra",
+      "girar",
+      "arrastrar"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "TimelineView",
+    "DragGesture",
+    "GestureState"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 90 --start-y 451 --end-x 330 --end-y 451 --duration 0.9",
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 330 --end-x 201 --end-y 560 --duration 0.8",
+    "sleep 0.5",
+    "swipe --start-x 320 --start-y 520 --end-x 90 --end-y 380 --duration 0.9",
+    "sleep 0.6"
+  ]
+}

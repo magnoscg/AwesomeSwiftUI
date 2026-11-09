@@ -1,0 +1,30 @@
+{
+  "id": "floating-reactions-emitter",
+  "name": "FloatingReactionsEmitter",
+  "title": "Floating Reactions Emitter",
+  "category": "Effects",
+  "summary": "Emoji that float up from the tap point with a random drift and fade out.",
+  "keywords": {
+    "en": ["reactions", "emoji", "floating", "live", "hearts", "tap", "particles"],
+    "es": ["reacciones", "emoji", "flotante", "directo", "corazones", "toque", "partículas"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["TimelineView", "SpatialTapGesture", "position", "accessibilityAction"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap -x 200 -y 700",
+    "sleep 0.25",
+    "tap -x 120 -y 720",
+    "sleep 0.25",
+    "tap -x 280 -y 690",
+    "sleep 0.25",
+    "tap -x 200 -y 740",
+    "sleep 0.25",
+    "tap -x 150 -y 680",
+    "sleep 0.25",
+    "tap -x 260 -y 730",
+    "sleep 1.8"
+  ]
+}

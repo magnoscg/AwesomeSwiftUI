@@ -1,0 +1,37 @@
+{
+  "id": "flow-field-particles",
+  "name": "FlowFieldParticles",
+  "title": "Flow Field Particles",
+  "category": "Effects",
+  "summary": "Particles that drift along a smooth field of angles computed from position and time.",
+  "keywords": {
+    "en": [
+      "flow field",
+      "particles",
+      "generative",
+      "canvas",
+      "noise",
+      "ambient",
+      "animated background"
+    ],
+    "es": [
+      "campo de flujo",
+      "partículas",
+      "generativo",
+      "lienzo",
+      "ruido",
+      "ambiente",
+      "fondo animado"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "TimelineView",
+    "GraphicsContext"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

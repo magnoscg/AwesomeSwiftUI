@@ -1,0 +1,38 @@
+{
+  "id": "metaball-lava-lamp",
+  "name": "MetaballLavaLamp",
+  "title": "Metaball Lava Lamp",
+  "category": "Effects",
+  "summary": "Round blobs that merge and separate like a lava lamp, drawn with a blur and alpha threshold on a Canvas.",
+  "keywords": {
+    "en": [
+      "metaball",
+      "lava lamp",
+      "blobs",
+      "gooey",
+      "merge",
+      "canvas",
+      "alpha threshold"
+    ],
+    "es": [
+      "metabolas",
+      "lámpara de lava",
+      "manchas",
+      "gelatinoso",
+      "fusionar",
+      "lienzo",
+      "efecto líquido"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "TimelineView",
+    "GraphicsContext.Filter",
+    "mask"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "touch-particle-trail",
+  "name": "TouchParticleTrail",
+  "title": "Touch Particle Trail",
+  "category": "Effects",
+  "summary": "A trail of fading particles that follows the finger while it drags.",
+  "keywords": {
+    "en": [
+      "particles",
+      "trail",
+      "touch",
+      "finger",
+      "drag",
+      "sparkles",
+      "canvas"
+    ],
+    "es": [
+      "partículas",
+      "estela",
+      "toque",
+      "dedo",
+      "arrastrar",
+      "destellos",
+      "lienzo"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "TimelineView",
+    "DragGesture",
+    "simultaneousGesture"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.3",
+    "swipe --start-x 60 --start-y 240 --end-x 340 --end-y 360 --duration 0.8",
+    "sleep 0.3",
+    "swipe --start-x 340 --start-y 420 --end-x 60 --end-y 540 --duration 0.8",
+    "sleep 0.3",
+    "swipe --start-x 80 --start-y 660 --end-x 320 --end-y 590 --duration 0.8",
+    "sleep 0.6"
+  ]
+}
