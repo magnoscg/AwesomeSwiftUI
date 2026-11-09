@@ -108,7 +108,7 @@ struct SpotlightOverlayDemo: View {
                 .allowsHitTesting(false)
         }
         .ignoresSafeArea()
-        .task { await autoPlay() }
+        .task(id: reduceMotion) { await autoPlay() }
     }
 
     /// Only the demo moves the hole by itself, until the first touch.

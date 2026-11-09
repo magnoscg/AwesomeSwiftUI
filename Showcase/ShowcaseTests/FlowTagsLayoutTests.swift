@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
 
+import SwiftUI
 import Testing
 @testable import Showcase
 
@@ -31,6 +32,18 @@ struct FlowTagsLayoutTests {
         let lines = FlowTagsLayoutMath.lines(widths: [30, 200, 30], maxWidth: 100, spacing: 8)
 
         #expect(lines == [0..<1, 1..<2, 2..<3])
+    }
+
+    @MainActor
+    @Test func aTagWiderThanTheLayoutTakesItsWrappedHeight() throws {
+        let text = "A long tag that certainly has to wrap across several lines"
+        let layout = ImageRenderer(content: FlowTagsLayout { Text(text) }.frame(width: 100))
+        let plain = ImageRenderer(content: Text(text).frame(width: 100))
+
+        let layoutHeight = try #require(layout.uiImage).size.height
+        let plainHeight = try #require(plain.uiImage).size.height
+
+        #expect(layoutHeight == plainHeight)
     }
 
     @Test func unlimitedWidthKeepsOneLine() {

@@ -33,6 +33,21 @@ struct BottomDrawerTests {
         #expect(BottomDrawerSnapping.stop(from: 0.4, predictedDrag: -0.2, stops: []) == 0.4)
     }
 
+    @Test func aStepMovesToTheNeighbouringStop() {
+        #expect(BottomDrawerSnapping.stop(from: 0.5, step: 1, stops: stops) == 0.9)
+        #expect(BottomDrawerSnapping.stop(from: 0.5, step: -1, stops: stops) == 0.2)
+    }
+
+    @Test func aStepIsHeldAtTheEnds() {
+        #expect(BottomDrawerSnapping.stop(from: 0.9, step: 1, stops: stops) == 0.9)
+        #expect(BottomDrawerSnapping.stop(from: 0.2, step: -1, stops: stops) == 0.2)
+    }
+
+    @Test(arguments: [1, -1])
+    func aStepWithoutStopsKeepsTheCurrentValue(step: Int) {
+        #expect(BottomDrawerSnapping.stop(from: 0.4, step: step, stops: []) == 0.4)
+    }
+
     @Test func dragsAreHeldInsideTheStops() {
         #expect(BottomDrawerSnapping.clamped(1.2, stops: stops) == 0.9)
         #expect(BottomDrawerSnapping.clamped(0.1, stops: stops) == 0.2)

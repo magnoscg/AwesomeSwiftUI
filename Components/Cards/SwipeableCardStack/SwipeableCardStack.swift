@@ -16,6 +16,15 @@ enum SwipeableCardStackLogic {
         guard width > 0, abs(predictedEnd) >= width * threshold else { return nil }
         return predictedEnd > 0 ? .right : .left
     }
+
+    /// One swiped card still flying away, the top card and three behind it.
+    /// Empty when the deck shrank below the cards already swiped.
+    static func positions(top: Int, count: Int, loops: Bool) -> [Int] {
+        guard count > 0 else { return [] }
+        let start = max(top - 1, 0)
+        let end = loops ? top + 4 : min(top + 4, count)
+        return start < end ? Array(start..<end) : []
+    }
 }
 
 /// A deck of cards. Swipe the top one away to reveal the next.
@@ -32,17 +41,15 @@ struct SwipeableCardStack<Item, Card: View>: View {
     @State private var drag = CGSize.zero
     @State private var lastDirection = SwipeableCardStackDirection.right
     @State private var size = CGSize.zero
+    @GestureState private var isDragging = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var width: CGFloat { size.width }
 
     private var hasTopCard: Bool { !items.isEmpty && (loops || top < items.count) }
 
-    /// One swiped card still flying away, the top card and three behind it.
     private var positions: [Int] {
-        guard !items.isEmpty else { return [] }
-        let end = loops ? top + 4 : min(top + 4, items.count)
-        return Array(max(top - 1, 0)..<end)
+        SwipeableCardStackLogic.positions(top: top, count: items.count, loops: loops)
     }
 
     private var dragProgress: CGFloat {
@@ -69,6 +76,11 @@ struct SwipeableCardStack<Item, Card: View>: View {
         .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
         .contentShape(.rect)
         .gesture(dragGesture)
+        .onChange(of: isDragging) { _, dragging in
+            if !dragging {
+                withAnimation(reduceMotion ? .easeInOut(duration: 0.2) : .spring(duration: 0.4, bounce: 0.3)) { drag = .zero }
+            }
+        }
     }
 
     private func offset(of position: Int, depth: CGFloat) -> CGSize {
@@ -90,6 +102,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
 
     private var dragGesture: some Gesture {
         DragGesture(minimumDistance: 8)
+            .updating($isDragging) { _, state, _ in state = true }
             .onChanged { value in
                 if hasTopCard { drag = value.translation }
             }
@@ -97,8 +110,6 @@ struct SwipeableCardStack<Item, Card: View>: View {
                 let predictedEnd = value.predictedEndTranslation.width
                 if let direction = SwipeableCardStackLogic.direction(predictedEnd: predictedEnd, width: width, threshold: threshold) {
                     swipe(direction)
-                } else {
-                    withAnimation(.spring(duration: 0.4, bounce: 0.3)) { drag = .zero }
                 }
             }
     }

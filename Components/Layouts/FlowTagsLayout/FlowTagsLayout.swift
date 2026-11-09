@@ -35,7 +35,7 @@ struct FlowTagsLayout: Layout {
     var lineSpacing: CGFloat = 8
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
+        let sizes = measuredSizes(of: subviews, maxWidth: proposal.width ?? .infinity)
         let lines = FlowTagsLayoutMath.lines(widths: sizes.map(\.width), maxWidth: proposal.width ?? .infinity, spacing: spacing)
         let widest = lines.map { lineWidth($0, sizes: sizes) }.max() ?? 0
         let height = lines.reduce(0) { $0 + lineHeight($1, sizes: sizes) } + CGFloat(max(lines.count - 1, 0)) * lineSpacing
@@ -43,7 +43,7 @@ struct FlowTagsLayout: Layout {
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
+        let sizes = measuredSizes(of: subviews, maxWidth: bounds.width)
         var y = bounds.minY
 
         for line in FlowTagsLayoutMath.lines(widths: sizes.map(\.width), maxWidth: bounds.width, spacing: spacing) {
@@ -59,6 +59,14 @@ struct FlowTagsLayout: Layout {
                 x += sizes[index].width + spacing
             }
             y += height + lineSpacing
+        }
+    }
+
+    /// A view wider than the layout is measured at the width it gets, so its wrapped height counts.
+    private func measuredSizes(of subviews: Subviews, maxWidth: CGFloat) -> [CGSize] {
+        subviews.map { subview in
+            let ideal = subview.sizeThatFits(.unspecified)
+            return ideal.width > maxWidth ? subview.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil)) : ideal
         }
     }
 

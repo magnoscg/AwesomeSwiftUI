@@ -45,10 +45,10 @@ struct OTPCodeField: View {
         .animation(reduceMotion ? nil : .spring(duration: 0.3, bounce: 0.5), value: code)
         .onChange(of: code) { oldValue, newValue in
             let clean = OTPCodeFieldInput.sanitized(newValue, length: length)
+            if clean != newValue { code = clean }
             if clean.count == length, clean != OTPCodeFieldInput.sanitized(oldValue, length: length) {
                 onComplete?(clean)
             }
-            if clean != newValue { code = clean }
         }
     }
 

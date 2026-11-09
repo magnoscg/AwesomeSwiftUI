@@ -10,6 +10,14 @@ enum BottomDrawerSnapping {
         return stops.min { abs($0 - projected) < abs($1 - projected) } ?? current
     }
 
+    /// The stop `step` places away from `current`, held at the ends. With no stops it keeps `current`.
+    static func stop(from current: CGFloat, step: Int, stops: [CGFloat]) -> CGFloat {
+        let sorted = stops.sorted()
+        guard !sorted.isEmpty else { return current }
+        let index = sorted.firstIndex(of: current) ?? 0
+        return sorted[min(max(index + step, 0), sorted.count - 1)]
+    }
+
     /// Keeps the drawer between its lowest and highest stop while it is dragged.
     static func clamped(_ value: CGFloat, stops: [CGFloat]) -> CGFloat {
         guard let lowest = stops.min(), let highest = stops.max() else { return value }
@@ -81,8 +89,7 @@ struct BottomDrawer<Content: View>: View {
     private var sortedIndex: Int { sortedDetents.firstIndex(of: detent) ?? 0 }
 
     private func moveDetent(by step: Int) {
-        let index = min(max(sortedIndex + step, 0), sortedDetents.count - 1)
-        withAnimation(animation) { detent = sortedDetents[index] }
+        withAnimation(animation) { detent = BottomDrawerSnapping.stop(from: detent, step: step, stops: detents) }
     }
 
     private func dragGesture(total: CGFloat) -> some Gesture {

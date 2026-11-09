@@ -3,6 +3,13 @@
 
 import SwiftUI
 
+enum StickyParallaxHeaderMath {
+    /// How far the backdrop drifts up: half the scroll, stopping before its bottom edge shows.
+    static func drift(offset: CGFloat, fullHeight: CGFloat, height: CGFloat) -> CGFloat {
+        min(max(offset, 0) * 0.5, max(fullHeight - height, 0))
+    }
+}
+
 /// A header that stretches on overscroll, drifts at half speed and collapses into a pinned bar.
 ///
 /// `title` receives how collapsed the header is, from 0 to 1.
@@ -47,7 +54,7 @@ struct StickyParallaxHeader<Backdrop: View, Title: View, Content: View>: View {
         backdrop()
             .frame(maxWidth: .infinity)
             .frame(height: max(fullHeight, height))
-            .offset(y: reduceMotion ? 0 : -max(offset, 0) * 0.5)
+            .offset(y: reduceMotion ? 0 : -StickyParallaxHeaderMath.drift(offset: offset, fullHeight: fullHeight, height: height))
             .frame(height: height, alignment: .top)
             .clipped()
             .accessibilityHidden(true)

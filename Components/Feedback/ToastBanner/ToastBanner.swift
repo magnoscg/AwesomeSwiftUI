@@ -43,7 +43,7 @@ private struct ToastBannerModifier: ViewModifier {
                     ToastBanner(message: message, systemImage: systemImage, tint: tint)
                         .padding(.top, 8)
                         .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
-                        .task { await announceAndDismiss() }
+                        .task(id: message) { await announceAndDismiss() }
                 }
             }
             .animation(reduceMotion ? .easeInOut(duration: 0.2) : .spring(duration: 0.45, bounce: 0.3), value: isPresented)

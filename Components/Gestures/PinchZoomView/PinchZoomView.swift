@@ -41,6 +41,7 @@ struct PinchZoomView<Content: View>: View {
     @State private var offset = CGSize.zero
     @State private var drag = CGSize.zero
     @State private var size = CGSize.zero
+    @GestureState private var isGesturing = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var settle: Animation {
@@ -66,8 +67,14 @@ struct PinchZoomView<Content: View>: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(.rect)
             .clipped()
-            .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { newSize in
+                size = newSize
+                offset = PinchZoomViewMath.clampedOffset(offset, scale: scale, size: newSize)
+            }
             .gesture(zoomAndPan)
+            .onChange(of: isGesturing) { _, gesturing in
+                if !gesturing { settleGesture() }
+            }
             .onTapGesture(count: 2) { zoom(to: scale > minScale ? minScale : min(2, maxScale)) }
             .onChange(of: scale) { _, newScale in
                 withAnimation(settle) { offset = PinchZoomViewMath.clampedOffset(offset, scale: newScale, size: size) }
@@ -81,20 +88,25 @@ struct PinchZoomView<Content: View>: View {
     private var zoomAndPan: some Gesture {
         MagnifyGesture()
             .simultaneously(with: DragGesture(minimumDistance: 4))
+            .updating($isGesturing) { _, state, _ in state = true }
             .onChanged { value in
                 if let magnification = value.first?.magnification { pinch = magnification }
                 if let translation = value.second?.translation { drag = translation }
             }
-            .onEnded { _ in
-                let newScale = PinchZoomViewMath.clamp(scale * pinch, to: minScale...maxScale)
-                let target = CGSize(width: offset.width + drag.width, height: offset.height + drag.height)
-                withAnimation(settle) {
-                    scale = newScale
-                    pinch = 1
-                    drag = .zero
-                    offset = PinchZoomViewMath.clampedOffset(target, scale: newScale, size: size)
-                }
-            }
+            .onEnded { _ in settleGesture() }
+    }
+
+    /// Commits the live pinch and drag. A gesture the system cancels skips `onEnded`, so this
+    /// also runs when `isGesturing` resets. Running it twice changes nothing.
+    private func settleGesture() {
+        let newScale = PinchZoomViewMath.clamp(scale * pinch, to: minScale...maxScale)
+        let target = CGSize(width: offset.width + drag.width, height: offset.height + drag.height)
+        withAnimation(settle) {
+            scale = newScale
+            pinch = 1
+            drag = .zero
+            offset = PinchZoomViewMath.clampedOffset(target, scale: newScale, size: size)
+        }
     }
 
     private func zoom(to target: CGFloat) {

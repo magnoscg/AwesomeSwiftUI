@@ -68,10 +68,11 @@ struct ConcentricCardDemo: View {
             }
             .padding(24)
         }
-        .task {
+        .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(1.3))
+                guard !Task.isCancelled else { return }
                 withAnimation(.smooth(duration: 0.9)) { inset = inset == 8 ? 20 : 8 }
             }
         }

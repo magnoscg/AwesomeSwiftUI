@@ -13,7 +13,7 @@ struct TiltCard<Content: View>: View {
     var restingPoint: UnitPoint?
     @ViewBuilder var content: () -> Content
 
-    @State private var touchPoint: UnitPoint?
+    @GestureState private var touchPoint: UnitPoint?
     @State private var size = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -56,14 +56,13 @@ struct TiltCard<Content: View>: View {
 
     private var tilt: some Gesture {
         DragGesture(minimumDistance: 0)
-            .onChanged { value in
+            .updating($touchPoint) { value, state, _ in
                 guard size.width > 0, size.height > 0 else { return }
-                touchPoint = UnitPoint(
+                state = UnitPoint(
                     x: min(max(value.location.x / size.width, 0), 1),
                     y: min(max(value.location.y / size.height, 0), 1)
                 )
             }
-            .onEnded { _ in touchPoint = nil }
     }
 }
 

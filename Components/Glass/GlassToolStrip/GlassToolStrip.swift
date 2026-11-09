@@ -27,6 +27,18 @@ struct GlassToolStrip: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
+        // Scrolls only when Dynamic Type makes the row wider than the space it has.
+        ViewThatFits(in: .horizontal) {
+            strip
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                strip
+            }
+            .scrollClipDisabled()
+        }
+    }
+
+    private var strip: some View {
         GlassEffectContainer(spacing: 10) {
             HStack(spacing: 14) {
                 ForEach(tools) { tool in

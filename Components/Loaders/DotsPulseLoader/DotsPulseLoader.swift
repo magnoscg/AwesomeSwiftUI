@@ -18,7 +18,7 @@ struct DotsPulseLoader: View {
             if reduceMotion {
                 dots(activeIndex: nil)
             } else {
-                PhaseAnimator(Array(0..<max(dotCount, 1))) { index in
+                PhaseAnimator(Array(0..<max(dotCount, 2))) { index in
                     dots(activeIndex: index)
                 } animation: { _ in
                     .easeInOut(duration: 0.32)

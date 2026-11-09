@@ -64,6 +64,17 @@ struct RatingStarsDemo: View {
     @State private var rating = 0
     @State private var isAutoPlaying = true
 
+    /// Any change made by the user, by touch or VoiceOver, ends the automatic rating.
+    private var userRating: Binding<Int> {
+        Binding(
+            get: { rating },
+            set: { newValue in
+                isAutoPlaying = false
+                rating = newValue
+            }
+        )
+    }
+
     private var caption: String {
         ["Tap a star", "Terrible", "Not great", "It was fine", "Really good", "Loved it"][rating]
     }
@@ -83,8 +94,7 @@ struct RatingStarsDemo: View {
                 Text("How was your dinner?")
                     .font(.title2.bold())
 
-                RatingStars(rating: $rating)
-                    .simultaneousGesture(TapGesture().onEnded { isAutoPlaying = false })
+                RatingStars(rating: userRating)
 
                 Text(caption)
                     .font(.headline)

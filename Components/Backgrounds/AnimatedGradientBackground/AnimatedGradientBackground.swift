@@ -3,6 +3,13 @@
 
 import SwiftUI
 
+enum AnimatedGradientBackgroundMath {
+    /// The palette index for a position, also when a negative speed runs time backwards.
+    static func index(at position: Double, count: Int) -> Int {
+        (Int(floor(position)) % count + count) % count
+    }
+}
+
 /// A linear gradient whose colors drift along it while its direction slowly turns.
 ///
 /// With Reduce Motion on, it shows a still gradient.
@@ -35,7 +42,7 @@ struct AnimatedGradientBackground: View {
 
         return colors.indices.map { index in
             let position = time + Double(index)
-            let lower = Int(floor(position)) % colors.count
+            let lower = AnimatedGradientBackgroundMath.index(at: position, count: colors.count)
             let upper = (lower + 1) % colors.count
             return colors[lower].mix(with: colors[upper], by: position - floor(position))
         }

@@ -3,6 +3,14 @@
 
 import SwiftUI
 
+enum GridPulseBackgroundMath {
+    /// How many dots fit on each side of the center, or `nil` when `spacing` cannot lay out a grid.
+    static func dotsPerSide(extent: Double, spacing: Double) -> Int? {
+        guard spacing.isFinite, spacing > 0 else { return nil }
+        return Int(extent / 2 / spacing) + 1
+    }
+}
+
 /// A grid of dots with a pulse of light spreading from the center.
 ///
 /// With Reduce Motion on, it shows one still ring.
@@ -32,10 +40,13 @@ struct GridPulseBackground: View {
     }
 
     private func draw(progress: Double, in context: GraphicsContext, size: CGSize) {
+        guard
+            let columns = GridPulseBackgroundMath.dotsPerSide(extent: size.width, spacing: spacing),
+            let rows = GridPulseBackgroundMath.dotsPerSide(extent: size.height, spacing: spacing)
+        else { return }
+
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         let front = progress * (hypot(size.width, size.height) / 2 + Self.bandWidth)
-        let columns = Int(size.width / 2 / spacing) + 1
-        let rows = Int(size.height / 2 / spacing) + 1
         var resting = Path()
 
         for row in -rows...rows {

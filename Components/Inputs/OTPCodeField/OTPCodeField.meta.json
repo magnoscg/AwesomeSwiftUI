@@ -5,16 +5,39 @@
   "category": "Inputs",
   "summary": "A one-time code field with one box per digit, backed by a single hidden text field.",
   "keywords": {
-    "en": ["otp", "one-time code", "verification", "code entry", "pin", "digits", "text field"],
-    "es": ["código de un solo uso", "verificación", "código", "pin", "dígitos", "campo de texto", "autenticación"]
+    "en": [
+      "otp",
+      "one-time code",
+      "verification",
+      "code entry",
+      "pin",
+      "digits",
+      "text field"
+    ],
+    "es": [
+      "código de un solo uso",
+      "verificación",
+      "código",
+      "pin",
+      "dígitos",
+      "campo de texto",
+      "autenticación"
+    ]
   },
   "difficulty": "intermediate",
   "minIOS": "18.0",
-  "apis": ["TextField", "textContentType", "FocusState", "ScaledMetric"],
-  "origin": { "kind": "original" },
+  "apis": [
+    "TextField",
+    "textContentType",
+    "FocusState",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  },
   "previewSteps": [
     "sleep 0.5",
-    "tap --label Code",
+    "touch -x 201 -y 513 --down --up",
     "sleep 0.8",
     "type 4",
     "sleep 0.3",

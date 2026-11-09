@@ -22,6 +22,8 @@ struct SubviewCardContainer<Content: View>: View {
     var spacing: CGFloat = 12
     @ViewBuilder var content: Content
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         VStack(spacing: spacing) {
             ForEach(subviews: content) { subview in
@@ -40,7 +42,7 @@ struct SubviewCardContainer<Content: View>: View {
                             .padding(.leading, 8)
                             .accessibilityHidden(true)
                     }
-                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    .transition(reduceMotion ? .opacity : .scale(scale: 0.9).combined(with: .opacity))
             }
         }
     }

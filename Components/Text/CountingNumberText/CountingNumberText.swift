@@ -3,6 +3,15 @@
 
 import SwiftUI
 
+enum CountingNumberTextMath {
+    /// The number at `progress`, from 0 to 1. Works in `Double`, so extreme values cannot overflow.
+    static func value(from: Int, to: Int, progress: Double) -> Int {
+        guard progress < 1 else { return to }
+        let exact = (Double(from) + (Double(to) - Double(from)) * progress).rounded()
+        return Int(exactly: exact) ?? (exact > 0 ? .max : .min)
+    }
+}
+
 /// A number that counts to its new value, with its digits rolling into place.
 ///
 /// With Reduce Motion on, it jumps straight to the value.
@@ -38,7 +47,7 @@ struct CountingNumberText: View {
 
             let eased = 1 - pow(1 - Double(step) / Double(steps), 3)
             withAnimation(.snappy(duration: 0.2)) {
-                shown = from + Int((Double(value - from) * eased).rounded())
+                shown = CountingNumberTextMath.value(from: from, to: value, progress: eased)
             }
         }
     }

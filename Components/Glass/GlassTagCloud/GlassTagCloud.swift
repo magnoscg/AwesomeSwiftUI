@@ -135,20 +135,31 @@ struct GlassTagCloudDemo: View {
             LinearGradient(colors: [.indigo, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
 
-            VStack(alignment: .leading, spacing: 32) {
-                Text("Pick your interests")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+            // Scrolls only when Dynamic Type makes the content taller than the screen.
+            ViewThatFits(in: .vertical) {
+                content
 
-                GlassTagCloud(tags: tags, selection: $selection, spacing: isTight ? 3 : 18)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                Toggle("Tight spacing", isOn: $isTight.animation(reduceMotion ? nil : .smooth(duration: 0.7)))
-                    .font(.headline)
-                    .foregroundStyle(.white)
+                ScrollView {
+                    content
+                }
             }
-            .padding(24)
         }
+    }
+
+    private var content: some View {
+        VStack(alignment: .leading, spacing: 32) {
+            Text("Pick your interests")
+                .font(.largeTitle.bold())
+                .foregroundStyle(.white)
+
+            GlassTagCloud(tags: tags, selection: $selection, spacing: isTight ? 3 : 18)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            Toggle("Tight spacing", isOn: $isTight.animation(reduceMotion ? nil : .smooth(duration: 0.7)))
+                .font(.headline)
+                .foregroundStyle(.white)
+        }
+        .padding(24)
     }
 }
 

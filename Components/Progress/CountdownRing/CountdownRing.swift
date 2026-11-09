@@ -40,6 +40,7 @@ struct CountdownRing: View {
     var onFinish: (() -> Void)? = nil
 
     @State private var isFinished = false
+    @State private var notifiedEndDate: Date?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -90,6 +91,8 @@ struct CountdownRing: View {
             }
             guard !Task.isCancelled else { return }
             isFinished = true
+            guard notifiedEndDate != endDate else { return }
+            notifiedEndDate = endDate
             onFinish?()
         }
     }
