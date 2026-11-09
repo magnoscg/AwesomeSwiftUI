@@ -17,6 +17,10 @@ struct CountingNumberTextTests {
         #expect(CountingNumberTextMath.value(from: .max, to: .max - 1, progress: 0.5) == .max)
     }
 
+    @Test func roundingNearTheLimitStaysBetweenTheEndpoints() {
+        #expect(CountingNumberTextMath.value(from: .max - 100, to: .max - 99, progress: 0.1) == .max - 99)
+    }
+
     @Test func theWidestRangeDoesNotOverflow() {
         #expect(CountingNumberTextMath.value(from: .min, to: 0, progress: 0.5) == .min / 2)
         #expect(CountingNumberTextMath.value(from: .min, to: .max, progress: 0.5) == 0)

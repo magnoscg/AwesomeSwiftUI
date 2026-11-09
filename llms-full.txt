@@ -9530,7 +9530,8 @@ enum CountingNumberTextMath {
     static func value(from: Int, to: Int, progress: Double) -> Int {
         guard progress < 1 else { return to }
         let exact = (Double(from) + (Double(to) - Double(from)) * progress).rounded()
-        return Int(exactly: exact) ?? (exact > 0 ? .max : .min)
+        let sample = Int(exactly: exact) ?? (exact > 0 ? .max : .min)
+        return min(max(sample, min(from, to)), max(from, to))
     }
 }
 

@@ -204,6 +204,10 @@ describe('the order of the catalog', () => {
 });
 
 describe('invalid components', () => {
+  it('rejects a category name that would break its links', () => {
+    assertRejected({ category: 'Cards#Demo', metadata: meta({ category: 'Cards#Demo' }) }, /must be one word/);
+  });
+
   it('rejects a folder without metadata', () => {
     assertRejected({ metadata: null }, /missing GlowButton\.meta\.json/);
   });
@@ -577,6 +581,16 @@ describe('generated files', () => {
     const root = makeRoot('No markers\n');
 
     assert.throws(() => renderOutputs(root, []), /must contain <!-- catalog:start -->/);
+  });
+
+  it('reports the leftover page of a removed category as stale', () => {
+    const root = makeRoot();
+    mkdirSync(join(root, 'catalog'));
+    writeFileSync(join(root, 'catalog/Old.md'), 'gone');
+    writeFileSync(join(root, 'catalog/Kept.md'), 'same');
+    const outputs = new Map([['catalog/Kept.md', 'same']]);
+
+    assert.deepEqual(findStale(root, outputs), ['catalog/Old.md']);
   });
 
   it('reports missing and outdated files as stale', () => {

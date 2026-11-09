@@ -152,6 +152,9 @@ function validateMeta(meta, relative, category, name, errors) {
   if (isText(meta.name) && meta.name !== name) {
     fail(`"name" must match the folder ${name}, got "${meta.name}"`);
   }
+  if (!/^[A-Z][A-Za-z0-9]*$/.test(category)) {
+    fail(`the category folder must be one word of letters and numbers, got "${category}"`);
+  }
   if (isText(meta.category) && meta.category !== category) {
     fail(`"category" must match the folder ${category}, got "${meta.category}"`);
   }
@@ -457,6 +460,13 @@ export function findStale(root, outputs) {
   for (const [path, content] of outputs) {
     const file = join(root, path);
     if (!existsSync(file) || readFileSync(file, 'utf8') !== content) stale.push(path);
+  }
+  const pages = join(root, CATEGORY_PAGES);
+  if (existsSync(pages)) {
+    for (const file of readdirSync(pages).sort(compareText)) {
+      const path = `${CATEGORY_PAGES}/${file}`;
+      if (!outputs.has(path)) stale.push(path);
+    }
   }
   return stale;
 }

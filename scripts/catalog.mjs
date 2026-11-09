@@ -58,6 +58,7 @@ if (command === 'generate') {
     rmSync(join(root, dirname(component.path)), { recursive: true, force: true });
     rmSync(join(root, `Showcase/ShowcaseTests/${component.name}Tests.swift`), { force: true });
   }
+  rmSync(join(root, CATEGORY_PAGES), { recursive: true, force: true });
   for (const [path, content] of renderOutputs(root, loadCatalog(root).components)) write(path, content);
   console.log(`Removed ${removed.length} component(s) that need more than iOS ${pruneMajor}.`);
 } else {
