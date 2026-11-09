@@ -1,0 +1,46 @@
+{
+  "id": "expandable-info-card",
+  "name": "ExpandableInfoCard",
+  "title": "Expandable Info Card",
+  "category": "Cards",
+  "summary": "A card that expands to show more, with a chevron that turns.",
+  "keywords": {
+    "en": [
+      "expandable",
+      "accordion",
+      "disclosure",
+      "collapse",
+      "chevron",
+      "card",
+      "faq"
+    ],
+    "es": [
+      "desplegable",
+      "acordeón",
+      "expandir",
+      "contraer",
+      "tarjeta",
+      "preguntas frecuentes"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "withAnimation",
+    "transition",
+    "rotationEffect",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Shipping",
+    "sleep 1.2",
+    "tap --label Warranty",
+    "sleep 1.2",
+    "tap --label Shipping",
+    "sleep 1.2"
+  ]
+}
