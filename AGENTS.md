@@ -15,7 +15,7 @@ easy to copy matters as much as the code itself.
 
 | Path | What lives there | State |
 |---|---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.gif` | Planned |
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp` | Planned |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata | In place |
 | `scripts/` | Validates the components and generates the files below | In place |
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
@@ -34,6 +34,7 @@ dependencies.
 make catalog         # rewrite the generated files after changing a component
 make check           # fail if a component breaks a rule or a generated file is stale
 make test            # the tests of the catalog tooling
+make preview         # turn a recording into a component's preview
 make showcase-build  # compile the Showcase app and every component
 make showcase-test   # run the Swift Testing suite in the simulator
 make verify          # check, test and showcase-test
@@ -93,6 +94,24 @@ anything else:
 8. **Keep names unique.** Every file name in `Components/` must be unique,
    because the Showcase app compiles the whole folder as one target.
 9. **Internal by default.** No `public`: the code lands inside someone's app.
+10. **An animated preview.** Every component has a `<Name>.webp` that shows it
+    moving, used by the README and the site. `make check` rejects a missing or
+    still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
+    the size, full color with no banding in gradients or glass, and GitHub
+    renders it in Markdown, which it does not do for a committed video.
+
+## Recording a preview
+
+You need `ffmpeg` and `webp` (`brew install ffmpeg webp`). Run the component in
+the Showcase on an iOS version it supports, then:
+
+```sh
+xcrun simctl io booted recordVideo recording.mov   # Ctrl-C to stop
+make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
+```
+
+Keep it to the 2 to 5 seconds that show the effect, and do not commit the
+recording. The command resizes it to 320 pixels wide at 20 frames per second.
 
 ## Rules for tests
 
