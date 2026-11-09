@@ -1,0 +1,15 @@
+{
+  "id": "polygon-morph-shape",
+  "name": "PolygonMorphShape",
+  "title": "Polygon Morph Shape",
+  "category": "Drawing",
+  "summary": "A shape that smoothly morphs between a square, a circle and a star using a custom animatable vector.",
+  "keywords": {
+    "en": ["shape", "morph", "polygon", "star", "animatable", "vector arithmetic", "path"],
+    "es": ["forma", "transformación", "polígono", "estrella", "animable", "vector", "trazado"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Shape", "animatableData", "VectorArithmetic", "Path"],
+  "origin": { "kind": "original" }
+}
