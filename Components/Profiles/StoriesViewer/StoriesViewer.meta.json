@@ -1,0 +1,47 @@
+{
+  "id": "stories-viewer",
+  "name": "StoriesViewer",
+  "title": "Stories Viewer",
+  "category": "Profiles",
+  "summary": "A full-screen story pager with segmented progress bars, tap to move and hold to pause.",
+  "keywords": {
+    "en": [
+      "stories",
+      "story viewer",
+      "instagram",
+      "progress bars",
+      "pager",
+      "full screen",
+      "hold to pause"
+    ],
+    "es": [
+      "historias",
+      "visor de historias",
+      "instagram",
+      "barras de progreso",
+      "paginador",
+      "pantalla completa",
+      "mantener para pausar"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "ButtonStyle",
+    "task(id:)",
+    "accessibilityVoiceOverEnabled"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap --label 'Next story'",
+    "sleep 1.2",
+    "tap --label 'Next story'",
+    "sleep 1.2",
+    "tap --label 'Previous story'",
+    "sleep 1"
+  ]
+}
