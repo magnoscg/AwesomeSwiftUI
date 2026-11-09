@@ -297,6 +297,25 @@ export function previewPlan(component) {
   return { record: true, steps: [`sleep ${DEFAULT_PREVIEW_SECONDS}`] };
 }
 
+// Picks the booted iOS simulator with the newest runtime from `simctl list -j`.
+export function newestSimulator(devicesByRuntime) {
+  const simulators = Object.entries(devicesByRuntime).flatMap(([runtime, devices]) => {
+    const match = runtime.match(/iOS-(\d+)-(\d+)/);
+    if (!match) return [];
+    return devices.map((device) => ({ udid: device.udid, version: [Number(match[1]), Number(match[2])] }));
+  });
+  simulators.sort((a, b) => compareVersions(b.version, a.version));
+  return simulators[0] ?? null;
+}
+
+export function simulatorSupports(version, minIOS) {
+  return compareVersions(version, minIOS.split('.').map(Number)) >= 0;
+}
+
+function compareVersions([majorA, minorA], [majorB, minorB]) {
+  return majorA - majorB || minorA - minorB;
+}
+
 // Returns the components that need a newer iOS than the given major version.
 export function componentsNewerThan(components, major) {
   return components.filter((component) => Number(component.minIOS.split('.')[0]) > major);

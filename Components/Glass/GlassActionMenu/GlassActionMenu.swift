@@ -16,6 +16,11 @@ struct GlassActionItem: Identifiable {
 /// With Reduce Motion on, the actions appear without morphing.
 @available(iOS 26, *)
 struct GlassActionMenu: View {
+    private enum GlassID: Hashable, Sendable {
+        case toggle
+        case item(String)
+    }
+
     let items: [GlassActionItem]
 
     @State private var isExpanded = false
@@ -34,7 +39,7 @@ struct GlassActionMenu: View {
             VStack(spacing: 14) {
                 if isExpanded {
                     ForEach(items) { item in
-                        glassButton(id: item.id, systemImage: item.systemImage, label: item.title) {
+                        glassButton(id: .item(item.id), systemImage: item.systemImage, label: item.title) {
                             withAnimation(animation) { isExpanded = false }
                             item.action()
                         }
@@ -42,7 +47,7 @@ struct GlassActionMenu: View {
                 }
 
                 glassButton(
-                    id: "toggle",
+                    id: .toggle,
                     systemImage: "plus",
                     label: isExpanded ? "Close actions" : "Show actions",
                     rotation: isExpanded ? 45 : 0
@@ -51,10 +56,12 @@ struct GlassActionMenu: View {
                 }
             }
         }
+        // The buttons only hold icons. Capping their growth keeps a tall stack on screen.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private func glassButton(
-        id: String,
+        id: GlassID,
         systemImage: String,
         label: String,
         rotation: Double = 0,

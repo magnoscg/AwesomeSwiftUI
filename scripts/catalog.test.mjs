@@ -8,9 +8,11 @@ import {
   docsAssets,
   findStale,
   loadCatalog,
+  newestSimulator,
   previewPlan,
   renderDocsPages,
   renderOutputs,
+  simulatorSupports,
 } from './catalog-lib.mjs';
 
 const README = 'Intro\n\n<!-- catalog:start -->\n\nold\n\n<!-- catalog:end -->\n\nOutro\n';
@@ -420,15 +422,44 @@ describe('recording a preview', () => {
     assertRejected({ metadata: meta({ previewManual: false }) }, /"previewManual" can only be true/);
   });
 
-  it('keeps the recording fields out of the public catalog', () => {
-    const root = makeRoot();
-    addComponent(root, { metadata: meta({ previewSteps: ['sleep 1'] }) });
+  for (const [field, value] of [['previewSteps', ['sleep 1']], ['previewManual', true]]) {
+    it(`keeps ${field} out of the public catalog`, () => {
+      const root = makeRoot();
+      addComponent(root, { metadata: meta({ [field]: value }) });
 
-    const [entry] = JSON.parse(renderOutputs(root, loadCatalog(root).components).get('catalog.json')).components;
+      const [entry] = JSON.parse(renderOutputs(root, loadCatalog(root).components).get('catalog.json')).components;
 
-    assert.equal(entry.previewSteps, undefined);
-    assert.equal(entry.previewManual, undefined);
+      assert.equal(entry[field], undefined);
+    });
+  }
+
+  it('picks the booted simulator with the newest iOS', () => {
+    const devices = {
+      'com.apple.CoreSimulator.SimRuntime.iOS-18-5': [{ udid: 'old' }],
+      'com.apple.CoreSimulator.SimRuntime.iOS-27-2': [{ udid: 'new' }],
+      'com.apple.CoreSimulator.SimRuntime.watchOS-27-0': [{ udid: 'watch' }],
+    };
+
+    assert.deepEqual(newestSimulator(devices), { udid: 'new', version: [27, 2] });
   });
+
+  it('finds no simulator when none is booted', () => {
+    assert.equal(newestSimulator({}), null);
+  });
+
+  const supported = [
+    [[27, 2], '27.0', true],
+    [[27, 0], '27.0', true],
+    [[26, 5], '27.0', false],
+    [[18, 5], '26.0', false],
+    [[27, 0], '27.2', false],
+  ];
+
+  for (const [version, minIOS, expected] of supported) {
+    it(`${expected ? 'allows' : 'refuses'} iOS ${minIOS} on a ${version.join('.')} simulator`, () => {
+      assert.equal(simulatorSupports(version, minIOS), expected);
+    });
+  }
 });
 
 describe('components for an older SDK', () => {

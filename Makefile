@@ -22,7 +22,7 @@ preview:
 
 # make record COMPONENT=Buttons/PressableButtonStyle, or every component without it.
 record: showcase-build
-	node scripts/record-preview.mjs $(COMPONENT)
+	node scripts/record-preview.mjs $(if $(COMPONENT),'$(COMPONENT)')
 
 # Builds the documentation site into docs/dist.
 docs:
