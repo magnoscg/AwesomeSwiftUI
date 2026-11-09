@@ -1,0 +1,30 @@
+name: New component
+description: Propose a component, animation or transition for the catalog.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should it do?
+      description: What it looks like and when you would use it. A link to a video or a sketch helps.
+    validations:
+      required: true
+  - type: input
+    id: minimum
+    attributes:
+      label: Minimum iOS, and the API that needs it
+      placeholder: iOS 18, for MeshGradient
+  - type: textarea
+    id: origin
+    attributes:
+      label: Where does the idea or the code come from?
+      description: Say if it is original, inspired by something or adapted from code. Link the source and its license.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: The catalog's rules
+      options:
+        - label: It can be written as a self-contained file, and all of its code may be redistributed.
+          required: true
