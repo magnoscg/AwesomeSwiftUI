@@ -1,0 +1,51 @@
+{
+  "id": "breadcrumb-trail",
+  "name": "BreadcrumbTrail",
+  "title": "Breadcrumb Trail",
+  "category": "Navigation",
+  "summary": "A breadcrumb path that moves its middle crumbs into a menu when it runs out of width.",
+  "keywords": {
+    "en": [
+      "breadcrumb",
+      "path",
+      "trail",
+      "hierarchy",
+      "folders",
+      "collapse",
+      "ellipsis"
+    ],
+    "es": [
+      "migas de pan",
+      "ruta",
+      "jerarquía",
+      "carpetas",
+      "colapsar",
+      "puntos suspensivos"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ViewThatFits",
+    "Menu",
+    "ScrollView"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Open",
+    "sleep 0.7",
+    "tap --label Open",
+    "sleep 0.7",
+    "tap --label Open",
+    "sleep 0.7",
+    "tap --label Open",
+    "sleep 0.9",
+    "tap --label More",
+    "sleep 1",
+    "tap --label Projects",
+    "sleep 1.2"
+  ]
+}

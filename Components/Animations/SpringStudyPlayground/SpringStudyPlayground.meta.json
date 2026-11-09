@@ -1,0 +1,48 @@
+{
+  "id": "spring-study-playground",
+  "name": "SpringStudyPlayground",
+  "title": "Spring Study Playground",
+  "category": "Animations",
+  "summary": "Sliders for response and damping that show how a spring moves a view and draw its curve.",
+  "keywords": {
+    "en": [
+      "spring",
+      "playground",
+      "response",
+      "damping",
+      "bounce",
+      "animation curve",
+      "slider"
+    ],
+    "es": [
+      "muelle",
+      "resorte",
+      "amortiguación",
+      "rebote",
+      "curva de animación",
+      "deslizador"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Spring",
+    "Animation.spring",
+    "Slider",
+    "Shape"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Bouncy",
+    "sleep 1.6",
+    "tap --label Stiff",
+    "sleep 0.9",
+    "tap --label Smooth",
+    "sleep 1.4",
+    "tap --label Bouncy",
+    "sleep 1.2"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "emoji-picker",
+  "name": "EmojiPicker",
+  "title": "Emoji Picker",
+  "category": "Pickers",
+  "summary": "A grid of emoji grouped by category, with tabs that jump between sections and a row of recent picks.",
+  "keywords": {
+    "en": [
+      "emoji",
+      "picker",
+      "grid",
+      "smileys",
+      "keyboard",
+      "recent",
+      "reactions"
+    ],
+    "es": [
+      "emoji",
+      "selector",
+      "cuadrícula",
+      "caritas",
+      "teclado",
+      "recientes",
+      "reacciones"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyVGrid",
+    "ScrollViewReader",
+    "onScrollTargetVisibilityChange",
+    "scrollTargetLayout"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap -x 90 -y 340",
+    "sleep 0.8",
+    "tap -x 200 -y 460",
+    "sleep 0.8",
+    "tap --label Animals",
+    "sleep 1.2",
+    "tap -x 140 -y 500",
+    "sleep 0.8",
+    "tap --label Flags",
+    "sleep 1.2"
+  ]
+}

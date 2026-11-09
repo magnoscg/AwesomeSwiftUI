@@ -1,0 +1,16 @@
+{
+  "id": "kanban-board",
+  "name": "KanbanBoard",
+  "title": "Kanban Board",
+  "category": "Layouts",
+  "summary": "Columns of cards that the user drags from one column to another.",
+  "keywords": {
+    "en": ["kanban", "board", "drag and drop", "columns", "cards", "tasks", "trello"],
+    "es": ["kanban", "tablero", "arrastrar y soltar", "columnas", "tarjetas", "tareas"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["draggable(_:preview:)", "dropDestination(for:action:isTargeted:)", "accessibilityActions(_:)", "contextMenu(menuItems:)"],
+  "origin": { "kind": "inspired", "credit": "Public web component registries" },
+  "previewManual": true
+}

@@ -1,0 +1,16 @@
+{
+  "id": "multi-step-form",
+  "name": "MultiStepForm",
+  "title": "Multi Step Form",
+  "category": "Inputs",
+  "summary": "A multi-step form with a progress bar that moves forward only when the current step is valid.",
+  "keywords": {
+    "en": ["form", "wizard", "steps", "stepper", "onboarding", "validation", "progress"],
+    "es": ["formulario", "asistente", "pasos", "validación", "progreso", "registro"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["AnyTransition", "ViewThatFits", "ScrollView", "withAnimation"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label 'Pro plan'", "sleep 0.4", "tap --label Continue", "sleep 0.7", "tap --label Monday", "sleep 0.4", "tap --label Continue", "sleep 0.7", "tap --label 'Accept the terms'", "sleep 0.5", "tap --label Finish", "sleep 1"]
+}

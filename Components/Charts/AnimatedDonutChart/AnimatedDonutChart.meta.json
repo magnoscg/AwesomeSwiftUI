@@ -1,0 +1,37 @@
+{
+  "id": "animated-donut-chart",
+  "name": "AnimatedDonutChart",
+  "title": "Animated Donut Chart",
+  "category": "Charts",
+  "summary": "A donut chart whose segments grow in one by one, and the selected segment lifts out.",
+  "keywords": {
+    "en": [
+      "donut chart",
+      "pie chart",
+      "chart",
+      "swift charts",
+      "segments",
+      "selection",
+      "spending"
+    ],
+    "es": [
+      "gráfico de donut",
+      "gráfico circular",
+      "gráfica",
+      "sectores",
+      "selección",
+      "gastos"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Chart",
+    "SectorMark",
+    "chartAngleSelection"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  }
+}

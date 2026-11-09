@@ -1,0 +1,47 @@
+{
+  "id": "animated-checkmark-badge",
+  "name": "AnimatedCheckmarkBadge",
+  "title": "Animated Checkmark Badge",
+  "category": "Feedback",
+  "summary": "A success badge where a circle springs in and the checkmark draws itself inside it.",
+  "keywords": {
+    "en": [
+      "checkmark",
+      "success",
+      "badge",
+      "done",
+      "confirmation",
+      "trim",
+      "haptic"
+    ],
+    "es": [
+      "marca de verificación",
+      "éxito",
+      "insignia",
+      "hecho",
+      "confirmación",
+      "trazo",
+      "háptica"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "trim",
+    "scaleEffect",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Confirm",
+    "sleep 1.4",
+    "tap --label Undo",
+    "sleep 0.6",
+    "tap --label Confirm",
+    "sleep 1.4"
+  ]
+}

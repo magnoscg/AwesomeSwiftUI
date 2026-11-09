@@ -1,0 +1,37 @@
+{
+  "id": "jiggle-edit-modifier",
+  "name": "JiggleEditModifier",
+  "title": "Jiggle Edit Modifier",
+  "category": "Effects",
+  "summary": "A view modifier that makes views wobble slightly, like app icons in edit mode.",
+  "keywords": {
+    "en": [
+      "jiggle",
+      "wobble",
+      "shake",
+      "edit mode",
+      "home screen",
+      "icons",
+      "modifier"
+    ],
+    "es": [
+      "temblor",
+      "sacudir",
+      "vibrar",
+      "modo edición",
+      "pantalla de inicio",
+      "iconos",
+      "modificador"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ViewModifier",
+    "TimelineView",
+    "rotationEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "blur-up-image",
+  "name": "BlurUpImage",
+  "title": "Blur Up Image",
+  "category": "Images",
+  "summary": "An image that goes from a blurred preview into sharp focus once the full picture arrives.",
+  "keywords": {
+    "en": ["blur up", "progressive image", "placeholder", "async image", "loading", "lazy image"],
+    "es": ["desenfoque", "imagen progresiva", "marcador de posición", "imagen asíncrona", "carga", "enfocar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["AsyncImage", "blur", "Transition"],
+  "origin": { "kind": "original" }
+}

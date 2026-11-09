@@ -1,0 +1,45 @@
+{
+  "id": "interactive-line-chart",
+  "name": "InteractiveLineChart",
+  "title": "Interactive Line Chart",
+  "category": "Charts",
+  "summary": "A line chart that shows a rule and a value tooltip under the finger as it scrubs along the time axis.",
+  "keywords": {
+    "en": [
+      "line chart",
+      "swift charts",
+      "scrubbing",
+      "tooltip",
+      "selection",
+      "stocks",
+      "time series"
+    ],
+    "es": [
+      "gráfico de líneas",
+      "gráfica",
+      "recorrer con el dedo",
+      "globo informativo",
+      "selección",
+      "serie temporal"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Chart",
+    "LineMark",
+    "RuleMark",
+    "PointMark",
+    "chartXSelection"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 50 --start-y 480 --end-x 350 --end-y 480 --duration 1.6",
+    "sleep 0.3",
+    "swipe --start-x 350 --start-y 480 --end-x 110 --end-y 480 --duration 1.2",
+    "sleep 0.5"
+  ]
+}

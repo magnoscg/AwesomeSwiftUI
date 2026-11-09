@@ -1,0 +1,49 @@
+{
+  "id": "inline-date-picker-disclosure",
+  "name": "InlineDatePickerDisclosure",
+  "title": "Inline Date Picker Disclosure",
+  "category": "Pickers",
+  "summary": "A date row that opens in place into a calendar and closes again once a day is chosen.",
+  "keywords": {
+    "en": [
+      "date picker",
+      "calendar",
+      "disclosure",
+      "inline",
+      "expand",
+      "collapse",
+      "date"
+    ],
+    "es": [
+      "selector de fecha",
+      "calendario",
+      "desplegable",
+      "en línea",
+      "expandir",
+      "colapsar",
+      "fecha"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DatePicker",
+    "graphical",
+    "withAnimation",
+    "ViewThatFits"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Departure",
+    "sleep 1.3",
+    "tap -x 201 -y 400",
+    "sleep 1.3",
+    "tap --label Return",
+    "sleep 1.3",
+    "tap -x 260 -y 470",
+    "sleep 1.3"
+  ]
+}

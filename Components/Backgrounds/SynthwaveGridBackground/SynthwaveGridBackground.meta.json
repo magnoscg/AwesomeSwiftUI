@@ -1,0 +1,40 @@
+{
+  "id": "synthwave-grid-background",
+  "name": "SynthwaveGridBackground",
+  "title": "Synthwave Grid Background",
+  "category": "Backgrounds",
+  "summary": "A retro perspective grid that scrolls under a gradient sky with a striped sun.",
+  "keywords": {
+    "en": [
+      "synthwave",
+      "retrowave",
+      "grid",
+      "perspective",
+      "background",
+      "neon",
+      "sun",
+      "80s"
+    ],
+    "es": [
+      "synthwave",
+      "cuadrícula",
+      "perspectiva",
+      "fondo",
+      "neón",
+      "sol",
+      "años 80",
+      "retro"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "TimelineView",
+    "GraphicsContext",
+    "Path"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "phase-animator-cycle",
+  "name": "PhaseAnimatorCycle",
+  "title": "Phase Animator Cycle",
+  "category": "Animations",
+  "summary": "A card that loops through several phases of scale, rotation and color.",
+  "keywords": {
+    "en": [
+      "phase animator",
+      "phases",
+      "loop",
+      "card",
+      "animation",
+      "rotation",
+      "scale"
+    ],
+    "es": [
+      "animador de fases",
+      "fases",
+      "bucle",
+      "tarjeta",
+      "animación",
+      "rotación"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "PhaseAnimator",
+    "scaleEffect",
+    "rotationEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "border-beam-modifier",
+  "name": "BorderBeamModifier",
+  "title": "Border Beam Modifier",
+  "category": "Effects",
+  "summary": "A light beam with a fading tail that travels continuously around a rounded border.",
+  "keywords": {
+    "en": ["border", "beam", "glow", "highlight", "light", "animated border", "outline"],
+    "es": ["borde", "haz", "brillo", "resplandor", "luz", "borde animado", "contorno"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext", "trimmedPath", "Color.mix"],
+  "origin": { "kind": "inspired", "credit": "Public web component registries" }
+}

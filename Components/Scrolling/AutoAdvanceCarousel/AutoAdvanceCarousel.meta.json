@@ -1,0 +1,38 @@
+{
+  "id": "auto-advance-carousel",
+  "name": "AutoAdvanceCarousel",
+  "title": "Auto Advance Carousel",
+  "category": "Scrolling",
+  "summary": "A paged carousel that advances on a timer and pauses while the user is dragging it.",
+  "keywords": {
+    "en": [
+      "carousel",
+      "auto advance",
+      "autoplay",
+      "banner",
+      "slideshow",
+      "paging",
+      "timer"
+    ],
+    "es": [
+      "carrusel",
+      "avance automático",
+      "reproducción automática",
+      "banner",
+      "presentación",
+      "paginación",
+      "temporizador"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "scrollPosition(id:)",
+    "onScrollPhaseChange",
+    "scrollTargetBehavior",
+    "task(id:)"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

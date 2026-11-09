@@ -1,0 +1,15 @@
+{
+  "id": "path-trim-draw-on",
+  "name": "PathTrimDrawOn",
+  "title": "Path Trim Draw On",
+  "category": "Drawing",
+  "summary": "A custom shape, such as a logo, that draws itself along its path by animating trim.",
+  "keywords": {
+    "en": ["path", "trim", "draw", "logo", "stroke", "shape", "line animation"],
+    "es": ["trazado", "dibujar", "logo", "trazo", "forma", "animación de línea"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Shape", "trim", "Path", "StrokeStyle"],
+  "origin": { "kind": "original" }
+}

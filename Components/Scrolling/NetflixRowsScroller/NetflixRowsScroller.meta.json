@@ -1,0 +1,47 @@
+{
+  "id": "netflix-rows-scroller",
+  "name": "NetflixRowsScroller",
+  "title": "Netflix Rows Scroller",
+  "category": "Scrolling",
+  "summary": "A vertical stack of titled horizontal rows where each row scrolls on its own, like a streaming home screen.",
+  "keywords": {
+    "en": [
+      "netflix",
+      "streaming",
+      "rows",
+      "posters",
+      "horizontal scroll",
+      "home screen",
+      "catalog"
+    ],
+    "es": [
+      "netflix",
+      "streaming",
+      "filas",
+      "carteles",
+      "desplazamiento horizontal",
+      "pantalla de inicio",
+      "catálogo"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyVStack",
+    "LazyHStack",
+    "containerRelativeFrame",
+    "scrollTargetBehavior"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 350 --start-y 200 --end-x 60 --end-y 200 --duration 0.35",
+    "sleep 0.8",
+    "swipe --start-x 350 --start-y 445 --end-x 60 --end-y 445 --duration 0.35",
+    "sleep 0.8",
+    "swipe --start-x 201 --start-y 700 --end-x 201 --end-y 380 --duration 0.4",
+    "sleep 1"
+  ]
+}

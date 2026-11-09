@@ -1,0 +1,15 @@
+{
+  "id": "double-tap-zoom-image",
+  "name": "DoubleTapZoomImage",
+  "title": "Double Tap Zoom Image",
+  "category": "Images",
+  "summary": "An image that zooms in on the point you double tap and returns to fit on the next double tap.",
+  "keywords": {
+    "en": ["double tap", "zoom", "image", "photo", "pan", "spatial tap"],
+    "es": ["doble toque", "zoom", "imagen", "foto", "ampliar", "desplazar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["SpatialTapGesture", "DragGesture", "scaleEffect"],
+  "origin": { "kind": "original" }
+}

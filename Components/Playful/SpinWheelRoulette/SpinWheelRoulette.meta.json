@@ -1,0 +1,43 @@
+{
+  "id": "spin-wheel-roulette",
+  "name": "SpinWheelRoulette",
+  "title": "Spin Wheel Roulette",
+  "category": "Playful",
+  "summary": "A prize wheel that spins with friction and lands on a random slice.",
+  "keywords": {
+    "en": [
+      "spin wheel",
+      "roulette",
+      "prize wheel",
+      "fortune",
+      "random",
+      "game",
+      "lucky draw"
+    ],
+    "es": [
+      "ruleta",
+      "rueda de premios",
+      "premio",
+      "fortuna",
+      "aleatorio",
+      "juego",
+      "sorteo"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "rotationEffect",
+    "withAnimation(_:completionCriteria:_:completion:)",
+    "AccessibilityNotification"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Spin",
+    "sleep 3.8"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "id": "keyboard-tracking-input-bar",
+  "name": "KeyboardTrackingInputBar",
+  "title": "Keyboard Tracking Input Bar",
+  "category": "Chat",
+  "summary": "A composer bar pinned below its content that rises with the keyboard and grows as the user types more lines.",
+  "keywords": {
+    "en": [
+      "composer",
+      "input bar",
+      "keyboard",
+      "chat",
+      "text field",
+      "multiline",
+      "message box"
+    ],
+    "es": [
+      "barra de escritura",
+      "campo de texto",
+      "teclado",
+      "chat",
+      "multilínea",
+      "caja de mensaje"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "safeAreaInset",
+    "TextField",
+    "FocusState",
+    "scrollDismissesKeyboard"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Message'",
+    "sleep 0.9",
+    "type 'This message is long enough to wrap onto more lines as it is typed.'",
+    "sleep 0.9",
+    "tap --label 'Send'",
+    "sleep 1"
+  ]
+}

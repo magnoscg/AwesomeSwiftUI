@@ -1,0 +1,16 @@
+{
+  "id": "scroll-progress-bar",
+  "name": "ScrollProgressBar",
+  "title": "Scroll Progress Bar",
+  "category": "Scrolling",
+  "summary": "A thin bar pinned to the top of a scroll view that grows with the reading progress of the content.",
+  "keywords": {
+    "en": ["scroll progress", "reading progress", "progress bar", "article", "scroll indicator", "top bar"],
+    "es": ["progreso de lectura", "barra de progreso", "desplazamiento", "artículo", "indicador", "lectura"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["onScrollGeometryChange", "ScrollPosition", "ViewModifier"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 2.3"]
+}

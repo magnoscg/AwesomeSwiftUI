@@ -1,0 +1,15 @@
+{
+  "id": "animated-radio-button",
+  "name": "AnimatedRadioButton",
+  "title": "Animated Radio Button",
+  "category": "Controls",
+  "summary": "A radio button whose inner dot springs in and whose ring pulses once when selected.",
+  "keywords": {
+    "en": ["radio button", "radio", "selection", "option", "form", "choice", "pulse"],
+    "es": ["botón de opción", "radio", "selección", "opción", "formulario", "pulso"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["keyframeAnimator", "scaleEffect", "Circle", "Button"],
+  "origin": { "kind": "original" }
+}

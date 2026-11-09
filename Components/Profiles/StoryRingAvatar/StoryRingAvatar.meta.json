@@ -1,0 +1,36 @@
+{
+  "id": "story-ring-avatar",
+  "name": "StoryRingAvatar",
+  "title": "Story Ring Avatar",
+  "category": "Profiles",
+  "summary": "An avatar with a gradient ring that spins while there are unseen stories.",
+  "keywords": {
+    "en": [
+      "avatar",
+      "story ring",
+      "profile picture",
+      "gradient ring",
+      "unseen",
+      "instagram"
+    ],
+    "es": [
+      "avatar",
+      "anillo de historias",
+      "foto de perfil",
+      "anillo degradado",
+      "sin ver",
+      "instagram"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "AsyncImage",
+    "AngularGradient",
+    "TimelineView",
+    "strokeBorder"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

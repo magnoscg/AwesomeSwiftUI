@@ -1,0 +1,51 @@
+{
+  "id": "gooey-floating-menu",
+  "name": "GooeyFloatingMenu",
+  "title": "Gooey Floating Menu",
+  "category": "Menus",
+  "summary": "A floating button whose option bubbles melt and merge out of it like liquid.",
+  "keywords": {
+    "en": [
+      "gooey",
+      "metaball",
+      "floating action button",
+      "fab",
+      "menu",
+      "liquid",
+      "blob",
+      "fan"
+    ],
+    "es": [
+      "gelatinoso",
+      "menú flotante",
+      "botón flotante",
+      "líquido",
+      "fusión",
+      "burbujas",
+      "abanico"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "GraphicsContext.Filter",
+    "Animatable",
+    "mask"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Menu",
+    "sleep 1.6",
+    "tap --label Menu",
+    "sleep 1.2",
+    "tap --label Menu",
+    "sleep 1.4",
+    "tap --label Favorite",
+    "sleep 1.2"
+  ]
+}

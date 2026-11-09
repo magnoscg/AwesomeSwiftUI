@@ -1,0 +1,37 @@
+{
+  "id": "sparkline-stat-tile",
+  "name": "SparklineStatTile",
+  "title": "Sparkline Stat Tile",
+  "category": "Charts",
+  "summary": "A stat tile with a small trend line behind its value.",
+  "keywords": {
+    "en": [
+      "sparkline",
+      "stat tile",
+      "kpi",
+      "dashboard",
+      "trend",
+      "metric card"
+    ],
+    "es": [
+      "minigráfico",
+      "tarjeta de estadística",
+      "panel",
+      "tendencia",
+      "métrica",
+      "indicador"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Chart",
+    "LineMark",
+    "AreaMark",
+    "chartXAxis",
+    "chartYAxis"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

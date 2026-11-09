@@ -1,0 +1,15 @@
+{
+  "id": "any-layout-adaptive-switch",
+  "name": "AnyLayoutAdaptiveSwitch",
+  "title": "Any Layout Adaptive Switch",
+  "category": "Layouts",
+  "summary": "A group that animates between a row and a column when its available width changes.",
+  "keywords": {
+    "en": ["anylayout", "adaptive", "row", "column", "responsive", "hstack", "vstack"],
+    "es": ["diseño adaptable", "fila", "columna", "responsive", "cambio de disposición", "anylayout"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["AnyLayout", "HStackLayout", "VStackLayout", "onGeometryChange(for:of:action:)"],
+  "origin": { "kind": "original" }
+}

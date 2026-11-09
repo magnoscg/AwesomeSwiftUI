@@ -1,0 +1,15 @@
+{
+  "id": "blurred-image-backdrop",
+  "name": "BlurredImageBackdrop",
+  "title": "Blurred Image Backdrop",
+  "category": "Effects",
+  "summary": "A full-screen backdrop made from a blurred image with a tint layer, for placing content on top of it.",
+  "keywords": {
+    "en": ["blur", "backdrop", "background", "image", "album art", "tint", "photo"],
+    "es": ["desenfoque", "fondo", "imagen", "carátula", "tinte", "foto"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["blur(radius:opaque:)", "overlay", "ignoresSafeArea"],
+  "origin": { "kind": "original" }
+}

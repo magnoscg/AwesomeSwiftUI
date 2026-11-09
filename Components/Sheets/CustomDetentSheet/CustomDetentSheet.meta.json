@@ -1,0 +1,15 @@
+{
+  "id": "custom-detent-sheet",
+  "name": "CustomDetentSheet",
+  "title": "Custom Detent Sheet",
+  "category": "Sheets",
+  "summary": "A system sheet that snaps between custom heights using presentationDetents and a CustomPresentationDetent.",
+  "keywords": {
+    "en": ["sheet", "detents", "bottom sheet", "presentation", "custom height", "half sheet"],
+    "es": ["hoja", "alturas", "hoja inferior", "presentación", "altura personalizada", "media hoja"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["presentationDetents", "CustomPresentationDetent", "presentationDragIndicator", "presentationBackgroundInteraction"],
+  "origin": { "kind": "original" }
+}

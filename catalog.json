@@ -1,6 +1,251 @@
 {
-  "count": 100,
+  "count": 249,
   "components": [
+    {
+      "id": "breathing-guide-circle",
+      "name": "BreathingGuideCircle",
+      "title": "Breathing Guide Circle",
+      "category": "Animations",
+      "summary": "A circle that expands and contracts through breathe in, hold and breathe out phases, with a label and a countdown.",
+      "keywords": {
+        "en": [
+          "breathing",
+          "meditation",
+          "mindfulness",
+          "guide",
+          "circle",
+          "calm",
+          "wellness"
+        ],
+        "es": [
+          "respiración",
+          "meditación",
+          "atención plena",
+          "guía",
+          "círculo",
+          "calma",
+          "bienestar"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TimelineView",
+        "Circle",
+        "scaleEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/BreathingGuideCircle/BreathingGuideCircle.swift",
+      "preview": "Components/Animations/BreathingGuideCircle/BreathingGuideCircle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/BreathingGuideCircle/BreathingGuideCircle.swift"
+    },
+    {
+      "id": "keyframe-timeline-showcase",
+      "name": "KeyframeTimelineShowcase",
+      "title": "Keyframe Timeline Showcase",
+      "category": "Animations",
+      "summary": "A view animated by keyframe tracks for scale, offset and color, with the tracks and a playhead drawn on one shared timeline.",
+      "keywords": {
+        "en": [
+          "keyframes",
+          "keyframe animator",
+          "timeline",
+          "animation",
+          "tracks",
+          "scale",
+          "color animation"
+        ],
+        "es": [
+          "fotogramas clave",
+          "línea de tiempo",
+          "animación",
+          "pistas",
+          "escala",
+          "animación de color"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "KeyframeAnimator",
+        "KeyframeTrack",
+        "CubicKeyframe",
+        "SpringKeyframe",
+        "LinearKeyframe",
+        "Canvas"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.swift",
+      "preview": "Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.swift"
+    },
+    {
+      "id": "phase-animator-cycle",
+      "name": "PhaseAnimatorCycle",
+      "title": "Phase Animator Cycle",
+      "category": "Animations",
+      "summary": "A card that loops through several phases of scale, rotation and color.",
+      "keywords": {
+        "en": [
+          "phase animator",
+          "phases",
+          "loop",
+          "card",
+          "animation",
+          "rotation",
+          "scale"
+        ],
+        "es": [
+          "animador de fases",
+          "fases",
+          "bucle",
+          "tarjeta",
+          "animación",
+          "rotación"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "PhaseAnimator",
+        "scaleEffect",
+        "rotationEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.swift",
+      "preview": "Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.swift"
+    },
+    {
+      "id": "split-flap-counter",
+      "name": "SplitFlapCounter",
+      "title": "Split Flap Counter",
+      "category": "Animations",
+      "summary": "A split-flap display where each digit flips down to its new value.",
+      "keywords": {
+        "en": [
+          "split flap",
+          "flip",
+          "counter",
+          "digits",
+          "departure board",
+          "number",
+          "retro"
+        ],
+        "es": [
+          "paneles abatibles",
+          "contador",
+          "dígitos",
+          "número",
+          "volteo",
+          "panel de salidas",
+          "retro"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Animatable",
+        "rotation3DEffect",
+        "UnevenRoundedRectangle",
+        "ViewThatFits"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/SplitFlapCounter/SplitFlapCounter.swift",
+      "preview": "Components/Animations/SplitFlapCounter/SplitFlapCounter.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SplitFlapCounter/SplitFlapCounter.swift"
+    },
+    {
+      "id": "spring-study-playground",
+      "name": "SpringStudyPlayground",
+      "title": "Spring Study Playground",
+      "category": "Animations",
+      "summary": "Sliders for response and damping that show how a spring moves a view and draw its curve.",
+      "keywords": {
+        "en": [
+          "spring",
+          "playground",
+          "response",
+          "damping",
+          "bounce",
+          "animation curve",
+          "slider"
+        ],
+        "es": [
+          "muelle",
+          "resorte",
+          "amortiguación",
+          "rebote",
+          "curva de animación",
+          "deslizador"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Spring",
+        "Animation.spring",
+        "Slider",
+        "Shape"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/SpringStudyPlayground/SpringStudyPlayground.swift",
+      "preview": "Components/Animations/SpringStudyPlayground/SpringStudyPlayground.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SpringStudyPlayground/SpringStudyPlayground.swift"
+    },
+    {
+      "id": "symbol-effect-gallery",
+      "name": "SymbolEffectGallery",
+      "title": "Symbol Effect Gallery",
+      "category": "Animations",
+      "summary": "A gallery of SF Symbol effects, each played on demand and labeled with its name.",
+      "keywords": {
+        "en": [
+          "sf symbols",
+          "symbol effect",
+          "bounce",
+          "pulse",
+          "wiggle",
+          "rotate",
+          "breathe",
+          "gallery"
+        ],
+        "es": [
+          "símbolos",
+          "efecto de símbolo",
+          "rebote",
+          "pulso",
+          "galería",
+          "icono animado"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "symbolEffect",
+        "symbolEffectsRemoved",
+        "BounceSymbolEffect",
+        "WiggleSymbolEffect",
+        "RotateSymbolEffect",
+        "BreatheSymbolEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Animations/SymbolEffectGallery/SymbolEffectGallery.swift",
+      "preview": "Components/Animations/SymbolEffectGallery/SymbolEffectGallery.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SymbolEffectGallery/SymbolEffectGallery.swift"
+    },
     {
       "id": "animated-gradient-background",
       "name": "AnimatedGradientBackground",
@@ -197,6 +442,47 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/GridPulseBackground/GridPulseBackground.swift"
     },
     {
+      "id": "image-derived-gradient-background",
+      "name": "ImageDerivedGradientBackground",
+      "title": "Image Derived Gradient Background",
+      "category": "Backgrounds",
+      "summary": "A full-screen gradient whose colors are sampled from the pixels of an image and cross-fade when the image changes.",
+      "keywords": {
+        "en": [
+          "background",
+          "gradient",
+          "image colors",
+          "dominant color",
+          "palette",
+          "album art",
+          "cross-fade"
+        ],
+        "es": [
+          "fondo",
+          "degradado",
+          "colores de imagen",
+          "color dominante",
+          "paleta",
+          "carátula",
+          "fundido"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ImageRenderer",
+        "CGContext",
+        "LinearGradient",
+        "task(id:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.swift",
+      "preview": "Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.swift"
+    },
+    {
       "id": "particle-field-background",
       "name": "ParticleFieldBackground",
       "title": "Particle Field Background",
@@ -317,6 +603,49 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/StarfieldBackground/StarfieldBackground.swift"
     },
     {
+      "id": "synthwave-grid-background",
+      "name": "SynthwaveGridBackground",
+      "title": "Synthwave Grid Background",
+      "category": "Backgrounds",
+      "summary": "A retro perspective grid that scrolls under a gradient sky with a striped sun.",
+      "keywords": {
+        "en": [
+          "synthwave",
+          "retrowave",
+          "grid",
+          "perspective",
+          "background",
+          "neon",
+          "sun",
+          "80s"
+        ],
+        "es": [
+          "synthwave",
+          "cuadrícula",
+          "perspectiva",
+          "fondo",
+          "neón",
+          "sol",
+          "años 80",
+          "retro"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext",
+        "Path"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.swift",
+      "preview": "Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.swift"
+    },
+    {
       "id": "waves-background",
       "name": "WavesBackground",
       "title": "Waves Background",
@@ -397,6 +726,48 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ElasticDragButton/ElasticDragButton.swift"
     },
     {
+      "id": "emoji-reaction-picker",
+      "name": "EmojiReactionPicker",
+      "title": "Emoji Reaction Picker",
+      "category": "Buttons",
+      "summary": "A long-press control that reveals a row of reaction emoji, magnifies the one under the finger and selects it on release.",
+      "keywords": {
+        "en": [
+          "emoji",
+          "reactions",
+          "like",
+          "long press",
+          "picker",
+          "drag",
+          "social"
+        ],
+        "es": [
+          "emoji",
+          "reacciones",
+          "me gusta",
+          "pulsación larga",
+          "selector",
+          "arrastrar",
+          "red social"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "LongPressGesture",
+        "DragGesture",
+        "GestureState",
+        "sensoryFeedback",
+        "accessibilityActions"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift",
+      "preview": "Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift"
+    },
+    {
       "id": "expanding-search-button",
       "name": "ExpandingSearchButton",
       "title": "Expanding Search Button",
@@ -437,6 +808,46 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ExpandingSearchButton/ExpandingSearchButton.swift"
     },
     {
+      "id": "floating-action-menu",
+      "name": "FloatingActionMenu",
+      "title": "Floating Action Menu",
+      "category": "Buttons",
+      "summary": "A plus button that rotates into a close icon and fans out its actions around it.",
+      "keywords": {
+        "en": [
+          "floating action button",
+          "fab",
+          "menu",
+          "radial",
+          "fan",
+          "plus button",
+          "actions"
+        ],
+        "es": [
+          "botón flotante",
+          "menú",
+          "radial",
+          "abanico",
+          "botón más",
+          "acciones"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "offset",
+        "rotationEffect",
+        "Animation.spring",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/FloatingActionMenu/FloatingActionMenu.swift",
+      "preview": "Components/Buttons/FloatingActionMenu/FloatingActionMenu.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/FloatingActionMenu/FloatingActionMenu.swift"
+    },
+    {
       "id": "gradient-border-button",
       "name": "GradientBorderButton",
       "title": "Gradient Border Button",
@@ -475,6 +886,46 @@
       "path": "Components/Buttons/GradientBorderButton/GradientBorderButton.swift",
       "preview": "Components/Buttons/GradientBorderButton/GradientBorderButton.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/GradientBorderButton/GradientBorderButton.swift"
+    },
+    {
+      "id": "hamburger-menu-button",
+      "name": "HamburgerMenuButton",
+      "title": "Hamburger Menu Button",
+      "category": "Buttons",
+      "summary": "A three-line menu button whose bars animate into a close cross when toggled.",
+      "keywords": {
+        "en": [
+          "hamburger",
+          "menu button",
+          "three lines",
+          "close",
+          "morph",
+          "toggle",
+          "navigation"
+        ],
+        "es": [
+          "hamburguesa",
+          "botón de menú",
+          "tres líneas",
+          "cerrar",
+          "transformación",
+          "navegación"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "animatableData",
+        "StrokeStyle",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.swift",
+      "preview": "Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.swift"
     },
     {
       "id": "hold-to-confirm-button",
@@ -594,6 +1045,46 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/MorphingSubmitButton/MorphingSubmitButton.swift"
     },
     {
+      "id": "play-pause-morph-button",
+      "name": "PlayPauseMorphButton",
+      "title": "Play Pause Morph Button",
+      "category": "Buttons",
+      "summary": "A play button whose triangle morphs into two pause bars by interpolating its path.",
+      "keywords": {
+        "en": [
+          "play",
+          "pause",
+          "morph",
+          "media button",
+          "player",
+          "shape animation",
+          "toggle"
+        ],
+        "es": [
+          "reproducir",
+          "pausa",
+          "transformación",
+          "botón multimedia",
+          "reproductor",
+          "animación de forma"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "animatableData",
+        "Path",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.swift",
+      "preview": "Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.swift"
+    },
+    {
       "id": "pressable-button-style",
       "name": "PressableButtonStyle",
       "title": "Pressable Button Style",
@@ -631,6 +1122,45 @@
       "path": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift",
       "preview": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift"
+    },
+    {
+      "id": "provider-sign-in-button-stack",
+      "name": "ProviderSignInButtonStack",
+      "title": "Provider Sign In Button Stack",
+      "category": "Buttons",
+      "summary": "A stack of full-width sign-in buttons, each with a leading icon slot and its own loading state while authenticating.",
+      "keywords": {
+        "en": [
+          "sign in",
+          "login",
+          "authentication",
+          "providers",
+          "loading button",
+          "social login"
+        ],
+        "es": [
+          "iniciar sesión",
+          "acceso",
+          "autenticación",
+          "proveedores",
+          "botón de carga",
+          "registro"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Button",
+        "ProgressView",
+        "Task",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.swift",
+      "preview": "Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.swift"
     },
     {
       "id": "pulse-ring-button",
@@ -708,6 +1238,166 @@
       "path": "Components/Buttons/ShimmerButton/ShimmerButton.swift",
       "preview": "Components/Buttons/ShimmerButton/ShimmerButton.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ShimmerButton/ShimmerButton.swift"
+    },
+    {
+      "id": "shrinking-extended-button",
+      "name": "ShrinkingExtendedButton",
+      "title": "Shrinking Extended Button",
+      "category": "Buttons",
+      "summary": "An extended floating button that collapses from a labeled pill to a plain icon as the scroll view moves down.",
+      "keywords": {
+        "en": [
+          "extended fab",
+          "floating button",
+          "collapse",
+          "scroll",
+          "pill",
+          "compose button",
+          "shrink"
+        ],
+        "es": [
+          "botón flotante",
+          "botón extendido",
+          "contraer",
+          "desplazamiento",
+          "píldora",
+          "encoger"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollGeometryChange",
+        "ScrollGeometry",
+        "Capsule",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.swift",
+      "preview": "Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.swift"
+    },
+    {
+      "id": "calendar-month-grid",
+      "name": "CalendarMonthGrid",
+      "title": "Calendar Month Grid",
+      "category": "Calendars",
+      "summary": "A month calendar for picking one day, with swipe paging between months.",
+      "keywords": {
+        "en": [
+          "calendar",
+          "month",
+          "date picker",
+          "day",
+          "grid",
+          "paging",
+          "schedule"
+        ],
+        "es": [
+          "calendario",
+          "mes",
+          "selector de fecha",
+          "día",
+          "cuadrícula",
+          "paginación",
+          "agenda"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Calendar",
+        "LazyVGrid",
+        "TabView",
+        "Date.FormatStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.swift",
+      "preview": "Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.swift"
+    },
+    {
+      "id": "calendar-range-selector",
+      "name": "CalendarRangeSelector",
+      "title": "Calendar Range Selector",
+      "category": "Calendars",
+      "summary": "A month calendar that picks a start and an end day and shades the days between them.",
+      "keywords": {
+        "en": [
+          "calendar",
+          "date range",
+          "range picker",
+          "date picker",
+          "booking",
+          "month view",
+          "start and end date"
+        ],
+        "es": [
+          "calendario",
+          "rango de fechas",
+          "selector de fechas",
+          "reserva",
+          "vista mensual",
+          "fecha de inicio y fin"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Calendar",
+        "LazyVGrid",
+        "Date.FormatStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.swift",
+      "preview": "Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.swift"
+    },
+    {
+      "id": "date-strip-picker",
+      "name": "DateStripPicker",
+      "title": "Date Strip Picker",
+      "category": "Calendars",
+      "summary": "A horizontal strip of days that keeps the selected day centered as you scroll.",
+      "keywords": {
+        "en": [
+          "date picker",
+          "week strip",
+          "horizontal calendar",
+          "day selector",
+          "scroll snapping",
+          "agenda"
+        ],
+        "es": [
+          "selector de fecha",
+          "tira de días",
+          "calendario horizontal",
+          "selector de día",
+          "agenda",
+          "desplazamiento"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollView",
+        "scrollPosition",
+        "scrollTargetBehavior",
+        "contentMargins"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Calendars/DateStripPicker/DateStripPicker.swift",
+      "preview": "Components/Calendars/DateStripPicker/DateStripPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/DateStripPicker/DateStripPicker.swift"
     },
     {
       "id": "avatar-stack",
@@ -873,6 +1563,646 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/TiltCard/TiltCard.swift"
     },
     {
+      "id": "animated-bar-chart",
+      "name": "AnimatedBarChart",
+      "title": "Animated Bar Chart",
+      "category": "Charts",
+      "summary": "Bars that grow from the baseline one after another with a spring.",
+      "keywords": {
+        "en": [
+          "bar chart",
+          "chart",
+          "graph",
+          "animated bars",
+          "staggered",
+          "statistics"
+        ],
+        "es": [
+          "gráfico de barras",
+          "gráfica",
+          "barras animadas",
+          "estadísticas",
+          "escalonado"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "GeometryReader",
+        "Animation.spring",
+        "UnevenRoundedRectangle",
+        "task(id:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/AnimatedBarChart/AnimatedBarChart.swift",
+      "preview": "Components/Charts/AnimatedBarChart/AnimatedBarChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/AnimatedBarChart/AnimatedBarChart.swift"
+    },
+    {
+      "id": "animated-donut-chart",
+      "name": "AnimatedDonutChart",
+      "title": "Animated Donut Chart",
+      "category": "Charts",
+      "summary": "A donut chart whose segments grow in one by one, and the selected segment lifts out.",
+      "keywords": {
+        "en": [
+          "donut chart",
+          "pie chart",
+          "chart",
+          "swift charts",
+          "segments",
+          "selection",
+          "spending"
+        ],
+        "es": [
+          "gráfico de donut",
+          "gráfico circular",
+          "gráfica",
+          "sectores",
+          "selección",
+          "gastos"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Chart",
+        "SectorMark",
+        "chartAngleSelection"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift",
+      "preview": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift"
+    },
+    {
+      "id": "contribution-heatmap",
+      "name": "ContributionHeatmap",
+      "title": "Contribution Heatmap",
+      "category": "Charts",
+      "summary": "A calendar grid of colored cells whose intensity shows the activity of each day.",
+      "keywords": {
+        "en": [
+          "heatmap",
+          "contribution graph",
+          "activity",
+          "calendar grid",
+          "github",
+          "streak"
+        ],
+        "es": [
+          "mapa de calor",
+          "gráfico de contribuciones",
+          "actividad",
+          "cuadrícula",
+          "calendario",
+          "racha"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyHGrid",
+        "GridItem",
+        "Calendar",
+        "defaultScrollAnchor"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Charts/ContributionHeatmap/ContributionHeatmap.swift",
+      "preview": "Components/Charts/ContributionHeatmap/ContributionHeatmap.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/ContributionHeatmap/ContributionHeatmap.swift"
+    },
+    {
+      "id": "interactive-line-chart",
+      "name": "InteractiveLineChart",
+      "title": "Interactive Line Chart",
+      "category": "Charts",
+      "summary": "A line chart that shows a rule and a value tooltip under the finger as it scrubs along the time axis.",
+      "keywords": {
+        "en": [
+          "line chart",
+          "swift charts",
+          "scrubbing",
+          "tooltip",
+          "selection",
+          "stocks",
+          "time series"
+        ],
+        "es": [
+          "gráfico de líneas",
+          "gráfica",
+          "recorrer con el dedo",
+          "globo informativo",
+          "selección",
+          "serie temporal"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Chart",
+        "LineMark",
+        "RuleMark",
+        "PointMark",
+        "chartXSelection"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/InteractiveLineChart/InteractiveLineChart.swift",
+      "preview": "Components/Charts/InteractiveLineChart/InteractiveLineChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/InteractiveLineChart/InteractiveLineChart.swift"
+    },
+    {
+      "id": "line-chart-draw-in",
+      "name": "LineChartDrawIn",
+      "title": "Line Chart Draw In",
+      "category": "Charts",
+      "summary": "A line chart whose line draws in from left to right while a dot follows its tip.",
+      "keywords": {
+        "en": [
+          "line chart",
+          "draw animation",
+          "trim",
+          "path",
+          "animated chart",
+          "graph"
+        ],
+        "es": [
+          "gráfico de líneas",
+          "animación de trazo",
+          "trazado",
+          "gráfica animada",
+          "línea"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "Path",
+        "trim",
+        "Animatable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/LineChartDrawIn/LineChartDrawIn.swift",
+      "preview": "Components/Charts/LineChartDrawIn/LineChartDrawIn.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/LineChartDrawIn/LineChartDrawIn.swift"
+    },
+    {
+      "id": "sparkline-stat-tile",
+      "name": "SparklineStatTile",
+      "title": "Sparkline Stat Tile",
+      "category": "Charts",
+      "summary": "A stat tile with a small trend line behind its value.",
+      "keywords": {
+        "en": [
+          "sparkline",
+          "stat tile",
+          "kpi",
+          "dashboard",
+          "trend",
+          "metric card"
+        ],
+        "es": [
+          "minigráfico",
+          "tarjeta de estadística",
+          "panel",
+          "tendencia",
+          "métrica",
+          "indicador"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Chart",
+        "LineMark",
+        "AreaMark",
+        "chartXAxis",
+        "chartYAxis"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/SparklineStatTile/SparklineStatTile.swift",
+      "preview": "Components/Charts/SparklineStatTile/SparklineStatTile.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/SparklineStatTile/SparklineStatTile.swift"
+    },
+    {
+      "id": "surface-3d-chart",
+      "name": "Surface3DChart",
+      "title": "Surface 3D Chart",
+      "category": "Charts",
+      "summary": "A 3D surface plot that rotates when dragged, with buttons for preset viewing angles.",
+      "keywords": {
+        "en": [
+          "3d chart",
+          "surface plot",
+          "swift charts",
+          "chart3d",
+          "rotate",
+          "math",
+          "visualization"
+        ],
+        "es": [
+          "gráfico 3d",
+          "superficie",
+          "gráfica tridimensional",
+          "rotar",
+          "matemáticas",
+          "visualización"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "26.0",
+      "apis": [
+        "Chart3D",
+        "SurfacePlot",
+        "Chart3DPose",
+        "chart3DPose",
+        "heightBased",
+        "roughness"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/Surface3DChart/Surface3DChart.swift",
+      "preview": "Components/Charts/Surface3DChart/Surface3DChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/Surface3DChart/Surface3DChart.swift"
+    },
+    {
+      "id": "chat-auto-scroll-list",
+      "name": "ChatAutoScrollList",
+      "title": "Chat Auto Scroll List",
+      "category": "Chat",
+      "summary": "A message list that stays on the newest message as messages arrive, and stops following when the user scrolls up to read.",
+      "keywords": {
+        "en": [
+          "chat",
+          "messages",
+          "auto scroll",
+          "scroll to bottom",
+          "new messages",
+          "conversation"
+        ],
+        "es": [
+          "chat",
+          "mensajes",
+          "desplazamiento automático",
+          "ir al final",
+          "mensajes nuevos",
+          "conversación"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollPosition",
+        "defaultScrollAnchor",
+        "onScrollGeometryChange",
+        "onScrollPhaseChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/ChatAutoScrollList/ChatAutoScrollList.swift",
+      "preview": "Components/Chat/ChatAutoScrollList/ChatAutoScrollList.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/ChatAutoScrollList/ChatAutoScrollList.swift"
+    },
+    {
+      "id": "chat-bubble-shape",
+      "name": "ChatBubbleShape",
+      "title": "Chat Bubble Shape",
+      "category": "Chat",
+      "summary": "A message bubble with a tail, whose corners adapt to grouped consecutive messages.",
+      "keywords": {
+        "en": [
+          "chat bubble",
+          "message bubble",
+          "shape",
+          "tail",
+          "imessage",
+          "grouped messages"
+        ],
+        "es": [
+          "burbuja de chat",
+          "burbuja de mensaje",
+          "forma",
+          "cola",
+          "mensajes agrupados"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "Path",
+        "RectangleCornerRadii",
+        "animatableData"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/ChatBubbleShape/ChatBubbleShape.swift",
+      "preview": "Components/Chat/ChatBubbleShape/ChatBubbleShape.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/ChatBubbleShape/ChatBubbleShape.swift"
+    },
+    {
+      "id": "keyboard-tracking-input-bar",
+      "name": "KeyboardTrackingInputBar",
+      "title": "Keyboard Tracking Input Bar",
+      "category": "Chat",
+      "summary": "A composer bar pinned below its content that rises with the keyboard and grows as the user types more lines.",
+      "keywords": {
+        "en": [
+          "composer",
+          "input bar",
+          "keyboard",
+          "chat",
+          "text field",
+          "multiline",
+          "message box"
+        ],
+        "es": [
+          "barra de escritura",
+          "campo de texto",
+          "teclado",
+          "chat",
+          "multilínea",
+          "caja de mensaje"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "safeAreaInset",
+        "TextField",
+        "FocusState",
+        "scrollDismissesKeyboard"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.swift",
+      "preview": "Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.swift"
+    },
+    {
+      "id": "nested-comment-thread",
+      "name": "NestedCommentThread",
+      "title": "Nested Comment Thread",
+      "category": "Chat",
+      "summary": "Threaded comments with indentation, connector lines and collapsible replies.",
+      "keywords": {
+        "en": [
+          "comments",
+          "thread",
+          "nested",
+          "replies",
+          "collapse",
+          "discussion",
+          "tree"
+        ],
+        "es": [
+          "comentarios",
+          "hilo",
+          "anidado",
+          "respuestas",
+          "contraer",
+          "discusión",
+          "árbol"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "Path",
+        "LazyVStack",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/NestedCommentThread/NestedCommentThread.swift",
+      "preview": "Components/Chat/NestedCommentThread/NestedCommentThread.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/NestedCommentThread/NestedCommentThread.swift"
+    },
+    {
+      "id": "add-to-cart-fly-button",
+      "name": "AddToCartFlyButton",
+      "title": "Add To Cart Fly Button",
+      "category": "Commerce",
+      "summary": "An add-to-cart button that sends a copy of the product image arcing into the cart badge.",
+      "keywords": {
+        "en": [
+          "add to cart",
+          "shopping",
+          "ecommerce",
+          "fly animation",
+          "cart badge",
+          "arc",
+          "product"
+        ],
+        "es": [
+          "añadir al carrito",
+          "compras",
+          "tienda",
+          "animación de vuelo",
+          "insignia del carrito",
+          "producto"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "GeometryEffect",
+        "onGeometryChange",
+        "keyframeAnimator",
+        "contentTransition"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.swift",
+      "preview": "Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.swift"
+    },
+    {
+      "id": "add-to-cart-stepper",
+      "name": "AddToCartStepper",
+      "title": "Add To Cart Stepper",
+      "category": "Commerce",
+      "summary": "An add button that morphs into a quantity stepper and collapses back to the button when the quantity returns to zero.",
+      "keywords": {
+        "en": [
+          "add to cart",
+          "stepper",
+          "quantity",
+          "morph",
+          "ecommerce",
+          "shopping button"
+        ],
+        "es": [
+          "añadir al carrito",
+          "selector de cantidad",
+          "cantidad",
+          "transformación",
+          "tienda",
+          "botón de compra"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Capsule",
+        "transition",
+        "contentTransition",
+        "accessibilityAdjustableAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Commerce/AddToCartStepper/AddToCartStepper.swift",
+      "preview": "Components/Commerce/AddToCartStepper/AddToCartStepper.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/AddToCartStepper/AddToCartStepper.swift"
+    },
+    {
+      "id": "billing-period-toggle",
+      "name": "BillingPeriodToggle",
+      "title": "Billing Period Toggle",
+      "category": "Commerce",
+      "summary": "A monthly and yearly switch where the price rolls to its new value and a savings badge appears.",
+      "keywords": {
+        "en": [
+          "billing",
+          "pricing",
+          "subscription",
+          "monthly",
+          "yearly",
+          "paywall",
+          "toggle",
+          "savings"
+        ],
+        "es": [
+          "facturación",
+          "precio",
+          "suscripción",
+          "mensual",
+          "anual",
+          "paywall",
+          "ahorro"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "matchedGeometryEffect",
+        "contentTransition",
+        "AnyLayout",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.swift",
+      "preview": "Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.swift"
+    },
+    {
+      "id": "pricing-tier-cards",
+      "name": "PricingTierCards",
+      "title": "Pricing Tier Cards",
+      "category": "Commerce",
+      "summary": "Snapping horizontal pricing cards with the recommended plan highlighted and enlarged.",
+      "keywords": {
+        "en": [
+          "pricing",
+          "plans",
+          "tiers",
+          "cards",
+          "paywall",
+          "subscription",
+          "carousel"
+        ],
+        "es": [
+          "precios",
+          "planes",
+          "tarifas",
+          "tarjetas",
+          "paywall",
+          "suscripción",
+          "carrusel"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollView",
+        "scrollTargetBehavior",
+        "scrollPosition",
+        "onGeometryChange",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Commerce/PricingTierCards/PricingTierCards.swift",
+      "preview": "Components/Commerce/PricingTierCards/PricingTierCards.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/PricingTierCards/PricingTierCards.swift"
+    },
+    {
+      "id": "animated-radio-button",
+      "name": "AnimatedRadioButton",
+      "title": "Animated Radio Button",
+      "category": "Controls",
+      "summary": "A radio button whose inner dot springs in and whose ring pulses once when selected.",
+      "keywords": {
+        "en": [
+          "radio button",
+          "radio",
+          "selection",
+          "option",
+          "form",
+          "choice",
+          "pulse"
+        ],
+        "es": [
+          "botón de opción",
+          "radio",
+          "selección",
+          "opción",
+          "formulario",
+          "pulso"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "keyframeAnimator",
+        "scaleEffect",
+        "Circle",
+        "Button"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift",
+      "preview": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift"
+    },
+    {
       "id": "counter-stepper",
       "name": "CounterStepper",
       "title": "Counter Stepper",
@@ -909,6 +2239,92 @@
       "path": "Components/Controls/CounterStepper/CounterStepper.swift",
       "preview": "Components/Controls/CounterStepper/CounterStepper.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/CounterStepper/CounterStepper.swift"
+    },
+    {
+      "id": "day-night-toggle",
+      "name": "DayNightToggle",
+      "title": "Day Night Toggle",
+      "category": "Controls",
+      "summary": "A switch whose icon morphs between a sun and a moon while its background shifts between day and night colors.",
+      "keywords": {
+        "en": [
+          "toggle",
+          "switch",
+          "dark mode",
+          "day",
+          "night",
+          "sun",
+          "moon",
+          "theme"
+        ],
+        "es": [
+          "interruptor",
+          "modo oscuro",
+          "día",
+          "noche",
+          "sol",
+          "luna",
+          "tema"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ToggleStyle",
+        "contentTransition",
+        "symbolEffect",
+        "accessibilityRepresentation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
+      "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+    },
+    {
+      "id": "ruler-scroll-picker",
+      "name": "RulerScrollPicker",
+      "title": "Ruler Scroll Picker",
+      "category": "Controls",
+      "summary": "A horizontal ruler of tick marks that snaps to a value under a fixed center indicator.",
+      "keywords": {
+        "en": [
+          "ruler",
+          "picker",
+          "scroll",
+          "slider",
+          "weight",
+          "number",
+          "tick marks",
+          "snap"
+        ],
+        "es": [
+          "regla",
+          "selector",
+          "desplazamiento",
+          "deslizador",
+          "peso",
+          "número",
+          "marcas"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollPosition",
+        "ScrollTargetBehavior",
+        "onScrollGeometryChange",
+        "onScrollPhaseChange",
+        "sensoryFeedback",
+        "accessibilityAdjustableAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/RulerScrollPicker/RulerScrollPicker.swift",
+      "preview": "Components/Controls/RulerScrollPicker/RulerScrollPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
     },
     {
       "id": "sliding-segmented-picker",
@@ -1029,6 +2445,336 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift"
     },
     {
+      "id": "drawing-pad-speed-brush",
+      "name": "DrawingPadSpeedBrush",
+      "title": "Drawing Pad Speed Brush",
+      "category": "Drawing",
+      "summary": "A drawing pad whose stroke gets thinner as the finger moves faster.",
+      "keywords": {
+        "en": [
+          "drawing",
+          "canvas",
+          "brush",
+          "sketch",
+          "pen",
+          "signature",
+          "stroke",
+          "speed"
+        ],
+        "es": [
+          "dibujo",
+          "lienzo",
+          "pincel",
+          "boceto",
+          "bolígrafo",
+          "firma",
+          "trazo",
+          "velocidad"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "DragGesture",
+        "GestureState",
+        "GraphicsContext",
+        "Path"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.swift",
+      "preview": "Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.swift"
+    },
+    {
+      "id": "drawing-pad-undo-redo",
+      "name": "DrawingPadUndoRedo",
+      "title": "Drawing Pad Undo Redo",
+      "category": "Drawing",
+      "summary": "A drawing pad that keeps its strokes in a history so they can be undone and redone.",
+      "keywords": {
+        "en": [
+          "drawing",
+          "canvas",
+          "undo",
+          "redo",
+          "history",
+          "sketch",
+          "strokes"
+        ],
+        "es": [
+          "dibujo",
+          "lienzo",
+          "deshacer",
+          "rehacer",
+          "historial",
+          "boceto",
+          "trazos"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "DragGesture",
+        "GestureState",
+        "Path"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.swift",
+      "preview": "Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.swift"
+    },
+    {
+      "id": "path-trim-draw-on",
+      "name": "PathTrimDrawOn",
+      "title": "Path Trim Draw On",
+      "category": "Drawing",
+      "summary": "A custom shape, such as a logo, that draws itself along its path by animating trim.",
+      "keywords": {
+        "en": [
+          "path",
+          "trim",
+          "draw",
+          "logo",
+          "stroke",
+          "shape",
+          "line animation"
+        ],
+        "es": [
+          "trazado",
+          "dibujar",
+          "logo",
+          "trazo",
+          "forma",
+          "animación de línea"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "trim",
+        "Path",
+        "StrokeStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.swift",
+      "preview": "Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.swift"
+    },
+    {
+      "id": "polygon-morph-shape",
+      "name": "PolygonMorphShape",
+      "title": "Polygon Morph Shape",
+      "category": "Drawing",
+      "summary": "A shape that smoothly morphs between a square, a circle and a star using a custom animatable vector.",
+      "keywords": {
+        "en": [
+          "shape",
+          "morph",
+          "polygon",
+          "star",
+          "animatable",
+          "vector arithmetic",
+          "path"
+        ],
+        "es": [
+          "forma",
+          "transformación",
+          "polígono",
+          "estrella",
+          "animable",
+          "vector",
+          "trazado"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "animatableData",
+        "VectorArithmetic",
+        "Path"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Drawing/PolygonMorphShape/PolygonMorphShape.swift",
+      "preview": "Components/Drawing/PolygonMorphShape/PolygonMorphShape.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/PolygonMorphShape/PolygonMorphShape.swift"
+    },
+    {
+      "id": "blurred-image-backdrop",
+      "name": "BlurredImageBackdrop",
+      "title": "Blurred Image Backdrop",
+      "category": "Effects",
+      "summary": "A full-screen backdrop made from a blurred image with a tint layer, for placing content on top of it.",
+      "keywords": {
+        "en": [
+          "blur",
+          "backdrop",
+          "background",
+          "image",
+          "album art",
+          "tint",
+          "photo"
+        ],
+        "es": [
+          "desenfoque",
+          "fondo",
+          "imagen",
+          "carátula",
+          "tinte",
+          "foto"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "blur(radius:opaque:)",
+        "overlay",
+        "ignoresSafeArea"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.swift",
+      "preview": "Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.swift"
+    },
+    {
+      "id": "border-beam-modifier",
+      "name": "BorderBeamModifier",
+      "title": "Border Beam Modifier",
+      "category": "Effects",
+      "summary": "A light beam with a fading tail that travels continuously around a rounded border.",
+      "keywords": {
+        "en": [
+          "border",
+          "beam",
+          "glow",
+          "highlight",
+          "light",
+          "animated border",
+          "outline"
+        ],
+        "es": [
+          "borde",
+          "haz",
+          "brillo",
+          "resplandor",
+          "luz",
+          "borde animado",
+          "contorno"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext",
+        "trimmedPath",
+        "Color.mix"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Effects/BorderBeamModifier/BorderBeamModifier.swift",
+      "preview": "Components/Effects/BorderBeamModifier/BorderBeamModifier.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/BorderBeamModifier/BorderBeamModifier.swift"
+    },
+    {
+      "id": "coin-flip-view",
+      "name": "CoinFlipView",
+      "title": "Coin Flip View",
+      "category": "Effects",
+      "summary": "A coin that flips in 3D over several turns and lands on heads or tails.",
+      "keywords": {
+        "en": [
+          "coin",
+          "flip",
+          "3D",
+          "heads",
+          "tails",
+          "random",
+          "toss"
+        ],
+        "es": [
+          "moneda",
+          "lanzar",
+          "3D",
+          "cara",
+          "cruz",
+          "aleatorio"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "rotation3DEffect",
+        "Animatable",
+        "keyframeAnimator",
+        "withAnimation",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/CoinFlipView/CoinFlipView.swift",
+      "preview": "Components/Effects/CoinFlipView/CoinFlipView.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/CoinFlipView/CoinFlipView.swift"
+    },
+    {
+      "id": "color-reveal-image",
+      "name": "ColorRevealImage",
+      "title": "Color Reveal Image",
+      "category": "Effects",
+      "summary": "A black and white image that gains its color as it scrolls toward the middle or when tapped.",
+      "keywords": {
+        "en": [
+          "image",
+          "photo",
+          "saturation",
+          "grayscale",
+          "scroll effect",
+          "reveal",
+          "gallery"
+        ],
+        "es": [
+          "imagen",
+          "foto",
+          "saturación",
+          "blanco y negro",
+          "efecto de scroll",
+          "revelar",
+          "galería"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "visualEffect",
+        "saturation",
+        "withAnimation",
+        "GeometryProxy.bounds(of:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/ColorRevealImage/ColorRevealImage.swift",
+      "preview": "Components/Effects/ColorRevealImage/ColorRevealImage.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ColorRevealImage/ColorRevealImage.swift"
+    },
+    {
       "id": "confetti-burst",
       "name": "ConfettiBurst",
       "title": "Confetti Burst",
@@ -1066,6 +2812,250 @@
       "path": "Components/Effects/ConfettiBurst/ConfettiBurst.swift",
       "preview": "Components/Effects/ConfettiBurst/ConfettiBurst.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ConfettiBurst/ConfettiBurst.swift"
+    },
+    {
+      "id": "fireworks-burst",
+      "name": "FireworksBurst",
+      "title": "Fireworks Burst",
+      "category": "Effects",
+      "summary": "Rockets that climb to where you tap and explode into particle sparks.",
+      "keywords": {
+        "en": [
+          "fireworks",
+          "particles",
+          "celebration",
+          "explosion",
+          "sparks",
+          "canvas",
+          "tap"
+        ],
+        "es": [
+          "fuegos artificiales",
+          "partículas",
+          "celebración",
+          "explosión",
+          "chispas",
+          "lienzo",
+          "toque"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext",
+        "SpatialTapGesture"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/FireworksBurst/FireworksBurst.swift",
+      "preview": "Components/Effects/FireworksBurst/FireworksBurst.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FireworksBurst/FireworksBurst.swift"
+    },
+    {
+      "id": "floating-reactions-emitter",
+      "name": "FloatingReactionsEmitter",
+      "title": "Floating Reactions Emitter",
+      "category": "Effects",
+      "summary": "Emoji that float up from the tap point with a random drift and fade out.",
+      "keywords": {
+        "en": [
+          "reactions",
+          "emoji",
+          "floating",
+          "live",
+          "hearts",
+          "tap",
+          "particles"
+        ],
+        "es": [
+          "reacciones",
+          "emoji",
+          "flotante",
+          "directo",
+          "corazones",
+          "toque",
+          "partículas"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TimelineView",
+        "SpatialTapGesture",
+        "position",
+        "accessibilityAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.swift",
+      "preview": "Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.swift"
+    },
+    {
+      "id": "flow-field-particles",
+      "name": "FlowFieldParticles",
+      "title": "Flow Field Particles",
+      "category": "Effects",
+      "summary": "Particles that drift along a smooth field of angles computed from position and time.",
+      "keywords": {
+        "en": [
+          "flow field",
+          "particles",
+          "generative",
+          "canvas",
+          "noise",
+          "ambient",
+          "animated background"
+        ],
+        "es": [
+          "campo de flujo",
+          "partículas",
+          "generativo",
+          "lienzo",
+          "ruido",
+          "ambiente",
+          "fondo animado"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/FlowFieldParticles/FlowFieldParticles.swift",
+      "preview": "Components/Effects/FlowFieldParticles/FlowFieldParticles.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FlowFieldParticles/FlowFieldParticles.swift"
+    },
+    {
+      "id": "globe-3d-wireframe",
+      "name": "Globe3DWireframe",
+      "title": "Globe 3D Wireframe",
+      "category": "Effects",
+      "summary": "A wireframe globe drawn on a Canvas that spins by itself and turns and tilts as the finger drags it.",
+      "keywords": {
+        "en": [
+          "globe",
+          "3d",
+          "wireframe",
+          "sphere",
+          "earth",
+          "rotate",
+          "drag"
+        ],
+        "es": [
+          "globo",
+          "3d",
+          "malla",
+          "esfera",
+          "tierra",
+          "girar",
+          "arrastrar"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "DragGesture",
+        "GestureState"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/Globe3DWireframe/Globe3DWireframe.swift",
+      "preview": "Components/Effects/Globe3DWireframe/Globe3DWireframe.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/Globe3DWireframe/Globe3DWireframe.swift"
+    },
+    {
+      "id": "jiggle-edit-modifier",
+      "name": "JiggleEditModifier",
+      "title": "Jiggle Edit Modifier",
+      "category": "Effects",
+      "summary": "A view modifier that makes views wobble slightly, like app icons in edit mode.",
+      "keywords": {
+        "en": [
+          "jiggle",
+          "wobble",
+          "shake",
+          "edit mode",
+          "home screen",
+          "icons",
+          "modifier"
+        ],
+        "es": [
+          "temblor",
+          "sacudir",
+          "vibrar",
+          "modo edición",
+          "pantalla de inicio",
+          "iconos",
+          "modificador"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ViewModifier",
+        "TimelineView",
+        "rotationEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/JiggleEditModifier/JiggleEditModifier.swift",
+      "preview": "Components/Effects/JiggleEditModifier/JiggleEditModifier.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/JiggleEditModifier/JiggleEditModifier.swift"
+    },
+    {
+      "id": "metaball-lava-lamp",
+      "name": "MetaballLavaLamp",
+      "title": "Metaball Lava Lamp",
+      "category": "Effects",
+      "summary": "Round blobs that merge and separate like a lava lamp, drawn with a blur and alpha threshold on a Canvas.",
+      "keywords": {
+        "en": [
+          "metaball",
+          "lava lamp",
+          "blobs",
+          "gooey",
+          "merge",
+          "canvas",
+          "alpha threshold"
+        ],
+        "es": [
+          "metabolas",
+          "lámpara de lava",
+          "manchas",
+          "gelatinoso",
+          "fusionar",
+          "lienzo",
+          "efecto líquido"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext.Filter",
+        "mask"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/MetaballLavaLamp/MetaballLavaLamp.swift",
+      "preview": "Components/Effects/MetaballLavaLamp/MetaballLavaLamp.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/MetaballLavaLamp/MetaballLavaLamp.swift"
     },
     {
       "id": "noise-grain-overlay",
@@ -1188,6 +3178,209 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/SpotlightOverlay/SpotlightOverlay.swift"
     },
     {
+      "id": "touch-particle-trail",
+      "name": "TouchParticleTrail",
+      "title": "Touch Particle Trail",
+      "category": "Effects",
+      "summary": "A trail of fading particles that follows the finger while it drags.",
+      "keywords": {
+        "en": [
+          "particles",
+          "trail",
+          "touch",
+          "finger",
+          "drag",
+          "sparkles",
+          "canvas"
+        ],
+        "es": [
+          "partículas",
+          "estela",
+          "toque",
+          "dedo",
+          "arrastrar",
+          "destellos",
+          "lienzo"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "DragGesture",
+        "simultaneousGesture"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/TouchParticleTrail/TouchParticleTrail.swift",
+      "preview": "Components/Effects/TouchParticleTrail/TouchParticleTrail.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/TouchParticleTrail/TouchParticleTrail.swift"
+    },
+    {
+      "id": "animated-badge-count",
+      "name": "AnimatedBadgeCount",
+      "title": "Animated Badge Count",
+      "category": "Feedback",
+      "summary": "A count badge whose number rolls to its new value and whose capsule springs to fit it.",
+      "keywords": {
+        "en": [
+          "badge",
+          "count",
+          "notification",
+          "number",
+          "rolling",
+          "unread",
+          "capsule"
+        ],
+        "es": [
+          "insignia",
+          "contador",
+          "notificación",
+          "número",
+          "rodillo",
+          "sin leer",
+          "cápsula"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "contentTransition",
+        "numericText",
+        "ScaledMetric",
+        "Animation.spring"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.swift",
+      "preview": "Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.swift"
+    },
+    {
+      "id": "animated-checkmark-badge",
+      "name": "AnimatedCheckmarkBadge",
+      "title": "Animated Checkmark Badge",
+      "category": "Feedback",
+      "summary": "A success badge where a circle springs in and the checkmark draws itself inside it.",
+      "keywords": {
+        "en": [
+          "checkmark",
+          "success",
+          "badge",
+          "done",
+          "confirmation",
+          "trim",
+          "haptic"
+        ],
+        "es": [
+          "marca de verificación",
+          "éxito",
+          "insignia",
+          "hecho",
+          "confirmación",
+          "trazo",
+          "háptica"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "trim",
+        "scaleEffect",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.swift",
+      "preview": "Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.swift"
+    },
+    {
+      "id": "dynamic-island-pill",
+      "name": "DynamicIslandPill",
+      "title": "Dynamic Island Pill",
+      "category": "Feedback",
+      "summary": "A black capsule at the top of the screen that grows to show a live status and shrinks back to a pill.",
+      "keywords": {
+        "en": [
+          "dynamic island",
+          "pill",
+          "capsule",
+          "live status",
+          "expand",
+          "morph",
+          "now playing"
+        ],
+        "es": [
+          "isla dinámica",
+          "píldora",
+          "cápsula",
+          "estado en directo",
+          "expandir",
+          "transformación",
+          "reproduciendo"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "RoundedRectangle",
+        "Animation.spring",
+        "symbolEffect",
+        "transition"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/DynamicIslandPill/DynamicIslandPill.swift",
+      "preview": "Components/Feedback/DynamicIslandPill/DynamicIslandPill.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/DynamicIslandPill/DynamicIslandPill.swift"
+    },
+    {
+      "id": "empty-state-placeholder",
+      "name": "EmptyStatePlaceholder",
+      "title": "Empty State Placeholder",
+      "category": "Feedback",
+      "summary": "An empty screen with a breathing symbol, a message and an optional call to action.",
+      "keywords": {
+        "en": [
+          "empty state",
+          "placeholder",
+          "no content",
+          "symbol",
+          "call to action",
+          "content unavailable"
+        ],
+        "es": [
+          "estado vacío",
+          "marcador",
+          "sin contenido",
+          "símbolo",
+          "llamada a la acción",
+          "contenido no disponible"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ContentUnavailableView",
+        "symbolEffect",
+        "Label",
+        "Button"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift",
+      "preview": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift"
+    },
+    {
       "id": "rating-stars",
       "name": "RatingStars",
       "title": "Rating Stars",
@@ -1308,6 +3501,47 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastBanner/ToastBanner.swift"
     },
     {
+      "id": "tooltip-popover",
+      "name": "TooltipPopover",
+      "title": "Tooltip Popover",
+      "category": "Feedback",
+      "summary": "A tooltip bubble that pops out of its arrow next to an anchor view and closes on a tap outside.",
+      "keywords": {
+        "en": [
+          "tooltip",
+          "popover",
+          "hint",
+          "bubble",
+          "arrow",
+          "anchor",
+          "help"
+        ],
+        "es": [
+          "información emergente",
+          "globo",
+          "pista",
+          "burbuja",
+          "flecha",
+          "ancla",
+          "ayuda"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "anchorPreference",
+        "overlayPreferenceValue",
+        "Layout",
+        "ViewThatFits"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/TooltipPopover/TooltipPopover.swift",
+      "preview": "Components/Feedback/TooltipPopover/TooltipPopover.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/TooltipPopover/TooltipPopover.swift"
+    },
+    {
       "id": "undo-snackbar",
       "name": "UndoSnackbar",
       "title": "Undo Snackbar",
@@ -1347,6 +3581,209 @@
       "path": "Components/Feedback/UndoSnackbar/UndoSnackbar.swift",
       "preview": "Components/Feedback/UndoSnackbar/UndoSnackbar.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/UndoSnackbar/UndoSnackbar.swift"
+    },
+    {
+      "id": "completion-swipe-row",
+      "name": "CompletionSwipeRow",
+      "title": "Completion Swipe Row",
+      "category": "Gestures",
+      "summary": "A row you swipe to the right to complete, where a checkmark pops in and the row collapses.",
+      "keywords": {
+        "en": [
+          "swipe",
+          "row",
+          "complete",
+          "task",
+          "to do",
+          "checkmark",
+          "list"
+        ],
+        "es": [
+          "deslizar",
+          "fila",
+          "completar",
+          "tarea",
+          "pendiente",
+          "marca de verificación",
+          "lista"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "withAnimation",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.swift",
+      "preview": "Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.swift"
+    },
+    {
+      "id": "double-tap-heart-overlay",
+      "name": "DoubleTapHeartOverlay",
+      "title": "Double Tap Heart Overlay",
+      "category": "Gestures",
+      "summary": "Double tapping a photo throws a heart at the finger and marks the photo as liked.",
+      "keywords": {
+        "en": [
+          "double tap",
+          "heart",
+          "like",
+          "photo",
+          "overlay",
+          "favorite",
+          "instagram"
+        ],
+        "es": [
+          "doble toque",
+          "corazón",
+          "me gusta",
+          "foto",
+          "superposición",
+          "favorito"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "SpatialTapGesture",
+        "withAnimation",
+        "sensoryFeedback",
+        "symbolEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.swift",
+      "preview": "Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.swift"
+    },
+    {
+      "id": "drag-select-grid",
+      "name": "DragSelectGrid",
+      "title": "Drag Select Grid",
+      "category": "Gestures",
+      "summary": "A grid where dragging across tiles selects them all in one stroke, as in photo libraries.",
+      "keywords": {
+        "en": [
+          "drag",
+          "select",
+          "multi-select",
+          "grid",
+          "photos",
+          "tiles",
+          "selection"
+        ],
+        "es": [
+          "arrastrar",
+          "seleccionar",
+          "selección múltiple",
+          "cuadrícula",
+          "fotos",
+          "mosaicos"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "LazyVGrid",
+        "onGeometryChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/DragSelectGrid/DragSelectGrid.swift",
+      "preview": "Components/Gestures/DragSelectGrid/DragSelectGrid.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DragSelectGrid/DragSelectGrid.swift"
+    },
+    {
+      "id": "drop-zone-highlight",
+      "name": "DropZoneHighlight",
+      "title": "Drop Zone Highlight",
+      "category": "Gestures",
+      "summary": "A drop target that highlights and shows a hint while a dragged item hovers over it and clears when the drag leaves.",
+      "keywords": {
+        "en": [
+          "drop",
+          "drag and drop",
+          "target",
+          "highlight",
+          "transferable",
+          "files",
+          "upload"
+        ],
+        "es": [
+          "soltar",
+          "arrastrar y soltar",
+          "destino",
+          "resaltar",
+          "transferible",
+          "archivos",
+          "subir"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "dropDestination",
+        "Transferable",
+        "draggable",
+        "StrokeStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/DropZoneHighlight/DropZoneHighlight.swift",
+      "preview": "Components/Gestures/DropZoneHighlight/DropZoneHighlight.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DropZoneHighlight/DropZoneHighlight.swift"
+    },
+    {
+      "id": "long-press-radial-menu",
+      "name": "LongPressRadialMenu",
+      "title": "Long Press Radial Menu",
+      "category": "Gestures",
+      "summary": "A long press opens a ring of actions, and dragging onto one of them selects it on release.",
+      "keywords": {
+        "en": [
+          "long press",
+          "radial menu",
+          "pie menu",
+          "ring",
+          "drag",
+          "actions",
+          "context menu"
+        ],
+        "es": [
+          "pulsación larga",
+          "menú radial",
+          "menú circular",
+          "anillo",
+          "arrastrar",
+          "acciones",
+          "menú contextual"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LongPressGesture",
+        "DragGesture",
+        "SequenceGesture",
+        "GestureState"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.swift",
+      "preview": "Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.swift"
     },
     {
       "id": "pinch-zoom-view",
@@ -1389,6 +3826,129 @@
       "path": "Components/Gestures/PinchZoomView/PinchZoomView.swift",
       "preview": "Components/Gestures/PinchZoomView/PinchZoomView.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/PinchZoomView/PinchZoomView.swift"
+    },
+    {
+      "id": "scratch-to-reveal",
+      "name": "ScratchToReveal",
+      "title": "Scratch To Reveal",
+      "category": "Gestures",
+      "summary": "A cover you scratch with a finger to uncover the content beneath it.",
+      "keywords": {
+        "en": [
+          "scratch",
+          "scratch card",
+          "reveal",
+          "lottery",
+          "mask",
+          "drag",
+          "coupon"
+        ],
+        "es": [
+          "rascar",
+          "rasca y gana",
+          "revelar",
+          "lotería",
+          "máscara",
+          "arrastrar",
+          "cupón"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "GraphicsContext.BlendMode",
+        "DragGesture",
+        "mask"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Gestures/ScratchToReveal/ScratchToReveal.swift",
+      "preview": "Components/Gestures/ScratchToReveal/ScratchToReveal.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/ScratchToReveal/ScratchToReveal.swift"
+    },
+    {
+      "id": "snap-corner-draggable",
+      "name": "SnapCornerDraggable",
+      "title": "Snap Corner Draggable",
+      "category": "Gestures",
+      "summary": "A floating view that can be dragged anywhere and springs to the nearest safe-area corner when released.",
+      "keywords": {
+        "en": [
+          "drag",
+          "corner",
+          "snap",
+          "floating",
+          "picture in picture",
+          "pip",
+          "spring"
+        ],
+        "es": [
+          "arrastrar",
+          "esquina",
+          "imán",
+          "flotante",
+          "imagen en imagen",
+          "muelle"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "offset",
+        "onGeometryChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.swift",
+      "preview": "Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.swift"
+    },
+    {
+      "id": "swipe-action-row",
+      "name": "SwipeActionRow",
+      "title": "Swipe Action Row",
+      "category": "Gestures",
+      "summary": "A row that reveals action buttons under a horizontal swipe and snaps open or closed.",
+      "keywords": {
+        "en": [
+          "swipe",
+          "row",
+          "swipe actions",
+          "delete",
+          "archive",
+          "list",
+          "drag"
+        ],
+        "es": [
+          "deslizar",
+          "fila",
+          "acciones",
+          "borrar",
+          "archivar",
+          "lista",
+          "arrastrar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "simultaneousGesture",
+        "accessibilityActions"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Gestures/SwipeActionRow/SwipeActionRow.swift",
+      "preview": "Components/Gestures/SwipeActionRow/SwipeActionRow.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/SwipeActionRow/SwipeActionRow.swift"
     },
     {
       "id": "glass-action-menu",
@@ -1636,6 +4196,444 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassToolStrip/GlassToolStrip.swift"
     },
     {
+      "id": "before-after-slider",
+      "name": "BeforeAfterSlider",
+      "title": "Before After Slider",
+      "category": "Images",
+      "summary": "Two stacked images split by a draggable handle that compares the before and after versions.",
+      "keywords": {
+        "en": [
+          "before after",
+          "compare",
+          "image",
+          "photo",
+          "slider",
+          "split",
+          "handle"
+        ],
+        "es": [
+          "antes y después",
+          "comparar",
+          "imagen",
+          "foto",
+          "deslizador",
+          "dividir"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "mask",
+        "GeometryReader",
+        "accessibilityAdjustableAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/BeforeAfterSlider/BeforeAfterSlider.swift",
+      "preview": "Components/Images/BeforeAfterSlider/BeforeAfterSlider.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/BeforeAfterSlider/BeforeAfterSlider.swift"
+    },
+    {
+      "id": "blur-up-image",
+      "name": "BlurUpImage",
+      "title": "Blur Up Image",
+      "category": "Images",
+      "summary": "An image that goes from a blurred preview into sharp focus once the full picture arrives.",
+      "keywords": {
+        "en": [
+          "blur up",
+          "progressive image",
+          "placeholder",
+          "async image",
+          "loading",
+          "lazy image"
+        ],
+        "es": [
+          "desenfoque",
+          "imagen progresiva",
+          "marcador de posición",
+          "imagen asíncrona",
+          "carga",
+          "enfocar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "AsyncImage",
+        "blur",
+        "Transition"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/BlurUpImage/BlurUpImage.swift",
+      "preview": "Components/Images/BlurUpImage/BlurUpImage.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/BlurUpImage/BlurUpImage.swift"
+    },
+    {
+      "id": "circular-avatar-cropper",
+      "name": "CircularAvatarCropper",
+      "title": "Circular Avatar Cropper",
+      "category": "Images",
+      "summary": "A photo you pan and pinch under a fixed circular window to choose an avatar crop.",
+      "keywords": {
+        "en": [
+          "avatar",
+          "crop",
+          "cropper",
+          "circle",
+          "profile photo",
+          "pinch",
+          "pan"
+        ],
+        "es": [
+          "avatar",
+          "recortar",
+          "recorte",
+          "círculo",
+          "foto de perfil",
+          "pellizcar",
+          "encuadrar"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "MagnifyGesture",
+        "DragGesture",
+        "GestureState",
+        "FillStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/CircularAvatarCropper/CircularAvatarCropper.swift",
+      "preview": "Components/Images/CircularAvatarCropper/CircularAvatarCropper.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/CircularAvatarCropper/CircularAvatarCropper.swift"
+    },
+    {
+      "id": "crop-rectangle-overlay",
+      "name": "CropRectangleOverlay",
+      "title": "Crop Rectangle Overlay",
+      "category": "Images",
+      "summary": "A crop frame with draggable corners and edges over an image, dimming the area outside the selection.",
+      "keywords": {
+        "en": [
+          "crop",
+          "cropper",
+          "rectangle",
+          "image",
+          "photo editor",
+          "handles",
+          "selection"
+        ],
+        "es": [
+          "recortar",
+          "recorte",
+          "rectángulo",
+          "imagen",
+          "editor de fotos",
+          "selección",
+          "tiradores"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "GeometryReader",
+        "FillStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/CropRectangleOverlay/CropRectangleOverlay.swift",
+      "preview": "Components/Images/CropRectangleOverlay/CropRectangleOverlay.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/CropRectangleOverlay/CropRectangleOverlay.swift"
+    },
+    {
+      "id": "double-tap-zoom-image",
+      "name": "DoubleTapZoomImage",
+      "title": "Double Tap Zoom Image",
+      "category": "Images",
+      "summary": "An image that zooms in on the point you double tap and returns to fit on the next double tap.",
+      "keywords": {
+        "en": [
+          "double tap",
+          "zoom",
+          "image",
+          "photo",
+          "pan",
+          "spatial tap"
+        ],
+        "es": [
+          "doble toque",
+          "zoom",
+          "imagen",
+          "foto",
+          "ampliar",
+          "desplazar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "SpatialTapGesture",
+        "DragGesture",
+        "scaleEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.swift",
+      "preview": "Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.swift"
+    },
+    {
+      "id": "ken-burns-image",
+      "name": "KenBurnsImage",
+      "title": "Ken Burns Image",
+      "category": "Images",
+      "summary": "A still picture that slowly zooms and pans so that it appears to move.",
+      "keywords": {
+        "en": [
+          "ken burns",
+          "zoom",
+          "pan",
+          "image",
+          "photo",
+          "hero",
+          "slow motion"
+        ],
+        "es": [
+          "ken burns",
+          "zoom",
+          "paneo",
+          "imagen",
+          "foto",
+          "portada",
+          "movimiento lento"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "scaleEffect",
+        "repeatForever",
+        "clipped"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/KenBurnsImage/KenBurnsImage.swift",
+      "preview": "Components/Images/KenBurnsImage/KenBurnsImage.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/KenBurnsImage/KenBurnsImage.swift"
+    },
+    {
+      "id": "photo-adjustment-sliders",
+      "name": "PhotoAdjustmentSliders",
+      "title": "Photo Adjustment Sliders",
+      "category": "Images",
+      "summary": "Brightness, contrast, saturation and hue sliders that update a photo live as they move.",
+      "keywords": {
+        "en": [
+          "photo editor",
+          "adjustments",
+          "brightness",
+          "contrast",
+          "saturation",
+          "hue",
+          "sliders"
+        ],
+        "es": [
+          "editor de fotos",
+          "ajustes",
+          "brillo",
+          "contraste",
+          "saturación",
+          "tono",
+          "deslizadores"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "brightness",
+        "contrast",
+        "saturation",
+        "hueRotation",
+        "Slider"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.swift",
+      "preview": "Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.swift"
+    },
+    {
+      "id": "photo-filter-presets",
+      "name": "PhotoFilterPresets",
+      "title": "Photo Filter Presets",
+      "category": "Images",
+      "summary": "A row of preset thumbnails that apply mono, warm, cool and high contrast looks to a photo using SwiftUI modifiers.",
+      "keywords": {
+        "en": [
+          "photo filters",
+          "presets",
+          "thumbnails",
+          "black and white",
+          "image",
+          "saturation"
+        ],
+        "es": [
+          "filtros de fotos",
+          "ajustes predefinidos",
+          "miniaturas",
+          "blanco y negro",
+          "imagen",
+          "saturación"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "saturation",
+        "contrast",
+        "brightness",
+        "colorMultiply",
+        "hueRotation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/PhotoFilterPresets/PhotoFilterPresets.swift",
+      "preview": "Components/Images/PhotoFilterPresets/PhotoFilterPresets.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoFilterPresets/PhotoFilterPresets.swift"
+    },
+    {
+      "id": "photo-lightbox",
+      "name": "PhotoLightbox",
+      "title": "Photo Lightbox",
+      "category": "Images",
+      "summary": "A full-screen photo pager where each page zooms independently and the viewer closes on a swipe down.",
+      "keywords": {
+        "en": [
+          "lightbox",
+          "photo viewer",
+          "gallery",
+          "pager",
+          "zoom",
+          "swipe to dismiss",
+          "full screen"
+        ],
+        "es": [
+          "visor de fotos",
+          "galería",
+          "paginador",
+          "zoom",
+          "deslizar para cerrar",
+          "pantalla completa"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "TabView",
+        "PageTabViewStyle",
+        "MagnifyGesture",
+        "GestureMask"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/PhotoLightbox/PhotoLightbox.swift",
+      "preview": "Components/Images/PhotoLightbox/PhotoLightbox.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoLightbox/PhotoLightbox.swift"
+    },
+    {
+      "id": "photo-multi-select-grid",
+      "name": "PhotoMultiSelectGrid",
+      "title": "Photo Multi Select Grid",
+      "category": "Images",
+      "summary": "A photo grid where a long press enters a multi-select mode that shows checkmarks on the chosen photos.",
+      "keywords": {
+        "en": [
+          "photo grid",
+          "multi select",
+          "selection",
+          "long press",
+          "checkmark",
+          "gallery"
+        ],
+        "es": [
+          "cuadrícula de fotos",
+          "selección múltiple",
+          "seleccionar",
+          "pulsación larga",
+          "marca de verificación",
+          "galería"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "onLongPressGesture",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.swift",
+      "preview": "Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.swift"
+    },
+    {
+      "id": "scattered-photo-board",
+      "name": "ScatteredPhotoBoard",
+      "title": "Scattered Photo Board",
+      "category": "Images",
+      "summary": "Photos scattered at slight angles on a board that can be dragged around and brought to the front on touch.",
+      "keywords": {
+        "en": [
+          "photo board",
+          "polaroid",
+          "scattered",
+          "collage",
+          "drag",
+          "bring to front",
+          "moodboard"
+        ],
+        "es": [
+          "tablero de fotos",
+          "polaroid",
+          "dispersas",
+          "collage",
+          "arrastrar",
+          "traer al frente"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "rotationEffect",
+        "zIndex"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift",
+      "preview": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
+    },
+    {
       "id": "color-swatch-picker",
       "name": "ColorSwatchPicker",
       "title": "Color Swatch Picker",
@@ -1716,6 +4714,85 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.swift"
     },
     {
+      "id": "masked-text-field",
+      "name": "MaskedTextField",
+      "title": "Masked Text Field",
+      "category": "Inputs",
+      "summary": "A text field that formats input as the user types, such as 12/34 or a phone number, using a mask.",
+      "keywords": {
+        "en": [
+          "text field",
+          "mask",
+          "input mask",
+          "format",
+          "phone number",
+          "credit card",
+          "expiry date"
+        ],
+        "es": [
+          "campo de texto",
+          "máscara",
+          "formato",
+          "número de teléfono",
+          "tarjeta de crédito",
+          "fecha de caducidad"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField",
+        "onChange(of:initial:_:)",
+        "Character"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/MaskedTextField/MaskedTextField.swift",
+      "preview": "Components/Inputs/MaskedTextField/MaskedTextField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/MaskedTextField/MaskedTextField.swift"
+    },
+    {
+      "id": "multi-step-form",
+      "name": "MultiStepForm",
+      "title": "Multi Step Form",
+      "category": "Inputs",
+      "summary": "A multi-step form with a progress bar that moves forward only when the current step is valid.",
+      "keywords": {
+        "en": [
+          "form",
+          "wizard",
+          "steps",
+          "stepper",
+          "onboarding",
+          "validation",
+          "progress"
+        ],
+        "es": [
+          "formulario",
+          "asistente",
+          "pasos",
+          "validación",
+          "progreso",
+          "registro"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "AnyTransition",
+        "ViewThatFits",
+        "ScrollView",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/MultiStepForm/MultiStepForm.swift",
+      "preview": "Components/Inputs/MultiStepForm/MultiStepForm.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/MultiStepForm/MultiStepForm.swift"
+    },
+    {
       "id": "otp-code-field",
       "name": "OTPCodeField",
       "title": "OTP Code Field",
@@ -1755,6 +4832,325 @@
       "path": "Components/Inputs/OTPCodeField/OTPCodeField.swift",
       "preview": "Components/Inputs/OTPCodeField/OTPCodeField.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/OTPCodeField/OTPCodeField.swift"
+    },
+    {
+      "id": "password-strength-field",
+      "name": "PasswordStrengthField",
+      "title": "Password Strength Field",
+      "category": "Inputs",
+      "summary": "A password field with a strength meter and a checklist of rules that tick off as they are met.",
+      "keywords": {
+        "en": [
+          "password",
+          "secure field",
+          "strength meter",
+          "checklist",
+          "validation",
+          "sign up",
+          "form"
+        ],
+        "es": [
+          "contraseña",
+          "campo seguro",
+          "fortaleza",
+          "lista de requisitos",
+          "validación",
+          "registro",
+          "formulario"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "SecureField",
+        "FocusState",
+        "Label",
+        "contentTransition(_:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift",
+      "preview": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift"
+    },
+    {
+      "id": "search-field-with-suggestions",
+      "name": "SearchFieldWithSuggestions",
+      "title": "Search Field With Suggestions",
+      "category": "Inputs",
+      "summary": "A search field that lists matching suggestions as the user types and fills the field when one is chosen.",
+      "keywords": {
+        "en": [
+          "search",
+          "searchable",
+          "suggestions",
+          "autocomplete",
+          "completion",
+          "filter"
+        ],
+        "es": [
+          "búsqueda",
+          "buscador",
+          "sugerencias",
+          "autocompletar",
+          "filtro"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "searchable(text:placement:prompt:)",
+        "searchSuggestions(_:)",
+        "searchCompletion(_:)",
+        "searchFocused(_:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift",
+      "preview": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift"
+    },
+    {
+      "id": "validated-text-field",
+      "name": "ValidatedTextField",
+      "title": "Validated Text Field",
+      "category": "Inputs",
+      "summary": "A text field that checks its value when it loses focus and shows its error only after that.",
+      "keywords": {
+        "en": [
+          "text field",
+          "validation",
+          "error message",
+          "focus",
+          "form",
+          "input"
+        ],
+        "es": [
+          "campo de texto",
+          "validación",
+          "mensaje de error",
+          "foco",
+          "formulario"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField",
+        "FocusState",
+        "onChange(of:initial:_:)",
+        "AccessibilityNotification"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/ValidatedTextField/ValidatedTextField.swift",
+      "preview": "Components/Inputs/ValidatedTextField/ValidatedTextField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/ValidatedTextField/ValidatedTextField.swift"
+    },
+    {
+      "id": "model-availability-gate",
+      "name": "ModelAvailabilityGate",
+      "title": "Model Availability Gate",
+      "category": "Intelligence",
+      "summary": "A view that shows its content when the on-device model can answer, and otherwise explains why not and what the person can do.",
+      "keywords": {
+        "en": [
+          "foundation models",
+          "apple intelligence",
+          "on-device model",
+          "availability",
+          "unavailable state",
+          "gate",
+          "llm"
+        ],
+        "es": [
+          "modelo en el dispositivo",
+          "apple intelligence",
+          "disponibilidad",
+          "estado no disponible",
+          "inteligencia artificial",
+          "comprobación"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "26.0",
+      "apis": [
+        "SystemLanguageModel",
+        "SystemLanguageModel.Availability",
+        "ContentUnavailableView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.swift",
+      "preview": "Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.swift"
+    },
+    {
+      "id": "on-device-streaming-answer",
+      "name": "OnDeviceStreamingAnswer",
+      "title": "On Device Streaming Answer",
+      "category": "Intelligence",
+      "summary": "An answer that fills in as the on-device model streams it, with no network request.",
+      "keywords": {
+        "en": [
+          "foundation models",
+          "streaming",
+          "on-device model",
+          "llm",
+          "apple intelligence",
+          "chat answer",
+          "ai text"
+        ],
+        "es": [
+          "respuesta en streaming",
+          "modelo en el dispositivo",
+          "inteligencia artificial",
+          "apple intelligence",
+          "texto generado",
+          "sin conexión"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "26.0",
+      "apis": [
+        "LanguageModelSession",
+        "streamResponse(to:options:)",
+        "prewarm(promptPrefix:)",
+        "SystemLanguageModel"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.swift",
+      "preview": "Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.swift"
+    },
+    {
+      "id": "structured-output-form",
+      "name": "StructuredOutputForm",
+      "title": "Structured Output Form",
+      "category": "Intelligence",
+      "summary": "A form whose fields the on-device model fills in from a free-form note as a typed Generable value.",
+      "keywords": {
+        "en": [
+          "foundation models",
+          "generable",
+          "structured output",
+          "form",
+          "autofill",
+          "apple intelligence",
+          "extraction",
+          "llm"
+        ],
+        "es": [
+          "salida estructurada",
+          "formulario",
+          "autorrelleno",
+          "inteligencia artificial",
+          "apple intelligence",
+          "extracción de datos",
+          "generable"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "27.0",
+      "apis": [
+        "Generable",
+        "Guide",
+        "LanguageModelSession",
+        "streamResponse(to:generating:options:contextOptions:metadata:)",
+        "ContextOptions"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Intelligence/StructuredOutputForm/StructuredOutputForm.swift",
+      "preview": "Components/Intelligence/StructuredOutputForm/StructuredOutputForm.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/StructuredOutputForm/StructuredOutputForm.swift"
+    },
+    {
+      "id": "adaptive-columns-grid",
+      "name": "AdaptiveColumnsGrid",
+      "title": "Adaptive Columns Grid",
+      "category": "Layouts",
+      "summary": "A grid whose column count is computed from the available width, so it gives more columns on iPad and fewer on iPhone.",
+      "keywords": {
+        "en": [
+          "grid",
+          "columns",
+          "responsive",
+          "adaptive",
+          "lazy grid",
+          "ipad",
+          "layout"
+        ],
+        "es": [
+          "cuadrícula",
+          "columnas",
+          "adaptable",
+          "responsive",
+          "rejilla",
+          "ipad",
+          "diseño"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "GridItem",
+        "onGeometryChange(for:of:action:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.swift",
+      "preview": "Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.swift"
+    },
+    {
+      "id": "any-layout-adaptive-switch",
+      "name": "AnyLayoutAdaptiveSwitch",
+      "title": "Any Layout Adaptive Switch",
+      "category": "Layouts",
+      "summary": "A group that animates between a row and a column when its available width changes.",
+      "keywords": {
+        "en": [
+          "anylayout",
+          "adaptive",
+          "row",
+          "column",
+          "responsive",
+          "hstack",
+          "vstack"
+        ],
+        "es": [
+          "diseño adaptable",
+          "fila",
+          "columna",
+          "responsive",
+          "cambio de disposición",
+          "anylayout"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "AnyLayout",
+        "HStackLayout",
+        "VStackLayout",
+        "onGeometryChange(for:of:action:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.swift",
+      "preview": "Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.swift"
     },
     {
       "id": "bento-grid-layout",
@@ -1836,6 +5232,126 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/FlowTagsLayout/FlowTagsLayout.swift"
     },
     {
+      "id": "kanban-board",
+      "name": "KanbanBoard",
+      "title": "Kanban Board",
+      "category": "Layouts",
+      "summary": "Columns of cards that the user drags from one column to another.",
+      "keywords": {
+        "en": [
+          "kanban",
+          "board",
+          "drag and drop",
+          "columns",
+          "cards",
+          "tasks",
+          "trello"
+        ],
+        "es": [
+          "kanban",
+          "tablero",
+          "arrastrar y soltar",
+          "columnas",
+          "tarjetas",
+          "tareas"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "draggable(_:preview:)",
+        "dropDestination(for:action:isTargeted:)",
+        "accessibilityActions(_:)",
+        "contextMenu(menuItems:)"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Layouts/KanbanBoard/KanbanBoard.swift",
+      "preview": "Components/Layouts/KanbanBoard/KanbanBoard.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/KanbanBoard/KanbanBoard.swift"
+    },
+    {
+      "id": "masonry-layout",
+      "name": "MasonryLayout",
+      "title": "Masonry Layout",
+      "category": "Layouts",
+      "summary": "A custom layout that places items of different heights into the shortest of several columns, like a Pinterest board.",
+      "keywords": {
+        "en": [
+          "masonry",
+          "pinterest",
+          "waterfall",
+          "custom layout",
+          "columns",
+          "grid",
+          "staggered"
+        ],
+        "es": [
+          "mampostería",
+          "pinterest",
+          "cascada",
+          "diseño personalizado",
+          "columnas",
+          "cuadrícula"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "LayoutSubviews",
+        "ProposedViewSize"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Layouts/MasonryLayout/MasonryLayout.swift",
+      "preview": "Components/Layouts/MasonryLayout/MasonryLayout.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/MasonryLayout/MasonryLayout.swift"
+    },
+    {
+      "id": "morphing-layout-switch",
+      "name": "MorphingLayoutSwitch",
+      "title": "Morphing Layout Switch",
+      "category": "Layouts",
+      "summary": "A switch that moves items between a list and a grid in one lazy grid, keeping the state of each cell.",
+      "keywords": {
+        "en": [
+          "list",
+          "grid",
+          "toggle",
+          "columns",
+          "morph",
+          "layout switch",
+          "transition"
+        ],
+        "es": [
+          "lista",
+          "cuadrícula",
+          "alternar",
+          "columnas",
+          "transformación",
+          "cambio de vista",
+          "transición"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "GridItem",
+        "AnyLayout"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.swift",
+      "preview": "Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.swift"
+    },
+    {
       "id": "radial-layout",
       "name": "RadialLayout",
       "title": "Radial Layout",
@@ -1877,6 +5393,43 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/RadialLayout/RadialLayout.swift"
     },
     {
+      "id": "readable-width-container",
+      "name": "ReadableWidthContainer",
+      "title": "Readable Width Container",
+      "category": "Layouts",
+      "summary": "A wrapper that caps its content to a comfortable reading width and centers it on large iPad screens.",
+      "keywords": {
+        "en": [
+          "readable width",
+          "max width",
+          "ipad",
+          "container",
+          "centered content",
+          "typography"
+        ],
+        "es": [
+          "ancho de lectura",
+          "ancho máximo",
+          "ipad",
+          "contenedor",
+          "contenido centrado",
+          "tipografía"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.swift",
+      "preview": "Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.swift"
+    },
+    {
       "id": "subview-card-container",
       "name": "SubviewCardContainer",
       "title": "Subview Card Container",
@@ -1915,6 +5468,166 @@
       "path": "Components/Layouts/SubviewCardContainer/SubviewCardContainer.swift",
       "preview": "Components/Layouts/SubviewCardContainer/SubviewCardContainer.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/SubviewCardContainer/SubviewCardContainer.swift"
+    },
+    {
+      "id": "accordion-section",
+      "name": "AccordionSection",
+      "title": "Accordion Section",
+      "category": "Lists",
+      "summary": "A stack of sections where opening one section closes the others, with the content height animated.",
+      "keywords": {
+        "en": [
+          "accordion",
+          "expandable",
+          "collapse",
+          "faq",
+          "sections",
+          "disclosure"
+        ],
+        "es": [
+          "acordeón",
+          "desplegable",
+          "expandir",
+          "contraer",
+          "preguntas frecuentes",
+          "secciones"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "withAnimation(_:_:)",
+        "transition(_:)",
+        "VStack",
+        "Binding"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/AccordionSection/AccordionSection.swift",
+      "preview": "Components/Lists/AccordionSection/AccordionSection.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/AccordionSection/AccordionSection.swift"
+    },
+    {
+      "id": "disclosure-tree-view",
+      "name": "DisclosureTreeView",
+      "title": "Disclosure Tree View",
+      "category": "Lists",
+      "summary": "A nested tree of rows that expand and collapse, indenting each level, for folders or category hierarchies.",
+      "keywords": {
+        "en": [
+          "tree",
+          "outline",
+          "hierarchy",
+          "folders",
+          "expand",
+          "collapse",
+          "nested list"
+        ],
+        "es": [
+          "árbol",
+          "jerarquía",
+          "carpetas",
+          "expandir",
+          "contraer",
+          "lista anidada",
+          "esquema"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVStack",
+        "ScaledMetric",
+        "withAnimation(_:_:)",
+        "accessibilityValue(_:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/DisclosureTreeView/DisclosureTreeView.swift",
+      "preview": "Components/Lists/DisclosureTreeView/DisclosureTreeView.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/DisclosureTreeView/DisclosureTreeView.swift"
+    },
+    {
+      "id": "edit-mode-multi-select",
+      "name": "EditModeMultiSelect",
+      "title": "Edit Mode Multi Select",
+      "category": "Lists",
+      "summary": "A list with a Select mode that shows selection circles on each row and a bottom bar of bulk actions.",
+      "keywords": {
+        "en": [
+          "multi select",
+          "edit mode",
+          "selection",
+          "list",
+          "bulk actions",
+          "select all",
+          "toolbar"
+        ],
+        "es": [
+          "selección múltiple",
+          "modo edición",
+          "selección",
+          "lista",
+          "acciones en lote",
+          "seleccionar todo"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "List",
+        "EditMode",
+        "safeAreaInset",
+        "toolbar"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/EditModeMultiSelect/EditModeMultiSelect.swift",
+      "preview": "Components/Lists/EditModeMultiSelect/EditModeMultiSelect.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/EditModeMultiSelect/EditModeMultiSelect.swift"
+    },
+    {
+      "id": "load-more-footer",
+      "name": "LoadMoreFooter",
+      "title": "Load More Footer",
+      "category": "Lists",
+      "summary": "An infinite list footer that requests the next page when it appears and shows loading, retry and end states.",
+      "keywords": {
+        "en": [
+          "infinite scroll",
+          "pagination",
+          "load more",
+          "footer",
+          "paging",
+          "list",
+          "next page"
+        ],
+        "es": [
+          "scroll infinito",
+          "paginación",
+          "cargar más",
+          "pie de lista",
+          "lista",
+          "siguiente página"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "onAppear",
+        "ProgressView",
+        "LazyVStack",
+        "Observable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/LoadMoreFooter/LoadMoreFooter.swift",
+      "preview": "Components/Lists/LoadMoreFooter/LoadMoreFooter.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/LoadMoreFooter/LoadMoreFooter.swift"
     },
     {
       "id": "reorderable-card-list",
@@ -1996,6 +5709,46 @@
       "path": "Components/Lists/ReorderableGrid/ReorderableGrid.swift",
       "preview": "Components/Lists/ReorderableGrid/ReorderableGrid.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/ReorderableGrid/ReorderableGrid.swift"
+    },
+    {
+      "id": "sticky-section-headers",
+      "name": "StickySectionHeaders",
+      "title": "Sticky Section Headers",
+      "category": "Lists",
+      "summary": "A scrolling list of sections whose headers pin to the top until the next header pushes them off.",
+      "keywords": {
+        "en": [
+          "sticky header",
+          "pinned header",
+          "section",
+          "list",
+          "contacts",
+          "scroll",
+          "lazy stack"
+        ],
+        "es": [
+          "cabecera fija",
+          "cabecera anclada",
+          "sección",
+          "lista",
+          "contactos",
+          "desplazamiento"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVStack",
+        "pinnedViews",
+        "ScrollView",
+        "Section"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/StickySectionHeaders/StickySectionHeaders.swift",
+      "preview": "Components/Lists/StickySectionHeaders/StickySectionHeaders.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/StickySectionHeaders/StickySectionHeaders.swift"
     },
     {
       "id": "arc-segments-loader",
@@ -2273,6 +6026,534 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift"
     },
     {
+      "id": "audio-player-card",
+      "name": "AudioPlayerCard",
+      "title": "Audio Player Card",
+      "category": "Media",
+      "summary": "A podcast-style player card with artwork, a scrubber, skip buttons and a play and pause toggle.",
+      "keywords": {
+        "en": [
+          "audio player",
+          "podcast",
+          "player card",
+          "scrubber",
+          "play pause",
+          "skip",
+          "now playing"
+        ],
+        "es": [
+          "reproductor de audio",
+          "pódcast",
+          "tarjeta",
+          "barra de progreso",
+          "reproducir",
+          "pausa",
+          "saltar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Slider",
+        "sensoryFeedback",
+        "Duration.TimeFormatStyle",
+        "symbolEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/AudioPlayerCard/AudioPlayerCard.swift",
+      "preview": "Components/Media/AudioPlayerCard/AudioPlayerCard.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/AudioPlayerCard/AudioPlayerCard.swift"
+    },
+    {
+      "id": "double-tap-seek-overlay",
+      "name": "DoubleTapSeekOverlay",
+      "title": "Double Tap Seek Overlay",
+      "category": "Media",
+      "summary": "Double tapping the left or right half of a video skips back or forward with a ripple and a seconds label.",
+      "keywords": {
+        "en": [
+          "double tap",
+          "seek",
+          "video",
+          "skip",
+          "ripple",
+          "gesture",
+          "player"
+        ],
+        "es": [
+          "doble toque",
+          "avanzar",
+          "retroceder",
+          "vídeo",
+          "ondulación",
+          "gesto",
+          "reproductor"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "SpatialTapGesture",
+        "accessibilityAction",
+        "task",
+        "GeometryReader"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.swift",
+      "preview": "Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.swift"
+    },
+    {
+      "id": "expanding-mini-player",
+      "name": "ExpandingMiniPlayer",
+      "title": "Expanding Mini Player",
+      "category": "Media",
+      "summary": "A mini player bar that morphs into a full player when it is tapped or pulled up.",
+      "keywords": {
+        "en": [
+          "mini player",
+          "music player",
+          "expand",
+          "matched geometry",
+          "now playing",
+          "drag",
+          "morph"
+        ],
+        "es": [
+          "minirreproductor",
+          "reproductor de música",
+          "expandir",
+          "arrastrar",
+          "transformación",
+          "reproduciendo"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "matchedGeometryEffect",
+        "GestureState",
+        "DragGesture",
+        "safeAreaPadding"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift",
+      "preview": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift"
+    },
+    {
+      "id": "shutter-capture-button",
+      "name": "ShutterCaptureButton",
+      "title": "Shutter Capture Button",
+      "category": "Media",
+      "summary": "A camera shutter whose inner shape shrinks on press and flashes a ring on capture, with a photo and video toggle.",
+      "keywords": {
+        "en": [
+          "camera",
+          "shutter",
+          "capture",
+          "photo",
+          "video",
+          "record button",
+          "ring"
+        ],
+        "es": [
+          "cámara",
+          "obturador",
+          "capturar",
+          "foto",
+          "vídeo",
+          "botón de grabar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ButtonStyle",
+        "RoundedRectangle",
+        "scaleEffect",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/ShutterCaptureButton/ShutterCaptureButton.swift",
+      "preview": "Components/Media/ShutterCaptureButton/ShutterCaptureButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/ShutterCaptureButton/ShutterCaptureButton.swift"
+    },
+    {
+      "id": "spinning-vinyl-art",
+      "name": "SpinningVinylArt",
+      "title": "Spinning Vinyl Art",
+      "category": "Media",
+      "summary": "Circular album art on a vinyl disc that spins while playing and eases to a stop when paused.",
+      "keywords": {
+        "en": [
+          "vinyl",
+          "album art",
+          "record",
+          "spinning",
+          "rotation",
+          "music",
+          "turntable"
+        ],
+        "es": [
+          "vinilo",
+          "carátula",
+          "disco",
+          "girar",
+          "rotación",
+          "música",
+          "tocadiscos"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TimelineView",
+        "rotationEffect",
+        "AngularGradient",
+        "task"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/SpinningVinylArt/SpinningVinylArt.swift",
+      "preview": "Components/Media/SpinningVinylArt/SpinningVinylArt.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/SpinningVinylArt/SpinningVinylArt.swift"
+    },
+    {
+      "id": "video-player-chrome",
+      "name": "VideoPlayerChrome",
+      "title": "Video Player Chrome",
+      "category": "Media",
+      "summary": "Custom controls over any video view that show on tap, hide after a few seconds and include a scrubber.",
+      "keywords": {
+        "en": [
+          "video player",
+          "controls",
+          "overlay",
+          "auto hide",
+          "scrubber",
+          "chrome",
+          "playback"
+        ],
+        "es": [
+          "reproductor de vídeo",
+          "controles",
+          "superposición",
+          "ocultar automáticamente",
+          "barra de progreso",
+          "reproducción"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Slider",
+        "task",
+        "accessibilityVoiceOverEnabled",
+        "onTapGesture"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/VideoPlayerChrome/VideoPlayerChrome.swift",
+      "preview": "Components/Media/VideoPlayerChrome/VideoPlayerChrome.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/VideoPlayerChrome/VideoPlayerChrome.swift"
+    },
+    {
+      "id": "video-poster-to-player",
+      "name": "VideoPosterToPlayer",
+      "title": "Video Poster To Player",
+      "category": "Media",
+      "summary": "A poster with a play button that opens into the playing video in the same frame through a growing circle.",
+      "keywords": {
+        "en": [
+          "video",
+          "poster",
+          "thumbnail",
+          "play button",
+          "reveal",
+          "transition",
+          "inline player"
+        ],
+        "es": [
+          "vídeo",
+          "póster",
+          "miniatura",
+          "botón de reproducir",
+          "revelar",
+          "transición"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Transition",
+        "mask",
+        "TimelineView",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.swift",
+      "preview": "Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.swift"
+    },
+    {
+      "id": "waveform-scrubber",
+      "name": "WaveformScrubber",
+      "title": "Waveform Scrubber",
+      "category": "Media",
+      "summary": "An audio waveform of bars that you drag to seek and that fills as playback moves on.",
+      "keywords": {
+        "en": [
+          "waveform",
+          "audio",
+          "scrubber",
+          "seek",
+          "voice note",
+          "canvas",
+          "bars"
+        ],
+        "es": [
+          "forma de onda",
+          "audio",
+          "barra de progreso",
+          "buscar",
+          "nota de voz",
+          "barras"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "DragGesture",
+        "GestureState",
+        "accessibilityAdjustableAction"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Media/WaveformScrubber/WaveformScrubber.swift",
+      "preview": "Components/Media/WaveformScrubber/WaveformScrubber.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/WaveformScrubber/WaveformScrubber.swift"
+    },
+    {
+      "id": "coach-mark-tour",
+      "name": "CoachMarkTour",
+      "title": "Coach Mark Tour",
+      "category": "Menus",
+      "summary": "A guided tour that dims the screen and spotlights a sequence of views with a step card next to each one.",
+      "keywords": {
+        "en": [
+          "coach mark",
+          "tour",
+          "onboarding",
+          "spotlight",
+          "tooltip",
+          "highlight",
+          "walkthrough"
+        ],
+        "es": [
+          "guía",
+          "tour",
+          "introducción",
+          "foco",
+          "resaltar",
+          "tutorial",
+          "indicaciones"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "anchorPreference",
+        "overlayPreferenceValue",
+        "Shape",
+        "FillStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Menus/CoachMarkTour/CoachMarkTour.swift",
+      "preview": "Components/Menus/CoachMarkTour/CoachMarkTour.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/CoachMarkTour/CoachMarkTour.swift"
+    },
+    {
+      "id": "command-palette",
+      "name": "CommandPalette",
+      "title": "Command Palette",
+      "category": "Menus",
+      "summary": "A searchable sheet of commands with shortcut hints and live filtering as you type.",
+      "keywords": {
+        "en": [
+          "command palette",
+          "search",
+          "actions",
+          "shortcuts",
+          "filter",
+          "sheet",
+          "command k"
+        ],
+        "es": [
+          "paleta de comandos",
+          "búsqueda",
+          "acciones",
+          "atajos",
+          "filtrar",
+          "hoja"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "searchable",
+        "List",
+        "Section",
+        "ContentUnavailableView"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Menus/CommandPalette/CommandPalette.swift",
+      "preview": "Components/Menus/CommandPalette/CommandPalette.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/CommandPalette/CommandPalette.swift"
+    },
+    {
+      "id": "context-menu-preview-card",
+      "name": "ContextMenuPreviewCard",
+      "title": "Context Menu Preview Card",
+      "category": "Menus",
+      "summary": "A card that lifts a richer preview above its menu when you press and hold it.",
+      "keywords": {
+        "en": [
+          "context menu",
+          "long press",
+          "preview",
+          "card",
+          "menu",
+          "press and hold"
+        ],
+        "es": [
+          "menú contextual",
+          "pulsación larga",
+          "vista previa",
+          "tarjeta",
+          "menú",
+          "mantener pulsado"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "contextMenu",
+        "contentShape",
+        "ContentShapeKinds"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.swift",
+      "preview": "Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.swift"
+    },
+    {
+      "id": "dropdown-select-menu",
+      "name": "DropdownSelectMenu",
+      "title": "Dropdown Select Menu",
+      "category": "Menus",
+      "summary": "A custom dropdown field whose list of options grows out of it and collapses on selection.",
+      "keywords": {
+        "en": [
+          "dropdown",
+          "select",
+          "picker",
+          "menu",
+          "options",
+          "form field",
+          "combobox"
+        ],
+        "es": [
+          "desplegable",
+          "selector",
+          "menú",
+          "opciones",
+          "campo de formulario",
+          "elegir"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "overlay",
+        "alignmentGuide",
+        "ViewThatFits",
+        "zIndex"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Menus/DropdownSelectMenu/DropdownSelectMenu.swift",
+      "preview": "Components/Menus/DropdownSelectMenu/DropdownSelectMenu.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/DropdownSelectMenu/DropdownSelectMenu.swift"
+    },
+    {
+      "id": "gooey-floating-menu",
+      "name": "GooeyFloatingMenu",
+      "title": "Gooey Floating Menu",
+      "category": "Menus",
+      "summary": "A floating button whose option bubbles melt and merge out of it like liquid.",
+      "keywords": {
+        "en": [
+          "gooey",
+          "metaball",
+          "floating action button",
+          "fab",
+          "menu",
+          "liquid",
+          "blob",
+          "fan"
+        ],
+        "es": [
+          "gelatinoso",
+          "menú flotante",
+          "botón flotante",
+          "líquido",
+          "fusión",
+          "burbujas",
+          "abanico"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "GraphicsContext.Filter",
+        "Animatable",
+        "mask"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift",
+      "preview": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift"
+    },
+    {
       "id": "animatable-ring",
       "name": "AnimatableRing",
       "title": "Animatable Ring",
@@ -2511,6 +6792,47 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/ToolbarOverflowDemo/ToolbarOverflowDemo.swift"
     },
     {
+      "id": "adaptive-sidebar-layout",
+      "name": "AdaptiveSidebarLayout",
+      "title": "Adaptive Sidebar Layout",
+      "category": "Navigation",
+      "summary": "A split view driven by one Boolean that collapses to the detail on iPad and swaps columns on iPhone.",
+      "keywords": {
+        "en": [
+          "sidebar",
+          "split view",
+          "ipad",
+          "adaptive",
+          "columns",
+          "collapse",
+          "toggle"
+        ],
+        "es": [
+          "barra lateral",
+          "vista dividida",
+          "ipad",
+          "adaptable",
+          "columnas",
+          "colapsar",
+          "alternar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "NavigationSplitView",
+        "NavigationSplitViewVisibility",
+        "NavigationSplitViewColumn",
+        "toolbar(removing:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.swift",
+      "preview": "Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.swift"
+    },
+    {
       "id": "animated-tab-bar",
       "name": "AnimatedTabBar",
       "title": "Animated Tab Bar",
@@ -2593,6 +6915,166 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/BottomDrawer/BottomDrawer.swift"
     },
     {
+      "id": "breadcrumb-trail",
+      "name": "BreadcrumbTrail",
+      "title": "Breadcrumb Trail",
+      "category": "Navigation",
+      "summary": "A breadcrumb path that moves its middle crumbs into a menu when it runs out of width.",
+      "keywords": {
+        "en": [
+          "breadcrumb",
+          "path",
+          "trail",
+          "hierarchy",
+          "folders",
+          "collapse",
+          "ellipsis"
+        ],
+        "es": [
+          "migas de pan",
+          "ruta",
+          "jerarquía",
+          "carpetas",
+          "colapsar",
+          "puntos suspensivos"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ViewThatFits",
+        "Menu",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.swift",
+      "preview": "Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.swift"
+    },
+    {
+      "id": "drag-to-dismiss-screen",
+      "name": "DragToDismissScreen",
+      "title": "Drag To Dismiss Screen",
+      "category": "Navigation",
+      "summary": "A full-screen page that follows a downward drag, shrinks and fades, then leaves when released past a threshold.",
+      "keywords": {
+        "en": [
+          "drag to dismiss",
+          "pull down",
+          "full screen",
+          "swipe down",
+          "close",
+          "gesture",
+          "interactive"
+        ],
+        "es": [
+          "arrastrar para cerrar",
+          "deslizar hacia abajo",
+          "pantalla completa",
+          "cerrar",
+          "gesto",
+          "interactivo"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "withAnimation(_:completionCriteria:_:completion:)",
+        "onGeometryChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift",
+      "preview": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift"
+    },
+    {
+      "id": "full-screen-menu-overlay",
+      "name": "FullScreenMenuOverlay",
+      "title": "Full Screen Menu Overlay",
+      "category": "Navigation",
+      "summary": "A full-screen menu that opens over the content and brings its links in one by one.",
+      "keywords": {
+        "en": [
+          "full screen menu",
+          "overlay",
+          "stagger",
+          "hamburger",
+          "navigation",
+          "links",
+          "animated"
+        ],
+        "es": [
+          "menú a pantalla completa",
+          "superposición",
+          "escalonado",
+          "hamburguesa",
+          "navegación",
+          "enlaces",
+          "animado"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "transition",
+        "Animation.delay",
+        "overlay",
+        "accessibilityAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.swift",
+      "preview": "Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.swift"
+    },
+    {
+      "id": "navigation-path-router",
+      "name": "NavigationPathRouter",
+      "title": "Navigation Path Router",
+      "category": "Navigation",
+      "summary": "A router that owns a NavigationPath so any view can push or pop screens by a typed value.",
+      "keywords": {
+        "en": [
+          "router",
+          "navigation path",
+          "coordinator",
+          "deep link",
+          "push",
+          "pop",
+          "programmatic navigation"
+        ],
+        "es": [
+          "enrutador",
+          "ruta de navegación",
+          "coordinador",
+          "enlace profundo",
+          "navegación programática",
+          "apilar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "NavigationStack",
+        "NavigationPath",
+        "navigationDestination(for:destination:)",
+        "Observable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/NavigationPathRouter/NavigationPathRouter.swift",
+      "preview": "Components/Navigation/NavigationPathRouter/NavigationPathRouter.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/NavigationPathRouter/NavigationPathRouter.swift"
+    },
+    {
       "id": "page-dots-indicator",
       "name": "PageDotsIndicator",
       "title": "Page Dots Indicator",
@@ -2632,6 +7114,48 @@
       "path": "Components/Navigation/PageDotsIndicator/PageDotsIndicator.swift",
       "preview": "Components/Navigation/PageDotsIndicator/PageDotsIndicator.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/PageDotsIndicator/PageDotsIndicator.swift"
+    },
+    {
+      "id": "scroll-spy-header",
+      "name": "ScrollSpyHeader",
+      "title": "Scroll Spy Header",
+      "category": "Navigation",
+      "summary": "A bar of chips that highlights the section at the top of a scroll view and jumps to a section when tapped.",
+      "keywords": {
+        "en": [
+          "scroll spy",
+          "sticky header",
+          "chips",
+          "sections",
+          "anchor",
+          "jump",
+          "menu"
+        ],
+        "es": [
+          "seguimiento de scroll",
+          "cabecera fija",
+          "chips",
+          "secciones",
+          "ancla",
+          "saltar",
+          "carta"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollTargetVisibilityChange",
+        "onScrollGeometryChange",
+        "scrollTargetLayout",
+        "ScrollViewReader",
+        "matchedGeometryEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.swift",
+      "preview": "Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.swift"
     },
     {
       "id": "scroll-to-top-button",
@@ -2674,6 +7198,45 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/ScrollToTopButton/ScrollToTopButton.swift"
     },
     {
+      "id": "search-scopes-and-suggestions",
+      "name": "SearchScopesAndSuggestions",
+      "title": "Search Scopes And Suggestions",
+      "category": "Navigation",
+      "summary": "A modifier that adds a search field with scope buttons and suggestion rows that narrow as you type.",
+      "keywords": {
+        "en": [
+          "search",
+          "searchable",
+          "scopes",
+          "suggestions",
+          "autocomplete",
+          "filter"
+        ],
+        "es": [
+          "búsqueda",
+          "buscador",
+          "ámbitos",
+          "sugerencias",
+          "autocompletar",
+          "filtro"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "searchable(text:isPresented:prompt:)",
+        "searchScopes(_:activation:_:)",
+        "searchSuggestions",
+        "searchCompletion"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.swift",
+      "preview": "Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.swift"
+    },
+    {
       "id": "side-drawer",
       "name": "SideDrawer",
       "title": "Side Drawer",
@@ -2713,6 +7276,605 @@
       "path": "Components/Navigation/SideDrawer/SideDrawer.swift",
       "preview": "Components/Navigation/SideDrawer/SideDrawer.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SideDrawer/SideDrawer.swift"
+    },
+    {
+      "id": "sidebar-adaptive-tabs",
+      "name": "SidebarAdaptiveTabs",
+      "title": "Sidebar Adaptive Tabs",
+      "category": "Navigation",
+      "summary": "The same tabs as a bottom tab bar on iPhone and as a sidebar on iPad.",
+      "keywords": {
+        "en": [
+          "tab bar",
+          "sidebar",
+          "ipad",
+          "adaptive",
+          "tabs",
+          "TabView"
+        ],
+        "es": [
+          "barra de pestañas",
+          "barra lateral",
+          "ipad",
+          "adaptable",
+          "pestañas"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TabView",
+        "Tab",
+        "sidebarAdaptable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.swift",
+      "preview": "Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.swift"
+    },
+    {
+      "id": "tab-navigation-state-preserve",
+      "name": "TabNavigationStatePreserve",
+      "title": "Tab Navigation State Preserve",
+      "category": "Navigation",
+      "summary": "A tab bar where each tab keeps its own navigation path in one store, so switching back restores your place.",
+      "keywords": {
+        "en": [
+          "tab bar",
+          "navigation stack",
+          "preserve state",
+          "restore",
+          "pop to root",
+          "tabs"
+        ],
+        "es": [
+          "barra de pestañas",
+          "pila de navegación",
+          "conservar estado",
+          "restaurar",
+          "volver al inicio",
+          "pestañas"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TabView",
+        "Tab",
+        "NavigationStack",
+        "NavigationPath",
+        "Observable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.swift",
+      "preview": "Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.swift"
+    },
+    {
+      "id": "two-pane-split-layout",
+      "name": "TwoPaneSplitLayout",
+      "title": "Two Pane Split Layout",
+      "category": "Navigation",
+      "summary": "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone.",
+      "keywords": {
+        "en": [
+          "master detail",
+          "two pane",
+          "split",
+          "ipad",
+          "size class",
+          "adaptive",
+          "list detail"
+        ],
+        "es": [
+          "maestro detalle",
+          "dos paneles",
+          "dividido",
+          "ipad",
+          "adaptable",
+          "lista y detalle"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "horizontalSizeClass",
+        "NavigationStack",
+        "navigationDestination(item:destination:)",
+        "ContentUnavailableView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift",
+      "preview": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift"
+    },
+    {
+      "id": "vertical-timeline",
+      "name": "VerticalTimeline",
+      "title": "Vertical Timeline",
+      "category": "Patterns",
+      "summary": "A vertical timeline with a connector line and done, current and upcoming steps.",
+      "keywords": {
+        "en": [
+          "timeline",
+          "steps",
+          "progress",
+          "order tracking",
+          "stepper",
+          "history",
+          "status"
+        ],
+        "es": [
+          "línea de tiempo",
+          "pasos",
+          "progreso",
+          "seguimiento de pedido",
+          "historial",
+          "estado"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "PhaseAnimator",
+        "fixedSize",
+        "accessibilityValue"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Patterns/VerticalTimeline/VerticalTimeline.swift",
+      "preview": "Components/Patterns/VerticalTimeline/VerticalTimeline.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Patterns/VerticalTimeline/VerticalTimeline.swift"
+    },
+    {
+      "id": "country-picker",
+      "name": "CountryPicker",
+      "title": "Country Picker",
+      "category": "Pickers",
+      "summary": "A searchable list of countries with flags and dial codes that opens on the current region.",
+      "keywords": {
+        "en": [
+          "country",
+          "picker",
+          "flag",
+          "dial code",
+          "phone prefix",
+          "region",
+          "search"
+        ],
+        "es": [
+          "país",
+          "selector",
+          "bandera",
+          "prefijo telefónico",
+          "región",
+          "búsqueda"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Locale.Region",
+        "searchable(text:placement:prompt:)",
+        "ScrollViewReader",
+        "List"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/CountryPicker/CountryPicker.swift",
+      "preview": "Components/Pickers/CountryPicker/CountryPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/CountryPicker/CountryPicker.swift"
+    },
+    {
+      "id": "emoji-picker",
+      "name": "EmojiPicker",
+      "title": "Emoji Picker",
+      "category": "Pickers",
+      "summary": "A grid of emoji grouped by category, with tabs that jump between sections and a row of recent picks.",
+      "keywords": {
+        "en": [
+          "emoji",
+          "picker",
+          "grid",
+          "smileys",
+          "keyboard",
+          "recent",
+          "reactions"
+        ],
+        "es": [
+          "emoji",
+          "selector",
+          "cuadrícula",
+          "caritas",
+          "teclado",
+          "recientes",
+          "reacciones"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "ScrollViewReader",
+        "onScrollTargetVisibilityChange",
+        "scrollTargetLayout"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/EmojiPicker/EmojiPicker.swift",
+      "preview": "Components/Pickers/EmojiPicker/EmojiPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/EmojiPicker/EmojiPicker.swift"
+    },
+    {
+      "id": "inline-date-picker-disclosure",
+      "name": "InlineDatePickerDisclosure",
+      "title": "Inline Date Picker Disclosure",
+      "category": "Pickers",
+      "summary": "A date row that opens in place into a calendar and closes again once a day is chosen.",
+      "keywords": {
+        "en": [
+          "date picker",
+          "calendar",
+          "disclosure",
+          "inline",
+          "expand",
+          "collapse",
+          "date"
+        ],
+        "es": [
+          "selector de fecha",
+          "calendario",
+          "desplegable",
+          "en línea",
+          "expandir",
+          "colapsar",
+          "fecha"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DatePicker",
+        "graphical",
+        "withAnimation",
+        "ViewThatFits"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.swift",
+      "preview": "Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.swift"
+    },
+    {
+      "id": "multi-photo-picker-tray",
+      "name": "MultiPhotoPickerTray",
+      "title": "Multi Photo Picker Tray",
+      "category": "Pickers",
+      "summary": "A photo picker limited to a maximum count, with a tray of chosen thumbnails that can be removed.",
+      "keywords": {
+        "en": [
+          "photo picker",
+          "photos",
+          "multiple selection",
+          "image picker",
+          "thumbnails",
+          "gallery",
+          "tray"
+        ],
+        "es": [
+          "selector de fotos",
+          "fotos",
+          "selección múltiple",
+          "imágenes",
+          "miniaturas",
+          "galería",
+          "bandeja"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "PhotosPicker",
+        "PhotosPickerItem",
+        "loadTransferable(type:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.swift",
+      "preview": "Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.swift"
+    },
+    {
+      "id": "time-slot-grid-picker",
+      "name": "TimeSlotGridPicker",
+      "title": "Time Slot Grid Picker",
+      "category": "Pickers",
+      "summary": "A grid of time slots where unavailable times are disabled and the chosen slot is highlighted.",
+      "keywords": {
+        "en": [
+          "time picker",
+          "time slots",
+          "booking",
+          "appointment",
+          "schedule",
+          "grid",
+          "reservation"
+        ],
+        "es": [
+          "selector de hora",
+          "franjas horarias",
+          "reserva",
+          "cita",
+          "horario",
+          "cuadrícula"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "Date.FormatStyle",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.swift",
+      "preview": "Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.swift"
+    },
+    {
+      "id": "wheel-picker",
+      "name": "WheelPicker",
+      "title": "Wheel Picker",
+      "category": "Pickers",
+      "summary": "A vertical wheel that picks one value from a list, with rows turning in 3D as they leave the center.",
+      "keywords": {
+        "en": [
+          "wheel picker",
+          "picker",
+          "scroll wheel",
+          "3d",
+          "time picker",
+          "snap",
+          "rotation"
+        ],
+        "es": [
+          "selector de rueda",
+          "rueda",
+          "selector",
+          "desplazamiento",
+          "3d",
+          "selector de hora",
+          "rotación"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "scrollTargetBehavior",
+        "scrollPosition(id:anchor:)",
+        "visualEffect",
+        "rotation3DEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Pickers/WheelPicker/WheelPicker.swift",
+      "preview": "Components/Pickers/WheelPicker/WheelPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/WheelPicker/WheelPicker.swift"
+    },
+    {
+      "id": "bubble-wrap-pop",
+      "name": "BubbleWrapPop",
+      "title": "Bubble Wrap Pop",
+      "category": "Playful",
+      "summary": "A sheet of bubbles that pop with a quick shrink and stay flat until reset.",
+      "keywords": {
+        "en": [
+          "bubble wrap",
+          "pop",
+          "fidget",
+          "toy",
+          "playful",
+          "haptics",
+          "grid"
+        ],
+        "es": [
+          "plástico de burbujas",
+          "explotar",
+          "juguete",
+          "divertido",
+          "vibración",
+          "cuadrícula"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVGrid",
+        "RadialGradient",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Playful/BubbleWrapPop/BubbleWrapPop.swift",
+      "preview": "Components/Playful/BubbleWrapPop/BubbleWrapPop.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Playful/BubbleWrapPop/BubbleWrapPop.swift"
+    },
+    {
+      "id": "spin-wheel-roulette",
+      "name": "SpinWheelRoulette",
+      "title": "Spin Wheel Roulette",
+      "category": "Playful",
+      "summary": "A prize wheel that spins with friction and lands on a random slice.",
+      "keywords": {
+        "en": [
+          "spin wheel",
+          "roulette",
+          "prize wheel",
+          "fortune",
+          "random",
+          "game",
+          "lucky draw"
+        ],
+        "es": [
+          "ruleta",
+          "rueda de premios",
+          "premio",
+          "fortuna",
+          "aleatorio",
+          "juego",
+          "sorteo"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "rotationEffect",
+        "withAnimation(_:completionCriteria:_:completion:)",
+        "AccessibilityNotification"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift",
+      "preview": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift"
+    },
+    {
+      "id": "stories-viewer",
+      "name": "StoriesViewer",
+      "title": "Stories Viewer",
+      "category": "Profiles",
+      "summary": "A full-screen story pager with segmented progress bars, tap to move and hold to pause.",
+      "keywords": {
+        "en": [
+          "stories",
+          "story viewer",
+          "instagram",
+          "progress bars",
+          "pager",
+          "full screen",
+          "hold to pause"
+        ],
+        "es": [
+          "historias",
+          "visor de historias",
+          "instagram",
+          "barras de progreso",
+          "paginador",
+          "pantalla completa",
+          "mantener para pausar"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ButtonStyle",
+        "task(id:)",
+        "accessibilityVoiceOverEnabled"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Profiles/StoriesViewer/StoriesViewer.swift",
+      "preview": "Components/Profiles/StoriesViewer/StoriesViewer.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Profiles/StoriesViewer/StoriesViewer.swift"
+    },
+    {
+      "id": "story-ring-avatar",
+      "name": "StoryRingAvatar",
+      "title": "Story Ring Avatar",
+      "category": "Profiles",
+      "summary": "An avatar with a gradient ring that spins while there are unseen stories.",
+      "keywords": {
+        "en": [
+          "avatar",
+          "story ring",
+          "profile picture",
+          "gradient ring",
+          "unseen",
+          "instagram"
+        ],
+        "es": [
+          "avatar",
+          "anillo de historias",
+          "foto de perfil",
+          "anillo degradado",
+          "sin ver",
+          "instagram"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "AsyncImage",
+        "AngularGradient",
+        "TimelineView",
+        "strokeBorder"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Profiles/StoryRingAvatar/StoryRingAvatar.swift",
+      "preview": "Components/Profiles/StoryRingAvatar/StoryRingAvatar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Profiles/StoryRingAvatar/StoryRingAvatar.swift"
+    },
+    {
+      "id": "activity-rings",
+      "name": "ActivityRings",
+      "title": "Activity Rings",
+      "category": "Progress",
+      "summary": "Concentric gradient rings that close as daily goals are reached.",
+      "keywords": {
+        "en": [
+          "activity rings",
+          "fitness",
+          "health",
+          "goals",
+          "circular progress",
+          "gradient",
+          "watch"
+        ],
+        "es": [
+          "anillos de actividad",
+          "ejercicio",
+          "salud",
+          "objetivos",
+          "progreso circular",
+          "degradado",
+          "reloj"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "InsettableShape",
+        "trim(from:to:)",
+        "AngularGradient",
+        "spring(duration:bounce:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Progress/ActivityRings/ActivityRings.swift",
+      "preview": "Components/Progress/ActivityRings/ActivityRings.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/ActivityRings/ActivityRings.swift"
     },
     {
       "id": "circular-progress-ring",
@@ -2791,6 +7953,46 @@
       "path": "Components/Progress/CountdownRing/CountdownRing.swift",
       "preview": "Components/Progress/CountdownRing/CountdownRing.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/CountdownRing/CountdownRing.swift"
+    },
+    {
+      "id": "download-pill-progress",
+      "name": "DownloadPillProgress",
+      "title": "Download Pill Progress",
+      "category": "Progress",
+      "summary": "A capsule button that turns into a progress ring while downloading, then into a checkmark.",
+      "keywords": {
+        "en": [
+          "download",
+          "button",
+          "progress ring",
+          "morph",
+          "capsule",
+          "app store"
+        ],
+        "es": [
+          "descarga",
+          "botón",
+          "anillo de progreso",
+          "transformación",
+          "cápsula",
+          "app store"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Capsule",
+        "trim(from:to:)",
+        "transition",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Progress/DownloadPillProgress/DownloadPillProgress.swift",
+      "preview": "Components/Progress/DownloadPillProgress/DownloadPillProgress.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/DownloadPillProgress/DownloadPillProgress.swift"
     },
     {
       "id": "gradient-progress-bar",
@@ -2912,6 +8114,125 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/StepProgressIndicator/StepProgressIndicator.swift"
     },
     {
+      "id": "auto-advance-carousel",
+      "name": "AutoAdvanceCarousel",
+      "title": "Auto Advance Carousel",
+      "category": "Scrolling",
+      "summary": "A paged carousel that advances on a timer and pauses while the user is dragging it.",
+      "keywords": {
+        "en": [
+          "carousel",
+          "auto advance",
+          "autoplay",
+          "banner",
+          "slideshow",
+          "paging",
+          "timer"
+        ],
+        "es": [
+          "carrusel",
+          "avance automático",
+          "reproducción automática",
+          "banner",
+          "presentación",
+          "paginación",
+          "temporizador"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "scrollPosition(id:)",
+        "onScrollPhaseChange",
+        "scrollTargetBehavior",
+        "task(id:)"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.swift",
+      "preview": "Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.swift"
+    },
+    {
+      "id": "cover-flow-carousel",
+      "name": "CoverFlowCarousel",
+      "title": "Cover Flow Carousel",
+      "category": "Scrolling",
+      "summary": "A horizontal carousel where the centered item faces forward and its neighbours turn away in 3D as you scroll.",
+      "keywords": {
+        "en": [
+          "cover flow",
+          "carousel",
+          "3d",
+          "albums",
+          "horizontal scroll",
+          "snap",
+          "perspective"
+        ],
+        "es": [
+          "cover flow",
+          "carrusel",
+          "3d",
+          "álbumes",
+          "desplazamiento horizontal",
+          "perspectiva"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "scrollTargetBehavior",
+        "scrollPosition(id:anchor:)",
+        "visualEffect",
+        "rotation3DEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.swift",
+      "preview": "Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.swift"
+    },
+    {
+      "id": "hide-on-scroll-bar",
+      "name": "HideOnScrollBar",
+      "title": "Hide On Scroll Bar",
+      "category": "Scrolling",
+      "summary": "A bottom bar that slides out of view while the user scrolls down and returns as soon as they scroll up.",
+      "keywords": {
+        "en": [
+          "hide on scroll",
+          "bottom bar",
+          "tab bar",
+          "scroll direction",
+          "toolbar",
+          "auto hide"
+        ],
+        "es": [
+          "ocultar al desplazar",
+          "barra inferior",
+          "barra de pestañas",
+          "dirección de desplazamiento",
+          "barra de herramientas",
+          "ocultación automática"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollGeometryChange",
+        "safeAreaInset",
+        "onGeometryChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/HideOnScrollBar/HideOnScrollBar.swift",
+      "preview": "Components/Scrolling/HideOnScrollBar/HideOnScrollBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/HideOnScrollBar/HideOnScrollBar.swift"
+    },
+    {
       "id": "infinite-marquee-row",
       "name": "InfiniteMarqueeRow",
       "title": "Infinite Marquee Row",
@@ -2949,6 +8270,127 @@
       "path": "Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.swift",
       "preview": "Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.swift"
+    },
+    {
+      "id": "netflix-rows-scroller",
+      "name": "NetflixRowsScroller",
+      "title": "Netflix Rows Scroller",
+      "category": "Scrolling",
+      "summary": "A vertical stack of titled horizontal rows where each row scrolls on its own, like a streaming home screen.",
+      "keywords": {
+        "en": [
+          "netflix",
+          "streaming",
+          "rows",
+          "posters",
+          "horizontal scroll",
+          "home screen",
+          "catalog"
+        ],
+        "es": [
+          "netflix",
+          "streaming",
+          "filas",
+          "carteles",
+          "desplazamiento horizontal",
+          "pantalla de inicio",
+          "catálogo"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "LazyVStack",
+        "LazyHStack",
+        "containerRelativeFrame",
+        "scrollTargetBehavior"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.swift",
+      "preview": "Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.swift"
+    },
+    {
+      "id": "onboarding-pager",
+      "name": "OnboardingPager",
+      "title": "Onboarding Pager",
+      "category": "Scrolling",
+      "summary": "A full-screen onboarding flow with swipeable pages, a progress indicator and a button that advances or finishes.",
+      "keywords": {
+        "en": [
+          "onboarding",
+          "welcome",
+          "pager",
+          "walkthrough",
+          "intro",
+          "first launch",
+          "tutorial"
+        ],
+        "es": [
+          "onboarding",
+          "bienvenida",
+          "paginador",
+          "recorrido",
+          "introducción",
+          "primer inicio",
+          "tutorial"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TabView",
+        "page(indexDisplayMode:)",
+        "symbolEffect",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/OnboardingPager/OnboardingPager.swift",
+      "preview": "Components/Scrolling/OnboardingPager/OnboardingPager.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/OnboardingPager/OnboardingPager.swift"
+    },
+    {
+      "id": "paged-grid-launcher",
+      "name": "PagedGridLauncher",
+      "title": "Paged Grid Launcher",
+      "category": "Scrolling",
+      "summary": "A launcher of icon grids that pages horizontally, with each page filled row by row like the iOS home screen.",
+      "keywords": {
+        "en": [
+          "launcher",
+          "home screen",
+          "app grid",
+          "icons",
+          "paging",
+          "springboard"
+        ],
+        "es": [
+          "lanzador",
+          "pantalla de inicio",
+          "cuadrícula de apps",
+          "iconos",
+          "paginación",
+          "escritorio"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "scrollTargetBehavior",
+        "scrollPosition(id:)",
+        "LazyVGrid",
+        "containerRelativeFrame"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/PagedGridLauncher/PagedGridLauncher.swift",
+      "preview": "Components/Scrolling/PagedGridLauncher/PagedGridLauncher.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PagedGridLauncher/PagedGridLauncher.swift"
     },
     {
       "id": "parallax-cards-row",
@@ -3032,6 +8474,45 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PeekCarousel/PeekCarousel.swift"
     },
     {
+      "id": "pull-progress-refresh",
+      "name": "PullProgressRefresh",
+      "title": "Pull Progress Refresh",
+      "category": "Scrolling",
+      "summary": "A custom pull to refresh whose ring fills with the pull distance and starts a refresh when released past a threshold.",
+      "keywords": {
+        "en": [
+          "pull to refresh",
+          "refresh",
+          "progress ring",
+          "scroll",
+          "reload",
+          "custom indicator"
+        ],
+        "es": [
+          "deslizar para actualizar",
+          "actualizar",
+          "anillo de progreso",
+          "desplazamiento",
+          "recargar",
+          "indicador"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollGeometryChange",
+        "onScrollPhaseChange",
+        "ScrollView",
+        "ProgressView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/PullProgressRefresh/PullProgressRefresh.swift",
+      "preview": "Components/Scrolling/PullProgressRefresh/PullProgressRefresh.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PullProgressRefresh/PullProgressRefresh.swift"
+    },
+    {
       "id": "scroll-fade-cards",
       "name": "ScrollFadeCards",
       "title": "Scroll Fade Cards",
@@ -3072,6 +8553,82 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollFadeCards/ScrollFadeCards.swift"
     },
     {
+      "id": "scroll-progress-bar",
+      "name": "ScrollProgressBar",
+      "title": "Scroll Progress Bar",
+      "category": "Scrolling",
+      "summary": "A thin bar pinned to the top of a scroll view that grows with the reading progress of the content.",
+      "keywords": {
+        "en": [
+          "scroll progress",
+          "reading progress",
+          "progress bar",
+          "article",
+          "scroll indicator",
+          "top bar"
+        ],
+        "es": [
+          "progreso de lectura",
+          "barra de progreso",
+          "desplazamiento",
+          "artículo",
+          "indicador",
+          "lectura"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollGeometryChange",
+        "ScrollPosition",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/ScrollProgressBar/ScrollProgressBar.swift",
+      "preview": "Components/Scrolling/ScrollProgressBar/ScrollProgressBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollProgressBar/ScrollProgressBar.swift"
+    },
+    {
+      "id": "scroll-visibility-reveal",
+      "name": "ScrollVisibilityReveal",
+      "title": "Scroll Visibility Reveal",
+      "category": "Scrolling",
+      "summary": "Sections fade and slide into place the first time they become visible while the user scrolls.",
+      "keywords": {
+        "en": [
+          "scroll reveal",
+          "appear on scroll",
+          "fade in",
+          "slide in",
+          "visibility",
+          "sections"
+        ],
+        "es": [
+          "revelar al desplazar",
+          "aparecer",
+          "fundido",
+          "entrada",
+          "visibilidad",
+          "secciones"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollVisibilityChange",
+        "ViewModifier",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.swift",
+      "preview": "Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.swift"
+    },
+    {
       "id": "sticky-parallax-header",
       "name": "StickyParallaxHeader",
       "title": "Sticky Parallax Header",
@@ -3110,6 +8667,243 @@
       "path": "Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.swift",
       "preview": "Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.swift"
+    },
+    {
+      "id": "sticky-stacked-cards",
+      "name": "StickyStackedCards",
+      "title": "Sticky Stacked Cards",
+      "category": "Scrolling",
+      "summary": "Cards that pile up at the top of the screen as the next card scrolls over them.",
+      "keywords": {
+        "en": [
+          "sticky cards",
+          "stacked cards",
+          "pile",
+          "scroll effect",
+          "pinned",
+          "card stack"
+        ],
+        "es": [
+          "tarjetas fijas",
+          "tarjetas apiladas",
+          "pila",
+          "efecto de desplazamiento",
+          "anclado",
+          "montón de tarjetas"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "visualEffect",
+        "GeometryProxy",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Scrolling/StickyStackedCards/StickyStackedCards.swift",
+      "preview": "Components/Scrolling/StickyStackedCards/StickyStackedCards.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/StickyStackedCards/StickyStackedCards.swift"
+    },
+    {
+      "id": "vertical-full-screen-feed",
+      "name": "VerticalFullScreenFeed",
+      "title": "Vertical Full Screen Feed",
+      "category": "Scrolling",
+      "summary": "A vertical feed where each item fills the screen and snaps into place, in the style of short-video apps.",
+      "keywords": {
+        "en": [
+          "vertical feed",
+          "full screen",
+          "paging",
+          "short video",
+          "reels",
+          "snap",
+          "stories"
+        ],
+        "es": [
+          "feed vertical",
+          "pantalla completa",
+          "paginación",
+          "vídeo corto",
+          "reels",
+          "encajar"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "scrollTargetBehavior",
+        "containerRelativeFrame",
+        "scrollPosition",
+        "ImageRenderer"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.swift",
+      "preview": "Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.swift"
+    },
+    {
+      "id": "custom-detent-sheet",
+      "name": "CustomDetentSheet",
+      "title": "Custom Detent Sheet",
+      "category": "Sheets",
+      "summary": "A system sheet that snaps between custom heights using presentationDetents and a CustomPresentationDetent.",
+      "keywords": {
+        "en": [
+          "sheet",
+          "detents",
+          "bottom sheet",
+          "presentation",
+          "custom height",
+          "half sheet"
+        ],
+        "es": [
+          "hoja",
+          "alturas",
+          "hoja inferior",
+          "presentación",
+          "altura personalizada",
+          "media hoja"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "presentationDetents",
+        "CustomPresentationDetent",
+        "presentationDragIndicator",
+        "presentationBackgroundInteraction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift",
+      "preview": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
+    },
+    {
+      "id": "minimizing-tab-bar",
+      "name": "MinimizingTabBar",
+      "title": "Minimizing Tab Bar",
+      "category": "Tabs",
+      "summary": "A tab bar that shrinks into a compact capsule while scrolling using the system tab bar minimize behavior.",
+      "keywords": {
+        "en": [
+          "tab bar",
+          "minimize",
+          "collapse",
+          "scroll",
+          "liquid glass",
+          "tabs",
+          "compact"
+        ],
+        "es": [
+          "barra de pestañas",
+          "minimizar",
+          "contraer",
+          "desplazamiento",
+          "cristal líquido",
+          "pestañas"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "26.0",
+      "apis": [
+        "tabBarMinimizeBehavior",
+        "TabView",
+        "Tab",
+        "TabContentBuilder"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Tabs/MinimizingTabBar/MinimizingTabBar.swift",
+      "preview": "Components/Tabs/MinimizingTabBar/MinimizingTabBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/MinimizingTabBar/MinimizingTabBar.swift"
+    },
+    {
+      "id": "notched-tab-bar",
+      "name": "NotchedTabBar",
+      "title": "Notched Tab Bar",
+      "category": "Tabs",
+      "summary": "A tab bar whose background path carves a smooth notch under the selected tab that slides between items.",
+      "keywords": {
+        "en": [
+          "tab bar",
+          "notch",
+          "curved tab bar",
+          "custom shape",
+          "floating button",
+          "navigation"
+        ],
+        "es": [
+          "barra de pestañas",
+          "muesca",
+          "barra curva",
+          "forma personalizada",
+          "botón flotante",
+          "navegación"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Path",
+        "addQuadCurve",
+        "Shape",
+        "animatableData",
+        "GeometryReader"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Tabs/NotchedTabBar/NotchedTabBar.swift",
+      "preview": "Components/Tabs/NotchedTabBar/NotchedTabBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/NotchedTabBar/NotchedTabBar.swift"
+    },
+    {
+      "id": "scrolling-tab-strip",
+      "name": "ScrollingTabStrip",
+      "title": "Scrolling Tab Strip",
+      "category": "Tabs",
+      "summary": "A horizontal row of tabs that scrolls the selected tab into the middle, with an underline that slides between tabs.",
+      "keywords": {
+        "en": [
+          "tabs",
+          "tab strip",
+          "scrollable tabs",
+          "segmented",
+          "categories",
+          "underline"
+        ],
+        "es": [
+          "pestañas",
+          "tira de pestañas",
+          "pestañas desplazables",
+          "segmentos",
+          "categorías",
+          "subrayado"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollViewReader",
+        "scrollTo",
+        "matchedGeometryEffect",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift",
+      "preview": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift"
     },
     {
       "id": "animated-gradient-text",
@@ -3382,6 +9176,45 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/MarqueeText/MarqueeText.swift"
     },
     {
+      "id": "read-more-text",
+      "name": "ReadMoreText",
+      "title": "Read More Text",
+      "category": "Text",
+      "summary": "A paragraph truncated with a fade that expands in place when tapped.",
+      "keywords": {
+        "en": [
+          "read more",
+          "expandable text",
+          "truncate",
+          "show more",
+          "fade",
+          "paragraph"
+        ],
+        "es": [
+          "leer más",
+          "texto expandible",
+          "truncar",
+          "mostrar más",
+          "difuminado",
+          "párrafo"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "onGeometryChange",
+        "lineLimit",
+        "LinearGradient",
+        "mask"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Text/ReadMoreText/ReadMoreText.swift",
+      "preview": "Components/Text/ReadMoreText/ReadMoreText.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ReadMoreText/ReadMoreText.swift"
+    },
+    {
       "id": "rotating-words-text",
       "name": "RotatingWordsText",
       "title": "Rotating Words Text",
@@ -3575,6 +9408,85 @@
       "path": "Components/Text/TypewriterText/TypewriterText.swift",
       "preview": "Components/Text/TypewriterText/TypewriterText.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/TypewriterText/TypewriterText.swift"
+    },
+    {
+      "id": "collapsing-bottom-bar",
+      "name": "CollapsingBottomBar",
+      "title": "Collapsing Bottom Bar",
+      "category": "Toolbars",
+      "summary": "A bottom toolbar that shrinks to a pill while scrolling down and expands back when scrolling up.",
+      "keywords": {
+        "en": [
+          "bottom bar",
+          "toolbar",
+          "collapse",
+          "scroll direction",
+          "pill",
+          "shrink"
+        ],
+        "es": [
+          "barra inferior",
+          "barra de herramientas",
+          "contraer",
+          "dirección de desplazamiento",
+          "píldora",
+          "encoger"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "safeAreaInset",
+        "onScrollGeometryChange",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Kavsoft tutorials"
+      },
+      "path": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift",
+      "preview": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift"
+    },
+    {
+      "id": "floating-dock-bar",
+      "name": "FloatingDockBar",
+      "title": "Floating Dock Bar",
+      "category": "Toolbars",
+      "summary": "A row of icons that magnify under the finger, in the style of the macOS dock.",
+      "keywords": {
+        "en": [
+          "dock",
+          "magnify",
+          "icons",
+          "toolbar",
+          "macos dock",
+          "hover scale"
+        ],
+        "es": [
+          "dock",
+          "ampliar",
+          "iconos",
+          "barra de herramientas",
+          "dock de macos",
+          "aumentar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "scaleEffect",
+        "onGeometryChange"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Public web component registries"
+      },
+      "path": "Components/Toolbars/FloatingDockBar/FloatingDockBar.swift",
+      "preview": "Components/Toolbars/FloatingDockBar/FloatingDockBar.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Toolbars/FloatingDockBar/FloatingDockBar.swift"
     },
     {
       "id": "blur-fade-transition",
@@ -3774,6 +9686,47 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/FlipCardTransition/FlipCardTransition.swift"
     },
     {
+      "id": "interactive-pager-transition",
+      "name": "InteractivePagerTransition",
+      "title": "Interactive Pager Transition",
+      "category": "Transitions",
+      "summary": "A page transition whose progress follows the finger during a drag and completes or cancels on release.",
+      "keywords": {
+        "en": [
+          "pager",
+          "interactive transition",
+          "drag",
+          "swipe",
+          "parallax",
+          "onboarding",
+          "pages"
+        ],
+        "es": [
+          "paginador",
+          "transición interactiva",
+          "arrastrar",
+          "deslizar",
+          "parallax",
+          "introducción",
+          "páginas"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GestureState",
+        "accessibilityScrollAction",
+        "accessibilityAdjustableAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.swift",
+      "preview": "Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.swift"
+    },
+    {
       "id": "matched-hero-card",
       "name": "MatchedHeroCard",
       "title": "Matched Hero Card",
@@ -3811,6 +9764,44 @@
       "path": "Components/Transitions/MatchedHeroCard/MatchedHeroCard.swift",
       "preview": "Components/Transitions/MatchedHeroCard/MatchedHeroCard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/MatchedHeroCard/MatchedHeroCard.swift"
+    },
+    {
+      "id": "parallax-push-transition",
+      "name": "ParallaxPushTransition",
+      "title": "Parallax Push Transition",
+      "category": "Transitions",
+      "summary": "A custom Transition where the incoming page slides over while the outgoing page moves at a slower parallax speed.",
+      "keywords": {
+        "en": [
+          "transition",
+          "parallax",
+          "push",
+          "page transition",
+          "slide",
+          "custom transition"
+        ],
+        "es": [
+          "transición",
+          "parallax",
+          "empujar",
+          "cambio de página",
+          "deslizar",
+          "transición personalizada"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Transition",
+        "TransitionPhase",
+        "visualEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.swift",
+      "preview": "Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.swift"
     },
     {
       "id": "slide-scale-transition",

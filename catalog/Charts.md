@@ -1,0 +1,13 @@
+# Charts
+
+[All categories](../README.md#catalog)
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="../Components/Charts/AnimatedBarChart/AnimatedBarChart.webp" width="120" alt="Animated Bar Chart preview"> | [Animated Bar Chart](../Components/Charts/AnimatedBarChart/AnimatedBarChart.swift) | Bars that grow from the baseline one after another with a spring. | 18.0+ | beginner |
+| <img src="../Components/Charts/AnimatedDonutChart/AnimatedDonutChart.webp" width="120" alt="Animated Donut Chart preview"> | [Animated Donut Chart](../Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift) | A donut chart whose segments grow in one by one, and the selected segment lifts out. | 18.0+ | intermediate |
+| <img src="../Components/Charts/ContributionHeatmap/ContributionHeatmap.webp" width="120" alt="Contribution Heatmap preview"> | [Contribution Heatmap](../Components/Charts/ContributionHeatmap/ContributionHeatmap.swift) | A calendar grid of colored cells whose intensity shows the activity of each day. | 18.0+ | intermediate |
+| <img src="../Components/Charts/InteractiveLineChart/InteractiveLineChart.webp" width="120" alt="Interactive Line Chart preview"> | [Interactive Line Chart](../Components/Charts/InteractiveLineChart/InteractiveLineChart.swift) | A line chart that shows a rule and a value tooltip under the finger as it scrubs along the time axis. | 18.0+ | intermediate |
+| <img src="../Components/Charts/LineChartDrawIn/LineChartDrawIn.webp" width="120" alt="Line Chart Draw In preview"> | [Line Chart Draw In](../Components/Charts/LineChartDrawIn/LineChartDrawIn.swift) | A line chart whose line draws in from left to right while a dot follows its tip. | 18.0+ | intermediate |
+| <img src="../Components/Charts/SparklineStatTile/SparklineStatTile.webp" width="120" alt="Sparkline Stat Tile preview"> | [Sparkline Stat Tile](../Components/Charts/SparklineStatTile/SparklineStatTile.swift) | A stat tile with a small trend line behind its value. | 18.0+ | beginner |
+| <img src="../Components/Charts/Surface3DChart/Surface3DChart.webp" width="120" alt="Surface 3D Chart preview"> | [Surface 3D Chart](../Components/Charts/Surface3DChart/Surface3DChart.swift) | A 3D surface plot that rotates when dragged, with buttons for preset viewing angles. | 26.0+ | intermediate |

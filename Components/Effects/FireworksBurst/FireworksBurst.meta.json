@@ -1,0 +1,28 @@
+{
+  "id": "fireworks-burst",
+  "name": "FireworksBurst",
+  "title": "Fireworks Burst",
+  "category": "Effects",
+  "summary": "Rockets that climb to where you tap and explode into particle sparks.",
+  "keywords": {
+    "en": ["fireworks", "particles", "celebration", "explosion", "sparks", "canvas", "tap"],
+    "es": ["fuegos artificiales", "partículas", "celebración", "explosión", "chispas", "lienzo", "toque"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext", "SpatialTapGesture"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap -x 130 -y 280",
+    "sleep 0.5",
+    "tap -x 280 -y 220",
+    "sleep 0.5",
+    "tap -x 200 -y 400",
+    "sleep 0.6",
+    "tap -x 90 -y 450",
+    "sleep 0.4",
+    "tap -x 310 -y 380",
+    "sleep 1.6"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "multi-photo-picker-tray",
+  "name": "MultiPhotoPickerTray",
+  "title": "Multi Photo Picker Tray",
+  "category": "Pickers",
+  "summary": "A photo picker limited to a maximum count, with a tray of chosen thumbnails that can be removed.",
+  "keywords": {
+    "en": [
+      "photo picker",
+      "photos",
+      "multiple selection",
+      "image picker",
+      "thumbnails",
+      "gallery",
+      "tray"
+    ],
+    "es": [
+      "selector de fotos",
+      "fotos",
+      "selección múltiple",
+      "imágenes",
+      "miniaturas",
+      "galería",
+      "bandeja"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "PhotosPicker",
+    "PhotosPickerItem",
+    "loadTransferable(type:)"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

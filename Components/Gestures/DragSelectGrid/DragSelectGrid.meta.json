@@ -1,0 +1,44 @@
+{
+  "id": "drag-select-grid",
+  "name": "DragSelectGrid",
+  "title": "Drag Select Grid",
+  "category": "Gestures",
+  "summary": "A grid where dragging across tiles selects them all in one stroke, as in photo libraries.",
+  "keywords": {
+    "en": [
+      "drag",
+      "select",
+      "multi-select",
+      "grid",
+      "photos",
+      "tiles",
+      "selection"
+    ],
+    "es": [
+      "arrastrar",
+      "seleccionar",
+      "selección múltiple",
+      "cuadrícula",
+      "fotos",
+      "mosaicos"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "GestureState",
+    "LazyVGrid",
+    "onGeometryChange"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 50 --start-y 205 --end-x 350 --end-y 400 --duration 1.0",
+    "sleep 0.9",
+    "swipe --start-x 150 --start-y 320 --end-x 350 --end-y 500 --duration 0.8",
+    "sleep 0.9"
+  ]
+}

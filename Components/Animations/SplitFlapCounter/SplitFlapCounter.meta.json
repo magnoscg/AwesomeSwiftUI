@@ -1,0 +1,38 @@
+{
+  "id": "split-flap-counter",
+  "name": "SplitFlapCounter",
+  "title": "Split Flap Counter",
+  "category": "Animations",
+  "summary": "A split-flap display where each digit flips down to its new value.",
+  "keywords": {
+    "en": [
+      "split flap",
+      "flip",
+      "counter",
+      "digits",
+      "departure board",
+      "number",
+      "retro"
+    ],
+    "es": [
+      "paneles abatibles",
+      "contador",
+      "dígitos",
+      "número",
+      "volteo",
+      "panel de salidas",
+      "retro"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Animatable",
+    "rotation3DEffect",
+    "UnevenRoundedRectangle",
+    "ViewThatFits"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

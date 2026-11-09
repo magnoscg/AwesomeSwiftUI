@@ -1,0 +1,50 @@
+{
+  "id": "shutter-capture-button",
+  "name": "ShutterCaptureButton",
+  "title": "Shutter Capture Button",
+  "category": "Media",
+  "summary": "A camera shutter whose inner shape shrinks on press and flashes a ring on capture, with a photo and video toggle.",
+  "keywords": {
+    "en": [
+      "camera",
+      "shutter",
+      "capture",
+      "photo",
+      "video",
+      "record button",
+      "ring"
+    ],
+    "es": [
+      "cámara",
+      "obturador",
+      "capturar",
+      "foto",
+      "vídeo",
+      "botón de grabar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "ButtonStyle",
+    "RoundedRectangle",
+    "scaleEffect",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Take photo'",
+    "sleep 0.8",
+    "tap --label 'Take photo'",
+    "sleep 0.8",
+    "tap --label Video",
+    "sleep 0.8",
+    "tap --label 'Start recording'",
+    "sleep 1.4",
+    "tap --label 'Stop recording'",
+    "sleep 0.8"
+  ]
+}

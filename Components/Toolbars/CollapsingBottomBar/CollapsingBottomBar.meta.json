@@ -1,0 +1,22 @@
+{
+  "id": "collapsing-bottom-bar",
+  "name": "CollapsingBottomBar",
+  "title": "Collapsing Bottom Bar",
+  "category": "Toolbars",
+  "summary": "A bottom toolbar that shrinks to a pill while scrolling down and expands back when scrolling up.",
+  "keywords": {
+    "en": ["bottom bar", "toolbar", "collapse", "scroll direction", "pill", "shrink"],
+    "es": ["barra inferior", "barra de herramientas", "contraer", "dirección de desplazamiento", "píldora", "encoger"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["safeAreaInset", "onScrollGeometryChange", "ViewModifier"],
+  "origin": { "kind": "inspired", "credit": "Kavsoft tutorials" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 620 --end-x 201 --end-y 260 --duration 0.5",
+    "sleep 1.3",
+    "swipe --start-x 201 --start-y 300 --end-x 201 --end-y 560 --duration 0.5",
+    "sleep 1.3"
+  ]
+}

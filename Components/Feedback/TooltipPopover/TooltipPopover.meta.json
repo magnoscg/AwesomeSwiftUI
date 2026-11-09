@@ -1,0 +1,49 @@
+{
+  "id": "tooltip-popover",
+  "name": "TooltipPopover",
+  "title": "Tooltip Popover",
+  "category": "Feedback",
+  "summary": "A tooltip bubble that pops out of its arrow next to an anchor view and closes on a tap outside.",
+  "keywords": {
+    "en": [
+      "tooltip",
+      "popover",
+      "hint",
+      "bubble",
+      "arrow",
+      "anchor",
+      "help"
+    ],
+    "es": [
+      "información emergente",
+      "globo",
+      "pista",
+      "burbuja",
+      "flecha",
+      "ancla",
+      "ayuda"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "anchorPreference",
+    "overlayPreferenceValue",
+    "Layout",
+    "ViewThatFits"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'About iCloud Backup'",
+    "sleep 1.2",
+    "tap -x 201 -y 720",
+    "sleep 0.6",
+    "tap --label 'About Low Data Mode'",
+    "sleep 1.2",
+    "tap -x 201 -y 720",
+    "sleep 0.6"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "photo-lightbox",
+  "name": "PhotoLightbox",
+  "title": "Photo Lightbox",
+  "category": "Images",
+  "summary": "A full-screen photo pager where each page zooms independently and the viewer closes on a swipe down.",
+  "keywords": {
+    "en": ["lightbox", "photo viewer", "gallery", "pager", "zoom", "swipe to dismiss", "full screen"],
+    "es": ["visor de fotos", "galería", "paginador", "zoom", "deslizar para cerrar", "pantalla completa"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["TabView", "PageTabViewStyle", "MagnifyGesture", "GestureMask"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label \"Open photo 1\"",
+    "sleep 1",
+    "swipe --start-x 340 --start-y 450 --end-x 60 --end-y 450 --duration 0.3",
+    "sleep 1",
+    "swipe --start-x 340 --start-y 450 --end-x 60 --end-y 450 --duration 0.3",
+    "sleep 1",
+    "swipe --start-x 201 --start-y 380 --end-x 201 --end-y 760 --duration 0.4",
+    "sleep 1"
+  ]
+}

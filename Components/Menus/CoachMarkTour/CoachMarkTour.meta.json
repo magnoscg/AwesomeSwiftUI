@@ -1,0 +1,49 @@
+{
+  "id": "coach-mark-tour",
+  "name": "CoachMarkTour",
+  "title": "Coach Mark Tour",
+  "category": "Menus",
+  "summary": "A guided tour that dims the screen and spotlights a sequence of views with a step card next to each one.",
+  "keywords": {
+    "en": [
+      "coach mark",
+      "tour",
+      "onboarding",
+      "spotlight",
+      "tooltip",
+      "highlight",
+      "walkthrough"
+    ],
+    "es": [
+      "guía",
+      "tour",
+      "introducción",
+      "foco",
+      "resaltar",
+      "tutorial",
+      "indicaciones"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "anchorPreference",
+    "overlayPreferenceValue",
+    "Shape",
+    "FillStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label 'Next step'",
+    "sleep 1.1",
+    "tap --label 'Next step'",
+    "sleep 1.1",
+    "tap --label 'Next step'",
+    "sleep 1.1",
+    "tap --label 'Finish tour'",
+    "sleep 0.8"
+  ]
+}

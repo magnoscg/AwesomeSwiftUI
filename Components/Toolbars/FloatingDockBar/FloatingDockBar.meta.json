@@ -1,0 +1,22 @@
+{
+  "id": "floating-dock-bar",
+  "name": "FloatingDockBar",
+  "title": "Floating Dock Bar",
+  "category": "Toolbars",
+  "summary": "A row of icons that magnify under the finger, in the style of the macOS dock.",
+  "keywords": {
+    "en": ["dock", "magnify", "icons", "toolbar", "macos dock", "hover scale"],
+    "es": ["dock", "ampliar", "iconos", "barra de herramientas", "dock de macos", "aumentar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "scaleEffect", "onGeometryChange"],
+  "origin": { "kind": "inspired", "credit": "Public web component registries" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 60 --start-y 465 --end-x 342 --end-y 465 --duration 1.8",
+    "sleep 0.3",
+    "swipe --start-x 342 --start-y 465 --end-x 60 --end-y 465 --duration 1.8",
+    "sleep 0.4"
+  ]
+}

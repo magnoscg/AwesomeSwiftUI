@@ -1,0 +1,28 @@
+{
+  "id": "circular-avatar-cropper",
+  "name": "CircularAvatarCropper",
+  "title": "Circular Avatar Cropper",
+  "category": "Images",
+  "summary": "A photo you pan and pinch under a fixed circular window to choose an avatar crop.",
+  "keywords": {
+    "en": ["avatar", "crop", "cropper", "circle", "profile photo", "pinch", "pan"],
+    "es": ["avatar", "recortar", "recorte", "círculo", "foto de perfil", "pellizcar", "encuadrar"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["MagnifyGesture", "DragGesture", "GestureState", "FillStyle"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label \"Zoom in\"",
+    "sleep 0.5",
+    "tap --label \"Zoom in\"",
+    "sleep 0.6",
+    "swipe --start-x 250 --start-y 400 --end-x 130 --end-y 300 --duration 0.7",
+    "sleep 0.3",
+    "swipe --start-x 130 --start-y 300 --end-x 270 --end-y 460 --duration 0.7",
+    "sleep 0.3",
+    "tap --label Reset",
+    "sleep 0.8"
+  ]
+}

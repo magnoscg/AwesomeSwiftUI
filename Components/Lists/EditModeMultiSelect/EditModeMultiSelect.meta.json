@@ -1,0 +1,50 @@
+{
+  "id": "edit-mode-multi-select",
+  "name": "EditModeMultiSelect",
+  "title": "Edit Mode Multi Select",
+  "category": "Lists",
+  "summary": "A list with a Select mode that shows selection circles on each row and a bottom bar of bulk actions.",
+  "keywords": {
+    "en": [
+      "multi select",
+      "edit mode",
+      "selection",
+      "list",
+      "bulk actions",
+      "select all",
+      "toolbar"
+    ],
+    "es": [
+      "selección múltiple",
+      "modo edición",
+      "selección",
+      "lista",
+      "acciones en lote",
+      "seleccionar todo"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "List",
+    "EditMode",
+    "safeAreaInset",
+    "toolbar"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Select",
+    "sleep 0.8",
+    "tap -x 201 -y 165",
+    "sleep 0.4",
+    "tap -x 201 -y 290",
+    "sleep 0.4",
+    "tap -x 201 -y 355",
+    "sleep 0.9",
+    "tap --label Archive",
+    "sleep 1.2"
+  ]
+}

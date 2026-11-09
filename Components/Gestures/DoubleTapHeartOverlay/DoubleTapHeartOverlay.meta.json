@@ -1,0 +1,37 @@
+{
+  "id": "double-tap-heart-overlay",
+  "name": "DoubleTapHeartOverlay",
+  "title": "Double Tap Heart Overlay",
+  "category": "Gestures",
+  "summary": "Double tapping a photo throws a heart at the finger and marks the photo as liked.",
+  "keywords": {
+    "en": [
+      "double tap",
+      "heart",
+      "like",
+      "photo",
+      "overlay",
+      "favorite",
+      "instagram"
+    ],
+    "es": [
+      "doble toque",
+      "corazón",
+      "me gusta",
+      "foto",
+      "superposición",
+      "favorito"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "SpatialTapGesture",
+    "withAnimation",
+    "sensoryFeedback",
+    "symbolEffect"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "date-strip-picker",
+  "name": "DateStripPicker",
+  "title": "Date Strip Picker",
+  "category": "Calendars",
+  "summary": "A horizontal strip of days that keeps the selected day centered as you scroll.",
+  "keywords": {
+    "en": [
+      "date picker",
+      "week strip",
+      "horizontal calendar",
+      "day selector",
+      "scroll snapping",
+      "agenda"
+    ],
+    "es": [
+      "selector de fecha",
+      "tira de días",
+      "calendario horizontal",
+      "selector de día",
+      "agenda",
+      "desplazamiento"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ScrollView",
+    "scrollPosition",
+    "scrollTargetBehavior",
+    "contentMargins"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap -x 337 -y 451",
+    "sleep 1",
+    "swipe --start-x 320 --start-y 451 --end-x 110 --end-y 451 --duration 0.5",
+    "sleep 1.3",
+    "tap -x 65 -y 451",
+    "sleep 1"
+  ]
+}
