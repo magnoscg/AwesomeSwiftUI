@@ -1,0 +1,26 @@
+{
+  "id": "crop-rectangle-overlay",
+  "name": "CropRectangleOverlay",
+  "title": "Crop Rectangle Overlay",
+  "category": "Images",
+  "summary": "A crop frame with draggable corners and edges over an image, dimming the area outside the selection.",
+  "keywords": {
+    "en": ["crop", "cropper", "rectangle", "image", "photo editor", "handles", "selection"],
+    "es": ["recortar", "recorte", "rectángulo", "imagen", "editor de fotos", "selección", "tiradores"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "GeometryReader", "FillStyle"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 53 --start-y 266 --end-x 120 --end-y 340 --duration 0.5",
+    "sleep 0.4",
+    "swipe --start-x 349 --start-y 636 --end-x 285 --end-y 540 --duration 0.5",
+    "sleep 0.4",
+    "swipe --start-x 285 --start-y 440 --end-x 340 --end-y 440 --duration 0.4",
+    "sleep 0.4",
+    "swipe --start-x 230 --start-y 440 --end-x 190 --end-y 380 --duration 0.5",
+    "sleep 0.8"
+  ]
+}

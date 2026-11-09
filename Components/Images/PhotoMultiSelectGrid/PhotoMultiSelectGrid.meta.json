@@ -1,0 +1,28 @@
+{
+  "id": "photo-multi-select-grid",
+  "name": "PhotoMultiSelectGrid",
+  "title": "Photo Multi Select Grid",
+  "category": "Images",
+  "summary": "A photo grid where a long press enters a multi-select mode that shows checkmarks on the chosen photos.",
+  "keywords": {
+    "en": ["photo grid", "multi select", "selection", "long press", "checkmark", "gallery"],
+    "es": ["cuadrícula de fotos", "selección múltiple", "seleccionar", "pulsación larga", "marca de verificación", "galería"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["LazyVGrid", "onLongPressGesture", "sensoryFeedback"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "touch -x 201 -y 300 --down",
+    "sleep 0.6",
+    "touch -x 201 -y 300 --up",
+    "sleep 0.5",
+    "tap --label \"Photo 7\"",
+    "sleep 0.4",
+    "tap --label \"Photo 9\"",
+    "sleep 0.4",
+    "tap --label \"Photo 1\"",
+    "sleep 1"
+  ]
+}
