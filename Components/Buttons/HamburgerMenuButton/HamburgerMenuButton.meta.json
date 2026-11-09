@@ -1,0 +1,48 @@
+{
+  "id": "hamburger-menu-button",
+  "name": "HamburgerMenuButton",
+  "title": "Hamburger Menu Button",
+  "category": "Buttons",
+  "summary": "A three-line menu button whose bars animate into a close cross when toggled.",
+  "keywords": {
+    "en": [
+      "hamburger",
+      "menu button",
+      "three lines",
+      "close",
+      "morph",
+      "toggle",
+      "navigation"
+    ],
+    "es": [
+      "hamburguesa",
+      "botón de menú",
+      "tres líneas",
+      "cerrar",
+      "transformación",
+      "navegación"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "animatableData",
+    "StrokeStyle",
+    "withAnimation"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Open menu'",
+    "sleep 1.2",
+    "tap --label 'Close menu'",
+    "sleep 1",
+    "tap --label 'Open menu'",
+    "sleep 1.2",
+    "tap --label 'Close menu'",
+    "sleep 0.8"
+  ]
+}

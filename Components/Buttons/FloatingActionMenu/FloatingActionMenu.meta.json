@@ -1,0 +1,48 @@
+{
+  "id": "floating-action-menu",
+  "name": "FloatingActionMenu",
+  "title": "Floating Action Menu",
+  "category": "Buttons",
+  "summary": "A plus button that rotates into a close icon and fans out its actions around it.",
+  "keywords": {
+    "en": [
+      "floating action button",
+      "fab",
+      "menu",
+      "radial",
+      "fan",
+      "plus button",
+      "actions"
+    ],
+    "es": [
+      "botón flotante",
+      "menú",
+      "radial",
+      "abanico",
+      "botón más",
+      "acciones"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "offset",
+    "rotationEffect",
+    "Animation.spring",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label 'Open menu'",
+    "sleep 1.3",
+    "tap --label Share",
+    "sleep 0.9",
+    "tap --label 'Open menu'",
+    "sleep 1.3",
+    "tap --label 'Close menu'",
+    "sleep 0.9"
+  ]
+}

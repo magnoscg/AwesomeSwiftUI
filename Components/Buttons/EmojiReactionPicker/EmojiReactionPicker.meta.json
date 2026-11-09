@@ -1,0 +1,40 @@
+{
+  "id": "emoji-reaction-picker",
+  "name": "EmojiReactionPicker",
+  "title": "Emoji Reaction Picker",
+  "category": "Buttons",
+  "summary": "A long-press control that reveals a row of reaction emoji, magnifies the one under the finger and selects it on release.",
+  "keywords": {
+    "en": [
+      "emoji",
+      "reactions",
+      "like",
+      "long press",
+      "picker",
+      "drag",
+      "social"
+    ],
+    "es": [
+      "emoji",
+      "reacciones",
+      "me gusta",
+      "pulsación larga",
+      "selector",
+      "arrastrar",
+      "red social"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "LongPressGesture",
+    "DragGesture",
+    "GestureState",
+    "sensoryFeedback",
+    "accessibilityActions"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

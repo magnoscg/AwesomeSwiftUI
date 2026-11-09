@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import CoreGraphics
+import Testing
+@testable import Showcase
+
+struct FloatingActionMenuTests {
+    @Test func itemsSpreadFromTheStartAngleToTheEndAngle() {
+        let first = FloatingActionMenuMath.offset(index: 0, count: 3, radius: 100, startDegrees: 180, endDegrees: 270)
+        let last = FloatingActionMenuMath.offset(index: 2, count: 3, radius: 100, startDegrees: 180, endDegrees: 270)
+
+        #expect(abs(first.width + 100) < 0.001)
+        #expect(abs(first.height) < 0.001)
+        #expect(abs(last.width) < 0.001)
+        #expect(abs(last.height + 100) < 0.001)
+    }
+
+    @Test func aSingleItemSitsInTheMiddleOfTheArc() {
+        let offset = FloatingActionMenuMath.offset(index: 0, count: 1, radius: 100, startDegrees: 180, endDegrees: 270)
+
+        #expect(offset.width < 0)
+        #expect(abs(offset.width - offset.height) < 0.001)
+    }
+
+    @Test(arguments: [(0, 0), (3, 3), (-1, 3), (Int.max, 3)] as [(Int, Int)])
+    func invalidIndexesStayInPlace(index: Int, count: Int) {
+        #expect(FloatingActionMenuMath.offset(index: index, count: count, radius: 100, startDegrees: 180, endDegrees: 270) == .zero)
+    }
+
+    @Test func negativeRadiusCollapsesToTheCenter() {
+        let offset = FloatingActionMenuMath.offset(index: 1, count: 3, radius: -50, startDegrees: 0, endDegrees: 90)
+
+        #expect(offset == .zero)
+    }
+}
