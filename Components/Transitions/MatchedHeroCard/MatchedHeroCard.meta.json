@@ -1,0 +1,22 @@
+{
+  "id": "matched-hero-card",
+  "name": "MatchedHeroCard",
+  "title": "Matched Hero Card",
+  "category": "Transitions",
+  "summary": "A card that expands in place into a full detail view using matched geometry.",
+  "keywords": {
+    "en": ["hero animation", "matched geometry", "expanding card", "card", "detail", "morph", "app store card"],
+    "es": ["animación hero", "geometría compartida", "tarjeta expandible", "tarjeta", "detalle", "transformación"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["matchedGeometryEffect", "Namespace", "withAnimation"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Lisbon",
+    "sleep 1.7",
+    "tap --label Close",
+    "sleep 1.3"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "circle-reveal-transition",
+  "name": "CircleRevealTransition",
+  "title": "Circle Reveal Transition",
+  "category": "Transitions",
+  "summary": "A custom transition that reveals a view through a circular mask growing from a point.",
+  "keywords": {
+    "en": ["circle reveal", "mask", "transition", "theme switch", "clip shape", "ripple", "reveal"],
+    "es": ["revelado circular", "máscara", "transición", "cambio de tema", "círculo", "revelar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Transition", "Shape", "clipShape", "Animatable"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Sunset",
+    "sleep 1.6",
+    "tap --label Sunrise",
+    "sleep 1.6"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "flip-card-transition",
+  "name": "FlipCardTransition",
+  "title": "Flip Card Transition",
+  "category": "Transitions",
+  "summary": "A two-sided card that flips in 3D without ever showing mirrored content.",
+  "keywords": {
+    "en": ["flip", "card", "3d rotation", "two sided", "front and back", "turn over", "animatable"],
+    "es": ["voltear", "tarjeta", "rotación 3d", "dos caras", "anverso y reverso", "girar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["rotation3DEffect", "Animatable"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Flip",
+    "sleep 1.5",
+    "tap --label Flip",
+    "sleep 1.5"
+  ]
+}

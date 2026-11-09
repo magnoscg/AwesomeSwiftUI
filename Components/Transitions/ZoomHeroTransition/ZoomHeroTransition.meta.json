@@ -1,0 +1,22 @@
+{
+  "id": "zoom-hero-transition",
+  "name": "ZoomHeroTransition",
+  "title": "Zoom Hero Transition",
+  "category": "Transitions",
+  "summary": "A grid of cards that zoom into their detail screen with the native navigation zoom transition.",
+  "keywords": {
+    "en": ["zoom transition", "hero animation", "navigation", "grid", "cards", "detail", "matched transition"],
+    "es": ["transición zoom", "animación hero", "navegación", "cuadrícula", "tarjetas", "detalle"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["navigationTransition", "matchedTransitionSource", "NavigationStack", "LazyVGrid"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Aurora",
+    "sleep 1.7",
+    "tap --label Close",
+    "sleep 1.4"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "staggered-appear-list",
+  "name": "StaggeredAppearList",
+  "title": "Staggered Appear List",
+  "category": "Transitions",
+  "summary": "A list whose rows enter one after another with a capped, testable delay.",
+  "keywords": {
+    "en": ["staggered animation", "list", "rows", "appear", "entrance", "cascade", "sequential"],
+    "es": ["animación escalonada", "lista", "filas", "aparecer", "entrada", "cascada", "secuencial"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Animation.delay", "animation(_:value:)", "offset", "opacity"],
+  "origin": { "kind": "original" }
+}

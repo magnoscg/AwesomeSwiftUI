@@ -1,0 +1,28 @@
+{
+  "id": "symbol-morph-toggle",
+  "name": "SymbolMorphToggle",
+  "title": "Symbol Morph Toggle",
+  "category": "Transitions",
+  "summary": "A toggle whose SF Symbol morphs between states with the iOS 18 magic replace effect.",
+  "keywords": {
+    "en": ["sf symbols", "magic replace", "symbol effect", "toggle", "icon animation", "morph", "replace"],
+    "es": ["símbolos", "reemplazo mágico", "efecto de símbolo", "interruptor", "animación de icono", "transformación"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["contentTransition", "ContentTransition.symbolEffect", "ReplaceSymbolEffect.magic"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap --label Alerts",
+    "sleep 0.7",
+    "tap --label Microphone",
+    "sleep 0.7",
+    "tap --label Camera",
+    "sleep 0.7",
+    "tap --label Network",
+    "sleep 0.8",
+    "tap --label Alerts",
+    "sleep 0.8"
+  ]
+}
