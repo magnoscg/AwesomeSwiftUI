@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
-import { findStale, loadCatalog, renderOutputs } from './catalog-lib.mjs';
+import { docsAssets, findStale, loadCatalog, renderDocsPages, renderOutputs } from './catalog-lib.mjs';
 
 const README = 'Intro\n\n<!-- catalog:start -->\n\nold\n\n<!-- catalog:end -->\n\nOutro\n';
 const roots = [];
@@ -369,6 +369,88 @@ describe('the Showcase registry', () => {
 
   it('escapes quotes in the text', () => {
     assert.match(registryFor(meta({ summary: 'A "glowing" button.' })), /summary: "A \\"glowing\\" button\."/);
+  });
+});
+
+describe('the documentation site', () => {
+  const INDEX = 'docs/src/content/docs/catalog/index.mdx';
+  const PAGE = 'docs/src/content/docs/catalog/Buttons/glow-button.md';
+
+  function docsFor(metadata = meta(), source = swift()) {
+    const root = makeRoot();
+    addComponent(root, { metadata, source });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    return { pages: renderDocsPages(components), assets: docsAssets(components) };
+  }
+
+  it('says so when the catalog is empty', () => {
+    const pages = renderDocsPages([]);
+
+    assert.deepEqual([...pages.keys()], [INDEX]);
+    assert.match(pages.get(INDEX), /No components yet\./);
+    assert.doesNotMatch(pages.get(INDEX), /CardGrid/);
+  });
+
+  it('adds a card that links to the page of the component', () => {
+    const index = docsFor().pages.get(INDEX);
+
+    assert.match(index, /<Card title=\{"Glow Button"\}>/);
+    assert.match(index, /src=\{"\/AwesomeSwiftUI\/previews\/GlowButton\.webp"\}/);
+    assert.match(index, /href=\{"\/AwesomeSwiftUI\/catalog\/buttons\/glow-button\/"\}/);
+  });
+
+  it('keeps braces in the text from being read as MDX', () => {
+    const index = docsFor(meta({ summary: 'Uses {braces} and <tags>.' })).pages.get(INDEX);
+
+    assert.match(index, /<p>\{"Uses \{braces\} and <tags>\."\}<\/p>/);
+  });
+
+  it('gives each component a page with its keywords and source', () => {
+    const page = docsFor().pages.get(PAGE);
+
+    assert.match(page, /^---\ntitle: "Glow Button"\ndescription: "A button that glows\."\n---/);
+    assert.match(page, /<img src="\/AwesomeSwiftUI\/previews\/GlowButton\.webp"/);
+    assert.match(page, /\| Keywords \| button, boton \|/);
+    assert.match(page, /\| Minimum iOS \| 18\.0 \|/);
+    assert.match(page, /`````swift title="GlowButton\.swift"\n\/\/ SPDX-License-Identifier: MIT/);
+  });
+
+  it('escapes HTML in the text of a page', () => {
+    const page = docsFor(meta({ summary: 'A <b> tag.' })).pages.get(PAGE);
+
+    assert.match(page, /\nA &lt;b&gt; tag\.\n/);
+  });
+
+  const origins = [
+    ['original work', { kind: 'original' }, /\| Origin \| Original \|/],
+    ['credited inspiration', { kind: 'inspired', credit: 'A talk' }, /\| Origin \| Inspired by A talk \|/],
+    [
+      'linked inspiration',
+      { kind: 'inspired', credit: 'A talk', url: 'https://x.dev' },
+      /\| Origin \| Inspired by \[A talk\]\(https:\/\/x\.dev\) \|/,
+    ],
+    [
+      'adapted code',
+      { kind: 'adapted', url: 'https://x.dev', license: 'Apache-2.0' },
+      /\| Origin \| Adapted from \[the source\]\(https:\/\/x\.dev\), Apache-2\.0 \|/,
+    ],
+  ];
+
+  for (const [label, origin, expected] of origins) {
+    it(`states ${label}`, () => {
+      const source = origin.kind === 'adapted' ? swift().replace('MIT', 'Apache-2.0') : swift();
+
+      assert.match(docsFor(meta({ origin }), source).pages.get(PAGE), expected);
+    });
+  }
+
+  it('copies the indexes and the preview into the site', () => {
+    const { assets } = docsFor();
+
+    assert.equal(assets.get('llms.txt'), 'docs/public/llms.txt');
+    assert.equal(assets.get('catalog.json'), 'docs/public/catalog.json');
+    assert.equal(assets.get('Components/Buttons/GlowButton/GlowButton.webp'), 'docs/public/previews/GlowButton.webp');
   });
 });
 
