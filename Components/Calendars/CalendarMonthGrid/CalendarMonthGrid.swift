@@ -27,6 +27,11 @@ enum CalendarMonthGridMath {
         let start = min(max(calendar.firstWeekday - 1, 0), symbols.count - 1)
         return Array(symbols[start...] + symbols[..<start])
     }
+
+    /// What VoiceOver reads for a day, in the same calendar and time zone as the grid.
+    static func dayLabel(for day: Date, calendar: Calendar) -> String {
+        day.formatted(Date.FormatStyle(date: .complete, time: .omitted, calendar: calendar, timeZone: calendar.timeZone))
+    }
 }
 
 /// A month calendar for picking one day, with swipe paging between months.
@@ -38,6 +43,19 @@ struct CalendarMonthGrid: View {
     /// How many months can be reached in each direction.
     var monthRange = 24
     var tint: Color = .indigo
+
+    var body: some View {
+        CalendarMonthGridStage(selection: $selection, anchor: anchor, monthRange: monthRange, tint: tint)
+            // Seven columns cannot hold accessibility sizes, so growth stops here, row height included.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+}
+
+private struct CalendarMonthGridStage: View {
+    @Binding var selection: Date?
+    let anchor: Date
+    let monthRange: Int
+    let tint: Color
 
     @State private var page = 0
     @ScaledMetric(relativeTo: .body) private var rowHeight = 44.0
@@ -61,8 +79,6 @@ struct CalendarMonthGrid: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
             .frame(height: rowHeight * 6 + rowSpacing * 5)
         }
-        // Seven columns cannot hold accessibility sizes, so growth stops here.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private var header: some View {
@@ -146,7 +162,7 @@ struct CalendarMonthGrid: View {
                 .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(day.formatted(date: .complete, time: .omitted))
+        .accessibilityLabel(CalendarMonthGridMath.dayLabel(for: day, calendar: calendar))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 

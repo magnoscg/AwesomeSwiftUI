@@ -34,17 +34,5 @@
   ],
   "origin": {
     "kind": "original"
-  },
-  "previewSteps": [
-    "sleep 0.6",
-    "tap -x 300 -y 451",
-    "tap -x 300 -y 451",
-    "sleep 0.5",
-    "tap -x 300 -y 451",
-    "tap -x 300 -y 451",
-    "sleep 1.2",
-    "tap -x 100 -y 451",
-    "tap -x 100 -y 451",
-    "sleep 1.2"
-  ]
+  }
 }

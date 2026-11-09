@@ -72,6 +72,18 @@ struct NotchedTabBar: View {
     @Binding var selection: String
     var tint: Color = .indigo
 
+    var body: some View {
+        NotchedTabBarStage(items: items, selection: $selection, tint: tint)
+            // The bar only holds short labels. The stage reads its sizes under this cap, which keeps every tab on screen.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+}
+
+private struct NotchedTabBarStage: View {
+    let items: [NotchedTabBarItem]
+    @Binding var selection: String
+    let tint: Color
+
     @ScaledMetric(relativeTo: .caption) private var barHeight = 72.0
     @ScaledMetric(relativeTo: .title3) private var bubbleSize = 52.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -113,8 +125,6 @@ struct NotchedTabBar: View {
         .frame(height: barHeight)
         .padding(.top, bubbleSize / 2)
         .animation(reduceMotion ? nil : .snappy(duration: 0.4), value: selection)
-        // The bar only holds short labels. Capping growth keeps every tab on screen.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private func tabButton(_ item: NotchedTabBarItem, iconLift: CGFloat) -> some View {

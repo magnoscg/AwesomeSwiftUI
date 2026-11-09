@@ -62,6 +62,8 @@ struct KeyframeTimelineShowcase<Content: View>: View {
                     CubicKeyframe(0, duration: KeyframeTimelineShowcaseTiming.tint[2])
                 }
                 KeyframeTrack(\.playhead) {
+                    // Each loop starts from the last value, so the playhead has to jump back.
+                    MoveKeyframe(0)
                     LinearKeyframe(1, duration: KeyframeTimelineShowcaseTiming.total)
                 }
             }

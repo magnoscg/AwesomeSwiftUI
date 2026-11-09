@@ -43,7 +43,8 @@ struct EmojiReactionPicker: View {
     var onSelect: (EmojiReactionPickerOption?) -> Void = { _ in }
 
     @GestureState private var press = Press.idle
-    @ScaledMetric(relativeTo: .title) private var cellSize = 46.0
+    /// Measured from the row, which reads its own size under its text size cap.
+    @State private var cellSize = 46.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let spacing = 6.0
@@ -71,7 +72,9 @@ struct EmojiReactionPicker: View {
             .overlay(alignment: .topLeading) {
                 if isOpen {
                     row
-                        .alignmentGuide(.top) { $0.height + gap }
+                        .padding(.bottom, gap)
+                        // A zero-height frame hangs the row above the button, whatever its height.
+                        .frame(height: 0, alignment: .bottom)
                         .transition(reduceMotion ? .opacity : .scale(scale: 0.5, anchor: .bottomLeading).combined(with: .opacity))
                 }
             }
@@ -108,26 +111,11 @@ struct EmojiReactionPicker: View {
     }
 
     private var row: some View {
-        HStack(spacing: spacing) {
-            ForEach(Array(options.enumerated()), id: \.offset) { index, option in
-                let isHighlighted = index == highlighted
-
-                Text(option.emoji)
-                    .font(.title)
-                    .frame(width: cellSize, height: cellSize)
-                    .background {
-                        if isHighlighted && reduceMotion { Circle().fill(.tint.opacity(0.3)) }
-                    }
-                    .scaleEffect(isHighlighted && !reduceMotion ? 1.55 : 1, anchor: .bottom)
-                    .zIndex(isHighlighted ? 1 : 0)
-            }
-        }
-        .padding(padding)
-        .background(.regularMaterial, in: Capsule())
-        .shadow(color: .black.opacity(0.18), radius: 14, y: 6)
-        // The row cannot wrap under the finger, so it stops growing.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-        .fixedSize()
+        EmojiReactionPickerRow(options: options, highlighted: highlighted, spacing: spacing, padding: padding)
+            // The row cannot wrap under the finger, so it stops growing.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+            .fixedSize()
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { cellSize = $0 - padding * 2 }
     }
 
     private var longPressAndSlide: some Gesture {
@@ -165,6 +153,36 @@ struct EmojiReactionPicker: View {
     private func choose(_ option: EmojiReactionPickerOption) {
         selection = option
         onSelect(option)
+    }
+}
+
+private struct EmojiReactionPickerRow: View {
+    let options: [EmojiReactionPickerOption]
+    let highlighted: Int?
+    let spacing: Double
+    let padding: Double
+
+    @ScaledMetric(relativeTo: .title) private var cellSize = 46.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        HStack(spacing: spacing) {
+            ForEach(Array(options.enumerated()), id: \.offset) { index, option in
+                let isHighlighted = index == highlighted
+
+                Text(option.emoji)
+                    .font(.title)
+                    .frame(width: cellSize, height: cellSize)
+                    .background {
+                        if isHighlighted && reduceMotion { Circle().fill(.tint.opacity(0.3)) }
+                    }
+                    .scaleEffect(isHighlighted && !reduceMotion ? 1.55 : 1, anchor: .bottom)
+                    .zIndex(isHighlighted ? 1 : 0)
+            }
+        }
+        .padding(padding)
+        .background(.regularMaterial, in: Capsule())
+        .shadow(color: .black.opacity(0.18), radius: 14, y: 6)
     }
 }
 

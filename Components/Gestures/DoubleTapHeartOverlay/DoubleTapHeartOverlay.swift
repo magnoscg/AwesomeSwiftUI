@@ -9,9 +9,12 @@ import SwiftUI
 struct DoubleTapHeartOverlay<Content: View>: View {
     @Binding var isLiked: Bool
     var tint: Color = .pink
+    /// Throws a heart without a touch, for demos. Each new value throws one more.
+    var programmaticBurst: DoubleTapHeartOverlayRequest? = nil
     @ViewBuilder var content: () -> Content
 
     @State private var hearts: [DoubleTapHeartOverlayBurst] = []
+    @State private var size = CGSize.zero
 
     private let maximumHearts = 12
 
@@ -30,16 +33,30 @@ struct DoubleTapHeartOverlay<Content: View>: View {
                 .accessibilityHidden(true)
             }
             .contentShape(.rect)
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
             .gesture(
                 SpatialTapGesture(count: 2).onEnded { value in
-                    hearts.append(DoubleTapHeartOverlayBurst(location: value.location, rotation: .random(in: -18...18)))
-                    if hearts.count > maximumHearts { hearts.removeFirst() }
-                    isLiked = true
+                    throwHeart(at: value.location)
                 }
             )
+            .onChange(of: programmaticBurst) { _, request in
+                guard let request else { return }
+                throwHeart(at: CGPoint(x: request.point.x * size.width, y: request.point.y * size.height))
+            }
             .sensoryFeedback(.impact(weight: .light), trigger: hearts.count) { old, new in new > old }
             .accessibilityAction(named: isLiked ? "Unlike" : "Like") { isLiked.toggle() }
     }
+
+    private func throwHeart(at location: CGPoint) {
+        hearts.append(DoubleTapHeartOverlayBurst(location: location, rotation: .random(in: -18...18)))
+        if hearts.count > maximumHearts { hearts.removeFirst() }
+        isLiked = true
+    }
+}
+
+struct DoubleTapHeartOverlayRequest: Equatable {
+    let id = UUID()
+    let point: UnitPoint
 }
 
 struct DoubleTapHeartOverlayBurst: Identifiable {
@@ -103,6 +120,8 @@ private struct DoubleTapHeartOverlayHeart: View {
 
 struct DoubleTapHeartOverlayDemo: View {
     @State private var isLiked = false
+    @State private var burst: DoubleTapHeartOverlayRequest?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -110,7 +129,7 @@ struct DoubleTapHeartOverlayDemo: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                DoubleTapHeartOverlay(isLiked: $isLiked) {
+                DoubleTapHeartOverlay(isLiked: $isLiked, programmaticBurst: burst) {
                     placeholderPhoto
                 }
 
@@ -135,6 +154,25 @@ struct DoubleTapHeartOverlayDemo: View {
             .background(.background)
             .clipShape(.rect(cornerRadius: 24, style: .continuous))
             .padding(20)
+        }
+        .task(id: reduceMotion) {
+            guard !reduceMotion else { return }
+            await playHearts()
+        }
+    }
+
+    // Only the demo plays by itself, because a real double tap needs a finger.
+    private func playHearts() async {
+        let points = [UnitPoint(x: 0.5, y: 0.45), UnitPoint(x: 0.28, y: 0.28), UnitPoint(x: 0.72, y: 0.62)]
+        while !Task.isCancelled {
+            for point in points {
+                try? await Task.sleep(for: .seconds(1.1))
+                guard !Task.isCancelled else { return }
+                burst = DoubleTapHeartOverlayRequest(point: point)
+            }
+            try? await Task.sleep(for: .seconds(0.7))
+            guard !Task.isCancelled else { return }
+            isLiked = false
         }
     }
 

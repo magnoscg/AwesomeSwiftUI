@@ -51,4 +51,14 @@ struct MaskedTextFieldTests {
         #expect(MaskedTextFieldFormatter.isComplete("12/34", mask: "##/##"))
         #expect(!MaskedTextFieldFormatter.isComplete("12/3", mask: "##/##"))
     }
+
+    @Test func aDigitInsideALeadingLiteralCanStillBeTyped() {
+        #expect(MaskedTextFieldFormatter.format("3", mask: "+34 ### ###") == "+34 3")
+        #expect(MaskedTextFieldFormatter.format("4", mask: "+34 ### ###") == "+34 4")
+    }
+
+    @Test func aWholeLeadingLiteralIsReadBack() {
+        #expect(MaskedTextFieldFormatter.format("+34 3", mask: "+34 ### ###") == "+34 3")
+        #expect(MaskedTextFieldFormatter.format("+34 ", mask: "+34 ### ###") == "")
+    }
 }

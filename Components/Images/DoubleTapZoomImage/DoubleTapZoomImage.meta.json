@@ -11,20 +11,5 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": ["SpatialTapGesture", "DragGesture", "scaleEffect"],
-  "origin": { "kind": "original" },
-  "previewSteps": [
-    "sleep 0.4",
-    "tap -x 120 -y 330",
-    "tap -x 120 -y 330",
-    "sleep 1.1",
-    "tap -x 120 -y 330",
-    "tap -x 120 -y 330",
-    "sleep 0.8",
-    "tap -x 300 -y 560",
-    "tap -x 300 -y 560",
-    "sleep 1.1",
-    "tap -x 300 -y 560",
-    "tap -x 300 -y 560",
-    "sleep 0.6"
-  ]
+  "origin": { "kind": "original" }
 }

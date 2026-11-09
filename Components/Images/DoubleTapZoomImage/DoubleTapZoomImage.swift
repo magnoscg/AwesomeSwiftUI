@@ -28,6 +28,8 @@ struct DoubleTapZoomImage: View {
     let image: Image
     let label: String
     var zoom: CGFloat = 2.5
+    /// Zooms in on this point without a touch, for demos. `nil` returns to fit.
+    var programmaticZoom: UnitPoint? = nil
 
     @State private var isZoomed = false
     @State private var offset = CGSize.zero
@@ -55,6 +57,9 @@ struct DoubleTapZoomImage: View {
                     }
                 )
                 .gesture(pan(in: size), including: isZoomed ? .all : .subviews)
+                .onChange(of: programmaticZoom) { _, target in
+                    setZoom(target.map { CGPoint(x: $0.x * size.width, y: $0.y * size.height) }, in: size)
+                }
                 .accessibilityLabel(label)
                 .accessibilityValue(isZoomed ? "Zoomed in" : "Fit")
                 .accessibilityAddTraits(.isImage)
@@ -77,9 +82,13 @@ struct DoubleTapZoomImage: View {
     }
 
     private func toggleZoom(at point: CGPoint, in size: CGSize) {
+        setZoom(isZoomed ? nil : point, in: size)
+    }
+
+    private func setZoom(_ point: CGPoint?, in size: CGSize) {
         withAnimation(reduceMotion ? nil : .spring(duration: 0.4, bounce: 0.15)) {
-            offset = isZoomed ? .zero : DoubleTapZoomImageMath.offset(centering: point, zoom: targetZoom, in: size)
-            isZoomed.toggle()
+            offset = point.map { DoubleTapZoomImageMath.offset(centering: $0, zoom: targetZoom, in: size) } ?? .zero
+            isZoomed = point != nil
         }
     }
 }
@@ -89,9 +98,12 @@ struct DoubleTapZoomImage: View {
 struct DoubleTapZoomImageDemo: View {
     private let photo = demoPhoto()
 
+    @State private var zoomTarget: UnitPoint?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         VStack(spacing: 16) {
-            DoubleTapZoomImage(image: photo, label: "City skyline at night")
+            DoubleTapZoomImage(image: photo, label: "City skyline at night", programmaticZoom: zoomTarget)
                 .aspectRatio(3 / 4, contentMode: .fit)
                 .clipShape(.rect(cornerRadius: 24))
 
@@ -101,6 +113,22 @@ struct DoubleTapZoomImageDemo: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task(id: reduceMotion) {
+            guard !reduceMotion else { return }
+            await playZooms()
+        }
+    }
+
+    // Only the demo plays by itself, because a real double tap needs a finger.
+    private func playZooms() async {
+        let targets: [UnitPoint?] = [UnitPoint(x: 0.75, y: 0.2), nil, UnitPoint(x: 0.3, y: 0.7), nil]
+        while !Task.isCancelled {
+            for target in targets {
+                try? await Task.sleep(for: .seconds(1.2))
+                guard !Task.isCancelled else { return }
+                zoomTarget = target
+            }
+        }
     }
 }
 

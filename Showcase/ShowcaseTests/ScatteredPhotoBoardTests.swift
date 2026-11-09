@@ -45,4 +45,15 @@ struct ScatteredPhotoBoardTests {
         #expect(ScatteredPhotoBoardLayout.center(index: 0, count: 0, card: card, board: board) == CGPoint(x: 200, y: 400))
         #expect(ScatteredPhotoBoardLayout.center(index: 2, count: 5, card: card, board: .zero) == .zero)
     }
+
+    @Test func aDragPastTheEdgeKeepsNoHiddenDistance() {
+        let wide = CGSize(width: 150, height: 180)
+        let home = CGPoint(x: 206, y: 400)
+        let saved = ScatteredPhotoBoardLayout.settledOffset(home: home, saved: .zero, translation: CGSize(width: 180, height: 0), card: wide, board: board)
+
+        let next = ScatteredPhotoBoardLayout.settledOffset(home: home, saved: saved, translation: CGSize(width: -40, height: 0), card: wide, board: board)
+
+        #expect(saved.width == 119)
+        #expect(home.x + next.width == 285)
+    }
 }

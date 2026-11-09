@@ -40,6 +40,17 @@ struct FloatingDockBar: View {
     let items: [FloatingDockBarItem]
     var maxScale: CGFloat = 1.6
 
+    var body: some View {
+        FloatingDockBarStage(items: items, maxScale: maxScale)
+            // The stage reads its icon size under this cap.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+}
+
+private struct FloatingDockBarStage: View {
+    let items: [FloatingDockBarItem]
+    let maxScale: CGFloat
+
     private let spacing: CGFloat = 12
     private let padding: CGFloat = 12
 
@@ -70,10 +81,10 @@ struct FloatingDockBar: View {
         .padding(padding)
         .background(.ultraThinMaterial, in: .rect(cornerRadius: 26))
         .padding(.top, iconSize * max(effectiveMaxScale - 1, 0))
-        .frame(maxWidth: .infinity)
+        // minWidth 0 makes this the width on offer, even while the icons are too wide for it.
+        .frame(minWidth: 0, maxWidth: .infinity)
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { availableWidth = $0 }
         .animation(reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.72), value: fingerX)
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private func scale(at index: Int) -> CGFloat {

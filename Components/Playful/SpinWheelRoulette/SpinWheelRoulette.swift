@@ -14,11 +14,15 @@ struct SpinWheelRoulette: View {
     @State private var isSpinning = false
     @State private var lastResult: String?
     @State private var finishedSpins = 0
+    @State private var spinningSlices: [String]?
 
     @ScaledMetric(relativeTo: .headline) private var hubSize: CGFloat = 78
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let palette: [Color] = [.pink, .orange, .yellow, .green, .teal, .blue, .indigo, .purple]
+
+    /// A spin keeps the slices it started with, so the result always matches the wheel on screen.
+    private var drawnSlices: [String] { spinningSlices ?? slices }
 
     var body: some View {
         ZStack {
@@ -26,7 +30,7 @@ struct SpinWheelRoulette: View {
                 .rotationEffect(.degrees(rotation))
                 .accessibilityElement()
                 .accessibilityLabel("Prize wheel")
-                .accessibilityValue(slices.joined(separator: ", "))
+                .accessibilityValue(drawnSlices.joined(separator: ", "))
 
             Circle()
                 .strokeBorder(.white.opacity(0.9), lineWidth: 6)
@@ -63,17 +67,17 @@ struct SpinWheelRoulette: View {
     }
 
     private var wheel: some View {
-        Canvas { context, size in
+        Canvas { [drawnSlices] context, size in
             let radius = min(size.width, size.height) / 2
-            guard radius > 0, !slices.isEmpty else { return }
+            guard radius > 0, !drawnSlices.isEmpty else { return }
 
             let center = CGPoint(x: size.width / 2, y: size.height / 2)
-            let slice = SpinWheelRouletteMath.sliceAngle(count: slices.count)
+            let slice = SpinWheelRouletteMath.sliceAngle(count: drawnSlices.count)
 
-            for (index, label) in slices.enumerated() {
+            for (index, label) in drawnSlices.enumerated() {
                 let start = Double(index) * slice - 90
                 var wedge = Path()
-                if slices.count == 1 {
+                if drawnSlices.count == 1 {
                     wedge.addEllipse(in: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2))
                 } else {
                     wedge.move(to: center)
@@ -107,6 +111,7 @@ struct SpinWheelRoulette: View {
             jitter: .random(in: -0.35...0.35)
         )
         isSpinning = true
+        spinningSlices = slices
 
         if reduceMotion {
             rotation = target
@@ -122,6 +127,7 @@ struct SpinWheelRoulette: View {
 
     private func finish(with label: String) {
         isSpinning = false
+        spinningSlices = nil
         lastResult = label
         finishedSpins += 1
         AccessibilityNotification.Announcement("Landed on \(label)").post()

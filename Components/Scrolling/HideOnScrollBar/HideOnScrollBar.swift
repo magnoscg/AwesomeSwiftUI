@@ -56,7 +56,7 @@ struct HideOnScrollBarTracker: Equatable {
     mutating func update(offset: Double, maxOffset: Double, threshold: Double = 16) {
         guard offset > 0, maxOffset > 0 else {
             isHidden = false
-            lastOffset = offset
+            lastOffset = max(offset, 0)
             travel = 0
             return
         }

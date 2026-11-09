@@ -40,4 +40,8 @@ struct HideOnScrollBarTests {
     @Test func contentThatDoesNotScrollKeepsTheBar() {
         #expect(!tracker(scrollingThrough: [40, 90], maxOffset: 0).isHidden)
     }
+
+    @Test func theBounceAtTheTopDoesNotCountAsScrolling() {
+        #expect(!tracker(scrollingThrough: [-40, 1]).isHidden)
+    }
 }

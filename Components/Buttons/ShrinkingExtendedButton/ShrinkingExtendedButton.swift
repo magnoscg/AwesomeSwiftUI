@@ -33,8 +33,6 @@ struct ShrinkingExtendedButton: View {
                 if isExtended {
                     Text(title)
                         .font(.headline)
-                        .lineLimit(1)
-                        .fixedSize()
                         .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
                 }
             }

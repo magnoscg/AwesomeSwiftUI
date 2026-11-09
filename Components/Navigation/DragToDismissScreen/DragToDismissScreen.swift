@@ -95,6 +95,7 @@ enum DragToDismissScreenMath {
 
 struct DragToDismissScreenDemo: View {
     @State private var isOpen = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -102,7 +103,7 @@ struct DragToDismissScreenDemo: View {
                 .ignoresSafeArea()
 
             Button("Open", systemImage: "arrow.up.left.and.arrow.down.right") {
-                withAnimation(.smooth(duration: 0.35)) { isOpen = true }
+                withAnimation(reduceMotion ? nil : .smooth(duration: 0.35)) { isOpen = true }
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)

@@ -22,4 +22,12 @@ struct ActivityRingsTests {
     func invalidSizesDrawNoRings(diameter: Double, lineWidth: Double, gap: Double) {
         #expect(ActivityRingsMath.visibleCount(ringCount: 3, diameter: diameter, lineWidth: lineWidth, gap: gap) == 0)
     }
+
+    @Test func theLastRingNeedsNoGapAfterIt() {
+        #expect(ActivityRingsMath.visibleCount(ringCount: 1, diameter: 60, lineWidth: 28, gap: 5) == 1)
+    }
+
+    @Test func aRingThatOverflowsTheCenterIsStillLeftOut() {
+        #expect(ActivityRingsMath.visibleCount(ringCount: 2, diameter: 60, lineWidth: 28, gap: 5) == 1)
+    }
 }

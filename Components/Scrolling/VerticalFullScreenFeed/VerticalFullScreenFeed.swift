@@ -8,6 +8,8 @@ struct VerticalFullScreenFeedItem: Identifiable {
     let image: Image
     let title: String
     let subtitle: String
+    /// What the image shows, for VoiceOver. Leave it nil when the image is decoration.
+    var imageLabel: String?
 }
 
 /// A vertical feed where each item fills the screen and snaps into place.
@@ -39,12 +41,7 @@ struct VerticalFullScreenFeed: View {
     private func page(_ item: VerticalFullScreenFeedItem, bottomInset: CGFloat) -> some View {
         // The clear base takes the page size, so a large image cannot change the layout.
         Color.clear
-            .overlay {
-                item.image
-                    .resizable()
-                    .scaledToFill()
-                    .accessibilityHidden(true)
-            }
+            .overlay { pageImage(item) }
             .clipped()
             .overlay(alignment: .bottom) {
                 LinearGradient(colors: [.clear, .black.opacity(0.75)], startPoint: .top, endPoint: .bottom)
@@ -66,16 +63,27 @@ struct VerticalFullScreenFeed: View {
                 .accessibilityElement(children: .combine)
             }
     }
+
+    @ViewBuilder
+    private func pageImage(_ item: VerticalFullScreenFeedItem) -> some View {
+        let image = item.image.resizable().scaledToFill()
+
+        if let label = item.imageLabel {
+            image.accessibilityLabel(label)
+        } else {
+            image.accessibilityRepresentation { EmptyView() }
+        }
+    }
 }
 
 // MARK: - Demo
 
 struct VerticalFullScreenFeedDemo: View {
     @State private var items = [
-        VerticalFullScreenFeedDemo.item("Mountains at dawn", symbol: "mountain.2.fill", colors: [.orange, .pink, .indigo]),
-        VerticalFullScreenFeedDemo.item("A walk in the forest", symbol: "tree.fill", colors: [.mint, .green, .teal]),
-        VerticalFullScreenFeedDemo.item("Deep blue water", symbol: "water.waves", colors: [.cyan, .blue, .indigo]),
-        VerticalFullScreenFeedDemo.item("Under the stars", symbol: "moon.stars.fill", colors: [.purple, .indigo, .black]),
+        VerticalFullScreenFeedDemo.item("Mountains at dawn", symbol: "mountain.2.fill", colors: [.orange, .pink, .indigo], imageLabel: "Two mountain peaks on a pink sky"),
+        VerticalFullScreenFeedDemo.item("A walk in the forest", symbol: "tree.fill", colors: [.mint, .green, .teal], imageLabel: "A tree on a green background"),
+        VerticalFullScreenFeedDemo.item("Deep blue water", symbol: "water.waves", colors: [.cyan, .blue, .indigo], imageLabel: "Waves on a blue background"),
+        VerticalFullScreenFeedDemo.item("Under the stars", symbol: "moon.stars.fill", colors: [.purple, .indigo, .black], imageLabel: "A moon and stars on a dark sky"),
     ]
     @State private var selection: String?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -102,7 +110,7 @@ struct VerticalFullScreenFeedDemo: View {
     }
 
     // Draws a placeholder poster, so the demo needs no image files or network.
-    private static func item(_ title: String, symbol: String, colors: [Color]) -> VerticalFullScreenFeedItem {
+    private static func item(_ title: String, symbol: String, colors: [Color], imageLabel: String) -> VerticalFullScreenFeedItem {
         let poster = ZStack {
             LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
 
@@ -115,7 +123,7 @@ struct VerticalFullScreenFeedDemo: View {
         let renderer = ImageRenderer(content: poster)
         renderer.scale = 2
         let image = renderer.uiImage.map(Image.init(uiImage:)) ?? Image(systemName: symbol)
-        return VerticalFullScreenFeedItem(id: title, image: image, title: title, subtitle: "A placeholder drawn with a gradient and a symbol.")
+        return VerticalFullScreenFeedItem(id: title, image: image, title: title, subtitle: "A placeholder drawn with a gradient and a symbol.", imageLabel: imageLabel)
     }
 }
 

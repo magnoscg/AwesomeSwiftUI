@@ -96,6 +96,11 @@ private struct CoachMarkTourModifier: ViewModifier {
             .onChange(of: isPresented) { _, presented in
                 if presented { progress.restart() }
             }
+            .onChange(of: isPresented && steps.isEmpty, initial: true) { _, hasNothingToShow in
+                guard hasNothingToShow else { return }
+                progress.restart()
+                skip()
+            }
     }
 
     private func overlay(step: CoachMarkTourStep, hole: CGRect?, screen: CGSize, insets: EdgeInsets) -> some View {

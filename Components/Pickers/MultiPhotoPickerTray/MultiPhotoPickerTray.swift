@@ -109,6 +109,7 @@ struct MultiPhotoPickerTrayThumbnail: View {
     let item: PhotosPickerItem
 
     @State private var image: Image?
+    @State private var didFail = false
 
     var body: some View {
         ZStack {
@@ -117,17 +118,24 @@ struct MultiPhotoPickerTrayThumbnail: View {
                 image
                     .resizable()
                     .scaledToFill()
+            } else if didFail {
+                Image(systemName: "exclamationmark.triangle")
+                    .foregroundStyle(.secondary)
+                    .accessibilityLabel("Photo could not be loaded")
             } else {
                 ProgressView()
             }
         }
         .task(id: item) {
             image = nil
-            guard
-                let data = try? await item.loadTransferable(type: Data.self),
-                let thumbnail = await UIImage(data: data)?.byPreparingThumbnail(ofSize: CGSize(width: 300, height: 300)),
-                !Task.isCancelled
-            else { return }
+            didFail = false
+            let data = try? await item.loadTransferable(type: Data.self)
+            let thumbnail = await data.flatMap { UIImage(data: $0) }?.byPreparingThumbnail(ofSize: CGSize(width: 300, height: 300))
+            guard !Task.isCancelled else { return }
+            guard let thumbnail else {
+                didFail = true
+                return
+            }
             image = Image(uiImage: thumbnail)
         }
     }

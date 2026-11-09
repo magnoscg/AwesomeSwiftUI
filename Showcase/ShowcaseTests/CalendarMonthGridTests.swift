@@ -52,4 +52,14 @@ struct CalendarMonthGridTests {
 
         #expect(symbols == ["M", "T", "W", "T", "F", "S", "S"])
     }
+
+    @Test func theDayLabelUsesTheCalendarsTimeZone() throws {
+        var east = calendar(firstWeekday: 1)
+        east.timeZone = try #require(TimeZone(identifier: "Pacific/Kiritimati"))
+        var west = calendar(firstWeekday: 1)
+        west.timeZone = try #require(TimeZone(identifier: "Pacific/Pago_Pago"))
+        let instant = Date(timeIntervalSince1970: 1_794_139_200)
+
+        #expect(CalendarMonthGridMath.dayLabel(for: instant, calendar: east) != CalendarMonthGridMath.dayLabel(for: instant, calendar: west))
+    }
 }

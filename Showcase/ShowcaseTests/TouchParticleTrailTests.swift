@@ -114,4 +114,13 @@ struct TouchParticleTrailTests {
 
         #expect(particle.lifetime > 0)
     }
+
+    @Test func liftingTheFingerStartsANewStroke() {
+        var trail = emitter(at: [.zero])
+
+        trail.endStroke()
+        trail.emit(at: CGPoint(x: 90, y: 0), now: start.addingTimeInterval(0.05), lifetime: 1, drifts: true)
+
+        #expect(trail.particles.count == 2)
+    }
 }

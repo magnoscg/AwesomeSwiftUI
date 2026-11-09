@@ -19,11 +19,11 @@ struct AutoAdvanceCarousel<Item: Identifiable, Content: View>: View {
 
     private var currentIndex: Int? { items.firstIndex { $0.id == currentID } }
 
-    private var schedule: AutoAdvanceCarouselSchedule {
+    private var schedule: AutoAdvanceCarouselSchedule<Item.ID> {
         AutoAdvanceCarouselSchedule(
             isRunning: !isUserScrolling && !reduceMotion && !voiceOverEnabled && items.count > 1,
             interval: max(interval, 0.5),
-            itemCount: items.count
+            itemIDs: items.map(\.id)
         )
     }
 
@@ -91,10 +91,11 @@ struct AutoAdvanceCarousel<Item: Identifiable, Content: View>: View {
     }
 }
 
-private struct AutoAdvanceCarouselSchedule: Equatable {
+/// The timer restarts when any of this changes. The ids matter because it holds on to the items.
+private struct AutoAdvanceCarouselSchedule<ID: Hashable>: Equatable {
     let isRunning: Bool
     let interval: TimeInterval
-    let itemCount: Int
+    let itemIDs: [ID]
 }
 
 enum AutoAdvanceCarouselMath {

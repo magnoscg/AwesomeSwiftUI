@@ -54,6 +54,7 @@ struct CoverFlowCarousel: View {
                 item.image
                     .resizable()
                     .scaledToFill()
+                    .accessibilityRepresentation { EmptyView() }
             }
             .overlay(alignment: .bottomLeading) {
                 Text(item.title)

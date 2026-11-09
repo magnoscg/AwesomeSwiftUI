@@ -4,8 +4,9 @@
 import SwiftUI
 
 enum PhotoLightboxMath {
-    static func clampedOffset(_ offset: CGSize, zoom: CGFloat, in size: CGSize) -> CGSize {
-        let limit = CGSize(width: max((zoom - 1) * size.width / 2, 0), height: max((zoom - 1) * size.height / 2, 0))
+    /// `photo` is the photo's size at fit. A side that still fits the container cannot pan.
+    static func clampedOffset(_ offset: CGSize, zoom: CGFloat, photo: CGSize, in size: CGSize) -> CGSize {
+        let limit = CGSize(width: max((photo.width * zoom - size.width) / 2, 0), height: max((photo.height * zoom - size.height) / 2, 0))
         return CGSize(
             width: min(max(offset.width, -limit.width), limit.width),
             height: min(max(offset.height, -limit.height), limit.height)
@@ -114,6 +115,7 @@ private struct PhotoLightboxPage: View {
     let maxZoom: CGFloat
 
     @State private var offset = CGSize.zero
+    @State private var fittedSize = CGSize.zero
     @GestureState private var pinch: CGFloat = 1
     @GestureState private var pan = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -127,9 +129,10 @@ private struct PhotoLightboxPage: View {
             photo
                 .resizable()
                 .scaledToFit()
+                .onGeometryChange(for: CGSize.self) { $0.size } action: { fittedSize = $0 }
                 .frame(width: size.width, height: size.height)
                 .scaleEffect(liveZoom)
-                .offset(PhotoLightboxMath.clampedOffset(moved, zoom: liveZoom, in: size))
+                .offset(PhotoLightboxMath.clampedOffset(moved, zoom: liveZoom, photo: fittedSize, in: size))
                 .frame(width: size.width, height: size.height)
                 .contentShape(.rect)
                 .gesture(TapGesture(count: 2).onEnded { toggleZoom() })
@@ -146,7 +149,7 @@ private struct PhotoLightboxPage: View {
             }
             .onEnded { value in
                 zoom = PhotoLightboxMath.clampedZoom(zoom * value.magnification, maxZoom: maxZoom)
-                offset = PhotoLightboxMath.clampedOffset(offset, zoom: zoom, in: size)
+                offset = PhotoLightboxMath.clampedOffset(offset, zoom: zoom, photo: fittedSize, in: size)
             }
     }
 
@@ -157,7 +160,7 @@ private struct PhotoLightboxPage: View {
             }
             .onEnded { value in
                 let moved = CGSize(width: offset.width + value.translation.width, height: offset.height + value.translation.height)
-                offset = PhotoLightboxMath.clampedOffset(moved, zoom: zoom, in: size)
+                offset = PhotoLightboxMath.clampedOffset(moved, zoom: zoom, photo: fittedSize, in: size)
             }
     }
 

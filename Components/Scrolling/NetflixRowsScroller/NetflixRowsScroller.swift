@@ -59,6 +59,7 @@ struct NetflixRowsScroller: View {
                     item.image
                         .resizable()
                         .scaledToFill()
+                        .accessibilityRepresentation { EmptyView() }
                 }
                 .clipShape(.rect(cornerRadius: 10, style: .continuous))
         }

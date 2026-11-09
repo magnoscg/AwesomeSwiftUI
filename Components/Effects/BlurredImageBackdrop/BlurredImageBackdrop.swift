@@ -23,7 +23,7 @@ struct BlurredImageBackdrop: View {
             .overlay(tint.opacity(min(max(tintOpacity, 0), 1)))
             .clipped()
             .ignoresSafeArea()
-            .accessibilityHidden(true)
+            .accessibilityRepresentation { EmptyView() }
     }
 }
 

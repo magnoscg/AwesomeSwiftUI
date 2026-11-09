@@ -19,17 +19,40 @@ enum FloatingActionMenuMath {
         let length = max(radius, 0)
         return CGSize(width: cos(radians) * length, height: sin(radians) * length)
     }
+
+    /// The radius, grown when needed so that neighbouring items do not overlap.
+    static func fittedRadius(_ radius: Double, itemSize: Double, count: Int, startDegrees: Double, endDegrees: Double) -> Double {
+        guard count > 1 else { return radius }
+        let step = abs(endDegrees - startDegrees) / Double(count - 1) * .pi / 180
+        let chordPerRadius = 2 * sin(step / 2)
+        guard chordPerRadius > 0.01 else { return radius }
+        return max(radius, (itemSize + 6) / chordPerRadius)
+    }
 }
 
 /// A plus button that turns into a close icon and fans out its actions around it.
 ///
 /// The fan opens up and to the left by default, for a button in the bottom-trailing corner.
+/// With more than four items it widens so they do not overlap.
 /// With Reduce Motion on, the actions appear in place without moving.
 struct FloatingActionMenu: View {
     let items: [FloatingActionMenuItem]
     var tint: Color = .indigo
     var startDegrees = 180.0
     var endDegrees = 270.0
+
+    var body: some View {
+        FloatingActionMenuStage(items: items, tint: tint, startDegrees: startDegrees, endDegrees: endDegrees)
+            // The buttons only hold icons. The stage reads its sizes under this cap, which keeps the fan on screen.
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+}
+
+private struct FloatingActionMenuStage: View {
+    let items: [FloatingActionMenuItem]
+    let tint: Color
+    let startDegrees: Double
+    let endDegrees: Double
 
     @State private var isOpen = false
     @ScaledMetric(relativeTo: .title2) private var buttonSize = 60.0
@@ -57,8 +80,6 @@ struct FloatingActionMenu: View {
             .buttonStyle(.plain)
             .accessibilityLabel(isOpen ? "Close menu" : "Open menu")
         }
-        // The buttons only hold icons. Capping their growth keeps the fan on screen.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         .sensoryFeedback(.impact(weight: .light), trigger: isOpen)
     }
 
@@ -66,7 +87,13 @@ struct FloatingActionMenu: View {
         let offset = FloatingActionMenuMath.offset(
             index: index,
             count: items.count,
-            radius: radius,
+            radius: FloatingActionMenuMath.fittedRadius(
+                radius,
+                itemSize: itemSize,
+                count: items.count,
+                startDegrees: startDegrees,
+                endDegrees: endDegrees
+            ),
             startDegrees: startDegrees,
             endDegrees: endDegrees
         )

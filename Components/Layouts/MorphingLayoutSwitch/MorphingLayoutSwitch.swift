@@ -3,8 +3,8 @@
 
 import SwiftUI
 
-/// Shows the same items as a list or as a grid. Matched geometry carries each
-/// item from one arrangement to the other.
+/// Shows the same items as a list or as a grid. One grid changes its number of
+/// columns, so every item glides to its new place and keeps its state.
 ///
 /// `content` also receives `isGrid`, so a cell can change its own design.
 struct MorphingLayoutSwitch<Data: RandomAccessCollection, Content: View>: View where Data.Element: Identifiable {
@@ -14,29 +14,19 @@ struct MorphingLayoutSwitch<Data: RandomAccessCollection, Content: View>: View w
     var spacing: CGFloat = 12
     @ViewBuilder let content: (Data.Element, Bool) -> Content
 
-    @Namespace private var namespace
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var gridColumns: [GridItem] {
-        Array(repeating: GridItem(.flexible(), spacing: spacing), count: min(max(1, columns), 64))
+        Array(repeating: GridItem(.flexible(), spacing: spacing), count: isGrid ? min(max(1, columns), 64) : 1)
     }
 
     var body: some View {
-        Group {
-            if isGrid {
-                LazyVGrid(columns: gridColumns, spacing: spacing) { cells }
-            } else {
-                LazyVStack(spacing: spacing) { cells }
+        LazyVGrid(columns: gridColumns, spacing: spacing) {
+            ForEach(data) { element in
+                content(element, isGrid)
             }
         }
         .animation(reduceMotion ? nil : .smooth(duration: 0.5), value: isGrid)
-    }
-
-    private var cells: some View {
-        ForEach(data) { element in
-            content(element, isGrid)
-                .matchedGeometryEffect(id: element.id, in: namespace)
-        }
     }
 }
 

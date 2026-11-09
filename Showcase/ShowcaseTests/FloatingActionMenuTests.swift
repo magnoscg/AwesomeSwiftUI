@@ -33,4 +33,20 @@ struct FloatingActionMenuTests {
 
         #expect(offset == .zero)
     }
+
+    @Test func aFewItemsKeepTheRadius() {
+        #expect(FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 4, startDegrees: 180, endDegrees: 270) == 112)
+    }
+
+    @Test func manyItemsWidenTheFanSoNeighboursDoNotOverlap() {
+        let radius = FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 10, startDegrees: 180, endDegrees: 270)
+        let first = FloatingActionMenuMath.offset(index: 0, count: 10, radius: radius, startDegrees: 180, endDegrees: 270)
+        let second = FloatingActionMenuMath.offset(index: 1, count: 10, radius: radius, startDegrees: 180, endDegrees: 270)
+
+        #expect(hypot(first.width - second.width, first.height - second.height) >= 50)
+    }
+
+    @Test func noSweepKeepsTheRadius() {
+        #expect(FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 5, startDegrees: 90, endDegrees: 90) == 112)
+    }
 }

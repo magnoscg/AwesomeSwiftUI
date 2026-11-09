@@ -110,8 +110,8 @@ struct ScrollProgressBarDemo: View {
         while !Task.isCancelled {
             try? await Task.sleep(for: .milliseconds(16))
             guard !Task.isCancelled else { return }
-            time = (time + 0.016).truncatingRemainder(dividingBy: 5)
-            let fraction = time < 4 ? time / 4 : 5 - time
+            time = (time + 0.016).truncatingRemainder(dividingBy: 3)
+            let fraction = time < 2.4 ? time / 2.4 : (3 - time) / 0.6
             position.scrollTo(y: maxOffset * fraction)
         }
     }

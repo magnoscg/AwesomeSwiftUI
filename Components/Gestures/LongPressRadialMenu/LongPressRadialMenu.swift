@@ -29,7 +29,6 @@ struct LongPressRadialMenu<Label: View>: View {
     }
 
     @GestureState private var press = Press.idle
-    @ScaledMetric(relativeTo: .title3) private var bubbleSize = 56.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var isOpen: Bool {
@@ -62,38 +61,21 @@ struct LongPressRadialMenu<Label: View>: View {
 
     private var ring: some View {
         ZStack {
-            ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-                let isHovered = hoveredIndex == index
-                let offset = LongPressRadialMenuMath.offset(index: index, count: items.count, radius: radius)
-
-                Image(systemName: item.systemImage)
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(isHovered ? .white : tint)
-                    .frame(width: bubbleSize, height: bubbleSize)
-                    .background(isHovered ? AnyShapeStyle(tint) : AnyShapeStyle(.regularMaterial), in: .circle)
-                    .scaleEffect(reduceMotion ? 1 : (isOpen ? (isHovered ? 1.2 : 1) : 0.3))
-                    .offset(isOpen || reduceMotion ? offset : .zero)
-                    .opacity(isOpen ? 1 : 0)
-                    .animation(
-                        reduceMotion
-                            ? .easeInOut(duration: 0.15)
-                            : .spring(duration: 0.35, bounce: 0.4).delay(isOpen ? Double(index) * 0.02 : 0),
-                        value: isOpen
-                    )
-                    .animation(reduceMotion ? nil : .spring(duration: 0.2), value: isHovered)
-            }
+            LongPressRadialMenuBubbles(items: items, radius: radius, tint: tint, isOpen: isOpen, hoveredIndex: hoveredIndex)
+                // The bubbles sit on a fixed radius, so they read their size under this cap. The title below does not.
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
 
             if let hoveredIndex, items.indices.contains(hoveredIndex) {
+                // Its bottom edge clears the largest bubble, so a taller title grows away from the ring.
                 Text(items[hoveredIndex].title)
                     .font(.headline)
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.regularMaterial, in: .capsule)
-                    .offset(y: -(radius + bubbleSize))
+                    .alignmentGuide(VerticalAlignment.center) { $0[.bottom] }
+                    .offset(y: -(radius + 48))
             }
         }
-        // The ring is laid out for a fixed radius, so very large text would overlap it.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private var gesture: some Gesture {
@@ -113,6 +95,40 @@ struct LongPressRadialMenu<Label: View>: View {
                 else { return }
                 items[index].action()
             }
+    }
+}
+
+private struct LongPressRadialMenuBubbles: View {
+    let items: [LongPressRadialMenuItem]
+    let radius: CGFloat
+    let tint: Color
+    let isOpen: Bool
+    let hoveredIndex: Int?
+
+    @ScaledMetric(relativeTo: .title3) private var bubbleSize = 56.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+            let isHovered = hoveredIndex == index
+            let offset = LongPressRadialMenuMath.offset(index: index, count: items.count, radius: radius)
+
+            Image(systemName: item.systemImage)
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(isHovered ? .white : tint)
+                .frame(width: bubbleSize, height: bubbleSize)
+                .background(isHovered ? AnyShapeStyle(tint) : AnyShapeStyle(.regularMaterial), in: .circle)
+                .scaleEffect(reduceMotion ? 1 : (isOpen ? (isHovered ? 1.2 : 1) : 0.3))
+                .offset(isOpen || reduceMotion ? offset : .zero)
+                .opacity(isOpen ? 1 : 0)
+                .animation(
+                    reduceMotion
+                        ? .easeInOut(duration: 0.15)
+                        : .spring(duration: 0.35, bounce: 0.4).delay(isOpen ? Double(index) * 0.02 : 0),
+                    value: isOpen
+                )
+                .animation(reduceMotion ? nil : .spring(duration: 0.2), value: isHovered)
+        }
     }
 }
 

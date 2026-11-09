@@ -32,8 +32,7 @@ struct SplitFlapCounter: View {
                 row(cells)
             }
         }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(value.formatted())
+        .accessibilityRepresentation { Text(value.formatted()) }
     }
 
     private func row(_ cells: [String]) -> some View {

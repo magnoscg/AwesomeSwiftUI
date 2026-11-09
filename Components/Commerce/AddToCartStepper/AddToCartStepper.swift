@@ -3,6 +3,13 @@
 
 import SwiftUI
 
+enum AddToCartStepperMath {
+    /// The highest quantity allowed. Zero is valid, and means nothing can be added.
+    static func limit(maximum: Int) -> Int {
+        min(max(maximum, 0), 1_000_000)
+    }
+}
+
 /// An add button that morphs into a quantity stepper, and back again at zero.
 ///
 /// The capsule is one background around content that changes, so it resizes by itself
@@ -17,7 +24,7 @@ struct AddToCartStepper: View {
     @ScaledMetric(relativeTo: .headline) private var countWidth = 34.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var limit: Int { min(max(maximum, 1), 1_000_000) }
+    private var limit: Int { AddToCartStepperMath.limit(maximum: maximum) }
     private var current: Int { min(max(quantity, 0), limit) }
     private var animation: Animation? { reduceMotion ? nil : .bouncy(duration: 0.35) }
 
@@ -50,6 +57,7 @@ struct AddToCartStepper: View {
                 .contentShape(.capsule)
         }
         .buttonStyle(.plain)
+        .disabled(limit == 0)
         .accessibilityLabel("\(title) to cart")
     }
 

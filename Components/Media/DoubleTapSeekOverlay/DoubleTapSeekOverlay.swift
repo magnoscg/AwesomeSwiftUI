@@ -7,6 +7,11 @@ enum DoubleTapSeekOverlaySide: Sendable {
     case backward, forward
 }
 
+struct DoubleTapSeekOverlayRequest: Equatable {
+    let id = UUID()
+    let side: DoubleTapSeekOverlaySide
+}
+
 /// Adds up repeated double taps on one side, like "+10 s" then "+20 s".
 struct DoubleTapSeekOverlayTally: Equatable {
     private(set) var side: DoubleTapSeekOverlaySide?
@@ -33,11 +38,14 @@ struct DoubleTapSeekOverlayTally: Equatable {
 struct DoubleTapSeekOverlay<Video: View>: View {
     var interval = 10.0
     let onSeek: (Double) -> Void
+    /// Skips without a touch, for demos. Each new value is one skip.
+    var programmaticSeek: DoubleTapSeekOverlayRequest? = nil
     @ViewBuilder var video: () -> Video
 
     @State private var tally = DoubleTapSeekOverlayTally()
     @State private var tapCount = 0
     @State private var tapLocation = CGPoint.zero
+    @State private var videoSize = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? { reduceMotion ? nil : .easeOut(duration: 0.2) }
@@ -45,17 +53,20 @@ struct DoubleTapSeekOverlay<Video: View>: View {
 
     var body: some View {
         video()
+            .contentShape(.rect)
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { videoSize = $0 }
+            // On the video and simultaneous, so controls inside it keep their own touches.
+            .simultaneousGesture(
+                SpatialTapGesture(count: 2).onEnded { value in
+                    tapLocation = value.location
+                    seek(DoubleTapSeekOverlayTally.side(forX: value.location.x, width: videoSize.width))
+                }
+            )
             .overlay {
                 GeometryReader { proxy in
                     ZStack {
                         Color.clear
-                            .contentShape(.rect)
-                            .gesture(
-                                SpatialTapGesture(count: 2).onEnded { value in
-                                    tapLocation = value.location
-                                    seek(DoubleTapSeekOverlayTally.side(forX: value.location.x, width: proxy.size.width))
-                                }
-                            )
+                            .allowsHitTesting(false)
                             .accessibilityElement()
                             .accessibilityLabel("Seek area")
                             .accessibilityAction(named: "Skip back \(intervalText) seconds") { seek(.backward) }
@@ -66,6 +77,11 @@ struct DoubleTapSeekOverlay<Video: View>: View {
                         }
                     }
                 }
+            }
+            .onChange(of: programmaticSeek) { _, request in
+                guard let request else { return }
+                tapLocation = CGPoint(x: videoSize.width * (request.side == .forward ? 0.75 : 0.25), y: videoSize.height / 2)
+                seek(request.side)
             }
             .task(id: tapCount) {
                 guard tapCount > 0 else { return }
@@ -135,6 +151,7 @@ struct DoubleTapSeekOverlayDemo: View {
     private let duration = 180.0
 
     @State private var position = 60.0
+    @State private var seekRequest: DoubleTapSeekOverlayRequest?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -146,7 +163,7 @@ struct DoubleTapSeekOverlayDemo: View {
                     .font(.headline)
                     .foregroundStyle(.white.opacity(0.8))
 
-                DoubleTapSeekOverlay(onSeek: { position = min(max(position + $0, 0), duration) }) {
+                DoubleTapSeekOverlay(onSeek: { position = min(max(position + $0, 0), duration) }, programmaticSeek: seekRequest) {
                     videoPlaceholder
                 }
                 .aspectRatio(16 / 9, contentMode: .fit)
@@ -162,6 +179,23 @@ struct DoubleTapSeekOverlayDemo: View {
                     .accessibilityHidden(true)
             }
             .padding(.horizontal, 16)
+        }
+        .task(id: reduceMotion) {
+            guard !reduceMotion else { return }
+            await playSeeks()
+        }
+    }
+
+    // Only the demo plays by itself, because a real double tap needs a finger.
+    private func playSeeks() async {
+        let steps: [(side: DoubleTapSeekOverlaySide, delay: Double)] = [(.forward, 0.7), (.forward, 0.45), (.backward, 1.5), (.backward, 0.45)]
+        while !Task.isCancelled {
+            for step in steps {
+                try? await Task.sleep(for: .seconds(step.delay))
+                guard !Task.isCancelled else { return }
+                seekRequest = DoubleTapSeekOverlayRequest(side: step.side)
+            }
+            try? await Task.sleep(for: .seconds(1.2))
         }
     }
 

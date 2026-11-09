@@ -119,6 +119,7 @@ struct ScratchToReveal<Content: View, Cover: View>: View {
                 coverage.scratch(from: previous, to: value.location, brushWidth: brush, in: size)
                 if coverage.fraction >= min(max(revealThreshold, 0.01), 1) { reveal() }
             }
+            .onEnded { _ in strokeStart = nil }
     }
 
     private func reveal() {

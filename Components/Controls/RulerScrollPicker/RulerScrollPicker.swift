@@ -13,7 +13,9 @@ struct RulerScrollPickerScale: Equatable {
 
     init(range: ClosedRange<Double>, step: Double) {
         let safeStep = step.isFinite && step > 0 ? step : 1
-        let ticks = ((range.upperBound - range.lowerBound) / safeStep).rounded(.down)
+        let quotient = (range.upperBound - range.lowerBound) / safeStep
+        // 0.1 has no exact binary form, so 0.3 / 0.1 lands just under 3.
+        let ticks = abs(quotient - quotient.rounded()) < 1e-9 ? quotient.rounded() : quotient.rounded(.down)
 
         lowerBound = range.lowerBound
         self.step = safeStep

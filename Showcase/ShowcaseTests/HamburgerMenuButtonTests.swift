@@ -34,4 +34,15 @@ struct HamburgerMenuButtonTests {
     @Test func anEmptyRectDoesNotBreak() {
         #expect(HamburgerMenuButtonShape(progress: 0.5).bars(in: .zero).count == 3)
     }
+
+    @Test func openBarsLeanOppositeWays() throws {
+        let bars = HamburgerMenuButtonShape(progress: 1).bars(in: rect)
+        let first = try #require(bars.first)
+        let last = try #require(bars.last)
+
+        let firstSlope = (first.end.y - first.start.y) / (first.end.x - first.start.x)
+        let lastSlope = (last.end.y - last.start.y) / (last.end.x - last.start.x)
+
+        #expect(firstSlope * lastSlope < 0)
+    }
 }

@@ -42,4 +42,10 @@ struct DisclosureTreeViewTests {
     @Test func emptyTreeHasNoRows() {
         #expect(DisclosureTreeViewRows.visible(in: [], expanded: ["a"]).isEmpty)
     }
+
+    @Test func indentStopsGrowingWithDepthAndWithLargeText() {
+        #expect(DisclosureTreeViewRows.indent(depth: 2, step: 20) == 40)
+        #expect(DisclosureTreeViewRows.indent(depth: 20, step: 20) == 120)
+        #expect(DisclosureTreeViewRows.indent(depth: 6, step: 62) == 144)
+    }
 }

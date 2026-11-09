@@ -167,8 +167,8 @@ struct AddToCartFlyButtonCart: View {
                         .background(.red, in: .capsule)
                 }
             }
-            .keyframeAnimator(initialValue: 1.0, trigger: reduceMotion ? 0 : count) { view, scale in
-                view.scaleEffect(scale)
+            .keyframeAnimator(initialValue: 1.0, trigger: reduceMotion ? 0 : count) { [reduceMotion] view, scale in
+                view.scaleEffect(reduceMotion ? 1 : scale)
             } keyframes: { _ in
                 SpringKeyframe(1.3, duration: 0.14)
                 SpringKeyframe(1, duration: 0.3)

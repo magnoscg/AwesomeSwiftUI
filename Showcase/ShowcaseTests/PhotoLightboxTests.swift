@@ -23,12 +23,23 @@ struct PhotoLightboxTests {
     }
 
     @Test func aPhotoAtFitCannotPan() {
-        #expect(PhotoLightboxMath.clampedOffset(CGSize(width: 90, height: 90), zoom: 1, in: CGSize(width: 300, height: 600)) == .zero)
+        #expect(PhotoLightboxMath.clampedOffset(CGSize(width: 90, height: 90), zoom: 1, photo: CGSize(width: 300, height: 600), in: CGSize(width: 300, height: 600)) == .zero)
     }
 
     @Test func aZoomedPhotoPansToItsEdges() {
-        let offset = PhotoLightboxMath.clampedOffset(CGSize(width: 900, height: -900), zoom: 2, in: CGSize(width: 300, height: 600))
+        let offset = PhotoLightboxMath.clampedOffset(CGSize(width: 900, height: -900), zoom: 2, photo: CGSize(width: 300, height: 600), in: CGSize(width: 300, height: 600))
 
         #expect(offset == CGSize(width: 150, height: -300))
+    }
+
+    @Test func aPhotoShorterThanTheScreenOnlyPansWhereItOverflows() {
+        let offset = PhotoLightboxMath.clampedOffset(
+            CGSize(width: 900, height: 900),
+            zoom: 4,
+            photo: CGSize(width: 400, height: 200),
+            in: CGSize(width: 400, height: 800)
+        )
+
+        #expect(offset == CGSize(width: 600, height: 0))
     }
 }

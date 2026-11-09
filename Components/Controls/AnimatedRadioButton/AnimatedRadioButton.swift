@@ -55,6 +55,8 @@ struct AnimatedRadioButton: View {
                         .scaleEffect(1 + progress * 0.9)
                         .opacity(isPulsing ? 1 - progress : 0)
                 } keyframes: { _ in
+                    // Each run starts from the last value, so the ring has to jump back.
+                    MoveKeyframe(0)
                     CubicKeyframe(1, duration: 0.5)
                 }
         }

@@ -41,12 +41,17 @@ struct StructuredOutputForm: View {
     @Binding var draft: StructuredOutputFormDraft
     /// Replaces the model with your own stream, for previews and for tests.
     var sampleStream: (@MainActor (String) -> AsyncThrowingStream<StructuredOutputFormDraft, Error>)? = nil
+    /// Plays instead of an error when the model is unavailable or fails.
+    var fallbackStream: (@MainActor (String) -> AsyncThrowingStream<StructuredOutputFormDraft, Error>)? = nil
+    var failureMessage = "The on-device model couldn't fill in the form right now. Please try again later."
 
     @State private var fillTask: Task<Void, Never>?
     @State private var isFilling = false
-    @State private var errorMessage: String?
+    @State private var didFail = false
 
     private var currencyCode: String { Locale.current.currency?.identifier ?? "USD" }
+
+    private struct ModelUnavailable: Error {}
 
     private var hasNote: Bool {
         !note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -93,10 +98,10 @@ struct StructuredOutputForm: View {
             }
             .disabled(isFilling)
 
-            if let errorMessage {
+            if didFail {
                 Section {
-                    Label(errorMessage, systemImage: "exclamationmark.triangle")
-                        .foregroundStyle(.red)
+                    Label(failureMessage, systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(.secondary)
                 }
             }
         }
@@ -104,29 +109,39 @@ struct StructuredOutputForm: View {
     }
 
     private func fill() async {
-        errorMessage = nil
-        draft = StructuredOutputFormDraft()
+        didFail = false
         defer { isFilling = false }
+
+        let previous = draft
+        draft = StructuredOutputFormDraft()
 
         do {
             if let sampleStream {
                 for try await partial in sampleStream(note) { draft = partial }
             } else {
-                guard SystemLanguageModel.default.isAvailable else {
-                    errorMessage = "The on-device model is not available right now."
-                    return
-                }
-                let session = LanguageModelSession(instructions: "Extract an expense from the note. Do not invent values.")
-                let stream = session.streamResponse(
-                    to: note,
-                    generating: StructuredOutputFormExpense.self,
-                    contextOptions: ContextOptions(includeSchemaInPrompt: true)
-                )
-                for try await snapshot in stream { apply(snapshot.content) }
+                try await fillFromModel()
             }
         } catch {
+            draft = previous
             guard !Task.isCancelled else { return }
-            errorMessage = error.localizedDescription
+            didFail = true
+        }
+    }
+
+    private func fillFromModel() async throws {
+        do {
+            guard SystemLanguageModel.default.isAvailable else { throw ModelUnavailable() }
+            let session = LanguageModelSession(instructions: "Extract an expense from the note. Do not invent values.")
+            let stream = session.streamResponse(
+                to: note,
+                generating: StructuredOutputFormExpense.self,
+                contextOptions: ContextOptions(includeSchemaInPrompt: true)
+            )
+            for try await snapshot in stream { apply(snapshot.content) }
+        } catch {
+            guard let fallbackStream, !Task.isCancelled else { throw error }
+            draft = StructuredOutputFormDraft()
+            for try await partial in fallbackStream(note) { draft = partial }
         }
     }
 
@@ -145,15 +160,15 @@ struct StructuredOutputForm: View {
 struct StructuredOutputFormDemo: View {
     @State private var note = "Lunch with Ana at Casa Lucio, 48.50 for the team offsite"
     @State private var draft = StructuredOutputFormDraft()
+    @State private var isPlayingSample = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    private let hasModel = SystemLanguageModel.default.isAvailable
 
     var body: some View {
         VStack(spacing: 0) {
-            StructuredOutputForm(note: $note, draft: $draft, sampleStream: hasModel ? nil : sample)
+            StructuredOutputForm(note: $note, draft: $draft, fallbackStream: sample)
 
-            if !hasModel {
-                Text("No on-device model here, so this demo plays sample values.")
+            if isPlayingSample {
+                Text("The on-device model can't answer here, so this demo plays sample values.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .padding()
@@ -164,6 +179,7 @@ struct StructuredOutputFormDemo: View {
     }
 
     private func sample(_ note: String) -> AsyncThrowingStream<StructuredOutputFormDraft, Error> {
+        isPlayingSample = true
         let steps: [StructuredOutputFormDraft] = [
             .init(merchant: "Casa Lucio"),
             .init(merchant: "Casa Lucio", amount: 48.5),

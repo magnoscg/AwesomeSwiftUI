@@ -12,5 +12,5 @@
   "minIOS": "27.0",
   "apis": ["Generable", "Guide", "LanguageModelSession", "streamResponse(to:generating:options:contextOptions:metadata:)", "ContextOptions"],
   "origin": { "kind": "original" },
-  "previewSteps": ["sleep 0.5", "tap --label 'Fill in the form'", "sleep 5"]
+  "previewSteps": ["sleep 0.5", "tap --label 'Fill in the form'", "sleep 3.6", "tap --label 'Fill in the form'", "sleep 3.4"]
 }

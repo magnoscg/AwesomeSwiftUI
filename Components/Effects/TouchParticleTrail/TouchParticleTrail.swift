@@ -38,9 +38,11 @@ struct TouchParticleTrail<Content: View>: View {
                 .accessibilityHidden(true)
             }
             .simultaneousGesture(
-                DragGesture(minimumDistance: 0).onChanged { value in
-                    emitter.emit(at: value.location, now: .now, lifetime: lifetime, drifts: !reduceMotion)
-                }
+                DragGesture(minimumDistance: 0)
+                    .onChanged { value in
+                        emitter.emit(at: value.location, now: .now, lifetime: lifetime, drifts: !reduceMotion)
+                    }
+                    .onEnded { _ in emitter.endStroke() }
             )
     }
 }
@@ -127,6 +129,12 @@ struct TouchParticleTrailEmitter {
     /// Particles are in birth order and share a lifetime, so the last one is the last to go.
     func isFinished(at now: Date) -> Bool {
         particles.last?.isExpired(at: now) ?? false
+    }
+
+    /// Lifting the finger ends the stroke, so the next touch is not joined to this one.
+    mutating func endStroke() {
+        lastPoint = nil
+        lastEmission = nil
     }
 
     mutating func removeAll() {

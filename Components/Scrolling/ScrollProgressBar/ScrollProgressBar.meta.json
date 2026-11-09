@@ -11,5 +11,6 @@
   "difficulty": "beginner",
   "minIOS": "18.0",
   "apis": ["onScrollGeometryChange", "ScrollPosition", "ViewModifier"],
-  "origin": { "kind": "original" }
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 2.3"]
 }

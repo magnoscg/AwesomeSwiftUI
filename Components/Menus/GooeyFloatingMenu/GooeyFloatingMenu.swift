@@ -20,7 +20,6 @@ struct GooeyFloatingMenu: View {
     var tint: Color = .indigo
 
     @State private var isOpen = false
-    @ScaledMetric(relativeTo: .title2) private var buttonSize = 64.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? {
@@ -32,7 +31,6 @@ struct GooeyFloatingMenu: View {
             progress: isOpen ? 1 : 0,
             items: items,
             tint: tint,
-            buttonSize: buttonSize,
             isOpen: isOpen,
             toggle: { withAnimation(animation) { isOpen.toggle() } },
             select: { item in
@@ -40,7 +38,7 @@ struct GooeyFloatingMenu: View {
                 item.action()
             }
         )
-        // The buttons only hold icons. Capping their growth keeps the fan on screen.
+        // The buttons only hold icons. The stage reads its size under this cap, which keeps the fan on screen.
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
@@ -50,10 +48,11 @@ private struct GooeyFloatingMenuStage: View, Animatable {
     var progress: Double
     let items: [GooeyFloatingMenuItem]
     let tint: Color
-    let buttonSize: Double
     let isOpen: Bool
     let toggle: () -> Void
     let select: (GooeyFloatingMenuItem) -> Void
+
+    @ScaledMetric(relativeTo: .title2) private var buttonSize = 64.0
 
     nonisolated var animatableData: Double {
         get { progress }

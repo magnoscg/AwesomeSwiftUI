@@ -11,9 +11,10 @@ import SwiftUI
 @available(iOS 26, *)
 struct OnDeviceStreamingAnswer: View {
     private enum Phase: Equatable {
-        case idle, streaming, finished
-        case failed(String)
+        case idle, streaming, finished, failed
     }
+
+    private struct ModelUnavailable: Error {}
 
     let prompt: String
     var instructions = "Answer in two short, friendly sentences."
@@ -21,6 +22,10 @@ struct OnDeviceStreamingAnswer: View {
     /// Replaces the model with your own text stream, for previews and for tests.
     /// Each element is the whole text so far.
     var sampleStream: (@MainActor (String) -> AsyncThrowingStream<String, Error>)? = nil
+    /// Plays instead of an error when the model is unavailable or fails.
+    /// Each element is the whole text so far.
+    var fallbackStream: (@MainActor (String) -> AsyncThrowingStream<String, Error>)? = nil
+    var failureMessage = "The on-device model couldn't answer right now. Please try again later."
 
     @State private var text = ""
     @State private var phase = Phase.idle
@@ -69,8 +74,8 @@ struct OnDeviceStreamingAnswer: View {
             Text("\(Text(text))\(Text(" ▍").foregroundStyle(.tint))")
         case .finished:
             Text(text).textSelection(.enabled)
-        case .failed(let message):
-            Text(message).foregroundStyle(.red)
+        case .failed:
+            Text(failureMessage).foregroundStyle(.secondary)
         }
     }
 
@@ -79,7 +84,7 @@ struct OnDeviceStreamingAnswer: View {
         case .idle: placeholder
         case .streaming: "Writing"
         case .finished: text
-        case .failed(let message): message
+        case .failed: failureMessage
         }
     }
 
@@ -98,14 +103,7 @@ struct OnDeviceStreamingAnswer: View {
             if let sampleStream {
                 for try await partial in sampleStream(trimmedPrompt) { text = partial }
             } else {
-                guard SystemLanguageModel.default.isAvailable else {
-                    phase = .failed("The on-device model is not available right now.")
-                    return
-                }
-                // Every answer gets its own session, so old turns never fill its context window.
-                let session = preparedSession ?? LanguageModelSession(instructions: instructions)
-                preparedSession = nil
-                for try await snapshot in session.streamResponse(to: trimmedPrompt) { text = snapshot.content }
+                try await streamFromModel()
             }
             guard !Task.isCancelled else { return }
             phase = .finished
@@ -113,7 +111,20 @@ struct OnDeviceStreamingAnswer: View {
             AccessibilityNotification.Announcement(text).post()
         } catch {
             guard !Task.isCancelled else { return }
-            phase = .failed(error.localizedDescription)
+            phase = .failed
+        }
+    }
+
+    private func streamFromModel() async throws {
+        do {
+            guard SystemLanguageModel.default.isAvailable else { throw ModelUnavailable() }
+            // Every answer gets its own session, so old turns never fill its context window.
+            let session = preparedSession ?? LanguageModelSession(instructions: instructions)
+            preparedSession = nil
+            for try await snapshot in session.streamResponse(to: trimmedPrompt) { text = snapshot.content }
+        } catch {
+            guard let fallbackStream, !Task.isCancelled else { throw error }
+            for try await partial in fallbackStream(trimmedPrompt) { text = partial }
         }
     }
 }
@@ -128,8 +139,8 @@ struct OnDeviceStreamingAnswerDemo: View {
     ]
 
     @State private var prompt = ""
+    @State private var isPlayingSample = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    private let hasModel = SystemLanguageModel.default.isAvailable
 
     var body: some View {
         ScrollView {
@@ -143,11 +154,11 @@ struct OnDeviceStreamingAnswerDemo: View {
                         .tint(.indigo)
                 }
 
-                OnDeviceStreamingAnswer(prompt: prompt, sampleStream: hasModel ? nil : sample)
+                OnDeviceStreamingAnswer(prompt: prompt, fallbackStream: sample)
                     .tint(.indigo)
 
-                if !hasModel {
-                    Text("No on-device model here, so this demo plays sample text.")
+                if isPlayingSample {
+                    Text("The on-device model can't answer here, so this demo plays sample text.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -158,6 +169,7 @@ struct OnDeviceStreamingAnswerDemo: View {
     }
 
     private func sample(_ prompt: String) -> AsyncThrowingStream<String, Error> {
+        isPlayingSample = true
         let answer = Self.questions.first { $0.question == prompt }?.answer ?? ""
         let instant = reduceMotion
         return AsyncThrowingStream { continuation in

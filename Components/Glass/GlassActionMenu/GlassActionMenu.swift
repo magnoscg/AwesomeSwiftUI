@@ -25,7 +25,6 @@ struct GlassActionMenu: View {
 
     @State private var isExpanded = false
     @Namespace private var namespace
-    @ScaledMetric(relativeTo: .title2) private var buttonSize = 58.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? {
@@ -56,7 +55,7 @@ struct GlassActionMenu: View {
                 }
             }
         }
-        // The buttons only hold icons. Capping their growth keeps a tall stack on screen.
+        // The buttons only hold icons. Each icon reads its size under this cap, which keeps a tall stack on screen.
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
@@ -68,16 +67,28 @@ struct GlassActionMenu: View {
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
-            Image(systemName: systemImage)
-                .font(.title2.weight(.semibold))
-                .rotationEffect(.degrees(rotation))
-                .frame(width: buttonSize, height: buttonSize)
-                .contentShape(.circle)
+            GlassActionMenuIcon(systemImage: systemImage, rotation: rotation)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(label)
         .glassEffect(.regular.interactive(), in: .circle)
         .glassEffectID(id, in: namespace)
+    }
+}
+
+@available(iOS 26, *)
+private struct GlassActionMenuIcon: View {
+    let systemImage: String
+    let rotation: Double
+
+    @ScaledMetric(relativeTo: .title2) private var size = 58.0
+
+    var body: some View {
+        Image(systemName: systemImage)
+            .font(.title2.weight(.semibold))
+            .rotationEffect(.degrees(rotation))
+            .frame(width: size, height: size)
+            .contentShape(.circle)
     }
 }
 

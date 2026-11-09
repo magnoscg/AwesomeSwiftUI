@@ -8,6 +8,8 @@ struct StoriesViewerStory: Identifiable {
     let image: Image
     var title: String
     var caption: String
+    /// What the image shows, for VoiceOver. Leave it nil when the image is decoration.
+    var imageLabel: String?
 }
 
 /// A full-screen story pager with segmented progress bars.
@@ -45,16 +47,11 @@ struct StoriesViewer: View {
 
             if let current {
                 Color.clear
-                    .overlay {
-                        current.image
-                            .resizable()
-                            .scaledToFill()
-                    }
+                    .overlay { storyImage(current) }
                     .clipped()
                     .ignoresSafeArea()
                     .id(current.id)
                     .transition(.opacity)
-                    .accessibilityHidden(true)
 
                 tapAreas
 
@@ -85,6 +82,17 @@ struct StoriesViewer: View {
         }
         .onChange(of: playback.isFinished) { _, isFinished in
             if isFinished { onFinish() }
+        }
+    }
+
+    @ViewBuilder
+    private func storyImage(_ story: StoriesViewerStory) -> some View {
+        let image = story.image.resizable().scaledToFill()
+
+        if let label = story.imageLabel {
+            image.accessibilityLabel(label)
+        } else {
+            image.accessibilityRepresentation { EmptyView() }
         }
     }
 
@@ -235,8 +243,14 @@ struct StoriesViewerPlayback: Equatable {
         progress = 0
     }
 
-    /// Keeps the position valid when the list of stories shrinks.
+    /// Keeps the position valid when the list of stories changes, and moves on if new ones arrive after the end.
     mutating func clamp(count: Int) {
+        if isFinished, index + 1 < count {
+            isFinished = false
+            index += 1
+            progress = 0
+            return
+        }
         guard index >= count else { return }
         index = max(count - 1, 0)
         progress = 0
@@ -259,19 +273,22 @@ struct StoriesViewerDemo: View {
             id: "dawn",
             image: placeholder(colors: [.orange, .pink, .purple], symbol: "sunrise.fill"),
             title: "Morning hike",
-            caption: "First light over the ridge."
+            caption: "First light over the ridge.",
+            imageLabel: "A sunrise on a pink and purple sky"
         ),
         StoriesViewerStory(
             id: "forest",
             image: placeholder(colors: [.teal, .green, .black], symbol: "tree.fill"),
             title: "Into the woods",
-            caption: "Three hours of pure green."
+            caption: "Three hours of pure green.",
+            imageLabel: "A tree on a dark green background"
         ),
         StoriesViewerStory(
             id: "night",
             image: placeholder(colors: [.indigo, .blue, .black], symbol: "moon.stars.fill"),
             title: "Camp",
-            caption: "And then the stars came out."
+            caption: "And then the stars came out.",
+            imageLabel: "A moon and stars on a night sky"
         ),
     ]
 

@@ -33,32 +33,5 @@
   ],
   "origin": {
     "kind": "original"
-  },
-  "previewSteps": [
-    "sleep 0.4",
-    "touch -x 201 -y 420 --down",
-    "sleep 0.05",
-    "touch -x 201 -y 420 --up",
-    "sleep 0.08",
-    "touch -x 201 -y 420 --down",
-    "sleep 0.05",
-    "touch -x 201 -y 420 --up",
-    "sleep 1.2",
-    "touch -x 120 -y 320 --down",
-    "sleep 0.05",
-    "touch -x 120 -y 320 --up",
-    "sleep 0.08",
-    "touch -x 120 -y 320 --down",
-    "sleep 0.05",
-    "touch -x 120 -y 320 --up",
-    "sleep 1.1",
-    "touch -x 280 -y 540 --down",
-    "sleep 0.05",
-    "touch -x 280 -y 540 --up",
-    "sleep 0.08",
-    "touch -x 280 -y 540 --down",
-    "sleep 0.05",
-    "touch -x 280 -y 540 --up",
-    "sleep 1.2"
-  ]
+  }
 }

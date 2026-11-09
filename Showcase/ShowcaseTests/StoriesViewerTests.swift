@@ -92,4 +92,25 @@ struct StoriesViewerTests {
         #expect(playback.fill(for: 1) == 0.5)
         #expect(playback.fill(for: 2) == 0)
     }
+
+    @Test func newStoriesAfterTheEndResumePlayback() {
+        var playback = StoriesViewerPlayback()
+        playback.next(count: 1)
+
+        playback.clamp(count: 2)
+
+        #expect(!playback.isFinished)
+        #expect(playback.index == 1)
+        #expect(playback.progress == 0)
+    }
+
+    @Test func aFinishedListWithNothingNewStaysFinished() {
+        var playback = StoriesViewerPlayback()
+        playback.next(count: 1)
+
+        playback.clamp(count: 1)
+
+        #expect(playback.isFinished)
+        #expect(playback.index == 0)
+    }
 }

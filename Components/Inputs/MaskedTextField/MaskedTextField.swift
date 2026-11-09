@@ -13,7 +13,13 @@ enum MaskedTextFieldFormatter {
         }
     }
 
+    private static func isLiteral(_ slot: Character) -> Bool {
+        slot != "#" && slot != "A"
+    }
+
     /// Literals are added only when a character follows them, so backspace can always delete.
+    /// A run of literals is read back only when it is there whole, so a typed `3` is not taken
+    /// for the `3` of a `+34 ` prefix.
     static func format(_ input: String, mask: String) -> String {
         guard !mask.isEmpty else { return input }
 
@@ -21,15 +27,20 @@ enum MaskedTextFieldFormatter {
         var pendingLiterals = ""
         var remaining = Substring(input)
 
-        for slot in mask {
-            guard let first = remaining.first else { return result }
+        var slots = Substring(mask)
 
-            if accepts(first, slot: slot) == nil {
-                pendingLiterals.append(slot)
-                if first == slot { remaining.removeFirst() }
+        while let slot = slots.first {
+            guard !remaining.isEmpty else { return result }
+
+            if isLiteral(slot) {
+                let literals = slots.prefix(while: isLiteral)
+                slots.removeFirst(literals.count)
+                pendingLiterals += literals
+                if remaining.hasPrefix(literals) { remaining.removeFirst(literals.count) }
                 continue
             }
 
+            slots.removeFirst()
             while let next = remaining.first, accepts(next, slot: slot) == false {
                 remaining.removeFirst()
             }

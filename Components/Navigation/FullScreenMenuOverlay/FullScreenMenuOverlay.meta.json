@@ -37,13 +37,13 @@
   },
   "previewSteps": [
     "sleep 0.5",
-    "tap --label Menu",
+    "tap -x 368 -y 90",
     "sleep 1.5",
-    "tap --label Close",
+    "tap -x 357 -y 106",
     "sleep 0.9",
-    "tap --label Menu",
+    "tap -x 368 -y 90",
     "sleep 1.5",
-    "tap --label Projects",
+    "tap -x 123 -y 236",
     "sleep 1.1"
   ]
 }

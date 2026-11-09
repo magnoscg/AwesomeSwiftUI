@@ -91,7 +91,7 @@ struct CustomDetentSheetDemo: View {
             sheet
         }
         .task { isPresented = true }
-        .task(id: isPresented) {
+        .task(id: isPresented && !reduceMotion) {
             guard isPresented, !reduceMotion else { return }
             await cycleDetents()
         }

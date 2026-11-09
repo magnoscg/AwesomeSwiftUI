@@ -47,4 +47,12 @@ struct RulerScrollPickerTests {
         #expect(scale.index(forOffset: 9_000, spacing: 12) == 10)
         #expect(scale.index(forOffset: 40, spacing: 0) == 0)
     }
+
+    @Test func aDecimalStepKeepsTheLastValue() {
+        #expect(RulerScrollPickerScale(range: 0...0.3, step: 0.1).tickCount == 4)
+    }
+
+    @Test func aRangeThatStopsBetweenStepsStillRoundsDown() {
+        #expect(RulerScrollPickerScale(range: 0...0.35, step: 0.1).tickCount == 4)
+    }
 }

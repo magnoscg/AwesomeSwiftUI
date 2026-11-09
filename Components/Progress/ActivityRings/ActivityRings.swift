@@ -87,7 +87,8 @@ enum ActivityRingsMath {
     static func visibleCount(ringCount: Int, diameter: Double, lineWidth: Double, gap: Double) -> Int {
         let pitch = lineWidth + gap
         guard ringCount > 0, diameter > 0, pitch > 0, pitch.isFinite, diameter.isFinite else { return 0 }
-        return Int(min(Double(ringCount), (diameter / 2 / pitch).rounded(.down)))
+        // The innermost ring needs no gap after it, which is why one gap is added back.
+        return Int(min(Double(ringCount), ((diameter / 2 + gap) / pitch).rounded(.down)))
     }
 }
 

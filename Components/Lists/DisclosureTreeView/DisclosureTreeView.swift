@@ -27,6 +27,11 @@ enum DisclosureTreeViewRows {
             return [row] + visible(in: node.children, expanded: expanded, depth: depth + 1)
         }
     }
+
+    /// The indent of a row. Very deep rows and very large text stop adding to it, so the title has room.
+    static func indent(depth: Int, step: Double) -> Double {
+        Double(min(depth, 6)) * min(step, 24)
+    }
 }
 
 /// A nested tree of rows that expand and collapse, indenting each level.
@@ -36,9 +41,6 @@ struct DisclosureTreeView: View {
 
     @ScaledMetric(relativeTo: .body) private var indent = 20.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-
-    /// Very deep rows stop indenting, so the title always has room.
-    private let maxIndentedDepth = 6
 
     var body: some View {
         LazyVStack(alignment: .leading, spacing: 2) {
@@ -97,7 +99,7 @@ struct DisclosureTreeView: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 12)
-        .padding(.leading, CGFloat(min(row.depth, maxIndentedDepth)) * indent)
+        .padding(.leading, DisclosureTreeViewRows.indent(depth: row.depth, step: indent))
         .contentShape(.rect)
     }
 }

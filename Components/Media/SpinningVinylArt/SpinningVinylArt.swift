@@ -78,6 +78,10 @@ struct SpinningVinylArt<Artwork: View>: View {
             guard !Task.isCancelled else { return }
             isEasing = false
         }
+        .onChange(of: degreesPerSecond) {
+            guard isPlaying, !reduceMotion else { return }
+            spin.setSpeed(degreesPerSecond, at: .now)
+        }
     }
 
     private var disc: some View {

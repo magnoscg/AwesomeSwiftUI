@@ -58,13 +58,15 @@ struct ColorRevealImage: View {
                             .scaledToFill()
                             .opacity(isRevealed ? 1 : 0)
                     }
+                    // The button already reads the title, so the images add nothing to VoiceOver.
+                    .accessibilityRepresentation { EmptyView() }
                 }
                 .clipShape(.rect(cornerRadius: max(cornerRadius, 0), style: .continuous))
                 .contentShape(.rect(cornerRadius: max(cornerRadius, 0), style: .continuous))
         }
         .buttonStyle(.plain)
         .accessibilityLabel(title)
-        .accessibilityValue(isRevealed ? "In full color" : "Black and white")
+        .accessibilityValue(isRevealed ? "In full color" : "Color follows scrolling")
     }
 }
 

@@ -48,7 +48,6 @@ struct CollapsingBottomBar: ViewModifier {
     let items: [CollapsingBottomBarItem]
 
     @State private var state = CollapsingBottomBarState()
-    @ScaledMetric(relativeTo: .caption2) private var slotHeight = 86.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
@@ -65,40 +64,51 @@ struct CollapsingBottomBar: ViewModifier {
                 state.update(offset: newValue, threshold: 24)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                // A fixed slot keeps the inset stable, so the bar's own resizing cannot move the scroll offset.
-                bar.frame(height: slotHeight, alignment: .bottom)
+                CollapsingBottomBarSlot(items: items, isCollapsed: state.isCollapsed)
+                    // The labels are short. The slot reads its height under this cap, which keeps every action on screen.
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
             }
             .animation(reduceMotion ? nil : .snappy(duration: 0.35), value: state.isCollapsed)
     }
+}
+
+private struct CollapsingBottomBarSlot: View {
+    let items: [CollapsingBottomBarItem]
+    let isCollapsed: Bool
+
+    @ScaledMetric(relativeTo: .caption2) private var slotHeight = 86.0
+
+    var body: some View {
+        // A fixed slot keeps the inset stable, so the bar's own resizing cannot move the scroll offset.
+        bar.frame(height: slotHeight, alignment: .bottom)
+    }
 
     private var bar: some View {
-        HStack(spacing: state.isCollapsed ? 6 : 0) {
+        HStack(spacing: isCollapsed ? 6 : 0) {
             ForEach(items) { item in
                 Button(action: item.action) {
                     VStack(spacing: 3) {
                         Image(systemName: item.systemImage)
                             .font(.title3)
 
-                        if !state.isCollapsed {
+                        if !isCollapsed {
                             Text(item.title)
                                 .font(.caption2)
                         }
                     }
-                    .frame(minWidth: 44, maxWidth: state.isCollapsed ? nil : .infinity, minHeight: 44)
+                    .frame(minWidth: 44, maxWidth: isCollapsed ? nil : .infinity, minHeight: 44)
                     .contentShape(.rect)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(item.title)
             }
         }
-        .padding(.horizontal, state.isCollapsed ? 10 : 14)
+        .padding(.horizontal, isCollapsed ? 10 : 14)
         .padding(.vertical, 8)
         .background(.regularMaterial, in: .capsule)
         .shadow(color: .black.opacity(0.15), radius: 12, y: 6)
         .padding(.horizontal, 20)
         .padding(.bottom, 6)
-        // The labels are short. Capping growth keeps every action on screen.
-        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
 

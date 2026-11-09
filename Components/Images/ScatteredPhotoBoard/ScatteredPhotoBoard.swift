@@ -29,6 +29,16 @@ enum ScatteredPhotoBoardLayout {
         return CGPoint(x: clamp(point.x, side: card.width, length: board.width), y: clamp(point.y, side: card.height, length: board.height))
     }
 
+    /// The offset from `home` to keep after a drag: where the card stopped, not how far the finger went.
+    static func settledOffset(home: CGPoint, saved: CGSize, translation: CGSize, card: CGSize, board: CGSize) -> CGSize {
+        let end = clamped(
+            CGPoint(x: home.x + saved.width + translation.width, y: home.y + saved.height + translation.height),
+            card: card,
+            board: board
+        )
+        return CGSize(width: end.x - home.x, height: end.y - home.y)
+    }
+
     /// A slightly jittered grid position, so the same photos always land in the same place.
     static func center(index: Int, count: Int, card: CGSize, board: CGSize) -> CGPoint {
         guard count > 0 else { return CGPoint(x: board.width / 2, y: board.height / 2) }
@@ -74,7 +84,7 @@ struct ScatteredPhotoBoard: View {
         GeometryReader { geometry in
             ZStack {
                 ForEach(Array(photos.enumerated()), id: \.element.id) { index, photo in
-                    card(photo, index: index)
+                    card(photo, index: index, board: geometry.size)
                         .position(position(of: photo, index: index, board: geometry.size))
                         .zIndex(depth(of: photo, index: index))
                 }
@@ -84,7 +94,7 @@ struct ScatteredPhotoBoard: View {
         }
     }
 
-    private func card(_ photo: ScatteredPhotoBoardPhoto, index: Int) -> some View {
+    private func card(_ photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> some View {
         let isDragged = drag?.id == photo.id
         let lifted = isDragged && !reduceMotion
 
@@ -108,7 +118,7 @@ struct ScatteredPhotoBoard: View {
         .background(.white, in: .rect(cornerRadius: 4))
         .shadow(color: .black.opacity(lifted ? 0.4 : 0.25), radius: lifted ? 16 : 6, y: lifted ? 10 : 3)
         .contentShape(.rect)
-        .gesture(dragGesture(for: photo))
+        .gesture(dragGesture(for: photo, index: index, board: board))
         .scaleEffect(lifted ? 1.06 : 1)
         .rotationEffect(.degrees(lifted ? 0 : ScatteredPhotoBoardLayout.angle(index: index)))
         .animation(reduceMotion ? nil : .snappy(duration: 0.25), value: isDragged)
@@ -118,15 +128,20 @@ struct ScatteredPhotoBoard: View {
         .accessibilityAction(named: "Bring to front") { bringToFront(photo) }
     }
 
-    private func dragGesture(for photo: ScatteredPhotoBoardPhoto) -> some Gesture {
+    private func dragGesture(for photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named(space))
             .updating($drag) { value, state, _ in
                 state = ActiveDrag(id: photo.id, translation: value.translation)
             }
             .onChanged { _ in bringToFront(photo) }
             .onEnded { value in
-                let saved = offsets[photo.id] ?? .zero
-                offsets[photo.id] = CGSize(width: saved.width + value.translation.width, height: saved.height + value.translation.height)
+                offsets[photo.id] = ScatteredPhotoBoardLayout.settledOffset(
+                    home: ScatteredPhotoBoardLayout.center(index: index, count: photos.count, card: cardSize, board: board),
+                    saved: offsets[photo.id] ?? .zero,
+                    translation: value.translation,
+                    card: cardSize,
+                    board: board
+                )
             }
     }
 
