@@ -1,0 +1,48 @@
+{
+  "id": "country-picker",
+  "name": "CountryPicker",
+  "title": "Country Picker",
+  "category": "Pickers",
+  "summary": "A searchable list of countries with flags and dial codes that opens on the current region.",
+  "keywords": {
+    "en": [
+      "country",
+      "picker",
+      "flag",
+      "dial code",
+      "phone prefix",
+      "region",
+      "search"
+    ],
+    "es": [
+      "país",
+      "selector",
+      "bandera",
+      "prefijo telefónico",
+      "región",
+      "búsqueda"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Locale.Region",
+    "searchable(text:placement:prompt:)",
+    "ScrollViewReader",
+    "List"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 201 --start-y 640 --end-x 201 --end-y 300 --duration 0.5",
+    "sleep 1",
+    "tap -x 201 -y 420",
+    "sleep 1.2",
+    "swipe --start-x 201 --start-y 300 --end-x 201 --end-y 640 --duration 0.5",
+    "sleep 0.9",
+    "tap -x 201 -y 360",
+    "sleep 1.2"
+  ]
+}
