@@ -14,6 +14,8 @@ on `main`.
   `llms.txt`, `llms-full.txt` and the table in the README.
 - Every component must have an animated WebP preview, shown in the README, and
   `make preview` creates one from a recording.
+- CI for every pull request, and a deploy of the site to GitHub Pages from
+  `main`.
 - The documentation site: a page and a searchable entry for every component,
   generated from its metadata.
 - The Showcase app: compiles every component on iOS 18 and later with Swift 6

@@ -21,7 +21,7 @@ easy to copy matters as much as the code itself.
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the table between the `catalog` markers | In place |
 | `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed | In place |
-| `.github/` | Issue and pull request templates | In place |
+| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
 
 Update the State column when a planned part lands.
 
@@ -54,6 +54,16 @@ iOS should also pass `make showcase-test` on that runtime, and a change to the
 site should also pass `make docs`.
 
 The site uses pnpm. Pin dependencies to exact versions.
+
+## CI
+
+Every pull request runs `make check`, `make test` and `make docs`, and the
+Showcase tests on iOS 26. GitHub's macOS runners stop at Xcode 26.6, so that
+job removes components that need iOS 27 before compiling. Those are verified
+only by `make verify` on a machine with Xcode 27.2 or later, so run it before
+opening the pull request. Revisit this when a runner offers Xcode 27.
+
+Pages deploys the site on every push to `main`.
 
 ## Component metadata
 

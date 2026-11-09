@@ -69,5 +69,5 @@ and tags are `X.Y.Z` without a `v`.
 2. Give the unreleased notes in [CHANGELOG.md](CHANGELOG.md) a dated heading,
    commit it as `chore(release): X.Y.Z` and push the branch.
 3. Merge it into `main` without fast-forward, tag `main` with an annotated
-   `X.Y.Z` tag and push both.
+   `X.Y.Z` tag and push both. The push to `main` publishes the site.
 4. Merge `main` back into `develop`.
