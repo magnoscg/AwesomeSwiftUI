@@ -1,0 +1,39 @@
+{
+  "id": "pinch-zoom-view",
+  "name": "PinchZoomView",
+  "title": "Pinch Zoom View",
+  "category": "Gestures",
+  "summary": "A view you pinch to zoom and drag, which springs back to its bounds.",
+  "keywords": {
+    "en": [
+      "pinch",
+      "zoom",
+      "magnify",
+      "pan",
+      "drag",
+      "gesture",
+      "spring",
+      "image viewer"
+    ],
+    "es": [
+      "pellizcar",
+      "zoom",
+      "ampliar",
+      "arrastrar",
+      "gesto",
+      "muelle",
+      "visor de imágenes"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "MagnifyGesture",
+    "DragGesture",
+    "SimultaneousGesture",
+    "accessibilityZoomAction"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
