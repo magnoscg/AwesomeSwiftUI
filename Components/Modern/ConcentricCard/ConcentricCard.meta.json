@@ -1,0 +1,36 @@
+{
+  "id": "concentric-card",
+  "name": "ConcentricCard",
+  "title": "Concentric Card",
+  "category": "Modern",
+  "summary": "Nested cards whose corners stay concentric with ConcentricRectangle, however deep they sit.",
+  "keywords": {
+    "en": [
+      "concentric",
+      "corners",
+      "corner radius",
+      "nested cards",
+      "card",
+      "container shape",
+      "rounded rectangle"
+    ],
+    "es": [
+      "concéntrico",
+      "esquinas",
+      "radio de esquina",
+      "tarjetas anidadas",
+      "tarjeta",
+      "forma contenedora"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": [
+    "ConcentricRectangle",
+    "containerShape",
+    "Edge.Corner.Style"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
