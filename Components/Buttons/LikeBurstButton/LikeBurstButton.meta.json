@@ -1,0 +1,45 @@
+{
+  "id": "like-burst-button",
+  "name": "LikeBurstButton",
+  "title": "Like Burst Button",
+  "category": "Buttons",
+  "summary": "A heart button that pops and throws out a burst of small particles when liked.",
+  "keywords": {
+    "en": [
+      "like",
+      "heart",
+      "favorite",
+      "particles",
+      "burst",
+      "keyframes",
+      "button"
+    ],
+    "es": [
+      "me gusta",
+      "corazón",
+      "favorito",
+      "partículas",
+      "explosión",
+      "botón"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "keyframeAnimator",
+    "KeyframeTrack",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Like",
+    "sleep 1.2",
+    "tap --label Like",
+    "sleep 0.7",
+    "tap --label Like",
+    "sleep 1.3"
+  ]
+}

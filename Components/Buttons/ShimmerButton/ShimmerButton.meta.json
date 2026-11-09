@@ -1,0 +1,36 @@
+{
+  "id": "shimmer-button",
+  "name": "ShimmerButton",
+  "title": "Shimmer Button",
+  "category": "Buttons",
+  "summary": "A gradient capsule button with a band of light that sweeps across it in a loop.",
+  "keywords": {
+    "en": [
+      "shimmer",
+      "shine",
+      "button",
+      "light sweep",
+      "gradient",
+      "call to action",
+      "glossy"
+    ],
+    "es": [
+      "brillo",
+      "destello",
+      "botón",
+      "barrido de luz",
+      "degradado",
+      "llamada a la acción"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "keyframeAnimator",
+    "visualEffect",
+    "LinearGradient"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

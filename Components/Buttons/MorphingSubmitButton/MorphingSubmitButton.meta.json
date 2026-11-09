@@ -1,0 +1,42 @@
+{
+  "id": "morphing-submit-button",
+  "name": "MorphingSubmitButton",
+  "title": "Morphing Submit Button",
+  "category": "Buttons",
+  "summary": "A submit button that morphs into a spinner while it works and then into a checkmark.",
+  "keywords": {
+    "en": [
+      "submit",
+      "loading",
+      "morph",
+      "spinner",
+      "success",
+      "async button",
+      "progress"
+    ],
+    "es": [
+      "enviar",
+      "cargando",
+      "transformación",
+      "indicador de carga",
+      "éxito",
+      "botón asíncrono"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "withAnimation",
+    "RoundedRectangle",
+    "ProgressView",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Submit",
+    "sleep 3.6"
+  ]
+}
