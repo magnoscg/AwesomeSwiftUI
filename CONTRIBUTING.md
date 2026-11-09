@@ -54,8 +54,10 @@ Pull requests target `develop`, except releases and hotfixes.
 Keep pull requests to one topic. Match the style of the code around you, and
 let comments say why rather than what.
 
-The commands that check a change will be listed here when the Showcase app and
-the catalog tooling land.
+After changing a component, run `make catalog` and commit the generated files.
+Then check the change with `make check && make test`, which need Node 24 or
+later. The commands that build the components will be listed here when the
+Showcase app lands.
 
 ## Releasing
 
