@@ -17,11 +17,43 @@ easy to copy matters as much as the code itself.
 |---|---|---|
 | `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.gif` | Planned |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests | Planned |
-| `scripts/` | Generates the catalog, the README tables and `llms.txt` from the metadata | Planned |
+| `scripts/` | Validates the components and generates the files below | In place |
+| `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
+| `README.md` | Written by hand, except the table between the `catalog` markers | In place |
 | `docs/` | The GitHub Pages site, built with Astro Starlight | Planned |
 | `.github/` | Issue and pull request templates | In place |
 
 Update the State column when a planned part lands.
+
+## Commands
+
+You need Node 24 or later. The scripts have no dependencies.
+
+```sh
+make catalog   # rewrite the generated files after changing a component
+make check     # fail if a component breaks a rule or a generated file is stale
+make test      # the tests of the catalog tooling
+```
+
+A change to the catalog is done when `make check` and `make test` pass.
+
+## Component metadata
+
+Every `<Name>.meta.json` has exactly these fields, and `make check` rejects
+anything else:
+
+| Field | Value |
+|---|---|
+| `id` | Unique, in kebab-case: `pressable-button-style` |
+| `name` | The folder and file name: `PressableButtonStyle` |
+| `title` | The name people read: `Pressable Button Style` |
+| `category` | The parent folder: `Buttons` |
+| `summary` | One sentence, in English |
+| `keywords` | `{ "en": [...], "es": [...] }`, with the words someone would search for |
+| `difficulty` | `beginner`, `intermediate` or `advanced` |
+| `minIOS` | `18.0`, `26.0`, `27.0`... It must match `@available` in the source |
+| `apis` | The main Apple APIs it uses: `["MeshGradient", "TimelineView"]` |
+| `origin` | `{ "kind": "original" }`, `{ "kind": "inspired", "credit": "...", "url": "..." }` or `{ "kind": "adapted", "url": "...", "license": "..." }` |
 
 ## Rules for every component
 

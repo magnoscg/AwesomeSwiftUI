@@ -1,0 +1,15 @@
+# AwesomeSwiftUI
+
+> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. Each component states its minimum iOS.
+
+Search `https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/catalog.json` by keyword, in English or Spanish, and fetch the `rawURL` of the match.
+
+## Components
+
+No components yet.
+
+## Docs
+
+- [README](https://github.com/magnoscg/AwesomeSwiftUI/blob/HEAD/README.md): what the catalog is and how it is organized
+- [AGENTS.md](https://github.com/magnoscg/AwesomeSwiftUI/blob/HEAD/AGENTS.md): repository map and the rules every component keeps
+- [Full catalog with source](https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/llms-full.txt): every component in one file

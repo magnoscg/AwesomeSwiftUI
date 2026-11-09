@@ -12,8 +12,9 @@ install: find a component, copy its file, use it.
 
 </div>
 
-> **Status: early days.** The foundation of the repository is in place. The
-> catalog, the demo app and the documentation site come next.
+> **Status: early days.** The foundation of the repository and the catalog
+> tooling are in place. The demo app, the documentation site and the first
+> components come next.
 
 ## What it will be
 
@@ -25,6 +26,14 @@ install: find a component, copy its file, use it.
 | Technologies | The current Apple API for each iOS version, and nothing deprecated |
 | Search | Keywords on every component, for people and for AI agents |
 | License | MIT |
+
+## Catalog
+
+<!-- catalog:start -->
+
+No components yet.
+
+<!-- catalog:end -->
 
 ## How the catalog is organized
 
@@ -54,8 +63,9 @@ Components/
 ## For AI agents
 
 [AGENTS.md](AGENTS.md) maps the repository and lists the rules a change has to
-keep. A machine-readable catalog and an `llms.txt` arrive with the catalog
-tooling.
+keep. To find a component, search [catalog.json](catalog.json) by keyword, in
+English or Spanish, and fetch its `rawURL`. [llms.txt](llms.txt) is the short
+index and [llms-full.txt](llms-full.txt) has every component with its source.
 
 ## Contributing
 
