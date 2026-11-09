@@ -1,0 +1,35 @@
+{
+  "id": "rotating-words-text",
+  "name": "RotatingWordsText",
+  "title": "Rotating Words Text",
+  "category": "Text",
+  "summary": "Words that take turns in the same spot, each one pushing the last out of the way.",
+  "keywords": {
+    "en": [
+      "rotating words",
+      "word swap",
+      "push transition",
+      "headline",
+      "hero text",
+      "cycling text"
+    ],
+    "es": [
+      "palabras rotatorias",
+      "cambiar palabras",
+      "transición",
+      "titular",
+      "texto cíclico",
+      "encabezado"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "AnyTransition.push",
+    "withAnimation",
+    "task"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

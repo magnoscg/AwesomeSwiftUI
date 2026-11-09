@@ -1,0 +1,36 @@
+{
+  "id": "scramble-text",
+  "name": "ScrambleText",
+  "title": "Scramble Text",
+  "category": "Text",
+  "summary": "Random characters that settle from left to right into the final text.",
+  "keywords": {
+    "en": [
+      "scramble",
+      "decode",
+      "random",
+      "hacker",
+      "text animation",
+      "shuffle",
+      "matrix"
+    ],
+    "es": [
+      "codificado",
+      "descifrar",
+      "aleatorio",
+      "hacker",
+      "animación de texto",
+      "mezclar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "RandomNumberGenerator",
+    "task",
+    "monospaced"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

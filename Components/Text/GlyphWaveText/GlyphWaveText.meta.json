@@ -1,0 +1,36 @@
+{
+  "id": "glyph-wave-text",
+  "name": "GlyphWaveText",
+  "title": "Glyph Wave Text",
+  "category": "Text",
+  "summary": "Text whose glyphs ride a travelling sine wave, drawn by a custom TextRenderer.",
+  "keywords": {
+    "en": [
+      "wave",
+      "sine",
+      "glyph",
+      "text animation",
+      "text renderer",
+      "wavy text"
+    ],
+    "es": [
+      "onda",
+      "seno",
+      "glifo",
+      "animación de texto",
+      "texto ondulado",
+      "ola"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "TextRenderer",
+    "Text.Layout",
+    "GraphicsContext",
+    "TimelineView"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
