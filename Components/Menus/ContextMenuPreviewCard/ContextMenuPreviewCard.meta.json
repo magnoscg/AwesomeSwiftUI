@@ -1,0 +1,36 @@
+{
+  "id": "context-menu-preview-card",
+  "name": "ContextMenuPreviewCard",
+  "title": "Context Menu Preview Card",
+  "category": "Menus",
+  "summary": "A card that lifts a richer preview above its menu when you press and hold it.",
+  "keywords": {
+    "en": [
+      "context menu",
+      "long press",
+      "preview",
+      "card",
+      "menu",
+      "press and hold"
+    ],
+    "es": [
+      "menú contextual",
+      "pulsación larga",
+      "vista previa",
+      "tarjeta",
+      "menú",
+      "mantener pulsado"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "contextMenu",
+    "contentShape",
+    "ContentShapeKinds"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}
