@@ -1,0 +1,16 @@
+{
+  "id": "accordion-section",
+  "name": "AccordionSection",
+  "title": "Accordion Section",
+  "category": "Lists",
+  "summary": "A stack of sections where opening one section closes the others, with the content height animated.",
+  "keywords": {
+    "en": ["accordion", "expandable", "collapse", "faq", "sections", "disclosure"],
+    "es": ["acordeón", "desplegable", "expandir", "contraer", "preguntas frecuentes", "secciones"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["withAnimation(_:_:)", "transition(_:)", "VStack", "Binding"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label 'Can I copy the code?'", "sleep 1.1", "tap --label 'Does it need a package?'", "sleep 1.1", "tap --label 'Which iOS does it need?'", "sleep 1.1"]
+}

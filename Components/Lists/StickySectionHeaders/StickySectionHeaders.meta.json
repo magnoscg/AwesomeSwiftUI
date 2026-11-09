@@ -1,0 +1,44 @@
+{
+  "id": "sticky-section-headers",
+  "name": "StickySectionHeaders",
+  "title": "Sticky Section Headers",
+  "category": "Lists",
+  "summary": "A scrolling list of sections whose headers pin to the top until the next header pushes them off.",
+  "keywords": {
+    "en": [
+      "sticky header",
+      "pinned header",
+      "section",
+      "list",
+      "contacts",
+      "scroll",
+      "lazy stack"
+    ],
+    "es": [
+      "cabecera fija",
+      "cabecera anclada",
+      "sección",
+      "lista",
+      "contactos",
+      "desplazamiento"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyVStack",
+    "pinnedViews",
+    "ScrollView",
+    "Section"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 220 --duration 1.1",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 220 --duration 1.1",
+    "sleep 0.9"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "disclosure-tree-view",
+  "name": "DisclosureTreeView",
+  "title": "Disclosure Tree View",
+  "category": "Lists",
+  "summary": "A nested tree of rows that expand and collapse, indenting each level, for folders or category hierarchies.",
+  "keywords": {
+    "en": ["tree", "outline", "hierarchy", "folders", "expand", "collapse", "nested list"],
+    "es": ["árbol", "jerarquía", "carpetas", "expandir", "contraer", "lista anidada", "esquema"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["LazyVStack", "ScaledMetric", "withAnimation(_:_:)", "accessibilityValue(_:)"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label Sources", "sleep 0.9", "tap --label Components", "sleep 0.9", "tap --label Tests", "sleep 0.9", "tap --label Components", "sleep 0.9"]
+}
