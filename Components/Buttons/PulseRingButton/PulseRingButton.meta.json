@@ -1,0 +1,35 @@
+{
+  "id": "pulse-ring-button",
+  "name": "PulseRingButton",
+  "title": "Pulse Ring Button",
+  "category": "Buttons",
+  "summary": "A round button with rings that keep radiating out from behind it.",
+  "keywords": {
+    "en": [
+      "pulse",
+      "rings",
+      "radiate",
+      "ripple",
+      "round button",
+      "microphone",
+      "phase animator"
+    ],
+    "es": [
+      "pulso",
+      "anillos",
+      "ondas",
+      "onda expansiva",
+      "botón redondo",
+      "micrófono"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "phaseAnimator",
+    "Animation.delay"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

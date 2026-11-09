@@ -1,0 +1,45 @@
+{
+  "id": "swipe-to-confirm-slider",
+  "name": "SwipeToConfirmSlider",
+  "title": "Swipe To Confirm Slider",
+  "category": "Controls",
+  "summary": "A track with a thumb you drag to the end to confirm, which springs back if released early.",
+  "keywords": {
+    "en": [
+      "slide to confirm",
+      "swipe to pay",
+      "slider",
+      "drag",
+      "unlock",
+      "payment",
+      "confirmation"
+    ],
+    "es": [
+      "deslizar para confirmar",
+      "deslizar para pagar",
+      "deslizador",
+      "arrastrar",
+      "desbloquear",
+      "pago",
+      "confirmación"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "GestureState",
+    "GeometryReader",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 58 --start-y 451 --end-x 200 --end-y 451 --duration 0.5",
+    "sleep 0.8",
+    "swipe --start-x 58 --start-y 451 --end-x 372 --end-y 451 --duration 0.8",
+    "sleep 1.8"
+  ]
+}

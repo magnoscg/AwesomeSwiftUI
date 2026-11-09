@@ -1,0 +1,24 @@
+{
+  "id": "floating-label-text-field",
+  "name": "FloatingLabelTextField",
+  "title": "Floating Label Text Field",
+  "category": "Inputs",
+  "summary": "A text field whose placeholder floats up when it gains focus or has text.",
+  "keywords": {
+    "en": ["text field", "floating label", "placeholder", "input", "form", "focus", "material"],
+    "es": ["campo de texto", "etiqueta flotante", "marcador de posición", "entrada", "formulario", "foco", "texto"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TextField", "FocusState", "ScaledMetric"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Name",
+    "sleep 1.3",
+    "tap --label Email",
+    "sleep 1.3",
+    "tap --label City",
+    "sleep 1.2"
+  ]
+}

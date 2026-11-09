@@ -1,0 +1,43 @@
+{
+  "id": "toolbar-overflow-demo",
+  "name": "ToolbarOverflowDemo",
+  "title": "Toolbar Overflow Demo",
+  "category": "Modern",
+  "summary": "A toolbar that ranks which actions survive when space runs out and keeps others in the overflow menu.",
+  "keywords": {
+    "en": [
+      "toolbar",
+      "overflow menu",
+      "more menu",
+      "visibility priority",
+      "actions",
+      "navigation bar",
+      "toolbar item"
+    ],
+    "es": [
+      "barra de herramientas",
+      "menú de desbordamiento",
+      "menú más",
+      "prioridad de visibilidad",
+      "acciones",
+      "barra de navegación"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "27.0",
+  "apis": [
+    "ToolbarOverflowMenu",
+    "visibilityPriority",
+    "ToolbarItemVisibilityPriority"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label More",
+    "sleep 1.2",
+    "tap --label 'Export as PDF'",
+    "sleep 1.4"
+  ]
+}

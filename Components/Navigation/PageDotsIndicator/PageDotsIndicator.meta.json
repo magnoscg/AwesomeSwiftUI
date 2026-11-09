@@ -1,0 +1,24 @@
+{
+  "id": "page-dots-indicator",
+  "name": "PageDotsIndicator",
+  "title": "Page Dots Indicator",
+  "category": "Navigation",
+  "summary": "Page dots where the current one stretches into a capsule, following a paged TabView or scroll.",
+  "keywords": {
+    "en": ["page control", "dots", "pagination", "carousel", "indicator", "onboarding", "capsule"],
+    "es": ["puntos de página", "puntos", "paginación", "carrusel", "indicador", "bienvenida", "cápsula"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TabView", "PageTabViewStyle", "Capsule", "ScaledMetric"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 340 --start-y 400 --end-x 60 --end-y 400 --duration 0.3",
+    "sleep 1",
+    "swipe --start-x 340 --start-y 400 --end-x 60 --end-y 400 --duration 0.3",
+    "sleep 1",
+    "swipe --start-x 340 --start-y 400 --end-x 60 --end-y 400 --duration 0.3",
+    "sleep 1"
+  ]
+}

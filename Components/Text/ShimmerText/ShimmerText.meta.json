@@ -1,0 +1,36 @@
+{
+  "id": "shimmer-text",
+  "name": "ShimmerText",
+  "title": "Shimmer Text",
+  "category": "Text",
+  "summary": "Text with a band of light that sweeps across its letters through a mask.",
+  "keywords": {
+    "en": [
+      "shimmer",
+      "shine",
+      "highlight",
+      "loading",
+      "mask",
+      "text animation",
+      "slide to unlock"
+    ],
+    "es": [
+      "brillo",
+      "destello",
+      "reflejo",
+      "cargando",
+      "máscara",
+      "animación de texto"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "mask",
+    "LinearGradient",
+    "TimelineView"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

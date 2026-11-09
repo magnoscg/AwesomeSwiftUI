@@ -1,0 +1,48 @@
+{
+  "id": "flow-tags-layout",
+  "name": "FlowTagsLayout",
+  "title": "Flow Tags Layout",
+  "category": "Layouts",
+  "summary": "A custom Layout that wraps tags onto as many lines as they need.",
+  "keywords": {
+    "en": [
+      "flow layout",
+      "tags",
+      "wrap",
+      "chips",
+      "custom layout",
+      "line break",
+      "tag cloud"
+    ],
+    "es": [
+      "etiquetas",
+      "ajuste de línea",
+      "diseño fluido",
+      "chips",
+      "diseño personalizado",
+      "nube de etiquetas"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Layout",
+    "LayoutSubview",
+    "ProposedViewSize",
+    "transition"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Remove",
+    "sleep 0.9"
+  ]
+}

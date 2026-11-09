@@ -1,0 +1,37 @@
+{
+  "id": "gradient-border-button",
+  "name": "GradientBorderButton",
+  "title": "Gradient Border Button",
+  "category": "Buttons",
+  "summary": "A capsule button whose border is an angular gradient that keeps rotating.",
+  "keywords": {
+    "en": [
+      "gradient border",
+      "angular gradient",
+      "rotating",
+      "glow",
+      "outline",
+      "rainbow",
+      "button"
+    ],
+    "es": [
+      "borde degradado",
+      "degradado angular",
+      "giratorio",
+      "resplandor",
+      "contorno",
+      "arcoíris",
+      "botón"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "AngularGradient",
+    "TimelineView",
+    "strokeBorder"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

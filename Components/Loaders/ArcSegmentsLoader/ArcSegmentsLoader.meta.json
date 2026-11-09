@@ -1,0 +1,15 @@
+{
+  "id": "arc-segments-loader",
+  "name": "ArcSegmentsLoader",
+  "title": "Arc Segments Loader",
+  "category": "Loaders",
+  "summary": "A spinner with gradient arc segments of different lengths turning in opposite directions.",
+  "keywords": {
+    "en": ["loader", "arc", "segments", "spinner", "ring", "rotating", "loading"],
+    "es": ["cargador", "arco", "segmentos", "anillo", "giratorio", "carga"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TimelineView", "trim", "AngularGradient", "rotationEffect"],
+  "origin": { "kind": "original" }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "animated-tab-bar",
+  "name": "AnimatedTabBar",
+  "title": "Animated Tab Bar",
+  "category": "Navigation",
+  "summary": "A custom tab bar with a sliding indicator and icons that bounce on selection.",
+  "keywords": {
+    "en": ["tab bar", "tabs", "navigation", "indicator", "bounce", "sf symbols", "custom tab bar"],
+    "es": ["barra de pestañas", "pestañas", "navegación", "indicador", "rebote", "símbolos", "menú inferior"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["symbolEffect", "matchedGeometryEffect", "symbolEffectsRemoved", "Namespace"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Search",
+    "sleep 1",
+    "tap --label Saved",
+    "sleep 1",
+    "tap --label Profile",
+    "sleep 1",
+    "tap --label Home",
+    "sleep 1"
+  ]
+}

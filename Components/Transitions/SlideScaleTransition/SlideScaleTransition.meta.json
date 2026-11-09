@@ -1,0 +1,15 @@
+{
+  "id": "slide-scale-transition",
+  "name": "SlideScaleTransition",
+  "title": "Slide Scale Transition",
+  "category": "Transitions",
+  "summary": "A custom transition that combines an offset with a scale, available as .slideScale.",
+  "keywords": {
+    "en": ["transition", "slide", "scale", "offset", "carousel", "custom transition", "swap"],
+    "es": ["transición", "deslizar", "escala", "desplazamiento", "carrusel", "intercambio"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Transition", "TransitionPhase", "offset", "scaleEffect"],
+  "origin": { "kind": "original" }
+}

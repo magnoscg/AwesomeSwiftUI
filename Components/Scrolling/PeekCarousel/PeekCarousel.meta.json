@@ -1,0 +1,47 @@
+{
+  "id": "peek-carousel",
+  "name": "PeekCarousel",
+  "title": "Peek Carousel",
+  "category": "Scrolling",
+  "summary": "A paging carousel that shows the edges of its neighbours.",
+  "keywords": {
+    "en": [
+      "carousel",
+      "paging",
+      "peek",
+      "horizontal scroll",
+      "snap",
+      "cards",
+      "page dots"
+    ],
+    "es": [
+      "carrusel",
+      "paginación",
+      "desplazamiento horizontal",
+      "tarjetas",
+      "ajuste",
+      "puntos de página"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "scrollTargetBehavior",
+    "containerRelativeFrame",
+    "scrollPosition",
+    "scrollTransition",
+    "safeAreaPadding"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 340 --start-y 430 --end-x 70 --end-y 430 --duration 0.4",
+    "sleep 1",
+    "swipe --start-x 340 --start-y 430 --end-x 70 --end-y 430 --duration 0.4",
+    "sleep 1",
+    "swipe --start-x 70 --start-y 430 --end-x 340 --end-y 430 --duration 0.4",
+    "sleep 1"
+  ]
+}

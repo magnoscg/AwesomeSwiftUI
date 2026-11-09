@@ -1,0 +1,15 @@
+{
+  "id": "content-swap-transition",
+  "name": "ContentSwapTransition",
+  "title": "Content Swap Transition",
+  "category": "Transitions",
+  "summary": "A showcase of text value changes using numericText, interpolate and opacity content transitions.",
+  "keywords": {
+    "en": ["content transition", "numeric text", "counter", "rolling digits", "interpolate", "text animation", "opacity"],
+    "es": ["transición de contenido", "texto numérico", "contador", "dígitos", "interpolar", "animación de texto"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["contentTransition", "ContentTransition", "numericText"],
+  "origin": { "kind": "original" }
+}

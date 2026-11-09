@@ -1,0 +1,44 @@
+{
+  "id": "cross-fade-navigation",
+  "name": "CrossFadeNavigation",
+  "title": "Cross Fade Navigation",
+  "category": "Transitions",
+  "summary": "A sheet that fades in over the content with the iOS 27 cross-fade navigation transition.",
+  "keywords": {
+    "en": [
+      "cross fade",
+      "navigation transition",
+      "sheet",
+      "modal",
+      "fade",
+      "presentation",
+      "ios 27"
+    ],
+    "es": [
+      "fundido cruzado",
+      "transición de navegación",
+      "hoja",
+      "modal",
+      "fundido",
+      "presentación",
+      "ios 27"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "27.0",
+  "apis": [
+    "navigationTransition",
+    "CrossFadeNavigationTransition",
+    "sheet"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Open",
+    "sleep 1.5",
+    "tap --label Close",
+    "sleep 1.3"
+  ]
+}

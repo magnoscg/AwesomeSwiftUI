@@ -1,0 +1,46 @@
+{
+  "id": "hold-to-confirm-button",
+  "name": "HoldToConfirmButton",
+  "title": "Hold To Confirm Button",
+  "category": "Buttons",
+  "summary": "A round button that fires only after a long press fills its progress ring, and cancels if released early.",
+  "keywords": {
+    "en": [
+      "hold to confirm",
+      "long press",
+      "progress ring",
+      "destructive action",
+      "button",
+      "circular progress"
+    ],
+    "es": [
+      "mantener pulsado",
+      "pulsación larga",
+      "anillo de progreso",
+      "acción destructiva",
+      "botón",
+      "confirmar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onLongPressGesture",
+    "Circle.trim",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "touch -x 201 -y 440 --down",
+    "sleep 0.5",
+    "touch -x 201 -y 440 --up",
+    "sleep 0.7",
+    "touch -x 201 -y 440 --down",
+    "sleep 1.5",
+    "touch -x 201 -y 440 --up",
+    "sleep 1.3"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "bubbles-background",
+  "name": "BubblesBackground",
+  "title": "Bubbles Background",
+  "category": "Backgrounds",
+  "summary": "Translucent bubbles that rise and sway across the screen.",
+  "keywords": {
+    "en": ["background", "bubbles", "underwater", "rising", "floating", "animated"],
+    "es": ["fondo", "burbujas", "submarino", "agua", "flotar", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}

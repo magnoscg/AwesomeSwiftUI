@@ -1,0 +1,15 @@
+{
+  "id": "starfield-background",
+  "name": "StarfieldBackground",
+  "title": "Starfield Background",
+  "category": "Backgrounds",
+  "summary": "Stars streaking toward the viewer with a simple perspective projection.",
+  "keywords": {
+    "en": ["background", "stars", "starfield", "space", "warp", "hyperspace", "animated"],
+    "es": ["fondo", "estrellas", "espacio", "galaxia", "velocidad", "hiperespacio", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}

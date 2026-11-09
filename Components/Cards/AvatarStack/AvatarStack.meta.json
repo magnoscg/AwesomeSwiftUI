@@ -1,0 +1,50 @@
+{
+  "id": "avatar-stack",
+  "name": "AvatarStack",
+  "title": "Avatar Stack",
+  "category": "Cards",
+  "summary": "Overlapping avatars of initials with a badge counting the rest.",
+  "keywords": {
+    "en": [
+      "avatar",
+      "avatars",
+      "facepile",
+      "initials",
+      "overlap",
+      "group",
+      "badge",
+      "participants"
+    ],
+    "es": [
+      "avatar",
+      "avatares",
+      "iniciales",
+      "solapados",
+      "grupo",
+      "insignia",
+      "participantes"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "HStack",
+    "zIndex",
+    "contentTransition",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Add",
+    "sleep 0.8",
+    "tap --label Add",
+    "sleep 0.8",
+    "tap --label Add",
+    "sleep 0.8",
+    "tap --label Remove",
+    "sleep 0.8"
+  ]
+}

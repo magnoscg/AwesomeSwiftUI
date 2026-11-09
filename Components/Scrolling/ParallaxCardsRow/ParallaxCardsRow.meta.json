@@ -1,0 +1,24 @@
+{
+  "id": "parallax-cards-row",
+  "name": "ParallaxCardsRow",
+  "title": "Parallax Cards Row",
+  "category": "Scrolling",
+  "summary": "A horizontal carousel whose card artwork moves in parallax using visualEffect.",
+  "keywords": {
+    "en": ["parallax", "carousel", "horizontal scroll", "cards", "visual effect", "paging", "scroll effect"],
+    "es": ["paralaje", "carrusel", "scroll horizontal", "tarjetas", "efecto visual", "desplazamiento"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["visualEffect", "GeometryProxy", "scrollTargetBehavior", "containerRelativeFrame"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 340 --start-y 437 --end-x 60 --end-y 437 --duration 0.6",
+    "sleep 1.0",
+    "swipe --start-x 340 --start-y 437 --end-x 60 --end-y 437 --duration 0.6",
+    "sleep 1.0",
+    "swipe --start-x 60 --start-y 437 --end-x 340 --end-y 437 --duration 0.6",
+    "sleep 0.7"
+  ]
+}

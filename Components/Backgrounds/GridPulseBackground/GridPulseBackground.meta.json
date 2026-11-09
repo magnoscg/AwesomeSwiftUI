@@ -1,0 +1,15 @@
+{
+  "id": "grid-pulse-background",
+  "name": "GridPulseBackground",
+  "title": "Grid Pulse Background",
+  "category": "Backgrounds",
+  "summary": "A grid of dots with a pulse of light spreading out from the center.",
+  "keywords": {
+    "en": ["background", "grid", "dots", "pulse", "radar", "ripple", "animated"],
+    "es": ["fondo", "cuadrícula", "puntos", "pulso", "radar", "onda", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}

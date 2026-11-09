@@ -1,0 +1,34 @@
+{
+  "id": "glitch-text",
+  "name": "GlitchText",
+  "title": "Glitch Text",
+  "category": "Text",
+  "summary": "Colored copies of the text that jump and flicker in short glitch bursts.",
+  "keywords": {
+    "en": [
+      "glitch",
+      "flicker",
+      "chromatic aberration",
+      "cyberpunk",
+      "text effect",
+      "distortion"
+    ],
+    "es": [
+      "fallo",
+      "parpadeo",
+      "aberración cromática",
+      "ciberpunk",
+      "efecto de texto",
+      "distorsión"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TimelineView",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

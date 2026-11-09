@@ -1,0 +1,36 @@
+{
+  "id": "marquee-text",
+  "name": "MarqueeText",
+  "title": "Marquee Text",
+  "category": "Text",
+  "summary": "A single line of text that scrolls horizontally only when it does not fit.",
+  "keywords": {
+    "en": [
+      "marquee",
+      "scrolling text",
+      "ticker",
+      "overflow",
+      "long text",
+      "now playing",
+      "auto scroll"
+    ],
+    "es": [
+      "marquesina",
+      "texto desplazable",
+      "desplazamiento",
+      "texto largo",
+      "reproduciendo",
+      "desbordamiento"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onGeometryChange",
+    "TimelineView",
+    "mask"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "liquid-fill-progress",
+  "name": "LiquidFillProgress",
+  "title": "Liquid Fill Progress",
+  "category": "Progress",
+  "summary": "A circular progress view filled by a moving liquid wave drawn with an animatable shape.",
+  "keywords": {
+    "en": ["progress", "liquid", "wave", "water", "fill", "circle", "animatable shape"],
+    "es": ["progreso", "líquido", "ola", "agua", "llenado", "círculo", "onda"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Shape", "Animatable", "TimelineView", "mask"],
+  "origin": { "kind": "original" }
+}

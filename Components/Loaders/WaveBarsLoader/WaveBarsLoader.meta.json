@@ -1,0 +1,15 @@
+{
+  "id": "wave-bars-loader",
+  "name": "WaveBarsLoader",
+  "title": "Wave Bars Loader",
+  "category": "Loaders",
+  "summary": "A loading indicator with bars that rise and fall like an audio equalizer.",
+  "keywords": {
+    "en": ["loader", "bars", "equalizer", "audio", "wave", "loading"],
+    "es": ["cargador", "barras", "ecualizador", "audio", "onda", "carga"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TimelineView", "Capsule", "LinearGradient"],
+  "origin": { "kind": "original" }
+}

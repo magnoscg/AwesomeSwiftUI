@@ -1,0 +1,15 @@
+{
+  "id": "confetti-burst",
+  "name": "ConfettiBurst",
+  "title": "Confetti Burst",
+  "category": "Effects",
+  "summary": "A one-shot confetti burst with simple physics, fired by changing a trigger.",
+  "keywords": {
+    "en": ["confetti", "burst", "celebration", "particles", "success", "physics"],
+    "es": ["confeti", "explosión", "celebración", "partículas", "éxito", "física"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext", "ViewModifier"],
+  "origin": { "kind": "original" }
+}

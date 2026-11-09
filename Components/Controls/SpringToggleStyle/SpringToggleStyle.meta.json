@@ -1,0 +1,48 @@
+{
+  "id": "spring-toggle-style",
+  "name": "SpringToggleStyle",
+  "title": "Spring Toggle Style",
+  "category": "Controls",
+  "summary": "A custom toggle style whose knob widens under the finger and overshoots as it lands.",
+  "keywords": {
+    "en": [
+      "toggle",
+      "switch",
+      "toggle style",
+      "spring",
+      "knob",
+      "settings",
+      "bouncy"
+    ],
+    "es": [
+      "interruptor",
+      "conmutador",
+      "estilo de toggle",
+      "muelle",
+      "rebote",
+      "ajustes"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ToggleStyle",
+    "ButtonStyle",
+    "accessibilityRepresentation",
+    "Animation.spring"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Notifications",
+    "sleep 0.8",
+    "tap --label Sounds",
+    "sleep 0.8",
+    "tap --label Haptics",
+    "sleep 0.8",
+    "tap --label Notifications",
+    "sleep 0.8"
+  ]
+}
