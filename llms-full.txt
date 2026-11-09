@@ -2643,20 +2643,40 @@ enum FloatingActionMenuMath {
         return CGSize(width: cos(radians) * length, height: sin(radians) * length)
     }
 
-    /// The radius, grown when needed so that neighbouring items do not overlap.
-    static func fittedRadius(_ radius: Double, itemSize: Double, count: Int, startDegrees: Double, endDegrees: Double) -> Double {
+    /// The radius, grown when needed so that neighbouring items do not overlap, but not past `limit`.
+    static func fittedRadius(_ radius: Double, itemSize: Double, count: Int, startDegrees: Double, endDegrees: Double, limit: Double = .infinity) -> Double {
         guard count > 1 else { return radius }
         let step = abs(endDegrees - startDegrees) / Double(count - 1) * .pi / 180
         let chordPerRadius = 2 * sin(step / 2)
         guard chordPerRadius > 0.01 else { return radius }
-        return max(radius, (itemSize + 6) / chordPerRadius)
+        return max(radius, min((itemSize + 6) / chordPerRadius, limit))
+    }
+
+    /// The largest radius that keeps every item at least `inset` away from the edges of `container`.
+    static func radiusLimit(center: CGPoint, container: CGSize, inset: Double, count: Int, startDegrees: Double, endDegrees: Double) -> Double {
+        (0..<count).reduce(.infinity) { limit, index in
+            let unit = offset(index: index, count: count, radius: 1, startDegrees: startDegrees, endDegrees: endDegrees)
+            return min(
+                limit,
+                reach(along: unit.width, before: center.x - inset, after: container.width - center.x - inset),
+                reach(along: unit.height, before: center.y - inset, after: container.height - center.y - inset)
+            )
+        }
+    }
+
+    private static func reach(along direction: Double, before: Double, after: Double) -> Double {
+        if direction < -0.001 { return before / -direction }
+        if direction > 0.001 { return after / direction }
+        return .infinity
     }
 }
 
 /// A plus button that turns into a close icon and fans out its actions around it.
 ///
 /// The fan opens up and to the left by default, for a button in the bottom-trailing corner.
-/// With more than four items it widens so they do not overlap.
+/// With more than four items it widens so they do not overlap, until it reaches the edge of the screen.
+/// In the corner of a phone at the default text size, the default fan fits seven actions at 320 points
+/// wide and nine at 393. Any more stay on screen but overlap, so use a list for longer menus.
 /// With Reduce Motion on, the actions appear in place without moving.
 struct FloatingActionMenu: View {
     let items: [FloatingActionMenuItem]
@@ -2681,6 +2701,7 @@ private struct FloatingActionMenuStage: View {
     @ScaledMetric(relativeTo: .title2) private var buttonSize = 60.0
     @ScaledMetric(relativeTo: .title2) private var itemSize = 50.0
     @ScaledMetric(relativeTo: .title2) private var radius = 112.0
+    @State private var containerFrame = CGRect.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -2703,6 +2724,14 @@ private struct FloatingActionMenuStage: View {
             .buttonStyle(.plain)
             .accessibilityLabel(isOpen ? "Close menu" : "Open menu")
         }
+        .background {
+            // Centred on the button and as big as its container, so one frame gives both.
+            Color.clear
+                .containerRelativeFrame([.horizontal, .vertical])
+                .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: { containerFrame = $0 }
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+        }
         .sensoryFeedback(.impact(weight: .light), trigger: isOpen)
     }
 
@@ -2715,7 +2744,15 @@ private struct FloatingActionMenuStage: View {
                 itemSize: itemSize,
                 count: items.count,
                 startDegrees: startDegrees,
-                endDegrees: endDegrees
+                endDegrees: endDegrees,
+                limit: FloatingActionMenuMath.radiusLimit(
+                    center: CGPoint(x: containerFrame.midX, y: containerFrame.midY),
+                    container: containerFrame.size,
+                    inset: itemSize / 2 + 8,
+                    count: items.count,
+                    startDegrees: startDegrees,
+                    endDegrees: endDegrees
+                )
             ),
             startDegrees: startDegrees,
             endDegrees: endDegrees
@@ -17858,9 +17895,18 @@ enum MaskedTextFieldFormatter {
         slot != "#" && slot != "A"
     }
 
+    /// The part of a run of literals that has to be there to read it back: `+34` for `+34 `, so a
+    /// pasted number without the separator is recognized. A run like `1 (` has to be there whole,
+    /// because without its separators it is just a `1` the user could be typing.
+    private static func readBackPrefix(of literals: Substring) -> Substring {
+        let isData: (Character) -> Bool = { $0.isWholeNumber || $0.isLetter }
+        guard let end = literals.lastIndex(where: isData), !literals[...end].allSatisfy(isData) else { return literals }
+        return literals[...end]
+    }
+
     /// Literals are added only when a character follows them, so backspace can always delete.
-    /// A run of literals is read back only when it is there whole, so a typed `3` is not taken
-    /// for the `3` of a `+34 ` prefix.
+    /// A run of literals is read back only when its prefix is there complete, so a typed `3` is
+    /// not taken for the `3` of a `+34 ` prefix.
     static func format(_ input: String, mask: String) -> String {
         guard !mask.isEmpty else { return input }
 
@@ -17877,7 +17923,8 @@ enum MaskedTextFieldFormatter {
                 let literals = slots.prefix(while: isLiteral)
                 slots.removeFirst(literals.count)
                 pendingLiterals += literals
-                if remaining.hasPrefix(literals) { remaining.removeFirst(literals.count) }
+                let prefix = readBackPrefix(of: literals)
+                if remaining.hasPrefix(prefix) { remaining.removeFirst(prefix.count) }
                 continue
             }
 
@@ -22473,14 +22520,17 @@ struct DoubleTapSeekOverlayTally: Equatable {
 
 /// Double tap the left or right half of a video to skip back or forward.
 ///
-/// `onSeek` receives the seconds to move, negative when going back. VoiceOver users
-/// get the same skips as named actions. With Reduce Motion on, the ripple is left out.
-struct DoubleTapSeekOverlay<Video: View>: View {
+/// `onSeek` receives the seconds to move, negative when going back. Put buttons in `controls`,
+/// which sits above the seek gesture: a double tap on one runs it and does not seek, while one
+/// left inside `video` would do both. VoiceOver users get the same skips as named actions.
+/// With Reduce Motion on, the ripple is left out.
+struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
     var interval = 10.0
     let onSeek: (Double) -> Void
     /// Skips without a touch, for demos. Each new value is one skip.
     var programmaticSeek: DoubleTapSeekOverlayRequest? = nil
     @ViewBuilder var video: () -> Video
+    @ViewBuilder var controls: () -> Controls
 
     @State private var tally = DoubleTapSeekOverlayTally()
     @State private var tapCount = 0
@@ -22495,7 +22545,7 @@ struct DoubleTapSeekOverlay<Video: View>: View {
         video()
             .contentShape(.rect)
             .onGeometryChange(for: CGSize.self) { $0.size } action: { videoSize = $0 }
-            // On the video and simultaneous, so controls inside it keep their own touches.
+            // Simultaneous, so a tap handler inside the video still runs.
             .simultaneousGesture(
                 SpatialTapGesture(count: 2).onEnded { value in
                     tapLocation = value.location
@@ -22518,6 +22568,7 @@ struct DoubleTapSeekOverlay<Video: View>: View {
                     }
                 }
             }
+            .overlay { controls() }
             .onChange(of: programmaticSeek) { _, request in
                 guard let request else { return }
                 tapLocation = CGPoint(x: videoSize.width * (request.side == .forward ? 0.75 : 0.25), y: videoSize.height / 2)
@@ -22563,6 +22614,12 @@ struct DoubleTapSeekOverlay<Video: View>: View {
         withAnimation(animation) { tally.record(side, interval: interval) }
         tapCount &+= 1
         onSeek(side == .backward ? -interval : interval)
+    }
+}
+
+extension DoubleTapSeekOverlay where Controls == EmptyView {
+    init(interval: Double = 10.0, onSeek: @escaping (Double) -> Void, programmaticSeek: DoubleTapSeekOverlayRequest? = nil, @ViewBuilder video: @escaping () -> Video) {
+        self.init(interval: interval, onSeek: onSeek, programmaticSeek: programmaticSeek, video: video, controls: { EmptyView() })
     }
 }
 
@@ -24550,7 +24607,8 @@ struct GooeyFloatingMenuItem: Identifiable {
 /// A floating button whose options melt out of it like liquid.
 ///
 /// A `Canvas` blurs the circles and then cuts their alpha at a threshold, so shapes that
-/// come close merge into one blob. It fits up to about five options.
+/// come close merge into one blob. It fits up to about five options, and the buttons
+/// shrink when the width cannot hold the fan at their full size.
 /// With Reduce Motion on, the options appear without moving.
 struct GooeyFloatingMenu: View {
     let items: [GooeyFloatingMenuItem]
@@ -24589,13 +24647,17 @@ private struct GooeyFloatingMenuStage: View, Animatable {
     let toggle: () -> Void
     let select: (GooeyFloatingMenuItem) -> Void
 
-    @ScaledMetric(relativeTo: .title2) private var buttonSize = 64.0
+    @ScaledMetric(relativeTo: .title2) private var scaledButtonSize = 64.0
+    @State private var availableWidth = Double.infinity
 
     nonisolated var animatableData: Double {
         get { progress }
         set { progress = newValue }
     }
 
+    private var buttonSize: Double {
+        GooeyFloatingMenuMath.fittedButtonSize(scaledButtonSize, availableWidth: availableWidth)
+    }
     private var radius: Double { buttonSize * 2.1 }
     private var width: Double { (radius + buttonSize) * 2 }
     private var height: Double { radius + buttonSize * 2 }
@@ -24648,6 +24710,9 @@ private struct GooeyFloatingMenuStage: View, Animatable {
             .accessibilityValue(isOpen ? "Open" : "Closed")
         }
         .frame(width: width, height: height)
+        // The minimum makes this frame report the width on offer, not the wider stage inside it.
+        .frame(minWidth: 0, maxWidth: width)
+        .onGeometryChange(for: Double.self) { $0.size.width } action: { availableWidth = $0 }
     }
 
     private var blobs: some View {
@@ -24680,6 +24745,11 @@ enum GooeyFloatingMenuMath {
         let start = count > 1 ? -Double.pi / 2 - spread / 2 : -Double.pi / 2
         let angle = start + step * Double(index)
         return CGSize(width: cos(angle) * radius, height: sin(angle) * radius)
+    }
+
+    /// The size the width allows. The outer options reach just under 2.5 button sizes from the centre.
+    static func fittedButtonSize(_ size: Double, availableWidth: Double) -> Double {
+        min(size, availableWidth / 5)
     }
 
     /// Each option starts a little after the previous one, and all arrive together at 1.
@@ -28740,15 +28810,15 @@ struct SpinWheelRoulette: View {
     @State private var isSpinning = false
     @State private var lastResult: String?
     @State private var finishedSpins = 0
-    @State private var spinningSlices: [String]?
+    @State private var lastSpinSlices: [String]?
 
     @ScaledMetric(relativeTo: .headline) private var hubSize: CGFloat = 78
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let palette: [Color] = [.pink, .orange, .yellow, .green, .teal, .blue, .indigo, .purple]
 
-    /// A spin keeps the slices it started with, so the result always matches the wheel on screen.
-    private var drawnSlices: [String] { spinningSlices ?? slices }
+    /// The wheel keeps the slices of the last spin until the next one, so the result always matches it.
+    private var drawnSlices: [String] { lastSpinSlices ?? slices }
 
     var body: some View {
         ZStack {
@@ -28837,7 +28907,7 @@ struct SpinWheelRoulette: View {
             jitter: .random(in: -0.35...0.35)
         )
         isSpinning = true
-        spinningSlices = slices
+        lastSpinSlices = slices
 
         if reduceMotion {
             rotation = target
@@ -28853,7 +28923,6 @@ struct SpinWheelRoulette: View {
 
     private func finish(with label: String) {
         isSpinning = false
-        spinningSlices = nil
         lastResult = label
         finishedSpins += 1
         AccessibilityNotification.Announcement("Landed on \(label)").post()

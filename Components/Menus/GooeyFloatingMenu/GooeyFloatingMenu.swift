@@ -13,7 +13,8 @@ struct GooeyFloatingMenuItem: Identifiable {
 /// A floating button whose options melt out of it like liquid.
 ///
 /// A `Canvas` blurs the circles and then cuts their alpha at a threshold, so shapes that
-/// come close merge into one blob. It fits up to about five options.
+/// come close merge into one blob. It fits up to about five options, and the buttons
+/// shrink when the width cannot hold the fan at their full size.
 /// With Reduce Motion on, the options appear without moving.
 struct GooeyFloatingMenu: View {
     let items: [GooeyFloatingMenuItem]
@@ -52,13 +53,17 @@ private struct GooeyFloatingMenuStage: View, Animatable {
     let toggle: () -> Void
     let select: (GooeyFloatingMenuItem) -> Void
 
-    @ScaledMetric(relativeTo: .title2) private var buttonSize = 64.0
+    @ScaledMetric(relativeTo: .title2) private var scaledButtonSize = 64.0
+    @State private var availableWidth = Double.infinity
 
     nonisolated var animatableData: Double {
         get { progress }
         set { progress = newValue }
     }
 
+    private var buttonSize: Double {
+        GooeyFloatingMenuMath.fittedButtonSize(scaledButtonSize, availableWidth: availableWidth)
+    }
     private var radius: Double { buttonSize * 2.1 }
     private var width: Double { (radius + buttonSize) * 2 }
     private var height: Double { radius + buttonSize * 2 }
@@ -111,6 +116,9 @@ private struct GooeyFloatingMenuStage: View, Animatable {
             .accessibilityValue(isOpen ? "Open" : "Closed")
         }
         .frame(width: width, height: height)
+        // The minimum makes this frame report the width on offer, not the wider stage inside it.
+        .frame(minWidth: 0, maxWidth: width)
+        .onGeometryChange(for: Double.self) { $0.size.width } action: { availableWidth = $0 }
     }
 
     private var blobs: some View {
@@ -143,6 +151,11 @@ enum GooeyFloatingMenuMath {
         let start = count > 1 ? -Double.pi / 2 - spread / 2 : -Double.pi / 2
         let angle = start + step * Double(index)
         return CGSize(width: cos(angle) * radius, height: sin(angle) * radius)
+    }
+
+    /// The size the width allows. The outer options reach just under 2.5 button sizes from the centre.
+    static func fittedButtonSize(_ size: Double, availableWidth: Double) -> Double {
+        min(size, availableWidth / 5)
     }
 
     /// Each option starts a little after the previous one, and all arrive together at 1.

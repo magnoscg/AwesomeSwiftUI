@@ -33,14 +33,17 @@ struct DoubleTapSeekOverlayTally: Equatable {
 
 /// Double tap the left or right half of a video to skip back or forward.
 ///
-/// `onSeek` receives the seconds to move, negative when going back. VoiceOver users
-/// get the same skips as named actions. With Reduce Motion on, the ripple is left out.
-struct DoubleTapSeekOverlay<Video: View>: View {
+/// `onSeek` receives the seconds to move, negative when going back. Put buttons in `controls`,
+/// which sits above the seek gesture: a double tap on one runs it and does not seek, while one
+/// left inside `video` would do both. VoiceOver users get the same skips as named actions.
+/// With Reduce Motion on, the ripple is left out.
+struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
     var interval = 10.0
     let onSeek: (Double) -> Void
     /// Skips without a touch, for demos. Each new value is one skip.
     var programmaticSeek: DoubleTapSeekOverlayRequest? = nil
     @ViewBuilder var video: () -> Video
+    @ViewBuilder var controls: () -> Controls
 
     @State private var tally = DoubleTapSeekOverlayTally()
     @State private var tapCount = 0
@@ -55,7 +58,7 @@ struct DoubleTapSeekOverlay<Video: View>: View {
         video()
             .contentShape(.rect)
             .onGeometryChange(for: CGSize.self) { $0.size } action: { videoSize = $0 }
-            // On the video and simultaneous, so controls inside it keep their own touches.
+            // Simultaneous, so a tap handler inside the video still runs.
             .simultaneousGesture(
                 SpatialTapGesture(count: 2).onEnded { value in
                     tapLocation = value.location
@@ -78,6 +81,7 @@ struct DoubleTapSeekOverlay<Video: View>: View {
                     }
                 }
             }
+            .overlay { controls() }
             .onChange(of: programmaticSeek) { _, request in
                 guard let request else { return }
                 tapLocation = CGPoint(x: videoSize.width * (request.side == .forward ? 0.75 : 0.25), y: videoSize.height / 2)
@@ -123,6 +127,12 @@ struct DoubleTapSeekOverlay<Video: View>: View {
         withAnimation(animation) { tally.record(side, interval: interval) }
         tapCount &+= 1
         onSeek(side == .backward ? -interval : interval)
+    }
+}
+
+extension DoubleTapSeekOverlay where Controls == EmptyView {
+    init(interval: Double = 10.0, onSeek: @escaping (Double) -> Void, programmaticSeek: DoubleTapSeekOverlayRequest? = nil, @ViewBuilder video: @escaping () -> Video) {
+        self.init(interval: interval, onSeek: onSeek, programmaticSeek: programmaticSeek, video: video, controls: { EmptyView() })
     }
 }
 

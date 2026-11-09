@@ -46,6 +46,25 @@ struct FloatingActionMenuTests {
         #expect(hypot(first.width - second.width, first.height - second.height) >= 50)
     }
 
+    @Test func aLongFanStopsAtTheEdgeOfTheScreen() {
+        let center = CGPoint(x: 335, y: 700)
+        let limit = FloatingActionMenuMath.radiusLimit(center: center, container: CGSize(width: 393, height: 852), inset: 33, count: 12, startDegrees: 180, endDegrees: 270)
+        let radius = FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 12, startDegrees: 180, endDegrees: 270, limit: limit)
+        let leftmost = FloatingActionMenuMath.offset(index: 0, count: 12, radius: radius, startDegrees: 180, endDegrees: 270)
+
+        #expect(center.x + leftmost.width - 25 >= 0)
+    }
+
+    @Test func theLimitCoversFansThatOpenRightAndDown() {
+        let limit = FloatingActionMenuMath.radiusLimit(center: CGPoint(x: 60, y: 100), container: CGSize(width: 393, height: 852), inset: 33, count: 5, startDegrees: 0, endDegrees: 90)
+
+        #expect(abs(limit - 300) < 0.001)
+    }
+
+    @Test func aTightContainerDoesNotShrinkTheBaseRadius() {
+        #expect(FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 12, startDegrees: 180, endDegrees: 270, limit: 40) == 112)
+    }
+
     @Test func noSweepKeepsTheRadius() {
         #expect(FloatingActionMenuMath.fittedRadius(112, itemSize: 50, count: 5, startDegrees: 90, endDegrees: 90) == 112)
     }

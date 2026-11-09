@@ -40,6 +40,17 @@ struct GooeyFloatingMenuTests {
         #expect(last == 0)
     }
 
+    @Test(arguments: [4, 5]) func theOuterOptionsStayInsideANarrowContainer(count: Int) {
+        let size = GooeyFloatingMenuMath.fittedButtonSize(81, availableWidth: 320)
+        let outer = GooeyFloatingMenuMath.offset(index: 0, count: count, radius: size * 2.1)
+
+        #expect(abs(outer.width) + size * 0.475 <= 160)
+    }
+
+    @Test(arguments: [320.0, 393.0]) func theDefaultSizeIsKeptOnAPhone(width: Double) {
+        #expect(GooeyFloatingMenuMath.fittedButtonSize(64, availableWidth: width) == 64)
+    }
+
     @Test(arguments: [0, 1]) func smallMenusAreNotDelayed(count: Int) {
         #expect(GooeyFloatingMenuMath.staggered(0.4, index: 0, count: count) == 0.4)
     }

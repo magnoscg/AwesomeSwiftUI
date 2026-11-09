@@ -17,9 +17,18 @@ enum MaskedTextFieldFormatter {
         slot != "#" && slot != "A"
     }
 
+    /// The part of a run of literals that has to be there to read it back: `+34` for `+34 `, so a
+    /// pasted number without the separator is recognized. A run like `1 (` has to be there whole,
+    /// because without its separators it is just a `1` the user could be typing.
+    private static func readBackPrefix(of literals: Substring) -> Substring {
+        let isData: (Character) -> Bool = { $0.isWholeNumber || $0.isLetter }
+        guard let end = literals.lastIndex(where: isData), !literals[...end].allSatisfy(isData) else { return literals }
+        return literals[...end]
+    }
+
     /// Literals are added only when a character follows them, so backspace can always delete.
-    /// A run of literals is read back only when it is there whole, so a typed `3` is not taken
-    /// for the `3` of a `+34 ` prefix.
+    /// A run of literals is read back only when its prefix is there complete, so a typed `3` is
+    /// not taken for the `3` of a `+34 ` prefix.
     static func format(_ input: String, mask: String) -> String {
         guard !mask.isEmpty else { return input }
 
@@ -36,7 +45,8 @@ enum MaskedTextFieldFormatter {
                 let literals = slots.prefix(while: isLiteral)
                 slots.removeFirst(literals.count)
                 pendingLiterals += literals
-                if remaining.hasPrefix(literals) { remaining.removeFirst(literals.count) }
+                let prefix = readBackPrefix(of: literals)
+                if remaining.hasPrefix(prefix) { remaining.removeFirst(prefix.count) }
                 continue
             }
 

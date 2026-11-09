@@ -14,15 +14,15 @@ struct SpinWheelRoulette: View {
     @State private var isSpinning = false
     @State private var lastResult: String?
     @State private var finishedSpins = 0
-    @State private var spinningSlices: [String]?
+    @State private var lastSpinSlices: [String]?
 
     @ScaledMetric(relativeTo: .headline) private var hubSize: CGFloat = 78
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let palette: [Color] = [.pink, .orange, .yellow, .green, .teal, .blue, .indigo, .purple]
 
-    /// A spin keeps the slices it started with, so the result always matches the wheel on screen.
-    private var drawnSlices: [String] { spinningSlices ?? slices }
+    /// The wheel keeps the slices of the last spin until the next one, so the result always matches it.
+    private var drawnSlices: [String] { lastSpinSlices ?? slices }
 
     var body: some View {
         ZStack {
@@ -111,7 +111,7 @@ struct SpinWheelRoulette: View {
             jitter: .random(in: -0.35...0.35)
         )
         isSpinning = true
-        spinningSlices = slices
+        lastSpinSlices = slices
 
         if reduceMotion {
             rotation = target
@@ -127,7 +127,6 @@ struct SpinWheelRoulette: View {
 
     private func finish(with label: String) {
         isSpinning = false
-        spinningSlices = nil
         lastResult = label
         finishedSpins += 1
         AccessibilityNotification.Announcement("Landed on \(label)").post()

@@ -57,6 +57,19 @@ struct MaskedTextFieldTests {
         #expect(MaskedTextFieldFormatter.format("4", mask: "+34 ### ###") == "+34 4")
     }
 
+    @Test func aCompletePrefixIsReadBackWithoutItsSeparator() {
+        #expect(MaskedTextFieldFormatter.format("+34612345678", mask: "+34 ### ### ###") == "+34 612 345 678")
+    }
+
+    @Test func digitsThatAreNotAPrefixStayAsData() {
+        #expect(MaskedTextFieldFormatter.format("34", mask: "+34 ### ###") == "+34 34")
+        #expect(MaskedTextFieldFormatter.format("346123", mask: "+34 ### ###") == "+34 346 123")
+    }
+
+    @Test func aPrefixMadeOnlyOfDataIsNotReadWithoutItsSeparator() {
+        #expect(MaskedTextFieldFormatter.format("1", mask: "1 (###)") == "1 (1")
+    }
+
     @Test func aWholeLeadingLiteralIsReadBack() {
         #expect(MaskedTextFieldFormatter.format("+34 3", mask: "+34 ### ###") == "+34 3")
         #expect(MaskedTextFieldFormatter.format("+34 ", mask: "+34 ### ###") == "")
