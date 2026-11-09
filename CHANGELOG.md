@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.1.0 - 2026-11-09
+
 ### Added
 
 - 100 components for iOS 18, 26 and 27, in 18 categories, each with an animated
