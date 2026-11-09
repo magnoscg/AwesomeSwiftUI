@@ -1,0 +1,35 @@
+{
+  "id": "line-chart-draw-in",
+  "name": "LineChartDrawIn",
+  "title": "Line Chart Draw In",
+  "category": "Charts",
+  "summary": "A line chart whose line draws in from left to right while a dot follows its tip.",
+  "keywords": {
+    "en": [
+      "line chart",
+      "draw animation",
+      "trim",
+      "path",
+      "animated chart",
+      "graph"
+    ],
+    "es": [
+      "gráfico de líneas",
+      "animación de trazo",
+      "trazado",
+      "gráfica animada",
+      "línea"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "Path",
+    "trim",
+    "Animatable"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "contribution-heatmap",
+  "name": "ContributionHeatmap",
+  "title": "Contribution Heatmap",
+  "category": "Charts",
+  "summary": "A calendar grid of colored cells whose intensity shows the activity of each day.",
+  "keywords": {
+    "en": [
+      "heatmap",
+      "contribution graph",
+      "activity",
+      "calendar grid",
+      "github",
+      "streak"
+    ],
+    "es": [
+      "mapa de calor",
+      "gráfico de contribuciones",
+      "actividad",
+      "cuadrícula",
+      "calendario",
+      "racha"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "LazyHGrid",
+    "GridItem",
+    "Calendar",
+    "defaultScrollAnchor"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Public web component registries"
+  }
+}

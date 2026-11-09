@@ -1,0 +1,50 @@
+{
+  "id": "surface-3d-chart",
+  "name": "Surface3DChart",
+  "title": "Surface 3D Chart",
+  "category": "Charts",
+  "summary": "A 3D surface plot that rotates when dragged, with buttons for preset viewing angles.",
+  "keywords": {
+    "en": [
+      "3d chart",
+      "surface plot",
+      "swift charts",
+      "chart3d",
+      "rotate",
+      "math",
+      "visualization"
+    ],
+    "es": [
+      "gráfico 3d",
+      "superficie",
+      "gráfica tridimensional",
+      "rotar",
+      "matemáticas",
+      "visualización"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "Chart3D",
+    "SurfacePlot",
+    "Chart3DPose",
+    "chart3DPose",
+    "heightBased",
+    "roughness"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 110 --start-y 450 --end-x 300 --end-y 450 --duration 1",
+    "sleep 0.5",
+    "tap --label 'Top'",
+    "sleep 1",
+    "tap --label 'Front'",
+    "sleep 1",
+    "tap --label 'Angled'",
+    "sleep 0.8"
+  ]
+}

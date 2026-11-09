@@ -1,0 +1,35 @@
+{
+  "id": "animated-bar-chart",
+  "name": "AnimatedBarChart",
+  "title": "Animated Bar Chart",
+  "category": "Charts",
+  "summary": "Bars that grow from the baseline one after another with a spring.",
+  "keywords": {
+    "en": [
+      "bar chart",
+      "chart",
+      "graph",
+      "animated bars",
+      "staggered",
+      "statistics"
+    ],
+    "es": [
+      "gráfico de barras",
+      "gráfica",
+      "barras animadas",
+      "estadísticas",
+      "escalonado"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "GeometryReader",
+    "Animation.spring",
+    "UnevenRoundedRectangle",
+    "task(id:)"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
