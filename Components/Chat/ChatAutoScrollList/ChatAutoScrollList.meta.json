@@ -1,0 +1,36 @@
+{
+  "id": "chat-auto-scroll-list",
+  "name": "ChatAutoScrollList",
+  "title": "Chat Auto Scroll List",
+  "category": "Chat",
+  "summary": "A message list that stays on the newest message as messages arrive, and stops following when the user scrolls up to read.",
+  "keywords": {
+    "en": [
+      "chat",
+      "messages",
+      "auto scroll",
+      "scroll to bottom",
+      "new messages",
+      "conversation"
+    ],
+    "es": [
+      "chat",
+      "mensajes",
+      "desplazamiento automático",
+      "ir al final",
+      "mensajes nuevos",
+      "conversación"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "ScrollPosition",
+    "defaultScrollAnchor",
+    "onScrollGeometryChange",
+    "onScrollPhaseChange"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "chat-bubble-shape",
+  "name": "ChatBubbleShape",
+  "title": "Chat Bubble Shape",
+  "category": "Chat",
+  "summary": "A message bubble with a tail, whose corners adapt to grouped consecutive messages.",
+  "keywords": {
+    "en": [
+      "chat bubble",
+      "message bubble",
+      "shape",
+      "tail",
+      "imessage",
+      "grouped messages"
+    ],
+    "es": [
+      "burbuja de chat",
+      "burbuja de mensaje",
+      "forma",
+      "cola",
+      "mensajes agrupados"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Shape",
+    "Path",
+    "RectangleCornerRadii",
+    "animatableData"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}
