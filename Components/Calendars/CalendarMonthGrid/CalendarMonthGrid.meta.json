@@ -1,0 +1,49 @@
+{
+  "id": "calendar-month-grid",
+  "name": "CalendarMonthGrid",
+  "title": "Calendar Month Grid",
+  "category": "Calendars",
+  "summary": "A month calendar for picking one day, with swipe paging between months.",
+  "keywords": {
+    "en": [
+      "calendar",
+      "month",
+      "date picker",
+      "day",
+      "grid",
+      "paging",
+      "schedule"
+    ],
+    "es": [
+      "calendario",
+      "mes",
+      "selector de fecha",
+      "día",
+      "cuadrícula",
+      "paginación",
+      "agenda"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Calendar",
+    "LazyVGrid",
+    "TabView",
+    "Date.FormatStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "tap -x 201 -y 464",
+    "sleep 0.9",
+    "swipe --start-x 340 --start-y 464 --end-x 60 --end-y 464 --duration 0.35",
+    "sleep 0.9",
+    "tap -x 120 -y 512",
+    "sleep 0.9",
+    "swipe --start-x 60 --start-y 464 --end-x 340 --end-y 464 --duration 0.35",
+    "sleep 0.9"
+  ]
+}
