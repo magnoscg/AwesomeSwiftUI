@@ -6,6 +6,13 @@ on `main`.
 
 ## Unreleased
 
+## 0.2.1 - 2026-11-09
+
+### Fixed
+
+- The site deploys again. It loads the previews from the repository instead of
+  bundling them, which keeps it small enough for GitHub Pages.
+
 ## 0.2.0 - 2026-11-09
 
 ### Added
