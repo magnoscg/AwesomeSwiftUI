@@ -1,0 +1,22 @@
+{
+  "id": "scroll-to-top-button",
+  "name": "ScrollToTopButton",
+  "title": "Scroll To Top Button",
+  "category": "Navigation",
+  "summary": "A floating button that appears after scrolling down and returns the scroll view to the top.",
+  "keywords": {
+    "en": ["scroll to top", "back to top", "floating button", "scroll", "scroll position", "list", "arrow"],
+    "es": ["volver arriba", "subir", "botón flotante", "desplazamiento", "posición de scroll", "lista", "flecha"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["onScrollGeometryChange", "ScrollPosition", "scrollPosition"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 720 --end-x 201 --end-y 200 --duration 0.3",
+    "sleep 1.4",
+    "touch -x 356 -y 794 --down --up",
+    "sleep 1.6"
+  ]
+}

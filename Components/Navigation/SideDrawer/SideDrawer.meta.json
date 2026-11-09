@@ -1,0 +1,24 @@
+{
+  "id": "side-drawer",
+  "name": "SideDrawer",
+  "title": "Side Drawer",
+  "category": "Navigation",
+  "summary": "A side menu that slides in and pushes the content away, with drag to open and close.",
+  "keywords": {
+    "en": ["side menu", "drawer", "hamburger", "navigation", "sidebar", "drag", "push"],
+    "es": ["menú lateral", "cajón", "hamburguesa", "navegación", "barra lateral", "arrastrar", "desplazar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "offset", "accessibilityHidden"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Menu",
+    "sleep 1.4",
+    "touch -x 370 -y 437 --down --up",
+    "sleep 1.2",
+    "tap --label Menu",
+    "sleep 1.2"
+  ]
+}
