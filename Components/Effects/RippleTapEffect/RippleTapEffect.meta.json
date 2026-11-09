@@ -1,0 +1,26 @@
+{
+  "id": "ripple-tap-effect",
+  "name": "RippleTapEffect",
+  "title": "Ripple Tap Effect",
+  "category": "Effects",
+  "summary": "A view modifier that spawns an expanding ripple wherever the user taps.",
+  "keywords": {
+    "en": ["ripple", "tap", "touch feedback", "water", "gesture", "modifier"],
+    "es": ["onda", "toque", "pulsación", "respuesta táctil", "agua", "gesto", "modificador"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["SpatialTapGesture", "Canvas", "TimelineView", "ViewModifier"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "touch -x 120 -y 250 --down --up",
+    "sleep 0.7",
+    "touch -x 290 -y 430 --down --up",
+    "sleep 0.6",
+    "touch -x 130 -y 640 --down --up",
+    "sleep 0.5",
+    "touch -x 300 -y 180 --down --up",
+    "sleep 1.2"
+  ]
+}

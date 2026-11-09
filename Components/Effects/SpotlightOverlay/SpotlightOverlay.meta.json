@@ -1,0 +1,15 @@
+{
+  "id": "spotlight-overlay",
+  "name": "SpotlightOverlay",
+  "title": "Spotlight Overlay",
+  "category": "Effects",
+  "summary": "A dark overlay with a soft hole that follows the finger.",
+  "keywords": {
+    "en": ["spotlight", "overlay", "dark", "reveal", "flashlight", "drag", "mask"],
+    "es": ["foco", "superposición", "oscuro", "revelar", "linterna", "arrastrar", "máscara"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["RadialGradient", "DragGesture", "GeometryReader", "ViewModifier"],
+  "origin": { "kind": "original" }
+}

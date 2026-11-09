@@ -1,0 +1,15 @@
+{
+  "id": "noise-grain-overlay",
+  "name": "NoiseGrainOverlay",
+  "title": "Noise Grain Overlay",
+  "category": "Effects",
+  "summary": "A view modifier that lays a subtle animated film grain over any view.",
+  "keywords": {
+    "en": ["noise", "grain", "film grain", "texture", "overlay", "modifier"],
+    "es": ["ruido", "grano", "grano de película", "textura", "superposición", "modificador"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "ViewModifier", "RandomNumberGenerator"],
+  "origin": { "kind": "original" }
+}
