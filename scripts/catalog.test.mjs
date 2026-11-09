@@ -503,7 +503,7 @@ describe('the documentation site', () => {
     addComponent(root, { metadata, source });
     const { components, errors } = loadCatalog(root);
     assert.deepEqual(errors, []);
-    return { pages: renderDocsPages(components), assets: docsAssets(components) };
+    return { pages: renderDocsPages(components), assets: docsAssets() };
   }
 
   it('says so when the catalog is empty', () => {
@@ -518,7 +518,10 @@ describe('the documentation site', () => {
     const index = docsFor().pages.get(INDEX);
 
     assert.match(index, /<Card title=\{"Glow Button"\}>/);
-    assert.match(index, /src=\{"\/AwesomeSwiftUI\/previews\/GlowButton\.webp"\}/);
+    assert.match(
+      index,
+      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
+    );
     assert.match(index, /href=\{"\/AwesomeSwiftUI\/catalog\/buttons\/glow-button\/"\}/);
   });
 
@@ -532,7 +535,10 @@ describe('the documentation site', () => {
     const page = docsFor().pages.get(PAGE);
 
     assert.match(page, /^---\ntitle: "Glow Button"\ndescription: "A button that glows\."\n---/);
-    assert.match(page, /<img src="\/AwesomeSwiftUI\/previews\/GlowButton\.webp"/);
+    assert.match(
+      page,
+      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
+    );
     assert.match(page, /\| Keywords \| button, boton \|/);
     assert.match(page, /\| Minimum iOS \| 18\.0 \|/);
     assert.match(page, /`````swift title="GlowButton\.swift"\n\/\/ SPDX-License-Identifier: MIT/);
@@ -567,12 +573,12 @@ describe('the documentation site', () => {
     });
   }
 
-  it('copies the indexes and the preview into the site', () => {
+  it('copies the indexes into the site and leaves the previews out', () => {
     const { assets } = docsFor();
 
     assert.equal(assets.get('llms.txt'), 'docs/public/llms.txt');
     assert.equal(assets.get('catalog.json'), 'docs/public/catalog.json');
-    assert.equal(assets.get('Components/Buttons/GlowButton/GlowButton.webp'), 'docs/public/previews/GlowButton.webp');
+    assert.equal(assets.has('Components/Buttons/GlowButton/GlowButton.webp'), false);
   });
 });
 

@@ -434,8 +434,10 @@ function renderDocsOrigin(origin) {
   return origin.url ? `Inspired by [${credit}](${origin.url})` : `Inspired by ${credit}`;
 }
 
+// Served from the repository, not the site: the previews make the site too big
+// for GitHub Pages to deploy within its time limit.
 function docsPreview(component) {
-  return `${SITE_BASE}/previews/${component.name}.webp`;
+  return `${RAW_BASE}/${component.preview}`;
 }
 
 function docsPage(component) {
@@ -444,14 +446,8 @@ function docsPage(component) {
 
 // Returns the files the site serves as they are: from the repository root to
 // their place in docs/public.
-export function docsAssets(components) {
-  const assets = new Map(
-    ['catalog.json', 'llms.txt', 'llms-full.txt'].map((file) => [file, `${DOCS_PUBLIC}/${file}`]),
-  );
-  for (const component of components) {
-    assets.set(component.preview, `${DOCS_PUBLIC}/previews/${component.name}.webp`);
-  }
-  return assets;
+export function docsAssets() {
+  return new Map(['catalog.json', 'llms.txt', 'llms-full.txt'].map((file) => [file, `${DOCS_PUBLIC}/${file}`]));
 }
 
 // Returns the generated files whose content on disk is missing or out of date.
