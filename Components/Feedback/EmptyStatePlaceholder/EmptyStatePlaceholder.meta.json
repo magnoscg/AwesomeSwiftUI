@@ -1,0 +1,36 @@
+{
+  "id": "empty-state-placeholder",
+  "name": "EmptyStatePlaceholder",
+  "title": "Empty State Placeholder",
+  "category": "Feedback",
+  "summary": "An empty screen with a breathing symbol, a message and an optional call to action.",
+  "keywords": {
+    "en": [
+      "empty state",
+      "placeholder",
+      "no content",
+      "symbol",
+      "call to action",
+      "content unavailable"
+    ],
+    "es": [
+      "estado vacío",
+      "marcador",
+      "sin contenido",
+      "símbolo",
+      "llamada a la acción",
+      "contenido no disponible"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ContentUnavailableView",
+    "symbolEffect",
+    "Label",
+    "Button"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

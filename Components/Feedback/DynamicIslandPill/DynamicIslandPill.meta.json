@@ -1,0 +1,47 @@
+{
+  "id": "dynamic-island-pill",
+  "name": "DynamicIslandPill",
+  "title": "Dynamic Island Pill",
+  "category": "Feedback",
+  "summary": "A black capsule at the top of the screen that grows to show a live status and shrinks back to a pill.",
+  "keywords": {
+    "en": [
+      "dynamic island",
+      "pill",
+      "capsule",
+      "live status",
+      "expand",
+      "morph",
+      "now playing"
+    ],
+    "es": [
+      "isla dinámica",
+      "píldora",
+      "cápsula",
+      "estado en directo",
+      "expandir",
+      "transformación",
+      "reproduciendo"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "RoundedRectangle",
+    "Animation.spring",
+    "symbolEffect",
+    "transition"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Music",
+    "sleep 1.6",
+    "tap --label Timer",
+    "sleep 1.4",
+    "tap --label Collapse",
+    "sleep 1"
+  ]
+}
