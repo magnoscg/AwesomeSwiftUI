@@ -57,7 +57,7 @@ async function record(component, { udid, version }) {
   const finished = new Promise((resolve) => recorder.once('exit', resolve));
   await wait(settleMilliseconds);
   const steps = plan.steps.flatMap((step) => ['--step', step]);
-  const interaction = spawnSync('axe', ['batch', '--udid', udid, ...steps], { cwd: root, encoding: 'utf8' });
+  const interaction = spawnSync('axe', ['batch', '--udid', udid, '--ax-cache', 'perStep', ...steps], { cwd: root, encoding: 'utf8' });
   await wait(settleMilliseconds);
   recorder.kill('SIGINT');
   const recorderStatus = await finished;

@@ -30,6 +30,7 @@ const FIELDS = [
 const RECORDING_FIELDS = ['previewSteps', 'previewManual'];
 const DEFAULT_PREVIEW_SECONDS = 4;
 
+export const CATEGORY_PAGES = 'catalog';
 const SITE_BASE = '/AwesomeSwiftUI';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
@@ -233,7 +234,35 @@ export function renderOutputs(root, components) {
     ['llms-full.txt', renderLLMsFull(components)],
     ['README.md', renderReadme(readFileSync(join(root, 'README.md'), 'utf8'), components)],
     [REGISTRY_PATH, renderRegistry(components)],
+    ...renderCategoryPages(components),
   ]);
+}
+
+function categoriesOf(components) {
+  return [...new Set(components.map((component) => component.category))];
+}
+
+// One page per category, so that GitHub only loads the previews a reader asks for.
+function renderCategoryPages(components) {
+  return categoriesOf(components).map((category) => {
+    const rows = components
+      .filter((component) => component.category === category)
+      .map(
+        (component) =>
+          `| <img src="../${component.preview}" width="120" alt="${escapeAttribute(component.title)} preview"> | [${component.title}](../${component.path}) | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`,
+      );
+    const page = [
+      `# ${category}`,
+      '',
+      '[All categories](../README.md#catalog)',
+      '',
+      '| Preview | Component | What it does | iOS | Level |',
+      '|---|---|---|---|---|',
+      ...rows,
+      '',
+    ].join('\n');
+    return [`${CATEGORY_PAGES}/${category}.md`, page];
+  });
 }
 
 function renderRegistry(components) {
@@ -346,7 +375,7 @@ function renderDocsIndex(components) {
 
   const cards = components.flatMap((component) => [
     `  <Card title={${JSON.stringify(component.title)}}>`,
-    `    <img src={${JSON.stringify(docsPreview(component))}} alt={${JSON.stringify(`${component.title} preview`)}} width="160" />`,
+    `    <img src={${JSON.stringify(docsPreview(component))}} alt={${JSON.stringify(`${component.title} preview`)}} width="160" loading="lazy" />`,
     `    <p>{${JSON.stringify(component.summary)}}</p>`,
     `    <p><a href={${JSON.stringify(docsPage(component))}}>iOS {${JSON.stringify(component.minIOS)}}+ · {${JSON.stringify(component.category)}}</a></p>`,
     '  </Card>',
@@ -373,7 +402,7 @@ function renderDocsPage(component) {
     '',
     escapeHTML(component.summary),
     '',
-    `<img src="${docsPreview(component)}" alt="${escapeAttribute(component.title)} preview" width="320">`,
+    `<img src="${docsPreview(component)}" alt="${escapeAttribute(component.title)} preview" width="320" loading="lazy">`,
     '',
     '| | |',
     '|---|---|',
@@ -493,19 +522,19 @@ function renderReadme(readme, components) {
 function renderReadmeCatalog(components) {
   if (components.length === 0) return 'No components yet.';
 
-  const sections = [];
-  for (const category of [...new Set(components.map((component) => component.category))]) {
-    const rows = components
-      .filter((component) => component.category === category)
-      .map(
-        (component) =>
-          `| <img src="${component.preview}" width="120" alt="${escapeAttribute(component.title)} preview"> | [${component.title}](${component.path}) | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`,
-      );
-    sections.push(
-      [`### ${category}`, '', '| Preview | Component | What it does | iOS | Level |', '|---|---|---|---|---|', ...rows].join('\n'),
-    );
-  }
-  return sections.join('\n\n');
+  const rows = categoriesOf(components).map((category) => {
+    const members = components.filter((component) => component.category === category);
+    const links = members.map((component) => `[${component.title}](${component.path})`).join(' · ');
+    const [featured] = members;
+    return `| <img src="${featured.preview}" width="120" alt="${escapeAttribute(featured.title)} preview"> | [${category}](${CATEGORY_PAGES}/${category}.md) | ${members.length} | ${links} |`;
+  });
+  return [
+    `**${components.length} components.** Open a category to see every preview.`,
+    '',
+    '| Preview | Category | Count | Components |',
+    '|---|---|---|---|',
+    ...rows,
+  ].join('\n');
 }
 
 function byCategoryThenName(a, b) {
