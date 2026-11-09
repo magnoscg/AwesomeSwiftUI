@@ -1,0 +1,47 @@
+{
+  "id": "glass-action-menu",
+  "name": "GlassActionMenu",
+  "title": "Glass Action Menu",
+  "category": "Glass",
+  "summary": "A floating Liquid Glass button whose actions morph out of it.",
+  "keywords": {
+    "en": [
+      "liquid glass",
+      "glass",
+      "menu",
+      "floating action button",
+      "fab",
+      "morph",
+      "expandable"
+    ],
+    "es": [
+      "cristal líquido",
+      "cristal",
+      "menú",
+      "botón flotante",
+      "transformación",
+      "desplegable"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "glassEffect",
+    "GlassEffectContainer",
+    "glassEffectID"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "touch -x 349 -y 787 --down --up",
+    "sleep 1.5",
+    "touch -x 349 -y 643 --down --up",
+    "sleep 1.4",
+    "touch -x 349 -y 787 --down --up",
+    "sleep 1.5",
+    "touch -x 349 -y 787 --down --up",
+    "sleep 1"
+  ]
+}

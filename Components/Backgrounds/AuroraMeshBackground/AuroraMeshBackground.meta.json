@@ -1,0 +1,15 @@
+{
+  "id": "aurora-mesh-background",
+  "name": "AuroraMeshBackground",
+  "title": "Aurora Mesh Background",
+  "category": "Backgrounds",
+  "summary": "An animated aurora background made with a mesh gradient.",
+  "keywords": {
+    "en": ["background", "aurora", "mesh gradient", "gradient", "animated", "ambient", "colors"],
+    "es": ["fondo", "aurora", "degradado", "malla", "gradiente", "animado", "colores"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["MeshGradient", "TimelineView"],
+  "origin": { "kind": "original" }
+}

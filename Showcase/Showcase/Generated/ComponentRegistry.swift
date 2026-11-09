@@ -4,5 +4,48 @@ import SwiftUI
 
 @MainActor
 enum ComponentRegistry {
-    static let entries: [ShowcaseEntry] = []
+    static let entries: [ShowcaseEntry] = [
+        ShowcaseEntry(
+            id: "aurora-mesh-background",
+            title: "Aurora Mesh Background",
+            category: "Backgrounds",
+            summary: "An animated aurora background made with a mesh gradient.",
+            keywords: ["background", "aurora", "mesh gradient", "gradient", "animated", "ambient", "colors", "fondo", "aurora", "degradado", "malla", "gradiente", "animado", "colores"],
+            minIOS: "18.0",
+            demo: { AnyView(AuroraMeshBackgroundDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "pressable-button-style",
+            title: "Pressable Button Style",
+            category: "Buttons",
+            summary: "A button style that shrinks and dims on press, then springs back.",
+            keywords: ["button", "press", "tap", "scale", "spring", "feedback", "button style", "botón", "pulsar", "toque", "escala", "muelle", "rebote", "estilo de botón"],
+            minIOS: "18.0",
+            demo: { AnyView(PressableButtonStyleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "glass-action-menu",
+            title: "Glass Action Menu",
+            category: "Glass",
+            summary: "A floating Liquid Glass button whose actions morph out of it.",
+            keywords: ["liquid glass", "glass", "menu", "floating action button", "fab", "morph", "expandable", "cristal líquido", "cristal", "menú", "botón flotante", "transformación", "desplegable"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(GlassActionMenuDemo())
+            }
+        ),
+        ShowcaseEntry(
+            id: "reorderable-card-list",
+            title: "Reorderable Card List",
+            category: "Lists",
+            summary: "A stack of cards you can drag into a new order, without using List.",
+            keywords: ["reorder", "drag", "drag and drop", "sort", "cards", "list", "stack", "reordenar", "arrastrar", "arrastrar y soltar", "ordenar", "tarjetas", "lista"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(ReorderableCardListDemo())
+            }
+        ),
+    ]
 }

@@ -7,7 +7,17 @@ import SwiftUI
 struct ShowcaseApp: App {
     var body: some Scene {
         WindowGroup {
-            CatalogView(entries: ComponentRegistry.entries)
+            if let directEntry {
+                directEntry.demo()
+            } else {
+                CatalogView(entries: ComponentRegistry.entries)
+            }
         }
+    }
+
+    /// Launching with `-showcaseComponent <id>` opens one demo alone, to record its preview.
+    private var directEntry: ShowcaseEntry? {
+        let id = UserDefaults.standard.string(forKey: "showcaseComponent")
+        return ComponentRegistry.entries.first { $0.id == id }
     }
 }

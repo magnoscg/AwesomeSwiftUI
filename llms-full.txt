@@ -1,3 +1,376 @@
 # AwesomeSwiftUI: every component with its source
 
 Copy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT.
+
+## Aurora Mesh Background
+
+An animated aurora background made with a mesh gradient.
+
+Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+/// A slowly moving aurora built with a mesh gradient.
+///
+/// With Reduce Motion on, it shows a still gradient.
+struct AuroraMeshBackground: View {
+    var first: Color = .indigo
+    var second: Color = .purple
+    var third: Color = .teal
+    var speed: Double = 0.6
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: reduceMotion)) { context in
+            MeshGradient(
+                width: AuroraMesh.size,
+                height: AuroraMesh.size,
+                points: AuroraMesh.points(at: reduceMotion ? 0 : context.date.timeIntervalSinceReferenceDate * speed),
+                colors: [
+                    first, second, first,
+                    third, second, first,
+                    second, first, third,
+                ]
+            )
+        }
+        .ignoresSafeArea()
+        .accessibilityHidden(true)
+    }
+}
+
+enum AuroraMesh {
+    static let size = 3
+
+    /// Corners stay fixed and edge points slide along their edge, so the mesh always fills the view.
+    static func points(at time: TimeInterval) -> [SIMD2<Float>] {
+        func wave(speed: Double, phase: Double) -> Double {
+            0.5 + sin(time * speed + phase) * 0.2
+        }
+
+        let positions: [(Double, Double)] = [
+            (0, 0), (wave(speed: 0.8, phase: 2.1), 0), (1, 0),
+            (0, wave(speed: 0.9, phase: 0)), (wave(speed: 1, phase: 0.7), wave(speed: 0.6, phase: 4.2)), (1, wave(speed: 0.7, phase: 1.3)),
+            (0, 1), (wave(speed: 1.1, phase: 3.4), 1), (1, 1),
+        ]
+        return positions.map { SIMD2(Float($0.0), Float($0.1)) }
+    }
+}
+
+// MARK: - Demo
+
+struct AuroraMeshBackgroundDemo: View {
+    var body: some View {
+        ZStack {
+            AuroraMeshBackground()
+
+            Text("Aurora")
+                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+                .foregroundStyle(.white)
+        }
+    }
+}
+
+#Preview {
+    AuroraMeshBackgroundDemo()
+}
+```
+
+## Pressable Button Style
+
+A button style that shrinks and dims on press, then springs back.
+
+Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+/// Shrinks and dims a button while it is pressed, then springs back.
+///
+/// With Reduce Motion on, the button only dims.
+struct PressableButtonStyle: ButtonStyle {
+    var pressedScale: CGFloat = 0.94
+    var pressedOpacity: Double = 0.8
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed && !reduceMotion ? pressedScale : 1)
+            .opacity(configuration.isPressed ? pressedOpacity : 1)
+            .animation(.spring(duration: 0.3, bounce: 0.45), value: configuration.isPressed)
+    }
+}
+
+extension ButtonStyle where Self == PressableButtonStyle {
+    static var pressable: PressableButtonStyle { PressableButtonStyle() }
+}
+
+// MARK: - Demo
+
+struct PressableButtonStyleDemo: View {
+    @State private var likes = 0
+
+    var body: some View {
+        VStack(spacing: 28) {
+            Text(likes == 1 ? "1 like" : "\(likes) likes")
+                .font(.largeTitle.bold())
+                .contentTransition(.numericText())
+
+            Button {
+                withAnimation { likes += 1 }
+            } label: {
+                Label("Like", systemImage: "heart.fill")
+                    .font(.title2.bold())
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 44)
+                    .padding(.vertical, 20)
+                    .background(.pink.gradient, in: .capsule)
+            }
+            .buttonStyle(.pressable)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
+#Preview {
+    PressableButtonStyleDemo()
+}
+```
+
+## Glass Action Menu
+
+A floating Liquid Glass button whose actions morph out of it.
+
+Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassActionMenu/GlassActionMenu.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+@available(iOS 26, *)
+struct GlassActionItem: Identifiable {
+    let id: String
+    let title: String
+    let systemImage: String
+    let action: () -> Void
+}
+
+/// A floating Liquid Glass button whose actions morph out of it.
+///
+/// With Reduce Motion on, the actions appear without morphing.
+@available(iOS 26, *)
+struct GlassActionMenu: View {
+    private enum GlassID: Hashable, Sendable {
+        case toggle
+        case item(String)
+    }
+
+    let items: [GlassActionItem]
+
+    @State private var isExpanded = false
+    @Namespace private var namespace
+    @ScaledMetric(relativeTo: .title2) private var buttonSize = 58.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var animation: Animation? {
+        reduceMotion ? nil : .bouncy(duration: 0.5, extraBounce: 0.05)
+    }
+
+    var body: some View {
+        // Known issue: iOS 27.2 reports the toggle's accessibility frame as the whole
+        // stack when expanded. iOS 26.5 reports it correctly.
+        GlassEffectContainer(spacing: 18) {
+            VStack(spacing: 14) {
+                if isExpanded {
+                    ForEach(items) { item in
+                        glassButton(id: .item(item.id), systemImage: item.systemImage, label: item.title) {
+                            withAnimation(animation) { isExpanded = false }
+                            item.action()
+                        }
+                    }
+                }
+
+                glassButton(
+                    id: .toggle,
+                    systemImage: "plus",
+                    label: isExpanded ? "Close actions" : "Show actions",
+                    rotation: isExpanded ? 45 : 0
+                ) {
+                    withAnimation(animation) { isExpanded.toggle() }
+                }
+            }
+        }
+        // The buttons only hold icons. Capping their growth keeps a tall stack on screen.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+
+    private func glassButton(
+        id: GlassID,
+        systemImage: String,
+        label: String,
+        rotation: Double = 0,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.title2.weight(.semibold))
+                .rotationEffect(.degrees(rotation))
+                .frame(width: buttonSize, height: buttonSize)
+                .contentShape(.circle)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+        .glassEffect(.regular.interactive(), in: .circle)
+        .glassEffectID(id, in: namespace)
+    }
+}
+
+// MARK: - Demo
+
+@available(iOS 26, *)
+struct GlassActionMenuDemo: View {
+    @State private var lastAction = "Tap the button"
+
+    private var items: [GlassActionItem] {
+        [
+            GlassActionItem(id: "share", title: "Share", systemImage: "square.and.arrow.up") { lastAction = "Share" },
+            GlassActionItem(id: "favorite", title: "Favorite", systemImage: "star") { lastAction = "Favorite" },
+            GlassActionItem(id: "delete", title: "Delete", systemImage: "trash") { lastAction = "Delete" },
+        ]
+    }
+
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+            LinearGradient(colors: [.orange, .pink, .indigo], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .ignoresSafeArea()
+
+            Text(lastAction)
+                .font(.largeTitle.bold())
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+            GlassActionMenu(items: items)
+                .padding(24)
+        }
+    }
+}
+
+@available(iOS 26, *)
+#Preview {
+    GlassActionMenuDemo()
+}
+```
+
+## Reorderable Card List
+
+A stack of cards you can drag into a new order, without using List.
+
+Category: Lists. Minimum: iOS 27.0. Path: Components/Lists/ReorderableCardList/ReorderableCardList.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+/// A stack of cards the user can drag into a new order, without using `List`.
+@available(iOS 27, *)
+struct ReorderableCardList<Item: Identifiable & Sendable, Card: View>: View where Item.ID: Sendable {
+    @Binding var items: [Item]
+    @ViewBuilder let card: (Item) -> Card
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 12) {
+                ForEach(items) { item in
+                    card(item)
+                }
+                .reorderable()
+            }
+            .padding()
+            .reorderContainer(for: Item.self) { difference in
+                let destination: Item.ID? = switch difference.destination.position {
+                case .before(let id): id
+                case .end: nil
+                }
+                items = CardReordering.moving(difference.sources, before: destination, in: items)
+            }
+        }
+    }
+}
+
+@available(iOS 27, *)
+enum CardReordering {
+    /// Moves `sources` in front of `destination`, or to the end when it is nil.
+    static func moving<Item: Identifiable>(
+        _ sources: [Item.ID],
+        before destination: Item.ID?,
+        in items: [Item]
+    ) -> [Item] {
+        if let destination, sources.contains(destination) { return items }
+
+        let moved = sources.compactMap { source in items.first { $0.id == source } }
+        var remaining = items.filter { !sources.contains($0.id) }
+        let index = remaining.firstIndex { $0.id == destination } ?? remaining.endIndex
+        remaining.insert(contentsOf: moved, at: index)
+        return remaining
+    }
+}
+
+// MARK: - Demo
+
+@available(iOS 27, *)
+struct ReorderableCardListDemo: View {
+    private struct Step: Identifiable, Sendable {
+        let id: String
+        let systemImage: String
+        let color: Color
+    }
+
+    @State private var steps = [
+        Step(id: "Design", systemImage: "paintbrush.fill", color: .pink),
+        Step(id: "Build", systemImage: "hammer.fill", color: .orange),
+        Step(id: "Test", systemImage: "checkmark.seal.fill", color: .green),
+        Step(id: "Ship", systemImage: "paperplane.fill", color: .blue),
+    ]
+
+    var body: some View {
+        ReorderableCardList(items: $steps) { step in
+            HStack(spacing: 16) {
+                Image(systemName: step.systemImage)
+                    .font(.title2)
+                    .foregroundStyle(.white)
+                    .frame(width: 52, height: 52)
+                    .background(step.color.gradient, in: .rect(cornerRadius: 14))
+                    .accessibilityHidden(true)
+
+                Text(step.id)
+                    .font(.title3.bold())
+
+                Spacer()
+
+                Image(systemName: "line.3.horizontal")
+                    .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
+            }
+            .padding()
+            .background(.background.secondary, in: .rect(cornerRadius: 20))
+        }
+    }
+}
+
+@available(iOS 27, *)
+#Preview {
+    ReorderableCardListDemo()
+}
+```
