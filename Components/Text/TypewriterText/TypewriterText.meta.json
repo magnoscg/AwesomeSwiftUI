@@ -1,0 +1,36 @@
+{
+  "id": "typewriter-text",
+  "name": "TypewriterText",
+  "title": "Typewriter Text",
+  "category": "Text",
+  "summary": "Text that types itself one character at a time, followed by a blinking cursor.",
+  "keywords": {
+    "en": [
+      "typewriter",
+      "typing",
+      "cursor",
+      "blinking",
+      "text animation",
+      "terminal",
+      "characters"
+    ],
+    "es": [
+      "máquina de escribir",
+      "escribir",
+      "cursor",
+      "parpadeo",
+      "animación de texto",
+      "terminal",
+      "letras"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "TimelineView",
+    "AttributedString"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

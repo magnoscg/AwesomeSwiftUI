@@ -1,0 +1,15 @@
+{
+  "id": "rating-stars",
+  "name": "RatingStars",
+  "title": "Rating Stars",
+  "category": "Feedback",
+  "summary": "Tappable rating stars that pop with a spring and work as an adjustable value in VoiceOver.",
+  "keywords": {
+    "en": ["rating", "stars", "review", "score", "feedback", "spring", "adjustable"],
+    "es": ["valoración", "estrellas", "reseña", "puntuación", "opinión", "muelle", "ajustable"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["phaseAnimator", "accessibilityAdjustableAction", "Animation.spring"],
+  "origin": { "kind": "original" }
+}

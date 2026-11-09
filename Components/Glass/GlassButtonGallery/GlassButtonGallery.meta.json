@@ -1,0 +1,48 @@
+{
+  "id": "glass-button-gallery",
+  "name": "GlassButtonGallery",
+  "title": "Glass Button Gallery",
+  "category": "Glass",
+  "summary": "A reference gallery of the glass and prominent glass button styles in several sizes, shapes and tints.",
+  "keywords": {
+    "en": [
+      "button",
+      "button style",
+      "glass",
+      "glass prominent",
+      "liquid glass",
+      "gallery",
+      "control size",
+      "tint"
+    ],
+    "es": [
+      "botón",
+      "estilo de botón",
+      "cristal",
+      "cristal líquido",
+      "galería",
+      "tamaños",
+      "tintes"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": [
+    "GlassButtonStyle",
+    "GlassProminentButtonStyle",
+    "controlSize",
+    "buttonBorderShape"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Large prominent'",
+    "sleep 1",
+    "tap --label 'Filled circle'",
+    "sleep 1",
+    "tap --label 'Pink prominent'",
+    "sleep 1"
+  ]
+}

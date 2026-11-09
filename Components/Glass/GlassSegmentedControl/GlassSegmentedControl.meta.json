@@ -1,0 +1,47 @@
+{
+  "id": "glass-segmented-control",
+  "name": "GlassSegmentedControl",
+  "title": "Glass Segmented Control",
+  "category": "Glass",
+  "summary": "A segmented control with a Liquid Glass thumb that slides between segments.",
+  "keywords": {
+    "en": [
+      "segmented control",
+      "segments",
+      "picker",
+      "liquid glass",
+      "glass",
+      "thumb",
+      "slide",
+      "tabs"
+    ],
+    "es": [
+      "control segmentado",
+      "segmentos",
+      "selector",
+      "cristal líquido",
+      "cristal",
+      "deslizar",
+      "pestañas"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "glassEffect",
+    "GeometryReader",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Month",
+    "sleep 1",
+    "tap --label Year",
+    "sleep 1",
+    "tap --label Day",
+    "sleep 1"
+  ]
+}

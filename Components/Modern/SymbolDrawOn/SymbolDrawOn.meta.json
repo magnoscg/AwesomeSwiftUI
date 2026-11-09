@@ -1,0 +1,37 @@
+{
+  "id": "symbol-draw-on",
+  "name": "SymbolDrawOn",
+  "title": "Symbol Draw On",
+  "category": "Modern",
+  "summary": "An SF Symbol that draws itself on and off, stroke by stroke.",
+  "keywords": {
+    "en": [
+      "sf symbols",
+      "symbol effect",
+      "draw on",
+      "draw off",
+      "stroke",
+      "handwriting",
+      "icon animation"
+    ],
+    "es": [
+      "símbolos",
+      "efecto de símbolo",
+      "dibujar",
+      "trazo",
+      "animación de icono",
+      "escritura a mano"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": [
+    "DrawOnSymbolEffect",
+    "DrawOffSymbolEffect",
+    "symbolEffect",
+    "symbolEffectsRemoved"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

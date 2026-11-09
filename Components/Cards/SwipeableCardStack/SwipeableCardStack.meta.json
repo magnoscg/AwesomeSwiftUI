@@ -1,0 +1,46 @@
+{
+  "id": "swipeable-card-stack",
+  "name": "SwipeableCardStack",
+  "title": "Swipeable Card Stack",
+  "category": "Cards",
+  "summary": "A deck of cards you swipe away to reveal the next one.",
+  "keywords": {
+    "en": [
+      "swipe",
+      "cards",
+      "deck",
+      "stack",
+      "tinder",
+      "drag",
+      "dismiss"
+    ],
+    "es": [
+      "deslizar",
+      "tarjetas",
+      "baraja",
+      "pila",
+      "arrastrar",
+      "descartar"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "predictedEndTranslation",
+    "zIndex",
+    "accessibilityAction"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 320 --start-y 430 --end-x 40 --end-y 430 --duration 0.4",
+    "sleep 0.9",
+    "swipe --start-x 80 --start-y 430 --end-x 370 --end-y 430 --duration 0.4",
+    "sleep 0.9",
+    "swipe --start-x 320 --start-y 430 --end-x 40 --end-y 430 --duration 0.4",
+    "sleep 0.9"
+  ]
+}

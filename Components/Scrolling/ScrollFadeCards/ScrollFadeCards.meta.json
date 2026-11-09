@@ -1,0 +1,24 @@
+{
+  "id": "scroll-fade-cards",
+  "name": "ScrollFadeCards",
+  "title": "Scroll Fade Cards",
+  "category": "Scrolling",
+  "summary": "A vertical scroll of cards that scale down and fade at its edges with scrollTransition.",
+  "keywords": {
+    "en": ["scroll transition", "scroll", "cards", "fade", "scale", "vertical list", "scroll effect"],
+    "es": ["transición de scroll", "desplazamiento", "tarjetas", "desvanecer", "escala", "lista vertical"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["scrollTransition", "ScrollTransitionConfiguration", "ScrollView", "LazyVStack"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 201 --start-y 700 --end-x 201 --end-y 250 --duration 0.7",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 700 --end-x 201 --end-y 250 --duration 0.7",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 250 --end-x 201 --end-y 700 --duration 0.7",
+    "sleep 0.6"
+  ]
+}

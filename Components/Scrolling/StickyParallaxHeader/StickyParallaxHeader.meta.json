@@ -1,0 +1,46 @@
+{
+  "id": "sticky-parallax-header",
+  "name": "StickyParallaxHeader",
+  "title": "Sticky Parallax Header",
+  "category": "Scrolling",
+  "summary": "A parallax header that stretches on overscroll and collapses into a pinned bar.",
+  "keywords": {
+    "en": [
+      "sticky header",
+      "parallax",
+      "stretchy",
+      "collapsing header",
+      "overscroll",
+      "scroll",
+      "hero"
+    ],
+    "es": [
+      "cabecera fija",
+      "paralaje",
+      "cabecera elástica",
+      "colapsar",
+      "desplazamiento",
+      "cabecera"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "onScrollGeometryChange",
+    "ScrollGeometry",
+    "GeometryReader",
+    "ignoresSafeArea"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 201 --start-y 740 --end-x 201 --end-y 400 --duration 0.7",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 360 --end-x 201 --end-y 800 --duration 0.7",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 420 --end-x 201 --end-y 660 --duration 0.5",
+    "sleep 0.8"
+  ]
+}

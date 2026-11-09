@@ -1,0 +1,22 @@
+{
+  "id": "bottom-drawer",
+  "name": "BottomDrawer",
+  "title": "Bottom Drawer",
+  "category": "Navigation",
+  "summary": "A draggable bottom drawer that snaps to detents, built as a custom overlay.",
+  "keywords": {
+    "en": ["bottom sheet", "drawer", "detents", "drag", "snap", "overlay", "gesture"],
+    "es": ["hoja inferior", "cajón", "panel inferior", "arrastrar", "anclaje", "superposición", "gesto"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GestureState", "GeometryReader", "accessibilityAdjustableAction"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 201 --start-y 800 --end-x 201 --end-y 440 --duration 0.4",
+    "sleep 1.2",
+    "swipe --start-x 201 --start-y 560 --end-x 201 --end-y 840 --duration 0.4",
+    "sleep 1.2"
+  ]
+}

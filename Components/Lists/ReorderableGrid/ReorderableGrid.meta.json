@@ -1,0 +1,40 @@
+{
+  "id": "reorderable-grid",
+  "name": "ReorderableGrid",
+  "title": "Reorderable Grid",
+  "category": "Lists",
+  "summary": "A grid of tiles the user can drag into a new order.",
+  "keywords": {
+    "en": [
+      "reorder",
+      "drag",
+      "drag and drop",
+      "grid",
+      "tiles",
+      "lazy grid",
+      "sort",
+      "home screen"
+    ],
+    "es": [
+      "reordenar",
+      "arrastrar",
+      "arrastrar y soltar",
+      "cuadrícula",
+      "mosaicos",
+      "ordenar",
+      "pantalla de inicio"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "27.0",
+  "apis": [
+    "reorderable",
+    "reorderContainer",
+    "ReorderDifference",
+    "LazyVGrid"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

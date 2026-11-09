@@ -8,6 +8,7 @@ import { copyFileSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  CATEGORY_PAGES,
   DOCS_CATALOG,
   componentsNewerThan,
   docsAssets,
@@ -39,6 +40,8 @@ function write(path, content) {
 }
 
 if (command === 'generate') {
+  // Starting clean keeps the page of a removed category from surviving.
+  rmSync(join(root, CATEGORY_PAGES), { recursive: true, force: true });
   const outputs = renderOutputs(root, components);
   for (const [path, content] of outputs) write(path, content);
   console.log(`Generated ${outputs.size} files for ${components.length} component(s).`);
@@ -55,6 +58,7 @@ if (command === 'generate') {
     rmSync(join(root, dirname(component.path)), { recursive: true, force: true });
     rmSync(join(root, `Showcase/ShowcaseTests/${component.name}Tests.swift`), { force: true });
   }
+  rmSync(join(root, CATEGORY_PAGES), { recursive: true, force: true });
   for (const [path, content] of renderOutputs(root, loadCatalog(root).components)) write(path, content);
   console.log(`Removed ${removed.length} component(s) that need more than iOS ${pruneMajor}.`);
 } else {

@@ -1,0 +1,38 @@
+{
+  "id": "tilt-card",
+  "name": "TiltCard",
+  "title": "Tilt Card",
+  "category": "Cards",
+  "summary": "A card that tilts in 3D toward the finger with a moving highlight.",
+  "keywords": {
+    "en": [
+      "3d",
+      "tilt",
+      "card",
+      "parallax",
+      "perspective",
+      "highlight",
+      "holographic"
+    ],
+    "es": [
+      "3d",
+      "inclinación",
+      "tarjeta",
+      "perspectiva",
+      "brillo",
+      "holográfico"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "rotation3DEffect",
+    "DragGesture",
+    "RadialGradient",
+    "onGeometryChange",
+    "TimelineView"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

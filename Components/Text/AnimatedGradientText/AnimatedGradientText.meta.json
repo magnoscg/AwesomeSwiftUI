@@ -1,0 +1,35 @@
+{
+  "id": "animated-gradient-text",
+  "name": "AnimatedGradientText",
+  "title": "Animated Gradient Text",
+  "category": "Text",
+  "summary": "Text filled with a gradient that drifts endlessly through its letters.",
+  "keywords": {
+    "en": [
+      "gradient text",
+      "animated gradient",
+      "rainbow",
+      "colors",
+      "text animation",
+      "foreground style"
+    ],
+    "es": [
+      "texto degradado",
+      "degradado animado",
+      "arcoíris",
+      "colores",
+      "animación de texto",
+      "gradiente"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "LinearGradient",
+    "TimelineView",
+    "foregroundStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

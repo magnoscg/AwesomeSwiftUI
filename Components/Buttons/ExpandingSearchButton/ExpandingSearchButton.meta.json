@@ -1,0 +1,44 @@
+{
+  "id": "expanding-search-button",
+  "name": "ExpandingSearchButton",
+  "title": "Expanding Search Button",
+  "category": "Buttons",
+  "summary": "A round magnifying glass button that opens into a search field.",
+  "keywords": {
+    "en": [
+      "search",
+      "expanding",
+      "search bar",
+      "text field",
+      "morph",
+      "magnifying glass",
+      "button"
+    ],
+    "es": [
+      "buscar",
+      "búsqueda",
+      "barra de búsqueda",
+      "campo de texto",
+      "expandir",
+      "lupa",
+      "botón"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TextField",
+    "FocusState",
+    "withAnimation"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Search",
+    "sleep 1.8",
+    "tap --label Close",
+    "sleep 1.2"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "bento-grid-layout",
+  "name": "BentoGridLayout",
+  "title": "Bento Grid Layout",
+  "category": "Layouts",
+  "summary": "A custom Layout that packs tiles of varied spans into a bento grid.",
+  "keywords": {
+    "en": [
+      "bento",
+      "grid",
+      "custom layout",
+      "tiles",
+      "mosaic",
+      "span",
+      "dashboard"
+    ],
+    "es": [
+      "bento",
+      "cuadrícula",
+      "diseño personalizado",
+      "mosaico",
+      "baldosas",
+      "panel"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "Layout",
+    "LayoutValueKey",
+    "ProposedViewSize"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Shuffle",
+    "sleep 1.1",
+    "tap --label Shuffle",
+    "sleep 1.1",
+    "tap --label Shuffle",
+    "sleep 1.1"
+  ]
+}

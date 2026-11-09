@@ -1,0 +1,47 @@
+{
+  "id": "prominent-tab-bar",
+  "name": "ProminentTabBar",
+  "title": "Prominent Tab Bar",
+  "category": "Modern",
+  "summary": "A tab view whose main action gets the system's prominent tab treatment.",
+  "keywords": {
+    "en": [
+      "tab bar",
+      "tab view",
+      "prominent tab",
+      "tab role",
+      "action button",
+      "compose",
+      "navigation"
+    ],
+    "es": [
+      "barra de pestañas",
+      "pestaña destacada",
+      "rol de pestaña",
+      "botón de acción",
+      "redactar",
+      "navegación"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "27.0",
+  "apis": [
+    "TabView",
+    "Tab",
+    "TabRole.prominent"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Explore",
+    "sleep 1",
+    "tap --label Inbox",
+    "sleep 1",
+    "tap --label Compose",
+    "sleep 1.2",
+    "tap --label Feed",
+    "sleep 1"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "step-progress-indicator",
+  "name": "StepProgressIndicator",
+  "title": "Step Progress Indicator",
+  "category": "Progress",
+  "summary": "Numbered steps joined by a line that fills as the current step advances.",
+  "keywords": {
+    "en": ["steps", "stepper", "progress", "checkout", "wizard", "onboarding", "timeline"],
+    "es": ["pasos", "progreso", "asistente", "pago", "línea", "numerados", "etapas"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["GeometryReader", "ScaledMetric", "background(alignment:content:)"],
+  "origin": { "kind": "original" }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "elastic-drag-button",
+  "name": "ElasticDragButton",
+  "title": "Elastic Drag Button",
+  "category": "Buttons",
+  "summary": "A round button that stretches toward the finger and springs back on release.",
+  "keywords": {
+    "en": [
+      "elastic",
+      "drag",
+      "stretch",
+      "rubber band",
+      "spring",
+      "button",
+      "gesture"
+    ],
+    "es": [
+      "elástico",
+      "arrastrar",
+      "estirar",
+      "muelle",
+      "rebote",
+      "botón",
+      "gesto"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "DragGesture",
+    "GestureState",
+    "Animation.spring"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 201 --start-y 451 --end-x 340 --end-y 300 --duration 0.5",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 451 --end-x 60 --end-y 560 --duration 0.5",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 451 --end-x 201 --end-y 640 --duration 0.5",
+    "sleep 0.9"
+  ]
+}

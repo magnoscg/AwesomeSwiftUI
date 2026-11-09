@@ -1,0 +1,15 @@
+{
+  "id": "waves-background",
+  "name": "WavesBackground",
+  "title": "Waves Background",
+  "category": "Backgrounds",
+  "summary": "Layered waves animated with a custom animatable Shape.",
+  "keywords": {
+    "en": ["background", "waves", "ocean", "sine wave", "shape", "animatable", "animated"],
+    "es": ["fondo", "olas", "océano", "mar", "onda", "forma animada", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Shape", "Animatable", "withAnimation"],
+  "origin": { "kind": "original" }
+}

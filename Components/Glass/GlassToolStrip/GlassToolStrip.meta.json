@@ -1,0 +1,47 @@
+{
+  "id": "glass-tool-strip",
+  "name": "GlassToolStrip",
+  "title": "Glass Tool Strip",
+  "category": "Glass",
+  "summary": "A row of Liquid Glass tool buttons with related tools fused into one shape.",
+  "keywords": {
+    "en": [
+      "toolbar",
+      "tools",
+      "tool strip",
+      "liquid glass",
+      "glass",
+      "group",
+      "union",
+      "buttons"
+    ],
+    "es": [
+      "barra de herramientas",
+      "herramientas",
+      "cristal líquido",
+      "cristal",
+      "agrupar",
+      "unión",
+      "botones"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "glassEffect",
+    "GlassEffectContainer",
+    "glassEffectUnion"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Group tools'",
+    "sleep 1.2",
+    "tap --label Eraser",
+    "sleep 0.8",
+    "tap --label 'Group tools'",
+    "sleep 1.2"
+  ]
+}

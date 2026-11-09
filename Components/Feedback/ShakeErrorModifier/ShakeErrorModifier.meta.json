@@ -1,0 +1,24 @@
+{
+  "id": "shake-error-modifier",
+  "name": "ShakeErrorModifier",
+  "title": "Shake Error Modifier",
+  "category": "Feedback",
+  "summary": "A modifier that shakes a view with keyframes whenever a trigger value changes.",
+  "keywords": {
+    "en": ["shake", "error", "validation", "form", "keyframes", "wiggle", "invalid input"],
+    "es": ["agitar", "sacudir", "error", "validación", "formulario", "fotogramas clave", "entrada no válida"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["keyframeAnimator", "KeyframeTrack", "sensoryFeedback"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Submit",
+    "sleep 1.2",
+    "tap --label Submit",
+    "sleep 1.2",
+    "tap --label Submit",
+    "sleep 1"
+  ]
+}

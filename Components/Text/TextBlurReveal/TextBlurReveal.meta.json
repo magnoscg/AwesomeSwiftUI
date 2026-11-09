@@ -1,0 +1,37 @@
+{
+  "id": "text-blur-reveal",
+  "name": "TextBlurReveal",
+  "title": "Text Blur Reveal",
+  "category": "Text",
+  "summary": "Text that appears line by line, coming into focus as it slides up, drawn by a custom TextRenderer.",
+  "keywords": {
+    "en": [
+      "text reveal",
+      "blur",
+      "line by line",
+      "text animation",
+      "text renderer",
+      "fade in",
+      "focus"
+    ],
+    "es": [
+      "revelar texto",
+      "desenfoque",
+      "línea a línea",
+      "animación de texto",
+      "aparecer",
+      "enfoque"
+    ]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": [
+    "TextRenderer",
+    "Text.Layout",
+    "GraphicsContext",
+    "Animatable"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "highlighted-search-text",
+  "name": "HighlightedSearchText",
+  "title": "Highlighted Search Text",
+  "category": "Text",
+  "summary": "Text with every match of a search query highlighted, ignoring case and accents.",
+  "keywords": {
+    "en": [
+      "search",
+      "highlight",
+      "matches",
+      "query",
+      "attributed string",
+      "accent insensitive",
+      "find in text"
+    ],
+    "es": [
+      "búsqueda",
+      "resaltar",
+      "coincidencias",
+      "consulta",
+      "texto con atributos",
+      "ignorar acentos",
+      "buscar en texto"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "AttributedString",
+    "String.range(of:options:range:)"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

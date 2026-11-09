@@ -1,0 +1,48 @@
+{
+  "id": "subview-card-container",
+  "name": "SubviewCardContainer",
+  "title": "Subview Card Container",
+  "category": "Layouts",
+  "summary": "A custom container that styles each child of its ViewBuilder as a card.",
+  "keywords": {
+    "en": [
+      "custom container",
+      "subviews",
+      "viewbuilder",
+      "container values",
+      "foreach subviews",
+      "cards",
+      "ios 18"
+    ],
+    "es": [
+      "contenedor personalizado",
+      "subvistas",
+      "viewbuilder",
+      "valores de contenedor",
+      "tarjetas",
+      "ios 18"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "ForEach(subviews:)",
+    "ContainerValues",
+    "Entry",
+    "containerValue"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Add",
+    "sleep 0.9",
+    "tap --label Remove",
+    "sleep 0.9",
+    "tap --label Remove",
+    "sleep 0.9"
+  ]
+}

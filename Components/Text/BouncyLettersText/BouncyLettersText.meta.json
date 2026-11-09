@@ -1,0 +1,36 @@
+{
+  "id": "bouncy-letters-text",
+  "name": "BouncyLettersText",
+  "title": "Bouncy Letters Text",
+  "category": "Text",
+  "summary": "Letters that hop one after another in a repeating wave with squash and stretch.",
+  "keywords": {
+    "en": [
+      "bounce",
+      "hop",
+      "letters",
+      "keyframes",
+      "text animation",
+      "squash and stretch",
+      "playful"
+    ],
+    "es": [
+      "rebote",
+      "saltar",
+      "letras",
+      "fotogramas clave",
+      "animación de texto",
+      "divertido"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "keyframeAnimator",
+    "KeyframeTrack",
+    "ScaledMetric"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

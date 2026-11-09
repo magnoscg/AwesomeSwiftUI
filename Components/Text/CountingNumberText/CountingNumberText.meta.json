@@ -1,0 +1,36 @@
+{
+  "id": "counting-number-text",
+  "name": "CountingNumberText",
+  "title": "Counting Number Text",
+  "category": "Text",
+  "summary": "A number that counts to its new value with its digits rolling into place.",
+  "keywords": {
+    "en": [
+      "counter",
+      "count up",
+      "number",
+      "numeric text",
+      "content transition",
+      "statistics",
+      "odometer"
+    ],
+    "es": [
+      "contador",
+      "contar",
+      "número",
+      "transición de contenido",
+      "estadísticas",
+      "cifras"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "contentTransition",
+    "numericText",
+    "IntegerFormatStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

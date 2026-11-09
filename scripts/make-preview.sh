@@ -15,4 +15,5 @@ trap 'rm -rf "$frames"' EXIT
 
 ffmpeg -y -loglevel error -i "$recording" \
   -vf "fps=20,scale=320:-2:flags=lanczos" "$frames/frame%04d.png"
-img2webp -loop 0 -lossy -q 60 -d 50 "$frames"/frame*.png -o "$output"
+# Frequent key frames and -exact keep gradients free of blocks and ghost rectangles.
+img2webp -loop 0 -kmax 2 -lossy -q 60 -exact -d 50 "$frames"/frame*.png -o "$output"

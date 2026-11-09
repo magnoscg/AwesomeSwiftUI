@@ -1,0 +1,15 @@
+# Backgrounds
+
+[All categories](../README.md#catalog)
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="../Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.webp" width="120" alt="Animated Gradient Background preview"> | [Animated Gradient Background](../Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.swift) | A linear gradient that slowly drifts its colors and turns its direction. | 18.0+ | beginner |
+| <img src="../Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.webp" width="120" alt="Aurora Mesh Background preview"> | [Aurora Mesh Background](../Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift) | An animated aurora background made with a mesh gradient. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/BubblesBackground/BubblesBackground.webp" width="120" alt="Bubbles Background preview"> | [Bubbles Background](../Components/Backgrounds/BubblesBackground/BubblesBackground.swift) | Translucent bubbles that rise and sway across the screen. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.webp" width="120" alt="Color Orbs Background preview"> | [Color Orbs Background](../Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.swift) | Large, soft colored orbs drifting slowly over a dark base. | 18.0+ | beginner |
+| <img src="../Components/Backgrounds/GridPulseBackground/GridPulseBackground.webp" width="120" alt="Grid Pulse Background preview"> | [Grid Pulse Background](../Components/Backgrounds/GridPulseBackground/GridPulseBackground.swift) | A grid of dots with a pulse of light spreading out from the center. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.webp" width="120" alt="Particle Field Background preview"> | [Particle Field Background](../Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.swift) | Drifting points that are joined by faint lines when they come close. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/SnowfallBackground/SnowfallBackground.webp" width="120" alt="Snowfall Background preview"> | [Snowfall Background](../Components/Backgrounds/SnowfallBackground/SnowfallBackground.swift) | Snowflakes falling at different speeds across three layers of depth. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/StarfieldBackground/StarfieldBackground.webp" width="120" alt="Starfield Background preview"> | [Starfield Background](../Components/Backgrounds/StarfieldBackground/StarfieldBackground.swift) | Stars streaking toward the viewer with a simple perspective projection. | 18.0+ | intermediate |
+| <img src="../Components/Backgrounds/WavesBackground/WavesBackground.webp" width="120" alt="Waves Background preview"> | [Waves Background](../Components/Backgrounds/WavesBackground/WavesBackground.swift) | Layered waves animated with a custom animatable Shape. | 18.0+ | intermediate |

@@ -1,0 +1,15 @@
+{
+  "id": "particle-field-background",
+  "name": "ParticleFieldBackground",
+  "title": "Particle Field Background",
+  "category": "Backgrounds",
+  "summary": "Drifting points that are joined by faint lines when they come close.",
+  "keywords": {
+    "en": ["background", "particles", "constellation", "network", "points", "lines", "animated"],
+    "es": ["fondo", "partículas", "constelación", "red", "puntos", "líneas", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}

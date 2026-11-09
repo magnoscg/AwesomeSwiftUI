@@ -1,0 +1,15 @@
+{
+  "id": "dots-pulse-loader",
+  "name": "DotsPulseLoader",
+  "title": "Dots Pulse Loader",
+  "category": "Loaders",
+  "summary": "Three dots that pulse in sequence, as in a typing indicator.",
+  "keywords": {
+    "en": ["loader", "dots", "pulse", "typing indicator", "chat", "loading"],
+    "es": ["cargador", "puntos", "pulso", "escribiendo", "chat", "carga"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["PhaseAnimator", "scaleEffect", "accessibilityReduceMotion"],
+  "origin": { "kind": "original" }
+}

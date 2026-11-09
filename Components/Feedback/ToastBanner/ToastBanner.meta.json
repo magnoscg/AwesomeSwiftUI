@@ -1,0 +1,22 @@
+{
+  "id": "toast-banner",
+  "name": "ToastBanner",
+  "title": "Toast Banner",
+  "category": "Feedback",
+  "summary": "A toast modifier that slides a banner from the top, announces it to VoiceOver and dismisses by itself.",
+  "keywords": {
+    "en": ["toast", "banner", "notification", "alert", "message", "auto dismiss", "feedback"],
+    "es": ["toast", "aviso", "notificación", "alerta", "mensaje", "banner", "autodescartar"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ViewModifier", "AccessibilityNotification.Announcement", "AnyTransition.move"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Save",
+    "sleep 3",
+    "tap --label Save",
+    "sleep 1.2"
+  ]
+}

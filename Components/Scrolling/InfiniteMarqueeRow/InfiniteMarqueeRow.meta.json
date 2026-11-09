@@ -1,0 +1,36 @@
+{
+  "id": "infinite-marquee-row",
+  "name": "InfiniteMarqueeRow",
+  "title": "Infinite Marquee Row",
+  "category": "Scrolling",
+  "summary": "A row of content that scrolls forever without a visible seam.",
+  "keywords": {
+    "en": [
+      "marquee",
+      "infinite scroll",
+      "ticker",
+      "chips",
+      "loop",
+      "auto scroll",
+      "tags"
+    ],
+    "es": [
+      "marquesina",
+      "desplazamiento infinito",
+      "chips",
+      "bucle",
+      "etiquetas",
+      "automático"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "TimelineView",
+    "onGeometryChange",
+    "offset"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

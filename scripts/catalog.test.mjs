@@ -112,8 +112,8 @@ describe('a valid component', () => {
     assert.match(entry.rawURL, /\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.swift$/);
     assert.match(outputs.get('llms.txt'), /Glow Button.*iOS 18\.0\+.*button, boton/);
     assert.match(outputs.get('llms-full.txt'), /```swift\n\/\/ SPDX-License-Identifier: MIT/);
-    assert.match(outputs.get('README.md'), /### Buttons/);
-    assert.match(outputs.get('README.md'), /\| \[Glow Button\]\(Components\/Buttons\/GlowButton\/GlowButton\.swift\)/);
+    assert.match(outputs.get('README.md'), /\| \[Buttons\]\(catalog\/Buttons\.md\) \| 1 \| \[Glow Button\]\(Components\/Buttons\/GlowButton\/GlowButton\.swift\) \|/);
+    assert.match(outputs.get('catalog/Buttons.md'), /\| \[Glow Button\]\(\.\.\/Components\/Buttons\/GlowButton\/GlowButton\.swift\)/);
   });
 
   it('keeps the README outside the markers', () => {
@@ -127,31 +127,43 @@ describe('a valid component', () => {
     assert.doesNotMatch(readme, /old/);
   });
 
-  it('escapes pipes in the README table', () => {
+  it('escapes pipes in the category table', () => {
     const root = makeRoot();
     addComponent(root, { metadata: meta({ summary: 'One | two.' }) });
 
-    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
+    const page = renderOutputs(root, loadCatalog(root).components).get('catalog/Buttons.md');
 
-    assert.match(readme, /One \\\| two\./);
+    assert.match(page, /One \\\| two\./);
   });
 
-  it('shows its preview in the README', () => {
+  it('shows its preview on the page of its category', () => {
     const root = makeRoot();
     addComponent(root);
 
-    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
+    const page = renderOutputs(root, loadCatalog(root).components).get('catalog/Buttons.md');
 
-    assert.match(readme, /<img src="Components\/Buttons\/GlowButton\/GlowButton\.webp" width="120" alt="Glow Button preview">/);
+    assert.match(page, /<img src="\.\.\/Components\/Buttons\/GlowButton\/GlowButton\.webp" width="120" alt="Glow Button preview">/);
+  });
+
+  it('features only the first component of each category in the README', () => {
+    const root = makeRoot();
+    addComponent(root, { name: 'Alpha', metadata: meta({ id: 'alpha', name: 'Alpha', title: 'Alpha' }), source: swift('Alpha') });
+    addComponent(root, { name: 'Beta', metadata: meta({ id: 'beta', name: 'Beta', title: 'Beta' }), source: swift('Beta') });
+
+    const outputs = renderOutputs(root, loadCatalog(root).components);
+
+    assert.equal(outputs.get('README.md').match(/<img /g).length, 1);
+    assert.equal(outputs.get('catalog/Buttons.md').match(/<img /g).length, 2);
+    assert.match(outputs.get('README.md'), /\*\*2 components\.\*\*/);
   });
 
   it('escapes quotes in the alt text of its preview', () => {
     const root = makeRoot();
     addComponent(root, { metadata: meta({ title: 'The "Glow" Button' }) });
 
-    const readme = renderOutputs(root, loadCatalog(root).components).get('README.md');
+    const page = renderOutputs(root, loadCatalog(root).components).get('catalog/Buttons.md');
 
-    assert.match(readme, /alt="The &quot;Glow&quot; Button preview"/);
+    assert.match(page, /alt="The &quot;Glow&quot; Button preview"/);
   });
 
   it('records the path of its preview', () => {
@@ -192,6 +204,10 @@ describe('the order of the catalog', () => {
 });
 
 describe('invalid components', () => {
+  it('rejects a category name that would break its links', () => {
+    assertRejected({ category: 'Cards#Demo', metadata: meta({ category: 'Cards#Demo' }) }, /must be one word/);
+  });
+
   it('rejects a folder without metadata', () => {
     assertRejected({ metadata: null }, /missing GlowButton\.meta\.json/);
   });
@@ -565,6 +581,16 @@ describe('generated files', () => {
     const root = makeRoot('No markers\n');
 
     assert.throws(() => renderOutputs(root, []), /must contain <!-- catalog:start -->/);
+  });
+
+  it('reports the leftover page of a removed category as stale', () => {
+    const root = makeRoot();
+    mkdirSync(join(root, 'catalog'));
+    writeFileSync(join(root, 'catalog/Old.md'), 'gone');
+    writeFileSync(join(root, 'catalog/Kept.md'), 'same');
+    const outputs = new Map([['catalog/Kept.md', 'same']]);
+
+    assert.deepEqual(findStale(root, outputs), ['catalog/Old.md']);
   });
 
   it('reports missing and outdated files as stale', () => {

@@ -1,0 +1,45 @@
+{
+  "id": "scroll-edge-header",
+  "name": "ScrollEdgeHeader",
+  "title": "Scroll Edge Header",
+  "category": "Modern",
+  "summary": "A scroll view whose content dissolves under a custom header using the scroll edge effect.",
+  "keywords": {
+    "en": [
+      "scroll edge",
+      "scroll edge effect",
+      "header",
+      "sticky header",
+      "safe area bar",
+      "blur",
+      "scroll view"
+    ],
+    "es": [
+      "borde de desplazamiento",
+      "cabecera",
+      "cabecera fija",
+      "barra de área segura",
+      "desenfoque",
+      "desplazamiento"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "26.0",
+  "apis": [
+    "scrollEdgeEffectStyle",
+    "safeAreaBar",
+    "ScrollEdgeEffectStyle"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "swipe --start-x 200 --start-y 650 --end-x 200 --end-y 250 --duration 0.5",
+    "sleep 1.2",
+    "tap --label 'Change edge style'",
+    "sleep 1.2",
+    "swipe --start-x 200 --start-y 250 --end-x 200 --end-y 650 --duration 0.5",
+    "sleep 1"
+  ]
+}

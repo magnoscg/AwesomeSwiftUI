@@ -1,0 +1,15 @@
+{
+  "id": "snowfall-background",
+  "name": "SnowfallBackground",
+  "title": "Snowfall Background",
+  "category": "Backgrounds",
+  "summary": "Snowflakes falling at different speeds across three layers of depth.",
+  "keywords": {
+    "en": ["background", "snow", "snowfall", "winter", "flakes", "christmas", "animated"],
+    "es": ["fondo", "nieve", "nevada", "invierno", "copos", "navidad", "animado"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}

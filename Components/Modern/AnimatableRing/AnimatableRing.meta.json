@@ -1,0 +1,39 @@
+{
+  "id": "animatable-ring",
+  "name": "AnimatableRing",
+  "title": "Animatable Ring",
+  "category": "Modern",
+  "summary": "A progress ring whose arc animates through the @Animatable macro.",
+  "keywords": {
+    "en": [
+      "progress ring",
+      "ring",
+      "arc",
+      "animatable",
+      "custom shape",
+      "progress",
+      "gauge",
+      "circular progress"
+    ],
+    "es": [
+      "anillo de progreso",
+      "anillo",
+      "arco",
+      "forma animada",
+      "progreso",
+      "medidor",
+      "progreso circular"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": [
+    "Animatable",
+    "AnimatableIgnored",
+    "Shape",
+    "AngularGradient"
+  ],
+  "origin": {
+    "kind": "original"
+  }
+}

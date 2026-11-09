@@ -1,0 +1,15 @@
+{
+  "id": "blur-fade-transition",
+  "name": "BlurFadeTransition",
+  "title": "Blur Fade Transition",
+  "category": "Transitions",
+  "summary": "A custom transition that combines blur, fade and scale, available as .blurFade.",
+  "keywords": {
+    "en": ["transition", "blur", "fade", "scale", "appear", "disappear", "custom transition"],
+    "es": ["transición", "desenfoque", "fundido", "escala", "aparecer", "desaparecer"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Transition", "TransitionPhase", "blur", "scaleEffect"],
+  "origin": { "kind": "original" }
+}

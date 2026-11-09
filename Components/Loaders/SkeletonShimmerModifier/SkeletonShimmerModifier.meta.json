@@ -1,0 +1,15 @@
+{
+  "id": "skeleton-shimmer-modifier",
+  "name": "SkeletonShimmerModifier",
+  "title": "Skeleton Shimmer Modifier",
+  "category": "Loaders",
+  "summary": "A view modifier that turns any view into a shimmering redacted placeholder while it loads.",
+  "keywords": {
+    "en": ["skeleton", "shimmer", "placeholder", "redacted", "loading", "list", "view modifier"],
+    "es": ["esqueleto", "brillo", "marcador de posición", "carga", "lista", "cargando", "modificador"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["redacted", "ViewModifier", "TimelineView", "mask", "LinearGradient"],
+  "origin": { "kind": "original" }
+}

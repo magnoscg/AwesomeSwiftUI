@@ -15,11 +15,12 @@ easy to copy matters as much as the code itself.
 
 | Path | What lives there | State |
 |---|---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp` | Planned |
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp` | In place |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata | In place |
 | `scripts/` | Validates the components and generates the files below | In place |
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
-| `README.md` | Written by hand, except the table between the `catalog` markers | In place |
+| `README.md` | Written by hand, except the index between the `catalog` markers | In place |
+| `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
 | `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed | In place |
 | `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
 
