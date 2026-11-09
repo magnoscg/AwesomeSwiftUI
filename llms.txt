@@ -6,7 +6,10 @@ Search `https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/catalog.j
 
 ## Components
 
-No components yet.
+- [Aurora Mesh Background](https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift): An animated aurora background made with a mesh gradient. iOS 18.0+. Backgrounds. Keywords: background, aurora, mesh gradient, gradient, animated, ambient, colors, fondo, aurora, degradado, malla, gradiente, animado, colores.
+- [Pressable Button Style](https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift): A button style that shrinks and dims on press, then springs back. iOS 18.0+. Buttons. Keywords: button, press, tap, scale, spring, feedback, button style, botón, pulsar, toque, escala, muelle, rebote, estilo de botón.
+- [Glass Action Menu](https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassActionMenu/GlassActionMenu.swift): A floating Liquid Glass button whose actions morph out of it. iOS 26.0+. Glass. Keywords: liquid glass, glass, menu, floating action button, fab, morph, expandable, cristal líquido, cristal, menú, botón flotante, transformación, desplegable.
+- [Reorderable Card List](https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/ReorderableCardList/ReorderableCardList.swift): A stack of cards you can drag into a new order, without using List. iOS 27.0+. Lists. Keywords: reorder, drag, drag and drop, sort, cards, list, stack, reordenar, arrastrar, arrastrar y soltar, ordenar, tarjetas, lista.
 
 ## Docs
 

@@ -1,0 +1,51 @@
+{
+  "id": "pressable-button-style",
+  "name": "PressableButtonStyle",
+  "title": "Pressable Button Style",
+  "category": "Buttons",
+  "summary": "A button style that shrinks and dims on press, then springs back.",
+  "keywords": {
+    "en": [
+      "button",
+      "press",
+      "tap",
+      "scale",
+      "spring",
+      "feedback",
+      "button style"
+    ],
+    "es": [
+      "botón",
+      "pulsar",
+      "toque",
+      "escala",
+      "muelle",
+      "rebote",
+      "estilo de botón"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "ButtonStyle",
+    "Animation.spring"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "touch -x 201 -y 485 --down",
+    "sleep 0.45",
+    "touch -x 201 -y 485 --up",
+    "sleep 0.7",
+    "touch -x 201 -y 485 --down",
+    "sleep 0.45",
+    "touch -x 201 -y 485 --up",
+    "sleep 0.7",
+    "touch -x 201 -y 485 --down",
+    "sleep 0.45",
+    "touch -x 201 -y 485 --up",
+    "sleep 0.7"
+  ]
+}

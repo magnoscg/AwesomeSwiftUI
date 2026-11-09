@@ -32,7 +32,29 @@ install: find a component, copy its file, use it.
 
 <!-- catalog:start -->
 
-No components yet.
+### Backgrounds
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.webp" width="120" alt="Aurora Mesh Background preview"> | [Aurora Mesh Background](Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift) | An animated aurora background made with a mesh gradient. | 18.0+ | intermediate |
+
+### Buttons
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="Components/Buttons/PressableButtonStyle/PressableButtonStyle.webp" width="120" alt="Pressable Button Style preview"> | [Pressable Button Style](Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift) | A button style that shrinks and dims on press, then springs back. | 18.0+ | beginner |
+
+### Glass
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="Components/Glass/GlassActionMenu/GlassActionMenu.webp" width="120" alt="Glass Action Menu preview"> | [Glass Action Menu](Components/Glass/GlassActionMenu/GlassActionMenu.swift) | A floating Liquid Glass button whose actions morph out of it. | 26.0+ | intermediate |
+
+### Lists
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="Components/Lists/ReorderableCardList/ReorderableCardList.webp" width="120" alt="Reorderable Card List preview"> | [Reorderable Card List](Components/Lists/ReorderableCardList/ReorderableCardList.swift) | A stack of cards you can drag into a new order, without using List. | 27.0+ | intermediate |
 
 <!-- catalog:end -->
 

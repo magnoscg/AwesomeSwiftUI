@@ -1,0 +1,37 @@
+{
+  "id": "reorderable-card-list",
+  "name": "ReorderableCardList",
+  "title": "Reorderable Card List",
+  "category": "Lists",
+  "summary": "A stack of cards you can drag into a new order, without using List.",
+  "keywords": {
+    "en": [
+      "reorder",
+      "drag",
+      "drag and drop",
+      "sort",
+      "cards",
+      "list",
+      "stack"
+    ],
+    "es": [
+      "reordenar",
+      "arrastrar",
+      "arrastrar y soltar",
+      "ordenar",
+      "tarjetas",
+      "lista"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "27.0",
+  "apis": [
+    "reorderable",
+    "reorderContainer",
+    "ReorderDifference"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewManual": true
+}

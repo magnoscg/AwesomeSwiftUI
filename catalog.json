@@ -1,4 +1,161 @@
 {
-  "count": 0,
-  "components": []
+  "count": 4,
+  "components": [
+    {
+      "id": "aurora-mesh-background",
+      "name": "AuroraMeshBackground",
+      "title": "Aurora Mesh Background",
+      "category": "Backgrounds",
+      "summary": "An animated aurora background made with a mesh gradient.",
+      "keywords": {
+        "en": [
+          "background",
+          "aurora",
+          "mesh gradient",
+          "gradient",
+          "animated",
+          "ambient",
+          "colors"
+        ],
+        "es": [
+          "fondo",
+          "aurora",
+          "degradado",
+          "malla",
+          "gradiente",
+          "animado",
+          "colores"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "MeshGradient",
+        "TimelineView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift",
+      "preview": "Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift"
+    },
+    {
+      "id": "pressable-button-style",
+      "name": "PressableButtonStyle",
+      "title": "Pressable Button Style",
+      "category": "Buttons",
+      "summary": "A button style that shrinks and dims on press, then springs back.",
+      "keywords": {
+        "en": [
+          "button",
+          "press",
+          "tap",
+          "scale",
+          "spring",
+          "feedback",
+          "button style"
+        ],
+        "es": [
+          "botón",
+          "pulsar",
+          "toque",
+          "escala",
+          "muelle",
+          "rebote",
+          "estilo de botón"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ButtonStyle",
+        "Animation.spring"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift",
+      "preview": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift"
+    },
+    {
+      "id": "glass-action-menu",
+      "name": "GlassActionMenu",
+      "title": "Glass Action Menu",
+      "category": "Glass",
+      "summary": "A floating Liquid Glass button whose actions morph out of it.",
+      "keywords": {
+        "en": [
+          "liquid glass",
+          "glass",
+          "menu",
+          "floating action button",
+          "fab",
+          "morph",
+          "expandable"
+        ],
+        "es": [
+          "cristal líquido",
+          "cristal",
+          "menú",
+          "botón flotante",
+          "transformación",
+          "desplegable"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "26.0",
+      "apis": [
+        "glassEffect",
+        "GlassEffectContainer",
+        "glassEffectID"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Glass/GlassActionMenu/GlassActionMenu.swift",
+      "preview": "Components/Glass/GlassActionMenu/GlassActionMenu.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassActionMenu/GlassActionMenu.swift"
+    },
+    {
+      "id": "reorderable-card-list",
+      "name": "ReorderableCardList",
+      "title": "Reorderable Card List",
+      "category": "Lists",
+      "summary": "A stack of cards you can drag into a new order, without using List.",
+      "keywords": {
+        "en": [
+          "reorder",
+          "drag",
+          "drag and drop",
+          "sort",
+          "cards",
+          "list",
+          "stack"
+        ],
+        "es": [
+          "reordenar",
+          "arrastrar",
+          "arrastrar y soltar",
+          "ordenar",
+          "tarjetas",
+          "lista"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "27.0",
+      "apis": [
+        "reorderable",
+        "reorderContainer",
+        "ReorderDifference"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/ReorderableCardList/ReorderableCardList.swift",
+      "preview": "Components/Lists/ReorderableCardList/ReorderableCardList.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/ReorderableCardList/ReorderableCardList.swift"
+    }
+  ]
 }
