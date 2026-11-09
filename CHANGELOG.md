@@ -8,6 +8,9 @@ on `main`.
 
 ### Added
 
+- 100 components for iOS 18, 26 and 27, in 18 categories, each with an animated
+  preview, a page on the site and keywords in English and Spanish.
+- A page per category in `catalog/`, so GitHub only loads the previews you open.
 - The foundation of the repository: license, contribution workflow, rules for
   components and templates for issues and pull requests.
 - Catalog tooling: validates every component and generates `catalog.json`,

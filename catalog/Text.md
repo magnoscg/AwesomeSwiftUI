@@ -1,0 +1,18 @@
+# Text
+
+[All categories](../README.md#catalog)
+
+| Preview | Component | What it does | iOS | Level |
+|---|---|---|---|---|
+| <img src="../Components/Text/AnimatedGradientText/AnimatedGradientText.webp" width="120" alt="Animated Gradient Text preview"> | [Animated Gradient Text](../Components/Text/AnimatedGradientText/AnimatedGradientText.swift) | Text filled with a gradient that drifts endlessly through its letters. | 18.0+ | beginner |
+| <img src="../Components/Text/BouncyLettersText/BouncyLettersText.webp" width="120" alt="Bouncy Letters Text preview"> | [Bouncy Letters Text](../Components/Text/BouncyLettersText/BouncyLettersText.swift) | Letters that hop one after another in a repeating wave with squash and stretch. | 18.0+ | intermediate |
+| <img src="../Components/Text/CountingNumberText/CountingNumberText.webp" width="120" alt="Counting Number Text preview"> | [Counting Number Text](../Components/Text/CountingNumberText/CountingNumberText.swift) | A number that counts to its new value with its digits rolling into place. | 18.0+ | beginner |
+| <img src="../Components/Text/GlitchText/GlitchText.webp" width="120" alt="Glitch Text preview"> | [Glitch Text](../Components/Text/GlitchText/GlitchText.swift) | Colored copies of the text that jump and flicker in short glitch bursts. | 18.0+ | beginner |
+| <img src="../Components/Text/GlyphWaveText/GlyphWaveText.webp" width="120" alt="Glyph Wave Text preview"> | [Glyph Wave Text](../Components/Text/GlyphWaveText/GlyphWaveText.swift) | Text whose glyphs ride a travelling sine wave, drawn by a custom TextRenderer. | 18.0+ | advanced |
+| <img src="../Components/Text/HighlightedSearchText/HighlightedSearchText.webp" width="120" alt="Highlighted Search Text preview"> | [Highlighted Search Text](../Components/Text/HighlightedSearchText/HighlightedSearchText.swift) | Text with every match of a search query highlighted, ignoring case and accents. | 18.0+ | intermediate |
+| <img src="../Components/Text/MarqueeText/MarqueeText.webp" width="120" alt="Marquee Text preview"> | [Marquee Text](../Components/Text/MarqueeText/MarqueeText.swift) | A single line of text that scrolls horizontally only when it does not fit. | 18.0+ | intermediate |
+| <img src="../Components/Text/RotatingWordsText/RotatingWordsText.webp" width="120" alt="Rotating Words Text preview"> | [Rotating Words Text](../Components/Text/RotatingWordsText/RotatingWordsText.swift) | Words that take turns in the same spot, each one pushing the last out of the way. | 18.0+ | beginner |
+| <img src="../Components/Text/ScrambleText/ScrambleText.webp" width="120" alt="Scramble Text preview"> | [Scramble Text](../Components/Text/ScrambleText/ScrambleText.swift) | Random characters that settle from left to right into the final text. | 18.0+ | intermediate |
+| <img src="../Components/Text/ShimmerText/ShimmerText.webp" width="120" alt="Shimmer Text preview"> | [Shimmer Text](../Components/Text/ShimmerText/ShimmerText.swift) | Text with a band of light that sweeps across its letters through a mask. | 18.0+ | beginner |
+| <img src="../Components/Text/TextBlurReveal/TextBlurReveal.webp" width="120" alt="Text Blur Reveal preview"> | [Text Blur Reveal](../Components/Text/TextBlurReveal/TextBlurReveal.swift) | Text that appears line by line, coming into focus as it slides up, drawn by a custom TextRenderer. | 18.0+ | advanced |
+| <img src="../Components/Text/TypewriterText/TypewriterText.webp" width="120" alt="Typewriter Text preview"> | [Typewriter Text](../Components/Text/TypewriterText/TypewriterText.swift) | Text that types itself one character at a time, followed by a blinking cursor. | 18.0+ | intermediate |
