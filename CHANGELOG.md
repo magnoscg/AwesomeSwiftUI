@@ -12,3 +12,5 @@ on `main`.
   components and templates for issues and pull requests.
 - Catalog tooling: validates every component and generates `catalog.json`,
   `llms.txt`, `llms-full.txt` and the table in the README.
+- The Showcase app: compiles every component on iOS 18 and later with Swift 6
+  and warnings as errors, and lets you search and try them.

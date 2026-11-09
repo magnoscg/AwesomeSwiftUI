@@ -12,8 +12,8 @@ install: find a component, copy its file, use it.
 
 </div>
 
-> **Status: early days.** The foundation of the repository and the catalog
-> tooling are in place. The demo app, the documentation site and the first
+> **Status: early days.** The foundation of the repository, the catalog tooling
+> and the Showcase app are in place. The documentation site and the first
 > components come next.
 
 ## What it will be
