@@ -34,6 +34,7 @@ dependencies.
 make catalog         # rewrite the generated files after changing a component
 make check           # fail if a component breaks a rule or a generated file is stale
 make test            # the tests of the catalog tooling
+make record          # record the previews of one component or all of them
 make preview         # turn a recording into a component's preview
 make docs            # build the site into docs/dist
 make docs-dev        # run the site locally
@@ -106,8 +107,10 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
-8. **Keep names unique.** Every file name in `Components/` must be unique,
-   because the Showcase app compiles the whole folder as one target.
+8. **Keep names unique.** Every file name and every non-private top-level type
+   in `Components/` must be unique, because the Showcase app compiles the whole
+   folder as one target. Prefix supporting types with the component's name, or
+   make them `private`.
 9. **Internal by default.** No `public`: the code lands inside someone's app.
 10. **An animated preview.** Every component has a `<Name>.webp` that shows it
     moving, used by the README and the site. `make check` rejects a missing or
@@ -117,21 +120,38 @@ anything else:
 
 ## Recording a preview
 
-You need `ffmpeg` and `webp` (`brew install ffmpeg webp`). Run the component in
-the Showcase on an iOS version it supports, then:
+You need `ffmpeg`, `webp` and [AXe](https://github.com/cameroncooke/AXe). A new
+component works like this: write its Swift file and metadata, run `make catalog`
+so the Showcase knows it, then boot an iPhone 18 Pro simulator on the newest iOS
+and run:
+
+```sh
+make record COMPONENT=Buttons/PressableButtonStyle
+```
+
+It opens the demo alone with `-showcaseComponent <id>`, records it and writes
+the preview, resized to 320 pixels wide at 20 frames per second. A demo that
+animates by itself records for 4 seconds. A demo that needs touches lists them
+in `previewSteps` in its metadata, as `axe batch` steps:
+`["tap --label Like", "sleep 1"]`.
+
+When AXe cannot perform the gesture, such as holding before a drag, record by
+hand, set `"previewManual": true` and convert it:
 
 ```sh
 xcrun simctl io booted recordVideo recording.mov   # Ctrl-C to stop
-make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
+make preview INPUT=recording.mov COMPONENT=Lists/ReorderableCardList
 ```
 
 Keep it to the 2 to 5 seconds that show the effect, and do not commit the
-recording. The command resizes it to 320 pixels wide at 20 frames per second.
+recording.
 
 ## Rules for tests
 
-- Components with logic get tests. Use Swift Testing (`import Testing`), never
-  XCTest.
+- Components with logic get tests in `Showcase/ShowcaseTests/<Name>Tests.swift`.
+  Use Swift Testing (`import Testing`), never XCTest.
+- A test for a newer API marks each test function with `@available`. Swift
+  Testing rejects it on the type.
 - No comments inside test bodies. Separate the phases with blank lines.
 - Use `try #require()` for casts and optionals.
 - Only mark a suite `@MainActor` when the type under test is `@MainActor`.
