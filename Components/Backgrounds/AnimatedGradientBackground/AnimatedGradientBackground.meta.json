@@ -1,0 +1,15 @@
+{
+  "id": "animated-gradient-background",
+  "name": "AnimatedGradientBackground",
+  "title": "Animated Gradient Background",
+  "category": "Backgrounds",
+  "summary": "A linear gradient that slowly drifts its colors and turns its direction.",
+  "keywords": {
+    "en": ["background", "gradient", "linear gradient", "animated", "colors", "drift"],
+    "es": ["fondo", "degradado", "gradiente", "animado", "colores", "movimiento"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["LinearGradient", "TimelineView", "Color.mix"],
+  "origin": { "kind": "original" }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "color-orbs-background",
+  "name": "ColorOrbsBackground",
+  "title": "Color Orbs Background",
+  "category": "Backgrounds",
+  "summary": "Large, soft colored orbs drifting slowly over a dark base.",
+  "keywords": {
+    "en": ["background", "orbs", "blur", "blobs", "glow", "ambient", "animated"],
+    "es": ["fondo", "orbes", "difuminado", "manchas", "brillo", "ambiente", "animado"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Canvas", "TimelineView", "GraphicsContext"],
+  "origin": { "kind": "original" }
+}
