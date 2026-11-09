@@ -1,0 +1,44 @@
+{
+  "id": "video-poster-to-player",
+  "name": "VideoPosterToPlayer",
+  "title": "Video Poster To Player",
+  "category": "Media",
+  "summary": "A poster with a play button that opens into the playing video in the same frame through a growing circle.",
+  "keywords": {
+    "en": [
+      "video",
+      "poster",
+      "thumbnail",
+      "play button",
+      "reveal",
+      "transition",
+      "inline player"
+    ],
+    "es": [
+      "vídeo",
+      "póster",
+      "miniatura",
+      "botón de reproducir",
+      "revelar",
+      "transición"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Transition",
+    "mask",
+    "TimelineView",
+    "withAnimation"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label 'Play video'",
+    "sleep 2",
+    "tap --label 'Close video'",
+    "sleep 1.2"
+  ]
+}

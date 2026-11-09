@@ -1,0 +1,45 @@
+{
+  "id": "waveform-scrubber",
+  "name": "WaveformScrubber",
+  "title": "Waveform Scrubber",
+  "category": "Media",
+  "summary": "An audio waveform of bars that you drag to seek and that fills as playback moves on.",
+  "keywords": {
+    "en": [
+      "waveform",
+      "audio",
+      "scrubber",
+      "seek",
+      "voice note",
+      "canvas",
+      "bars"
+    ],
+    "es": [
+      "forma de onda",
+      "audio",
+      "barra de progreso",
+      "buscar",
+      "nota de voz",
+      "barras"
+    ]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": [
+    "Canvas",
+    "DragGesture",
+    "GestureState",
+    "accessibilityAdjustableAction"
+  ],
+  "origin": {
+    "kind": "inspired",
+    "credit": "Kavsoft tutorials"
+  },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Play",
+    "sleep 1.4",
+    "swipe --start-x 40 --start-y 451 --end-x 340 --end-y 451 --duration 1.2",
+    "sleep 1.2"
+  ]
+}
