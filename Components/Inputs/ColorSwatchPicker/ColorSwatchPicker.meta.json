@@ -1,0 +1,26 @@
+{
+  "id": "color-swatch-picker",
+  "name": "ColorSwatchPicker",
+  "title": "Color Swatch Picker",
+  "category": "Inputs",
+  "summary": "A grid of selectable color swatches where the chosen one grows a ring.",
+  "keywords": {
+    "en": ["color picker", "swatches", "palette", "selection", "ring", "theme", "accent color"],
+    "es": ["selector de color", "muestras", "paleta", "selección", "anillo", "tema", "color de acento"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["LazyVGrid", "ScaledMetric", "Animation.spring"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Coral",
+    "sleep 0.9",
+    "tap --label Sky",
+    "sleep 0.9",
+    "tap --label Rose",
+    "sleep 0.9",
+    "tap --label Amber",
+    "sleep 0.9"
+  ]
+}
