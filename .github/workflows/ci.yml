@@ -89,8 +89,13 @@ jobs:
         run: node scripts/catalog.mjs prune 26
       - name: Install the Metal toolchain
         run: xcodebuild -downloadComponent MetalToolchain
+      # The download fails with "Unable to connect to simulator" when the runner
+      # starts before its simulator service is ready, so it is tried again.
       - name: Install the iOS 18 simulator
         run: |
-          xcodebuild -downloadPlatform iOS -buildVersion 18.5
+          for attempt in 1 2 3; do
+            if xcodebuild -downloadPlatform iOS -buildVersion 18.5; then break; fi
+            sleep 20
+          done
           xcrun simctl create 'Showcase iOS 18' 'iPhone 16' com.apple.CoreSimulator.SimRuntime.iOS-18-5
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=Showcase iOS 18,OS=18.5'
