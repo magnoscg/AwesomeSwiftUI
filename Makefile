@@ -43,8 +43,10 @@ showcase-test:
 	( set -o pipefail; $(XCODEBUILD) test $(XCBEAUTIFY) )
 
 # Compiles every component the way a new Xcode project does, with the main actor
-# as the default isolation. Its own build folder keeps both builds incremental.
-MAIN_ACTOR_BUILD = $(HOME)/Library/Developer/Xcode/DerivedData/Showcase-MainActor
+# as the default isolation. Its own build folder keeps both builds incremental,
+# and the folder is named after the checkout so that two worktrees can build at
+# the same time.
+MAIN_ACTOR_BUILD = $(HOME)/Library/Developer/Xcode/DerivedData/Showcase-MainActor-$(notdir $(CURDIR))
 showcase-build-mainactor:
 	( set -o pipefail; $(XCODEBUILD) -derivedDataPath '$(MAIN_ACTOR_BUILD)' build \
 		SWIFT_DEFAULT_ACTOR_ISOLATION=MainActor SWIFT_APPROACHABLE_CONCURRENCY=YES $(XCBEAUTIFY) )
