@@ -28,6 +28,8 @@ on `main`.
   own coordinates.
 - Chevrons and arrows that mean back or forward now point the right way in
   right-to-left layouts.
+- Photo Lightbox returns every page to fit when its photos change. A photo
+  that moved into another's place used to inherit its zoom.
 
 ### Changed
 

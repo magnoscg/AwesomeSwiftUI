@@ -27,6 +27,7 @@ enum PhotoLightboxMath {
 ///
 /// Present it above your content, for example in a `ZStack`. Pinch or double tap to zoom. Paging
 /// and the swipe down stop while the current photo is zoomed, so a drag pans it instead.
+/// Changing `photos` returns every page to fit.
 struct PhotoLightbox: View {
     let photos: [Image]
     @Binding var selection: Int
@@ -72,6 +73,8 @@ struct PhotoLightbox: View {
             let page = PhotoLightboxMath.clampedPage(selection, count: count)
             if page != selection { selection = page }
         }
+        // Zoom is kept by position, so a photo that moves into another's place must not inherit its zoom.
+        .onChange(of: photos) { zooms.removeAll() }
     }
 
     private var header: some View {
@@ -139,6 +142,10 @@ private struct PhotoLightboxPage: View {
                 .simultaneousGesture(pinchGesture(in: size))
                 .gesture(panGesture(in: size), including: zoom > 1 ? .all : .subviews)
                 .accessibilityAction(named: zoom > 1 ? "Zoom out" : "Zoom in") { toggleZoom() }
+        }
+        // A photo back at fit starts its next zoom from the center, also when the viewer resets the zoom.
+        .onChange(of: zoom) { _, zoom in
+            if zoom <= 1 { offset = .zero }
         }
         // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
         .environment(\.layoutDirection, .leftToRight)
