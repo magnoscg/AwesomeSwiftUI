@@ -38,6 +38,11 @@ struct TapbackReactionBubble<Content: View>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
+        // Plain values for the alignment guides, which may not capture a generic view: Xcode 26 rejects it.
+        let gap = gap
+        let overhang = badgeOverhang
+        let isLeading = side == .leading
+
         content()
             .overlay(alignment: Alignment(horizontal: side == .leading ? .trailing : .leading, vertical: .top)) {
                 // The guides go on a container that is always there: on a view that comes and goes
@@ -48,8 +53,8 @@ struct TapbackReactionBubble<Content: View>: View {
                     }
                 }
                 // Most of the badge hangs outside the corner, so it does not cover the message.
-                .alignmentGuide(.top) { $0.height * badgeOverhang }
-                .alignmentGuide(side == .leading ? .trailing : .leading) { $0.width * (side == .leading ? 1 - badgeOverhang : badgeOverhang) }
+                .alignmentGuide(.top) { $0.height * overhang }
+                .alignmentGuide(isLeading ? .trailing : .leading) { $0.width * (isLeading ? 1 - overhang : overhang) }
             }
             .scaleEffect(isPicking && !reduceMotion ? 1.04 : 1)
             .overlay(alignment: Alignment(horizontal: side, vertical: .top)) {
