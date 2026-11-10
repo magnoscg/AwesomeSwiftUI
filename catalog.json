@@ -1,5 +1,5 @@
 {
-  "count": 254,
+  "count": 255,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1612,6 +1612,50 @@
       "path": "Components/Cards/TiltCard/TiltCard.swift",
       "preview": "Components/Cards/TiltCard/TiltCard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/TiltCard/TiltCard.swift"
+    },
+    {
+      "id": "wallet-card-stack",
+      "name": "WalletCardStack",
+      "title": "Wallet Card Stack",
+      "category": "Cards",
+      "summary": "A stack of cards where the one you tap rises to the top with its details and the rest wait in a pile below.",
+      "keywords": {
+        "en": [
+          "wallet",
+          "card stack",
+          "credit cards",
+          "passes",
+          "expand",
+          "pile",
+          "payment cards"
+        ],
+        "es": [
+          "cartera",
+          "wallet",
+          "pila de tarjetas",
+          "tarjetas de crédito",
+          "pases",
+          "expandir",
+          "tarjetas de pago"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ZStack",
+        "onGeometryChange",
+        "ButtonStyle",
+        "ScaledMetric",
+        "zIndex"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Apple Wallet",
+        "url": "https://www.apple.com/wallet/"
+      },
+      "path": "Components/Cards/WalletCardStack/WalletCardStack.swift",
+      "preview": "Components/Cards/WalletCardStack/WalletCardStack.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/WalletCardStack/WalletCardStack.swift"
     },
     {
       "id": "animated-bar-chart",

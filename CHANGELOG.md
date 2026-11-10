@@ -12,6 +12,8 @@ on `main`.
   edge and spreads inward, like an assistant that is listening.
 - Karaoke Lyrics Text, lyrics that start dim and light up from the first
   letter to the last as they are sung.
+- Wallet Card Stack, a stack of cards where the one you tap rises to the top
+  with its details and the rest wait in a pile below.
 
 ### Changed
 
