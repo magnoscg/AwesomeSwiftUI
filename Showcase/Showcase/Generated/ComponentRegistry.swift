@@ -549,6 +549,15 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "range-slider",
+            title: "Range Slider",
+            category: "Controls",
+            summary: "A slider with two thumbs that picks a range, like the lowest and highest price of a filter.",
+            keywords: ["range slider", "double slider", "two thumbs", "price filter", "min max", "dual slider", "interval", "slider de rango", "doble slider", "dos asas", "filtro de precio", "mínimo y máximo", "intervalo", "deslizador"],
+            minIOS: "18.0",
+            demo: { AnyView(RangeSliderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "ruler-scroll-picker",
             title: "Ruler Scroll Picker",
             category: "Controls",

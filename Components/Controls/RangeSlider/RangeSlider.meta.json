@@ -1,0 +1,24 @@
+{
+  "id": "range-slider",
+  "name": "RangeSlider",
+  "title": "Range Slider",
+  "category": "Controls",
+  "summary": "A slider with two thumbs that picks a range, like the lowest and highest price of a filter.",
+  "keywords": {
+    "en": ["range slider", "double slider", "two thumbs", "price filter", "min max", "dual slider", "interval"],
+    "es": ["slider de rango", "doble slider", "dos asas", "filtro de precio", "mínimo y máximo", "intervalo", "deslizador"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "onGeometryChange", "accessibilityAdjustableAction", "sensoryFeedback", "ClosedRange"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 222 --start-y 460 --end-x 310 --end-y 460 --duration 1.2 --delta 3",
+    "sleep 0.4",
+    "swipe --start-x 96 --start-y 460 --end-x 170 --end-y 460 --duration 1.1 --delta 3",
+    "sleep 0.4",
+    "swipe --start-x 310 --start-y 460 --end-x 200 --end-y 460 --duration 1.2 --delta 3",
+    "sleep 0.8"
+  ]
+}
