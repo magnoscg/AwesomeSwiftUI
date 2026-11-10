@@ -855,6 +855,15 @@ enum ComponentRegistry {
             demo: { AnyView(ToastBannerDemo()) }
         ),
         ShowcaseEntry(
+            id: "toast-host",
+            title: "Toast Host",
+            category: "Feedback",
+            summary: "A queue of toasts that show above everything, sheets and full-screen covers included.",
+            keywords: ["toast", "toast over sheet", "banner", "notification", "queue", "overlay window", "hud", "toast", "aviso sobre hoja", "banner", "notificación", "cola", "ventana superpuesta", "mensaje flotante"],
+            minIOS: "18.0",
+            demo: { AnyView(ToastHostDemo()) }
+        ),
+        ShowcaseEntry(
             id: "tooltip-popover",
             title: "Tooltip Popover",
             category: "Feedback",

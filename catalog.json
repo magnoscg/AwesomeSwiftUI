@@ -1,5 +1,5 @@
 {
-  "count": 261,
+  "count": 262,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3823,6 +3823,48 @@
       "path": "Components/Feedback/ToastBanner/ToastBanner.swift",
       "preview": "Components/Feedback/ToastBanner/ToastBanner.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastBanner/ToastBanner.swift"
+    },
+    {
+      "id": "toast-host",
+      "name": "ToastHost",
+      "title": "Toast Host",
+      "category": "Feedback",
+      "summary": "A queue of toasts that show above everything, sheets and full-screen covers included.",
+      "keywords": {
+        "en": [
+          "toast",
+          "toast over sheet",
+          "banner",
+          "notification",
+          "queue",
+          "overlay window",
+          "hud"
+        ],
+        "es": [
+          "toast",
+          "aviso sobre hoja",
+          "banner",
+          "notificación",
+          "cola",
+          "ventana superpuesta",
+          "mensaje flotante"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "UIWindow",
+        "UIHostingController",
+        "Observable",
+        "UIViewRepresentable",
+        "AccessibilityNotification.Announcement"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/ToastHost/ToastHost.swift",
+      "preview": "Components/Feedback/ToastHost/ToastHost.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastHost/ToastHost.swift"
     },
     {
       "id": "tooltip-popover",

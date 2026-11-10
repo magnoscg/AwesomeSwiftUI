@@ -26,6 +26,8 @@ on `main`.
   once for each version.
 - Trial Timeline Paywall, a paywall that shows what happens on each day of the
   free trial, with the plans and the button to start it.
+- Toast Host, a queue of toasts that show above everything, sheets and
+  full-screen covers included.
 
 ### Changed
 
