@@ -8672,20 +8672,23 @@ struct TrialTimelinePaywall: View {
             Button {
                 onContinue(plan)
             } label: {
-                ZStack {
-                    Text(plan.trialDays > 0 ? "Start \(plan.trialDays)-Day Free Trial" : "Subscribe")
-                        .opacity(isPurchasing ? 0 : 1)
-                    if isPurchasing {
-                        ProgressView()
-                            .tint(.white)
+                Text(plan.trialDays > 0 ? "Start \(plan.trialDays)-Day Free Trial" : "Subscribe")
+                    .font(.headline)
+                    .opacity(isPurchasing ? 0 : 1)
+                    .frame(maxWidth: .infinity)
+                    .overlay {
+                        if isPurchasing {
+                            ProgressView()
+                                .controlSize(.regular)
+                                .tint(.white)
+                        }
                     }
-                }
-                .font(.headline)
-                .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .disabled(isPurchasing)
+            // Not `disabled`, which would take the color away from under the spinner.
+            .allowsHitTesting(!isPurchasing)
+            .accessibilityValue(isPurchasing ? "In progress" : "")
 
             Button("Restore Purchases", action: onRestore)
                 .font(.footnote)
