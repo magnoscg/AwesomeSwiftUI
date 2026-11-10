@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.3.0 - 2026-11-10
+
 ### Added
 
 - A component can be drawn by a Metal shader. It then has a second file to
