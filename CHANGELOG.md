@@ -6,6 +6,20 @@ on `main`.
 
 ## Unreleased
 
+### Fixed
+
+- On a narrow iPhone, the preset buttons of Spring Study Playground no longer
+  break their names in two, and the demo of Animated Badge Count keeps its
+  third badge on screen.
+- On iOS 18, Interactive Line Chart no longer cuts its last date, and the tab
+  bars in the demos of Sidebar Adaptive Tabs and Tab Navigation State Preserve
+  can be read over their colored pages.
+
+### Changed
+
+- CI also runs the Showcase tests on iOS 18, the oldest version the catalog
+  supports.
+
 ## 0.3.0 - 2026-11-10
 
 ### Added

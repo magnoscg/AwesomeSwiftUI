@@ -67,7 +67,7 @@ struct AnimatedBadgeCountDemo: View {
                 icon("envelope.fill", label: "Mail", tint: .orange)
                 icon("cart.fill", label: "Cart", tint: .green)
             }
-            .scaleEffect(1.7)
+            .scaleEffect(1.4)
         }
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }

@@ -109,6 +109,8 @@ private struct TabNavigationStatePreserveDemoPage: View {
             .foregroundStyle(.white)
         }
         .navigationTitle(title)
+        // Before iOS 26 the bar is clear over a page that does not scroll, and its items take the page's color.
+        .toolbarBackground(.visible, for: .tabBar)
     }
 }
 
