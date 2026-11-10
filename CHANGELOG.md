@@ -33,6 +33,8 @@ on `main`.
 
 - `make verify` and CI also compile every component with the main actor as the
   default isolation.
+- The rules ask every component to work in right-to-left layouts, and say how
+  to convert a gesture and how to try a demo that way.
 
 ## 0.2.1 - 2026-11-09
 
