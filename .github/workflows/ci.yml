@@ -58,3 +58,28 @@ jobs:
         run: xcodebuild -downloadComponent MetalToolchain
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
       - run: make showcase-build-mainactor DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
+
+  # iOS 18 is the baseline every component claims unless it says otherwise.
+  # The runner has no iOS 18 simulator, so this job downloads one.
+  showcase-ios-18:
+    name: Showcase on iOS 18
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Remove components this Xcode cannot compile
+        run: node scripts/catalog.mjs prune 26
+      - name: Install the Metal toolchain
+        run: xcodebuild -downloadComponent MetalToolchain
+      - name: Install the iOS 18 simulator
+        run: |
+          xcodebuild -downloadPlatform iOS -buildVersion 18.5
+          xcrun simctl create 'Showcase iOS 18' 'iPhone 16' com.apple.CoreSimulator.SimRuntime.iOS-18-5
+      - run: make showcase-test DESTINATION='platform=iOS Simulator,name=Showcase iOS 18,OS=18.5'
