@@ -513,6 +513,15 @@ enum ComponentRegistry {
             demo: { AnyView(PricingTierCardsDemo()) }
         ),
         ShowcaseEntry(
+            id: "trial-timeline-paywall",
+            title: "Trial Timeline Paywall",
+            category: "Commerce",
+            summary: "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+            keywords: ["paywall", "free trial", "trial timeline", "subscription", "pricing", "upgrade", "in-app purchase", "paywall", "prueba gratis", "línea de tiempo", "suscripción", "precios", "mejorar plan", "compra dentro de la app"],
+            minIOS: "18.0",
+            demo: { AnyView(TrialTimelinePaywallDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-radio-button",
             title: "Animated Radio Button",
             category: "Controls",

@@ -1,5 +1,5 @@
 {
-  "count": 260,
+  "count": 261,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2256,6 +2256,50 @@
       "path": "Components/Commerce/PricingTierCards/PricingTierCards.swift",
       "preview": "Components/Commerce/PricingTierCards/PricingTierCards.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/PricingTierCards/PricingTierCards.swift"
+    },
+    {
+      "id": "trial-timeline-paywall",
+      "name": "TrialTimelinePaywall",
+      "title": "Trial Timeline Paywall",
+      "category": "Commerce",
+      "summary": "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+      "keywords": {
+        "en": [
+          "paywall",
+          "free trial",
+          "trial timeline",
+          "subscription",
+          "pricing",
+          "upgrade",
+          "in-app purchase"
+        ],
+        "es": [
+          "paywall",
+          "prueba gratis",
+          "línea de tiempo",
+          "suscripción",
+          "precios",
+          "mejorar plan",
+          "compra dentro de la app"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollView",
+        "safeAreaInset",
+        "ScaledMetric",
+        "Calendar",
+        "Date.FormatStyle"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Blinkist's free trial timeline",
+        "url": "https://www.revenuecat.com/blog/growth/how-top-apps-approach-paywalls/"
+      },
+      "path": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift",
+      "preview": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift"
     },
     {
       "id": "animated-radio-button",
