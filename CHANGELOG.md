@@ -6,6 +6,16 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- A component can be drawn by a Metal shader. It then has a second file to
+  copy, `<Name>.metal`, which its page on the site, `catalog.json`, `llms.txt`
+  and `llms-full.txt` show next to its Swift file.
+- The first three components with a shader, for 252 in all: Ripple Shader
+  Effect, a wave that bends the view from the point you tap; Holographic Card,
+  a foil that shifts as you tilt the card; and Dissolve Shader Transition,
+  which burns a view away through noise.
+
 ### Fixed
 
 - Components compile in projects that use the main actor as their default

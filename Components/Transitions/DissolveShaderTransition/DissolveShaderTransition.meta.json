@@ -1,0 +1,22 @@
+{
+  "id": "dissolve-shader-transition",
+  "name": "DissolveShaderTransition",
+  "title": "Dissolve Shader Transition",
+  "category": "Transitions",
+  "summary": "A custom transition that burns a view away through noise, with a glowing edge, drawn by a Metal shader.",
+  "keywords": {
+    "en": ["dissolve", "shader", "metal", "noise", "burn", "disintegrate", "transition", "ember", "threshold", "color effect"],
+    "es": ["disolver", "disolución", "shader", "metal", "ruido", "quemar", "desintegrar", "transición", "brasa", "umbral"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["ShaderLibrary", "colorEffect", "Transition", "Animatable"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label Dissolve",
+    "sleep 2",
+    "tap --label Restore",
+    "sleep 2"
+  ]
+}

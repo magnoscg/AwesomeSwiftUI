@@ -15,7 +15,7 @@ easy to copy matters as much as the code itself.
 
 | Path | What lives there | State |
 |---|---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp` | In place |
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, and `<Name>.metal` when it draws with a Metal shader | In place |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata | In place |
 | `scripts/` | Validates the components and generates the files below | In place |
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
@@ -29,7 +29,8 @@ Update the State column when a planned part lands.
 ## Commands
 
 You need Node 24 or later and Xcode 27.2 or later. The scripts have no
-dependencies.
+dependencies. Xcode compiles the shaders with its Metal toolchain, which is a
+separate download: `xcodebuild -downloadComponent MetalToolchain`.
 
 ```sh
 make catalog                   # rewrite the generated files after changing a component
@@ -65,7 +66,8 @@ Showcase tests and the main-actor build on iOS 26. GitHub's macOS runners stop
 at Xcode 26.6, so that job removes components that need iOS 27 before
 compiling. Those are verified only by `make verify` on a machine with
 Xcode 27.2 or later, so run it before opening the pull request. Revisit this
-when a runner offers Xcode 27.
+when a runner offers Xcode 27. The job also downloads the Metal toolchain,
+which the runners do not always have.
 
 Pages deploys the site on every push to `main`.
 
@@ -89,15 +91,27 @@ anything else:
 
 ## Rules for every component
 
-1. **One file to copy.** Keep the component, a `<Name>Demo` view and its
-   `#Preview` in `<Name>.swift`. It may not import another component, a package
-   or an asset.
+1. **One file to copy, or two with a shader.** Keep the component, a
+   `<Name>Demo` view and its `#Preview` in `<Name>.swift`. It may not import
+   another component, a package or an asset. The one exception is a Metal
+   shader, because SwiftUI's `ShaderLibrary` only loads compiled Metal: a
+   component may have exactly one `<Name>.metal` next to its Swift file.
+   - The documentation comment of its type says to copy both files.
+   - Every function in `<Name>.metal` starts with the name of the component,
+     like `RippleShaderEffectDistortion`. Xcode compiles every `.metal` file
+     of a target into one `default.metallib`, in the Showcase and in the app
+     the component is copied to, so two functions with the same name collide.
+
+   `make check` rejects a shader that breaks this, and a Swift file that does
+   not name its shader.
 2. **The copyright header comes first**, so the notice travels with the code:
 
    ```swift
    // SPDX-License-Identifier: MIT
    // Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
    ```
+
+   A `.metal` file starts with the same two lines.
 
 3. **Swift 6 language mode with complete concurrency checking.** A copied
    component has to compile in both kinds of project: one that sets no default
@@ -160,6 +174,10 @@ recording.
   Use Swift Testing (`import Testing`), never XCTest.
 - A test for a newer API marks each test function with `@available`. Swift
   Testing rejects it on the type.
+- A component with a shader tests that it compiles, with
+  `try await shader.compile(as: .colorEffect)` or the effect it uses. Swift
+  cannot see a misspelled function or a wrong argument in a shader, and this
+  fails on both.
 - No comments inside test bodies. Separate the phases with blank lines.
 - Use `try #require()` for casts and optionals.
 - Only mark a suite `@MainActor` when the type under test is `@MainActor`.

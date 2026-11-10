@@ -58,7 +58,8 @@ Every component needs an animated preview, as
 [AGENTS.md](AGENTS.md#recording-a-preview) explains. After changing a
 component, run `make catalog` and commit the generated files.
 Then check the change with `make verify`, which needs Node 24 or later and
-Xcode 27.2 or later. [AGENTS.md](AGENTS.md#commands) lists every command.
+Xcode 27.2 or later with its Metal toolchain.
+[AGENTS.md](AGENTS.md#commands) lists every command.
 
 ## Releasing
 

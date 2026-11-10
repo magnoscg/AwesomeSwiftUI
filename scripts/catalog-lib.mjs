@@ -83,6 +83,7 @@ export function loadCatalog(root, { requirePreview = true } = {}) {
 function loadComponent(root, relative, category, name, files, errors, requirePreview) {
   const metaFile = `${name}.meta.json`;
   const sourceFile = `${name}.swift`;
+  const shaderFile = `${name}.metal`;
   if (!files.includes(metaFile)) {
     errors.push(`${relative}: missing ${metaFile}`);
     return null;
@@ -101,13 +102,24 @@ function loadComponent(root, relative, category, name, files, errors, requirePre
   }
 
   const source = readFileSync(join(root, relative, sourceFile), 'utf8');
+  const shaderSource = files.includes(shaderFile) ? readFileSync(join(root, relative, shaderFile), 'utf8') : null;
   const before = errors.length;
   validateMeta(meta, relative, category, name, errors);
-  if (errors.length === before) validateSource(meta, source, relative, name, errors);
+  if (errors.length === before) {
+    validateSource(meta, source, relative, name, errors);
+    if (shaderSource !== null) validateShader(meta, source, shaderSource, relative, name, errors);
+  }
+  for (const file of files) {
+    if (file.endsWith('.metal') && file !== shaderFile) {
+      errors.push(`${relative}: ${file} must be named ${shaderFile}, the one shader a component may have`);
+    }
+  }
   validatePreview(root, relative, name, files, errors, requirePreview);
   if (errors.length !== before) return null;
 
-  return { ...meta, path: `${relative}/${sourceFile}`, preview: `${relative}/${name}.webp`, source };
+  const component = { ...meta, path: `${relative}/${sourceFile}`, preview: `${relative}/${name}.webp`, source };
+  if (shaderSource === null) return component;
+  return { ...component, shader: `${relative}/${shaderFile}`, shaderSource };
 }
 
 function validatePreview(root, relative, name, files, errors, requirePreview) {
@@ -191,14 +203,7 @@ function validateOrigin(origin, fail) {
 function validateSource(meta, source, relative, name, errors) {
   const fail = (message) => errors.push(`${relative}: ${message}`);
 
-  const firstLine = source.split('\n', 1)[0];
-  if (meta.origin.kind === 'adapted') {
-    if (!firstLine.startsWith('// SPDX-License-Identifier:')) {
-      fail('the first line must be an SPDX license header');
-    }
-  } else if (firstLine !== '// SPDX-License-Identifier: MIT') {
-    fail('the first line must be "// SPDX-License-Identifier: MIT"');
-  }
+  validateHeader(meta, source, 'the first line', fail);
 
   if (!new RegExp(`\\bstruct\\s+${name}Demo\\b`).test(source)) fail(`missing struct ${name}Demo`);
   if (!source.includes('#Preview')) fail('missing #Preview');
@@ -211,6 +216,52 @@ function validateSource(meta, source, relative, name, errors) {
   for (const [pattern, message] of BANNED_CODE) {
     if (pattern.test(code)) fail(message);
   }
+}
+
+function validateHeader(meta, text, line, fail) {
+  const firstLine = text.split('\n', 1)[0];
+  if (meta.origin.kind === 'adapted') {
+    if (!firstLine.startsWith('// SPDX-License-Identifier:')) fail(`${line} must be an SPDX license header`);
+  } else if (firstLine !== '// SPDX-License-Identifier: MIT') {
+    fail(`${line} must be "// SPDX-License-Identifier: MIT"`);
+  }
+}
+
+// Xcode compiles every .metal file of a target into one library, in the
+// Showcase and in the app a component is copied to, so two functions with the
+// same name collide. The name of the component in front keeps them apart.
+function validateShader(meta, source, shaderSource, relative, name, errors) {
+  const fail = (message) => errors.push(`${relative}: ${message}`);
+  const shaderFile = `${name}.metal`;
+
+  validateHeader(meta, shaderSource, `the first line of ${shaderFile}`, fail);
+  if (!source.includes(shaderFile)) fail(`${name}.swift must say that ${shaderFile} is copied with it`);
+
+  const functions = shaderFunctions(shaderSource);
+  if (functions.length === 0) fail(`${shaderFile} defines no function`);
+  for (const shaderFunction of functions) {
+    if (!shaderFunction.startsWith(name)) fail(`function ${shaderFunction} in ${shaderFile} must start with ${name}`);
+  }
+}
+
+// Returns the names of the functions a shader defines. Metal is C++, so a
+// definition is a name, its parameters and a body, outside every other body.
+function shaderFunctions(shaderSource) {
+  const code = shaderSource
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/\/\/.*$/gm, '')
+    .replace(/\\\n/g, ' ')
+    .replace(/^[ \t]*#.*$/gm, '');
+
+  let topLevel = '';
+  let depth = 0;
+  for (const character of code) {
+    if (character === '}') depth -= 1;
+    if (depth === 0) topLevel += character;
+    if (character === '{') depth += 1;
+  }
+  const definition = /([A-Za-z_]\w*)\s*\((?:[^()]|\([^()]*\))*\)\s*\{/g;
+  return [...topLevel.matchAll(definition)].map((match) => match[1]);
 }
 
 function availabilityPattern(version) {
@@ -250,10 +301,10 @@ function renderCategoryPages(components) {
   return categoriesOf(components).map((category) => {
     const rows = components
       .filter((component) => component.category === category)
-      .map(
-        (component) =>
-          `| <img src="../${component.preview}" width="120" alt="${escapeAttribute(component.title)} preview"> | [${component.title}](../${component.path}) | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`,
-      );
+      .map((component) => {
+        const shader = component.shader ? ` and its [shader](../${component.shader})` : '';
+        return `| <img src="../${component.preview}" width="120" alt="${escapeAttribute(component.title)} preview"> | [${component.title}](../${component.path})${shader} | ${escapeCell(component.summary)} | ${component.minIOS}+ | ${component.difficulty} |`;
+      });
     const page = [
       `# ${category}`,
       '',
@@ -418,13 +469,25 @@ function renderDocsPage(component) {
     '',
     '## Use it',
     '',
-    `Copy this code into your project, or [download the file](${RAW_BASE}/${component.path}).`,
+    ...renderDocsSource(component),
+  ].join('\n');
+}
+
+function renderDocsSource(component) {
+  const swift = [`${SOURCE_FENCE}swift title="${component.name}.swift"`, component.source.trimEnd(), SOURCE_FENCE, ''];
+  if (!component.shader) {
+    return [`Copy this code into your project, or [download the file](${RAW_BASE}/${component.path}).`, '', ...swift];
+  }
+  return [
+    `Copy both files into your project: the Swift file and the Metal shader it draws with. Or download [${component.name}.swift](${RAW_BASE}/${component.path}) and [${component.name}.metal](${RAW_BASE}/${component.shader}).`,
     '',
-    `${SOURCE_FENCE}swift title="${component.name}.swift"`,
-    component.source.trimEnd(),
+    ...swift,
+    // The site has no grammar for Metal, which is C++.
+    `${SOURCE_FENCE}cpp title="${component.name}.metal"`,
+    component.shaderSource.trimEnd(),
     SOURCE_FENCE,
     '',
-  ].join('\n');
+  ];
 }
 
 function renderDocsOrigin(origin) {
@@ -468,9 +531,10 @@ export function findStale(root, outputs) {
 }
 
 function renderCatalogJSON(components) {
-  const entries = components.map(({ source, ...component }) => {
+  const entries = components.map(({ source, shaderSource, ...component }) => {
     for (const field of RECORDING_FIELDS) delete component[field];
-    return { ...component, rawURL: `${RAW_BASE}/${component.path}` };
+    const entry = { ...component, rawURL: `${RAW_BASE}/${component.path}` };
+    return component.shader ? { ...entry, shaderRawURL: `${RAW_BASE}/${component.shader}` } : entry;
   });
   return `${JSON.stringify({ count: entries.length, components: entries }, null, 2)}\n`;
 }
@@ -479,9 +543,9 @@ function renderLLMs(components) {
   const lines = [
     '# AwesomeSwiftUI',
     '',
-    '> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. Each component states its minimum iOS.',
+    '> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. A component drawn by a Metal shader has a second file, which its entry links: add both. Each component states its minimum iOS.',
     '',
-    `Search \`${RAW_BASE}/catalog.json\` by keyword, in English or Spanish, and fetch the \`rawURL\` of the match.`,
+    `Search \`${RAW_BASE}/catalog.json\` by keyword, in English or Spanish, and fetch the \`rawURL\` of the match, and its \`shaderRawURL\` when it has one.`,
     '',
     '## Components',
     '',
@@ -489,8 +553,11 @@ function renderLLMs(components) {
   if (components.length === 0) lines.push('No components yet.', '');
   for (const component of components) {
     const keywords = [...component.keywords.en, ...component.keywords.es].join(', ');
+    const shader = component.shader
+      ? ` Copy its shader too: [${component.name}.metal](${RAW_BASE}/${component.shader}).`
+      : '';
     lines.push(
-      `- [${component.title}](${RAW_BASE}/${component.path}): ${component.summary} iOS ${component.minIOS}+. ${component.category}. Keywords: ${keywords}.`,
+      `- [${component.title}](${RAW_BASE}/${component.path}): ${component.summary} iOS ${component.minIOS}+. ${component.category}. Keywords: ${keywords}.${shader}`,
     );
   }
   if (components.length > 0) lines.push('');
@@ -507,11 +574,13 @@ function renderLLMs(components) {
 
 function renderLLMsFull(components) {
   const header =
-    '# AwesomeSwiftUI: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT.\n';
-  const sections = components.map(
-    (component) =>
-      `\n## ${component.title}\n\n${component.summary}\n\nCategory: ${component.category}. Minimum: iOS ${component.minIOS}. Path: ${component.path}\n\n\`\`\`swift\n${component.source.trimEnd()}\n\`\`\`\n`,
-  );
+    '# AwesomeSwiftUI: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.\n';
+  const sections = components.map((component) => {
+    const shader = component.shader
+      ? `\nShader: ${component.shader}\n\n\`\`\`metal\n${component.shaderSource.trimEnd()}\n\`\`\`\n`
+      : '';
+    return `\n## ${component.title}\n\n${component.summary}\n\nCategory: ${component.category}. Minimum: iOS ${component.minIOS}. Path: ${component.path}\n\n\`\`\`swift\n${component.source.trimEnd()}\n\`\`\`\n${shader}`;
+  });
   return header + sections.join('');
 }
 
