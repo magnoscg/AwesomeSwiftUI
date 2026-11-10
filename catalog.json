@@ -1,5 +1,5 @@
 {
-  "count": 258,
+  "count": 259,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -5236,6 +5236,48 @@
       "path": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift",
       "preview": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift"
+    },
+    {
+      "id": "tag-input-field",
+      "name": "TagInputField",
+      "title": "Tag Input Field",
+      "category": "Inputs",
+      "summary": "A field that turns what you type into removable tags, which wrap onto as many lines as they need.",
+      "keywords": {
+        "en": [
+          "tags",
+          "token field",
+          "chips input",
+          "tag editor",
+          "labels",
+          "keywords",
+          "multi value"
+        ],
+        "es": [
+          "etiquetas",
+          "campo de etiquetas",
+          "chips",
+          "tokens",
+          "palabras clave",
+          "editor de etiquetas",
+          "varios valores"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "TextField",
+        "FocusState",
+        "onSubmit",
+        "accessibilityAction"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/TagInputField/TagInputField.swift",
+      "preview": "Components/Inputs/TagInputField/TagInputField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/TagInputField/TagInputField.swift"
     },
     {
       "id": "validated-text-field",

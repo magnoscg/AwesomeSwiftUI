@@ -20,6 +20,8 @@ on `main`.
   when the passcode is wrong.
 - Range Slider, a slider with two thumbs that picks a range, like the lowest
   and highest price of a filter.
+- Tag Input Field, a field that turns what you type into removable tags, which
+  wrap onto as many lines as they need.
 
 ### Changed
 

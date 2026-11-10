@@ -1188,6 +1188,15 @@ enum ComponentRegistry {
             demo: { AnyView(SearchFieldWithSuggestionsDemo()) }
         ),
         ShowcaseEntry(
+            id: "tag-input-field",
+            title: "Tag Input Field",
+            category: "Inputs",
+            summary: "A field that turns what you type into removable tags, which wrap onto as many lines as they need.",
+            keywords: ["tags", "token field", "chips input", "tag editor", "labels", "keywords", "multi value", "etiquetas", "campo de etiquetas", "chips", "tokens", "palabras clave", "editor de etiquetas", "varios valores"],
+            minIOS: "18.0",
+            demo: { AnyView(TagInputFieldDemo()) }
+        ),
+        ShowcaseEntry(
             id: "validated-text-field",
             title: "Validated Text Field",
             category: "Inputs",
