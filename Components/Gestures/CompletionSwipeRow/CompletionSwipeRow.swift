@@ -3,7 +3,8 @@
 
 import SwiftUI
 
-/// A row you swipe to the right to complete: a checkmark pops in and the row collapses.
+/// A row you swipe forward to complete, to the right or, in a right-to-left layout, to the left:
+/// a checkmark pops in and the row collapses.
 ///
 /// `onComplete` runs once, after the row has collapsed, and is where the caller
 /// should remove the row. With Reduce Motion on, the row completes at once.
@@ -23,6 +24,10 @@ struct CompletionSwipeRow<Content: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var dragX: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var isPastThreshold: Bool {
         phase != .idle || CompletionSwipeRowMath.shouldComplete(translation: CGSize(width: dragX, height: 0), width: size.width)
@@ -61,11 +66,13 @@ struct CompletionSwipeRow<Content: View>: View {
     private var swipe: some Gesture {
         DragGesture(minimumDistance: 20)
             .updating($dragX) { value, state, _ in
-                guard phase == .idle, value.translation.width > abs(value.translation.height) else { return }
-                state = value.translation.width
+                let forwardDrag = value.translation.width * forward
+                guard phase == .idle, forwardDrag > abs(value.translation.height) else { return }
+                state = forwardDrag
             }
             .onEnded { value in
-                guard CompletionSwipeRowMath.shouldComplete(translation: value.translation, width: size.width) else { return }
+                let translation = CGSize(width: value.translation.width * forward, height: value.translation.height)
+                guard CompletionSwipeRowMath.shouldComplete(translation: translation, width: size.width) else { return }
                 complete()
             }
     }
@@ -94,7 +101,7 @@ struct CompletionSwipeRow<Content: View>: View {
 enum CompletionSwipeRowMath {
     static let maximumThreshold: CGFloat = 140
 
-    /// A swipe counts when it goes mostly right and covers enough of the row.
+    /// A swipe counts when it goes mostly forward, a positive width, and covers enough of the row.
     static func shouldComplete(translation: CGSize, width: CGFloat) -> Bool {
         guard width > 0, translation.width > abs(translation.height) else { return false }
         return translation.width >= min(width * 0.4, maximumThreshold)

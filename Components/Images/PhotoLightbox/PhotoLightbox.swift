@@ -140,6 +140,8 @@ private struct PhotoLightboxPage: View {
                 .gesture(panGesture(in: size), including: zoom > 1 ? .all : .subviews)
                 .accessibilityAction(named: zoom > 1 ? "Zoom out" : "Zoom in") { toggleZoom() }
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
     }
 
     private func pinchGesture(in size: CGSize) -> some Gesture {

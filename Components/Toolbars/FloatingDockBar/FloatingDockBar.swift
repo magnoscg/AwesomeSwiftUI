@@ -58,8 +58,13 @@ private struct FloatingDockBarStage: View {
     @State private var availableWidth: CGFloat = 0
     @ScaledMetric(relativeTo: .title2) private var preferredIconSize = 56.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var effectiveMaxScale: CGFloat { reduceMotion ? min(maxScale, 1.15) : maxScale }
+
+    private var rowWidth: CGFloat {
+        CGFloat(items.count) * iconSize + CGFloat(max(items.count - 1, 0)) * spacing
+    }
 
     private var iconSize: CGFloat {
         FloatingDockBarMath.iconSize(preferred: preferredIconSize, available: availableWidth, count: items.count, spacing: spacing, padding: padding)
@@ -75,7 +80,8 @@ private struct FloatingDockBarStage: View {
         // Simultaneous, so the buttons inside keep working for taps and VoiceOver.
         .simultaneousGesture(
             DragGesture(minimumDistance: 0).updating($fingerX) { value, state, _ in
-                state = value.location.x
+                // Gestures report screen points, but the row of icons mirrors in right-to-left layouts.
+                state = layoutDirection == .rightToLeft ? rowWidth - value.location.x : value.location.x
             }
         )
         .padding(padding)

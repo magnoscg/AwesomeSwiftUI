@@ -16,6 +16,7 @@ struct TiltCard<Content: View>: View {
     @GestureState private var touchPoint: UnitPoint?
     @State private var size = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var focus: UnitPoint? { touchPoint ?? restingPoint }
 
@@ -58,8 +59,10 @@ struct TiltCard<Content: View>: View {
         DragGesture(minimumDistance: 0)
             .updating($touchPoint) { value, state, _ in
                 guard size.width > 0, size.height > 0 else { return }
+                // Gestures report screen points, but a unit point counts from the leading edge.
+                let x = min(max(value.location.x / size.width, 0), 1)
                 state = UnitPoint(
-                    x: min(max(value.location.x / size.width, 0), 1),
+                    x: layoutDirection == .rightToLeft ? 1 - x : x,
                     y: min(max(value.location.y / size.height, 0), 1)
                 )
             }

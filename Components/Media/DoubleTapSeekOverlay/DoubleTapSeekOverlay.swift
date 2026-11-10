@@ -50,6 +50,7 @@ struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
     @State private var tapLocation = CGPoint.zero
     @State private var videoSize = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var animation: Animation? { reduceMotion ? nil : .easeOut(duration: 0.2) }
     private var intervalText: String { interval.formatted() }
@@ -114,10 +115,13 @@ struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
                     .font(.headline.monospacedDigit())
             }
             .foregroundStyle(.white)
+            .environment(\.layoutDirection, layoutDirection)
         }
         .frame(width: max(halfWidth, 0), height: max(size.height, 0))
         .clipped()
         .frame(maxWidth: .infinity, alignment: isForward ? .trailing : .leading)
+        // Playback keeps its sides in right-to-left layouts: back stays on the left, where the taps are counted.
+        .environment(\.layoutDirection, .leftToRight)
         .allowsHitTesting(false)
         .accessibilityHidden(true)
     }
