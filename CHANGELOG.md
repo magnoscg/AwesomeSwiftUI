@@ -6,6 +6,11 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Intelligence Glow Border, a soft band of color that travels around a view's
+  edge and spreads inward, like an assistant that is listening.
+
 ### Changed
 
 - The nine components inspired by Kavsoft credit it by name and link to its
