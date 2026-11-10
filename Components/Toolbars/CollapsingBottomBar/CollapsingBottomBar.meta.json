@@ -11,7 +11,7 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": ["safeAreaInset", "onScrollGeometryChange", "ViewModifier"],
-  "origin": { "kind": "inspired", "credit": "Kavsoft tutorials" },
+  "origin": { "kind": "inspired", "credit": "Kavsoft", "url": "https://www.youtube.com/@Kavsoft" },
   "previewSteps": [
     "sleep 0.5",
     "swipe --start-x 201 --start-y 620 --end-x 201 --end-y 260 --duration 0.5",
