@@ -14,6 +14,13 @@ nonisolated enum HolographicCardMath {
         )
     }
 
+    /// The degrees the card turns around its vertical axis for a lean from -1 to 1.
+    /// `rotation3DEffect` mirrors in a right-to-left layout and a drag does not, so the turn is reversed there.
+    static func yaw(for lean: Double, maxAngle: Double, layoutDirection: LayoutDirection) -> Double {
+        let turn = lean * maxAngle
+        return layoutDirection == .rightToLeft ? -turn : turn
+    }
+
     /// The function in `HolographicCard.metal`, with its arguments in the order it declares them.
     static func shader(size: CGSize, tilt: CGSize, intensity: Double) -> Shader {
         ShaderLibrary.HolographicCardFoil(.float2(size), .float2(tilt), .float(intensity))
@@ -70,6 +77,8 @@ private struct HolographicCardSurface: ViewModifier, Animatable {
     let cornerRadius: CGFloat
     let intensity: Double
 
+    @Environment(\.layoutDirection) private var layoutDirection
+
     nonisolated var animatableData: CGSize.AnimatableData {
         get { tilt.animatableData }
         set { tilt.animatableData = newValue }
@@ -81,7 +90,11 @@ private struct HolographicCardSurface: ViewModifier, Animatable {
             .clipShape(.rect(cornerRadius: cornerRadius))
             .shadow(color: .black.opacity(0.4), radius: 24, y: 16)
             .rotation3DEffect(.degrees(-tilt.height * maxAngle), axis: (x: 1, y: 0, z: 0), perspective: 0.6)
-            .rotation3DEffect(.degrees(tilt.width * maxAngle), axis: (x: 0, y: 1, z: 0), perspective: 0.6)
+            .rotation3DEffect(
+                .degrees(HolographicCardMath.yaw(for: tilt.width, maxAngle: maxAngle, layoutDirection: layoutDirection)),
+                axis: (x: 0, y: 1, z: 0),
+                perspective: 0.6
+            )
     }
 }
 

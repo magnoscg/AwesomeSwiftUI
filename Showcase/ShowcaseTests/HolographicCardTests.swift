@@ -35,6 +35,14 @@ struct HolographicCardTests {
         #expect(HolographicCardMath.tilt(for: CGSize(width: 80, height: 80), in: size) == .zero)
     }
 
+    @Test func aLeanTurnsTheCardInProportion() {
+        #expect(HolographicCardMath.yaw(for: 0.5, maxAngle: 16, layoutDirection: .leftToRight) == 8)
+    }
+
+    @Test func aRightToLeftLayoutTurnsTheCardTheOtherWay() {
+        #expect(HolographicCardMath.yaw(for: 0.5, maxAngle: 16, layoutDirection: .rightToLeft) == -8)
+    }
+
     @Test func theShaderCompilesAsAColorEffect() async throws {
         let shader = HolographicCardMath.shader(size: size, tilt: CGSize(width: 0.5, height: -0.5), intensity: 1)
 
