@@ -16,6 +16,8 @@ on `main`.
   with its details and the rest wait in a pile below.
 - Circular Range Slider, a dial with two handles that sets a range around the
   clock, like a night of sleep.
+- Passcode Keypad, a number pad with a dot per digit that shakes and empties
+  when the passcode is wrong.
 
 ### Changed
 

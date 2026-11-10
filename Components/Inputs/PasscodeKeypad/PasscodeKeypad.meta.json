@@ -1,0 +1,34 @@
+{
+  "id": "passcode-keypad",
+  "name": "PasscodeKeypad",
+  "title": "Passcode Keypad",
+  "category": "Inputs",
+  "summary": "A number pad with a dot per digit that shakes and empties when the passcode is wrong.",
+  "keywords": {
+    "en": ["passcode", "pin", "keypad", "number pad", "lock screen", "unlock", "app lock"],
+    "es": ["código", "pin", "teclado numérico", "pantalla de bloqueo", "desbloquear", "contraseña", "bloqueo de app"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Grid", "keyframeAnimator", "sensoryFeedback", "ButtonStyle", "AccessibilityNotification.Announcement"],
+  "origin": { "kind": "inspired", "credit": "The passcode screen of iOS", "url": "https://support.apple.com/guide/iphone/set-a-passcode-iph14a867ae/ios" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label 1",
+    "sleep 0.25",
+    "tap --label 2",
+    "sleep 0.25",
+    "tap --label 3",
+    "sleep 0.25",
+    "tap --label 4",
+    "sleep 1.3",
+    "tap --label 2",
+    "sleep 0.25",
+    "tap --label 5",
+    "sleep 0.25",
+    "tap --label 8",
+    "sleep 0.25",
+    "tap --label 0",
+    "sleep 1.5"
+  ]
+}

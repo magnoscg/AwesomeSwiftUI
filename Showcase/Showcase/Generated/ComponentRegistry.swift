@@ -1152,6 +1152,15 @@ enum ComponentRegistry {
             demo: { AnyView(OTPCodeFieldDemo()) }
         ),
         ShowcaseEntry(
+            id: "passcode-keypad",
+            title: "Passcode Keypad",
+            category: "Inputs",
+            summary: "A number pad with a dot per digit that shakes and empties when the passcode is wrong.",
+            keywords: ["passcode", "pin", "keypad", "number pad", "lock screen", "unlock", "app lock", "código", "pin", "teclado numérico", "pantalla de bloqueo", "desbloquear", "contraseña", "bloqueo de app"],
+            minIOS: "18.0",
+            demo: { AnyView(PasscodeKeypadDemo()) }
+        ),
+        ShowcaseEntry(
             id: "password-strength-field",
             title: "Password Strength Field",
             category: "Inputs",
