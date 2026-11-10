@@ -2161,8 +2161,12 @@ struct ElasticDragButton: View {
     @GestureState private var isPressed = false
     @ScaledMetric(relativeTo: .largeTitle) private var diameter = 112.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let tapTolerance = 12.0
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     var body: some View {
         ZStack {
@@ -2203,12 +2207,13 @@ struct ElasticDragButton: View {
                 guard distance > 1 else { return }
 
                 let eased = reach * (1 - exp(-distance / (reach * 2)))
+                let width = value.translation.width * forward
                 pull = CGSize(
-                    width: value.translation.width * eased / distance,
+                    width: width * eased / distance,
                     height: value.translation.height * eased / distance
                 )
                 stretch = eased / reach * 0.4
-                angle = .radians(atan2(value.translation.height, value.translation.width))
+                angle = .radians(atan2(value.translation.height, width))
             }
             .onEnded { value in
                 if hypot(value.translation.width, value.translation.height) < tapTolerance {
@@ -2304,7 +2309,9 @@ struct EmojiReactionPicker: View {
     @GestureState private var press = Press.idle
     /// Measured from the row, which reads its own size under its text size cap.
     @State private var cellSize = 46.0
+    @State private var triggerWidth: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let spacing = 6.0
     private let padding = 8.0
@@ -2326,6 +2333,7 @@ struct EmojiReactionPicker: View {
     var body: some View {
         trigger
             .contentShape(.capsule)
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { triggerWidth = $0 }
             .onTapGesture(perform: toggle)
             .gesture(longPressAndSlide)
             .overlay(alignment: .topLeading) {
@@ -2399,7 +2407,9 @@ struct EmojiReactionPicker: View {
     private func index(at location: CGPoint) -> Int? {
         let rowHeight = cellSize + padding * 2
         guard location.y > -(gap + rowHeight + tolerance), location.y < cellSize + tolerance else { return nil }
-        return EmojiReactionPickerMath.index(atX: location.x - padding, cellWidth: cellSize, spacing: spacing, count: options.count)
+        // Gestures report screen points, but the row mirrors in right-to-left layouts.
+        let x = layoutDirection == .rightToLeft ? triggerWidth - location.x : location.x
+        return EmojiReactionPickerMath.index(atX: x - padding, cellWidth: cellSize, spacing: spacing, count: options.count)
     }
 
     private func toggle() {
@@ -4176,8 +4186,8 @@ private struct CalendarMonthGridStage: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityAddTraits(.isHeader)
 
-            arrow("chevron.left", label: "Previous month", to: page - 1)
-            arrow("chevron.right", label: "Next month", to: page + 1)
+            arrow("chevron.backward", label: "Previous month", to: page - 1)
+            arrow("chevron.forward", label: "Next month", to: page + 1)
         }
     }
 
@@ -4358,13 +4368,13 @@ struct CalendarRangeSelector: View {
 
     private var header: some View {
         HStack {
-            monthButton(systemImage: "chevron.left", label: "Previous month", offset: -1)
+            monthButton(systemImage: "chevron.backward", label: "Previous month", offset: -1)
             Spacer()
             Text(format(month, Date.FormatStyle().month(.wide).year()))
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
             Spacer()
-            monthButton(systemImage: "chevron.right", label: "Next month", offset: 1)
+            monthButton(systemImage: "chevron.forward", label: "Next month", offset: 1)
         }
     }
 
@@ -5001,8 +5011,13 @@ struct SwipeableCardStack<Item, Card: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var isDragging = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var width: CGFloat { size.width }
+
+    /// Gestures and swipe directions are in screen terms, but layout mirrors in right-to-left
+    /// layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var hasTopCard: Bool { !items.isEmpty && (loops || top < items.count) }
 
@@ -5043,7 +5058,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
 
     private func offset(of position: Int, depth: CGFloat) -> CGSize {
         if position < top {
-            return CGSize(width: reduceMotion ? 0 : lastDirection.sign * width * 1.5, height: 0)
+            return CGSize(width: reduceMotion ? 0 : lastDirection.sign * forward * width * 1.5, height: 0)
         }
         if position == top {
             return CGSize(width: drag.width, height: drag.height * 0.25)
@@ -5054,7 +5069,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
 
     private func rotation(of position: Int) -> Double {
         guard !reduceMotion, width > 0 else { return 0 }
-        if position < top { return Double(lastDirection.sign) * 18 }
+        if position < top { return Double(lastDirection.sign * forward) * 18 }
         return position == top ? Double(drag.width / width) * 14 : 0
     }
 
@@ -5062,7 +5077,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
         DragGesture(minimumDistance: 8)
             .updating($isDragging) { _, state, _ in state = true }
             .onChanged { value in
-                if hasTopCard { drag = value.translation }
+                if hasTopCard { drag = CGSize(width: value.translation.width * forward, height: value.translation.height) }
             }
             .onEnded { value in
                 let predictedEnd = value.predictedEndTranslation.width
@@ -5179,6 +5194,7 @@ struct TiltCard<Content: View>: View {
     @GestureState private var touchPoint: UnitPoint?
     @State private var size = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var focus: UnitPoint? { touchPoint ?? restingPoint }
 
@@ -5221,8 +5237,10 @@ struct TiltCard<Content: View>: View {
         DragGesture(minimumDistance: 0)
             .updating($touchPoint) { value, state, _ in
                 guard size.width > 0, size.height > 0 else { return }
+                // Gestures report screen points, but a unit point counts from the leading edge.
+                let x = min(max(value.location.x / size.width, 0), 1)
                 state = UnitPoint(
-                    x: min(max(value.location.x / size.width, 0), 1),
+                    x: layoutDirection == .rightToLeft ? 1 - x : x,
                     y: min(max(value.location.y / size.height, 0), 1)
                 )
             }
@@ -8831,8 +8849,12 @@ struct SwipeToConfirmSlider: View {
     @GestureState private var isDragging = false
     @ScaledMetric(relativeTo: .title3) private var height = 68.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let inset = 5.0
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var settle: Animation {
         reduceMotion ? .easeOut(duration: 0.15) : .spring(duration: 0.45, bounce: 0.35)
@@ -8865,7 +8887,7 @@ struct SwipeToConfirmSlider: View {
                     .padding(.horizontal, height)
                     .frame(maxWidth: .infinity)
 
-                Image(systemName: isConfirmed ? "checkmark" : "chevron.right.2")
+                Image(systemName: isConfirmed ? "checkmark" : "chevron.forward.2")
                     .font(.title3.bold())
                     .foregroundStyle(tint)
                     .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
@@ -8896,7 +8918,7 @@ struct SwipeToConfirmSlider: View {
             .onChanged { value in
                 guard !isConfirmed else { return }
                 progress = SwipeToConfirmSliderMath.progress(
-                    translation: value.translation.width,
+                    translation: value.translation.width * forward,
                     trackWidth: trackWidth,
                     thumbWidth: thumbWidth
                 )
@@ -10636,6 +10658,7 @@ struct FloatingReactionsEmitter<Content: View>: View {
 
     @State private var reactions: [FloatingReactionsEmitterReaction] = []
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let maximumReactions = 40
     private var duration: Double { lifetime > 0 ? lifetime : 1 }
@@ -10645,7 +10668,11 @@ struct FloatingReactionsEmitter<Content: View>: View {
             content()
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 .contentShape(.rect)
-                .gesture(SpatialTapGesture().onEnded { emit(from: $0.location) })
+                .gesture(SpatialTapGesture().onEnded { value in
+                    // Gestures report screen points, but `position` mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? proxy.size.width - value.location.x : value.location.x
+                    emit(from: CGPoint(x: x, y: value.location.y))
+                })
                 .overlay {
                     TimelineView(.animation(paused: reactions.isEmpty)) { timeline in
                         ZStack {
@@ -11616,6 +11643,8 @@ struct SpotlightOverlay: ViewModifier {
     var softness: Double = 0.55
     var dimming: Color = .black.opacity(0.88)
 
+    @Environment(\.layoutDirection) private var layoutDirection
+
     func body(content: Content) -> some View {
         content.overlay {
             GeometryReader { proxy in
@@ -11632,8 +11661,10 @@ struct SpotlightOverlay: ViewModifier {
                     ))
                     .contentShape(.rect)
                     .gesture(DragGesture(minimumDistance: 0).onChanged { value in
+                        // Gestures report screen points, but a unit point counts from the leading edge.
+                        let x = value.location.x / max(proxy.size.width, 1)
                         center = UnitPoint(
-                            x: value.location.x / max(proxy.size.width, 1),
+                            x: layoutDirection == .rightToLeft ? 1 - x : x,
                             y: value.location.y / max(proxy.size.height, 1)
                         )
                     })
@@ -13197,7 +13228,8 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/CompletionSwipe
 
 import SwiftUI
 
-/// A row you swipe to the right to complete: a checkmark pops in and the row collapses.
+/// A row you swipe forward to complete, to the right or, in a right-to-left layout, to the left:
+/// a checkmark pops in and the row collapses.
 ///
 /// `onComplete` runs once, after the row has collapsed, and is where the caller
 /// should remove the row. With Reduce Motion on, the row completes at once.
@@ -13217,6 +13249,10 @@ struct CompletionSwipeRow<Content: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var dragX: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var isPastThreshold: Bool {
         phase != .idle || CompletionSwipeRowMath.shouldComplete(translation: CGSize(width: dragX, height: 0), width: size.width)
@@ -13255,11 +13291,13 @@ struct CompletionSwipeRow<Content: View>: View {
     private var swipe: some Gesture {
         DragGesture(minimumDistance: 20)
             .updating($dragX) { value, state, _ in
-                guard phase == .idle, value.translation.width > abs(value.translation.height) else { return }
-                state = value.translation.width
+                let forwardDrag = value.translation.width * forward
+                guard phase == .idle, forwardDrag > abs(value.translation.height) else { return }
+                state = forwardDrag
             }
             .onEnded { value in
-                guard CompletionSwipeRowMath.shouldComplete(translation: value.translation, width: size.width) else { return }
+                let translation = CGSize(width: value.translation.width * forward, height: value.translation.height)
+                guard CompletionSwipeRowMath.shouldComplete(translation: translation, width: size.width) else { return }
                 complete()
             }
     }
@@ -13288,7 +13326,7 @@ struct CompletionSwipeRow<Content: View>: View {
 enum CompletionSwipeRowMath {
     static let maximumThreshold: CGFloat = 140
 
-    /// A swipe counts when it goes mostly right and covers enough of the row.
+    /// A swipe counts when it goes mostly forward, a positive width, and covers enough of the row.
     static func shouldComplete(translation: CGSize, width: CGFloat) -> Bool {
         guard width > 0, translation.width > abs(translation.height) else { return false }
         return translation.width >= min(width * 0.4, maximumThreshold)
@@ -13376,6 +13414,7 @@ struct DoubleTapHeartOverlay<Content: View>: View {
 
     @State private var hearts: [DoubleTapHeartOverlayBurst] = []
     @State private var size = CGSize.zero
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let maximumHearts = 12
 
@@ -13397,7 +13436,9 @@ struct DoubleTapHeartOverlay<Content: View>: View {
             .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
             .gesture(
                 SpatialTapGesture(count: 2).onEnded { value in
-                    throwHeart(at: value.location)
+                    // Gestures report screen points, but `position` mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? size.width - value.location.x : value.location.x
+                    throwHeart(at: CGPoint(x: x, y: value.location.y))
                 }
             )
             .onChange(of: programmaticBurst) { _, request in
@@ -13596,6 +13637,7 @@ struct DragSelectGrid<Item: Identifiable, Tile: View>: View {
     @State private var stroke: Stroke?
     @State private var gridWidth: CGFloat = 0
     @GestureState private var isDragging = false
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var columnCount: Int { DragSelectGridMath.clampedColumns(columns) }
     private var gap: CGFloat { max(spacing, 0) }
@@ -13650,7 +13692,9 @@ struct DragSelectGrid<Item: Identifiable, Tile: View>: View {
     }
 
     private func index(at point: CGPoint) -> Int? {
-        DragSelectGridMath.index(at: point, width: gridWidth, columns: columnCount, spacing: gap, count: items.count)
+        // Gestures report screen points, but the grid mirrors in right-to-left layouts.
+        let x = layoutDirection == .rightToLeft ? gridWidth - point.x : point.x
+        return DragSelectGridMath.index(at: CGPoint(x: x, y: point.y), width: gridWidth, columns: columnCount, spacing: gap, count: items.count)
     }
 }
 
@@ -13922,6 +13966,7 @@ struct LongPressRadialMenu<Label: View>: View {
 
     @GestureState private var press = Press.idle
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var isOpen: Bool {
         if case .open = press { return true }
@@ -13976,17 +14021,22 @@ struct LongPressRadialMenu<Label: View>: View {
             .updating($press) { value, state, _ in
                 switch value {
                 case .first(true): state = .pressing
-                case .second(true, let drag): state = .open(drag?.translation ?? .zero)
+                case .second(true, let drag): state = .open(layoutTranslation(drag?.translation ?? .zero))
                 default: state = .idle
                 }
             }
             .onEnded { value in
                 guard case .second(true, let drag?) = value,
-                      let index = LongPressRadialMenuMath.index(translation: drag.translation, count: items.count, radius: radius),
+                      let index = LongPressRadialMenuMath.index(translation: layoutTranslation(drag.translation), count: items.count, radius: radius),
                       items.indices.contains(index)
                 else { return }
                 items[index].action()
             }
+    }
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts.
+    private func layoutTranslation(_ translation: CGSize) -> CGSize {
+        layoutDirection == .rightToLeft ? CGSize(width: -translation.width, height: translation.height) : translation
     }
 }
 
@@ -14148,6 +14198,10 @@ struct PinchZoomView<Content: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var isGesturing = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var settle: Animation {
         reduceMotion ? .easeOut(duration: 0.15) : .spring(duration: 0.45, bounce: 0.25)
@@ -14196,7 +14250,9 @@ struct PinchZoomView<Content: View>: View {
             .updating($isGesturing) { _, state, _ in state = true }
             .onChanged { value in
                 if let magnification = value.first?.magnification { pinch = magnification }
-                if let translation = value.second?.translation { drag = translation }
+                if let translation = value.second?.translation {
+                    drag = CGSize(width: translation.width * forward, height: translation.height)
+                }
             }
             .onEnded { _ in settleGesture() }
     }
@@ -14510,13 +14566,12 @@ enum SnapCornerDraggableCorner: CaseIterable, Hashable, Sendable {
         }
     }
 
-    var title: String {
-        switch self {
-        case .topLeading: "top left"
-        case .topTrailing: "top right"
-        case .bottomLeading: "bottom left"
-        case .bottomTrailing: "bottom right"
-        }
+    /// The name VoiceOver reads. The leading corners are on the right in a right-to-left layout.
+    func title(in layoutDirection: LayoutDirection) -> String {
+        let isTop = self == .topLeading || self == .topTrailing
+        let isLeading = self == .topLeading || self == .bottomLeading
+        let isLeft = isLeading == (layoutDirection == .leftToRight)
+        return "\(isTop ? "top" : "bottom") \(isLeft ? "left" : "right")"
     }
 
     /// The corner of the quadrant a point falls in, in a container of the given size.
@@ -14543,8 +14598,12 @@ struct SnapCornerDraggable<Content: View>: View {
     @State private var containerSize = CGSize.zero
     @GestureState private var translation = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let space = "SnapCornerDraggable"
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var animation: Animation? {
         reduceMotion ? nil : .spring(duration: 0.45, bounce: 0.3)
@@ -14558,7 +14617,7 @@ struct SnapCornerDraggable<Content: View>: View {
             .accessibilityElement(children: .combine)
             .accessibilityActions {
                 ForEach(SnapCornerDraggableCorner.allCases.filter { $0 != corner }, id: \.self) { target in
-                    Button("Move to \(target.title)") {
+                    Button("Move to \(target.title(in: layoutDirection))") {
                         withAnimation(animation) { corner = target }
                     }
                 }
@@ -14572,10 +14631,12 @@ struct SnapCornerDraggable<Content: View>: View {
     private var drag: some Gesture {
         DragGesture(coordinateSpace: .named(space))
             .updating($translation) { value, state, _ in
-                state = value.translation
+                state = CGSize(width: value.translation.width * forward, height: value.translation.height)
             }
             .onEnded { value in
-                let target = SnapCornerDraggableCorner.nearest(to: value.predictedEndLocation, in: containerSize)
+                var point = value.predictedEndLocation
+                if layoutDirection == .rightToLeft { point.x = containerSize.width - point.x }
+                let target = SnapCornerDraggableCorner.nearest(to: point, in: containerSize)
                 withAnimation(animation) { corner = target }
             }
     }
@@ -14585,6 +14646,7 @@ struct SnapCornerDraggable<Content: View>: View {
 
 struct SnapCornerDraggableDemo: View {
     @State private var corner = SnapCornerDraggableCorner.bottomTrailing
+    @Environment(\.layoutDirection) private var layoutDirection
 
     var body: some View {
         ZStack {
@@ -14621,7 +14683,7 @@ struct SnapCornerDraggableDemo: View {
             }
             .frame(width: 120, height: 170)
             .shadow(color: .black.opacity(0.3), radius: 14, y: 8)
-            .accessibilityLabel("Your camera, \(corner.title)")
+            .accessibilityLabel("Your camera, \(corner.title(in: layoutDirection))")
     }
 }
 
@@ -14651,7 +14713,7 @@ struct SwipeActionRowAction: Identifiable {
 }
 
 enum SwipeActionRowPhysics {
-    /// Where the row sits for a drag: it cannot move right of closed and resists past fully open.
+    /// Where the row sits for a drag, negative toward the buttons: it cannot move past closed and resists past fully open.
     static func offset(resting: CGFloat, translation: CGFloat, revealWidth: CGFloat) -> CGFloat {
         let raw = resting + translation
         if raw > 0 { return 0 }
@@ -14676,6 +14738,10 @@ struct SwipeActionRow<Content: View>: View {
     @State private var isOpen = false
     @GestureState private var translation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var width: CGFloat { max(buttonWidth, 0) }
     private var revealWidth: CGFloat { CGFloat(actions.count) * width }
@@ -14741,14 +14807,14 @@ struct SwipeActionRow<Content: View>: View {
         DragGesture(minimumDistance: 14)
             .updating($translation) { value, state, _ in
                 if state != 0 || abs(value.translation.width) > abs(value.translation.height) {
-                    state = value.translation.width
+                    state = value.translation.width * forward
                 }
             }
             .onEnded { value in
                 guard abs(value.translation.width) > abs(value.translation.height) else { return }
                 let opens = SwipeActionRowPhysics.settlesOpen(
                     resting: resting,
-                    predictedTranslation: value.predictedEndTranslation.width,
+                    predictedTranslation: value.predictedEndTranslation.width * forward,
                     revealWidth: revealWidth
                 )
                 withAnimation(animation) { isOpen = opens }
@@ -15655,6 +15721,7 @@ struct BeforeAfterSlider: View {
     var afterTitle = "After"
 
     @ScaledMetric(relativeTo: .body) private var knobSize = 44.0
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var clamped: Double { min(max(position, 0), 1) }
 
@@ -15678,7 +15745,9 @@ struct BeforeAfterSlider: View {
             .gesture(
                 DragGesture(minimumDistance: 0).onChanged { value in
                     guard size.width > 0 else { return }
-                    position = min(max(value.location.x / size.width, 0), 1)
+                    // Gestures report screen points, but the layout mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? size.width - value.location.x : value.location.x
+                    position = min(max(x / size.width, 0), 1)
                 }
             )
         }
@@ -16022,6 +16091,8 @@ struct CircularAvatarCropper: View {
                 .contentShape(.rect)
                 .gesture(pan(diameter: diameter).simultaneously(with: pinch))
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
         .clipped()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Avatar crop")
@@ -16275,6 +16346,8 @@ struct CropRectangleOverlay: View {
                     cropInterface(in: geometry.size)
                 }
             }
+            // A photo is not mirrored in right-to-left layouts, so neither is the crop drawn over it.
+            .environment(\.layoutDirection, .leftToRight)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Crop area")
             .accessibilityValue(accessibilityDescription)
@@ -16506,6 +16579,8 @@ struct DoubleTapZoomImage: View {
                     toggleZoom(at: CGPoint(x: size.width / 2, y: size.height / 2), in: size)
                 }
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
         .clipped()
     }
 
@@ -17168,6 +17243,8 @@ private struct PhotoLightboxPage: View {
                 .gesture(panGesture(in: size), including: zoom > 1 ? .all : .subviews)
                 .accessibilityAction(named: zoom > 1 ? "Zoom out" : "Zoom in") { toggleZoom() }
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
     }
 
     private func pinchGesture(in size: CGSize) -> some Gesture {
@@ -17534,6 +17611,7 @@ struct ScatteredPhotoBoard: View {
     @State private var stacking: [String] = []
     @GestureState private var drag: ActiveDrag?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let space = "ScatteredPhotoBoard"
 
@@ -17593,18 +17671,23 @@ struct ScatteredPhotoBoard: View {
     private func dragGesture(for photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named(space))
             .updating($drag) { value, state, _ in
-                state = ActiveDrag(id: photo.id, translation: value.translation)
+                state = ActiveDrag(id: photo.id, translation: layoutTranslation(value.translation))
             }
             .onChanged { _ in bringToFront(photo) }
             .onEnded { value in
                 offsets[photo.id] = ScatteredPhotoBoardLayout.settledOffset(
                     home: ScatteredPhotoBoardLayout.center(index: index, count: photos.count, card: cardSize, board: board),
                     saved: offsets[photo.id] ?? .zero,
-                    translation: value.translation,
+                    translation: layoutTranslation(value.translation),
                     card: cardSize,
                     board: board
                 )
             }
+    }
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts.
+    private func layoutTranslation(_ translation: CGSize) -> CGSize {
+        layoutDirection == .rightToLeft ? CGSize(width: -translation.width, height: translation.height) : translation
     }
 
     private func position(of photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> CGPoint {
@@ -20911,7 +20994,7 @@ struct DisclosureTreeView: View {
 
     private func rowLabel(_ row: DisclosureTreeViewRows.Row, isExpanded: Bool) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: "chevron.right")
+            Image(systemName: "chevron.forward")
                 .font(.caption.weight(.bold))
                 .foregroundStyle(.secondary)
                 .rotationEffect(.degrees(isExpanded ? 90 : 0))
@@ -22537,6 +22620,7 @@ struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
     @State private var tapLocation = CGPoint.zero
     @State private var videoSize = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var animation: Animation? { reduceMotion ? nil : .easeOut(duration: 0.2) }
     private var intervalText: String { interval.formatted() }
@@ -22601,10 +22685,13 @@ struct DoubleTapSeekOverlay<Video: View, Controls: View>: View {
                     .font(.headline.monospacedDigit())
             }
             .foregroundStyle(.white)
+            .environment(\.layoutDirection, layoutDirection)
         }
         .frame(width: max(halfWidth, 0), height: max(size.height, 0))
         .clipped()
         .frame(maxWidth: .infinity, alignment: isForward ? .trailing : .leading)
+        // Playback keeps its sides in right-to-left layouts: back stays on the left, where the taps are counted.
+        .environment(\.layoutDirection, .leftToRight)
         .allowsHitTesting(false)
         .accessibilityHidden(true)
     }
@@ -25904,7 +25991,7 @@ struct BreadcrumbTrail: View {
     }
 
     private var separator: some View {
-        Image(systemName: "chevron.compact.right")
+        Image(systemName: "chevron.compact.forward")
             .foregroundStyle(.tertiary)
             .accessibilityHidden(true)
     }
@@ -25956,7 +26043,7 @@ struct BreadcrumbTrailDemo: View {
                     .foregroundStyle(.teal.gradient)
                     .accessibilityHidden(true)
 
-                Button("Open", systemImage: "arrow.right") {
+                Button("Open", systemImage: "arrow.forward") {
                     depth = depth < tree.count ? depth + 1 : 1
                 }
                 .buttonStyle(.borderedProminent)
@@ -26985,6 +27072,10 @@ struct SideDrawer<MenuContent: View, Content: View>: View {
     @State private var dragTranslation: CGFloat = 0
     @GestureState private var isDragging = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var animation: Animation? {
         reduceMotion ? nil : .spring(duration: 0.45, bounce: 0.15)
@@ -27029,9 +27120,9 @@ struct SideDrawer<MenuContent: View, Content: View>: View {
     private var dragGesture: some Gesture {
         DragGesture(minimumDistance: 20)
             .updating($isDragging) { _, state, _ in state = true }
-            .onChanged { dragTranslation = $0.translation.width }
+            .onChanged { dragTranslation = $0.translation.width * forward }
             .onEnded { value in
-                let projected = (isOpen ? menuWidth : 0) + value.predictedEndTranslation.width
+                let projected = (isOpen ? menuWidth : 0) + value.predictedEndTranslation.width * forward
                 withAnimation(animation) {
                     isOpen = projected > menuWidth / 2
                     dragTranslation = 0
@@ -34895,8 +34986,13 @@ private struct FloatingDockBarStage: View {
     @State private var availableWidth: CGFloat = 0
     @ScaledMetric(relativeTo: .title2) private var preferredIconSize = 56.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var effectiveMaxScale: CGFloat { reduceMotion ? min(maxScale, 1.15) : maxScale }
+
+    private var rowWidth: CGFloat {
+        CGFloat(items.count) * iconSize + CGFloat(max(items.count - 1, 0)) * spacing
+    }
 
     private var iconSize: CGFloat {
         FloatingDockBarMath.iconSize(preferred: preferredIconSize, available: availableWidth, count: items.count, spacing: spacing, padding: padding)
@@ -34912,7 +35008,8 @@ private struct FloatingDockBarStage: View {
         // Simultaneous, so the buttons inside keep working for taps and VoiceOver.
         .simultaneousGesture(
             DragGesture(minimumDistance: 0).updating($fingerX) { value, state, _ in
-                state = value.location.x
+                // Gestures report screen points, but the row of icons mirrors in right-to-left layouts.
+                state = layoutDirection == .rightToLeft ? rowWidth - value.location.x : value.location.x
             }
         )
         .padding(padding)
@@ -35595,6 +35692,10 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
 
     @GestureState private var dragTranslation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var currentIndex: Int {
         InteractivePagerTransitionMath.clampedIndex(index, count: pages.count)
@@ -35645,14 +35746,14 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
     private func dragGesture(width: CGFloat) -> some Gesture {
         DragGesture(minimumDistance: 10)
             .updating($dragTranslation) { value, state, _ in
-                state = value.translation.width
+                state = value.translation.width * forward
             }
             .onEnded { value in
                 index = InteractivePagerTransitionMath.targetIndex(
                     index: currentIndex,
                     count: pages.count,
-                    translation: value.translation.width,
-                    predicted: value.predictedEndTranslation.width,
+                    translation: value.translation.width * forward,
+                    predicted: value.predictedEndTranslation.width * forward,
                     width: width
                 )
             }
@@ -35977,7 +36078,7 @@ struct ParallaxPushTransitionDemo: View {
                 .zIndex(Double(generation))
         }
         .overlay(alignment: .bottom) {
-            Button("Next page", systemImage: "arrow.right", action: advance)
+            Button("Next page", systemImage: "arrow.forward", action: advance)
                 .font(.headline)
                 .buttonStyle(.borderedProminent)
                 .tint(.white.opacity(0.25))

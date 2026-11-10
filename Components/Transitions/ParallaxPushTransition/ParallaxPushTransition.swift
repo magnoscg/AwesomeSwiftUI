@@ -80,7 +80,7 @@ struct ParallaxPushTransitionDemo: View {
                 .zIndex(Double(generation))
         }
         .overlay(alignment: .bottom) {
-            Button("Next page", systemImage: "arrow.right", action: advance)
+            Button("Next page", systemImage: "arrow.forward", action: advance)
                 .font(.headline)
                 .buttonStyle(.borderedProminent)
                 .tint(.white.opacity(0.25))

@@ -45,7 +45,9 @@ struct EmojiReactionPicker: View {
     @GestureState private var press = Press.idle
     /// Measured from the row, which reads its own size under its text size cap.
     @State private var cellSize = 46.0
+    @State private var triggerWidth: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let spacing = 6.0
     private let padding = 8.0
@@ -67,6 +69,7 @@ struct EmojiReactionPicker: View {
     var body: some View {
         trigger
             .contentShape(.capsule)
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { triggerWidth = $0 }
             .onTapGesture(perform: toggle)
             .gesture(longPressAndSlide)
             .overlay(alignment: .topLeading) {
@@ -140,7 +143,9 @@ struct EmojiReactionPicker: View {
     private func index(at location: CGPoint) -> Int? {
         let rowHeight = cellSize + padding * 2
         guard location.y > -(gap + rowHeight + tolerance), location.y < cellSize + tolerance else { return nil }
-        return EmojiReactionPickerMath.index(atX: location.x - padding, cellWidth: cellSize, spacing: spacing, count: options.count)
+        // Gestures report screen points, but the row mirrors in right-to-left layouts.
+        let x = layoutDirection == .rightToLeft ? triggerWidth - location.x : location.x
+        return EmojiReactionPickerMath.index(atX: x - padding, cellWidth: cellSize, spacing: spacing, count: options.count)
     }
 
     private func toggle() {

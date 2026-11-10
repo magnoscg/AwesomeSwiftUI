@@ -49,6 +49,10 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
 
     @GestureState private var dragTranslation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var currentIndex: Int {
         InteractivePagerTransitionMath.clampedIndex(index, count: pages.count)
@@ -99,14 +103,14 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
     private func dragGesture(width: CGFloat) -> some Gesture {
         DragGesture(minimumDistance: 10)
             .updating($dragTranslation) { value, state, _ in
-                state = value.translation.width
+                state = value.translation.width * forward
             }
             .onEnded { value in
                 index = InteractivePagerTransitionMath.targetIndex(
                     index: currentIndex,
                     count: pages.count,
-                    translation: value.translation.width,
-                    predicted: value.predictedEndTranslation.width,
+                    translation: value.translation.width * forward,
+                    predicted: value.predictedEndTranslation.width * forward,
                     width: width
                 )
             }

@@ -20,8 +20,12 @@ struct ElasticDragButton: View {
     @GestureState private var isPressed = false
     @ScaledMetric(relativeTo: .largeTitle) private var diameter = 112.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let tapTolerance = 12.0
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     var body: some View {
         ZStack {
@@ -62,12 +66,13 @@ struct ElasticDragButton: View {
                 guard distance > 1 else { return }
 
                 let eased = reach * (1 - exp(-distance / (reach * 2)))
+                let width = value.translation.width * forward
                 pull = CGSize(
-                    width: value.translation.width * eased / distance,
+                    width: width * eased / distance,
                     height: value.translation.height * eased / distance
                 )
                 stretch = eased / reach * 0.4
-                angle = .radians(atan2(value.translation.height, value.translation.width))
+                angle = .radians(atan2(value.translation.height, width))
             }
             .onEnded { value in
                 if hypot(value.translation.width, value.translation.height) < tapTolerance {

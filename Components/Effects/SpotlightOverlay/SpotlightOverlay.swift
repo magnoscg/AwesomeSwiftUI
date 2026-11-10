@@ -14,6 +14,8 @@ struct SpotlightOverlay: ViewModifier {
     var softness: Double = 0.55
     var dimming: Color = .black.opacity(0.88)
 
+    @Environment(\.layoutDirection) private var layoutDirection
+
     func body(content: Content) -> some View {
         content.overlay {
             GeometryReader { proxy in
@@ -30,8 +32,10 @@ struct SpotlightOverlay: ViewModifier {
                     ))
                     .contentShape(.rect)
                     .gesture(DragGesture(minimumDistance: 0).onChanged { value in
+                        // Gestures report screen points, but a unit point counts from the leading edge.
+                        let x = value.location.x / max(proxy.size.width, 1)
                         center = UnitPoint(
-                            x: value.location.x / max(proxy.size.width, 1),
+                            x: layoutDirection == .rightToLeft ? 1 - x : x,
                             y: value.location.y / max(proxy.size.height, 1)
                         )
                     })

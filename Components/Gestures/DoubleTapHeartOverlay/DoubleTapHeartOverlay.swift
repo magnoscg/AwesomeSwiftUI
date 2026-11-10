@@ -15,6 +15,7 @@ struct DoubleTapHeartOverlay<Content: View>: View {
 
     @State private var hearts: [DoubleTapHeartOverlayBurst] = []
     @State private var size = CGSize.zero
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let maximumHearts = 12
 
@@ -36,7 +37,9 @@ struct DoubleTapHeartOverlay<Content: View>: View {
             .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
             .gesture(
                 SpatialTapGesture(count: 2).onEnded { value in
-                    throwHeart(at: value.location)
+                    // Gestures report screen points, but `position` mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? size.width - value.location.x : value.location.x
+                    throwHeart(at: CGPoint(x: x, y: value.location.y))
                 }
             )
             .onChange(of: programmaticBurst) { _, request in
