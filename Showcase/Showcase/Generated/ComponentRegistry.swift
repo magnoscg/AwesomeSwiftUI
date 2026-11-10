@@ -1482,6 +1482,15 @@ enum ComponentRegistry {
             demo: { AnyView(WaveBarsLoaderDemo()) }
         ),
         ShowcaseEntry(
+            id: "map-search-sheet",
+            title: "Map Search Sheet",
+            category: "Maps",
+            summary: "A map with a sheet of places that rests at the bottom, filters as you type and flies to the place you choose.",
+            keywords: ["map", "search", "bottom sheet", "places", "detents", "markers", "mapkit", "mapa", "búsqueda", "hoja inferior", "lugares", "alturas", "marcadores", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapSearchSheetDemo()) }
+        ),
+        ShowcaseEntry(
             id: "audio-player-card",
             title: "Audio Player Card",
             category: "Media",

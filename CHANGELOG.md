@@ -28,6 +28,8 @@ on `main`.
   free trial, with the plans and the button to start it.
 - Toast Host, a queue of toasts that show above everything, sheets and
   full-screen covers included.
+- Map Search Sheet, the first component with a map: a sheet of places that
+  rests at the bottom, filters as you type and flies to the place you choose.
 
 ### Changed
 
