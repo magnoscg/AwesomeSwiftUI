@@ -67,7 +67,8 @@ at Xcode 26.6, so that job removes components that need iOS 27 before
 compiling. Those are verified only by `make verify` on a machine with
 Xcode 27.2 or later, so run it before opening the pull request. Revisit this
 when a runner offers Xcode 27. The job also downloads the Metal toolchain,
-which the runners do not always have.
+which the runners do not always have, and creates its own simulator, because
+some runners start before theirs are ready.
 
 A second job runs the same tests on iOS 18, the baseline. The runners have no
 iOS 18 simulator, so it downloads one first, which makes it the slow job.
