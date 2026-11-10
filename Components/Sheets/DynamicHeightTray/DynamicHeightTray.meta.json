@@ -1,0 +1,24 @@
+{
+  "id": "dynamic-height-tray",
+  "name": "DynamicHeightTray",
+  "title": "Dynamic Height Tray",
+  "category": "Sheets",
+  "summary": "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+  "keywords": {
+    "en": ["tray", "self sizing sheet", "dynamic height", "bottom sheet", "steps", "fit content", "detent"],
+    "es": ["bandeja", "hoja autoajustable", "altura dinámica", "hoja inferior", "pasos", "ajustar al contenido", "detent"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["sheet", "presentationDetents", "onGeometryChange", "fixedSize", "ViewModifier"],
+  "origin": { "kind": "inspired", "credit": "The trays of the Family wallet app", "url": "https://family.co" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap -x 201 -y 513",
+    "sleep 1.4",
+    "tap --label 'Remove Wallet'",
+    "sleep 1.5",
+    "tap --label Remove",
+    "sleep 1.8"
+  ]
+}

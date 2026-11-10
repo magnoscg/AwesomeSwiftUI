@@ -1,5 +1,5 @@
 {
-  "count": 266,
+  "count": 271,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2095,6 +2095,50 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/NestedCommentThread/NestedCommentThread.swift"
     },
     {
+      "id": "tapback-reaction-bubble",
+      "name": "TapbackReactionBubble",
+      "title": "Tapback Reaction Bubble",
+      "category": "Chat",
+      "summary": "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+      "keywords": {
+        "en": [
+          "tapback",
+          "message reaction",
+          "long press",
+          "chat bubble",
+          "emoji",
+          "react",
+          "imessage"
+        ],
+        "es": [
+          "tapback",
+          "reacción a mensaje",
+          "pulsación larga",
+          "burbuja de chat",
+          "emoji",
+          "reaccionar",
+          "mensajes"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onLongPressGesture",
+        "alignmentGuide",
+        "sensoryFeedback",
+        "accessibilityActions",
+        "zIndex"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Tapback in Apple's Messages",
+        "url": "https://support.apple.com/guide/iphone/react-with-tapbacks-iph018d3c336/ios"
+      },
+      "path": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift",
+      "preview": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
+    },
+    {
       "id": "add-to-cart-fly-button",
       "name": "AddToCartFlyButton",
       "title": "Add To Cart Fly Button",
@@ -3367,6 +3411,94 @@
       "path": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift",
       "preview": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
+    },
+    {
+      "id": "pixelate-shader-effect",
+      "name": "PixelateShaderEffect",
+      "title": "Pixelate Shader Effect",
+      "category": "Effects",
+      "summary": "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "pixelate",
+          "mosaic",
+          "spoiler",
+          "censor",
+          "shader",
+          "metal",
+          "reveal"
+        ],
+        "es": [
+          "pixelar",
+          "mosaico",
+          "spoiler",
+          "censurar",
+          "shader",
+          "metal",
+          "revelar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "Animatable",
+        "ViewModifier",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
+      "preview": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.webp",
+      "shader": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal"
+    },
+    {
+      "id": "progressive-blur-header",
+      "name": "ProgressiveBlurHeader",
+      "title": "Progressive Blur Header",
+      "category": "Effects",
+      "summary": "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+      "keywords": {
+        "en": [
+          "progressive blur",
+          "variable blur",
+          "header",
+          "shader",
+          "metal",
+          "scroll edge",
+          "layer effect"
+        ],
+        "es": [
+          "desenfoque progresivo",
+          "desenfoque variable",
+          "cabecera",
+          "shader",
+          "metal",
+          "borde de scroll",
+          "efecto de capa"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "ViewModifier",
+        "accessibilityReduceTransparency",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
+      "preview": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.webp",
+      "shader": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal"
     },
     {
       "id": "ripple-shader-effect",
@@ -9412,6 +9544,50 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
     },
     {
+      "id": "dynamic-height-tray",
+      "name": "DynamicHeightTray",
+      "title": "Dynamic Height Tray",
+      "category": "Sheets",
+      "summary": "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+      "keywords": {
+        "en": [
+          "tray",
+          "self sizing sheet",
+          "dynamic height",
+          "bottom sheet",
+          "steps",
+          "fit content",
+          "detent"
+        ],
+        "es": [
+          "bandeja",
+          "hoja autoajustable",
+          "altura dinámica",
+          "hoja inferior",
+          "pasos",
+          "ajustar al contenido",
+          "detent"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "sheet",
+        "presentationDetents",
+        "onGeometryChange",
+        "fixedSize",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The trays of the Family wallet app",
+        "url": "https://family.co"
+      },
+      "path": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift",
+      "preview": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift"
+    },
+    {
       "id": "whats-new-sheet",
       "name": "WhatsNewSheet",
       "title": "What's New Sheet",
@@ -10039,6 +10215,48 @@
       "path": "Components/Text/ShimmerText/ShimmerText.swift",
       "preview": "Components/Text/ShimmerText/ShimmerText.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ShimmerText/ShimmerText.swift"
+    },
+    {
+      "id": "streaming-text",
+      "name": "StreamingText",
+      "title": "Streaming Text",
+      "category": "Text",
+      "summary": "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+      "keywords": {
+        "en": [
+          "streaming text",
+          "llm",
+          "ai answer",
+          "token stream",
+          "fade in",
+          "chat",
+          "text renderer"
+        ],
+        "es": [
+          "texto en streaming",
+          "llm",
+          "respuesta de ia",
+          "flujo de tokens",
+          "aparecer",
+          "chat",
+          "text renderer"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TextRenderer",
+        "Text.Layout",
+        "GraphicsContext",
+        "Animatable",
+        "onChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Text/StreamingText/StreamingText.swift",
+      "preview": "Components/Text/StreamingText/StreamingText.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/StreamingText/StreamingText.swift"
     },
     {
       "id": "text-blur-reveal",

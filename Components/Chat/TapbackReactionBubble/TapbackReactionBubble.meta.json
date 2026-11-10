@@ -1,0 +1,26 @@
+{
+  "id": "tapback-reaction-bubble",
+  "name": "TapbackReactionBubble",
+  "title": "Tapback Reaction Bubble",
+  "category": "Chat",
+  "summary": "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+  "keywords": {
+    "en": ["tapback", "message reaction", "long press", "chat bubble", "emoji", "react", "imessage"],
+    "es": ["tapback", "reacción a mensaje", "pulsación larga", "burbuja de chat", "emoji", "reaccionar", "mensajes"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["onLongPressGesture", "alignmentGuide", "sensoryFeedback", "accessibilityActions", "zIndex"],
+  "origin": { "kind": "inspired", "credit": "Tapback in Apple's Messages", "url": "https://support.apple.com/guide/iphone/react-with-tapbacks-iph018d3c336/ios" },
+  "previewSteps": [
+    "sleep 0.6",
+    "touch -x 130 -y 211 --down --up --delay 0.7",
+    "sleep 0.9",
+    "tap -x 174 -y 146",
+    "sleep 1.2",
+    "touch -x 335 -y 419 --down --up --delay 0.7",
+    "sleep 0.9",
+    "tap -x 184 -y 365",
+    "sleep 1.4"
+  ]
+}

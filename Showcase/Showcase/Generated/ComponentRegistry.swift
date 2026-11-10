@@ -477,6 +477,15 @@ enum ComponentRegistry {
             demo: { AnyView(NestedCommentThreadDemo()) }
         ),
         ShowcaseEntry(
+            id: "tapback-reaction-bubble",
+            title: "Tapback Reaction Bubble",
+            category: "Chat",
+            summary: "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+            keywords: ["tapback", "message reaction", "long press", "chat bubble", "emoji", "react", "imessage", "tapback", "reacción a mensaje", "pulsación larga", "burbuja de chat", "emoji", "reaccionar", "mensajes"],
+            minIOS: "18.0",
+            demo: { AnyView(TapbackReactionBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",
@@ -754,6 +763,24 @@ enum ComponentRegistry {
             keywords: ["noise", "grain", "film grain", "texture", "overlay", "modifier", "ruido", "grano", "grano de película", "textura", "superposición", "modificador"],
             minIOS: "18.0",
             demo: { AnyView(NoiseGrainOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "pixelate-shader-effect",
+            title: "Pixelate Shader Effect",
+            category: "Effects",
+            summary: "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+            keywords: ["pixelate", "mosaic", "spoiler", "censor", "shader", "metal", "reveal", "pixelar", "mosaico", "spoiler", "censurar", "shader", "metal", "revelar"],
+            minIOS: "18.0",
+            demo: { AnyView(PixelateShaderEffectDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "progressive-blur-header",
+            title: "Progressive Blur Header",
+            category: "Effects",
+            summary: "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+            keywords: ["progressive blur", "variable blur", "header", "shader", "metal", "scroll edge", "layer effect", "desenfoque progresivo", "desenfoque variable", "cabecera", "shader", "metal", "borde de scroll", "efecto de capa"],
+            minIOS: "18.0",
+            demo: { AnyView(ProgressiveBlurHeaderDemo()) }
         ),
         ShowcaseEntry(
             id: "ripple-shader-effect",
@@ -2157,6 +2184,15 @@ enum ComponentRegistry {
             demo: { AnyView(CustomDetentSheetDemo()) }
         ),
         ShowcaseEntry(
+            id: "dynamic-height-tray",
+            title: "Dynamic Height Tray",
+            category: "Sheets",
+            summary: "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+            keywords: ["tray", "self sizing sheet", "dynamic height", "bottom sheet", "steps", "fit content", "detent", "bandeja", "hoja autoajustable", "altura dinámica", "hoja inferior", "pasos", "ajustar al contenido", "detent"],
+            minIOS: "18.0",
+            demo: { AnyView(DynamicHeightTrayDemo()) }
+        ),
+        ShowcaseEntry(
             id: "whats-new-sheet",
             title: "What's New Sheet",
             category: "Sheets",
@@ -2302,6 +2338,15 @@ enum ComponentRegistry {
             keywords: ["shimmer", "shine", "highlight", "loading", "mask", "text animation", "slide to unlock", "brillo", "destello", "reflejo", "cargando", "máscara", "animación de texto"],
             minIOS: "18.0",
             demo: { AnyView(ShimmerTextDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "streaming-text",
+            title: "Streaming Text",
+            category: "Text",
+            summary: "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+            keywords: ["streaming text", "llm", "ai answer", "token stream", "fade in", "chat", "text renderer", "texto en streaming", "llm", "respuesta de ia", "flujo de tokens", "aparecer", "chat", "text renderer"],
+            minIOS: "18.0",
+            demo: { AnyView(StreamingTextDemo()) }
         ),
         ShowcaseEntry(
             id: "text-blur-reveal",

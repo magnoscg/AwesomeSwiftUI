@@ -36,6 +36,16 @@ on `main`.
   like an order on its way.
 - Voice Orb, a glowing orb for a voice assistant whose colors swirl and that
   swells with the voice while it listens or speaks.
+- Tapback Reaction Bubble, a message you press and hold to react to, with the
+  chosen reaction kept as a badge on its corner.
+- Dynamic Height Tray, a sheet exactly as tall as its content, which grows and
+  shrinks as one step of a flow gives way to the next.
+- Streaming Text, text that arrives in chunks, like the answer of a language
+  model, and fades each new part in.
+- Progressive Blur Header, a blur that grows toward the top edge of a scroll
+  view, drawn by a Metal shader, so what scrolls under a header melts away.
+- Pixelate Shader Effect, a modifier that draws a view in big square blocks,
+  like a spoiler, and brings it into focus as they shrink.
 
 ### Changed
 
