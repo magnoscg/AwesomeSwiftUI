@@ -1393,7 +1393,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Calendars/DateStripPicker/DateStripPicker.swift",
       "preview": "Components/Calendars/DateStripPicker/DateStripPicker.webp",
@@ -1684,7 +1685,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift",
       "preview": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.webp",
@@ -3965,7 +3967,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Gestures/ScratchToReveal/ScratchToReveal.swift",
       "preview": "Components/Gestures/ScratchToReveal/ScratchToReveal.webp",
@@ -6244,7 +6247,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift",
       "preview": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.webp",
@@ -6446,7 +6450,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Media/WaveformScrubber/WaveformScrubber.swift",
       "preview": "Components/Media/WaveformScrubber/WaveformScrubber.webp",
@@ -6649,7 +6654,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift",
       "preview": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.webp",
@@ -7892,7 +7898,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Profiles/StoriesViewer/StoriesViewer.swift",
       "preview": "Components/Profiles/StoriesViewer/StoriesViewer.webp",
@@ -8090,7 +8097,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Progress/DownloadPillProgress/DownloadPillProgress.swift",
       "preview": "Components/Progress/DownloadPillProgress/DownloadPillProgress.webp",
@@ -9544,7 +9552,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Kavsoft tutorials"
+        "credit": "Kavsoft",
+        "url": "https://www.youtube.com/@Kavsoft"
       },
       "path": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift",
       "preview": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.webp",

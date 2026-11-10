@@ -6,6 +6,11 @@ on `main`.
 
 ## Unreleased
 
+### Changed
+
+- The nine components inspired by Kavsoft credit it by name and link to its
+  channel.
+
 ## 0.3.1 - 2026-11-10
 
 ### Fixed
