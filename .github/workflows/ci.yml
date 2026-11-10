@@ -54,3 +54,4 @@ jobs:
       - name: Remove components this Xcode cannot compile
         run: node scripts/catalog.mjs prune 26
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
+      - run: make showcase-build-mainactor DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'

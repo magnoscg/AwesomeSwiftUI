@@ -9,7 +9,7 @@ struct NotchedTabBarItem: Identifiable {
     let systemImage: String
 }
 
-enum NotchedTabBarMath {
+nonisolated enum NotchedTabBarMath {
     /// The middle of a tab, with the tabs spread evenly inside the horizontal inset.
     static func centerX(index: Int, count: Int, width: CGFloat, inset: CGFloat) -> CGFloat {
         let usable = max(width - 2 * max(inset, 0), 0)
@@ -25,7 +25,7 @@ enum NotchedTabBarMath {
 }
 
 /// A rounded bar with a smooth notch that can slide along its top edge.
-struct NotchedTabBarShape: Shape {
+nonisolated struct NotchedTabBarShape: Shape {
     var centerX: CGFloat
     var desiredHalfSpan: CGFloat
     var depth: CGFloat

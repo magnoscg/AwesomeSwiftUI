@@ -70,7 +70,7 @@ struct LiquidFillProgress: View {
 }
 
 /// The liquid: only `level` is animatable, so a level change eases while `phase` keeps following the clock.
-private struct LiquidFillWave: Shape {
+nonisolated private struct LiquidFillWave: Shape {
     var level: Double
     var phase: Double
 

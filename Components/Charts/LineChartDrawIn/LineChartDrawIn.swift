@@ -51,7 +51,7 @@ struct LineChartDrawIn: View {
     }
 }
 
-private struct LineChartDrawInLine: Shape {
+nonisolated private struct LineChartDrawInLine: Shape {
     let values: [Double]
     let inset: CGFloat
 
@@ -62,7 +62,7 @@ private struct LineChartDrawInLine: Shape {
     }
 }
 
-private struct LineChartDrawInArea: Shape {
+nonisolated private struct LineChartDrawInArea: Shape {
     let values: [Double]
     let inset: CGFloat
 
@@ -80,7 +80,7 @@ private struct LineChartDrawInArea: Shape {
 }
 
 /// A circle that re-computes its position for every animation frame, so it stays on the tip.
-private struct LineChartDrawInDot: Shape {
+nonisolated private struct LineChartDrawInDot: Shape {
     let values: [Double]
     let inset: CGFloat
     let radius: CGFloat
@@ -99,7 +99,7 @@ private struct LineChartDrawInDot: Shape {
 }
 
 /// The geometry of the chart, apart from the view so it can be tested.
-enum LineChartDrawInLogic {
+nonisolated enum LineChartDrawInLogic {
     static func points(for values: [Double], in rect: CGRect) -> [CGPoint] {
         let values = values.filter(\.isFinite)
         guard !rect.isNull, rect.width > 0, rect.height > 0,

@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum RadialLayoutMath {
+nonisolated enum RadialLayoutMath {
     /// Evenly spaced angles, the first one at `start`.
     static func angles(count: Int, start: Angle = .degrees(-90)) -> [Angle] {
         guard count > 0 else { return [] }

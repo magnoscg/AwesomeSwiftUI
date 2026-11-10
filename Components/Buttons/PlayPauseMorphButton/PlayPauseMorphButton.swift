@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// A triangle that morphs into two bars as `progress` goes from 0 to 1.
-struct PlayPauseMorphButtonShape: Shape {
+nonisolated struct PlayPauseMorphButtonShape: Shape {
     var progress: Double
 
     var animatableData: Double {

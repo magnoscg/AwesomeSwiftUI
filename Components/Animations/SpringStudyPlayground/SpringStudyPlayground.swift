@@ -23,7 +23,7 @@ enum SpringStudyPlaygroundMath {
     }
 }
 
-private struct SpringStudyPlaygroundCurve: Shape {
+nonisolated private struct SpringStudyPlaygroundCurve: Shape {
     let samples: [Double]
     let maximum: Double
 

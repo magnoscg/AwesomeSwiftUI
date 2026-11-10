@@ -57,7 +57,7 @@ enum ReorderableGridReordering {
 
 @available(iOS 27, *)
 struct ReorderableGridDemo: View {
-    private struct App: Identifiable, Sendable {
+    nonisolated private struct App: Identifiable, Sendable {
         let id: String
         let systemImage: String
         let color: Color

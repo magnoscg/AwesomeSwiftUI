@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// Applies a mask where `#` takes a digit, `A` takes a letter and anything else is written as is.
-enum MaskedTextFieldFormatter {
+nonisolated enum MaskedTextFieldFormatter {
     private static func accepts(_ character: Character, slot: Character) -> Bool? {
         switch slot {
         case "#": character.isWholeNumber

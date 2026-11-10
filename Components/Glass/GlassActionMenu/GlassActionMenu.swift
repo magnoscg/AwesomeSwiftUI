@@ -16,7 +16,7 @@ struct GlassActionItem: Identifiable {
 /// With Reduce Motion on, the actions appear without morphing.
 @available(iOS 26, *)
 struct GlassActionMenu: View {
-    private enum GlassID: Hashable, Sendable {
+    nonisolated private enum GlassID: Hashable, Sendable {
         case toggle
         case item(String)
     }

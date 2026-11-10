@@ -1,4 +1,4 @@
-.PHONY: catalog check test preview record docs docs-dev showcase-build showcase-test verify
+.PHONY: catalog check test preview record docs docs-dev showcase-build showcase-build-mainactor showcase-test verify
 
 PROJECT = Showcase/Showcase.xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
@@ -42,5 +42,12 @@ showcase-build:
 showcase-test:
 	( set -o pipefail; $(XCODEBUILD) test $(XCBEAUTIFY) )
 
+# Compiles every component the way a new Xcode project does, with the main actor
+# as the default isolation. Its own build folder keeps both builds incremental.
+MAIN_ACTOR_BUILD = $(HOME)/Library/Developer/Xcode/DerivedData/Showcase-MainActor
+showcase-build-mainactor:
+	( set -o pipefail; $(XCODEBUILD) -derivedDataPath '$(MAIN_ACTOR_BUILD)' build \
+		SWIFT_DEFAULT_ACTOR_ISOLATION=MainActor SWIFT_APPROACHABLE_CONCURRENCY=YES $(XCBEAUTIFY) )
+
 # Everything that has to pass before a pull request.
-verify: check test showcase-test
+verify: check test showcase-build-mainactor showcase-test
