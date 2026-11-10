@@ -10,6 +10,11 @@ on `main`.
 
 - The nine components inspired by Kavsoft credit it by name and link to its
   channel.
+- A component inspired by something else must link it, and `make check`
+  rejects one that does not. Border Beam Modifier now credits Magic UI, and
+  five components that named no source are listed as original: Command
+  Palette, Contribution Heatmap, Floating Dock Bar, Kanban Board and Sticky
+  Stacked Cards.
 
 ## 0.3.1 - 2026-11-10
 

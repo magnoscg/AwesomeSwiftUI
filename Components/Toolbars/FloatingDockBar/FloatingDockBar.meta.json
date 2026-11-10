@@ -11,7 +11,7 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": ["DragGesture", "GestureState", "scaleEffect", "onGeometryChange"],
-  "origin": { "kind": "inspired", "credit": "Public web component registries" },
+  "origin": { "kind": "original" },
   "previewSteps": [
     "sleep 0.4",
     "swipe --start-x 60 --start-y 465 --end-x 342 --end-y 465 --duration 1.8",

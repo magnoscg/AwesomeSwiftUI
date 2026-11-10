@@ -11,5 +11,5 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": ["visualEffect", "GeometryProxy", "ScrollView"],
-  "origin": { "kind": "inspired", "credit": "Public web component registries" }
+  "origin": { "kind": "original" }
 }

@@ -11,5 +11,5 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": ["Canvas", "TimelineView", "GraphicsContext", "trimmedPath", "Color.mix"],
-  "origin": { "kind": "inspired", "credit": "Public web component registries" }
+  "origin": { "kind": "inspired", "credit": "Magic UI", "url": "https://magicui.design/docs/components/border-beam" }
 }

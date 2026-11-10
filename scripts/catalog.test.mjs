@@ -254,7 +254,8 @@ describe('invalid components', () => {
     ['no English keywords', { keywords: { en: [], es: ['x'] } }, /"keywords\.en"/],
     ['no Spanish keywords', { keywords: { en: ['x'] } }, /"keywords\.es"/],
     ['an unknown origin', { origin: { kind: 'internet' } }, /"origin\.kind" must be one of/],
-    ['inspiration without credit', { origin: { kind: 'inspired' } }, /"origin\.credit"/],
+    ['inspiration without credit', { origin: { kind: 'inspired', url: 'https://x.dev' } }, /"origin\.credit"/],
+    ['inspiration without a link', { origin: { kind: 'inspired', credit: 'A talk' } }, /"origin\.url"/],
     ['adapted code without a source', { origin: { kind: 'adapted', license: 'MIT' } }, /"origin\.url"/],
     ['adapted code without a license', { origin: { kind: 'adapted', url: 'https://x.dev' } }, /"origin\.license"/],
   ];
@@ -721,7 +722,6 @@ describe('the documentation site', () => {
 
   const origins = [
     ['original work', { kind: 'original' }, /\| Origin \| Original \|/],
-    ['credited inspiration', { kind: 'inspired', credit: 'A talk' }, /\| Origin \| Inspired by A talk \|/],
     [
       'linked inspiration',
       { kind: 'inspired', credit: 'A talk', url: 'https://x.dev' },

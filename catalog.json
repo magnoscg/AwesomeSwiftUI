@@ -1725,8 +1725,7 @@
         "defaultScrollAnchor"
       ],
       "origin": {
-        "kind": "inspired",
-        "credit": "Public web component registries"
+        "kind": "original"
       },
       "path": "Components/Charts/ContributionHeatmap/ContributionHeatmap.swift",
       "preview": "Components/Charts/ContributionHeatmap/ContributionHeatmap.webp",
@@ -2738,7 +2737,8 @@
       ],
       "origin": {
         "kind": "inspired",
-        "credit": "Public web component registries"
+        "credit": "Magic UI",
+        "url": "https://magicui.design/docs/components/border-beam"
       },
       "path": "Components/Effects/BorderBeamModifier/BorderBeamModifier.swift",
       "preview": "Components/Effects/BorderBeamModifier/BorderBeamModifier.webp",
@@ -5370,8 +5370,7 @@
         "contextMenu(menuItems:)"
       ],
       "origin": {
-        "kind": "inspired",
-        "credit": "Public web component registries"
+        "kind": "original"
       },
       "path": "Components/Layouts/KanbanBoard/KanbanBoard.swift",
       "preview": "Components/Layouts/KanbanBoard/KanbanBoard.webp",
@@ -6532,8 +6531,7 @@
         "ContentUnavailableView"
       ],
       "origin": {
-        "kind": "inspired",
-        "credit": "Public web component registries"
+        "kind": "original"
       },
       "path": "Components/Menus/CommandPalette/CommandPalette.swift",
       "preview": "Components/Menus/CommandPalette/CommandPalette.webp",
@@ -8810,8 +8808,7 @@
         "ScrollView"
       ],
       "origin": {
-        "kind": "inspired",
-        "credit": "Public web component registries"
+        "kind": "original"
       },
       "path": "Components/Scrolling/StickyStackedCards/StickyStackedCards.swift",
       "preview": "Components/Scrolling/StickyStackedCards/StickyStackedCards.webp",
@@ -9592,8 +9589,7 @@
         "onGeometryChange"
       ],
       "origin": {
-        "kind": "inspired",
-        "credit": "Public web component registries"
+        "kind": "original"
       },
       "path": "Components/Toolbars/FloatingDockBar/FloatingDockBar.swift",
       "preview": "Components/Toolbars/FloatingDockBar/FloatingDockBar.webp",

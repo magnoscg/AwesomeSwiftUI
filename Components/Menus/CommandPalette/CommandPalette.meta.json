@@ -32,8 +32,7 @@
     "ContentUnavailableView"
   ],
   "origin": {
-    "kind": "inspired",
-    "credit": "Public web component registries"
+    "kind": "original"
   },
   "previewSteps": [
     "sleep 0.4",
