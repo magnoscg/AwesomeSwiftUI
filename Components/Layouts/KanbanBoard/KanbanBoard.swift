@@ -42,6 +42,8 @@ struct KanbanBoard: View {
     @State private var targetedColumnID: String?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let cardCornerRadius: CGFloat = 12
+
     init(columns: Binding<[KanbanBoardColumn]>, columnWidth: CGFloat = 220) {
         _columns = columns
         _columnWidth = ScaledMetric(wrappedValue: columnWidth, relativeTo: .body)
@@ -116,8 +118,8 @@ struct KanbanBoard: View {
             .font(.subheadline)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(.background, in: .rect(cornerRadius: 12, style: .continuous))
-            .contentShape(.dragPreview, .rect(cornerRadius: 12, style: .continuous))
+            .background(.background, in: .rect(cornerRadius: cardCornerRadius, style: .continuous))
+            .contentShape(.dragPreview, .rect(cornerRadius: cardCornerRadius, style: .continuous))
     }
 
     @ViewBuilder

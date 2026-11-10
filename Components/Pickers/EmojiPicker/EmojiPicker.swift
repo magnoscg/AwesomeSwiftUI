@@ -42,6 +42,8 @@ struct EmojiPicker: View {
     @ScaledMetric(relativeTo: .title) private var cellSize = 44.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let edgePadding: CGFloat = 12
+
     private var animation: Animation? {
         reduceMotion ? nil : .smooth(duration: 0.35)
     }
@@ -66,7 +68,7 @@ struct EmojiPicker: View {
             HStack(spacing: 4) {
                 ForEach(recents, id: \.self, content: emojiButton)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, edgePadding)
         }
         .scrollIndicators(.hidden)
         .padding(.vertical, 6)
@@ -95,7 +97,7 @@ struct EmojiPicker: View {
                     .accessibilityAddTraits(isActive ? .isSelected : [])
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, edgePadding)
             .padding(.vertical, 6)
         }
         .scrollIndicators(.hidden)
@@ -119,7 +121,7 @@ struct EmojiPicker: View {
                 }
             }
             .scrollTargetLayout()
-            .padding(12)
+            .padding(edgePadding)
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
             if let first = categories.first(where: { ids.contains($0.id) }) {

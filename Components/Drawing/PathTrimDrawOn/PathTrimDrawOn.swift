@@ -36,6 +36,9 @@ struct PathTrimDrawOn<Outline: Shape>: View {
 
 /// A heart with a pulse line through it, scaled to fit any rectangle.
 nonisolated struct PathTrimDrawOnHeartbeat: Shape {
+    /// The margin the heart's curves keep from the left and the top of the unit square.
+    private static let inset: CGFloat = 0.04
+
     func path(in rect: CGRect) -> Path {
         let side = min(rect.width, rect.height)
         guard side > 0 else { return Path() }
@@ -47,9 +50,9 @@ nonisolated struct PathTrimDrawOnHeartbeat: Shape {
 
         var path = Path()
         path.move(to: point(0.5, 0.92))
-        path.addCurve(to: point(0.04, 0.36), control1: point(0.2, 0.7), control2: point(0.04, 0.54))
-        path.addCurve(to: point(0.5, 0.24), control1: point(0.04, 0.08), control2: point(0.4, 0.04))
-        path.addCurve(to: point(0.96, 0.36), control1: point(0.6, 0.04), control2: point(0.96, 0.08))
+        path.addCurve(to: point(Self.inset, 0.36), control1: point(0.2, 0.7), control2: point(Self.inset, 0.54))
+        path.addCurve(to: point(0.5, 0.24), control1: point(Self.inset, 0.08), control2: point(0.4, Self.inset))
+        path.addCurve(to: point(0.96, 0.36), control1: point(0.6, Self.inset), control2: point(0.96, 0.08))
         path.addCurve(to: point(0.5, 0.92), control1: point(0.96, 0.54), control2: point(0.8, 0.7))
 
         path.move(to: point(0.16, 0.5))

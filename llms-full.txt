@@ -75,6 +75,9 @@ struct BreathingGuideCircle: View {
     @State private var start = Date.now
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// How much the scale of every ring grows from contracted to expanded.
+    private let ringGrowth = 0.38
+
     var body: some View {
         TimelineView(.animation(minimumInterval: reduceMotion ? 0.25 : 1.0 / 30.0)) { timeline in
             let state = BreathingGuideCircleMath.state(
@@ -108,13 +111,13 @@ struct BreathingGuideCircle: View {
         return ZStack {
             Circle()
                 .fill(tint.opacity(0.14))
-                .scaleEffect(0.62 + 0.38 * expansion)
+                .scaleEffect(0.62 + ringGrowth * expansion)
             Circle()
                 .fill(tint.opacity(0.26))
-                .scaleEffect(0.5 + 0.38 * expansion)
+                .scaleEffect(0.5 + ringGrowth * expansion)
             Circle()
                 .fill(.linearGradient(colors: [tint, .blue], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .scaleEffect(0.38 + 0.38 * expansion)
+                .scaleEffect(0.38 + ringGrowth * expansion)
         }
         .frame(width: size, height: size)
     }
@@ -642,6 +645,7 @@ struct SpringStudyPlayground: View {
 
     /// The curve's scale. A spring with the lowest damping overshoots to almost this.
     private static let curveMaximum = 1.9
+    private static let presetSpacing: CGFloat = 10
 
     @State private var response: Double
     @State private var damping: Double
@@ -723,8 +727,8 @@ struct SpringStudyPlayground: View {
 
     private var presets: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 10) { presetButtons }
-            VStack(spacing: 10) { presetButtons }
+            HStack(spacing: Self.presetSpacing) { presetButtons }
+            VStack(spacing: Self.presetSpacing) { presetButtons }
         }
     }
 
@@ -1395,20 +1399,22 @@ struct ImageDerivedGradientBackgroundSample: Equatable {
 }
 
 enum ImageDerivedGradientBackgroundMath {
+    static let bytesPerPixel = 4
+
     /// Averages horizontal bands of premultiplied RGBA pixels, from top to bottom.
     ///
     /// Saturated pixels count for more, so a photo gives vivid colors instead of grey.
     /// Fully transparent bands are left out.
     static func bands(pixels: [UInt8], width: Int, height: Int, count: Int) -> [ImageDerivedGradientBackgroundSample] {
-        guard width > 0, height > 0, count > 0, pixels.count / 4 / width >= height else { return [] }
+        guard width > 0, height > 0, count > 0, pixels.count / bytesPerPixel / width >= height else { return [] }
         let bandCount = min(count, height)
 
         return (0..<bandCount).compactMap { band in
-            var red = 0.0, green = 0.0, blue = 0.0, total = 0.0
+            var red: Double = 0, green: Double = 0, blue: Double = 0, total: Double = 0
 
             for row in (band * height / bandCount)..<((band + 1) * height / bandCount) {
                 for column in 0..<width {
-                    let offset = (row * width + column) * 4
+                    let offset = (row * width + column) * bytesPerPixel
                     let alpha = Double(pixels[offset + 3])
                     guard alpha > 0 else { continue }
 
@@ -1475,14 +1481,14 @@ struct ImageDerivedGradientBackground: View {
 
         let width = cgImage.width
         let height = cgImage.height
-        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        var pixels = [UInt8](repeating: 0, count: width * height * ImageDerivedGradientBackgroundMath.bytesPerPixel)
         let didDraw = pixels.withUnsafeMutableBytes { buffer -> Bool in
             guard let context = CGContext(
                 data: buffer.baseAddress,
                 width: width,
                 height: height,
                 bitsPerComponent: 8,
-                bytesPerRow: width * 4,
+                bytesPerRow: width * ImageDerivedGradientBackgroundMath.bytesPerPixel,
                 space: space,
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
             ) else { return false }
@@ -3469,15 +3475,20 @@ nonisolated struct PlayPauseMorphButtonShape: Shape {
         set { progress = newValue }
     }
 
+    private static let iconTop = 0.1
+    private static let iconBottom = 0.9
+    /// The x where the triangle is cut in two.
+    private static let triangleCut = 0.57
+
     /// The triangle, cut in two, in a unit square. Corners match one to one with `pauseBars`.
     private static let playHalves: [[CGPoint]] = [
-        [CGPoint(x: 0.22, y: 0.1), CGPoint(x: 0.57, y: 0.3), CGPoint(x: 0.57, y: 0.7), CGPoint(x: 0.22, y: 0.9)],
-        [CGPoint(x: 0.57, y: 0.3), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.57, y: 0.7)],
+        [CGPoint(x: 0.22, y: iconTop), CGPoint(x: triangleCut, y: 0.3), CGPoint(x: triangleCut, y: 0.7), CGPoint(x: 0.22, y: iconBottom)],
+        [CGPoint(x: triangleCut, y: 0.3), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.92, y: 0.5), CGPoint(x: triangleCut, y: 0.7)],
     ]
 
     private static let pauseBars: [[CGPoint]] = [
-        [CGPoint(x: 0.2, y: 0.1), CGPoint(x: 0.42, y: 0.1), CGPoint(x: 0.42, y: 0.9), CGPoint(x: 0.2, y: 0.9)],
-        [CGPoint(x: 0.58, y: 0.1), CGPoint(x: 0.8, y: 0.1), CGPoint(x: 0.8, y: 0.9), CGPoint(x: 0.58, y: 0.9)],
+        [CGPoint(x: 0.2, y: iconTop), CGPoint(x: 0.42, y: iconTop), CGPoint(x: 0.42, y: iconBottom), CGPoint(x: 0.2, y: iconBottom)],
+        [CGPoint(x: 0.58, y: iconTop), CGPoint(x: 0.8, y: iconTop), CGPoint(x: 0.8, y: iconBottom), CGPoint(x: 0.58, y: iconBottom)],
     ]
 
     /// The two four-cornered pieces at the current progress, in a unit square.
@@ -3510,6 +3521,9 @@ struct PlayPauseMorphButton: View {
     @ScaledMetric(relativeTo: .largeTitle) private var size = 92.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// The side of the icon as a fraction of the button's.
+    private let iconScale = 0.42
+
     var body: some View {
         Button {
             withAnimation(reduceMotion ? nil : .spring(duration: 0.42, bounce: 0.2)) { isPlaying.toggle() }
@@ -3521,7 +3535,7 @@ struct PlayPauseMorphButton: View {
                 // A stroke of the same color softens the corners.
                 shape.stroke(.white, style: StrokeStyle(lineWidth: size * 0.04, lineJoin: .round))
             }
-            .frame(width: size * 0.42, height: size * 0.42)
+            .frame(width: size * iconScale, height: size * iconScale)
             .frame(width: size, height: size)
             .background(.linearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing), in: Circle())
             .shadow(color: (colors.first ?? .black).opacity(0.4), radius: 18, y: 10)
@@ -5933,11 +5947,11 @@ struct ContributionHeatmap: View {
 
         VStack(alignment: .leading, spacing: 12) {
             ScrollView(.horizontal) {
-                LazyHGrid(rows: Array(repeating: GridItem(.fixed(size), spacing: gap), count: 7), spacing: gap) {
+                LazyHGrid(rows: Array(repeating: GridItem(.fixed(size), spacing: gap), count: ContributionHeatmapLogic.daysPerWeek), spacing: gap) {
                     ForEach(Array(counts.enumerated()), id: \.offset) { index, count in
                         cell(
                             level: ContributionHeatmapLogic.level(count: count, highest: highest, levels: levels),
-                            delay: Double((counts.count - 1 - index) / 7) * 0.03
+                            delay: Double((counts.count - 1 - index) / ContributionHeatmapLogic.daysPerWeek) * 0.03
                         )
                     }
                 }
@@ -6002,12 +6016,14 @@ struct ContributionHeatmap: View {
 
 /// The grid math, apart from the view so it can be tested.
 enum ContributionHeatmapLogic {
+    static let daysPerWeek = 7
+
     /// Every day shown, oldest first. The first day starts a week, so columns line up.
     static func days(endingAt end: Date, weeks: Int, calendar: Calendar) -> [Date] {
         let weeks = min(max(weeks, 1), 530)
         let last = calendar.startOfDay(for: end)
-        let daysIntoWeek = (calendar.component(.weekday, from: last) - calendar.firstWeekday + 7) % 7
-        let count = (weeks - 1) * 7 + daysIntoWeek + 1
+        let daysIntoWeek = (calendar.component(.weekday, from: last) - calendar.firstWeekday + daysPerWeek) % daysPerWeek
+        let count = (weeks - 1) * daysPerWeek + daysIntoWeek + 1
         return (0..<count).compactMap { calendar.date(byAdding: .day, value: $0 - count + 1, to: last) }
     }
 
@@ -9603,6 +9619,9 @@ struct PathTrimDrawOn<Outline: Shape>: View {
 
 /// A heart with a pulse line through it, scaled to fit any rectangle.
 nonisolated struct PathTrimDrawOnHeartbeat: Shape {
+    /// The margin the heart's curves keep from the left and the top of the unit square.
+    private static let inset: CGFloat = 0.04
+
     func path(in rect: CGRect) -> Path {
         let side = min(rect.width, rect.height)
         guard side > 0 else { return Path() }
@@ -9614,9 +9633,9 @@ nonisolated struct PathTrimDrawOnHeartbeat: Shape {
 
         var path = Path()
         path.move(to: point(0.5, 0.92))
-        path.addCurve(to: point(0.04, 0.36), control1: point(0.2, 0.7), control2: point(0.04, 0.54))
-        path.addCurve(to: point(0.5, 0.24), control1: point(0.04, 0.08), control2: point(0.4, 0.04))
-        path.addCurve(to: point(0.96, 0.36), control1: point(0.6, 0.04), control2: point(0.96, 0.08))
+        path.addCurve(to: point(Self.inset, 0.36), control1: point(0.2, 0.7), control2: point(Self.inset, 0.54))
+        path.addCurve(to: point(0.5, 0.24), control1: point(Self.inset, 0.08), control2: point(0.4, Self.inset))
+        path.addCurve(to: point(0.96, 0.36), control1: point(0.6, Self.inset), control2: point(0.96, 0.08))
         path.addCurve(to: point(0.5, 0.92), control1: point(0.96, 0.54), control2: point(0.8, 0.7))
 
         path.move(to: point(0.16, 0.5))
@@ -10517,6 +10536,7 @@ struct ConfettiBurst: ViewModifier {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let motion = ConfettiBurstMotion()
+    private static let pieceWidth: CGFloat = 8
 
     func body(content: Content) -> some View {
         content
@@ -10561,9 +10581,9 @@ struct ConfettiBurst: ViewModifier {
 
             let color = GraphicsContext.Shading.color(colors[index % colors.count])
             if index.isMultiple(of: 3) {
-                piece.fill(Path(ellipseIn: CGRect(x: -4, y: -4, width: 8, height: 8)), with: color)
+                piece.fill(Path(ellipseIn: CGRect(x: -Self.pieceWidth / 2, y: -Self.pieceWidth / 2, width: Self.pieceWidth, height: Self.pieceWidth)), with: color)
             } else {
-                piece.fill(Path(CGRect(x: -4, y: -6.5, width: 8, height: 13)), with: color)
+                piece.fill(Path(CGRect(x: -Self.pieceWidth / 2, y: -6.5, width: Self.pieceWidth, height: 13)), with: color)
             }
         }
     }
@@ -16558,6 +16578,9 @@ struct CircularAvatarCropper: View {
     @GestureState private var translation = CGSize.zero
     @GestureState private var magnification: CGFloat = 1
 
+    /// How far a VoiceOver action moves the photo, as a fraction of the window's diameter.
+    private let panStep: CGFloat = 0.1
+
     var body: some View {
         GeometryReader { geometry in
             let diameter = max(min(geometry.size.width, geometry.size.height) - 2 * max(windowInset, 0), 1)
@@ -16588,10 +16611,10 @@ struct CircularAvatarCropper: View {
             }
         }
         .accessibilityActions {
-            Button("Move photo left") { update { $0.offset.width -= 0.1 } }
-            Button("Move photo right") { update { $0.offset.width += 0.1 } }
-            Button("Move photo up") { update { $0.offset.height -= 0.1 } }
-            Button("Move photo down") { update { $0.offset.height += 0.1 } }
+            Button("Move photo left") { update { $0.offset.width -= panStep } }
+            Button("Move photo right") { update { $0.offset.width += panStep } }
+            Button("Move photo up") { update { $0.offset.height -= panStep } }
+            Button("Move photo down") { update { $0.offset.height += panStep } }
         }
     }
 
@@ -16813,6 +16836,9 @@ struct CropRectangleOverlay: View {
 
     @GestureState private var drag: ActiveDrag?
 
+    /// How far a VoiceOver action moves or resizes the frame, as a fraction of the image.
+    private let adjustmentStep: CGFloat = 0.05
+
     private var committed: CGRect { CropRectangleOverlayHandle.sanitized(crop) }
 
     private var shown: CGRect {
@@ -16914,14 +16940,14 @@ struct CropRectangleOverlay: View {
     }
 
     @ViewBuilder private var accessibilityButtons: some View {
-        adjustment("Move left", .body, dx: -0.05, dy: 0)
-        adjustment("Move right", .body, dx: 0.05, dy: 0)
-        adjustment("Move up", .body, dx: 0, dy: -0.05)
-        adjustment("Move down", .body, dx: 0, dy: 0.05)
-        adjustment("Make wider", .right, dx: 0.05, dy: 0)
-        adjustment("Make narrower", .right, dx: -0.05, dy: 0)
-        adjustment("Make taller", .bottom, dx: 0, dy: 0.05)
-        adjustment("Make shorter", .bottom, dx: 0, dy: -0.05)
+        adjustment("Move left", .body, dx: -adjustmentStep, dy: 0)
+        adjustment("Move right", .body, dx: adjustmentStep, dy: 0)
+        adjustment("Move up", .body, dx: 0, dy: -adjustmentStep)
+        adjustment("Move down", .body, dx: 0, dy: adjustmentStep)
+        adjustment("Make wider", .right, dx: adjustmentStep, dy: 0)
+        adjustment("Make narrower", .right, dx: -adjustmentStep, dy: 0)
+        adjustment("Make taller", .bottom, dx: 0, dy: adjustmentStep)
+        adjustment("Make shorter", .bottom, dx: 0, dy: -adjustmentStep)
     }
 
     private func adjustment(_ title: String, _ handle: CropRectangleOverlayHandle, dx: CGFloat, dy: CGFloat) -> some View {
@@ -19019,6 +19045,8 @@ struct PasswordStrengthField: View {
     @FocusState private var isFocused: Bool
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let fieldCornerRadius: CGFloat = 14
+
     private var level: Int { PasswordStrengthFieldMeter.level(for: password, rules: rules) }
 
     private var levelName: String {
@@ -19096,9 +19124,9 @@ struct PasswordStrengthField: View {
             .accessibilityLabel(isRevealed ? "Hide password" : "Show password")
         }
         .padding(14)
-        .background(.background, in: .rect(cornerRadius: 14, style: .continuous))
+        .background(.background, in: .rect(cornerRadius: fieldCornerRadius, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
+            RoundedRectangle(cornerRadius: fieldCornerRadius, style: .continuous)
                 .strokeBorder(isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(.quaternary), lineWidth: 1.5)
         }
     }
@@ -20589,6 +20617,8 @@ struct KanbanBoard: View {
     @State private var targetedColumnID: String?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let cardCornerRadius: CGFloat = 12
+
     init(columns: Binding<[KanbanBoardColumn]>, columnWidth: CGFloat = 220) {
         _columns = columns
         _columnWidth = ScaledMetric(wrappedValue: columnWidth, relativeTo: .body)
@@ -20663,8 +20693,8 @@ struct KanbanBoard: View {
             .font(.subheadline)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(.background, in: .rect(cornerRadius: 12, style: .continuous))
-            .contentShape(.dragPreview, .rect(cornerRadius: 12, style: .continuous))
+            .background(.background, in: .rect(cornerRadius: cardCornerRadius, style: .continuous))
+            .contentShape(.dragPreview, .rect(cornerRadius: cardCornerRadius, style: .continuous))
     }
 
     @ViewBuilder
@@ -21310,6 +21340,8 @@ struct AccordionSection<Data: RandomAccessCollection, Content: View>: View where
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let cornerRadius: CGFloat = 16
+
     var body: some View {
         VStack(spacing: 10) {
             ForEach(data) { element in
@@ -21351,8 +21383,8 @@ struct AccordionSection<Data: RandomAccessCollection, Content: View>: View where
                     .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .top)))
             }
         }
-        .background(.background, in: .rect(cornerRadius: 16, style: .continuous))
-        .clipShape(.rect(cornerRadius: 16, style: .continuous))
+        .background(.background, in: .rect(cornerRadius: cornerRadius, style: .continuous))
+        .clipShape(.rect(cornerRadius: cornerRadius, style: .continuous))
     }
 }
 
@@ -23332,6 +23364,9 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
     @ScaledMetric(relativeTo: .subheadline) private var miniArtworkSize = 46.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let minTouchTarget: CGFloat = 44
+    private let miniBarSpacing: CGFloat = 12
+
     private var safeProgress: Double { progress.isFinite ? min(max(progress, 0), 1) : 0 }
 
     var body: some View {
@@ -23352,9 +23387,9 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
     // MARK: Mini player
 
     private var miniBar: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: miniBarSpacing) {
             Button { setExpanded(true) } label: {
-                HStack(spacing: 12) {
+                HStack(spacing: miniBarSpacing) {
                     artwork()
                         .frame(width: miniArtworkSize, height: miniArtworkSize)
                         .clipShape(.rect(cornerRadius: 10))
@@ -23398,7 +23433,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
                 Image(systemName: "chevron.compact.down")
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .frame(maxWidth: .infinity, minHeight: minTouchTarget)
                     .contentShape(.rect)
             }
             .accessibilityLabel("Close player")
@@ -23452,7 +23487,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
         Button { isPlaying.toggle() } label: {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                 .font(font)
-                .frame(minWidth: 44, minHeight: 44)
+                .frame(minWidth: minTouchTarget, minHeight: minTouchTarget)
                 .contentShape(.rect)
         }
         .accessibilityLabel(isPlaying ? "Pause" : "Play")
@@ -23462,7 +23497,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .font(.title)
-                .frame(minWidth: 44, minHeight: 44)
+                .frame(minWidth: minTouchTarget, minHeight: minTouchTarget)
                 .contentShape(.rect)
         }
         .accessibilityLabel(label)
@@ -25004,6 +25039,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
 
     private var animation: Animation? { reduceMotion ? nil : .smooth(duration: 0.28) }
     private let cornerRadius: CGFloat = 14
+    private let contentPadding: CGFloat = 14
 
     var body: some View {
         field
@@ -25046,7 +25082,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                     .rotationEffect(.degrees(isOpen ? 180 : 0))
                     .accessibilityHidden(true)
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, contentPadding)
             .padding(.vertical, 10)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.background, in: .rect(cornerRadius: cornerRadius))
@@ -25081,7 +25117,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                 Text("No options")
                     .font(.body)
                     .foregroundStyle(.secondary)
-                    .padding(14)
+                    .padding(contentPadding)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
@@ -25100,7 +25136,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                                 .accessibilityHidden(true)
                         }
                     }
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, contentPadding)
                     .frame(minHeight: 46)
                     .contentShape(.rect)
                 }
@@ -28510,6 +28546,8 @@ struct EmojiPicker: View {
     @ScaledMetric(relativeTo: .title) private var cellSize = 44.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let edgePadding: CGFloat = 12
+
     private var animation: Animation? {
         reduceMotion ? nil : .smooth(duration: 0.35)
     }
@@ -28534,7 +28572,7 @@ struct EmojiPicker: View {
             HStack(spacing: 4) {
                 ForEach(recents, id: \.self, content: emojiButton)
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, edgePadding)
         }
         .scrollIndicators(.hidden)
         .padding(.vertical, 6)
@@ -28563,7 +28601,7 @@ struct EmojiPicker: View {
                     .accessibilityAddTraits(isActive ? .isSelected : [])
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, edgePadding)
             .padding(.vertical, 6)
         }
         .scrollIndicators(.hidden)
@@ -28587,7 +28625,7 @@ struct EmojiPicker: View {
                 }
             }
             .scrollTargetLayout()
-            .padding(12)
+            .padding(edgePadding)
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
             if let first = categories.first(where: { ids.contains($0.id) }) {
@@ -31679,6 +31717,8 @@ struct NetflixRowsScroller: View {
     let rows: [NetflixRowsScrollerRow]
     var onSelect: (NetflixRowsScrollerTitle) -> Void = { _ in }
 
+    private let posterSpacing: CGFloat = 10
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 24) {
@@ -31690,10 +31730,10 @@ struct NetflixRowsScroller: View {
                             .accessibilityAddTraits(.isHeader)
 
                         ScrollView(.horizontal) {
-                            LazyHStack(spacing: 10) {
+                            LazyHStack(spacing: posterSpacing) {
                                 ForEach(row.items) { item in
                                     poster(for: item)
-                                        .containerRelativeFrame(.horizontal, count: 3, span: 1, spacing: 10)
+                                        .containerRelativeFrame(.horizontal, count: 3, span: 1, spacing: posterSpacing)
                                 }
                             }
                             .scrollTargetLayout()
@@ -31973,6 +32013,7 @@ struct PagedGridLauncher: View {
     @State private var scrolledPage: Int?
 
     @ScaledMetric(relativeTo: .caption2) private var iconSize: CGFloat = 60
+    private let pageDotSize: CGFloat = 8
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -32063,7 +32104,7 @@ struct PagedGridLauncher: View {
                 ForEach(0..<count, id: \.self) { index in
                     Circle()
                         .fill(.primary.opacity(index == page ? 0.9 : 0.25))
-                        .frame(width: 8, height: 8)
+                        .frame(width: pageDotSize, height: pageDotSize)
                 }
             }
             Text("\(page + 1) / \(count)")

@@ -163,6 +163,12 @@ anything else:
     still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
     the size, full color with no banding in gradients or glass, and GitHub
     renders it in Markdown, which it does not do for a committed video.
+12. **Name what repeats.** A number written four or more times in a component,
+    outside its demo, gets a name: a `private let`, or a parameter with a
+    default when whoever copies the component would want to change it. A
+    number that reads well where it is, like one padding or one opacity, stays
+    inline. `make check` rejects the repeats, and leaves out 0, 1, 2, 0.5, 90,
+    100, 180 and 360.
 
 ## Recording a preview
 

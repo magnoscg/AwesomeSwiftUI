@@ -64,6 +64,9 @@ struct BreathingGuideCircle: View {
     @State private var start = Date.now
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// How much the scale of every ring grows from contracted to expanded.
+    private let ringGrowth = 0.38
+
     var body: some View {
         TimelineView(.animation(minimumInterval: reduceMotion ? 0.25 : 1.0 / 30.0)) { timeline in
             let state = BreathingGuideCircleMath.state(
@@ -97,13 +100,13 @@ struct BreathingGuideCircle: View {
         return ZStack {
             Circle()
                 .fill(tint.opacity(0.14))
-                .scaleEffect(0.62 + 0.38 * expansion)
+                .scaleEffect(0.62 + ringGrowth * expansion)
             Circle()
                 .fill(tint.opacity(0.26))
-                .scaleEffect(0.5 + 0.38 * expansion)
+                .scaleEffect(0.5 + ringGrowth * expansion)
             Circle()
                 .fill(.linearGradient(colors: [tint, .blue], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .scaleEffect(0.38 + 0.38 * expansion)
+                .scaleEffect(0.38 + ringGrowth * expansion)
         }
         .frame(width: size, height: size)
     }

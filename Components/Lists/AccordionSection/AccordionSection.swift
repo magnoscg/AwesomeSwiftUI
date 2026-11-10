@@ -13,6 +13,8 @@ struct AccordionSection<Data: RandomAccessCollection, Content: View>: View where
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let cornerRadius: CGFloat = 16
+
     var body: some View {
         VStack(spacing: 10) {
             ForEach(data) { element in
@@ -54,8 +56,8 @@ struct AccordionSection<Data: RandomAccessCollection, Content: View>: View where
                     .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .top)))
             }
         }
-        .background(.background, in: .rect(cornerRadius: 16, style: .continuous))
-        .clipShape(.rect(cornerRadius: 16, style: .continuous))
+        .background(.background, in: .rect(cornerRadius: cornerRadius, style: .continuous))
+        .clipShape(.rect(cornerRadius: cornerRadius, style: .continuous))
     }
 }
 
