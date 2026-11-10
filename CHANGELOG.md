@@ -38,6 +38,8 @@ on `main`.
   swells with the voice while it listens or speaks.
 - Tapback Reaction Bubble, a message you press and hold to react to, with the
   chosen reaction kept as a badge on its corner.
+- Dynamic Height Tray, a sheet exactly as tall as its content, which grows and
+  shrinks as one step of a flow gives way to the next.
 
 ### Changed
 

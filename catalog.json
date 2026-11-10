@@ -1,5 +1,5 @@
 {
-  "count": 267,
+  "count": 268,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -9454,6 +9454,50 @@
       "path": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift",
       "preview": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
+    },
+    {
+      "id": "dynamic-height-tray",
+      "name": "DynamicHeightTray",
+      "title": "Dynamic Height Tray",
+      "category": "Sheets",
+      "summary": "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+      "keywords": {
+        "en": [
+          "tray",
+          "self sizing sheet",
+          "dynamic height",
+          "bottom sheet",
+          "steps",
+          "fit content",
+          "detent"
+        ],
+        "es": [
+          "bandeja",
+          "hoja autoajustable",
+          "altura dinámica",
+          "hoja inferior",
+          "pasos",
+          "ajustar al contenido",
+          "detent"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "sheet",
+        "presentationDetents",
+        "onGeometryChange",
+        "fixedSize",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The trays of the Family wallet app",
+        "url": "https://family.co"
+      },
+      "path": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift",
+      "preview": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift"
     },
     {
       "id": "whats-new-sheet",

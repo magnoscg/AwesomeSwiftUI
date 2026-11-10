@@ -2166,6 +2166,15 @@ enum ComponentRegistry {
             demo: { AnyView(CustomDetentSheetDemo()) }
         ),
         ShowcaseEntry(
+            id: "dynamic-height-tray",
+            title: "Dynamic Height Tray",
+            category: "Sheets",
+            summary: "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+            keywords: ["tray", "self sizing sheet", "dynamic height", "bottom sheet", "steps", "fit content", "detent", "bandeja", "hoja autoajustable", "altura dinámica", "hoja inferior", "pasos", "ajustar al contenido", "detent"],
+            minIOS: "18.0",
+            demo: { AnyView(DynamicHeightTrayDemo()) }
+        ),
+        ShowcaseEntry(
             id: "whats-new-sheet",
             title: "What's New Sheet",
             category: "Sheets",
