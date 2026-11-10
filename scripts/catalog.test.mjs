@@ -45,13 +45,31 @@ function swift(name = 'GlowButton', body = '') {
   return `// SPDX-License-Identifier: MIT\nimport SwiftUI\n${body}\nstruct ${name}Demo: View {}\n#Preview { ${name}Demo() }\n`;
 }
 
+// A Swift file that names its shader, as a component with one must.
+function swiftWithShader(name = 'GlowButton') {
+  return swift(name, `/// Copy ${name}.metal with this file.`);
+}
+
+const SHADER_FUNCTION = '[[ stitchable ]] half4 GlowButtonTint(float2 position, half4 color) {\n    return color;\n}';
+
+function metal(functions = SHADER_FUNCTION) {
+  return `// SPDX-License-Identifier: MIT\n#include <SwiftUI/SwiftUI_Metal.h>\n\n${functions}\n`;
+}
+
 function animatedWebP() {
   return Buffer.concat([Buffer.from('RIFF\0\0\0\0WEBPVP8X'), Buffer.alloc(14), Buffer.from('ANIM')]);
 }
 
 function addComponent(
   root,
-  { category = 'Buttons', name = 'GlowButton', metadata = meta(), source = swift(name), preview = animatedWebP() } = {},
+  {
+    category = 'Buttons',
+    name = 'GlowButton',
+    metadata = meta(),
+    source = swift(name),
+    preview = animatedWebP(),
+    shader = null,
+  } = {},
 ) {
   const directory = join(root, 'Components', category, name);
   mkdirSync(directory, { recursive: true });
@@ -61,6 +79,7 @@ function addComponent(
     writeFileSync(join(directory, `${name}.meta.json`), text);
   }
   if (source !== null) writeFileSync(join(directory, `${name}.swift`), source);
+  if (shader !== null) writeFileSync(join(directory, `${name}.metal`), shader);
   return directory;
 }
 
@@ -109,6 +128,8 @@ describe('a valid component', () => {
     assert.equal(entry.id, 'glow-button');
     assert.equal(entry.path, 'Components/Buttons/GlowButton/GlowButton.swift');
     assert.equal(entry.source, undefined);
+    assert.equal(entry.shader, undefined);
+    assert.equal(entry.shaderRawURL, undefined);
     assert.match(entry.rawURL, /\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.swift$/);
     assert.match(outputs.get('llms.txt'), /Glow Button.*iOS 18\.0\+.*button, boton/);
     assert.match(outputs.get('llms-full.txt'), /```swift\n\/\/ SPDX-License-Identifier: MIT/);
@@ -372,6 +393,135 @@ describe('invalid source', () => {
   }
 });
 
+describe('a component with a shader', () => {
+  function outputsFor(shader = metal()) {
+    const root = makeRoot();
+    addComponent(root, { source: swiftWithShader(), shader });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    return renderOutputs(root, components);
+  }
+
+  it('records the path and the URL of its shader', () => {
+    const [entry] = JSON.parse(outputsFor().get('catalog.json')).components;
+
+    assert.equal(entry.shader, 'Components/Buttons/GlowButton/GlowButton.metal');
+    assert.match(entry.shaderRawURL, /\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.metal$/);
+    assert.equal(entry.shaderSource, undefined);
+  });
+
+  it('links its shader in the short index', () => {
+    assert.match(
+      outputsFor().get('llms.txt'),
+      /Glow Button.*Copy its shader too: \[GlowButton\.metal\]\(https:\/\/raw\.githubusercontent\.com\/[^)]+\/GlowButton\.metal\)/,
+    );
+  });
+
+  it('adds the code of its shader to the full index', () => {
+    const full = outputsFor().get('llms-full.txt');
+
+    assert.match(full, /Shader: Components\/Buttons\/GlowButton\/GlowButton\.metal/);
+    assert.match(full, /```metal\n\/\/ SPDX-License-Identifier: MIT\n#include <SwiftUI\/SwiftUI_Metal\.h>/);
+    assert.ok(full.indexOf('```swift') < full.indexOf('```metal'));
+  });
+
+  it('links its shader on the page of its category', () => {
+    assert.match(
+      outputsFor().get('catalog/Buttons.md'),
+      /\[Glow Button\]\(\.\.\/Components\/Buttons\/GlowButton\/GlowButton\.swift\) and its \[shader\]\(\.\.\/Components\/Buttons\/GlowButton\/GlowButton\.metal\)/,
+    );
+  });
+
+  it('may define helpers and types next to its functions', () => {
+    const shader = metal(
+      [
+        '#define SCALE(value) { value * 2.0 }',
+        'struct GlowButtonLight { float2 position; };',
+        'static float GlowButtonNoise(float2 point) {',
+        '    if (point.x > 0.0) { return sin(point.x); }',
+        '    return fract(point.y);',
+        '}',
+        '// float Comment(float value) { return value; }',
+        '/* float Block(float value) { return value; } */',
+        '[[ stitchable ]] half4 GlowButtonTint(',
+        '    float2 position,',
+        '    half4 color',
+        ') {',
+        '    return color * half(GlowButtonNoise(position));',
+        '}',
+      ].join('\n'),
+    );
+
+    outputsFor(shader);
+  });
+
+  it('keeps the license of adapted code on its shader', () => {
+    const root = makeRoot();
+    const origin = { kind: 'adapted', url: 'https://x.dev', license: 'Apache-2.0' };
+    addComponent(root, {
+      metadata: meta({ origin }),
+      source: swiftWithShader().replace('MIT', 'Apache-2.0'),
+      shader: metal().replace('MIT', 'Apache-2.0'),
+    });
+
+    assert.deepEqual(loadCatalog(root).errors, []);
+  });
+});
+
+describe('invalid shaders', () => {
+  function assertShaderRejected(shader, expected, source = swiftWithShader()) {
+    assertRejected({ source, shader }, expected);
+  }
+
+  it('rejects a missing MIT header', () => {
+    assertShaderRejected(metal().replace('// SPDX-License-Identifier: MIT\n', ''), /first line of GlowButton\.metal must be/);
+  });
+
+  it('rejects a function without the name of the component', () => {
+    assertShaderRejected(
+      metal('[[ stitchable ]] half4 Tint(float2 position, half4 color) {\n    return color;\n}'),
+      /function Tint in GlowButton\.metal must start with GlowButton/,
+    );
+  });
+
+  it('rejects a helper without the name of the component', () => {
+    const helper = 'static float noise(float2 point) {\n    return fract(point.x);\n}';
+
+    assertShaderRejected(metal(`${helper}\n\n${SHADER_FUNCTION}`), /function noise in GlowButton\.metal must start with GlowButton/);
+  });
+
+  it('rejects a shader without functions', () => {
+    assertShaderRejected(metal('struct GlowButtonLight { float2 position; };'), /GlowButton\.metal defines no function/);
+  });
+
+  it('rejects Swift that does not name its shader', () => {
+    assertShaderRejected(metal(), /GlowButton\.swift must say that GlowButton\.metal is copied with it/, swift());
+  });
+
+  it('rejects a shader named after something else', () => {
+    const root = makeRoot();
+    const directory = addComponent(root);
+    writeFileSync(join(directory, 'Tint.metal'), metal());
+
+    assert.match(loadCatalog(root).errors.join('\n'), /Tint\.metal must be named GlowButton\.metal/);
+  });
+
+  it('rejects a second shader', () => {
+    const root = makeRoot();
+    const directory = addComponent(root, { source: swiftWithShader(), shader: metal() });
+    writeFileSync(join(directory, 'GlowButtonExtra.metal'), metal());
+
+    assert.match(loadCatalog(root).errors.join('\n'), /GlowButtonExtra\.metal must be named GlowButton\.metal/);
+  });
+
+  it('leaves the component out of the catalog', () => {
+    const root = makeRoot();
+    addComponent(root, { source: swift(), shader: metal() });
+
+    assert.deepEqual(loadCatalog(root).components, []);
+  });
+});
+
 describe('the Showcase registry', () => {
   const REGISTRY = 'Showcase/Showcase/Generated/ComponentRegistry.swift';
 
@@ -542,6 +692,25 @@ describe('the documentation site', () => {
     assert.match(page, /\| Keywords \| button, boton \|/);
     assert.match(page, /\| Minimum iOS \| 18\.0 \|/);
     assert.match(page, /`````swift title="GlowButton\.swift"\n\/\/ SPDX-License-Identifier: MIT/);
+  });
+
+  it('offers one file to copy when there is no shader', () => {
+    const page = docsFor().pages.get(PAGE);
+
+    assert.match(page, /Copy this code into your project, or \[download the file\]\(/);
+    assert.equal(page.match(/^`````\w/gm).length, 1);
+  });
+
+  it('shows the shader as a second file to copy', () => {
+    const root = makeRoot();
+    addComponent(root, { source: swiftWithShader(), shader: metal() });
+    const page = renderDocsPages(loadCatalog(root).components).get(PAGE);
+
+    assert.match(page, /Copy both files into your project/);
+    assert.match(page, /\[GlowButton\.swift\]\([^)]+\/GlowButton\.swift\) and \[GlowButton\.metal\]\([^)]+\/GlowButton\.metal\)/);
+    assert.match(page, /`````swift title="GlowButton\.swift"\n\/\/ SPDX-License-Identifier: MIT/);
+    assert.match(page, /`````cpp title="GlowButton\.metal"\n\/\/ SPDX-License-Identifier: MIT\n#include/);
+    assert.ok(page.indexOf('title="GlowButton.swift"') < page.indexOf('title="GlowButton.metal"'));
   });
 
   it('escapes HTML in the text of a page', () => {

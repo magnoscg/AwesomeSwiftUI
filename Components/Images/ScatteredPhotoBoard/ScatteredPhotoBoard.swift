@@ -72,6 +72,7 @@ struct ScatteredPhotoBoard: View {
     @State private var stacking: [String] = []
     @GestureState private var drag: ActiveDrag?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let space = "ScatteredPhotoBoard"
 
@@ -131,18 +132,23 @@ struct ScatteredPhotoBoard: View {
     private func dragGesture(for photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named(space))
             .updating($drag) { value, state, _ in
-                state = ActiveDrag(id: photo.id, translation: value.translation)
+                state = ActiveDrag(id: photo.id, translation: layoutTranslation(value.translation))
             }
             .onChanged { _ in bringToFront(photo) }
             .onEnded { value in
                 offsets[photo.id] = ScatteredPhotoBoardLayout.settledOffset(
                     home: ScatteredPhotoBoardLayout.center(index: index, count: photos.count, card: cardSize, board: board),
                     saved: offsets[photo.id] ?? .zero,
-                    translation: value.translation,
+                    translation: layoutTranslation(value.translation),
                     card: cardSize,
                     board: board
                 )
             }
+    }
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts.
+    private func layoutTranslation(_ translation: CGSize) -> CGSize {
+        layoutDirection == .rightToLeft ? CGSize(width: -translation.width, height: translation.height) : translation
     }
 
     private func position(of photo: ScatteredPhotoBoardPhoto, index: Int, board: CGSize) -> CGPoint {

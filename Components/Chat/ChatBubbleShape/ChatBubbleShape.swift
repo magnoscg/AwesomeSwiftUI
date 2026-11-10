@@ -3,12 +3,12 @@
 
 import SwiftUI
 
-enum ChatBubbleShapeSide: Sendable {
+nonisolated enum ChatBubbleShapeSide: Sendable {
     case leading, trailing
 }
 
 /// Where a message sits inside a run of messages from the same sender.
-enum ChatBubbleShapePosition: Sendable {
+nonisolated enum ChatBubbleShapePosition: Sendable {
     case single, first, middle, last
 }
 
@@ -16,7 +16,7 @@ enum ChatBubbleShapePosition: Sendable {
 ///
 /// The tail is drawn just outside the shape's rect, so leave about 8 points beside it.
 /// Corners and tail animate when a bubble's position changes.
-struct ChatBubbleShape: Shape {
+nonisolated struct ChatBubbleShape: Shape {
     var side: ChatBubbleShapeSide = .trailing
     private var radii: RectangleCornerRadii
     private var tail: CGFloat
@@ -99,7 +99,7 @@ struct ChatBubbleShape: Shape {
     }
 }
 
-enum ChatBubbleShapeLogic {
+nonisolated enum ChatBubbleShapeLogic {
     static func hasTail(_ position: ChatBubbleShapePosition) -> Bool {
         position == .single || position == .last
     }

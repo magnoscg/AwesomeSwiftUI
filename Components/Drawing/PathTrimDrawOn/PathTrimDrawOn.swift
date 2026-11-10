@@ -35,7 +35,7 @@ struct PathTrimDrawOn<Outline: Shape>: View {
 }
 
 /// A heart with a pulse line through it, scaled to fit any rectangle.
-struct PathTrimDrawOnHeartbeat: Shape {
+nonisolated struct PathTrimDrawOnHeartbeat: Shape {
     func path(in rect: CGRect) -> Path {
         let side = min(rect.width, rect.height)
         guard side > 0 else { return Path() }

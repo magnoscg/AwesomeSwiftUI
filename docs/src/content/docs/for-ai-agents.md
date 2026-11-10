@@ -8,7 +8,7 @@ always describe the same components.
 
 | File | What it has |
 |---|---|
-| [`catalog.json`](/AwesomeSwiftUI/catalog.json) | Every component: keywords, minimum iOS, APIs, origin and a `rawURL` |
+| [`catalog.json`](/AwesomeSwiftUI/catalog.json) | Every component: keywords, minimum iOS, APIs, origin, a `rawURL` and, with a Metal shader, a `shaderRawURL` |
 | [`llms.txt`](/AwesomeSwiftUI/llms.txt) | A short index with a link to each component |
 | [`llms-full.txt`](/AwesomeSwiftUI/llms-full.txt) | Every component with its full source |
 
@@ -18,6 +18,8 @@ always describe the same components.
 2. Compare its `minIOS` with the deployment target of the project.
 3. Download its `rawURL` into a new Swift file in the project, keeping the
    header.
+4. If it has a `shaderRawURL`, download that too, into a `.metal` file in the
+   same target. The component draws nothing without it.
 
 ## Contribute
 

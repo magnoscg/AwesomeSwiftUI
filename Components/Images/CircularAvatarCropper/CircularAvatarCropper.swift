@@ -44,7 +44,7 @@ struct CircularAvatarCropperTransform: Equatable, Sendable {
     }
 }
 
-private struct CircularAvatarCropperDim: Shape {
+nonisolated private struct CircularAvatarCropperDim: Shape {
     let diameter: CGFloat
 
     func path(in rect: CGRect) -> Path {
@@ -85,6 +85,8 @@ struct CircularAvatarCropper: View {
                 .contentShape(.rect)
                 .gesture(pan(diameter: diameter).simultaneously(with: pinch))
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
         .clipped()
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Avatar crop")

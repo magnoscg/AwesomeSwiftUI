@@ -14,6 +14,7 @@ struct BeforeAfterSlider: View {
     var afterTitle = "After"
 
     @ScaledMetric(relativeTo: .body) private var knobSize = 44.0
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var clamped: Double { min(max(position, 0), 1) }
 
@@ -37,7 +38,9 @@ struct BeforeAfterSlider: View {
             .gesture(
                 DragGesture(minimumDistance: 0).onChanged { value in
                     guard size.width > 0 else { return }
-                    position = min(max(value.location.x / size.width, 0), 1)
+                    // Gestures report screen points, but the layout mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? size.width - value.location.x : value.location.x
+                    position = min(max(x / size.width, 0), 1)
                 }
             )
         }

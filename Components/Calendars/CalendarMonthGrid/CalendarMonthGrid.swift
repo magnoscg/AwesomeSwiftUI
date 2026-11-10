@@ -88,8 +88,8 @@ private struct CalendarMonthGridStage: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityAddTraits(.isHeader)
 
-            arrow("chevron.left", label: "Previous month", to: page - 1)
-            arrow("chevron.right", label: "Next month", to: page + 1)
+            arrow("chevron.backward", label: "Previous month", to: page - 1)
+            arrow("chevron.forward", label: "Next month", to: page + 1)
         }
     }
 

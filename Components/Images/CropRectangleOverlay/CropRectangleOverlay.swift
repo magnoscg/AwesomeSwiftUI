@@ -55,7 +55,7 @@ enum CropRectangleOverlayHandle: CaseIterable, Hashable, Sendable {
     }
 }
 
-private struct CropRectangleOverlayDim: Shape {
+nonisolated private struct CropRectangleOverlayDim: Shape {
     let hole: CGRect
 
     func path(in rect: CGRect) -> Path {
@@ -98,6 +98,8 @@ struct CropRectangleOverlay: View {
                     cropInterface(in: geometry.size)
                 }
             }
+            // A photo is not mirrored in right-to-left layouts, so neither is the crop drawn over it.
+            .environment(\.layoutDirection, .leftToRight)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Crop area")
             .accessibilityValue(accessibilityDescription)

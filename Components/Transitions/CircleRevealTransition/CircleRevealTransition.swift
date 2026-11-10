@@ -21,7 +21,7 @@ extension Transition where Self == CircleRevealTransition {
     }
 }
 
-enum CircleRevealTransitionGeometry {
+nonisolated enum CircleRevealTransitionGeometry {
     /// The radius of the smallest circle centered on `origin` that covers the whole of `size`.
     static func coverRadius(from origin: UnitPoint, in size: CGSize) -> CGFloat {
         let horizontal = max(origin.x, 1 - origin.x) * size.width
@@ -43,7 +43,7 @@ private struct CircleRevealEffect: ViewModifier {
     }
 }
 
-private struct CircleRevealShape: Shape {
+nonisolated private struct CircleRevealShape: Shape {
     let origin: UnitPoint
     var progress: CGFloat
 

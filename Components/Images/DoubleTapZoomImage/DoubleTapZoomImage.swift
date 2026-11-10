@@ -67,6 +67,8 @@ struct DoubleTapZoomImage: View {
                     toggleZoom(at: CGPoint(x: size.width / 2, y: size.height / 2), in: size)
                 }
         }
+        // A photo is not mirrored in right-to-left layouts, so neither is the geometry that moves it.
+        .environment(\.layoutDirection, .leftToRight)
         .clipped()
     }
 

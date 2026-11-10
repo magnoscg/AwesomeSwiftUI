@@ -30,6 +30,7 @@ struct LongPressRadialMenu<Label: View>: View {
 
     @GestureState private var press = Press.idle
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var isOpen: Bool {
         if case .open = press { return true }
@@ -84,17 +85,22 @@ struct LongPressRadialMenu<Label: View>: View {
             .updating($press) { value, state, _ in
                 switch value {
                 case .first(true): state = .pressing
-                case .second(true, let drag): state = .open(drag?.translation ?? .zero)
+                case .second(true, let drag): state = .open(layoutTranslation(drag?.translation ?? .zero))
                 default: state = .idle
                 }
             }
             .onEnded { value in
                 guard case .second(true, let drag?) = value,
-                      let index = LongPressRadialMenuMath.index(translation: drag.translation, count: items.count, radius: radius),
+                      let index = LongPressRadialMenuMath.index(translation: layoutTranslation(drag.translation), count: items.count, radius: radius),
                       items.indices.contains(index)
                 else { return }
                 items[index].action()
             }
+    }
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts.
+    private func layoutTranslation(_ translation: CGSize) -> CGSize {
+        layoutDirection == .rightToLeft ? CGSize(width: -translation.width, height: translation.height) : translation
     }
 }
 

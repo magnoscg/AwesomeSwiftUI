@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum StickyStackedCardsMath {
+nonisolated enum StickyStackedCardsMath {
     /// How far down the card must move to stay pinned, 0 while it has not reached its pin.
     static func pinOffset(cardTop: CGFloat, pinY: CGFloat) -> CGFloat {
         max(pinY - cardTop, 0)

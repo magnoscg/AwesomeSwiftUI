@@ -6,6 +6,40 @@ on `main`.
 
 ## Unreleased
 
+## 0.3.0 - 2026-11-10
+
+### Added
+
+- A component can be drawn by a Metal shader. It then has a second file to
+  copy, `<Name>.metal`, which its page on the site, `catalog.json`, `llms.txt`
+  and `llms-full.txt` show next to its Swift file.
+- The first three components with a shader, for 252 in all: Ripple Shader
+  Effect, a wave that bends the view from the point you tap; Holographic Card,
+  a foil that shifts as you tilt the card; and Dissolve Shader Transition,
+  which burns a view away through noise.
+
+### Fixed
+
+- Components compile in projects that use the main actor as their default
+  isolation, which is how Xcode sets up a new app. 26 of them did not, and 5
+  more raised warnings.
+- In right-to-left layouts, 24 components now follow the finger instead of
+  moving away from it, among them the swipe rows, the side drawer, the sliders,
+  the pager, the card stack, the dock, the radial menu, the reaction picker and
+  the photo board, viewers and croppers. Crops and zooms stay in the photo's
+  own coordinates.
+- Chevrons and arrows that mean back or forward now point the right way in
+  right-to-left layouts.
+- Photo Lightbox returns every page to fit when its photos change. A photo
+  that moved into another's place used to inherit its zoom.
+
+### Changed
+
+- `make verify` and CI also compile every component with the main actor as the
+  default isolation.
+- The rules ask every component to work in right-to-left layouts, and say how
+  to convert a gesture and how to try a demo that way.
+
 ## 0.2.1 - 2026-11-09
 
 ### Fixed

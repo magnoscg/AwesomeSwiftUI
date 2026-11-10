@@ -15,7 +15,7 @@ easy to copy matters as much as the code itself.
 
 | Path | What lives there | State |
 |---|---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp` | In place |
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, and `<Name>.metal` when it draws with a Metal shader | In place |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata | In place |
 | `scripts/` | Validates the components and generates the files below | In place |
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
@@ -29,19 +29,21 @@ Update the State column when a planned part lands.
 ## Commands
 
 You need Node 24 or later and Xcode 27.2 or later. The scripts have no
-dependencies.
+dependencies. Xcode compiles the shaders with its Metal toolchain, which is a
+separate download: `xcodebuild -downloadComponent MetalToolchain`.
 
 ```sh
-make catalog         # rewrite the generated files after changing a component
-make check           # fail if a component breaks a rule or a generated file is stale
-make test            # the tests of the catalog tooling
-make record          # record the previews of one component or all of them
-make preview         # turn a recording into a component's preview
-make docs            # build the site into docs/dist
-make docs-dev        # run the site locally
-make showcase-build  # compile the Showcase app and every component
-make showcase-test   # run the Swift Testing suite in the simulator
-make verify          # check, test and showcase-test
+make catalog                   # rewrite the generated files after changing a component
+make check                     # fail if a component breaks a rule or a generated file is stale
+make test                      # the tests of the catalog tooling
+make record                    # record the previews of one component or all of them
+make preview                   # turn a recording into a component's preview
+make docs                      # build the site into docs/dist
+make docs-dev                  # run the site locally
+make showcase-build            # compile the Showcase app and every component
+make showcase-build-mainactor  # compile them with the main actor as the default isolation
+make showcase-test             # run the Swift Testing suite in the simulator
+make verify                    # check, test, showcase-build-mainactor and showcase-test
 ```
 
 The Showcase commands use an iPhone 18 Pro simulator. Choose another with
@@ -60,10 +62,12 @@ The site uses pnpm. Pin dependencies to exact versions.
 ## CI
 
 Every pull request runs `make check`, `make test` and `make docs`, and the
-Showcase tests on iOS 26. GitHub's macOS runners stop at Xcode 26.6, so that
-job removes components that need iOS 27 before compiling. Those are verified
-only by `make verify` on a machine with Xcode 27.2 or later, so run it before
-opening the pull request. Revisit this when a runner offers Xcode 27.
+Showcase tests and the main-actor build on iOS 26. GitHub's macOS runners stop
+at Xcode 26.6, so that job removes components that need iOS 27 before
+compiling. Those are verified only by `make verify` on a machine with
+Xcode 27.2 or later, so run it before opening the pull request. Revisit this
+when a runner offers Xcode 27. The job also downloads the Metal toolchain,
+which the runners do not always have.
 
 Pages deploys the site on every push to `main`.
 
@@ -87,9 +91,19 @@ anything else:
 
 ## Rules for every component
 
-1. **One file to copy.** Keep the component, a `<Name>Demo` view and its
-   `#Preview` in `<Name>.swift`. It may not import another component, a package
-   or an asset.
+1. **One file to copy, or two with a shader.** Keep the component, a
+   `<Name>Demo` view and its `#Preview` in `<Name>.swift`. It may not import
+   another component, a package or an asset. The one exception is a Metal
+   shader, because SwiftUI's `ShaderLibrary` only loads compiled Metal: a
+   component may have exactly one `<Name>.metal` next to its Swift file.
+   - The documentation comment of its type says to copy both files.
+   - Every function in `<Name>.metal` starts with the name of the component,
+     like `RippleShaderEffectDistortion`. Xcode compiles every `.metal` file
+     of a target into one `default.metallib`, in the Showcase and in the app
+     the component is copied to, so two functions with the same name collide.
+
+   `make check` rejects a shader that breaks this, and a Swift file that does
+   not name its shader.
 2. **The copyright header comes first**, so the notice travels with the code:
 
    ```swift
@@ -97,9 +111,16 @@ anything else:
    // Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
    ```
 
-3. **Swift 6 language mode with complete concurrency checking.** The Showcase
-   does not set a default actor isolation, so a copied component also compiles
-   in projects that do not.
+   A `.metal` file starts with the same two lines.
+
+3. **Swift 6 language mode with complete concurrency checking.** A copied
+   component has to compile in both kinds of project: one that sets no default
+   actor isolation, which `make showcase-test` covers, and one that isolates to
+   the main actor by default, as new Xcode projects do, which
+   `make showcase-build-mainactor` covers. For the second, mark a type
+   `nonisolated` when nonisolated code uses it: a `Shape`, the logic a `Layout`
+   or a `visualEffect` closure calls, or a value passed to an API that requires
+   `Sendable`.
 4. **Observation.** Use `@Observable`, never `ObservableObject`,
    `@StateObject` or `@Published`.
 5. **Nothing deprecated.** Warnings are errors in the Showcase app.
@@ -108,12 +129,33 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
-8. **Keep names unique.** Every file name and every non-private top-level type
+8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
+   mirrors layout there, which includes offsets, positions, rotations, shapes
+   and unit points, but a gesture still reports screen points and a `Canvas`
+   draws unmirrored. A gesture's x that reaches layout unchanged moves the view
+   away from the finger.
+   - Convert the gesture where you read it: change the sign of a horizontal
+     translation, or measure a location from the other edge.
+   - Pin `.environment(\.layoutDirection, .leftToRight)` on a surface over a
+     photo or a video instead. They are not mirrored, so the geometry that
+     crops, zooms or seeks them is not either.
+   - Use the `forward` and `backward` symbols, and leading and trailing, for
+     anything that follows the direction of reading.
+
+   Try the demo right-to-left in a booted simulator:
+
+   ```sh
+   xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
+     -showcaseComponent <id> \
+     -AppleTextDirection YES -NSForceRightToLeftWritingDirection YES
+   ```
+
+9. **Keep names unique.** Every file name and every non-private top-level type
    in `Components/` must be unique, because the Showcase app compiles the whole
    folder as one target. Prefix supporting types with the component's name, or
    make them `private`.
-9. **Internal by default.** No `public`: the code lands inside someone's app.
-10. **An animated preview.** Every component has a `<Name>.webp` that shows it
+10. **Internal by default.** No `public`: the code lands inside someone's app.
+11. **An animated preview.** Every component has a `<Name>.webp` that shows it
     moving, used by the README and the site. `make check` rejects a missing or
     still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
     the size, full color with no banding in gradients or glass, and GitHub
@@ -153,6 +195,10 @@ recording.
   Use Swift Testing (`import Testing`), never XCTest.
 - A test for a newer API marks each test function with `@available`. Swift
   Testing rejects it on the type.
+- A component with a shader tests that it compiles, with
+  `try await shader.compile(as: .colorEffect)` or the effect it uses. Swift
+  cannot see a misspelled function or a wrong argument in a shader, and this
+  fails on both.
 - No comments inside test bodies. Separate the phases with blank lines.
 - Use `try #require()` for casts and optionals.
 - Only mark a suite `@MainActor` when the type under test is `@MainActor`.

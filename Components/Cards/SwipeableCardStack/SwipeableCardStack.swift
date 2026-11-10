@@ -43,8 +43,13 @@ struct SwipeableCardStack<Item, Card: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var isDragging = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var width: CGFloat { size.width }
+
+    /// Gestures and swipe directions are in screen terms, but layout mirrors in right-to-left
+    /// layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var hasTopCard: Bool { !items.isEmpty && (loops || top < items.count) }
 
@@ -85,7 +90,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
 
     private func offset(of position: Int, depth: CGFloat) -> CGSize {
         if position < top {
-            return CGSize(width: reduceMotion ? 0 : lastDirection.sign * width * 1.5, height: 0)
+            return CGSize(width: reduceMotion ? 0 : lastDirection.sign * forward * width * 1.5, height: 0)
         }
         if position == top {
             return CGSize(width: drag.width, height: drag.height * 0.25)
@@ -96,7 +101,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
 
     private func rotation(of position: Int) -> Double {
         guard !reduceMotion, width > 0 else { return 0 }
-        if position < top { return Double(lastDirection.sign) * 18 }
+        if position < top { return Double(lastDirection.sign * forward) * 18 }
         return position == top ? Double(drag.width / width) * 14 : 0
     }
 
@@ -104,7 +109,7 @@ struct SwipeableCardStack<Item, Card: View>: View {
         DragGesture(minimumDistance: 8)
             .updating($isDragging) { _, state, _ in state = true }
             .onChanged { value in
-                if hasTopCard { drag = value.translation }
+                if hasTopCard { drag = CGSize(width: value.translation.width * forward, height: value.translation.height) }
             }
             .onEnded { value in
                 let predictedEnd = value.predictedEndTranslation.width

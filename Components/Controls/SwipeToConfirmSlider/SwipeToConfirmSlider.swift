@@ -36,8 +36,12 @@ struct SwipeToConfirmSlider: View {
     @GestureState private var isDragging = false
     @ScaledMetric(relativeTo: .title3) private var height = 68.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let inset = 5.0
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var settle: Animation {
         reduceMotion ? .easeOut(duration: 0.15) : .spring(duration: 0.45, bounce: 0.35)
@@ -70,7 +74,7 @@ struct SwipeToConfirmSlider: View {
                     .padding(.horizontal, height)
                     .frame(maxWidth: .infinity)
 
-                Image(systemName: isConfirmed ? "checkmark" : "chevron.right.2")
+                Image(systemName: isConfirmed ? "checkmark" : "chevron.forward.2")
                     .font(.title3.bold())
                     .foregroundStyle(tint)
                     .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
@@ -101,7 +105,7 @@ struct SwipeToConfirmSlider: View {
             .onChanged { value in
                 guard !isConfirmed else { return }
                 progress = SwipeToConfirmSliderMath.progress(
-                    translation: value.translation.width,
+                    translation: value.translation.width * forward,
                     trackWidth: trackWidth,
                     thumbWidth: thumbWidth
                 )

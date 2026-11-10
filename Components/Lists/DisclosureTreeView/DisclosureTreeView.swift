@@ -80,7 +80,7 @@ struct DisclosureTreeView: View {
 
     private func rowLabel(_ row: DisclosureTreeViewRows.Row, isExpanded: Bool) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: "chevron.right")
+            Image(systemName: "chevron.forward")
                 .font(.caption.weight(.bold))
                 .foregroundStyle(.secondary)
                 .rotationEffect(.degrees(isExpanded ? 90 : 0))

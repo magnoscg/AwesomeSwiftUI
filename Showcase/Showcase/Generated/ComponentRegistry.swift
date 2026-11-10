@@ -339,6 +339,15 @@ enum ComponentRegistry {
             demo: { AnyView(ExpandableInfoCardDemo()) }
         ),
         ShowcaseEntry(
+            id: "holographic-card",
+            title: "Holographic Card",
+            category: "Cards",
+            summary: "A card with a holographic foil whose colors, glints and glare shift as you tilt it by dragging, drawn by a Metal shader.",
+            keywords: ["holographic", "foil", "shader", "metal", "iridescent", "rainbow", "card", "tilt", "trading card", "color effect", "holográfico", "holograma", "shader", "metal", "iridiscente", "arcoíris", "tarjeta", "inclinación", "cromo", "efecto de color"],
+            minIOS: "18.0",
+            demo: { AnyView(HolographicCardDemo()) }
+        ),
+        ShowcaseEntry(
             id: "swipeable-card-stack",
             title: "Swipeable Card Stack",
             category: "Cards",
@@ -700,6 +709,15 @@ enum ComponentRegistry {
             keywords: ["noise", "grain", "film grain", "texture", "overlay", "modifier", "ruido", "grano", "grano de película", "textura", "superposición", "modificador"],
             minIOS: "18.0",
             demo: { AnyView(NoiseGrainOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "ripple-shader-effect",
+            title: "Ripple Shader Effect",
+            category: "Effects",
+            summary: "A view modifier that sends a wave from the tapped point and bends the view as it passes, drawn by a Metal shader.",
+            keywords: ["ripple", "shader", "metal", "water", "wave", "distortion", "refraction", "layer effect", "tap", "keyframes", "onda", "shader", "metal", "agua", "ola", "distorsión", "refracción", "efecto de capa", "toque", "fotogramas clave"],
+            minIOS: "18.0",
+            demo: { AnyView(RippleShaderEffectDemo()) }
         ),
         ShowcaseEntry(
             id: "ripple-tap-effect",
@@ -2233,6 +2251,15 @@ enum ComponentRegistry {
                 guard #available(iOS 27.0, *) else { return nil }
                 return AnyView(CrossFadeNavigationDemo())
             }
+        ),
+        ShowcaseEntry(
+            id: "dissolve-shader-transition",
+            title: "Dissolve Shader Transition",
+            category: "Transitions",
+            summary: "A custom transition that burns a view away through noise, with a glowing edge, drawn by a Metal shader.",
+            keywords: ["dissolve", "shader", "metal", "noise", "burn", "disintegrate", "transition", "ember", "threshold", "color effect", "disolver", "disolución", "shader", "metal", "ruido", "quemar", "desintegrar", "transición", "brasa", "umbral"],
+            minIOS: "18.0",
+            demo: { AnyView(DissolveShaderTransitionDemo()) }
         ),
         ShowcaseEntry(
             id: "flip-card-transition",

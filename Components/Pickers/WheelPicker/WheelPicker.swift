@@ -79,7 +79,7 @@ struct WheelPicker<Value: Hashable>: View {
     }
 }
 
-enum WheelPickerMath {
+nonisolated enum WheelPickerMath {
     /// How far a row is from the center of the wheel: 0 at the center, -1 at the top, 1 at the bottom.
     static func position(midY: Double, height: Double) -> Double {
         guard height > 0, midY.isFinite else { return 0 }
