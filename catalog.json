@@ -1,5 +1,5 @@
 {
-  "count": 257,
+  "count": 258,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2420,6 +2420,48 @@
       "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
       "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+    },
+    {
+      "id": "range-slider",
+      "name": "RangeSlider",
+      "title": "Range Slider",
+      "category": "Controls",
+      "summary": "A slider with two thumbs that picks a range, like the lowest and highest price of a filter.",
+      "keywords": {
+        "en": [
+          "range slider",
+          "double slider",
+          "two thumbs",
+          "price filter",
+          "min max",
+          "dual slider",
+          "interval"
+        ],
+        "es": [
+          "slider de rango",
+          "doble slider",
+          "dos asas",
+          "filtro de precio",
+          "mínimo y máximo",
+          "intervalo",
+          "deslizador"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "onGeometryChange",
+        "accessibilityAdjustableAction",
+        "sensoryFeedback",
+        "ClosedRange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/RangeSlider/RangeSlider.swift",
+      "preview": "Components/Controls/RangeSlider/RangeSlider.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/RangeSlider/RangeSlider.swift"
     },
     {
       "id": "ruler-scroll-picker",

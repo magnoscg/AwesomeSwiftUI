@@ -18,6 +18,8 @@ on `main`.
   clock, like a night of sleep.
 - Passcode Keypad, a number pad with a dot per digit that shakes and empties
   when the passcode is wrong.
+- Range Slider, a slider with two thumbs that picks a range, like the lowest
+  and highest price of a filter.
 
 ### Changed
 
