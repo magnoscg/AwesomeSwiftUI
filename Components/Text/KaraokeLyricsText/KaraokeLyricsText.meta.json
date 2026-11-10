@@ -1,0 +1,15 @@
+{
+  "id": "karaoke-lyrics-text",
+  "name": "KaraokeLyricsText",
+  "title": "Karaoke Lyrics Text",
+  "category": "Text",
+  "summary": "Lyrics that start dim and light up from the first letter to the last as they are sung.",
+  "keywords": {
+    "en": ["karaoke", "lyrics", "sing along", "text fill", "highlight", "music", "text renderer"],
+    "es": ["karaoke", "letra", "letras de canciones", "cantar", "relleno de texto", "resaltado", "música"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["TextRenderer", "Text.Layout", "GraphicsContext", "Animatable"],
+  "origin": { "kind": "original" }
+}

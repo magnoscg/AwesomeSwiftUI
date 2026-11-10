@@ -2142,6 +2142,15 @@ enum ComponentRegistry {
             demo: { AnyView(HighlightedSearchTextDemo()) }
         ),
         ShowcaseEntry(
+            id: "karaoke-lyrics-text",
+            title: "Karaoke Lyrics Text",
+            category: "Text",
+            summary: "Lyrics that start dim and light up from the first letter to the last as they are sung.",
+            keywords: ["karaoke", "lyrics", "sing along", "text fill", "highlight", "music", "text renderer", "karaoke", "letra", "letras de canciones", "cantar", "relleno de texto", "resaltado", "música"],
+            minIOS: "18.0",
+            demo: { AnyView(KaraokeLyricsTextDemo()) }
+        ),
+        ShowcaseEntry(
             id: "marquee-text",
             title: "Marquee Text",
             category: "Text",

@@ -10,6 +10,8 @@ on `main`.
 
 - Intelligence Glow Border, a soft band of color that travels around a view's
   edge and spreads inward, like an assistant that is listening.
+- Karaoke Lyrics Text, lyrics that start dim and light up from the first
+  letter to the last as they are sung.
 
 ### Changed
 

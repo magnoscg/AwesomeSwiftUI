@@ -1,5 +1,5 @@
 {
-  "count": 253,
+  "count": 254,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -9288,6 +9288,47 @@
       "path": "Components/Text/HighlightedSearchText/HighlightedSearchText.swift",
       "preview": "Components/Text/HighlightedSearchText/HighlightedSearchText.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/HighlightedSearchText/HighlightedSearchText.swift"
+    },
+    {
+      "id": "karaoke-lyrics-text",
+      "name": "KaraokeLyricsText",
+      "title": "Karaoke Lyrics Text",
+      "category": "Text",
+      "summary": "Lyrics that start dim and light up from the first letter to the last as they are sung.",
+      "keywords": {
+        "en": [
+          "karaoke",
+          "lyrics",
+          "sing along",
+          "text fill",
+          "highlight",
+          "music",
+          "text renderer"
+        ],
+        "es": [
+          "karaoke",
+          "letra",
+          "letras de canciones",
+          "cantar",
+          "relleno de texto",
+          "resaltado",
+          "música"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TextRenderer",
+        "Text.Layout",
+        "GraphicsContext",
+        "Animatable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Text/KaraokeLyricsText/KaraokeLyricsText.swift",
+      "preview": "Components/Text/KaraokeLyricsText/KaraokeLyricsText.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/KaraokeLyricsText/KaraokeLyricsText.swift"
     },
     {
       "id": "marquee-text",
