@@ -191,8 +191,9 @@ function validateOrigin(origin, fail) {
     fail(`"origin.kind" must be one of ${ORIGINS.join(', ')}`);
     return;
   }
-  if (origin.kind === 'inspired' && !isText(origin.credit)) {
-    fail('"origin.credit" must name what inspired the component');
+  if (origin.kind === 'inspired') {
+    if (!isText(origin.credit)) fail('"origin.credit" must name what inspired the component');
+    if (!isText(origin.url)) fail('"origin.url" must link what inspired the component');
   }
   if (origin.kind === 'adapted') {
     if (!isText(origin.url)) fail('"origin.url" must link the adapted source');
@@ -493,8 +494,7 @@ function renderDocsSource(component) {
 function renderDocsOrigin(origin) {
   if (origin.kind === 'original') return 'Original';
   if (origin.kind === 'adapted') return `Adapted from [the source](${origin.url}), ${escapeHTML(origin.license)}`;
-  const credit = escapeHTML(origin.credit);
-  return origin.url ? `Inspired by [${credit}](${origin.url})` : `Inspired by ${credit}`;
+  return `Inspired by [${escapeHTML(origin.credit)}](${origin.url})`;
 }
 
 // Served from the repository, not the site: the previews make the site too big

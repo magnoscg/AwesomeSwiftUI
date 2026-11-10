@@ -219,8 +219,9 @@ Do not trust memory for anything new. Check Apple's documentation or the SDK's
   the metadata.
 - **Everything else stays out**: paid courses and tutorials, code with no
   license, and anything else without permission to redistribute. An idea can
-  inspire a new implementation written from scratch, and should be credited,
-  but do not copy or closely translate its code.
+  inspire a new implementation written from scratch, and should be credited
+  with a link, which `make check` requires, but do not copy or closely
+  translate its code.
 
 ## Git
 
