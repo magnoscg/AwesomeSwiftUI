@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.3.1 - 2026-11-10
+
 ### Fixed
 
 - On a narrow iPhone, the preset buttons of Spring Study Playground no longer
