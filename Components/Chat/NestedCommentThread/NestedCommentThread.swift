@@ -126,7 +126,7 @@ struct NestedCommentThread: View {
 }
 
 /// One indentation column: a straight line, and for a comment's own level an elbow into it.
-private struct NestedCommentThreadGuide: Shape {
+nonisolated private struct NestedCommentThreadGuide: Shape {
     let continues: Bool
     let elbowY: CGFloat?
 

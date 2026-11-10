@@ -57,3 +57,4 @@ jobs:
       - name: Install the Metal toolchain
         run: xcodebuild -downloadComponent MetalToolchain
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
+      - run: make showcase-build-mainactor DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'

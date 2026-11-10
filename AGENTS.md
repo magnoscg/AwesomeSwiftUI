@@ -33,16 +33,17 @@ dependencies. Xcode compiles the shaders with its Metal toolchain, which is a
 separate download: `xcodebuild -downloadComponent MetalToolchain`.
 
 ```sh
-make catalog         # rewrite the generated files after changing a component
-make check           # fail if a component breaks a rule or a generated file is stale
-make test            # the tests of the catalog tooling
-make record          # record the previews of one component or all of them
-make preview         # turn a recording into a component's preview
-make docs            # build the site into docs/dist
-make docs-dev        # run the site locally
-make showcase-build  # compile the Showcase app and every component
-make showcase-test   # run the Swift Testing suite in the simulator
-make verify          # check, test and showcase-test
+make catalog                   # rewrite the generated files after changing a component
+make check                     # fail if a component breaks a rule or a generated file is stale
+make test                      # the tests of the catalog tooling
+make record                    # record the previews of one component or all of them
+make preview                   # turn a recording into a component's preview
+make docs                      # build the site into docs/dist
+make docs-dev                  # run the site locally
+make showcase-build            # compile the Showcase app and every component
+make showcase-build-mainactor  # compile them with the main actor as the default isolation
+make showcase-test             # run the Swift Testing suite in the simulator
+make verify                    # check, test, showcase-build-mainactor and showcase-test
 ```
 
 The Showcase commands use an iPhone 18 Pro simulator. Choose another with
@@ -61,11 +62,12 @@ The site uses pnpm. Pin dependencies to exact versions.
 ## CI
 
 Every pull request runs `make check`, `make test` and `make docs`, and the
-Showcase tests on iOS 26. GitHub's macOS runners stop at Xcode 26.6, so that
-job removes components that need iOS 27 before compiling. Those are verified
-only by `make verify` on a machine with Xcode 27.2 or later, so run it before
-opening the pull request. Revisit this when a runner offers Xcode 27. The job
-also downloads the Metal toolchain, which the runners do not always have.
+Showcase tests and the main-actor build on iOS 26. GitHub's macOS runners stop
+at Xcode 26.6, so that job removes components that need iOS 27 before
+compiling. Those are verified only by `make verify` on a machine with
+Xcode 27.2 or later, so run it before opening the pull request. Revisit this
+when a runner offers Xcode 27. The job also downloads the Metal toolchain,
+which the runners do not always have.
 
 Pages deploys the site on every push to `main`.
 
@@ -111,9 +113,14 @@ anything else:
 
    A `.metal` file starts with the same two lines.
 
-3. **Swift 6 language mode with complete concurrency checking.** The Showcase
-   does not set a default actor isolation, so a copied component also compiles
-   in projects that do not.
+3. **Swift 6 language mode with complete concurrency checking.** A copied
+   component has to compile in both kinds of project: one that sets no default
+   actor isolation, which `make showcase-test` covers, and one that isolates to
+   the main actor by default, as new Xcode projects do, which
+   `make showcase-build-mainactor` covers. For the second, mark a type
+   `nonisolated` when nonisolated code uses it: a `Shape`, the logic a `Layout`
+   or a `visualEffect` closure calls, or a value passed to an API that requires
+   `Sendable`.
 4. **Observation.** Use `@Observable`, never `ObservableObject`,
    `@StateObject` or `@Published`.
 5. **Nothing deprecated.** Warnings are errors in the Showcase app.

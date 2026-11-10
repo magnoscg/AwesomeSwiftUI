@@ -602,7 +602,7 @@ enum SpringStudyPlaygroundMath {
     }
 }
 
-private struct SpringStudyPlaygroundCurve: Shape {
+nonisolated private struct SpringStudyPlaygroundCurve: Shape {
     let samples: [Double]
     let maximum: Double
 
@@ -2044,7 +2044,7 @@ struct WavesBackground: View {
     @State private var phase = 0.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private struct WaveLayer: Shape {
+    nonisolated private struct WaveLayer: Shape {
         var phase: Double
         var baseline: Double
         var amplitude: Double
@@ -2917,7 +2917,7 @@ struct HamburgerMenuButtonBar: Equatable {
 }
 
 /// Three bars that become a cross as `progress` goes from 0 to 1.
-struct HamburgerMenuButtonShape: Shape {
+nonisolated struct HamburgerMenuButtonShape: Shape {
     var progress: Double
 
     var animatableData: Double {
@@ -3448,7 +3448,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/PlayPauseMorphBut
 import SwiftUI
 
 /// A triangle that morphs into two bars as `progress` goes from 0 to 1.
-struct PlayPauseMorphButtonShape: Shape {
+nonisolated struct PlayPauseMorphButtonShape: Shape {
     var progress: Double
 
     var animatableData: Double {
@@ -6255,7 +6255,7 @@ struct LineChartDrawIn: View {
     }
 }
 
-private struct LineChartDrawInLine: Shape {
+nonisolated private struct LineChartDrawInLine: Shape {
     let values: [Double]
     let inset: CGFloat
 
@@ -6266,7 +6266,7 @@ private struct LineChartDrawInLine: Shape {
     }
 }
 
-private struct LineChartDrawInArea: Shape {
+nonisolated private struct LineChartDrawInArea: Shape {
     let values: [Double]
     let inset: CGFloat
 
@@ -6284,7 +6284,7 @@ private struct LineChartDrawInArea: Shape {
 }
 
 /// A circle that re-computes its position for every animation frame, so it stays on the tip.
-private struct LineChartDrawInDot: Shape {
+nonisolated private struct LineChartDrawInDot: Shape {
     let values: [Double]
     let inset: CGFloat
     let radius: CGFloat
@@ -6303,7 +6303,7 @@ private struct LineChartDrawInDot: Shape {
 }
 
 /// The geometry of the chart, apart from the view so it can be tested.
-enum LineChartDrawInLogic {
+nonisolated enum LineChartDrawInLogic {
     static func points(for values: [Double], in rect: CGRect) -> [CGPoint] {
         let values = values.filter(\.isFinite)
         guard !rect.isNull, rect.width > 0, rect.height > 0,
@@ -6889,12 +6889,12 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/ChatBubbleShape/ChatBub
 
 import SwiftUI
 
-enum ChatBubbleShapeSide: Sendable {
+nonisolated enum ChatBubbleShapeSide: Sendable {
     case leading, trailing
 }
 
 /// Where a message sits inside a run of messages from the same sender.
-enum ChatBubbleShapePosition: Sendable {
+nonisolated enum ChatBubbleShapePosition: Sendable {
     case single, first, middle, last
 }
 
@@ -6902,7 +6902,7 @@ enum ChatBubbleShapePosition: Sendable {
 ///
 /// The tail is drawn just outside the shape's rect, so leave about 8 points beside it.
 /// Corners and tail animate when a bubble's position changes.
-struct ChatBubbleShape: Shape {
+nonisolated struct ChatBubbleShape: Shape {
     var side: ChatBubbleShapeSide = .trailing
     private var radii: RectangleCornerRadii
     private var tail: CGFloat
@@ -6985,7 +6985,7 @@ struct ChatBubbleShape: Shape {
     }
 }
 
-enum ChatBubbleShapeLogic {
+nonisolated enum ChatBubbleShapeLogic {
     static func hasTail(_ position: ChatBubbleShapePosition) -> Bool {
         position == .single || position == .last
     }
@@ -7349,7 +7349,7 @@ struct NestedCommentThread: View {
 }
 
 /// One indentation column: a straight line, and for a comment's own level an elbow into it.
-private struct NestedCommentThreadGuide: Shape {
+nonisolated private struct NestedCommentThreadGuide: Shape {
     let continues: Bool
     let elbowY: CGFloat?
 
@@ -9562,7 +9562,7 @@ struct PathTrimDrawOn<Outline: Shape>: View {
 }
 
 /// A heart with a pulse line through it, scaled to fit any rectangle.
-struct PathTrimDrawOnHeartbeat: Shape {
+nonisolated struct PathTrimDrawOnHeartbeat: Shape {
     func path(in rect: CGRect) -> Path {
         let side = min(rect.width, rect.height)
         guard side > 0 else { return Path() }
@@ -9643,7 +9643,7 @@ Category: Drawing. Minimum: iOS 18.0. Path: Components/Drawing/PolygonMorphShape
 
 import SwiftUI
 
-enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
+nonisolated enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
     case square = "Square"
     case circle = "Circle"
     case star = "Star"
@@ -9689,7 +9689,7 @@ enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
 }
 
 /// A list of radii that SwiftUI can interpolate, which is what makes the morph work between any two forms.
-struct PolygonMorphShapeRadii: VectorArithmetic {
+nonisolated struct PolygonMorphShapeRadii: VectorArithmetic {
     var values: [Double]
 
     static var zero: Self { Self(values: []) }
@@ -9722,7 +9722,7 @@ struct PolygonMorphShapeRadii: VectorArithmetic {
 /// A shape that morphs smoothly between a square, a circle and a star when its form changes.
 ///
 /// Every form is sampled at the same angles, so morphing is only interpolating distances.
-struct PolygonMorphShape: Shape {
+nonisolated struct PolygonMorphShape: Shape {
     var radii: PolygonMorphShapeRadii
 
     init(form: PolygonMorphShapeForm) {
@@ -10328,7 +10328,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/ColorRevealImage/
 
 import SwiftUI
 
-enum ColorRevealImageMath {
+nonisolated enum ColorRevealImageMath {
     /// Full color near the middle of the scroll view, fading to none toward its edges.
     static func saturation(distanceFromCenter distance: CGFloat, viewportHeight: CGFloat) -> Double {
         guard viewportHeight > 0, distance.isFinite else { return 0 }
@@ -12563,7 +12563,7 @@ struct AnimatedCheckmarkBadge: View {
     }
 }
 
-private struct AnimatedCheckmarkBadgeCheck: Shape {
+nonisolated private struct AnimatedCheckmarkBadgeCheck: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         path.move(to: CGPoint(x: rect.minX + rect.width * 0.28, y: rect.minY + rect.height * 0.53))
@@ -13326,7 +13326,7 @@ struct TooltipPopoverAnchorKey: PreferenceKey {
     }
 }
 
-enum TooltipPopoverGeometry {
+nonisolated enum TooltipPopoverGeometry {
     static let arrowSize = CGSize(width: 18, height: 9)
     static let margin: CGFloat = 12
     private static let cornerInset: CGFloat = 14
@@ -13416,7 +13416,7 @@ private struct TooltipPopoverPlacement: Layout {
     }
 }
 
-private struct TooltipPopoverArrow: Shape {
+nonisolated private struct TooltipPopoverArrow: Shape {
     var pointsDown: Bool
 
     func path(in rect: CGRect) -> Path {
@@ -15322,7 +15322,7 @@ struct GlassActionItem: Identifiable {
 /// With Reduce Motion on, the actions appear without morphing.
 @available(iOS 26, *)
 struct GlassActionMenu: View {
-    private enum GlassID: Hashable, Sendable {
+    nonisolated private enum GlassID: Hashable, Sendable {
         case toggle
         case item(String)
     }
@@ -15888,7 +15888,7 @@ private struct GlassTagCloudLayout: Layout {
 }
 
 @available(iOS 26, *)
-enum GlassTagCloudFlow {
+nonisolated enum GlassTagCloudFlow {
     /// Places items left to right, starting a new row when the next item would not fit in `width`.
     static func arrange(_ sizes: [CGSize], width: CGFloat, spacing: CGFloat) -> (origins: [CGPoint], size: CGSize) {
         var origins: [CGPoint] = []
@@ -16446,7 +16446,7 @@ struct CircularAvatarCropperTransform: Equatable, Sendable {
     }
 }
 
-private struct CircularAvatarCropperDim: Shape {
+nonisolated private struct CircularAvatarCropperDim: Shape {
     let diameter: CGFloat
 
     func path(in rect: CGRect) -> Path {
@@ -16697,7 +16697,7 @@ enum CropRectangleOverlayHandle: CaseIterable, Hashable, Sendable {
     }
 }
 
-private struct CropRectangleOverlayDim: Shape {
+nonisolated private struct CropRectangleOverlayDim: Shape {
     let hole: CGRect
 
     func path(in rect: CGRect) -> Path {
@@ -18347,7 +18347,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/MaskedTextField/Mas
 import SwiftUI
 
 /// Applies a mask where `#` takes a digit, `A` takes a letter and anything else is written as is.
-enum MaskedTextFieldFormatter {
+nonisolated enum MaskedTextFieldFormatter {
     private static func accepts(_ character: Character, slot: Character) -> Bool? {
         switch slot {
         case "#": character.isWholeNumber
@@ -20110,12 +20110,12 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/BentoGridLayout/B
 
 import SwiftUI
 
-struct BentoGridLayoutSpan: Equatable, Sendable {
+nonisolated struct BentoGridLayoutSpan: Equatable, Sendable {
     var columns = 1
     var rows = 1
 }
 
-enum BentoGridLayoutMath {
+nonisolated enum BentoGridLayoutMath {
     /// Packs each tile, in order, into the first free slot, reading the grid top to bottom and left to right.
     static func frames(
         spans: [BentoGridLayoutSpan],
@@ -20158,7 +20158,7 @@ enum BentoGridLayoutMath {
     }
 }
 
-private struct BentoGridLayoutSpanKey: LayoutValueKey {
+nonisolated private struct BentoGridLayoutSpanKey: LayoutValueKey {
     static let defaultValue = BentoGridLayoutSpan()
 }
 
@@ -20292,7 +20292,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/FlowTagsLayout/Fl
 
 import SwiftUI
 
-enum FlowTagsLayoutMath {
+nonisolated enum FlowTagsLayoutMath {
     /// Groups widths into lines. A tag wider than `maxWidth` gets a line of its own.
     static func lines(widths: [CGFloat], maxWidth: CGFloat, spacing: CGFloat) -> [Range<Int>] {
         var lines: [Range<Int>] = []
@@ -20613,7 +20613,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/MasonryLayout/Mas
 import SwiftUI
 
 /// The placement math, with no views, so it can be tested.
-enum MasonryLayoutMath {
+nonisolated enum MasonryLayoutMath {
     struct Placement: Equatable {
         let column: Int
         let y: CGFloat
@@ -20854,7 +20854,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/RadialLayout/Radi
 
 import SwiftUI
 
-enum RadialLayoutMath {
+nonisolated enum RadialLayoutMath {
     /// Evenly spaced angles, the first one at `start`.
     static func angles(count: Int, start: Angle = .degrees(-90)) -> [Angle] {
         guard count > 0 else { return [] }
@@ -21808,7 +21808,7 @@ enum CardReordering {
 
 @available(iOS 27, *)
 struct ReorderableCardListDemo: View {
-    private struct Step: Identifiable, Sendable {
+    nonisolated private struct Step: Identifiable, Sendable {
         let id: String
         let systemImage: String
         let color: Color
@@ -21918,7 +21918,7 @@ enum ReorderableGridReordering {
 
 @available(iOS 27, *)
 struct ReorderableGridDemo: View {
-    private struct App: Identifiable, Sendable {
+    nonisolated private struct App: Identifiable, Sendable {
         let id: String
         let systemImage: String
         let color: Color
@@ -24466,7 +24466,7 @@ private struct CoachMarkTourModifier: ViewModifier {
 }
 
 /// The dimming layer with a rounded hole around the target. Its hole animates between steps.
-private struct CoachMarkTourDim: Shape {
+nonisolated private struct CoachMarkTourDim: Shape {
     var hole: CGRect
 
     var animatableData: CGRect.AnimatableData {
@@ -25279,7 +25279,7 @@ import SwiftUI
 /// An arc from `start` to `end` degrees. `@Animatable` writes its `animatableData`.
 @available(iOS 26, *)
 @Animatable
-struct AnimatableRingArc: Shape {
+nonisolated struct AnimatableRingArc: Shape {
     var start: Double
     var end: Double
     @AnimatableIgnored var clockwise = false
@@ -29088,7 +29088,7 @@ struct WheelPicker<Value: Hashable>: View {
     }
 }
 
-enum WheelPickerMath {
+nonisolated enum WheelPickerMath {
     /// How far a row is from the center of the wheel: 0 at the center, -1 at the top, 1 at the bottom.
     static func position(midY: Double, height: Double) -> Double {
         guard height > 0, midY.isFinite else { return 0 }
@@ -30705,7 +30705,7 @@ struct LiquidFillProgress: View {
 }
 
 /// The liquid: only `level` is animatable, so a level change eases while `phase` keeps following the clock.
-private struct LiquidFillWave: Shape {
+nonisolated private struct LiquidFillWave: Shape {
     var level: Double
     var phase: Double
 
@@ -31165,7 +31165,7 @@ struct CoverFlowCarousel: View {
     }
 }
 
-enum CoverFlowCarouselMath {
+nonisolated enum CoverFlowCarouselMath {
     /// How far an item is from the center of the carousel: 0 at the center, -1 or 1 one half width away.
     static func position(midX: Double, width: Double) -> Double {
         guard width > 0, midX.isFinite else { return 0 }
@@ -32922,7 +32922,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/StickyStacked
 
 import SwiftUI
 
-enum StickyStackedCardsMath {
+nonisolated enum StickyStackedCardsMath {
     /// How far down the card must move to stay pinned, 0 while it has not reached its pin.
     static func pinOffset(cardTop: CGFloat, pinY: CGFloat) -> CGFloat {
         max(pinY - cardTop, 0)
@@ -33456,7 +33456,7 @@ struct NotchedTabBarItem: Identifiable {
     let systemImage: String
 }
 
-enum NotchedTabBarMath {
+nonisolated enum NotchedTabBarMath {
     /// The middle of a tab, with the tabs spread evenly inside the horizontal inset.
     static func centerX(index: Int, count: Int, width: CGFloat, inset: CGFloat) -> CGFloat {
         let usable = max(width - 2 * max(inset, 0), 0)
@@ -33472,7 +33472,7 @@ enum NotchedTabBarMath {
 }
 
 /// A rounded bar with a smooth notch that can slide along its top edge.
-struct NotchedTabBarShape: Shape {
+nonisolated struct NotchedTabBarShape: Shape {
     var centerX: CGFloat
     var desiredHalfSpan: CGFloat
     var depth: CGFloat
@@ -35575,7 +35575,7 @@ extension Transition where Self == CircleRevealTransition {
     }
 }
 
-enum CircleRevealTransitionGeometry {
+nonisolated enum CircleRevealTransitionGeometry {
     /// The radius of the smallest circle centered on `origin` that covers the whole of `size`.
     static func coverRadius(from origin: UnitPoint, in size: CGSize) -> CGFloat {
         let horizontal = max(origin.x, 1 - origin.x) * size.width
@@ -35597,7 +35597,7 @@ private struct CircleRevealEffect: ViewModifier {
     }
 }
 
-private struct CircleRevealShape: Shape {
+nonisolated private struct CircleRevealShape: Shape {
     let origin: UnitPoint
     var progress: CGFloat
 

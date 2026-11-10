@@ -17,8 +17,9 @@ AwesomeSwiftUI is a catalog, not a package. There is nothing to install.
 
 ## Requirements
 
-Components are written for Swift 6, with complete concurrency checking. iOS 18
-is the baseline. A component that needs a newer iOS marks its types with
+Components are written for Swift 6, with complete concurrency checking, and
+compile whether or not your project uses the main actor as its default
+isolation. iOS 18 is the baseline. A component that needs a newer iOS marks its types with
 `@available`, so you decide how to handle older versions in your app.
 
 ## License

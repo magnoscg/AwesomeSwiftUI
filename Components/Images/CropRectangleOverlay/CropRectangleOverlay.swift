@@ -55,7 +55,7 @@ enum CropRectangleOverlayHandle: CaseIterable, Hashable, Sendable {
     }
 }
 
-private struct CropRectangleOverlayDim: Shape {
+nonisolated private struct CropRectangleOverlayDim: Shape {
     let hole: CGRect
 
     func path(in rect: CGRect) -> Path {

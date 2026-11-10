@@ -94,7 +94,7 @@ struct TooltipPopoverAnchorKey: PreferenceKey {
     }
 }
 
-enum TooltipPopoverGeometry {
+nonisolated enum TooltipPopoverGeometry {
     static let arrowSize = CGSize(width: 18, height: 9)
     static let margin: CGFloat = 12
     private static let cornerInset: CGFloat = 14
@@ -184,7 +184,7 @@ private struct TooltipPopoverPlacement: Layout {
     }
 }
 
-private struct TooltipPopoverArrow: Shape {
+nonisolated private struct TooltipPopoverArrow: Shape {
     var pointsDown: Bool
 
     func path(in rect: CGRect) -> Path {

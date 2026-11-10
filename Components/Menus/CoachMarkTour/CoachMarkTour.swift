@@ -181,7 +181,7 @@ private struct CoachMarkTourModifier: ViewModifier {
 }
 
 /// The dimming layer with a rounded hole around the target. Its hole animates between steps.
-private struct CoachMarkTourDim: Shape {
+nonisolated private struct CoachMarkTourDim: Shape {
     var hole: CGRect
 
     var animatableData: CGRect.AnimatableData {

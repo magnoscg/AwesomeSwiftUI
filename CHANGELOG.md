@@ -16,6 +16,17 @@ on `main`.
   a foil that shifts as you tilt the card; and Dissolve Shader Transition,
   which burns a view away through noise.
 
+### Fixed
+
+- Components compile in projects that use the main actor as their default
+  isolation, which is how Xcode sets up a new app. 26 of them did not, and 5
+  more raised warnings.
+
+### Changed
+
+- `make verify` and CI also compile every component with the main actor as the
+  default isolation.
+
 ## 0.2.1 - 2026-11-09
 
 ### Fixed

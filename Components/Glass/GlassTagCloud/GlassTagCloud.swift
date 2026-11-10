@@ -86,7 +86,7 @@ private struct GlassTagCloudLayout: Layout {
 }
 
 @available(iOS 26, *)
-enum GlassTagCloudFlow {
+nonisolated enum GlassTagCloudFlow {
     /// Places items left to right, starting a new row when the next item would not fit in `width`.
     static func arrange(_ sizes: [CGSize], width: CGFloat, spacing: CGFloat) -> (origins: [CGPoint], size: CGSize) {
         var origins: [CGPoint] = []

@@ -44,7 +44,7 @@ struct CircularAvatarCropperTransform: Equatable, Sendable {
     }
 }
 
-private struct CircularAvatarCropperDim: Shape {
+nonisolated private struct CircularAvatarCropperDim: Shape {
     let diameter: CGFloat
 
     func path(in rect: CGRect) -> Path {
