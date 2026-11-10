@@ -684,6 +684,15 @@ enum ComponentRegistry {
             demo: { AnyView(Globe3DWireframeDemo()) }
         ),
         ShowcaseEntry(
+            id: "intelligence-glow-border",
+            title: "Intelligence Glow Border",
+            category: "Effects",
+            summary: "A soft band of color that travels around a view's edge and spreads inward, like an assistant that is listening.",
+            keywords: ["glow", "border", "edge light", "assistant", "listening", "mesh gradient", "ai", "siri", "resplandor", "borde", "luz de borde", "asistente", "escuchando", "degradado de malla", "ia", "siri"],
+            minIOS: "18.0",
+            demo: { AnyView(IntelligenceGlowBorderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "jiggle-edit-modifier",
             title: "Jiggle Edit Modifier",
             category: "Effects",

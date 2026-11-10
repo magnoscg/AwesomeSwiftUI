@@ -1,0 +1,15 @@
+{
+  "id": "intelligence-glow-border",
+  "name": "IntelligenceGlowBorder",
+  "title": "Intelligence Glow Border",
+  "category": "Effects",
+  "summary": "A soft band of color that travels around a view's edge and spreads inward, like an assistant that is listening.",
+  "keywords": {
+    "en": ["glow", "border", "edge light", "assistant", "listening", "mesh gradient", "ai", "siri"],
+    "es": ["resplandor", "borde", "luz de borde", "asistente", "escuchando", "degradado de malla", "ia", "siri"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["MeshGradient", "TimelineView", "ViewModifier", "Color.mix", "strokeBorder"],
+  "origin": { "kind": "inspired", "credit": "Apple Intelligence", "url": "https://www.apple.com/apple-intelligence/" }
+}
