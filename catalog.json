@@ -1,5 +1,5 @@
 {
-  "count": 263,
+  "count": 264,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -6476,6 +6476,48 @@
       "path": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift",
       "preview": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift"
+    },
+    {
+      "id": "map-annotation-callout",
+      "name": "MapAnnotationCallout",
+      "title": "Map Annotation Callout",
+      "category": "Maps",
+      "summary": "Map pins with a short label that open a callout above them when tapped, while the camera moves to fit it.",
+      "keywords": {
+        "en": [
+          "map",
+          "annotation",
+          "callout",
+          "price pin",
+          "marker",
+          "popover",
+          "mapkit"
+        ],
+        "es": [
+          "mapa",
+          "anotación",
+          "globo",
+          "pin con precio",
+          "marcador",
+          "tarjeta emergente",
+          "mapkit"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Map",
+        "Annotation",
+        "MapCameraPosition",
+        "onMapCameraChange",
+        "MKCoordinateRegion"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift",
+      "preview": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift"
     },
     {
       "id": "map-search-sheet",
