@@ -1,5 +1,5 @@
 {
-  "count": 266,
+  "count": 267,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2093,6 +2093,50 @@
       "path": "Components/Chat/NestedCommentThread/NestedCommentThread.swift",
       "preview": "Components/Chat/NestedCommentThread/NestedCommentThread.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/NestedCommentThread/NestedCommentThread.swift"
+    },
+    {
+      "id": "tapback-reaction-bubble",
+      "name": "TapbackReactionBubble",
+      "title": "Tapback Reaction Bubble",
+      "category": "Chat",
+      "summary": "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+      "keywords": {
+        "en": [
+          "tapback",
+          "message reaction",
+          "long press",
+          "chat bubble",
+          "emoji",
+          "react",
+          "imessage"
+        ],
+        "es": [
+          "tapback",
+          "reacción a mensaje",
+          "pulsación larga",
+          "burbuja de chat",
+          "emoji",
+          "reaccionar",
+          "mensajes"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onLongPressGesture",
+        "alignmentGuide",
+        "sensoryFeedback",
+        "accessibilityActions",
+        "zIndex"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Tapback in Apple's Messages",
+        "url": "https://support.apple.com/guide/iphone/react-with-tapbacks-iph018d3c336/ios"
+      },
+      "path": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift",
+      "preview": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
     },
     {
       "id": "add-to-cart-fly-button",

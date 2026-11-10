@@ -477,6 +477,15 @@ enum ComponentRegistry {
             demo: { AnyView(NestedCommentThreadDemo()) }
         ),
         ShowcaseEntry(
+            id: "tapback-reaction-bubble",
+            title: "Tapback Reaction Bubble",
+            category: "Chat",
+            summary: "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+            keywords: ["tapback", "message reaction", "long press", "chat bubble", "emoji", "react", "imessage", "tapback", "reacción a mensaje", "pulsación larga", "burbuja de chat", "emoji", "reaccionar", "mensajes"],
+            minIOS: "18.0",
+            demo: { AnyView(TapbackReactionBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",

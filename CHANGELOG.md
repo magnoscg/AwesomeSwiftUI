@@ -36,6 +36,8 @@ on `main`.
   like an order on its way.
 - Voice Orb, a glowing orb for a voice assistant whose colors swirl and that
   swells with the voice while it listens or speaks.
+- Tapback Reaction Bubble, a message you press and hold to react to, with the
+  chosen reaction kept as a badge on its corner.
 
 ### Changed
 
