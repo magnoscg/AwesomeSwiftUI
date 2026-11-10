@@ -12,7 +12,7 @@ struct SwipeActionRowAction: Identifiable {
 }
 
 enum SwipeActionRowPhysics {
-    /// Where the row sits for a drag: it cannot move right of closed and resists past fully open.
+    /// Where the row sits for a drag, negative toward the buttons: it cannot move past closed and resists past fully open.
     static func offset(resting: CGFloat, translation: CGFloat, revealWidth: CGFloat) -> CGFloat {
         let raw = resting + translation
         if raw > 0 { return 0 }
@@ -37,6 +37,10 @@ struct SwipeActionRow<Content: View>: View {
     @State private var isOpen = false
     @GestureState private var translation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var width: CGFloat { max(buttonWidth, 0) }
     private var revealWidth: CGFloat { CGFloat(actions.count) * width }
@@ -102,14 +106,14 @@ struct SwipeActionRow<Content: View>: View {
         DragGesture(minimumDistance: 14)
             .updating($translation) { value, state, _ in
                 if state != 0 || abs(value.translation.width) > abs(value.translation.height) {
-                    state = value.translation.width
+                    state = value.translation.width * forward
                 }
             }
             .onEnded { value in
                 guard abs(value.translation.width) > abs(value.translation.height) else { return }
                 let opens = SwipeActionRowPhysics.settlesOpen(
                     resting: resting,
-                    predictedTranslation: value.predictedEndTranslation.width,
+                    predictedTranslation: value.predictedEndTranslation.width * forward,
                     revealWidth: revealWidth
                 )
                 withAnimation(animation) { isOpen = opens }

@@ -15,6 +15,10 @@ struct SideDrawer<MenuContent: View, Content: View>: View {
     @State private var dragTranslation: CGFloat = 0
     @GestureState private var isDragging = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var animation: Animation? {
         reduceMotion ? nil : .spring(duration: 0.45, bounce: 0.15)
@@ -59,9 +63,9 @@ struct SideDrawer<MenuContent: View, Content: View>: View {
     private var dragGesture: some Gesture {
         DragGesture(minimumDistance: 20)
             .updating($isDragging) { _, state, _ in state = true }
-            .onChanged { dragTranslation = $0.translation.width }
+            .onChanged { dragTranslation = $0.translation.width * forward }
             .onEnded { value in
-                let projected = (isOpen ? menuWidth : 0) + value.predictedEndTranslation.width
+                let projected = (isOpen ? menuWidth : 0) + value.predictedEndTranslation.width * forward
                 withAnimation(animation) {
                     isOpen = projected > menuWidth / 2
                     dragTranslation = 0

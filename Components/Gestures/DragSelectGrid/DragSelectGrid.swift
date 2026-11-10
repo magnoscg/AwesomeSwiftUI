@@ -23,6 +23,7 @@ struct DragSelectGrid<Item: Identifiable, Tile: View>: View {
     @State private var stroke: Stroke?
     @State private var gridWidth: CGFloat = 0
     @GestureState private var isDragging = false
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private var columnCount: Int { DragSelectGridMath.clampedColumns(columns) }
     private var gap: CGFloat { max(spacing, 0) }
@@ -77,7 +78,9 @@ struct DragSelectGrid<Item: Identifiable, Tile: View>: View {
     }
 
     private func index(at point: CGPoint) -> Int? {
-        DragSelectGridMath.index(at: point, width: gridWidth, columns: columnCount, spacing: gap, count: items.count)
+        // Gestures report screen points, but the grid mirrors in right-to-left layouts.
+        let x = layoutDirection == .rightToLeft ? gridWidth - point.x : point.x
+        return DragSelectGridMath.index(at: CGPoint(x: x, y: point.y), width: gridWidth, columns: columnCount, spacing: gap, count: items.count)
     }
 }
 

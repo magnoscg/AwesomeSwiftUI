@@ -43,6 +43,10 @@ struct PinchZoomView<Content: View>: View {
     @State private var size = CGSize.zero
     @GestureState private var isGesturing = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var settle: Animation {
         reduceMotion ? .easeOut(duration: 0.15) : .spring(duration: 0.45, bounce: 0.25)
@@ -91,7 +95,9 @@ struct PinchZoomView<Content: View>: View {
             .updating($isGesturing) { _, state, _ in state = true }
             .onChanged { value in
                 if let magnification = value.first?.magnification { pinch = magnification }
-                if let translation = value.second?.translation { drag = translation }
+                if let translation = value.second?.translation {
+                    drag = CGSize(width: translation.width * forward, height: translation.height)
+                }
             }
             .onEnded { _ in settleGesture() }
     }

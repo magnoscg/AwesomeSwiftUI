@@ -21,6 +21,13 @@ on `main`.
 - Components compile in projects that use the main actor as their default
   isolation, which is how Xcode sets up a new app. 26 of them did not, and 5
   more raised warnings.
+- In right-to-left layouts, 24 components now follow the finger instead of
+  moving away from it, among them the swipe rows, the side drawer, the sliders,
+  the pager, the card stack, the dock, the radial menu, the reaction picker and
+  the photo board, viewers and croppers. Crops and zooms stay in the photo's
+  own coordinates.
+- Chevrons and arrows that mean back or forward now point the right way in
+  right-to-left layouts.
 
 ### Changed
 

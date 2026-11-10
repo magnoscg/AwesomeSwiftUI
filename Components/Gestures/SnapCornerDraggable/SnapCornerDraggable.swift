@@ -15,13 +15,12 @@ enum SnapCornerDraggableCorner: CaseIterable, Hashable, Sendable {
         }
     }
 
-    var title: String {
-        switch self {
-        case .topLeading: "top left"
-        case .topTrailing: "top right"
-        case .bottomLeading: "bottom left"
-        case .bottomTrailing: "bottom right"
-        }
+    /// The name VoiceOver reads. The leading corners are on the right in a right-to-left layout.
+    func title(in layoutDirection: LayoutDirection) -> String {
+        let isTop = self == .topLeading || self == .topTrailing
+        let isLeading = self == .topLeading || self == .bottomLeading
+        let isLeft = isLeading == (layoutDirection == .leftToRight)
+        return "\(isTop ? "top" : "bottom") \(isLeft ? "left" : "right")"
     }
 
     /// The corner of the quadrant a point falls in, in a container of the given size.
@@ -48,8 +47,12 @@ struct SnapCornerDraggable<Content: View>: View {
     @State private var containerSize = CGSize.zero
     @GestureState private var translation = CGSize.zero
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let space = "SnapCornerDraggable"
+
+    /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
+    private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
     private var animation: Animation? {
         reduceMotion ? nil : .spring(duration: 0.45, bounce: 0.3)
@@ -63,7 +66,7 @@ struct SnapCornerDraggable<Content: View>: View {
             .accessibilityElement(children: .combine)
             .accessibilityActions {
                 ForEach(SnapCornerDraggableCorner.allCases.filter { $0 != corner }, id: \.self) { target in
-                    Button("Move to \(target.title)") {
+                    Button("Move to \(target.title(in: layoutDirection))") {
                         withAnimation(animation) { corner = target }
                     }
                 }
@@ -77,10 +80,12 @@ struct SnapCornerDraggable<Content: View>: View {
     private var drag: some Gesture {
         DragGesture(coordinateSpace: .named(space))
             .updating($translation) { value, state, _ in
-                state = value.translation
+                state = CGSize(width: value.translation.width * forward, height: value.translation.height)
             }
             .onEnded { value in
-                let target = SnapCornerDraggableCorner.nearest(to: value.predictedEndLocation, in: containerSize)
+                var point = value.predictedEndLocation
+                if layoutDirection == .rightToLeft { point.x = containerSize.width - point.x }
+                let target = SnapCornerDraggableCorner.nearest(to: point, in: containerSize)
                 withAnimation(animation) { corner = target }
             }
     }
@@ -90,6 +95,7 @@ struct SnapCornerDraggable<Content: View>: View {
 
 struct SnapCornerDraggableDemo: View {
     @State private var corner = SnapCornerDraggableCorner.bottomTrailing
+    @Environment(\.layoutDirection) private var layoutDirection
 
     var body: some View {
         ZStack {
@@ -126,7 +132,7 @@ struct SnapCornerDraggableDemo: View {
             }
             .frame(width: 120, height: 170)
             .shadow(color: .black.opacity(0.3), radius: 14, y: 8)
-            .accessibilityLabel("Your camera, \(corner.title)")
+            .accessibilityLabel("Your camera, \(corner.title(in: layoutDirection))")
     }
 }
 

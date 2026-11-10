@@ -63,13 +63,13 @@ struct CalendarRangeSelector: View {
 
     private var header: some View {
         HStack {
-            monthButton(systemImage: "chevron.left", label: "Previous month", offset: -1)
+            monthButton(systemImage: "chevron.backward", label: "Previous month", offset: -1)
             Spacer()
             Text(format(month, Date.FormatStyle().month(.wide).year()))
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
             Spacer()
-            monthButton(systemImage: "chevron.right", label: "Next month", offset: 1)
+            monthButton(systemImage: "chevron.forward", label: "Next month", offset: 1)
         }
     }
 

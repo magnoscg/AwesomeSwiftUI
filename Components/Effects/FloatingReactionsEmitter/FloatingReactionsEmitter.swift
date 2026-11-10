@@ -42,6 +42,7 @@ struct FloatingReactionsEmitter<Content: View>: View {
 
     @State private var reactions: [FloatingReactionsEmitterReaction] = []
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     private let maximumReactions = 40
     private var duration: Double { lifetime > 0 ? lifetime : 1 }
@@ -51,7 +52,11 @@ struct FloatingReactionsEmitter<Content: View>: View {
             content()
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 .contentShape(.rect)
-                .gesture(SpatialTapGesture().onEnded { emit(from: $0.location) })
+                .gesture(SpatialTapGesture().onEnded { value in
+                    // Gestures report screen points, but `position` mirrors in right-to-left layouts.
+                    let x = layoutDirection == .rightToLeft ? proxy.size.width - value.location.x : value.location.x
+                    emit(from: CGPoint(x: x, y: value.location.y))
+                })
                 .overlay {
                     TimelineView(.animation(paused: reactions.isEmpty)) { timeline in
                         ZStack {

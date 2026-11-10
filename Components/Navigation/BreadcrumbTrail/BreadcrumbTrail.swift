@@ -83,7 +83,7 @@ struct BreadcrumbTrail: View {
     }
 
     private var separator: some View {
-        Image(systemName: "chevron.compact.right")
+        Image(systemName: "chevron.compact.forward")
             .foregroundStyle(.tertiary)
             .accessibilityHidden(true)
     }
@@ -135,7 +135,7 @@ struct BreadcrumbTrailDemo: View {
                     .foregroundStyle(.teal.gradient)
                     .accessibilityHidden(true)
 
-                Button("Open", systemImage: "arrow.right") {
+                Button("Open", systemImage: "arrow.forward") {
                     depth = depth < tree.count ? depth + 1 : 1
                 }
                 .buttonStyle(.borderedProminent)
