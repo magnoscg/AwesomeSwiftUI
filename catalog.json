@@ -1,5 +1,5 @@
 {
-  "count": 268,
+  "count": 269,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -10127,6 +10127,48 @@
       "path": "Components/Text/ShimmerText/ShimmerText.swift",
       "preview": "Components/Text/ShimmerText/ShimmerText.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ShimmerText/ShimmerText.swift"
+    },
+    {
+      "id": "streaming-text",
+      "name": "StreamingText",
+      "title": "Streaming Text",
+      "category": "Text",
+      "summary": "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+      "keywords": {
+        "en": [
+          "streaming text",
+          "llm",
+          "ai answer",
+          "token stream",
+          "fade in",
+          "chat",
+          "text renderer"
+        ],
+        "es": [
+          "texto en streaming",
+          "llm",
+          "respuesta de ia",
+          "flujo de tokens",
+          "aparecer",
+          "chat",
+          "text renderer"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "TextRenderer",
+        "Text.Layout",
+        "GraphicsContext",
+        "Animatable",
+        "onChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Text/StreamingText/StreamingText.swift",
+      "preview": "Components/Text/StreamingText/StreamingText.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/StreamingText/StreamingText.swift"
     },
     {
       "id": "text-blur-reveal",

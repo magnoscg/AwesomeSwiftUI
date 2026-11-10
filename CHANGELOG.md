@@ -40,6 +40,8 @@ on `main`.
   chosen reaction kept as a badge on its corner.
 - Dynamic Height Tray, a sheet exactly as tall as its content, which grows and
   shrinks as one step of a flow gives way to the next.
+- Streaming Text, text that arrives in chunks, like the answer of a language
+  model, and fades each new part in.
 
 ### Changed
 

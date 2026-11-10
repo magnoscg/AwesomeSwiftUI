@@ -2322,6 +2322,15 @@ enum ComponentRegistry {
             demo: { AnyView(ShimmerTextDemo()) }
         ),
         ShowcaseEntry(
+            id: "streaming-text",
+            title: "Streaming Text",
+            category: "Text",
+            summary: "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+            keywords: ["streaming text", "llm", "ai answer", "token stream", "fade in", "chat", "text renderer", "texto en streaming", "llm", "respuesta de ia", "flujo de tokens", "aparecer", "chat", "text renderer"],
+            minIOS: "18.0",
+            demo: { AnyView(StreamingTextDemo()) }
+        ),
+        ShowcaseEntry(
             id: "text-blur-reveal",
             title: "Text Blur Reveal",
             category: "Text",
