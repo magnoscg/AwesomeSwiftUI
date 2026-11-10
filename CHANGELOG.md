@@ -44,6 +44,8 @@ on `main`.
   model, and fades each new part in.
 - Progressive Blur Header, a blur that grows toward the top edge of a scroll
   view, drawn by a Metal shader, so what scrolls under a header melts away.
+- Pixelate Shader Effect, a modifier that draws a view in big square blocks,
+  like a spoiler, and brings it into focus as they shrink.
 
 ### Changed
 

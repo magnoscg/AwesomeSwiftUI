@@ -1,5 +1,5 @@
 {
-  "count": 270,
+  "count": 271,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3411,6 +3411,50 @@
       "path": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift",
       "preview": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
+    },
+    {
+      "id": "pixelate-shader-effect",
+      "name": "PixelateShaderEffect",
+      "title": "Pixelate Shader Effect",
+      "category": "Effects",
+      "summary": "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "pixelate",
+          "mosaic",
+          "spoiler",
+          "censor",
+          "shader",
+          "metal",
+          "reveal"
+        ],
+        "es": [
+          "pixelar",
+          "mosaico",
+          "spoiler",
+          "censurar",
+          "shader",
+          "metal",
+          "revelar"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "Animatable",
+        "ViewModifier",
+        "withAnimation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
+      "preview": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.webp",
+      "shader": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal"
     },
     {
       "id": "progressive-blur-header",

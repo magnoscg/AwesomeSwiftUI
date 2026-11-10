@@ -765,6 +765,15 @@ enum ComponentRegistry {
             demo: { AnyView(NoiseGrainOverlayDemo()) }
         ),
         ShowcaseEntry(
+            id: "pixelate-shader-effect",
+            title: "Pixelate Shader Effect",
+            category: "Effects",
+            summary: "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+            keywords: ["pixelate", "mosaic", "spoiler", "censor", "shader", "metal", "reveal", "pixelar", "mosaico", "spoiler", "censurar", "shader", "metal", "revelar"],
+            minIOS: "18.0",
+            demo: { AnyView(PixelateShaderEffectDemo()) }
+        ),
+        ShowcaseEntry(
             id: "progressive-blur-header",
             title: "Progressive Blur Header",
             category: "Effects",
