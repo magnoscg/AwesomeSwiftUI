@@ -15,6 +15,9 @@ on `main`.
   five components that named no source are listed as original: Command
   Palette, Contribution Heatmap, Floating Dock Bar, Kanban Board and Sticky
   Stacked Cards.
+- A number written four or more times in a component has a name, so there is
+  one place to change it. `make check` requires it, and 17 components were
+  updated.
 
 ## 0.3.1 - 2026-11-10
 

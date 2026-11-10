@@ -21,6 +21,7 @@ struct PagedGridLauncher: View {
     @State private var scrolledPage: Int?
 
     @ScaledMetric(relativeTo: .caption2) private var iconSize: CGFloat = 60
+    private let pageDotSize: CGFloat = 8
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -111,7 +112,7 @@ struct PagedGridLauncher: View {
                 ForEach(0..<count, id: \.self) { index in
                     Circle()
                         .fill(.primary.opacity(index == page ? 0.9 : 0.25))
-                        .frame(width: 8, height: 8)
+                        .frame(width: pageDotSize, height: pageDotSize)
                 }
             }
             Text("\(page + 1) / \(count)")

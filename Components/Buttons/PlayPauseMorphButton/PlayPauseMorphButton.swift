@@ -12,15 +12,20 @@ nonisolated struct PlayPauseMorphButtonShape: Shape {
         set { progress = newValue }
     }
 
+    private static let iconTop = 0.1
+    private static let iconBottom = 0.9
+    /// The x where the triangle is cut in two.
+    private static let triangleCut = 0.57
+
     /// The triangle, cut in two, in a unit square. Corners match one to one with `pauseBars`.
     private static let playHalves: [[CGPoint]] = [
-        [CGPoint(x: 0.22, y: 0.1), CGPoint(x: 0.57, y: 0.3), CGPoint(x: 0.57, y: 0.7), CGPoint(x: 0.22, y: 0.9)],
-        [CGPoint(x: 0.57, y: 0.3), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.57, y: 0.7)],
+        [CGPoint(x: 0.22, y: iconTop), CGPoint(x: triangleCut, y: 0.3), CGPoint(x: triangleCut, y: 0.7), CGPoint(x: 0.22, y: iconBottom)],
+        [CGPoint(x: triangleCut, y: 0.3), CGPoint(x: 0.92, y: 0.5), CGPoint(x: 0.92, y: 0.5), CGPoint(x: triangleCut, y: 0.7)],
     ]
 
     private static let pauseBars: [[CGPoint]] = [
-        [CGPoint(x: 0.2, y: 0.1), CGPoint(x: 0.42, y: 0.1), CGPoint(x: 0.42, y: 0.9), CGPoint(x: 0.2, y: 0.9)],
-        [CGPoint(x: 0.58, y: 0.1), CGPoint(x: 0.8, y: 0.1), CGPoint(x: 0.8, y: 0.9), CGPoint(x: 0.58, y: 0.9)],
+        [CGPoint(x: 0.2, y: iconTop), CGPoint(x: 0.42, y: iconTop), CGPoint(x: 0.42, y: iconBottom), CGPoint(x: 0.2, y: iconBottom)],
+        [CGPoint(x: 0.58, y: iconTop), CGPoint(x: 0.8, y: iconTop), CGPoint(x: 0.8, y: iconBottom), CGPoint(x: 0.58, y: iconBottom)],
     ]
 
     /// The two four-cornered pieces at the current progress, in a unit square.
@@ -53,6 +58,9 @@ struct PlayPauseMorphButton: View {
     @ScaledMetric(relativeTo: .largeTitle) private var size = 92.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// The side of the icon as a fraction of the button's.
+    private let iconScale = 0.42
+
     var body: some View {
         Button {
             withAnimation(reduceMotion ? nil : .spring(duration: 0.42, bounce: 0.2)) { isPlaying.toggle() }
@@ -64,7 +72,7 @@ struct PlayPauseMorphButton: View {
                 // A stroke of the same color softens the corners.
                 shape.stroke(.white, style: StrokeStyle(lineWidth: size * 0.04, lineJoin: .round))
             }
-            .frame(width: size * 0.42, height: size * 0.42)
+            .frame(width: size * iconScale, height: size * iconScale)
             .frame(width: size, height: size)
             .background(.linearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing), in: Circle())
             .shadow(color: (colors.first ?? .black).opacity(0.4), radius: 18, y: 10)

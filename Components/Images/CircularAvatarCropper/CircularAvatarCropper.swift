@@ -69,6 +69,9 @@ struct CircularAvatarCropper: View {
     @GestureState private var translation = CGSize.zero
     @GestureState private var magnification: CGFloat = 1
 
+    /// How far a VoiceOver action moves the photo, as a fraction of the window's diameter.
+    private let panStep: CGFloat = 0.1
+
     var body: some View {
         GeometryReader { geometry in
             let diameter = max(min(geometry.size.width, geometry.size.height) - 2 * max(windowInset, 0), 1)
@@ -99,10 +102,10 @@ struct CircularAvatarCropper: View {
             }
         }
         .accessibilityActions {
-            Button("Move photo left") { update { $0.offset.width -= 0.1 } }
-            Button("Move photo right") { update { $0.offset.width += 0.1 } }
-            Button("Move photo up") { update { $0.offset.height -= 0.1 } }
-            Button("Move photo down") { update { $0.offset.height += 0.1 } }
+            Button("Move photo left") { update { $0.offset.width -= panStep } }
+            Button("Move photo right") { update { $0.offset.width += panStep } }
+            Button("Move photo up") { update { $0.offset.height -= panStep } }
+            Button("Move photo down") { update { $0.offset.height += panStep } }
         }
     }
 

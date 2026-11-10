@@ -354,6 +354,30 @@ describe('invalid source', () => {
     assert.deepEqual(errorsFor({ metadata: meta({ origin }), source }), []);
   });
 
+  it('rejects a number written four times outside the demo', () => {
+    const source = swift('GlowButton', 'let insets = [12, 12, 12, 12]');
+
+    assertRejected({ source }, /12 is written 4 or more times outside the demo/);
+  });
+
+  it('allows a number that repeats only in the demo', () => {
+    const source = swift().replace('struct GlowButtonDemo', '// MARK: - Demo\nlet insets = [12, 12, 12, 12]\nstruct GlowButtonDemo');
+
+    assert.deepEqual(errorsFor({ source }), []);
+  });
+
+  it('allows a number that has a name', () => {
+    const source = swift('GlowButton', 'private let inset = 12.0\nlet insets = [inset, inset, 12, 12, 12]');
+
+    assert.deepEqual(errorsFor({ source }), []);
+  });
+
+  it('allows the numbers that say nothing more with a name', () => {
+    const source = swift('GlowButton', 'let turns = [0, 0, 0, 0, 2, 2, 2, 2, 0.5, 0.5, 0.5, 0.5, 360, 360, 360, 360]');
+
+    assert.deepEqual(errorsFor({ source }), []);
+  });
+
   it('rejects a missing demo', () => {
     assertRejected({ source: '// SPDX-License-Identifier: MIT\n#Preview {}\n' }, /missing struct GlowButtonDemo/);
   });

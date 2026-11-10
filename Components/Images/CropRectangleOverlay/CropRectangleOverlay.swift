@@ -82,6 +82,9 @@ struct CropRectangleOverlay: View {
 
     @GestureState private var drag: ActiveDrag?
 
+    /// How far a VoiceOver action moves or resizes the frame, as a fraction of the image.
+    private let adjustmentStep: CGFloat = 0.05
+
     private var committed: CGRect { CropRectangleOverlayHandle.sanitized(crop) }
 
     private var shown: CGRect {
@@ -183,14 +186,14 @@ struct CropRectangleOverlay: View {
     }
 
     @ViewBuilder private var accessibilityButtons: some View {
-        adjustment("Move left", .body, dx: -0.05, dy: 0)
-        adjustment("Move right", .body, dx: 0.05, dy: 0)
-        adjustment("Move up", .body, dx: 0, dy: -0.05)
-        adjustment("Move down", .body, dx: 0, dy: 0.05)
-        adjustment("Make wider", .right, dx: 0.05, dy: 0)
-        adjustment("Make narrower", .right, dx: -0.05, dy: 0)
-        adjustment("Make taller", .bottom, dx: 0, dy: 0.05)
-        adjustment("Make shorter", .bottom, dx: 0, dy: -0.05)
+        adjustment("Move left", .body, dx: -adjustmentStep, dy: 0)
+        adjustment("Move right", .body, dx: adjustmentStep, dy: 0)
+        adjustment("Move up", .body, dx: 0, dy: -adjustmentStep)
+        adjustment("Move down", .body, dx: 0, dy: adjustmentStep)
+        adjustment("Make wider", .right, dx: adjustmentStep, dy: 0)
+        adjustment("Make narrower", .right, dx: -adjustmentStep, dy: 0)
+        adjustment("Make taller", .bottom, dx: 0, dy: adjustmentStep)
+        adjustment("Make shorter", .bottom, dx: 0, dy: -adjustmentStep)
     }
 
     private func adjustment(_ title: String, _ handle: CropRectangleOverlayHandle, dx: CGFloat, dy: CGFloat) -> some View {

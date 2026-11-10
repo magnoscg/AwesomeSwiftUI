@@ -63,6 +63,7 @@ struct SpringStudyPlayground: View {
 
     /// The curve's scale. A spring with the lowest damping overshoots to almost this.
     private static let curveMaximum = 1.9
+    private static let presetSpacing: CGFloat = 10
 
     @State private var response: Double
     @State private var damping: Double
@@ -144,8 +145,8 @@ struct SpringStudyPlayground: View {
 
     private var presets: some View {
         ViewThatFits(in: .horizontal) {
-            HStack(spacing: 10) { presetButtons }
-            VStack(spacing: 10) { presetButtons }
+            HStack(spacing: Self.presetSpacing) { presetButtons }
+            VStack(spacing: Self.presetSpacing) { presetButtons }
         }
     }
 

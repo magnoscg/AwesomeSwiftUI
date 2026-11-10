@@ -18,6 +18,7 @@ struct ConfettiBurst: ViewModifier {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let motion = ConfettiBurstMotion()
+    private static let pieceWidth: CGFloat = 8
 
     func body(content: Content) -> some View {
         content
@@ -62,9 +63,9 @@ struct ConfettiBurst: ViewModifier {
 
             let color = GraphicsContext.Shading.color(colors[index % colors.count])
             if index.isMultiple(of: 3) {
-                piece.fill(Path(ellipseIn: CGRect(x: -4, y: -4, width: 8, height: 8)), with: color)
+                piece.fill(Path(ellipseIn: CGRect(x: -Self.pieceWidth / 2, y: -Self.pieceWidth / 2, width: Self.pieceWidth, height: Self.pieceWidth)), with: color)
             } else {
-                piece.fill(Path(CGRect(x: -4, y: -6.5, width: 8, height: 13)), with: color)
+                piece.fill(Path(CGRect(x: -Self.pieceWidth / 2, y: -6.5, width: Self.pieceWidth, height: 13)), with: color)
             }
         }
     }

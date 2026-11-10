@@ -217,6 +217,34 @@ function validateSource(meta, source, relative, name, errors) {
   for (const [pattern, message] of BANNED_CODE) {
     if (pattern.test(code)) fail(message);
   }
+
+  for (const number of repeatedNumbers(source)) {
+    fail(`${number} is written ${REPEATED_NUMBER_LIMIT} or more times outside the demo: give it a name`);
+  }
+}
+
+// A number written many times in a component is one value kept in several
+// places. The demo is left out, because it is an example and not the code
+// people keep, and so are the numbers that say nothing more with a name.
+const DEMO_MARK = '// MARK: - Demo';
+const REPEATED_NUMBER_LIMIT = 4;
+const PLAIN_NUMBERS = new Set(['0', '1', '2', '0.5', '90', '100', '180', '360']);
+const NAMED_NUMBER = /^\s*(?:(?:private|fileprivate|static|nonisolated)\s+)*(?:let|var)\s+\w+[^={]*=\s*-?[\d.]+\s*$/;
+
+function repeatedNumbers(source) {
+  const component = withoutLineComments(source.split(DEMO_MARK)[0]);
+  const counts = new Map();
+
+  for (const line of component.split('\n')) {
+    const code = line.replace(/"(?:\\.|[^"\\])*"/g, '""');
+    if (NAMED_NUMBER.test(code) || /[@#]available/.test(code)) continue;
+
+    for (const [number] of code.matchAll(/(?<![\w.])\d+(?:\.\d+)?(?![\w.])/g)) {
+      if (!PLAIN_NUMBERS.has(number)) counts.set(number, (counts.get(number) ?? 0) + 1);
+    }
+  }
+
+  return [...counts].filter(([, count]) => count >= REPEATED_NUMBER_LIMIT).map(([number]) => number);
 }
 
 function validateHeader(meta, text, line, fail) {
