@@ -49,7 +49,7 @@ struct AnimatedCheckmarkBadge: View {
     }
 }
 
-private struct AnimatedCheckmarkBadgeCheck: Shape {
+nonisolated private struct AnimatedCheckmarkBadgeCheck: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         path.move(to: CGPoint(x: rect.minX + rect.width * 0.28, y: rect.minY + rect.height * 0.53))

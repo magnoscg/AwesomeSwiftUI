@@ -6,7 +6,7 @@ import SwiftUI
 /// An arc from `start` to `end` degrees. `@Animatable` writes its `animatableData`.
 @available(iOS 26, *)
 @Animatable
-struct AnimatableRingArc: Shape {
+nonisolated struct AnimatableRingArc: Shape {
     var start: Double
     var end: Double
     @AnimatableIgnored var clockwise = false

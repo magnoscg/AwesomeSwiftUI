@@ -3,12 +3,12 @@
 
 import SwiftUI
 
-struct BentoGridLayoutSpan: Equatable, Sendable {
+nonisolated struct BentoGridLayoutSpan: Equatable, Sendable {
     var columns = 1
     var rows = 1
 }
 
-enum BentoGridLayoutMath {
+nonisolated enum BentoGridLayoutMath {
     /// Packs each tile, in order, into the first free slot, reading the grid top to bottom and left to right.
     static func frames(
         spans: [BentoGridLayoutSpan],
@@ -51,7 +51,7 @@ enum BentoGridLayoutMath {
     }
 }
 
-private struct BentoGridLayoutSpanKey: LayoutValueKey {
+nonisolated private struct BentoGridLayoutSpanKey: LayoutValueKey {
     static let defaultValue = BentoGridLayoutSpan()
 }
 

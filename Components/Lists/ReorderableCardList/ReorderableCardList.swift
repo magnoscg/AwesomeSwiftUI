@@ -51,7 +51,7 @@ enum CardReordering {
 
 @available(iOS 27, *)
 struct ReorderableCardListDemo: View {
-    private struct Step: Identifiable, Sendable {
+    nonisolated private struct Step: Identifiable, Sendable {
         let id: String
         let systemImage: String
         let color: Color

@@ -16,7 +16,7 @@ struct WavesBackground: View {
     @State private var phase = 0.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private struct WaveLayer: Shape {
+    nonisolated private struct WaveLayer: Shape {
         var phase: Double
         var baseline: Double
         var amplitude: Double

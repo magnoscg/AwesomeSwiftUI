@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
+nonisolated enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
     case square = "Square"
     case circle = "Circle"
     case star = "Star"
@@ -49,7 +49,7 @@ enum PolygonMorphShapeForm: String, CaseIterable, Hashable {
 }
 
 /// A list of radii that SwiftUI can interpolate, which is what makes the morph work between any two forms.
-struct PolygonMorphShapeRadii: VectorArithmetic {
+nonisolated struct PolygonMorphShapeRadii: VectorArithmetic {
     var values: [Double]
 
     static var zero: Self { Self(values: []) }
@@ -82,7 +82,7 @@ struct PolygonMorphShapeRadii: VectorArithmetic {
 /// A shape that morphs smoothly between a square, a circle and a star when its form changes.
 ///
 /// Every form is sampled at the same angles, so morphing is only interpolating distances.
-struct PolygonMorphShape: Shape {
+nonisolated struct PolygonMorphShape: Shape {
     var radii: PolygonMorphShapeRadii
 
     init(form: PolygonMorphShapeForm) {

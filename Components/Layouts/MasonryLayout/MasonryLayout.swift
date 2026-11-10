@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// The placement math, with no views, so it can be tested.
-enum MasonryLayoutMath {
+nonisolated enum MasonryLayoutMath {
     struct Placement: Equatable {
         let column: Int
         let y: CGFloat

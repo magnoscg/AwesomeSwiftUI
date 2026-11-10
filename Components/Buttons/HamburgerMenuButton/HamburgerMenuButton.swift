@@ -9,7 +9,7 @@ struct HamburgerMenuButtonBar: Equatable {
 }
 
 /// Three bars that become a cross as `progress` goes from 0 to 1.
-struct HamburgerMenuButtonShape: Shape {
+nonisolated struct HamburgerMenuButtonShape: Shape {
     var progress: Double
 
     var animatableData: Double {

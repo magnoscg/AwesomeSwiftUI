@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum ColorRevealImageMath {
+nonisolated enum ColorRevealImageMath {
     /// Full color near the middle of the scroll view, fading to none toward its edges.
     static func saturation(distanceFromCenter distance: CGFloat, viewportHeight: CGFloat) -> Double {
         guard viewportHeight > 0, distance.isFinite else { return 0 }

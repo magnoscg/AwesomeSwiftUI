@@ -74,7 +74,7 @@ struct CoverFlowCarousel: View {
     }
 }
 
-enum CoverFlowCarouselMath {
+nonisolated enum CoverFlowCarouselMath {
     /// How far an item is from the center of the carousel: 0 at the center, -1 or 1 one half width away.
     static func position(midX: Double, width: Double) -> Double {
         guard width > 0, midX.isFinite else { return 0 }

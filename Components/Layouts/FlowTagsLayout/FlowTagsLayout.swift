@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum FlowTagsLayoutMath {
+nonisolated enum FlowTagsLayoutMath {
     /// Groups widths into lines. A tag wider than `maxWidth` gets a line of its own.
     static func lines(widths: [CGFloat], maxWidth: CGFloat, spacing: CGFloat) -> [Range<Int>] {
         var lines: [Range<Int>] = []
