@@ -30,6 +30,8 @@ on `main`.
   full-screen covers included.
 - Map Search Sheet, the first component with a map: a sheet of places that
   rests at the bottom, filters as you type and flies to the place you choose.
+- Map Annotation Callout, map pins with a short label that open a callout
+  above them when tapped, while the camera moves to fit it.
 
 ### Changed
 

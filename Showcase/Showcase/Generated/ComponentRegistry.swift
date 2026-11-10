@@ -1482,6 +1482,15 @@ enum ComponentRegistry {
             demo: { AnyView(WaveBarsLoaderDemo()) }
         ),
         ShowcaseEntry(
+            id: "map-annotation-callout",
+            title: "Map Annotation Callout",
+            category: "Maps",
+            summary: "Map pins with a short label that open a callout above them when tapped, while the camera moves to fit it.",
+            keywords: ["map", "annotation", "callout", "price pin", "marker", "popover", "mapkit", "mapa", "anotación", "globo", "pin con precio", "marcador", "tarjeta emergente", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapAnnotationCalloutDemo()) }
+        ),
+        ShowcaseEntry(
             id: "map-search-sheet",
             title: "Map Search Sheet",
             category: "Maps",
