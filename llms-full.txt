@@ -736,6 +736,9 @@ struct SpringStudyPlayground: View {
                 play()
             }
             .buttonStyle(.bordered)
+            // In a narrow row a name shrinks a little before it would break in two.
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
             .frame(maxWidth: .infinity)
         }
 
@@ -6153,6 +6156,8 @@ struct InteractiveLineChart: View {
             }
         }
         .chartYScale(domain: domain)
+        // Keeps the last date inside the plot. Before iOS 26 it is drawn half cut at the trailing edge.
+        .chartXAxis { AxisMarks(preset: .aligned) }
         .chartXSelection(value: $touchedDate)
         .padding(.top, tooltipHeadroom)
         .sensoryFeedback(.selection, trigger: selected?.id)
@@ -12519,7 +12524,7 @@ struct AnimatedBadgeCountDemo: View {
                 icon("envelope.fill", label: "Mail", tint: .orange)
                 icon("cart.fill", label: "Cart", tint: .green)
             }
-            .scaleEffect(1.7)
+            .scaleEffect(1.4)
         }
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
@@ -27778,6 +27783,8 @@ struct SidebarAdaptiveTabsDemo: View {
                 .foregroundStyle(.white)
                 .padding()
             }
+            // Before iOS 26 the bar is clear over a page that does not scroll, and its items take the page's color.
+            .toolbarBackground(.visible, for: .tabBar)
         }
     }
 }
@@ -27905,6 +27912,8 @@ private struct TabNavigationStatePreserveDemoPage: View {
             .foregroundStyle(.white)
         }
         .navigationTitle(title)
+        // Before iOS 26 the bar is clear over a page that does not scroll, and its items take the page's color.
+        .toolbarBackground(.visible, for: .tabBar)
     }
 }
 

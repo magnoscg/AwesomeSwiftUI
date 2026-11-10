@@ -157,6 +157,9 @@ struct SpringStudyPlayground: View {
                 play()
             }
             .buttonStyle(.bordered)
+            // In a narrow row a name shrinks a little before it would break in two.
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
             .frame(maxWidth: .infinity)
         }
 

@@ -64,6 +64,8 @@ struct InteractiveLineChart: View {
             }
         }
         .chartYScale(domain: domain)
+        // Keeps the last date inside the plot. Before iOS 26 it is drawn half cut at the trailing edge.
+        .chartXAxis { AxisMarks(preset: .aligned) }
         .chartXSelection(value: $touchedDate)
         .padding(.top, tooltipHeadroom)
         .sensoryFeedback(.selection, trigger: selected?.id)
