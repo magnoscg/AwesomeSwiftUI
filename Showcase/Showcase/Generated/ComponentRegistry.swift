@@ -2103,6 +2103,15 @@ enum ComponentRegistry {
             demo: { AnyView(CustomDetentSheetDemo()) }
         ),
         ShowcaseEntry(
+            id: "whats-new-sheet",
+            title: "What's New Sheet",
+            category: "Sheets",
+            summary: "A sheet that lists what a new version brings and comes up once for each version.",
+            keywords: ["whats new", "release notes", "update sheet", "new features", "changelog", "version", "welcome", "novedades", "notas de versión", "hoja de novedades", "nuevas funciones", "actualización", "versión", "bienvenida"],
+            minIOS: "18.0",
+            demo: { AnyView(WhatsNewSheetDemo()) }
+        ),
+        ShowcaseEntry(
             id: "minimizing-tab-bar",
             title: "Minimizing Tab Bar",
             category: "Tabs",

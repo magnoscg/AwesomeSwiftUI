@@ -22,6 +22,8 @@ on `main`.
   and highest price of a filter.
 - Tag Input Field, a field that turns what you type into removable tags, which
   wrap onto as many lines as they need.
+- What's New Sheet, a sheet that lists what a new version brings and comes up
+  once for each version.
 
 ### Changed
 
