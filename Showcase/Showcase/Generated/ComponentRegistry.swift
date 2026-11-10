@@ -1491,6 +1491,15 @@ enum ComponentRegistry {
             demo: { AnyView(MapAnnotationCalloutDemo()) }
         ),
         ShowcaseEntry(
+            id: "map-route-tracker",
+            title: "Map Route Tracker",
+            category: "Maps",
+            summary: "A route on a map with a marker that travels along it, the part done in solid and the rest dotted, like an order on its way.",
+            keywords: ["map", "route", "delivery tracking", "polyline", "live location", "progress", "mapkit", "mapa", "ruta", "seguimiento de pedido", "polilínea", "ubicación en vivo", "progreso", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapRouteTrackerDemo()) }
+        ),
+        ShowcaseEntry(
             id: "map-search-sheet",
             title: "Map Search Sheet",
             category: "Maps",

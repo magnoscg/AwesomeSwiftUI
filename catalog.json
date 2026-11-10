@@ -1,5 +1,5 @@
 {
-  "count": 264,
+  "count": 265,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -6518,6 +6518,48 @@
       "path": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift",
       "preview": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift"
+    },
+    {
+      "id": "map-route-tracker",
+      "name": "MapRouteTracker",
+      "title": "Map Route Tracker",
+      "category": "Maps",
+      "summary": "A route on a map with a marker that travels along it, the part done in solid and the rest dotted, like an order on its way.",
+      "keywords": {
+        "en": [
+          "map",
+          "route",
+          "delivery tracking",
+          "polyline",
+          "live location",
+          "progress",
+          "mapkit"
+        ],
+        "es": [
+          "mapa",
+          "ruta",
+          "seguimiento de pedido",
+          "polilínea",
+          "ubicación en vivo",
+          "progreso",
+          "mapkit"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Map",
+        "MapPolyline",
+        "Annotation",
+        "MapCamera",
+        "ContinuousClock"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Maps/MapRouteTracker/MapRouteTracker.swift",
+      "preview": "Components/Maps/MapRouteTracker/MapRouteTracker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapRouteTracker/MapRouteTracker.swift"
     },
     {
       "id": "map-search-sheet",
