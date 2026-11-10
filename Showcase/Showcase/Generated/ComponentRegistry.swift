@@ -522,6 +522,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedRadioButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "circular-range-slider",
+            title: "Circular Range Slider",
+            category: "Controls",
+            summary: "A dial with two handles that sets a range around the clock, like a night of sleep.",
+            keywords: ["circular slider", "range slider", "dial", "sleep schedule", "bedtime", "time range", "knob", "slider circular", "rango", "dial", "horario de sueño", "hora de dormir", "intervalo de tiempo", "rueda"],
+            minIOS: "18.0",
+            demo: { AnyView(CircularRangeSliderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "counter-stepper",
             title: "Counter Stepper",
             category: "Controls",
@@ -1141,6 +1150,15 @@ enum ComponentRegistry {
             keywords: ["otp", "one-time code", "verification", "code entry", "pin", "digits", "text field", "código de un solo uso", "verificación", "código", "pin", "dígitos", "campo de texto", "autenticación"],
             minIOS: "18.0",
             demo: { AnyView(OTPCodeFieldDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "passcode-keypad",
+            title: "Passcode Keypad",
+            category: "Inputs",
+            summary: "A number pad with a dot per digit that shakes and empties when the passcode is wrong.",
+            keywords: ["passcode", "pin", "keypad", "number pad", "lock screen", "unlock", "app lock", "código", "pin", "teclado numérico", "pantalla de bloqueo", "desbloquear", "contraseña", "bloqueo de app"],
+            minIOS: "18.0",
+            demo: { AnyView(PasscodeKeypadDemo()) }
         ),
         ShowcaseEntry(
             id: "password-strength-field",
