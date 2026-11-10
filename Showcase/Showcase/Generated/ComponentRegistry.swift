@@ -522,6 +522,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedRadioButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "circular-range-slider",
+            title: "Circular Range Slider",
+            category: "Controls",
+            summary: "A dial with two handles that sets a range around the clock, like a night of sleep.",
+            keywords: ["circular slider", "range slider", "dial", "sleep schedule", "bedtime", "time range", "knob", "slider circular", "rango", "dial", "horario de sueño", "hora de dormir", "intervalo de tiempo", "rueda"],
+            minIOS: "18.0",
+            demo: { AnyView(CircularRangeSliderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "counter-stepper",
             title: "Counter Stepper",
             category: "Controls",

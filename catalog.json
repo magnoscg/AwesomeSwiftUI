@@ -1,5 +1,5 @@
 {
-  "count": 255,
+  "count": 256,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2296,6 +2296,50 @@
       "path": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift",
       "preview": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift"
+    },
+    {
+      "id": "circular-range-slider",
+      "name": "CircularRangeSlider",
+      "title": "Circular Range Slider",
+      "category": "Controls",
+      "summary": "A dial with two handles that sets a range around the clock, like a night of sleep.",
+      "keywords": {
+        "en": [
+          "circular slider",
+          "range slider",
+          "dial",
+          "sleep schedule",
+          "bedtime",
+          "time range",
+          "knob"
+        ],
+        "es": [
+          "slider circular",
+          "rango",
+          "dial",
+          "horario de sueño",
+          "hora de dormir",
+          "intervalo de tiempo",
+          "rueda"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "DragGesture",
+        "GeometryReader",
+        "trim",
+        "accessibilityAdjustableAction",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The sleep schedule dial in Apple's Health app",
+        "url": "https://support.apple.com/guide/iphone/edit-sleep-schedules-iph304a683a0/ios"
+      },
+      "path": "Components/Controls/CircularRangeSlider/CircularRangeSlider.swift",
+      "preview": "Components/Controls/CircularRangeSlider/CircularRangeSlider.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/CircularRangeSlider/CircularRangeSlider.swift"
     },
     {
       "id": "counter-stepper",

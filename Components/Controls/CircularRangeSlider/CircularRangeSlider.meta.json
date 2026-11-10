@@ -1,0 +1,24 @@
+{
+  "id": "circular-range-slider",
+  "name": "CircularRangeSlider",
+  "title": "Circular Range Slider",
+  "category": "Controls",
+  "summary": "A dial with two handles that sets a range around the clock, like a night of sleep.",
+  "keywords": {
+    "en": ["circular slider", "range slider", "dial", "sleep schedule", "bedtime", "time range", "knob"],
+    "es": ["slider circular", "rango", "dial", "horario de sueño", "hora de dormir", "intervalo de tiempo", "rueda"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["DragGesture", "GeometryReader", "trim", "accessibilityAdjustableAction", "sensoryFeedback"],
+  "origin": { "kind": "inspired", "credit": "The sleep schedule dial in Apple's Health app", "url": "https://support.apple.com/guide/iphone/edit-sleep-schedules-iph304a683a0/ios" },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 333 --start-y 347 --end-x 298 --end-y 409 --duration 1.2 --delta 3",
+    "sleep 0.5",
+    "swipe --start-x 166 --start-y 179 --end-x 118 --end-y 203 --duration 1.1 --delta 3",
+    "sleep 0.5",
+    "swipe --start-x 298 --start-y 215 --end-x 338 --end-y 312 --duration 1.4 --delta 3",
+    "sleep 0.8"
+  ]
+}
