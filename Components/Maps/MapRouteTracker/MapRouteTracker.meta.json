@@ -1,0 +1,18 @@
+{
+  "id": "map-route-tracker",
+  "name": "MapRouteTracker",
+  "title": "Map Route Tracker",
+  "category": "Maps",
+  "summary": "A route on a map with a marker that travels along it, the part done in solid and the rest dotted, like an order on its way.",
+  "keywords": {
+    "en": ["map", "route", "delivery tracking", "polyline", "live location", "progress", "mapkit"],
+    "es": ["mapa", "ruta", "seguimiento de pedido", "polilínea", "ubicación en vivo", "progreso", "mapkit"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Map", "MapPolyline", "Annotation", "MapCamera", "ContinuousClock"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 3.4"
+  ]
+}

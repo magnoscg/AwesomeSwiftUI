@@ -32,6 +32,8 @@ on `main`.
   rests at the bottom, filters as you type and flies to the place you choose.
 - Map Annotation Callout, map pins with a short label that open a callout
   above them when tapped, while the camera moves to fit it.
+- Map Route Tracker, a route on a map with a marker that travels along it,
+  like an order on its way.
 
 ### Changed
 
