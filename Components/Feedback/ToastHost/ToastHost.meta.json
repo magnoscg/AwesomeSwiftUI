@@ -1,0 +1,26 @@
+{
+  "id": "toast-host",
+  "name": "ToastHost",
+  "title": "Toast Host",
+  "category": "Feedback",
+  "summary": "A queue of toasts that show above everything, sheets and full-screen covers included.",
+  "keywords": {
+    "en": ["toast", "toast over sheet", "banner", "notification", "queue", "overlay window", "hud"],
+    "es": ["toast", "aviso sobre hoja", "banner", "notificación", "cola", "ventana superpuesta", "mensaje flotante"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["UIWindow", "UIHostingController", "Observable", "UIViewRepresentable", "AccessibilityNotification.Announcement"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap -x 201 -y 477",
+    "sleep 1.5",
+    "tap -x 201 -y 541",
+    "sleep 1.1",
+    "tap -x 201 -y 245",
+    "sleep 1.2",
+    "tap -x 201 -y 297",
+    "sleep 3"
+  ]
+}

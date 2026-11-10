@@ -1,5 +1,5 @@
 {
-  "count": 260,
+  "count": 262,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2258,6 +2258,50 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/PricingTierCards/PricingTierCards.swift"
     },
     {
+      "id": "trial-timeline-paywall",
+      "name": "TrialTimelinePaywall",
+      "title": "Trial Timeline Paywall",
+      "category": "Commerce",
+      "summary": "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+      "keywords": {
+        "en": [
+          "paywall",
+          "free trial",
+          "trial timeline",
+          "subscription",
+          "pricing",
+          "upgrade",
+          "in-app purchase"
+        ],
+        "es": [
+          "paywall",
+          "prueba gratis",
+          "línea de tiempo",
+          "suscripción",
+          "precios",
+          "mejorar plan",
+          "compra dentro de la app"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "ScrollView",
+        "safeAreaInset",
+        "ScaledMetric",
+        "Calendar",
+        "Date.FormatStyle"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Blinkist's free trial timeline",
+        "url": "https://www.revenuecat.com/blog/growth/how-top-apps-approach-paywalls/"
+      },
+      "path": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift",
+      "preview": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift"
+    },
+    {
       "id": "animated-radio-button",
       "name": "AnimatedRadioButton",
       "title": "Animated Radio Button",
@@ -3779,6 +3823,48 @@
       "path": "Components/Feedback/ToastBanner/ToastBanner.swift",
       "preview": "Components/Feedback/ToastBanner/ToastBanner.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastBanner/ToastBanner.swift"
+    },
+    {
+      "id": "toast-host",
+      "name": "ToastHost",
+      "title": "Toast Host",
+      "category": "Feedback",
+      "summary": "A queue of toasts that show above everything, sheets and full-screen covers included.",
+      "keywords": {
+        "en": [
+          "toast",
+          "toast over sheet",
+          "banner",
+          "notification",
+          "queue",
+          "overlay window",
+          "hud"
+        ],
+        "es": [
+          "toast",
+          "aviso sobre hoja",
+          "banner",
+          "notificación",
+          "cola",
+          "ventana superpuesta",
+          "mensaje flotante"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "UIWindow",
+        "UIHostingController",
+        "Observable",
+        "UIViewRepresentable",
+        "AccessibilityNotification.Announcement"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Feedback/ToastHost/ToastHost.swift",
+      "preview": "Components/Feedback/ToastHost/ToastHost.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastHost/ToastHost.swift"
     },
     {
       "id": "tooltip-popover",

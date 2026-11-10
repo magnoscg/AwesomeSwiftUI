@@ -513,6 +513,15 @@ enum ComponentRegistry {
             demo: { AnyView(PricingTierCardsDemo()) }
         ),
         ShowcaseEntry(
+            id: "trial-timeline-paywall",
+            title: "Trial Timeline Paywall",
+            category: "Commerce",
+            summary: "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+            keywords: ["paywall", "free trial", "trial timeline", "subscription", "pricing", "upgrade", "in-app purchase", "paywall", "prueba gratis", "línea de tiempo", "suscripción", "precios", "mejorar plan", "compra dentro de la app"],
+            minIOS: "18.0",
+            demo: { AnyView(TrialTimelinePaywallDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-radio-button",
             title: "Animated Radio Button",
             category: "Controls",
@@ -844,6 +853,15 @@ enum ComponentRegistry {
             keywords: ["toast", "banner", "notification", "alert", "message", "auto dismiss", "feedback", "toast", "aviso", "notificación", "alerta", "mensaje", "banner", "autodescartar"],
             minIOS: "18.0",
             demo: { AnyView(ToastBannerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "toast-host",
+            title: "Toast Host",
+            category: "Feedback",
+            summary: "A queue of toasts that show above everything, sheets and full-screen covers included.",
+            keywords: ["toast", "toast over sheet", "banner", "notification", "queue", "overlay window", "hud", "toast", "aviso sobre hoja", "banner", "notificación", "cola", "ventana superpuesta", "mensaje flotante"],
+            minIOS: "18.0",
+            demo: { AnyView(ToastHostDemo()) }
         ),
         ShowcaseEntry(
             id: "tooltip-popover",
