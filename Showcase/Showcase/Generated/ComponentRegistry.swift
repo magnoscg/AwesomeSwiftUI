@@ -366,6 +366,15 @@ enum ComponentRegistry {
             demo: { AnyView(TiltCardDemo()) }
         ),
         ShowcaseEntry(
+            id: "wallet-card-stack",
+            title: "Wallet Card Stack",
+            category: "Cards",
+            summary: "A stack of cards where the one you tap rises to the top with its details and the rest wait in a pile below.",
+            keywords: ["wallet", "card stack", "credit cards", "passes", "expand", "pile", "payment cards", "cartera", "wallet", "pila de tarjetas", "tarjetas de crédito", "pases", "expandir", "tarjetas de pago"],
+            minIOS: "18.0",
+            demo: { AnyView(WalletCardStackDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-bar-chart",
             title: "Animated Bar Chart",
             category: "Charts",
