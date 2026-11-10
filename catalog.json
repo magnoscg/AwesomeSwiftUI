@@ -1,5 +1,5 @@
 {
-  "count": 249,
+  "count": 252,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1480,6 +1480,56 @@
       "path": "Components/Cards/ExpandableInfoCard/ExpandableInfoCard.swift",
       "preview": "Components/Cards/ExpandableInfoCard/ExpandableInfoCard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/ExpandableInfoCard/ExpandableInfoCard.swift"
+    },
+    {
+      "id": "holographic-card",
+      "name": "HolographicCard",
+      "title": "Holographic Card",
+      "category": "Cards",
+      "summary": "A card with a holographic foil whose colors, glints and glare shift as you tilt it by dragging, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "holographic",
+          "foil",
+          "shader",
+          "metal",
+          "iridescent",
+          "rainbow",
+          "card",
+          "tilt",
+          "trading card",
+          "color effect"
+        ],
+        "es": [
+          "holográfico",
+          "holograma",
+          "shader",
+          "metal",
+          "iridiscente",
+          "arcoíris",
+          "tarjeta",
+          "inclinación",
+          "cromo",
+          "efecto de color"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "colorEffect",
+        "Animatable",
+        "DragGesture",
+        "rotation3DEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Cards/HolographicCard/HolographicCard.swift",
+      "preview": "Components/Cards/HolographicCard/HolographicCard.webp",
+      "shader": "Components/Cards/HolographicCard/HolographicCard.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/HolographicCard/HolographicCard.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/HolographicCard/HolographicCard.metal"
     },
     {
       "id": "swipeable-card-stack",
@@ -3095,6 +3145,58 @@
       "path": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift",
       "preview": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
+    },
+    {
+      "id": "ripple-shader-effect",
+      "name": "RippleShaderEffect",
+      "title": "Ripple Shader Effect",
+      "category": "Effects",
+      "summary": "A view modifier that sends a wave from the tapped point and bends the view as it passes, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "ripple",
+          "shader",
+          "metal",
+          "water",
+          "wave",
+          "distortion",
+          "refraction",
+          "layer effect",
+          "tap",
+          "keyframes"
+        ],
+        "es": [
+          "onda",
+          "shader",
+          "metal",
+          "agua",
+          "ola",
+          "distorsión",
+          "refracción",
+          "efecto de capa",
+          "toque",
+          "fotogramas clave"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "keyframeAnimator",
+        "SpatialTapGesture",
+        "ViewModifier"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Apple, WWDC24: Create custom visual effects with SwiftUI",
+        "url": "https://developer.apple.com/videos/play/wwdc2024/10151/"
+      },
+      "path": "Components/Effects/RippleShaderEffect/RippleShaderEffect.swift",
+      "preview": "Components/Effects/RippleShaderEffect/RippleShaderEffect.webp",
+      "shader": "Components/Effects/RippleShaderEffect/RippleShaderEffect.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.metal"
     },
     {
       "id": "ripple-tap-effect",
@@ -9646,6 +9748,55 @@
       "path": "Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.swift",
       "preview": "Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.swift"
+    },
+    {
+      "id": "dissolve-shader-transition",
+      "name": "DissolveShaderTransition",
+      "title": "Dissolve Shader Transition",
+      "category": "Transitions",
+      "summary": "A custom transition that burns a view away through noise, with a glowing edge, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "dissolve",
+          "shader",
+          "metal",
+          "noise",
+          "burn",
+          "disintegrate",
+          "transition",
+          "ember",
+          "threshold",
+          "color effect"
+        ],
+        "es": [
+          "disolver",
+          "disolución",
+          "shader",
+          "metal",
+          "ruido",
+          "quemar",
+          "desintegrar",
+          "transición",
+          "brasa",
+          "umbral"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "colorEffect",
+        "Transition",
+        "Animatable"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift",
+      "preview": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.webp",
+      "shader": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal"
     },
     {
       "id": "flip-card-transition",

@@ -1,0 +1,22 @@
+{
+  "id": "holographic-card",
+  "name": "HolographicCard",
+  "title": "Holographic Card",
+  "category": "Cards",
+  "summary": "A card with a holographic foil whose colors, glints and glare shift as you tilt it by dragging, drawn by a Metal shader.",
+  "keywords": {
+    "en": ["holographic", "foil", "shader", "metal", "iridescent", "rainbow", "card", "tilt", "trading card", "color effect"],
+    "es": ["holográfico", "holograma", "shader", "metal", "iridiscente", "arcoíris", "tarjeta", "inclinación", "cromo", "efecto de color"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["ShaderLibrary", "colorEffect", "Animatable", "DragGesture", "rotation3DEffect"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.4",
+    "swipe --start-x 201 --start-y 437 --end-x 345 --end-y 360 --duration 1.1",
+    "sleep 0.7",
+    "swipe --start-x 201 --start-y 437 --end-x 60 --end-y 540 --duration 1.1",
+    "sleep 0.9"
+  ]
+}

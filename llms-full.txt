@@ -4949,6 +4949,223 @@ struct ExpandableInfoCardDemo: View {
 }
 ```
 
+## Holographic Card
+
+A card with a holographic foil whose colors, glints and glare shift as you tilt it by dragging, drawn by a Metal shader.
+
+Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/HolographicCard/HolographicCard.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+nonisolated enum HolographicCardMath {
+    /// How far the card leans for a drag, from -1 to 1 on each axis.
+    /// Dragging half the card's size leans it all the way.
+    static func tilt(for translation: CGSize, in size: CGSize) -> CGSize {
+        guard size.width > 0, size.height > 0 else { return .zero }
+        return CGSize(
+            width: min(max(translation.width / (size.width / 2), -1), 1),
+            height: min(max(translation.height / (size.height / 2), -1), 1)
+        )
+    }
+
+    /// The function in `HolographicCard.metal`, with its arguments in the order it declares them.
+    static func shader(size: CGSize, tilt: CGSize, intensity: Double) -> Shader {
+        ShaderLibrary.HolographicCardFoil(.float2(size), .float2(tilt), .float(intensity))
+    }
+}
+
+/// A card with a holographic foil that shifts as you tilt it by dragging, drawn by a Metal shader.
+///
+/// Copy two files into the same target: `HolographicCard.swift` and `HolographicCard.metal`.
+/// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
+///
+/// With Reduce Motion on, the card stays flat and the foil stays still.
+struct HolographicCard<Content: View>: View {
+    /// The degrees the card leans at the end of a drag.
+    var maxAngle: Double = 16
+    var cornerRadius: CGFloat = 28
+    /// How much foil the card has, from 0 for none to 1.
+    var intensity: Double = 1
+    @ViewBuilder var content: () -> Content
+
+    @GestureState private var tilt = CGSize.zero
+    @State private var size = CGSize.zero
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        content()
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
+            .modifier(
+                HolographicCardSurface(
+                    tilt: reduceMotion ? .zero : tilt,
+                    size: size,
+                    maxAngle: maxAngle,
+                    cornerRadius: cornerRadius,
+                    intensity: intensity
+                )
+            )
+            .gesture(drag)
+            .animation(.spring(duration: 0.5, bounce: 0.3), value: tilt)
+    }
+
+    private var drag: some Gesture {
+        DragGesture(coordinateSpace: .global)
+            .updating($tilt) { value, tilt, _ in
+                tilt = HolographicCardMath.tilt(for: value.translation, in: size)
+            }
+    }
+}
+
+/// `Animatable`, so the foil follows the same spring as the lean: a shader's arguments do not animate by themselves.
+private struct HolographicCardSurface: ViewModifier, Animatable {
+    var tilt: CGSize
+    let size: CGSize
+    let maxAngle: Double
+    let cornerRadius: CGFloat
+    let intensity: Double
+
+    nonisolated var animatableData: CGSize.AnimatableData {
+        get { tilt.animatableData }
+        set { tilt.animatableData = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .colorEffect(HolographicCardMath.shader(size: size, tilt: tilt, intensity: intensity))
+            .clipShape(.rect(cornerRadius: cornerRadius))
+            .shadow(color: .black.opacity(0.4), radius: 24, y: 16)
+            .rotation3DEffect(.degrees(-tilt.height * maxAngle), axis: (x: 1, y: 0, z: 0), perspective: 0.6)
+            .rotation3DEffect(.degrees(tilt.width * maxAngle), axis: (x: 0, y: 1, z: 0), perspective: 0.6)
+    }
+}
+
+// MARK: - Demo
+
+struct HolographicCardDemo: View {
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [Color(red: 0.04, green: 0.04, blue: 0.09), Color(red: 0.14, green: 0.09, blue: 0.27)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            HolographicCard {
+                card
+            }
+            .padding(.horizontal, 44)
+        }
+    }
+
+    private var card: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: "sparkles")
+                    .font(.title)
+                    .accessibilityHidden(true)
+
+                Spacer()
+
+                Text("No. 001")
+                    .font(.footnote.monospaced())
+                    .opacity(0.7)
+            }
+
+            Spacer()
+
+            Text("Prism Pass")
+                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+            Text("Drag to tilt the card")
+                .font(.subheadline)
+                .opacity(0.8)
+        }
+        .foregroundStyle(.white)
+        .padding(24)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .aspectRatio(0.68, contentMode: .fit)
+        .background(
+            LinearGradient(
+                colors: [
+                    Color(red: 0.1, green: 0.12, blue: 0.3),
+                    Color(red: 0.32, green: 0.12, blue: 0.42),
+                    Color(red: 0.06, green: 0.06, blue: 0.14),
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
+        .accessibilityElement(children: .combine)
+    }
+}
+
+#Preview {
+    HolographicCardDemo()
+}
+```
+
+Shader: Components/Cards/HolographicCard/HolographicCard.metal
+
+```metal
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+#include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h>
+
+using namespace metal;
+
+// A repeatable pseudo-random number from 0 to 1 for each cell of a grid.
+static float HolographicCardRandom(float2 cell) {
+    uint2 seed = uint2(int2(cell));
+    uint mixed = (seed.x * 0x9E3779B1u) ^ (seed.y * 0x85EBCA77u);
+    mixed ^= mixed >> 15;
+    mixed *= 0x2C1B3C6Du;
+    mixed ^= mixed >> 12;
+    return float(mixed & 0xFFFFu) / 65535.0;
+}
+
+// For SwiftUI's `colorEffect`. Adds a holographic foil to each pixel of a view
+// of `size` points. `tilt` runs from -1 to 1 on each axis, and moves the colors
+// and the glare as a real card does when it turns under a light.
+[[ stitchable ]] half4 HolographicCardFoil(float2 position, half4 color, float2 size, float2 tilt, float intensity) {
+    if (color.a <= 0.0) {
+        return color;
+    }
+    float2 fromCenter = position / max(size, float2(1.0)) - 0.5;
+
+    // A diffraction foil changes hue with the viewing angle, so its bands of
+    // color slide across the card as it tilts.
+    float angle = dot(fromCenter, float2(0.9, 0.5)) * 1.4 + dot(tilt, float2(0.8, 0.6));
+    float3 spectrum = 0.5 + 0.5 * cos(6.2831853 * (angle + float3(0.0, 0.33, 0.67)));
+
+    // Specks of glitter, one in each cell of a grid and somewhere off its
+    // center. Each catches the light at its own angle, so they twinkle in turn.
+    float2 grid = position / 5.0;
+    float2 cell = floor(grid);
+    float2 speck = 0.5 + 0.56 * (float2(HolographicCardRandom(cell + 17.0), HolographicCardRandom(cell + 43.0)) - 0.5);
+    float shape = saturate(1.0 - length(grid - cell - speck) / 0.22);
+    float facing = 0.5 + 0.5 * cos(6.2831853 * (HolographicCardRandom(cell) + angle * 2.0));
+    float glint = smoothstep(0.55, 1.0, facing) * shape * shape;
+
+    // The glare of a light above the card slides against the tilt.
+    float2 fromGlare = fromCenter + tilt * 0.35;
+    float glare = exp(-6.0 * dot(fromGlare, fromGlare));
+
+    float3 foil = intensity * (spectrum * (0.14 + 0.4 * glare) + glint * (0.3 + 0.7 * glare));
+
+    // Screen the foil over the pixel, so it only ever adds light. Colors come
+    // premultiplied by their alpha.
+    float3 base = float3(color.rgb) / color.a;
+    float3 lit = 1.0 - (1.0 - base) * (1.0 - saturate(foil));
+    return half4(half3(lit * color.a), color.a);
+}
+```
+
 ## Swipeable Card Stack
 
 A deck of cards you swipe away to reveal the next one.
@@ -11476,6 +11693,254 @@ struct NoiseGrainOverlayDemo: View {
 
 #Preview {
     NoiseGrainOverlayDemo()
+}
+```
+
+## Ripple Shader Effect
+
+A view modifier that sends a wave from the tapped point and bends the view as it passes, drawn by a Metal shader.
+
+Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/RippleShaderEffect/RippleShaderEffect.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+/// Where a wave is at one instant: how far its crest has travelled and how strong it still is.
+nonisolated struct RippleShaderEffectWave: Equatable {
+    var radius = 0.0
+    var strength = 0.0
+
+    /// The same wave held at its origin. With no bending either, all it leaves is a light that fades.
+    var still: RippleShaderEffectWave {
+        RippleShaderEffectWave(radius: 0, strength: strength)
+    }
+}
+
+nonisolated enum RippleShaderEffectMath {
+    /// How far a wave from `origin` travels until all of it has left a view of `size`.
+    static func reach(from origin: CGPoint, in size: CGSize, wavelength: Double) -> Double {
+        let horizontal = max(abs(origin.x), abs(size.width - origin.x))
+        let vertical = max(abs(origin.y), abs(size.height - origin.y))
+        return hypot(horizontal, vertical) + max(wavelength, 0)
+    }
+
+    /// The seconds a wave takes to cover `reach` points. A wave that cannot move lasts one frame.
+    static func travelTime(reach: Double, speed: Double) -> Double {
+        let frame = 1.0 / 60.0
+        guard speed > 0, reach.isFinite else { return frame }
+        return max(reach / speed, frame)
+    }
+
+    /// The function in `RippleShaderEffect.metal`, with its arguments in the order it declares them.
+    static func shader(wave: RippleShaderEffectWave, origin: CGPoint, amplitude: Double, wavelength: Double) -> Shader {
+        ShaderLibrary.RippleShaderEffectDistortion(
+            .boundingRect,
+            .float2(origin),
+            .float(wave.radius),
+            .float(wave.strength),
+            .float(amplitude),
+            .float(max(wavelength, 1))
+        )
+    }
+}
+
+/// A wave that spreads from a point and bends the view as it passes, drawn by a Metal shader.
+///
+/// Copy two files into the same target: `RippleShaderEffect.swift` and `RippleShaderEffect.metal`.
+/// `.rippleShaderEffect()` starts a wave wherever the view is tapped, and
+/// `.rippleShaderEffect(at:trigger:)` starts one from code.
+/// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
+///
+/// With Reduce Motion on, a soft light fades where the wave would start, and nothing moves.
+struct RippleShaderEffect<Trigger: Equatable & Sendable>: ViewModifier {
+    /// Where the wave starts, in the view's own coordinates.
+    var origin: CGPoint
+    var trigger: Trigger
+    /// How many points the wave moves what is under it.
+    var amplitude: Double = 10
+    /// The width of the wave, in points.
+    var wavelength: Double = 110
+    /// Points per second.
+    var speed: Double = 650
+
+    @State private var size = CGSize.zero
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        let origin = origin
+        let amplitude = amplitude
+        let wavelength = wavelength
+        let reduceMotion = reduceMotion
+        let reach = RippleShaderEffectMath.reach(from: origin, in: size, wavelength: wavelength)
+        let travel = RippleShaderEffectMath.travelTime(reach: reach, speed: speed)
+
+        content
+            .onGeometryChange(for: CGSize.self) { $0.size } action: { size = $0 }
+            .keyframeAnimator(initialValue: RippleShaderEffectWave(), trigger: trigger) { view, wave in
+                view.layerEffect(
+                    RippleShaderEffectMath.shader(
+                        wave: reduceMotion ? wave.still : wave,
+                        origin: origin,
+                        amplitude: reduceMotion ? 0 : amplitude,
+                        wavelength: wavelength
+                    ),
+                    maxSampleOffset: CGSize(width: abs(amplitude), height: abs(amplitude)),
+                    isEnabled: wave.strength > 0
+                )
+            } keyframes: { _ in
+                KeyframeTrack(\.radius) {
+                    MoveKeyframe(0)
+                    LinearKeyframe(reach, duration: travel)
+                }
+                KeyframeTrack(\.strength) {
+                    MoveKeyframe(1)
+                    LinearKeyframe(1, duration: travel * 0.35)
+                    CubicKeyframe(0, duration: travel * 0.65)
+                }
+            }
+            // The first use of a shader waits for it to compile. Doing that now keeps the first wave on time.
+            .task {
+                let shader = RippleShaderEffectMath.shader(wave: RippleShaderEffectWave(), origin: .zero, amplitude: 0, wavelength: 1)
+                try? await shader.compile(as: .layerEffect)
+            }
+    }
+}
+
+private struct RippleShaderEffectOnTap: ViewModifier {
+    let amplitude: Double
+    let wavelength: Double
+    let speed: Double
+
+    @State private var origin = CGPoint.zero
+    @State private var taps = 0
+
+    func body(content: Content) -> some View {
+        content
+            .modifier(RippleShaderEffect(origin: origin, trigger: taps, amplitude: amplitude, wavelength: wavelength, speed: speed))
+            .contentShape(.rect)
+            .simultaneousGesture(
+                SpatialTapGesture().onEnded { tap in
+                    origin = tap.location
+                    taps += 1
+                }
+            )
+    }
+}
+
+extension View {
+    /// Starts a wave wherever this view is tapped, without blocking its own controls.
+    func rippleShaderEffect(amplitude: Double = 10, wavelength: Double = 110, speed: Double = 650) -> some View {
+        modifier(RippleShaderEffectOnTap(amplitude: amplitude, wavelength: wavelength, speed: speed))
+    }
+
+    /// Starts a wave at `origin`, in this view's own coordinates, every time `trigger` changes.
+    func rippleShaderEffect(
+        at origin: CGPoint,
+        trigger: some Equatable & Sendable,
+        amplitude: Double = 10,
+        wavelength: Double = 110,
+        speed: Double = 650
+    ) -> some View {
+        modifier(RippleShaderEffect(origin: origin, trigger: trigger, amplitude: amplitude, wavelength: wavelength, speed: speed))
+    }
+}
+
+// MARK: - Demo
+
+struct RippleShaderEffectDemo: View {
+    var body: some View {
+        ZStack {
+            RippleShaderEffectDemoTiles()
+
+            VStack(spacing: 10) {
+                Image(systemName: "drop.fill")
+                    .font(.largeTitle)
+                    .accessibilityHidden(true)
+                Text("Tap the Water")
+                    .font(.system(.largeTitle, design: .rounded, weight: .bold))
+            }
+            .foregroundStyle(.white)
+            .shadow(color: .black.opacity(0.35), radius: 8, y: 4)
+        }
+        .rippleShaderEffect()
+        .ignoresSafeArea()
+    }
+}
+
+/// The floor of a pool: a grid whose straight lines show how the wave bends them.
+private struct RippleShaderEffectDemoTiles: View {
+    var body: some View {
+        Canvas { context, size in
+            let side = 46.0
+            let columns = Int((size.width / side).rounded(.up))
+            let rows = Int((size.height / side).rounded(.up))
+
+            for row in 0..<rows {
+                for column in 0..<columns {
+                    let tile = CGRect(x: Double(column) * side, y: Double(row) * side, width: side, height: side)
+                    let shade = Double((row * 7 + column * 13) % 5) / 4
+                    let color = Color(hue: 0.52 + 0.03 * shade, saturation: 0.7, brightness: 0.72 + 0.2 * shade)
+                    context.fill(Path(roundedRect: tile.insetBy(dx: 2, dy: 2), cornerRadius: 6), with: .color(color))
+                }
+            }
+        }
+        .background(Color(hue: 0.56, saturation: 0.8, brightness: 0.42))
+        .accessibilityHidden(true)
+    }
+}
+
+#Preview {
+    RippleShaderEffectDemo()
+}
+```
+
+Shader: Components/Effects/RippleShaderEffect/RippleShaderEffect.metal
+
+```metal
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+#include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h>
+
+using namespace metal;
+
+// For SwiftUI's `layerEffect`. Bends the layer where a ring of `radius` points
+// around `origin` passes, and lights the crest of that wave. `strength` fades
+// the whole wave from 1 to 0, and `bounds` is the frame of the layer.
+[[ stitchable ]] half4 RippleShaderEffectDistortion(
+    float2 position,
+    SwiftUI::Layer layer,
+    float4 bounds,
+    float2 origin,
+    float radius,
+    float strength,
+    float amplitude,
+    float wavelength
+) {
+    float2 offset = position - origin;
+    float fromOrigin = length(offset);
+    float2 outward = fromOrigin > 0.0 ? offset / fromOrigin : float2(0.0);
+
+    // How far this pixel is from the crest, in wavelengths. The wave is one
+    // crest between two shallow troughs, and the layer is flat everywhere else.
+    float phase = (fromOrigin - radius) / wavelength;
+    float window = exp(-4.0 * phase * phase) * strength;
+    float height = cos(6.2831853 * phase) * window;
+    float slope = sin(6.2831853 * phase) * window;
+
+    // Water refracts along its slope. Sampling a little toward the crest
+    // magnifies what lies under it, as a ridge of water does. Staying a point
+    // inside the layer keeps the wave from pulling in the emptiness around it.
+    float2 source = position - outward * slope * amplitude;
+    half4 color = layer.sample(clamp(source, bounds.xy + 1.0, bounds.xy + bounds.zw - 1.0));
+
+    // Light the crest and shade the troughs. Colors come premultiplied by their alpha.
+    color.rgb = max(color.rgb + half3(0.12 * height) * color.a, half3(0.0));
+    return color;
 }
 ```
 
@@ -35415,6 +35880,228 @@ private struct CrossFadeNavigationDemoSheet: View {
 @available(iOS 27, *)
 #Preview {
     CrossFadeNavigationDemo()
+}
+```
+
+## Dissolve Shader Transition
+
+A custom transition that burns a view away through noise, with a glowing edge, drawn by a Metal shader.
+
+Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+import SwiftUI
+
+nonisolated enum DissolveShaderTransitionMath {
+    /// How wide the glowing edge is, as a share of the range of the noise.
+    static let edgeWidth = 0.12
+
+    /// The noise level under which a pixel is gone. It starts below every pixel and its glow,
+    /// so the view begins whole, and ends above them all.
+    static func threshold(progress: Double) -> Double {
+        let clamped = min(max(progress, 0), 1)
+        return clamped * (1 + edgeWidth) - edgeWidth
+    }
+
+    /// The function in `DissolveShaderTransition.metal`, with its arguments in the order it declares them.
+    static func shader(progress: Double, grain: Double, edge: Color) -> Shader {
+        ShaderLibrary.DissolveShaderTransitionBurn(
+            .float(threshold(progress: progress)),
+            .float(edgeWidth),
+            .float(max(grain, 1)),
+            .color(edge)
+        )
+    }
+}
+
+/// A transition that dissolves a view through noise, with a glowing edge where it burns away,
+/// drawn by a Metal shader. Use it as `.transition(.dissolveShader)`.
+///
+/// Copy two files into the same target: `DissolveShaderTransition.swift` and `DissolveShaderTransition.metal`.
+/// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
+///
+/// With Reduce Motion on, the view fades instead.
+struct DissolveShaderTransition: Transition {
+    /// The color of the edge that burns.
+    var edge: Color = .orange
+    /// The size of the patches of noise, in points.
+    var grain: Double = 44
+
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content.modifier(DissolveShaderTransitionEffect(progress: phase.isIdentity ? 0 : 1, edge: edge, grain: grain))
+    }
+}
+
+extension Transition where Self == DissolveShaderTransition {
+    static var dissolveShader: DissolveShaderTransition { DissolveShaderTransition() }
+
+    static func dissolveShader(edge: Color, grain: Double = 44) -> DissolveShaderTransition {
+        DissolveShaderTransition(edge: edge, grain: grain)
+    }
+}
+
+/// `Animatable`, so the shader gets every step of the transition: a shader's arguments do not animate by themselves.
+private struct DissolveShaderTransitionEffect: ViewModifier, Animatable {
+    var progress: Double
+    let edge: Color
+    let grain: Double
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    nonisolated var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .colorEffect(
+                DissolveShaderTransitionMath.shader(progress: progress, grain: grain, edge: edge),
+                isEnabled: progress > 0 && !reduceMotion
+            )
+            .opacity(reduceMotion ? 1 - min(max(progress, 0), 1) : 1)
+            // The first use of a shader waits for it to compile. Doing that now keeps the first frames of the transition.
+            .task {
+                let shader = DissolveShaderTransitionMath.shader(progress: 0, grain: grain, edge: edge)
+                try? await shader.compile(as: .colorEffect)
+            }
+    }
+}
+
+// MARK: - Demo
+
+struct DissolveShaderTransitionDemo: View {
+    @State private var isShown = true
+
+    var body: some View {
+        ZStack {
+            Color(red: 0.05, green: 0.04, blue: 0.08)
+                .ignoresSafeArea()
+
+            VStack(spacing: 36) {
+                // An empty space of the same shape keeps the button still while the poster is gone.
+                Color.clear
+                    .aspectRatio(0.8, contentMode: .fit)
+                    .overlay {
+                        if isShown {
+                            poster
+                                .transition(.dissolveShader)
+                        }
+                    }
+
+                Button(isShown ? "Dissolve" : "Restore") {
+                    withAnimation(.easeInOut(duration: 1.5)) { isShown.toggle() }
+                }
+                .font(.headline)
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(.orange)
+                .animation(nil, value: isShown)
+            }
+            .padding(.horizontal, 36)
+        }
+    }
+
+    private var poster: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "flame.fill")
+                .font(.system(.largeTitle, weight: .semibold))
+                .imageScale(.large)
+                .accessibilityHidden(true)
+
+            Text("Ember")
+                .font(.system(.largeTitle, design: .rounded, weight: .bold))
+            Text("Gone in a breath")
+                .font(.subheadline)
+                .opacity(0.8)
+        }
+        .foregroundStyle(.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(colors: [.indigo, .purple, .pink], startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: .rect(cornerRadius: 28)
+        )
+        .accessibilityElement(children: .combine)
+    }
+}
+
+#Preview {
+    DissolveShaderTransitionDemo()
+}
+```
+
+Shader: Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal
+
+```metal
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+
+#include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h>
+
+using namespace metal;
+
+// A repeatable pseudo-random number from 0 to 1 for each cell of a grid.
+static float DissolveShaderTransitionRandom(float2 cell) {
+    uint2 seed = uint2(int2(cell));
+    uint mixed = (seed.x * 0x9E3779B1u) ^ (seed.y * 0x85EBCA77u);
+    mixed ^= mixed >> 15;
+    mixed *= 0x2C1B3C6Du;
+    mixed ^= mixed >> 12;
+    return float(mixed & 0xFFFFu) / 65535.0;
+}
+
+// Smooth noise from 0 to 1: a random value at each corner of a grid, blended
+// across each cell.
+static float DissolveShaderTransitionNoise(float2 point) {
+    float2 cell = floor(point);
+    float2 inside = point - cell;
+    float2 blend = inside * inside * (3.0 - 2.0 * inside);
+
+    float bottom = mix(
+        DissolveShaderTransitionRandom(cell),
+        DissolveShaderTransitionRandom(cell + float2(1.0, 0.0)),
+        blend.x
+    );
+    float top = mix(
+        DissolveShaderTransitionRandom(cell + float2(0.0, 1.0)),
+        DissolveShaderTransitionRandom(cell + float2(1.0, 1.0)),
+        blend.x
+    );
+    return mix(bottom, top, blend.y);
+}
+
+// For SwiftUI's `colorEffect`. Removes the pixels whose noise is under
+// `threshold`, and makes the ones within `edgeWidth` above it glow in
+// `edgeColor`, so the view burns away in patches of `grain` points.
+[[ stitchable ]] half4 DissolveShaderTransitionBurn(
+    float2 position,
+    half4 color,
+    float threshold,
+    float edgeWidth,
+    float grain,
+    half4 edgeColor
+) {
+    // Large patches, with a finer layer that roughens their outline.
+    float2 point = position / grain;
+    float noise = 0.7 * DissolveShaderTransitionNoise(point)
+        + 0.3 * DissolveShaderTransitionNoise(point * 3.1 + 17.0);
+    // Noise gathers around the middle. Spreading it makes the burn last the
+    // whole transition.
+    noise = saturate((noise - 0.5) * 1.7 + 0.5);
+
+    // A short ramp keeps the cut from looking jagged.
+    float kept = smoothstep(threshold, threshold + 0.015, noise);
+    float heat = 1.0 - smoothstep(threshold, threshold + edgeWidth, noise);
+
+    // The edge is the color of the ember, and paler where it is hottest.
+    // Colors come premultiplied by their alpha.
+    half3 ember = mix(edgeColor.rgb, half3(1.0), half(0.35 * heat * heat)) * color.a;
+    half3 burning = mix(color.rgb, ember, half(heat));
+    return half4(burning, color.a) * half(kept);
 }
 ```
 

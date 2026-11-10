@@ -167,6 +167,10 @@ recording.
   Use Swift Testing (`import Testing`), never XCTest.
 - A test for a newer API marks each test function with `@available`. Swift
   Testing rejects it on the type.
+- A component with a shader tests that it compiles, with
+  `try await shader.compile(as: .colorEffect)` or the effect it uses. Swift
+  cannot see a misspelled function or a wrong argument in a shader, and this
+  fails on both.
 - No comments inside test bodies. Separate the phases with blank lines.
 - Use `try #require()` for casts and optionals.
 - Only mark a suite `@MainActor` when the type under test is `@MainActor`.
