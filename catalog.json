@@ -1,5 +1,5 @@
 {
-  "count": 262,
+  "count": 263,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -6476,6 +6476,50 @@
       "path": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift",
       "preview": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift"
+    },
+    {
+      "id": "map-search-sheet",
+      "name": "MapSearchSheet",
+      "title": "Map Search Sheet",
+      "category": "Maps",
+      "summary": "A map with a sheet of places that rests at the bottom, filters as you type and flies to the place you choose.",
+      "keywords": {
+        "en": [
+          "map",
+          "search",
+          "bottom sheet",
+          "places",
+          "detents",
+          "markers",
+          "mapkit"
+        ],
+        "es": [
+          "mapa",
+          "búsqueda",
+          "hoja inferior",
+          "lugares",
+          "alturas",
+          "marcadores",
+          "mapkit"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Map",
+        "MapCameraPosition",
+        "Marker",
+        "presentationDetents",
+        "presentationBackgroundInteraction"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The search sheet of Apple Maps",
+        "url": "https://www.apple.com/maps/"
+      },
+      "path": "Components/Maps/MapSearchSheet/MapSearchSheet.swift",
+      "preview": "Components/Maps/MapSearchSheet/MapSearchSheet.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapSearchSheet/MapSearchSheet.swift"
     },
     {
       "id": "audio-player-card",
