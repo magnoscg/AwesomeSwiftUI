@@ -1,5 +1,5 @@
 {
-  "count": 269,
+  "count": 270,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3411,6 +3411,50 @@
       "path": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift",
       "preview": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
+    },
+    {
+      "id": "progressive-blur-header",
+      "name": "ProgressiveBlurHeader",
+      "title": "Progressive Blur Header",
+      "category": "Effects",
+      "summary": "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+      "keywords": {
+        "en": [
+          "progressive blur",
+          "variable blur",
+          "header",
+          "shader",
+          "metal",
+          "scroll edge",
+          "layer effect"
+        ],
+        "es": [
+          "desenfoque progresivo",
+          "desenfoque variable",
+          "cabecera",
+          "shader",
+          "metal",
+          "borde de scroll",
+          "efecto de capa"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "ViewModifier",
+        "accessibilityReduceTransparency",
+        "ScrollView"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
+      "preview": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.webp",
+      "shader": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal"
     },
     {
       "id": "ripple-shader-effect",

@@ -42,6 +42,8 @@ on `main`.
   shrinks as one step of a flow gives way to the next.
 - Streaming Text, text that arrives in chunks, like the answer of a language
   model, and fades each new part in.
+- Progressive Blur Header, a blur that grows toward the top edge of a scroll
+  view, drawn by a Metal shader, so what scrolls under a header melts away.
 
 ### Changed
 

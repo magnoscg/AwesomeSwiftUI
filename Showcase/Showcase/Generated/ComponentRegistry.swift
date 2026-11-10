@@ -765,6 +765,15 @@ enum ComponentRegistry {
             demo: { AnyView(NoiseGrainOverlayDemo()) }
         ),
         ShowcaseEntry(
+            id: "progressive-blur-header",
+            title: "Progressive Blur Header",
+            category: "Effects",
+            summary: "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+            keywords: ["progressive blur", "variable blur", "header", "shader", "metal", "scroll edge", "layer effect", "desenfoque progresivo", "desenfoque variable", "cabecera", "shader", "metal", "borde de scroll", "efecto de capa"],
+            minIOS: "18.0",
+            demo: { AnyView(ProgressiveBlurHeaderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "ripple-shader-effect",
             title: "Ripple Shader Effect",
             category: "Effects",
