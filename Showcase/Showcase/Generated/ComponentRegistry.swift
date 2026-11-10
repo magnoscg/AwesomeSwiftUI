@@ -792,6 +792,15 @@ enum ComponentRegistry {
             demo: { AnyView(TouchParticleTrailDemo()) }
         ),
         ShowcaseEntry(
+            id: "voice-orb",
+            title: "Voice Orb",
+            category: "Effects",
+            summary: "A glowing orb for a voice assistant whose colors swirl and that swells with the voice while it listens or speaks.",
+            keywords: ["voice orb", "assistant", "audio reactive", "siri", "listening", "speaking", "ai", "orbe de voz", "asistente", "reactivo al audio", "siri", "escuchando", "hablando", "ia"],
+            minIOS: "18.0",
+            demo: { AnyView(VoiceOrbDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-badge-count",
             title: "Animated Badge Count",
             category: "Feedback",

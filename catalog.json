@@ -1,5 +1,5 @@
 {
-  "count": 265,
+  "count": 266,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3541,6 +3541,48 @@
       "path": "Components/Effects/TouchParticleTrail/TouchParticleTrail.swift",
       "preview": "Components/Effects/TouchParticleTrail/TouchParticleTrail.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/TouchParticleTrail/TouchParticleTrail.swift"
+    },
+    {
+      "id": "voice-orb",
+      "name": "VoiceOrb",
+      "title": "Voice Orb",
+      "category": "Effects",
+      "summary": "A glowing orb for a voice assistant whose colors swirl and that swells with the voice while it listens or speaks.",
+      "keywords": {
+        "en": [
+          "voice orb",
+          "assistant",
+          "audio reactive",
+          "siri",
+          "listening",
+          "speaking",
+          "ai"
+        ],
+        "es": [
+          "orbe de voz",
+          "asistente",
+          "reactivo al audio",
+          "siri",
+          "escuchando",
+          "hablando",
+          "ia"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "Animatable",
+        "GraphicsContext",
+        "hueRotation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/VoiceOrb/VoiceOrb.swift",
+      "preview": "Components/Effects/VoiceOrb/VoiceOrb.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/VoiceOrb/VoiceOrb.swift"
     },
     {
       "id": "animated-badge-count",
