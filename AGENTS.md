@@ -129,12 +129,33 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
-8. **Keep names unique.** Every file name and every non-private top-level type
+8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
+   mirrors layout there, which includes offsets, positions, rotations, shapes
+   and unit points, but a gesture still reports screen points and a `Canvas`
+   draws unmirrored. A gesture's x that reaches layout unchanged moves the view
+   away from the finger.
+   - Convert the gesture where you read it: change the sign of a horizontal
+     translation, or measure a location from the other edge.
+   - Pin `.environment(\.layoutDirection, .leftToRight)` on a surface over a
+     photo or a video instead. They are not mirrored, so the geometry that
+     crops, zooms or seeks them is not either.
+   - Use the `forward` and `backward` symbols, and leading and trailing, for
+     anything that follows the direction of reading.
+
+   Try the demo right-to-left in a booted simulator:
+
+   ```sh
+   xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
+     -showcaseComponent <id> \
+     -AppleTextDirection YES -NSForceRightToLeftWritingDirection YES
+   ```
+
+9. **Keep names unique.** Every file name and every non-private top-level type
    in `Components/` must be unique, because the Showcase app compiles the whole
    folder as one target. Prefix supporting types with the component's name, or
    make them `private`.
-9. **Internal by default.** No `public`: the code lands inside someone's app.
-10. **An animated preview.** Every component has a `<Name>.webp` that shows it
+10. **Internal by default.** No `public`: the code lands inside someone's app.
+11. **An animated preview.** Every component has a `<Name>.webp` that shows it
     moving, used by the README and the site. `make check` rejects a missing or
     still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
     the size, full color with no banding in gradients or glass, and GitHub

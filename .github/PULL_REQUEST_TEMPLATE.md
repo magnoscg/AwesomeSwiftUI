@@ -12,7 +12,7 @@
 ## For a new or changed component
 
 - [ ] It compiles on every iOS version it claims, with no deprecation warnings
-- [ ] It respects Reduce Motion, Dynamic Type and VoiceOver
+- [ ] It respects Reduce Motion, Dynamic Type and VoiceOver, and works right-to-left
 - [ ] Its metadata is complete, and its origin is stated truthfully
 - [ ] Its animated `.webp` preview shows the current behaviour
 - [ ] All of its code may be redistributed, as CONTRIBUTING.md explains

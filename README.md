@@ -97,7 +97,8 @@ Components/
 - **Honest about versions.** A component that needs a newer iOS says so with
   `@available` and in its metadata. It adds a fallback only where one is
   natural.
-- **Accessible.** It respects Reduce Motion, Dynamic Type and VoiceOver.
+- **Accessible.** It respects Reduce Motion, Dynamic Type and VoiceOver, and it
+  works in right-to-left layouts.
 - **Visible.** Every component has an animated preview, here and on the site.
 - **Clean origin.** Original work, or code under a compatible license with its
   notice kept. See [where code may come from](CONTRIBUTING.md#where-code-may-come-from).
