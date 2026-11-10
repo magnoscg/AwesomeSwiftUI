@@ -34,6 +34,8 @@ on `main`.
   above them when tapped, while the camera moves to fit it.
 - Map Route Tracker, a route on a map with a marker that travels along it,
   like an order on its way.
+- Voice Orb, a glowing orb for a voice assistant whose colors swirl and that
+  swells with the voice while it listens or speaks.
 
 ### Changed
 
