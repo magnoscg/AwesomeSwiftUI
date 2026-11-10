@@ -6,6 +6,12 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- A component can be drawn by a Metal shader. It then has a second file to
+  copy, `<Name>.metal`, which its page on the site, `catalog.json`, `llms.txt`
+  and `llms-full.txt` show next to its Swift file.
+
 ## 0.2.1 - 2026-11-09
 
 ### Fixed

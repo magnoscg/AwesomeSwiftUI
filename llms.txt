@@ -1,8 +1,8 @@
 # AwesomeSwiftUI
 
-> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. Each component states its minimum iOS.
+> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. A component drawn by a Metal shader has a second file, which its entry links: add both. Each component states its minimum iOS.
 
-Search `https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/catalog.json` by keyword, in English or Spanish, and fetch the `rawURL` of the match.
+Search `https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/catalog.json` by keyword, in English or Spanish, and fetch the `rawURL` of the match, and its `shaderRawURL` when it has one.
 
 ## Components
 

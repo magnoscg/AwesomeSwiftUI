@@ -20,7 +20,7 @@ install: find a component, copy its file, use it.
 
 | | |
 |---|---|
-| Install | None. Copy one Swift file into your project |
+| Install | None. Copy one Swift file into your project, and its Metal shader if it has one |
 | Platforms | iOS 18 to iOS 27. Each component states its own minimum |
 | Language | Swift 6, with complete concurrency checking |
 | Technologies | The current Apple API for each iOS version, and nothing deprecated |
@@ -84,12 +84,15 @@ Components/
       <Name>.swift       The component, a demo and a preview, in one file
       <Name>.meta.json   Keywords, minimum iOS, APIs used, difficulty, origin
       <Name>.webp        An animated preview of what it looks like
+      <Name>.metal       Its Metal shader, in the few components that have one
 ```
 
 ## The rules every component keeps
 
 - **Self-contained.** One file wherever possible, with no dependency on
-  another component, a package or an asset you would have to bring along.
+  another component, a package or an asset you would have to bring along. The
+  one exception is a component drawn by a Metal shader: it has a second file to
+  copy, `<Name>.metal`, and its documentation says so.
 - **Current.** Swift 6, Observation and Swift Testing. Nothing deprecated.
 - **Honest about versions.** A component that needs a newer iOS says so with
   `@available` and in its metadata. It adds a fallback only where one is
@@ -103,8 +106,9 @@ Components/
 
 [AGENTS.md](AGENTS.md) maps the repository and lists the rules a change has to
 keep. To find a component, search [catalog.json](catalog.json) by keyword, in
-English or Spanish, and fetch its `rawURL`. [llms.txt](llms.txt) is the short
-index and [llms-full.txt](llms-full.txt) has every component with its source.
+English or Spanish, and fetch its `rawURL`, and its `shaderRawURL` when it has
+one. [llms.txt](llms.txt) is the short index and [llms-full.txt](llms-full.txt)
+has every component with its source.
 
 ## Contributing
 
@@ -115,6 +119,6 @@ Ideas, components and fixes are welcome. Start with
 
 ## License
 
-[MIT](LICENSE). Each Swift file carries a short copyright header, so the notice
-travels with the code when you copy it. Code imported from other projects keeps
-its original license and notice.
+[MIT](LICENSE). Each Swift and Metal file carries a short copyright header, so
+the notice travels with the code when you copy it. Code imported from other
+projects keeps its original license and notice.

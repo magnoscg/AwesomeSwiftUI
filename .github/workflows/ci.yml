@@ -53,4 +53,7 @@ jobs:
           node-version: 24
       - name: Remove components this Xcode cannot compile
         run: node scripts/catalog.mjs prune 26
+      # The shaders need it, and the runners do not always have it.
+      - name: Install the Metal toolchain
+        run: xcodebuild -downloadComponent MetalToolchain
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
