@@ -1,5 +1,5 @@
 {
-  "count": 259,
+  "count": 260,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -9154,6 +9154,50 @@
       "path": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift",
       "preview": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
+    },
+    {
+      "id": "whats-new-sheet",
+      "name": "WhatsNewSheet",
+      "title": "What's New Sheet",
+      "category": "Sheets",
+      "summary": "A sheet that lists what a new version brings and comes up once for each version.",
+      "keywords": {
+        "en": [
+          "whats new",
+          "release notes",
+          "update sheet",
+          "new features",
+          "changelog",
+          "version",
+          "welcome"
+        ],
+        "es": [
+          "novedades",
+          "notas de versión",
+          "hoja de novedades",
+          "nuevas funciones",
+          "actualización",
+          "versión",
+          "bienvenida"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "sheet",
+        "AppStorage",
+        "ViewModifier",
+        "safeAreaInset",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The What's New screens of Apple's apps",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/onboarding"
+      },
+      "path": "Components/Sheets/WhatsNewSheet/WhatsNewSheet.swift",
+      "preview": "Components/Sheets/WhatsNewSheet/WhatsNewSheet.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/WhatsNewSheet/WhatsNewSheet.swift"
     },
     {
       "id": "minimizing-tab-bar",
