@@ -64,11 +64,15 @@ private struct DynamicHeightTrayModifier<Tray: View>: ViewModifier {
 
 struct DynamicHeightTrayDemo: View {
     private enum Step {
-        case options, confirm, done
+        case options, phrase, confirm, done
     }
+
+    private let words = ["river", "amber", "quiet", "orbit", "maple", "candle", "harbor", "velvet", "summit", "ember", "willow", "north"]
 
     @State private var isPresented = false
     @State private var step = Step.options
+    @State private var hasWallet = true
+    @State private var hidesSmallBalances = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -77,10 +81,14 @@ struct DynamicHeightTrayDemo: View {
                 .font(.system(size: 52))
                 .foregroundStyle(.tint)
                 .accessibilityHidden(true)
-            Text("Main Wallet")
+            Text(hasWallet ? "Main Wallet" : "No wallet")
                 .font(.title2.bold())
 
-            Button("Manage Wallet") {
+            Button(hasWallet ? "Manage Wallet" : "Add Wallet") {
+                guard hasWallet else {
+                    hasWallet = true
+                    return
+                }
                 step = .options
                 isPresented = true
             }
@@ -94,6 +102,7 @@ struct DynamicHeightTrayDemo: View {
             VStack(alignment: .leading, spacing: 16) {
                 switch step {
                 case .options: options
+                case .phrase: phrase
                 case .confirm: confirm
                 case .done: done
                 }
@@ -113,12 +122,39 @@ struct DynamicHeightTrayDemo: View {
         Text("Manage Wallet")
             .font(.title3.bold())
 
-        row("View Recovery Phrase", symbol: "key.fill") {}
-        row("Rename Wallet", symbol: "pencil") {}
-        row("Hide Small Balances", symbol: "eye.slash.fill") {}
+        row("View Recovery Phrase", symbol: "key.fill") {
+            go(to: .phrase)
+        }
+        row(hidesSmallBalances ? "Show Small Balances" : "Hide Small Balances", symbol: hidesSmallBalances ? "eye.fill" : "eye.slash.fill") {
+            hidesSmallBalances.toggle()
+        }
         row("Remove Wallet", symbol: "trash.fill", role: .destructive) {
             go(to: .confirm)
         }
+    }
+
+    @ViewBuilder private var phrase: some View {
+        Text("Recovery Phrase")
+            .font(.title3.bold())
+
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 3), spacing: 10) {
+            ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                Text("\(index + 1). \(word)")
+                    .font(.callout.monospaced())
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(.fill.quaternary, in: .rect(cornerRadius: 12))
+            }
+        }
+
+        Button("Back") {
+            go(to: .options)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder private var confirm: some View {
@@ -135,6 +171,7 @@ struct DynamicHeightTrayDemo: View {
             .buttonStyle(.bordered)
 
             Button("Remove", role: .destructive) {
+                hasWallet = false
                 go(to: .done)
             }
             .buttonStyle(.borderedProminent)
@@ -149,6 +186,13 @@ struct DynamicHeightTrayDemo: View {
             .foregroundStyle(.green)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
+
+        Button("Done") {
+            isPresented = false
+        }
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     private func row(_ title: String, symbol: String, role: ButtonRole? = nil, action: @escaping () -> Void) -> some View {

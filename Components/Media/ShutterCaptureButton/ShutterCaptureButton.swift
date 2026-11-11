@@ -140,7 +140,7 @@ struct ShutterCaptureButtonDemo: View {
                             .foregroundStyle(.white.opacity(0.7))
                     }
                     .overlay(alignment: .top) {
-                        Text(isRecording ? "Recording" : "\(photos) photos")
+                        Text(isRecording ? "Recording" : "^[\(photos) photo](inflect: true)")
                             .font(.footnote.weight(.semibold).monospacedDigit())
                             .foregroundStyle(.white)
                             .padding(.horizontal, 12)

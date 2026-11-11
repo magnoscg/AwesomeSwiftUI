@@ -167,12 +167,13 @@ struct SwipeActionRowDemo: View {
         let preview: String
     }
 
-    @State private var messages = [
+    private static let allMessages = [
         Message(id: "Weekly report", preview: "The numbers look great this week"),
         Message(id: "Flight update", preview: "Your gate has changed to B12"),
         Message(id: "Dinner on Friday?", preview: "I found a new place downtown"),
         Message(id: "Design review", preview: "Notes from this morning's session"),
     ]
+    @State private var messages = allMessages
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -187,6 +188,18 @@ struct SwipeActionRowDemo: View {
                         row(message)
                     }
                     .clipShape(.rect(cornerRadius: 18))
+                }
+
+                // Only for this demo: a way back once every row is gone.
+                if messages.isEmpty {
+                    ContentUnavailableView {
+                        Label("Inbox zero", systemImage: "tray")
+                    } actions: {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) { messages = Self.allMessages }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
             }
             .padding(.horizontal, 16)
