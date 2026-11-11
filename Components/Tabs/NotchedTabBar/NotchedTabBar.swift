@@ -165,7 +165,7 @@ struct NotchedTabBarDemo: View {
 
     @State private var selection = "home"
 
-    private var heading: String {
+    private var heading: LocalizedStringResource {
         items.first { $0.id == selection }.map { "\($0.title) page" } ?? ""
     }
 

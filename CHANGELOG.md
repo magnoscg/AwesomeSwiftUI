@@ -6,6 +6,12 @@ on `main`.
 
 ## Unreleased
 
+### Fixed
+
+- Undo Snackbar announces its message to VoiceOver again, and the demo of
+  Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
+  the localizable text instead of the text.
+
 ## 0.5.1 - 2026-11-11
 
 ### Added
