@@ -393,6 +393,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedDonutChartDemo()) }
         ),
         ShowcaseEntry(
+            id: "candlestick-chart",
+            title: "Candlestick Chart",
+            category: "Charts",
+            summary: "A candlestick chart of open, high, low and close prices, with a rule that reads the day under the finger.",
+            keywords: ["candlestick", "ohlc", "stocks", "trading", "price chart", "finance", "swift charts", "velas", "ohlc", "bolsa", "trading", "gráfica de precios", "finanzas", "swift charts"],
+            minIOS: "18.0",
+            demo: { AnyView(CandlestickChartDemo()) }
+        ),
+        ShowcaseEntry(
             id: "contribution-heatmap",
             title: "Contribution Heatmap",
             category: "Charts",
