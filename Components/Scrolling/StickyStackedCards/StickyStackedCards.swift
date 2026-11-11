@@ -81,6 +81,8 @@ struct StickyStackedCardsDemo: View {
 
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -99,6 +101,7 @@ struct StickyStackedCardsDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await autoScroll()
@@ -128,9 +131,9 @@ struct StickyStackedCardsDemo: View {
     // Only the demo scrolls by itself: slowly down, then quickly back to the top.
     private func autoScroll() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time = (time + 0.016).truncatingRemainder(dividingBy: 5)
             let fraction = time < 4 ? time / 4 : 5 - time
             position.scrollTo(y: maxOffset * fraction)

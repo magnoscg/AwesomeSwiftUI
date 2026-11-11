@@ -190,6 +190,28 @@ anything else:
     Applied wherever the text is not the identity of an item or part of
     a `String` the component composes.
 
+14. **A demo stops playing when it is touched.** A demo may move by itself, so
+    it looks alive and its preview records without touches, but never against
+    the person trying it. Every demo that does uses the same piece:
+
+    ```swift
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+
+    // on the root of the demo, and inside a sheet it presents
+    .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+
+    // in the task that plays it
+    while isAutoPlaying {
+        try? await Task.sleep(for: .seconds(1.3))
+        guard !Task.isCancelled, isAutoPlaying else { return }
+        // the next step
+    }
+    ```
+
+    Do not present or dismiss a search or a sheet from that task when the
+    person can also do it: record those with `previewSteps` instead.
+
 ## Recording a preview
 
 You need `ffmpeg`, `webp` and [AXe](https://github.com/cameroncooke/AXe). A new
