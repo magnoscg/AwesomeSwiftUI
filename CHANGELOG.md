@@ -30,6 +30,8 @@ on `main`.
 - Command Palette runs the first match when you press Return.
 - Rich Text Editor formats each part of a selection on its own font, so a
   title keeps its size when the selection also covers the text under it.
+- Swipe To Confirm Slider carries its symbol back with the thumb. The check
+  stayed at the far end for a moment, over an empty thumb.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
