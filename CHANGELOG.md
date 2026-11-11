@@ -52,6 +52,8 @@ on `main`.
   grows out when it appears.
 - Gauge Chart, a half-moon gauge with colored zones and a needle that swings
   to the value.
+- Scrollable Bar Chart, a bar chart that scrolls sideways a week at a time and
+  marks the average of the days in sight.
 
 ### Changed
 

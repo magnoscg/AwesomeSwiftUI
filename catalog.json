@@ -1,5 +1,5 @@
 {
-  "count": 274,
+  "count": 275,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1979,6 +1979,50 @@
       "path": "Components/Charts/RadarChart/RadarChart.swift",
       "preview": "Components/Charts/RadarChart/RadarChart.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/RadarChart/RadarChart.swift"
+    },
+    {
+      "id": "scrollable-bar-chart",
+      "name": "ScrollableBarChart",
+      "title": "Scrollable Bar Chart",
+      "category": "Charts",
+      "summary": "A bar chart that scrolls sideways a week at a time and marks the average of the days in sight.",
+      "keywords": {
+        "en": [
+          "scrollable chart",
+          "bar chart",
+          "weekly",
+          "steps",
+          "average",
+          "health",
+          "swift charts"
+        ],
+        "es": [
+          "gráfica con scroll",
+          "gráfica de barras",
+          "semanal",
+          "pasos",
+          "media",
+          "salud",
+          "swift charts"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Chart",
+        "BarMark",
+        "chartScrollableAxes",
+        "chartScrollPosition",
+        "chartScrollTargetBehavior"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The charts of Apple's Health app",
+        "url": "https://www.apple.com/health/"
+      },
+      "path": "Components/Charts/ScrollableBarChart/ScrollableBarChart.swift",
+      "preview": "Components/Charts/ScrollableBarChart/ScrollableBarChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/ScrollableBarChart/ScrollableBarChart.swift"
     },
     {
       "id": "sparkline-stat-tile",
