@@ -6807,6 +6807,8 @@ struct InteractiveLineChart: View {
     var format: (Double) -> String = { $0.formatted() }
 
     @State private var touchedDate: Date?
+    @State private var tooltipWidth: CGFloat = 0
+    @Environment(\.layoutDirection) private var layoutDirection
     @ScaledMetric(relativeTo: .caption) private var tooltipHeadroom = 60.0
 
     private var selected: InteractiveLineChartPoint? {
@@ -6839,9 +6841,6 @@ struct InteractiveLineChart: View {
                 RuleMark(x: .value("Selected", selected.date))
                     .foregroundStyle(.secondary)
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
-                    .annotation(position: .top, spacing: 6, overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
-                        tooltip(for: selected)
-                    }
                     .accessibilityHidden(true)
 
                 PointMark(x: .value("Selected", selected.date), y: .value("Value", selected.value))
@@ -6850,11 +6849,31 @@ struct InteractiveLineChart: View {
                     .accessibilityHidden(true)
             }
         }
-        .chartYScale(domain: domain)
+        .chartYScale(domain: domain, range: .plotDimension(endPadding: tooltipHeadroom))
         // Keeps the last date inside the plot. Before iOS 26 it is drawn half cut at the trailing edge.
         .chartXAxis { AxisMarks(preset: .aligned) }
         .chartXSelection(value: $touchedDate)
-        .padding(.top, tooltipHeadroom)
+        // Drawn over the chart and not as an annotation of the rule: on iOS 27 that
+        // annotation is not drawn at all.
+        .chartOverlay { proxy in
+            GeometryReader { geometry in
+                if let selected, let plotFrame = proxy.plotFrame, let x = proxy.position(forX: selected.date) {
+                    let plot = geometry[plotFrame]
+                    tooltip(for: selected)
+                        .environment(\.layoutDirection, layoutDirection)
+                        .fixedSize()
+                        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { tooltipWidth = $0 }
+                        .position(
+                            x: InteractiveLineChartLogic.tooltipX(at: plot.minX + x, width: tooltipWidth, in: plot.minX...plot.maxX),
+                            y: plot.minY + tooltipHeadroom / 2
+                        )
+                        .allowsHitTesting(false)
+                }
+            }
+            // The chart reports screen points, and a position is mirrored in a right-to-left
+            // layout. Left to right here keeps the tooltip over the rule.
+            .environment(\.layoutDirection, .leftToRight)
+        }
         .sensoryFeedback(.selection, trigger: selected?.id)
     }
 
@@ -6868,13 +6887,22 @@ struct InteractiveLineChart: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(.regularMaterial, in: .rect(cornerRadius: 12))
+        // A material does not draw inside a chart annotation: it comes out black, or not at all.
+        .background(Color(.secondarySystemBackground), in: .rect(cornerRadius: 12))
+        .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(.separator) }
     }
 }
 
 enum InteractiveLineChartLogic {
     static func nearest(to date: Date, in points: [InteractiveLineChartPoint]) -> InteractiveLineChartPoint? {
         points.min { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }
+    }
+
+    /// The center of the tooltip: over the point, but never past either end of the plot.
+    static func tooltipX(at x: CGFloat, width: CGFloat, in plot: ClosedRange<CGFloat>) -> CGFloat {
+        let half = max(width, 0) / 2
+        guard plot.upperBound - plot.lowerBound > half * 2 else { return (plot.lowerBound + plot.upperBound) / 2 }
+        return min(max(x, plot.lowerBound + half), plot.upperBound - half)
     }
 
     /// The vertical range with some breathing room. A flat or empty series still gets a valid range.
@@ -29599,19 +29627,29 @@ struct DropdownSelectMenu<Option: Hashable>: View {
     let label: (Option) -> String
 
     @State private var isOpen = false
+    @State private var fieldHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? { reduceMotion ? nil : .smooth(duration: 0.28) }
     private let cornerRadius: CGFloat = 14
     private let contentPadding: CGFloat = 14
+    private let maxListHeight: CGFloat = 280
+
+    private var listTop: CGFloat { fieldHeight + 6 }
+    /// The top edge of the list, as a point of the padded box the transition scales.
+    private var listAnchor: UnitPoint { UnitPoint(x: 0.5, y: listTop / (listTop + maxListHeight)) }
 
     var body: some View {
         field
-            .overlay(alignment: .bottom) {
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { fieldHeight = $0 }
+            .overlay(alignment: .top) {
                 if isOpen {
+                    // An overlay is offered the size of the field, which would squeeze the list
+                    // into one row. This offers it its own height, and starts it under the field.
                     optionsList
-                        .alignmentGuide(.bottom) { $0[.top] - 6 }
-                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: .top).combined(with: .opacity))
+                        .frame(height: maxListHeight, alignment: .top)
+                        .padding(.top, listTop)
+                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: listAnchor).combined(with: .opacity))
                 }
             }
             .background {
@@ -29666,7 +29704,6 @@ struct DropdownSelectMenu<Option: Hashable>: View {
             optionStack
             ScrollView { optionStack }
         }
-        .frame(maxHeight: 280)
         .background(.regularMaterial, in: .rect(cornerRadius: cornerRadius))
         .overlay {
             RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(.separator)
@@ -33303,6 +33340,12 @@ struct EmojiPicker: View {
     let onSelect: (String) -> Void
 
     @State private var activeID: String?
+    /// The tab that was tapped stays chosen until the grid moves again. A short section near
+    /// the end cannot reach the top, and would lose its tab to the one above it.
+    @State private var tappedID: String?
+    @State private var isJumping = false
+    /// A scroll view reader cannot jump to a section the lazy stack has not built yet. This can.
+    @State private var position = ScrollPosition(idType: String.self)
     @ScaledMetric(relativeTo: .title) private var cellSize = 44.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -33318,11 +33361,9 @@ struct EmojiPicker: View {
                 recentRow
             }
 
-            ScrollViewReader { proxy in
-                tabBar(proxy: proxy)
-                Divider()
-                grid
-            }
+            tabBar
+            Divider()
+            grid
         }
         .animation(reduceMotion ? nil : .snappy, value: recents)
     }
@@ -33340,15 +33381,20 @@ struct EmojiPicker: View {
         .accessibilityLabel("Recent")
     }
 
-    private func tabBar(proxy: ScrollViewProxy) -> some View {
+    private var tabBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 2) {
                 ForEach(categories) { category in
-                    let isActive = category.id == (activeID ?? categories.first?.id)
+                    let isActive = category.id == (tappedID ?? activeID ?? categories.first?.id)
 
                     Button {
-                        activeID = category.id
-                        withAnimation(animation) { proxy.scrollTo(category.id, anchor: .top) }
+                        tappedID = category.id
+                        isJumping = true
+                        withAnimation(animation, completionCriteria: .logicallyComplete) {
+                            position.scrollTo(id: category.id, anchor: .top)
+                        } completion: {
+                            isJumping = false
+                        }
                     } label: {
                         Image(systemName: category.systemImage)
                             .font(.title3)
@@ -33386,6 +33432,10 @@ struct EmojiPicker: View {
             }
             .scrollTargetLayout()
             .padding(edgePadding)
+        }
+        .scrollPosition($position, anchor: .top)
+        .onScrollPhaseChange { _, phase in
+            if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
             if let first = categories.first(where: { ids.contains($0.id) }) {
@@ -33944,10 +33994,14 @@ struct WheelPicker<Value: Hashable>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var scrolledValue: Value?
 
+    private let wheelSpace = "WheelPicker"
+
     var body: some View {
         let height = rowHeight * CGFloat(max(1, min(visibleRows, 15)))
         let row = rowHeight
         let tilts = !reduceMotion
+        // A local copy: the effect below runs off the main actor and cannot capture the view.
+        let space = wheelSpace
 
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
@@ -33961,7 +34015,7 @@ struct WheelPicker<Value: Hashable>: View {
                         .contentShape(.rect)
                         .onTapGesture { selection = value }
                         .visualEffect { content, proxy in
-                            let position = WheelPickerMath.position(midY: proxy.frame(in: .scrollView).midY, height: height)
+                            let position = WheelPickerMath.position(midY: proxy.frame(in: .named(space)).midY, height: height)
                             return content
                                 .rotation3DEffect(.degrees(tilts ? position * -62 : 0), axis: (1, 0, 0), perspective: 0.55)
                                 .scaleEffect(tilts ? 1 - abs(position) * 0.12 : 1)
@@ -33976,6 +34030,9 @@ struct WheelPicker<Value: Hashable>: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollPosition(id: $scrolledValue, anchor: .center)
         .frame(height: height)
+        // The frame of the wheel itself. The scroll view's own space starts after its content
+        // margin, which put the middle of the effect two rows below the selected one.
+        .coordinateSpace(.named(wheelSpace))
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(.quaternary)
