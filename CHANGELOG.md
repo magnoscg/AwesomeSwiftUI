@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Slot Machine Reels, reels of symbols that spin and stop one after another,
+  with the result under a line across them.
 - Notification Stack, notifications piled under the newest one, like a lock
   screen, that open into a column with a tap and can be swiped away.
 - Typing Indicator Bubble, three dots that bounce in turn inside a message
