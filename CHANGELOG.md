@@ -14,6 +14,16 @@ on `main`.
 - Undo Snackbar announces its message to VoiceOver again, and the demo of
   Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
   the localizable text instead of the text.
+- Emoji Picker jumps to the section of the category you tap, and that tab
+  stays chosen until the grid moves again. It had the fault Scroll Spy Header
+  had.
+- Wheel Picker draws its wheel around the selected row. The effect was
+  centered two rows below it, so the selected value looked small and faded.
+- Dropdown Select Menu opens its list under the field, with every option. It
+  opened over the field, squeezed to the height of one row.
+- Interactive Line Chart shows the value and the date over the rule while you
+  drag. On iOS 27 the tooltip was not drawn, and before it its background was
+  black.
 
 ## 0.5.1 - 2026-11-11
 

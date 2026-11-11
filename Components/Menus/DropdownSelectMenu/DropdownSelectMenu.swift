@@ -15,19 +15,29 @@ struct DropdownSelectMenu<Option: Hashable>: View {
     let label: (Option) -> String
 
     @State private var isOpen = false
+    @State private var fieldHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? { reduceMotion ? nil : .smooth(duration: 0.28) }
     private let cornerRadius: CGFloat = 14
     private let contentPadding: CGFloat = 14
+    private let maxListHeight: CGFloat = 280
+
+    private var listTop: CGFloat { fieldHeight + 6 }
+    /// The top edge of the list, as a point of the padded box the transition scales.
+    private var listAnchor: UnitPoint { UnitPoint(x: 0.5, y: listTop / (listTop + maxListHeight)) }
 
     var body: some View {
         field
-            .overlay(alignment: .bottom) {
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { fieldHeight = $0 }
+            .overlay(alignment: .top) {
                 if isOpen {
+                    // An overlay is offered the size of the field, which would squeeze the list
+                    // into one row. This offers it its own height, and starts it under the field.
                     optionsList
-                        .alignmentGuide(.bottom) { $0[.top] - 6 }
-                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: .top).combined(with: .opacity))
+                        .frame(height: maxListHeight, alignment: .top)
+                        .padding(.top, listTop)
+                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: listAnchor).combined(with: .opacity))
                 }
             }
             .background {
@@ -82,7 +92,6 @@ struct DropdownSelectMenu<Option: Hashable>: View {
             optionStack
             ScrollView { optionStack }
         }
-        .frame(maxHeight: 280)
         .background(.regularMaterial, in: .rect(cornerRadius: cornerRadius))
         .overlay {
             RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(.separator)
