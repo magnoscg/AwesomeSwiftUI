@@ -5,7 +5,7 @@ import SwiftUI
 
 struct LongPressRadialMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }

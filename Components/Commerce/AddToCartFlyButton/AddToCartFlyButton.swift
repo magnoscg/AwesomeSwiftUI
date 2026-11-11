@@ -12,8 +12,8 @@ struct AddToCartFlyButton: View {
     let image: Image
     @Binding var count: Int
     var cartFrame: CGRect?
-    var title: String = "Add to Cart"
-    var imageLabel: String = "Product"
+    var title: LocalizedStringResource = "Add to Cart"
+    var imageLabel: LocalizedStringResource = "Product"
     var tint: Color = .indigo
     var onAdd: () -> Void = {}
 

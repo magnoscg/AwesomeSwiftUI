@@ -184,8 +184,8 @@ anything else:
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
       the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
 
-    Being applied by category: Buttons, Controls, Inputs, Navigation, Tabs,
-    Toolbars and Modern so far.
+    Applied wherever the text is not the identity of an item or part of
+    a `String` the component composes.
 
 ## Recording a preview
 

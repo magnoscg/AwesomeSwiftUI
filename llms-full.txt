@@ -4947,8 +4947,8 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the details fade in place.
 struct ExpandableInfoCard<Details: View>: View {
-    let title: String
-    var subtitle: String?
+    let title: LocalizedStringResource
+    var subtitle: LocalizedStringResource?
     var systemImage = "info.circle.fill"
     var tint: Color = .blue
     @ViewBuilder var details: () -> Details
@@ -7517,7 +7517,7 @@ import SwiftUI
 /// VoiceOver reads the title, the value and the change as one element. With Reduce Motion
 /// on, new values appear without animating the line.
 struct SparklineStatTile: View {
-    let title: String
+    let title: LocalizedStringResource
     let value: String
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
@@ -7634,7 +7634,7 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: String, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
@@ -8802,8 +8802,8 @@ struct AddToCartFlyButton: View {
     let image: Image
     @Binding var count: Int
     var cartFrame: CGRect?
-    var title: String = "Add to Cart"
-    var imageLabel: String = "Product"
+    var title: LocalizedStringResource = "Add to Cart"
+    var imageLabel: LocalizedStringResource = "Product"
     var tint: Color = .indigo
     var onAdd: () -> Void = {}
 
@@ -9041,7 +9041,7 @@ enum AddToCartStepperMath {
 struct AddToCartStepper: View {
     @Binding var quantity: Int
     var maximum: Int = 99
-    var title: String = "Add"
+    var title: LocalizedStringResource = "Add"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .headline) private var buttonSize = 44.0
@@ -9569,10 +9569,10 @@ nonisolated enum TrialTimelinePaywallLogic {
 
 struct TrialTimelinePaywallPlan: Identifiable, Equatable {
     var id: String
-    var title: String
+    var title: LocalizedStringResource
     /// The price as it should be read, such as StoreKit's `displayPrice` and its period.
     var price: String
-    var badge: String?
+    var badge: LocalizedStringResource?
     /// How long its free trial lasts. Zero when it has none.
     var trialDays = 0
 }
@@ -9583,7 +9583,7 @@ struct TrialTimelinePaywallPlan: Identifiable, Equatable {
 /// with StoreKit or whatever you use. The reminder step is a promise, so schedule that
 /// notification, or set `reminderLead` to 0 to leave the step out.
 struct TrialTimelinePaywall: View {
-    var title = "How your free trial works"
+    var title: LocalizedStringResource = "How your free trial works"
     let plans: [TrialTimelinePaywallPlan]
     @Binding var selection: TrialTimelinePaywallPlan.ID
     /// How many days before the trial ends the reminder is sent.
@@ -15828,9 +15828,9 @@ import SwiftUI
 /// With Reduce Motion on, the symbol stays still.
 struct EmptyStatePlaceholder: View {
     var systemImage: String
-    var title: String
+    var title: LocalizedStringResource
     var message: String
-    var actionTitle: String?
+    var actionTitle: LocalizedStringResource?
     var action: (() -> Void)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -17718,7 +17718,7 @@ import SwiftUI
 
 struct LongPressRadialMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18483,7 +18483,7 @@ import SwiftUI
 
 struct SwipeActionRowAction: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let handler: () -> Void
@@ -18702,7 +18702,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassActionItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18758,7 +18758,7 @@ struct GlassActionMenu: View {
     private func glassButton(
         id: GlassID,
         systemImage: String,
-        label: String,
+        label: LocalizedStringResource,
         rotation: Double = 0,
         action: @escaping () -> Void
     ) -> some View {
@@ -19376,7 +19376,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassToolStripTool: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     /// Tools with the same group share one piece of glass. Nil keeps the tool on its own.
     var group: String?
@@ -32871,8 +32871,8 @@ import SwiftUI
 
 struct VerticalTimelineStep: Identifiable {
     let id: String
-    let title: String
-    let detail: String
+    let title: LocalizedStringResource
+    let detail: LocalizedStringResource
 }
 
 enum VerticalTimelineStatus: Equatable {
@@ -35292,7 +35292,7 @@ enum DownloadPillProgressState: Equatable {
 
 /// A capsule button that shrinks into a progress ring while downloading, then shows a checkmark.
 struct DownloadPillProgress: View {
-    var title: String = "Download"
+    var title: LocalizedStringResource = "Download"
     let state: DownloadPillProgressState
     var tint: Color = .blue
     let action: () -> Void

@@ -9,7 +9,7 @@ import SwiftUI
 /// VoiceOver reads the title, the value and the change as one element. With Reduce Motion
 /// on, new values appear without animating the line.
 struct SparklineStatTile: View {
-    let title: String
+    let title: LocalizedStringResource
     let value: String
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
@@ -126,7 +126,7 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: String, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,

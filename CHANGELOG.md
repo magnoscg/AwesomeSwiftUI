@@ -25,7 +25,11 @@ on `main`.
   navigation titles: Animated Tab Bar, Collapsing Bottom Bar, Floating Dock
   Bar, Full Screen Menu Overlay, Notched Tab Bar, Prominent Tab Bar, Search
   Scopes And Suggestions, Sidebar Adaptive Tabs, Tab Navigation State
-  Preserve, Toolbar Overflow Demo and Two Pane Split Layout.
+  Preserve, Toolbar Overflow Demo and Two Pane Split Layout. Also in Add To
+  Cart Fly Button, Add To Cart Stepper, Download Pill Progress, Empty State
+  Placeholder, Expandable Info Card, Glass Action Menu, Glass Tool Strip, Long
+  Press Radial Menu, Sparkline Stat Tile, Swipe Action Row, Trial Timeline
+  Paywall and Vertical Timeline.
 - Emoji Reaction Picker identifies each option by its emoji, not by its name.
 
 ### Fixed
