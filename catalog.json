@@ -1,5 +1,5 @@
 {
-  "count": 273,
+  "count": 274,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1816,6 +1816,48 @@
       "path": "Components/Charts/ContributionHeatmap/ContributionHeatmap.swift",
       "preview": "Components/Charts/ContributionHeatmap/ContributionHeatmap.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/ContributionHeatmap/ContributionHeatmap.swift"
+    },
+    {
+      "id": "gauge-chart",
+      "name": "GaugeChart",
+      "title": "Gauge Chart",
+      "category": "Charts",
+      "summary": "A half-moon gauge with colored zones and a needle that swings to the value.",
+      "keywords": {
+        "en": [
+          "gauge",
+          "dial",
+          "speedometer",
+          "meter",
+          "needle",
+          "zones",
+          "dashboard"
+        ],
+        "es": [
+          "medidor",
+          "dial",
+          "velocímetro",
+          "indicador",
+          "aguja",
+          "zonas",
+          "panel"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Circle",
+        "trim",
+        "rotationEffect",
+        "GeometryReader",
+        "accessibilityValue"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/GaugeChart/GaugeChart.swift",
+      "preview": "Components/Charts/GaugeChart/GaugeChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/GaugeChart/GaugeChart.swift"
     },
     {
       "id": "interactive-line-chart",

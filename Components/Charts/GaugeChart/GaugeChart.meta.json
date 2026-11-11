@@ -1,0 +1,26 @@
+{
+  "id": "gauge-chart",
+  "name": "GaugeChart",
+  "title": "Gauge Chart",
+  "category": "Charts",
+  "summary": "A half-moon gauge with colored zones and a needle that swings to the value.",
+  "keywords": {
+    "en": ["gauge", "dial", "speedometer", "meter", "needle", "zones", "dashboard"],
+    "es": ["medidor", "dial", "velocímetro", "indicador", "aguja", "zonas", "panel"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Circle", "trim", "rotationEffect", "GeometryReader", "accessibilityValue"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap --label 'Next Station'",
+    "sleep 1.6",
+    "tap --label 'Next Station'",
+    "sleep 1.6",
+    "tap --label 'Next Station'",
+    "sleep 1.6",
+    "tap --label 'Next Station'",
+    "sleep 1.4"
+  ]
+}

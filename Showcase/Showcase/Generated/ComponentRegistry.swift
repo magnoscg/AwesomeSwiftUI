@@ -411,6 +411,15 @@ enum ComponentRegistry {
             demo: { AnyView(ContributionHeatmapDemo()) }
         ),
         ShowcaseEntry(
+            id: "gauge-chart",
+            title: "Gauge Chart",
+            category: "Charts",
+            summary: "A half-moon gauge with colored zones and a needle that swings to the value.",
+            keywords: ["gauge", "dial", "speedometer", "meter", "needle", "zones", "dashboard", "medidor", "dial", "velocímetro", "indicador", "aguja", "zonas", "panel"],
+            minIOS: "18.0",
+            demo: { AnyView(GaugeChartDemo()) }
+        ),
+        ShowcaseEntry(
             id: "interactive-line-chart",
             title: "Interactive Line Chart",
             category: "Charts",
