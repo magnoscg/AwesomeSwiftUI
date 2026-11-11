@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
+import Foundation
 import Testing
 @testable import Showcase
 
@@ -55,7 +56,7 @@ struct ToastHostTests {
     @Test func aFullQueueDropsTheOldestWaitingToast() {
         var queue = ToastHostQueue(limit: 2)
 
-        for message in ["One", "Two", "Three", "Four"] {
+        for message: LocalizedStringResource in ["One", "Two", "Three", "Four"] {
             queue.add(ToastHostToast(message: message))
         }
 

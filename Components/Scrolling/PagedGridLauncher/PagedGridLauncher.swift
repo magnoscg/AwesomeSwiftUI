@@ -5,7 +5,7 @@ import SwiftUI
 
 struct PagedGridLauncherItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let symbol: String
     let colors: [Color]
 }
@@ -167,7 +167,7 @@ struct PagedGridLauncherDemo: View {
 
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: app.0, symbol: app.1, colors: palettes[index % palettes.count])
+        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {

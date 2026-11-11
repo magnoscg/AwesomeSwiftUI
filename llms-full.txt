@@ -4947,8 +4947,8 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the details fade in place.
 struct ExpandableInfoCard<Details: View>: View {
-    let title: String
-    var subtitle: String?
+    let title: LocalizedStringResource
+    var subtitle: LocalizedStringResource?
     var systemImage = "info.circle.fill"
     var tint: Color = .blue
     @ViewBuilder var details: () -> Details
@@ -7517,7 +7517,7 @@ import SwiftUI
 /// VoiceOver reads the title, the value and the change as one element. With Reduce Motion
 /// on, new values appear without animating the line.
 struct SparklineStatTile: View {
-    let title: String
+    let title: LocalizedStringResource
     let value: String
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
@@ -7634,7 +7634,7 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: String, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
@@ -8218,7 +8218,7 @@ import SwiftUI
 /// keyboard, so nothing here needs to measure it.
 struct KeyboardTrackingInputBar<Content: View>: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: LocalizedStringResource
     var tint: Color
     var onSend: (String) -> Void
     @ViewBuilder let content: Content
@@ -8229,7 +8229,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
 
     init(
         text: Binding<String>,
-        placeholder: String = "Message",
+        placeholder: LocalizedStringResource = "Message",
         tint: Color = .blue,
         onSend: @escaping (String) -> Void,
         @ViewBuilder content: () -> Content
@@ -8802,8 +8802,8 @@ struct AddToCartFlyButton: View {
     let image: Image
     @Binding var count: Int
     var cartFrame: CGRect?
-    var title: String = "Add to Cart"
-    var imageLabel: String = "Product"
+    var title: LocalizedStringResource = "Add to Cart"
+    var imageLabel: LocalizedStringResource = "Product"
     var tint: Color = .indigo
     var onAdd: () -> Void = {}
 
@@ -9041,7 +9041,7 @@ enum AddToCartStepperMath {
 struct AddToCartStepper: View {
     @Binding var quantity: Int
     var maximum: Int = 99
-    var title: String = "Add"
+    var title: LocalizedStringResource = "Add"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .headline) private var buttonSize = 44.0
@@ -9569,10 +9569,10 @@ nonisolated enum TrialTimelinePaywallLogic {
 
 struct TrialTimelinePaywallPlan: Identifiable, Equatable {
     var id: String
-    var title: String
+    var title: LocalizedStringResource
     /// The price as it should be read, such as StoreKit's `displayPrice` and its period.
     var price: String
-    var badge: String?
+    var badge: LocalizedStringResource?
     /// How long its free trial lasts. Zero when it has none.
     var trialDays = 0
 }
@@ -9583,7 +9583,7 @@ struct TrialTimelinePaywallPlan: Identifiable, Equatable {
 /// with StoreKit or whatever you use. The reminder step is a promise, so schedule that
 /// notification, or set `reminderLead` to 0 to leave the step out.
 struct TrialTimelinePaywall: View {
-    var title = "How your free trial works"
+    var title: LocalizedStringResource = "How your free trial works"
     let plans: [TrialTimelinePaywallPlan]
     @Binding var selection: TrialTimelinePaywallPlan.ID
     /// How many days before the trial ends the reminder is sent.
@@ -11867,7 +11867,7 @@ import SwiftUI
 struct PathTrimDrawOn<Outline: Shape>: View {
     let shape: Outline
     let isDrawn: Bool
-    var label: String = "Logo"
+    var label: LocalizedStringResource = "Logo"
     var colors: [Color] = [.pink, .orange]
     var lineWidth: CGFloat = 8
     var duration: Double = 1.6
@@ -12680,7 +12680,7 @@ nonisolated enum ColorRevealImageMath {
 /// on, a tap changes it at once. Scrolling still fades the color, which adds no movement.
 struct ColorRevealImage: View {
     let image: Image
-    let title: String
+    let title: LocalizedStringResource
     var aspectRatio: CGFloat = 4.0 / 3.0
     var cornerRadius: CGFloat = 24
 
@@ -12771,7 +12771,7 @@ struct ColorRevealImageDemo: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 ForEach(photos) { photo in
-                    ColorRevealImage(image: photo.image, title: photo.title)
+                    ColorRevealImage(image: photo.image, title: "\(photo.title)")
                 }
             }
             .padding(24)
@@ -15828,9 +15828,9 @@ import SwiftUI
 /// With Reduce Motion on, the symbol stays still.
 struct EmptyStatePlaceholder: View {
     var systemImage: String
-    var title: String
-    var message: String
-    var actionTitle: String?
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
+    var actionTitle: LocalizedStringResource?
     var action: (() -> Void)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -16153,7 +16153,7 @@ import SwiftUI
 
 /// The capsule shown by the `.toast(isPresented:)` modifier.
 struct ToastBanner: View {
-    let message: String
+    let message: LocalizedStringResource
     var systemImage: String = "checkmark.circle.fill"
     var tint: Color = .green
 
@@ -16177,7 +16177,7 @@ struct ToastBanner: View {
 
 private struct ToastBannerModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let duration: Double
@@ -16198,7 +16198,7 @@ private struct ToastBannerModifier: ViewModifier {
     }
 
     private func announceAndDismiss() async {
-        AccessibilityNotification.Announcement(message).post()
+        AccessibilityNotification.Announcement(String(localized: message)).post()
         do {
             try await Task.sleep(for: .seconds(duration))
         } catch {
@@ -16214,7 +16214,7 @@ extension View {
     /// With Reduce Motion on, the banner fades instead of sliding.
     func toast(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         systemImage: String = "checkmark.circle.fill",
         tint: Color = .green,
         duration: Double = 2.2
@@ -16308,7 +16308,7 @@ nonisolated enum ToastHostRole: Equatable, Sendable {
 
 nonisolated struct ToastHostToast: Identifiable, Equatable, Sendable {
     var id = UUID()
-    var message: String
+    var message: LocalizedStringResource
     var role = ToastHostRole.info
     var duration = Duration.seconds(3)
 }
@@ -16339,7 +16339,7 @@ nonisolated struct ToastHostQueue: Equatable, Sendable {
     private(set) var queue = ToastHostQueue()
     @ObservationIgnored fileprivate var window: ToastHostWindow?
 
-    func show(_ message: String, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
+    func show(_ message: LocalizedStringResource, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
         queue.add(ToastHostToast(message: message, role: role, duration: duration))
     }
 
@@ -16426,7 +16426,7 @@ private struct ToastHostOverlay: View {
                     .id(toast.id)
                     .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
                     .task(id: toast.id) {
-                        AccessibilityNotification.Announcement(toast.message).post()
+                        AccessibilityNotification.Announcement(String(localized: toast.message)).post()
                         try? await Task.sleep(for: toast.duration)
                         if !Task.isCancelled { center.dismiss(toast) }
                     }
@@ -16556,7 +16556,7 @@ import SwiftUI
 
 extension View {
     /// Marks this view as the place a tooltip points to.
-    func tooltipPopoverAnchor(id: String, text: String) -> some View {
+    func tooltipPopoverAnchor(id: String, text: LocalizedStringResource) -> some View {
         anchorPreference(key: TooltipPopoverAnchorKey.self, value: .bounds) { bounds in
             [id: TooltipPopoverAnchor(text: text, bounds: bounds)]
         }
@@ -16588,7 +16588,7 @@ struct TooltipPopoverHost<Content: View>: View {
             }
     }
 
-    private func tooltip(text: String, anchor: CGRect, container: CGSize) -> some View {
+    private func tooltip(text: LocalizedStringResource, anchor: CGRect, container: CGSize) -> some View {
         let opensAbove = TooltipPopoverGeometry.opensAbove(anchor: anchor, container: container)
         let scaleAnchor = TooltipPopoverGeometry.arrowTip(anchor: anchor, container: container, opensAbove: opensAbove)
 
@@ -16616,13 +16616,13 @@ struct TooltipPopoverHost<Content: View>: View {
                     .accessibilityHidden(true)
             }
         }
-        .id(text)
+        .id(activeID)
         .transition(
             reduceMotion ? .opacity : .scale(scale: 0.2, anchor: scaleAnchor).combined(with: .opacity)
         )
     }
 
-    private func bubbleText(_ text: String) -> some View {
+    private func bubbleText(_ text: LocalizedStringResource) -> some View {
         Text(text)
             .font(.subheadline)
             .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
@@ -16633,7 +16633,7 @@ struct TooltipPopoverHost<Content: View>: View {
 }
 
 struct TooltipPopoverAnchor {
-    var text: String
+    var text: LocalizedStringResource
     var bounds: Anchor<CGRect>
 }
 
@@ -16799,7 +16799,7 @@ struct TooltipPopoverDemo: View {
                     .font(.title2)
             }
             .accessibilityLabel("About \(title)")
-            .tooltipPopoverAnchor(id: id, text: tip)
+            .tooltipPopoverAnchor(id: id, text: "\(tip)")
         }
         .padding(18)
         .background(.background, in: .rect(cornerRadius: 16, style: .continuous))
@@ -16827,7 +16827,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the line stays still and the bar simply fades away on time.
 struct UndoSnackbar: View {
-    let message: String
+    let message: LocalizedStringResource
     var duration: Double = 5
     var tint: Color = .yellow
     let onUndo: () -> Void
@@ -16885,7 +16885,7 @@ struct UndoSnackbar: View {
 
 private struct UndoSnackbarModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let duration: Double
     let onUndo: () -> Void
 
@@ -16914,7 +16914,7 @@ extension View {
     /// Shows an `UndoSnackbar` at the bottom for `duration` seconds.
     func undoSnackbar(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         duration: Double = 5,
         onUndo: @escaping () -> Void
     ) -> some View {
@@ -17718,7 +17718,7 @@ import SwiftUI
 
 struct LongPressRadialMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18483,7 +18483,7 @@ import SwiftUI
 
 struct SwipeActionRowAction: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let handler: () -> Void
@@ -18702,7 +18702,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassActionItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18758,7 +18758,7 @@ struct GlassActionMenu: View {
     private func glassButton(
         id: GlassID,
         systemImage: String,
-        label: String,
+        label: LocalizedStringResource,
         rotation: Double = 0,
         action: @escaping () -> Void
     ) -> some View {
@@ -19376,7 +19376,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassToolStripTool: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     /// Tools with the same group share one piece of glass. Nil keeps the tool on its own.
     var group: String?
@@ -19657,7 +19657,7 @@ private struct BlurUpImageFocus: Transition {
 struct BlurUpImage: View {
     let preview: Image
     let image: Image?
-    let label: String
+    let label: LocalizedStringResource
     var blurRadius: CGFloat = 24
     var isLoading = true
 
@@ -19704,7 +19704,7 @@ struct BlurUpImage: View {
 struct BlurUpImageRemote: View {
     let url: URL?
     let preview: Image
-    let label: String
+    let label: LocalizedStringResource
 
     var body: some View {
         AsyncImage(url: url) { phase in
@@ -20333,7 +20333,7 @@ enum DoubleTapZoomImageMath {
 /// With Reduce Motion on, the zoom changes without animating.
 struct DoubleTapZoomImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var zoom: CGFloat = 2.5
     /// Zooms in on this point without a touch, for demos. `nil` returns to fit.
     var programmaticZoom: UnitPoint? = nil
@@ -20488,7 +20488,7 @@ import SwiftUI
 /// point inside the image. With Reduce Motion on, the picture stays still.
 struct KenBurnsImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var duration: Double = 12
     var zoom: CGFloat = 1.3
     var from: UnitPoint = .topLeading
@@ -21175,7 +21175,7 @@ import SwiftUI
 struct PhotoMultiSelectGridPhoto: Identifiable {
     let id: String
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
 }
 
 /// A photo grid where a long press enters a multi-select mode with checkmarks.
@@ -27313,7 +27313,7 @@ nonisolated enum MapSearchSheetLogic {
 /// the camera to it. The places are yours: fill them from `MKLocalSearch` or from your own data.
 struct MapSearchSheet: View {
     let places: [MapSearchSheetPlace]
-    var prompt = "Search places"
+    var prompt: LocalizedStringResource = "Search places"
     /// How far above a chosen place the camera stops, in meters.
     var closeUpDistance = 1500.0
 
@@ -27373,7 +27373,7 @@ struct MapSearchSheet: View {
 /// focus of a field in a sheet has to be kept inside the sheet.
 private struct MapSearchSheetPanel: View {
     let places: [MapSearchSheetPlace]
-    let prompt: String
+    let prompt: LocalizedStringResource
     @Binding var query: String
     @Binding var selection: MapSearchSheetPlace.ID?
     @Binding var detent: PresentationDetent
@@ -27387,7 +27387,7 @@ private struct MapSearchSheetPanel: View {
                     .foregroundStyle(.secondary)
                     .accessibilityHidden(true)
 
-                TextField(prompt, text: $query)
+                TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
                     .autocorrectionDisabled()
@@ -29002,8 +29002,8 @@ import SwiftUI
 struct CoachMarkTourStep: Identifiable {
     /// Matches the id passed to `coachMarkTourTarget(_:)`.
     let id: String
-    let title: String
-    let message: String
+    let title: LocalizedStringResource
+    let message: LocalizedStringResource
 }
 
 /// Where the tour is. `advance` and `finish` report the end only once.
@@ -29592,7 +29592,7 @@ import SwiftUI
 /// The list floats over the views below, so use it in a stack where it can overlap
 /// them. It raises itself with `zIndex` while open, and a tap outside closes it.
 struct DropdownSelectMenu<Option: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let options: [Option]
     @Binding var selection: Option?
     var placeholder = "Choose"
@@ -29776,7 +29776,7 @@ import SwiftUI
 
 struct GooeyFloatingMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -32871,8 +32871,8 @@ import SwiftUI
 
 struct VerticalTimelineStep: Identifiable {
     let id: String
-    let title: String
-    let detail: String
+    let title: LocalizedStringResource
+    let detail: LocalizedStringResource
 }
 
 enum VerticalTimelineStatus: Equatable {
@@ -33458,7 +33458,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the calendar appears and disappears without animating.
 struct InlineDatePickerDisclosure: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var date: Date
     var range: ClosedRange<Date> = Date.distantPast...Date.distantFuture
 
@@ -33484,7 +33484,7 @@ struct InlineDatePickerDisclosure: View {
             if isExpanded {
                 Divider()
 
-                DatePicker(title, selection: $date, in: range, displayedComponents: .date)
+                DatePicker(selection: $date, in: range, displayedComponents: .date) { Text(title) }
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)
@@ -33926,7 +33926,7 @@ import SwiftUI
 ///
 /// `values` must be unique. With Reduce Motion on, rows stay flat and only fade.
 struct WheelPicker<Value: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let values: [Value]
     @Binding var selection: Value
     var visibleRows: Int = 5
@@ -35292,7 +35292,7 @@ enum DownloadPillProgressState: Equatable {
 
 /// A capsule button that shrinks into a progress ring while downloading, then shows a checkmark.
 struct DownloadPillProgress: View {
-    var title: String = "Download"
+    var title: LocalizedStringResource = "Download"
     let state: DownloadPillProgressState
     var tint: Color = .blue
     let action: () -> Void
@@ -36610,8 +36610,8 @@ import SwiftUI
 
 struct OnboardingPagerPage {
     var symbol: String
-    var title: String
-    var message: String
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
     var colors: [Color]
 }
 
@@ -36619,7 +36619,7 @@ struct OnboardingPagerPage {
 /// that advances or finishes. `onFinish` runs once.
 struct OnboardingPager: View {
     let pages: [OnboardingPagerPage]
-    var finishTitle: String = "Get Started"
+    var finishTitle: LocalizedStringResource = "Get Started"
     var onFinish: () -> Void = {}
 
     @State private var page = 0
@@ -36773,7 +36773,7 @@ import SwiftUI
 
 struct PagedGridLauncherItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let symbol: String
     let colors: [Color]
 }
@@ -36935,7 +36935,7 @@ struct PagedGridLauncherDemo: View {
 
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: app.0, symbol: app.1, colors: palettes[index % palettes.count])
+        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {
@@ -38502,11 +38502,11 @@ nonisolated enum WhatsNewSheetLogic {
 
 struct WhatsNewSheetFeature: Identifiable {
     var symbol: String
-    var title: String
-    var text: String
+    var title: LocalizedStringResource
+    var text: LocalizedStringResource
     var tint: Color = .accentColor
 
-    var id: String { title }
+    var id: String { title.key }
 }
 
 /// The page that tells what a new version brings: a title, a row per feature and a button.
@@ -38514,7 +38514,7 @@ struct WhatsNewSheetFeature: Identifiable {
 /// Show it yourself in a sheet, or let `whatsNewSheet(version:features:)` show it once per version.
 /// The rows come in one after another. With Reduce Motion on, they fade in together.
 struct WhatsNewSheet: View {
-    var title = "What’s New"
+    var title: LocalizedStringResource = "What’s New"
     let features: [WhatsNewSheetFeature]
     var buttonTitle = "Continue"
     var onContinue: () -> Void
@@ -38594,13 +38594,13 @@ struct WhatsNewSheet: View {
 
 struct WhatsNewSheetModifier: ViewModifier {
     let version: String
-    let title: String
+    let title: LocalizedStringResource
     let features: [WhatsNewSheetFeature]
 
     @AppStorage private var seenVersion: String
     @State private var isPresented = false
 
-    init(version: String, title: String, features: [WhatsNewSheetFeature], storageKey: String) {
+    init(version: String, title: LocalizedStringResource, features: [WhatsNewSheetFeature], storageKey: String) {
         self.version = version
         self.title = title
         self.features = features
@@ -38625,7 +38625,7 @@ struct WhatsNewSheetModifier: ViewModifier {
 extension View {
     /// Shows `WhatsNewSheet` the first time the app runs a `version` newer than the last one it
     /// was shown for, and remembers it in `UserDefaults` when the sheet closes.
-    func whatsNewSheet(version: String, title: String = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
+    func whatsNewSheet(version: String, title: LocalizedStringResource = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
         modifier(WhatsNewSheetModifier(version: version, title: title, features: features, storageKey: storageKey))
     }
 }
@@ -42699,7 +42699,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the symbols fade.
 struct SymbolMorphToggle: View {
-    let title: String
+    let title: LocalizedStringResource
     let onSymbol: String
     let offSymbol: String
     @Binding var isOn: Bool

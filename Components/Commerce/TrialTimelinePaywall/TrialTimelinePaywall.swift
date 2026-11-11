@@ -19,10 +19,10 @@ nonisolated enum TrialTimelinePaywallLogic {
 
 struct TrialTimelinePaywallPlan: Identifiable, Equatable {
     var id: String
-    var title: String
+    var title: LocalizedStringResource
     /// The price as it should be read, such as StoreKit's `displayPrice` and its period.
     var price: String
-    var badge: String?
+    var badge: LocalizedStringResource?
     /// How long its free trial lasts. Zero when it has none.
     var trialDays = 0
 }
@@ -33,7 +33,7 @@ struct TrialTimelinePaywallPlan: Identifiable, Equatable {
 /// with StoreKit or whatever you use. The reminder step is a promise, so schedule that
 /// notification, or set `reminderLead` to 0 to leave the step out.
 struct TrialTimelinePaywall: View {
-    var title = "How your free trial works"
+    var title: LocalizedStringResource = "How your free trial works"
     let plans: [TrialTimelinePaywallPlan]
     @Binding var selection: TrialTimelinePaywallPlan.ID
     /// How many days before the trial ends the reminder is sent.

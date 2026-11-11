@@ -5,8 +5,8 @@ import SwiftUI
 
 struct VerticalTimelineStep: Identifiable {
     let id: String
-    let title: String
-    let detail: String
+    let title: LocalizedStringResource
+    let detail: LocalizedStringResource
 }
 
 enum VerticalTimelineStatus: Equatable {

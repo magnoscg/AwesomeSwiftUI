@@ -17,7 +17,7 @@ enum AddToCartStepperMath {
 struct AddToCartStepper: View {
     @Binding var quantity: Int
     var maximum: Int = 99
-    var title: String = "Add"
+    var title: LocalizedStringResource = "Add"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .headline) private var buttonSize = 44.0

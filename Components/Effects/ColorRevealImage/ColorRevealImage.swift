@@ -21,7 +21,7 @@ nonisolated enum ColorRevealImageMath {
 /// on, a tap changes it at once. Scrolling still fades the color, which adds no movement.
 struct ColorRevealImage: View {
     let image: Image
-    let title: String
+    let title: LocalizedStringResource
     var aspectRatio: CGFloat = 4.0 / 3.0
     var cornerRadius: CGFloat = 24
 
@@ -112,7 +112,7 @@ struct ColorRevealImageDemo: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 ForEach(photos) { photo in
-                    ColorRevealImage(image: photo.image, title: photo.title)
+                    ColorRevealImage(image: photo.image, title: "\(photo.title)")
                 }
             }
             .padding(24)

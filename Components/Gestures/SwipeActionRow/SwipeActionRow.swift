@@ -5,7 +5,7 @@ import SwiftUI
 
 struct SwipeActionRowAction: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let handler: () -> Void

@@ -30,11 +30,11 @@ nonisolated enum WhatsNewSheetLogic {
 
 struct WhatsNewSheetFeature: Identifiable {
     var symbol: String
-    var title: String
-    var text: String
+    var title: LocalizedStringResource
+    var text: LocalizedStringResource
     var tint: Color = .accentColor
 
-    var id: String { title }
+    var id: String { title.key }
 }
 
 /// The page that tells what a new version brings: a title, a row per feature and a button.
@@ -42,7 +42,7 @@ struct WhatsNewSheetFeature: Identifiable {
 /// Show it yourself in a sheet, or let `whatsNewSheet(version:features:)` show it once per version.
 /// The rows come in one after another. With Reduce Motion on, they fade in together.
 struct WhatsNewSheet: View {
-    var title = "What’s New"
+    var title: LocalizedStringResource = "What’s New"
     let features: [WhatsNewSheetFeature]
     var buttonTitle = "Continue"
     var onContinue: () -> Void
@@ -122,13 +122,13 @@ struct WhatsNewSheet: View {
 
 struct WhatsNewSheetModifier: ViewModifier {
     let version: String
-    let title: String
+    let title: LocalizedStringResource
     let features: [WhatsNewSheetFeature]
 
     @AppStorage private var seenVersion: String
     @State private var isPresented = false
 
-    init(version: String, title: String, features: [WhatsNewSheetFeature], storageKey: String) {
+    init(version: String, title: LocalizedStringResource, features: [WhatsNewSheetFeature], storageKey: String) {
         self.version = version
         self.title = title
         self.features = features
@@ -153,7 +153,7 @@ struct WhatsNewSheetModifier: ViewModifier {
 extension View {
     /// Shows `WhatsNewSheet` the first time the app runs a `version` newer than the last one it
     /// was shown for, and remembers it in `UserDefaults` when the sheet closes.
-    func whatsNewSheet(version: String, title: String = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
+    func whatsNewSheet(version: String, title: LocalizedStringResource = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
         modifier(WhatsNewSheetModifier(version: version, title: title, features: features, storageKey: storageKey))
     }
 }

@@ -6,7 +6,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassActionItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -62,7 +62,7 @@ struct GlassActionMenu: View {
     private func glassButton(
         id: GlassID,
         systemImage: String,
-        label: String,
+        label: LocalizedStringResource,
         rotation: Double = 0,
         action: @escaping () -> Void
     ) -> some View {

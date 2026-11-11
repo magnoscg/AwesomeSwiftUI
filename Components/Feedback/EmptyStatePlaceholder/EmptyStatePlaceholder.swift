@@ -8,9 +8,9 @@ import SwiftUI
 /// With Reduce Motion on, the symbol stays still.
 struct EmptyStatePlaceholder: View {
     var systemImage: String
-    var title: String
-    var message: String
-    var actionTitle: String?
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
+    var actionTitle: LocalizedStringResource?
     var action: (() -> Void)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion

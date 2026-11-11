@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the line stays still and the bar simply fades away on time.
 struct UndoSnackbar: View {
-    let message: String
+    let message: LocalizedStringResource
     var duration: Double = 5
     var tint: Color = .yellow
     let onUndo: () -> Void
@@ -65,7 +65,7 @@ struct UndoSnackbar: View {
 
 private struct UndoSnackbarModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let duration: Double
     let onUndo: () -> Void
 
@@ -94,7 +94,7 @@ extension View {
     /// Shows an `UndoSnackbar` at the bottom for `duration` seconds.
     func undoSnackbar(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         duration: Double = 5,
         onUndo: @escaping () -> Void
     ) -> some View {

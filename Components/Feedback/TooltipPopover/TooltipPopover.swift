@@ -5,7 +5,7 @@ import SwiftUI
 
 extension View {
     /// Marks this view as the place a tooltip points to.
-    func tooltipPopoverAnchor(id: String, text: String) -> some View {
+    func tooltipPopoverAnchor(id: String, text: LocalizedStringResource) -> some View {
         anchorPreference(key: TooltipPopoverAnchorKey.self, value: .bounds) { bounds in
             [id: TooltipPopoverAnchor(text: text, bounds: bounds)]
         }
@@ -37,7 +37,7 @@ struct TooltipPopoverHost<Content: View>: View {
             }
     }
 
-    private func tooltip(text: String, anchor: CGRect, container: CGSize) -> some View {
+    private func tooltip(text: LocalizedStringResource, anchor: CGRect, container: CGSize) -> some View {
         let opensAbove = TooltipPopoverGeometry.opensAbove(anchor: anchor, container: container)
         let scaleAnchor = TooltipPopoverGeometry.arrowTip(anchor: anchor, container: container, opensAbove: opensAbove)
 
@@ -65,13 +65,13 @@ struct TooltipPopoverHost<Content: View>: View {
                     .accessibilityHidden(true)
             }
         }
-        .id(text)
+        .id(activeID)
         .transition(
             reduceMotion ? .opacity : .scale(scale: 0.2, anchor: scaleAnchor).combined(with: .opacity)
         )
     }
 
-    private func bubbleText(_ text: String) -> some View {
+    private func bubbleText(_ text: LocalizedStringResource) -> some View {
         Text(text)
             .font(.subheadline)
             .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
@@ -82,7 +82,7 @@ struct TooltipPopoverHost<Content: View>: View {
 }
 
 struct TooltipPopoverAnchor {
-    var text: String
+    var text: LocalizedStringResource
     var bounds: Anchor<CGRect>
 }
 
@@ -248,7 +248,7 @@ struct TooltipPopoverDemo: View {
                     .font(.title2)
             }
             .accessibilityLabel("About \(title)")
-            .tooltipPopoverAnchor(id: id, text: tip)
+            .tooltipPopoverAnchor(id: id, text: "\(tip)")
         }
         .padding(18)
         .background(.background, in: .rect(cornerRadius: 16, style: .continuous))

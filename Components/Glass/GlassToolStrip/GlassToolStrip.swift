@@ -6,7 +6,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassToolStripTool: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     /// Tools with the same group share one piece of glass. Nil keeps the tool on its own.
     var group: String?

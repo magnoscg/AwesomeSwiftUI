@@ -7,8 +7,8 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the details fade in place.
 struct ExpandableInfoCard<Details: View>: View {
-    let title: String
-    var subtitle: String?
+    let title: LocalizedStringResource
+    var subtitle: LocalizedStringResource?
     var systemImage = "info.circle.fill"
     var tint: Color = .blue
     @ViewBuilder var details: () -> Details

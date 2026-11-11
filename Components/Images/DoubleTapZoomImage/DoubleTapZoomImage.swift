@@ -26,7 +26,7 @@ enum DoubleTapZoomImageMath {
 /// With Reduce Motion on, the zoom changes without animating.
 struct DoubleTapZoomImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var zoom: CGFloat = 2.5
     /// Zooms in on this point without a touch, for demos. `nil` returns to fit.
     var programmaticZoom: UnitPoint? = nil

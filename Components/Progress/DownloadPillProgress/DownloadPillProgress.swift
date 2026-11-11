@@ -11,7 +11,7 @@ enum DownloadPillProgressState: Equatable {
 
 /// A capsule button that shrinks into a progress ring while downloading, then shows a checkmark.
 struct DownloadPillProgress: View {
-    var title: String = "Download"
+    var title: LocalizedStringResource = "Download"
     let state: DownloadPillProgressState
     var tint: Color = .blue
     let action: () -> Void
