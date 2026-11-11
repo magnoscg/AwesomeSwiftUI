@@ -39,7 +39,7 @@
       },
       "path": "Components/Animations/BreathingGuideCircle/BreathingGuideCircle.swift",
       "preview": "Components/Animations/BreathingGuideCircle/BreathingGuideCircle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/BreathingGuideCircle/BreathingGuideCircle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/BreathingGuideCircle/BreathingGuideCircle.swift"
     },
     {
       "id": "keyframe-timeline-showcase",
@@ -81,7 +81,7 @@
       },
       "path": "Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.swift",
       "preview": "Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/KeyframeTimelineShowcase/KeyframeTimelineShowcase.swift"
     },
     {
       "id": "phase-animator-cycle",
@@ -120,7 +120,7 @@
       },
       "path": "Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.swift",
       "preview": "Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/PhaseAnimatorCycle/PhaseAnimatorCycle.swift"
     },
     {
       "id": "split-flap-counter",
@@ -161,7 +161,7 @@
       },
       "path": "Components/Animations/SplitFlapCounter/SplitFlapCounter.swift",
       "preview": "Components/Animations/SplitFlapCounter/SplitFlapCounter.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SplitFlapCounter/SplitFlapCounter.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/SplitFlapCounter/SplitFlapCounter.swift"
     },
     {
       "id": "spring-study-playground",
@@ -201,7 +201,7 @@
       },
       "path": "Components/Animations/SpringStudyPlayground/SpringStudyPlayground.swift",
       "preview": "Components/Animations/SpringStudyPlayground/SpringStudyPlayground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SpringStudyPlayground/SpringStudyPlayground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/SpringStudyPlayground/SpringStudyPlayground.swift"
     },
     {
       "id": "symbol-effect-gallery",
@@ -244,7 +244,7 @@
       },
       "path": "Components/Animations/SymbolEffectGallery/SymbolEffectGallery.swift",
       "preview": "Components/Animations/SymbolEffectGallery/SymbolEffectGallery.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Animations/SymbolEffectGallery/SymbolEffectGallery.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Animations/SymbolEffectGallery/SymbolEffectGallery.swift"
     },
     {
       "id": "animated-gradient-background",
@@ -282,7 +282,7 @@
       },
       "path": "Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.swift",
       "preview": "Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/AnimatedGradientBackground/AnimatedGradientBackground.swift"
     },
     {
       "id": "aurora-mesh-background",
@@ -321,7 +321,7 @@
       },
       "path": "Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift",
       "preview": "Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/AuroraMeshBackground/AuroraMeshBackground.swift"
     },
     {
       "id": "bubbles-background",
@@ -359,7 +359,7 @@
       },
       "path": "Components/Backgrounds/BubblesBackground/BubblesBackground.swift",
       "preview": "Components/Backgrounds/BubblesBackground/BubblesBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/BubblesBackground/BubblesBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/BubblesBackground/BubblesBackground.swift"
     },
     {
       "id": "color-orbs-background",
@@ -399,7 +399,7 @@
       },
       "path": "Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.swift",
       "preview": "Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/ColorOrbsBackground/ColorOrbsBackground.swift"
     },
     {
       "id": "grid-pulse-background",
@@ -439,7 +439,7 @@
       },
       "path": "Components/Backgrounds/GridPulseBackground/GridPulseBackground.swift",
       "preview": "Components/Backgrounds/GridPulseBackground/GridPulseBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/GridPulseBackground/GridPulseBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/GridPulseBackground/GridPulseBackground.swift"
     },
     {
       "id": "image-derived-gradient-background",
@@ -480,7 +480,7 @@
       },
       "path": "Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.swift",
       "preview": "Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/ImageDerivedGradientBackground/ImageDerivedGradientBackground.swift"
     },
     {
       "id": "particle-field-background",
@@ -520,7 +520,7 @@
       },
       "path": "Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.swift",
       "preview": "Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/ParticleFieldBackground/ParticleFieldBackground.swift"
     },
     {
       "id": "snowfall-background",
@@ -560,7 +560,7 @@
       },
       "path": "Components/Backgrounds/SnowfallBackground/SnowfallBackground.swift",
       "preview": "Components/Backgrounds/SnowfallBackground/SnowfallBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/SnowfallBackground/SnowfallBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/SnowfallBackground/SnowfallBackground.swift"
     },
     {
       "id": "starfield-background",
@@ -600,7 +600,7 @@
       },
       "path": "Components/Backgrounds/StarfieldBackground/StarfieldBackground.swift",
       "preview": "Components/Backgrounds/StarfieldBackground/StarfieldBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/StarfieldBackground/StarfieldBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/StarfieldBackground/StarfieldBackground.swift"
     },
     {
       "id": "synthwave-grid-background",
@@ -643,7 +643,7 @@
       },
       "path": "Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.swift",
       "preview": "Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.swift"
     },
     {
       "id": "waves-background",
@@ -683,7 +683,7 @@
       },
       "path": "Components/Backgrounds/WavesBackground/WavesBackground.swift",
       "preview": "Components/Backgrounds/WavesBackground/WavesBackground.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Backgrounds/WavesBackground/WavesBackground.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/WavesBackground/WavesBackground.swift"
     },
     {
       "id": "elastic-drag-button",
@@ -723,7 +723,7 @@
       },
       "path": "Components/Buttons/ElasticDragButton/ElasticDragButton.swift",
       "preview": "Components/Buttons/ElasticDragButton/ElasticDragButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ElasticDragButton/ElasticDragButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ElasticDragButton/ElasticDragButton.swift"
     },
     {
       "id": "emoji-reaction-picker",
@@ -765,7 +765,7 @@
       },
       "path": "Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift",
       "preview": "Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift"
     },
     {
       "id": "expanding-search-button",
@@ -805,7 +805,7 @@
       },
       "path": "Components/Buttons/ExpandingSearchButton/ExpandingSearchButton.swift",
       "preview": "Components/Buttons/ExpandingSearchButton/ExpandingSearchButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ExpandingSearchButton/ExpandingSearchButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ExpandingSearchButton/ExpandingSearchButton.swift"
     },
     {
       "id": "floating-action-menu",
@@ -845,7 +845,7 @@
       },
       "path": "Components/Buttons/FloatingActionMenu/FloatingActionMenu.swift",
       "preview": "Components/Buttons/FloatingActionMenu/FloatingActionMenu.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/FloatingActionMenu/FloatingActionMenu.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/FloatingActionMenu/FloatingActionMenu.swift"
     },
     {
       "id": "gradient-border-button",
@@ -885,7 +885,7 @@
       },
       "path": "Components/Buttons/GradientBorderButton/GradientBorderButton.swift",
       "preview": "Components/Buttons/GradientBorderButton/GradientBorderButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/GradientBorderButton/GradientBorderButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/GradientBorderButton/GradientBorderButton.swift"
     },
     {
       "id": "hamburger-menu-button",
@@ -925,7 +925,7 @@
       },
       "path": "Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.swift",
       "preview": "Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/HamburgerMenuButton/HamburgerMenuButton.swift"
     },
     {
       "id": "hold-to-confirm-button",
@@ -963,7 +963,7 @@
       },
       "path": "Components/Buttons/HoldToConfirmButton/HoldToConfirmButton.swift",
       "preview": "Components/Buttons/HoldToConfirmButton/HoldToConfirmButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/HoldToConfirmButton/HoldToConfirmButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/HoldToConfirmButton/HoldToConfirmButton.swift"
     },
     {
       "id": "like-burst-button",
@@ -1002,7 +1002,7 @@
       },
       "path": "Components/Buttons/LikeBurstButton/LikeBurstButton.swift",
       "preview": "Components/Buttons/LikeBurstButton/LikeBurstButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/LikeBurstButton/LikeBurstButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/LikeBurstButton/LikeBurstButton.swift"
     },
     {
       "id": "morphing-submit-button",
@@ -1042,7 +1042,7 @@
       },
       "path": "Components/Buttons/MorphingSubmitButton/MorphingSubmitButton.swift",
       "preview": "Components/Buttons/MorphingSubmitButton/MorphingSubmitButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/MorphingSubmitButton/MorphingSubmitButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/MorphingSubmitButton/MorphingSubmitButton.swift"
     },
     {
       "id": "play-pause-morph-button",
@@ -1082,7 +1082,7 @@
       },
       "path": "Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.swift",
       "preview": "Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/PlayPauseMorphButton/PlayPauseMorphButton.swift"
     },
     {
       "id": "pressable-button-style",
@@ -1121,7 +1121,7 @@
       },
       "path": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift",
       "preview": "Components/Buttons/PressableButtonStyle/PressableButtonStyle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/PressableButtonStyle/PressableButtonStyle.swift"
     },
     {
       "id": "provider-sign-in-button-stack",
@@ -1160,7 +1160,7 @@
       },
       "path": "Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.swift",
       "preview": "Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ProviderSignInButtonStack/ProviderSignInButtonStack.swift"
     },
     {
       "id": "pulse-ring-button",
@@ -1198,7 +1198,7 @@
       },
       "path": "Components/Buttons/PulseRingButton/PulseRingButton.swift",
       "preview": "Components/Buttons/PulseRingButton/PulseRingButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/PulseRingButton/PulseRingButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/PulseRingButton/PulseRingButton.swift"
     },
     {
       "id": "shimmer-button",
@@ -1237,7 +1237,7 @@
       },
       "path": "Components/Buttons/ShimmerButton/ShimmerButton.swift",
       "preview": "Components/Buttons/ShimmerButton/ShimmerButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ShimmerButton/ShimmerButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ShimmerButton/ShimmerButton.swift"
     },
     {
       "id": "shrinking-extended-button",
@@ -1277,7 +1277,7 @@
       },
       "path": "Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.swift",
       "preview": "Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ShrinkingExtendedButton/ShrinkingExtendedButton.swift"
     },
     {
       "id": "calendar-month-grid",
@@ -1318,7 +1318,7 @@
       },
       "path": "Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.swift",
       "preview": "Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Calendars/CalendarMonthGrid/CalendarMonthGrid.swift"
     },
     {
       "id": "calendar-range-selector",
@@ -1357,7 +1357,7 @@
       },
       "path": "Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.swift",
       "preview": "Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Calendars/CalendarRangeSelector/CalendarRangeSelector.swift"
     },
     {
       "id": "date-strip-picker",
@@ -1398,7 +1398,7 @@
       },
       "path": "Components/Calendars/DateStripPicker/DateStripPicker.swift",
       "preview": "Components/Calendars/DateStripPicker/DateStripPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Calendars/DateStripPicker/DateStripPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Calendars/DateStripPicker/DateStripPicker.swift"
     },
     {
       "id": "avatar-stack",
@@ -1440,7 +1440,7 @@
       },
       "path": "Components/Cards/AvatarStack/AvatarStack.swift",
       "preview": "Components/Cards/AvatarStack/AvatarStack.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/AvatarStack/AvatarStack.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/AvatarStack/AvatarStack.swift"
     },
     {
       "id": "expandable-info-card",
@@ -1480,7 +1480,7 @@
       },
       "path": "Components/Cards/ExpandableInfoCard/ExpandableInfoCard.swift",
       "preview": "Components/Cards/ExpandableInfoCard/ExpandableInfoCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/ExpandableInfoCard/ExpandableInfoCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/ExpandableInfoCard/ExpandableInfoCard.swift"
     },
     {
       "id": "holographic-card",
@@ -1529,8 +1529,8 @@
       "path": "Components/Cards/HolographicCard/HolographicCard.swift",
       "preview": "Components/Cards/HolographicCard/HolographicCard.webp",
       "shader": "Components/Cards/HolographicCard/HolographicCard.metal",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/HolographicCard/HolographicCard.swift",
-      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/HolographicCard/HolographicCard.metal"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/HolographicCard/HolographicCard.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/HolographicCard/HolographicCard.metal"
     },
     {
       "id": "swipeable-card-stack",
@@ -1570,7 +1570,7 @@
       },
       "path": "Components/Cards/SwipeableCardStack/SwipeableCardStack.swift",
       "preview": "Components/Cards/SwipeableCardStack/SwipeableCardStack.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/SwipeableCardStack/SwipeableCardStack.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/SwipeableCardStack/SwipeableCardStack.swift"
     },
     {
       "id": "tilt-card",
@@ -1611,7 +1611,7 @@
       },
       "path": "Components/Cards/TiltCard/TiltCard.swift",
       "preview": "Components/Cards/TiltCard/TiltCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/TiltCard/TiltCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/TiltCard/TiltCard.swift"
     },
     {
       "id": "wallet-card-stack",
@@ -1655,7 +1655,7 @@
       },
       "path": "Components/Cards/WalletCardStack/WalletCardStack.swift",
       "preview": "Components/Cards/WalletCardStack/WalletCardStack.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Cards/WalletCardStack/WalletCardStack.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Cards/WalletCardStack/WalletCardStack.swift"
     },
     {
       "id": "animated-bar-chart",
@@ -1693,7 +1693,7 @@
       },
       "path": "Components/Charts/AnimatedBarChart/AnimatedBarChart.swift",
       "preview": "Components/Charts/AnimatedBarChart/AnimatedBarChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/AnimatedBarChart/AnimatedBarChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/AnimatedBarChart/AnimatedBarChart.swift"
     },
     {
       "id": "animated-donut-chart",
@@ -1734,7 +1734,7 @@
       },
       "path": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift",
       "preview": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift"
     },
     {
       "id": "candlestick-chart",
@@ -1776,7 +1776,7 @@
       },
       "path": "Components/Charts/CandlestickChart/CandlestickChart.swift",
       "preview": "Components/Charts/CandlestickChart/CandlestickChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/CandlestickChart/CandlestickChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/CandlestickChart/CandlestickChart.swift"
     },
     {
       "id": "contribution-heatmap",
@@ -1815,7 +1815,7 @@
       },
       "path": "Components/Charts/ContributionHeatmap/ContributionHeatmap.swift",
       "preview": "Components/Charts/ContributionHeatmap/ContributionHeatmap.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/ContributionHeatmap/ContributionHeatmap.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/ContributionHeatmap/ContributionHeatmap.swift"
     },
     {
       "id": "gauge-chart",
@@ -1857,7 +1857,7 @@
       },
       "path": "Components/Charts/GaugeChart/GaugeChart.swift",
       "preview": "Components/Charts/GaugeChart/GaugeChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/GaugeChart/GaugeChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/GaugeChart/GaugeChart.swift"
     },
     {
       "id": "interactive-line-chart",
@@ -1898,7 +1898,7 @@
       },
       "path": "Components/Charts/InteractiveLineChart/InteractiveLineChart.swift",
       "preview": "Components/Charts/InteractiveLineChart/InteractiveLineChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/InteractiveLineChart/InteractiveLineChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/InteractiveLineChart/InteractiveLineChart.swift"
     },
     {
       "id": "line-chart-draw-in",
@@ -1936,7 +1936,7 @@
       },
       "path": "Components/Charts/LineChartDrawIn/LineChartDrawIn.swift",
       "preview": "Components/Charts/LineChartDrawIn/LineChartDrawIn.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/LineChartDrawIn/LineChartDrawIn.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/LineChartDrawIn/LineChartDrawIn.swift"
     },
     {
       "id": "radar-chart",
@@ -1978,7 +1978,7 @@
       },
       "path": "Components/Charts/RadarChart/RadarChart.swift",
       "preview": "Components/Charts/RadarChart/RadarChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/RadarChart/RadarChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/RadarChart/RadarChart.swift"
     },
     {
       "id": "scrollable-bar-chart",
@@ -2022,7 +2022,7 @@
       },
       "path": "Components/Charts/ScrollableBarChart/ScrollableBarChart.swift",
       "preview": "Components/Charts/ScrollableBarChart/ScrollableBarChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/ScrollableBarChart/ScrollableBarChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/ScrollableBarChart/ScrollableBarChart.swift"
     },
     {
       "id": "sparkline-stat-tile",
@@ -2062,7 +2062,7 @@
       },
       "path": "Components/Charts/SparklineStatTile/SparklineStatTile.swift",
       "preview": "Components/Charts/SparklineStatTile/SparklineStatTile.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/SparklineStatTile/SparklineStatTile.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/SparklineStatTile/SparklineStatTile.swift"
     },
     {
       "id": "surface-3d-chart",
@@ -2104,7 +2104,7 @@
       },
       "path": "Components/Charts/Surface3DChart/Surface3DChart.swift",
       "preview": "Components/Charts/Surface3DChart/Surface3DChart.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/Surface3DChart/Surface3DChart.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Charts/Surface3DChart/Surface3DChart.swift"
     },
     {
       "id": "chat-auto-scroll-list",
@@ -2143,7 +2143,7 @@
       },
       "path": "Components/Chat/ChatAutoScrollList/ChatAutoScrollList.swift",
       "preview": "Components/Chat/ChatAutoScrollList/ChatAutoScrollList.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/ChatAutoScrollList/ChatAutoScrollList.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/ChatAutoScrollList/ChatAutoScrollList.swift"
     },
     {
       "id": "chat-bubble-shape",
@@ -2181,7 +2181,7 @@
       },
       "path": "Components/Chat/ChatBubbleShape/ChatBubbleShape.swift",
       "preview": "Components/Chat/ChatBubbleShape/ChatBubbleShape.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/ChatBubbleShape/ChatBubbleShape.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/ChatBubbleShape/ChatBubbleShape.swift"
     },
     {
       "id": "keyboard-tracking-input-bar",
@@ -2221,7 +2221,7 @@
       },
       "path": "Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.swift",
       "preview": "Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/KeyboardTrackingInputBar/KeyboardTrackingInputBar.swift"
     },
     {
       "id": "nested-comment-thread",
@@ -2262,7 +2262,7 @@
       },
       "path": "Components/Chat/NestedCommentThread/NestedCommentThread.swift",
       "preview": "Components/Chat/NestedCommentThread/NestedCommentThread.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/NestedCommentThread/NestedCommentThread.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/NestedCommentThread/NestedCommentThread.swift"
     },
     {
       "id": "tapback-reaction-bubble",
@@ -2306,7 +2306,7 @@
       },
       "path": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift",
       "preview": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
     },
     {
       "id": "add-to-cart-fly-button",
@@ -2346,7 +2346,7 @@
       },
       "path": "Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.swift",
       "preview": "Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Commerce/AddToCartFlyButton/AddToCartFlyButton.swift"
     },
     {
       "id": "add-to-cart-stepper",
@@ -2385,7 +2385,7 @@
       },
       "path": "Components/Commerce/AddToCartStepper/AddToCartStepper.swift",
       "preview": "Components/Commerce/AddToCartStepper/AddToCartStepper.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/AddToCartStepper/AddToCartStepper.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Commerce/AddToCartStepper/AddToCartStepper.swift"
     },
     {
       "id": "billing-period-toggle",
@@ -2427,7 +2427,7 @@
       },
       "path": "Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.swift",
       "preview": "Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Commerce/BillingPeriodToggle/BillingPeriodToggle.swift"
     },
     {
       "id": "pricing-tier-cards",
@@ -2469,7 +2469,7 @@
       },
       "path": "Components/Commerce/PricingTierCards/PricingTierCards.swift",
       "preview": "Components/Commerce/PricingTierCards/PricingTierCards.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/PricingTierCards/PricingTierCards.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Commerce/PricingTierCards/PricingTierCards.swift"
     },
     {
       "id": "trial-timeline-paywall",
@@ -2513,7 +2513,7 @@
       },
       "path": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift",
       "preview": "Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Commerce/TrialTimelinePaywall/TrialTimelinePaywall.swift"
     },
     {
       "id": "animated-radio-button",
@@ -2553,7 +2553,7 @@
       },
       "path": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift",
       "preview": "Components/Controls/AnimatedRadioButton/AnimatedRadioButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift"
     },
     {
       "id": "circular-range-slider",
@@ -2597,7 +2597,7 @@
       },
       "path": "Components/Controls/CircularRangeSlider/CircularRangeSlider.swift",
       "preview": "Components/Controls/CircularRangeSlider/CircularRangeSlider.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/CircularRangeSlider/CircularRangeSlider.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/CircularRangeSlider/CircularRangeSlider.swift"
     },
     {
       "id": "counter-stepper",
@@ -2635,7 +2635,7 @@
       },
       "path": "Components/Controls/CounterStepper/CounterStepper.swift",
       "preview": "Components/Controls/CounterStepper/CounterStepper.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/CounterStepper/CounterStepper.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/CounterStepper/CounterStepper.swift"
     },
     {
       "id": "day-night-toggle",
@@ -2677,7 +2677,7 @@
       },
       "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
       "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
     },
     {
       "id": "range-slider",
@@ -2719,7 +2719,7 @@
       },
       "path": "Components/Controls/RangeSlider/RangeSlider.swift",
       "preview": "Components/Controls/RangeSlider/RangeSlider.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/RangeSlider/RangeSlider.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/RangeSlider/RangeSlider.swift"
     },
     {
       "id": "ruler-scroll-picker",
@@ -2763,7 +2763,7 @@
       },
       "path": "Components/Controls/RulerScrollPicker/RulerScrollPicker.swift",
       "preview": "Components/Controls/RulerScrollPicker/RulerScrollPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
     },
     {
       "id": "sliding-segmented-picker",
@@ -2800,7 +2800,7 @@
       },
       "path": "Components/Controls/SlidingSegmentedPicker/SlidingSegmentedPicker.swift",
       "preview": "Components/Controls/SlidingSegmentedPicker/SlidingSegmentedPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/SlidingSegmentedPicker/SlidingSegmentedPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SlidingSegmentedPicker/SlidingSegmentedPicker.swift"
     },
     {
       "id": "spring-toggle-style",
@@ -2840,7 +2840,7 @@
       },
       "path": "Components/Controls/SpringToggleStyle/SpringToggleStyle.swift",
       "preview": "Components/Controls/SpringToggleStyle/SpringToggleStyle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/SpringToggleStyle/SpringToggleStyle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SpringToggleStyle/SpringToggleStyle.swift"
     },
     {
       "id": "swipe-to-confirm-slider",
@@ -2881,7 +2881,7 @@
       },
       "path": "Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift",
       "preview": "Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift"
     },
     {
       "id": "tick-mark-slider",
@@ -2923,7 +2923,7 @@
       },
       "path": "Components/Controls/TickMarkSlider/TickMarkSlider.swift",
       "preview": "Components/Controls/TickMarkSlider/TickMarkSlider.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
     },
     {
       "id": "drawing-pad-speed-brush",
@@ -2967,7 +2967,7 @@
       },
       "path": "Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.swift",
       "preview": "Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Drawing/DrawingPadSpeedBrush/DrawingPadSpeedBrush.swift"
     },
     {
       "id": "drawing-pad-undo-redo",
@@ -3008,7 +3008,7 @@
       },
       "path": "Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.swift",
       "preview": "Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Drawing/DrawingPadUndoRedo/DrawingPadUndoRedo.swift"
     },
     {
       "id": "path-trim-draw-on",
@@ -3048,7 +3048,7 @@
       },
       "path": "Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.swift",
       "preview": "Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Drawing/PathTrimDrawOn/PathTrimDrawOn.swift"
     },
     {
       "id": "polygon-morph-shape",
@@ -3089,7 +3089,7 @@
       },
       "path": "Components/Drawing/PolygonMorphShape/PolygonMorphShape.swift",
       "preview": "Components/Drawing/PolygonMorphShape/PolygonMorphShape.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Drawing/PolygonMorphShape/PolygonMorphShape.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Drawing/PolygonMorphShape/PolygonMorphShape.swift"
     },
     {
       "id": "blurred-image-backdrop",
@@ -3128,7 +3128,7 @@
       },
       "path": "Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.swift",
       "preview": "Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/BlurredImageBackdrop/BlurredImageBackdrop.swift"
     },
     {
       "id": "border-beam-modifier",
@@ -3172,7 +3172,7 @@
       },
       "path": "Components/Effects/BorderBeamModifier/BorderBeamModifier.swift",
       "preview": "Components/Effects/BorderBeamModifier/BorderBeamModifier.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/BorderBeamModifier/BorderBeamModifier.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/BorderBeamModifier/BorderBeamModifier.swift"
     },
     {
       "id": "coin-flip-view",
@@ -3213,7 +3213,7 @@
       },
       "path": "Components/Effects/CoinFlipView/CoinFlipView.swift",
       "preview": "Components/Effects/CoinFlipView/CoinFlipView.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/CoinFlipView/CoinFlipView.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/CoinFlipView/CoinFlipView.swift"
     },
     {
       "id": "color-reveal-image",
@@ -3254,7 +3254,7 @@
       },
       "path": "Components/Effects/ColorRevealImage/ColorRevealImage.swift",
       "preview": "Components/Effects/ColorRevealImage/ColorRevealImage.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ColorRevealImage/ColorRevealImage.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ColorRevealImage/ColorRevealImage.swift"
     },
     {
       "id": "confetti-burst",
@@ -3293,7 +3293,7 @@
       },
       "path": "Components/Effects/ConfettiBurst/ConfettiBurst.swift",
       "preview": "Components/Effects/ConfettiBurst/ConfettiBurst.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ConfettiBurst/ConfettiBurst.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ConfettiBurst/ConfettiBurst.swift"
     },
     {
       "id": "fireworks-burst",
@@ -3334,7 +3334,7 @@
       },
       "path": "Components/Effects/FireworksBurst/FireworksBurst.swift",
       "preview": "Components/Effects/FireworksBurst/FireworksBurst.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FireworksBurst/FireworksBurst.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/FireworksBurst/FireworksBurst.swift"
     },
     {
       "id": "floating-reactions-emitter",
@@ -3375,7 +3375,7 @@
       },
       "path": "Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.swift",
       "preview": "Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/FloatingReactionsEmitter/FloatingReactionsEmitter.swift"
     },
     {
       "id": "flow-field-particles",
@@ -3415,7 +3415,7 @@
       },
       "path": "Components/Effects/FlowFieldParticles/FlowFieldParticles.swift",
       "preview": "Components/Effects/FlowFieldParticles/FlowFieldParticles.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/FlowFieldParticles/FlowFieldParticles.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/FlowFieldParticles/FlowFieldParticles.swift"
     },
     {
       "id": "globe-3d-wireframe",
@@ -3456,7 +3456,7 @@
       },
       "path": "Components/Effects/Globe3DWireframe/Globe3DWireframe.swift",
       "preview": "Components/Effects/Globe3DWireframe/Globe3DWireframe.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/Globe3DWireframe/Globe3DWireframe.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/Globe3DWireframe/Globe3DWireframe.swift"
     },
     {
       "id": "intelligence-glow-border",
@@ -3502,7 +3502,7 @@
       },
       "path": "Components/Effects/IntelligenceGlowBorder/IntelligenceGlowBorder.swift",
       "preview": "Components/Effects/IntelligenceGlowBorder/IntelligenceGlowBorder.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/IntelligenceGlowBorder/IntelligenceGlowBorder.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/IntelligenceGlowBorder/IntelligenceGlowBorder.swift"
     },
     {
       "id": "jiggle-edit-modifier",
@@ -3542,7 +3542,7 @@
       },
       "path": "Components/Effects/JiggleEditModifier/JiggleEditModifier.swift",
       "preview": "Components/Effects/JiggleEditModifier/JiggleEditModifier.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/JiggleEditModifier/JiggleEditModifier.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/JiggleEditModifier/JiggleEditModifier.swift"
     },
     {
       "id": "metaball-lava-lamp",
@@ -3583,7 +3583,7 @@
       },
       "path": "Components/Effects/MetaballLavaLamp/MetaballLavaLamp.swift",
       "preview": "Components/Effects/MetaballLavaLamp/MetaballLavaLamp.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/MetaballLavaLamp/MetaballLavaLamp.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/MetaballLavaLamp/MetaballLavaLamp.swift"
     },
     {
       "id": "noise-grain-overlay",
@@ -3622,7 +3622,7 @@
       },
       "path": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift",
       "preview": "Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/NoiseGrainOverlay/NoiseGrainOverlay.swift"
     },
     {
       "id": "pixelate-shader-effect",
@@ -3665,8 +3665,8 @@
       "path": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
       "preview": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.webp",
       "shader": "Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
-      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal"
     },
     {
       "id": "progressive-blur-header",
@@ -3709,8 +3709,8 @@
       "path": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
       "preview": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.webp",
       "shader": "Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
-      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal"
     },
     {
       "id": "ripple-shader-effect",
@@ -3761,8 +3761,8 @@
       "path": "Components/Effects/RippleShaderEffect/RippleShaderEffect.swift",
       "preview": "Components/Effects/RippleShaderEffect/RippleShaderEffect.webp",
       "shader": "Components/Effects/RippleShaderEffect/RippleShaderEffect.metal",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.swift",
-      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.metal"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/RippleShaderEffect/RippleShaderEffect.metal"
     },
     {
       "id": "ripple-tap-effect",
@@ -3802,7 +3802,7 @@
       },
       "path": "Components/Effects/RippleTapEffect/RippleTapEffect.swift",
       "preview": "Components/Effects/RippleTapEffect/RippleTapEffect.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/RippleTapEffect/RippleTapEffect.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/RippleTapEffect/RippleTapEffect.swift"
     },
     {
       "id": "spotlight-overlay",
@@ -3843,7 +3843,7 @@
       },
       "path": "Components/Effects/SpotlightOverlay/SpotlightOverlay.swift",
       "preview": "Components/Effects/SpotlightOverlay/SpotlightOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/SpotlightOverlay/SpotlightOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/SpotlightOverlay/SpotlightOverlay.swift"
     },
     {
       "id": "touch-particle-trail",
@@ -3884,7 +3884,7 @@
       },
       "path": "Components/Effects/TouchParticleTrail/TouchParticleTrail.swift",
       "preview": "Components/Effects/TouchParticleTrail/TouchParticleTrail.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/TouchParticleTrail/TouchParticleTrail.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/TouchParticleTrail/TouchParticleTrail.swift"
     },
     {
       "id": "voice-orb",
@@ -3926,7 +3926,7 @@
       },
       "path": "Components/Effects/VoiceOrb/VoiceOrb.swift",
       "preview": "Components/Effects/VoiceOrb/VoiceOrb.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Effects/VoiceOrb/VoiceOrb.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/VoiceOrb/VoiceOrb.swift"
     },
     {
       "id": "animated-badge-count",
@@ -3967,7 +3967,7 @@
       },
       "path": "Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.swift",
       "preview": "Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/AnimatedBadgeCount/AnimatedBadgeCount.swift"
     },
     {
       "id": "animated-checkmark-badge",
@@ -4008,7 +4008,7 @@
       },
       "path": "Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.swift",
       "preview": "Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/AnimatedCheckmarkBadge/AnimatedCheckmarkBadge.swift"
     },
     {
       "id": "dynamic-island-pill",
@@ -4049,7 +4049,7 @@
       },
       "path": "Components/Feedback/DynamicIslandPill/DynamicIslandPill.swift",
       "preview": "Components/Feedback/DynamicIslandPill/DynamicIslandPill.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/DynamicIslandPill/DynamicIslandPill.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/DynamicIslandPill/DynamicIslandPill.swift"
     },
     {
       "id": "empty-state-placeholder",
@@ -4088,7 +4088,7 @@
       },
       "path": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift",
       "preview": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift"
     },
     {
       "id": "rating-stars",
@@ -4128,7 +4128,7 @@
       },
       "path": "Components/Feedback/RatingStars/RatingStars.swift",
       "preview": "Components/Feedback/RatingStars/RatingStars.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/RatingStars/RatingStars.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/RatingStars/RatingStars.swift"
     },
     {
       "id": "shake-error-modifier",
@@ -4168,7 +4168,7 @@
       },
       "path": "Components/Feedback/ShakeErrorModifier/ShakeErrorModifier.swift",
       "preview": "Components/Feedback/ShakeErrorModifier/ShakeErrorModifier.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ShakeErrorModifier/ShakeErrorModifier.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/ShakeErrorModifier/ShakeErrorModifier.swift"
     },
     {
       "id": "toast-banner",
@@ -4208,7 +4208,7 @@
       },
       "path": "Components/Feedback/ToastBanner/ToastBanner.swift",
       "preview": "Components/Feedback/ToastBanner/ToastBanner.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastBanner/ToastBanner.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/ToastBanner/ToastBanner.swift"
     },
     {
       "id": "toast-host",
@@ -4250,7 +4250,7 @@
       },
       "path": "Components/Feedback/ToastHost/ToastHost.swift",
       "preview": "Components/Feedback/ToastHost/ToastHost.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/ToastHost/ToastHost.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/ToastHost/ToastHost.swift"
     },
     {
       "id": "tooltip-popover",
@@ -4291,7 +4291,7 @@
       },
       "path": "Components/Feedback/TooltipPopover/TooltipPopover.swift",
       "preview": "Components/Feedback/TooltipPopover/TooltipPopover.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/TooltipPopover/TooltipPopover.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/TooltipPopover/TooltipPopover.swift"
     },
     {
       "id": "undo-snackbar",
@@ -4332,7 +4332,7 @@
       },
       "path": "Components/Feedback/UndoSnackbar/UndoSnackbar.swift",
       "preview": "Components/Feedback/UndoSnackbar/UndoSnackbar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Feedback/UndoSnackbar/UndoSnackbar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/UndoSnackbar/UndoSnackbar.swift"
     },
     {
       "id": "completion-swipe-row",
@@ -4373,7 +4373,7 @@
       },
       "path": "Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.swift",
       "preview": "Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/CompletionSwipeRow/CompletionSwipeRow.swift"
     },
     {
       "id": "double-tap-heart-overlay",
@@ -4413,7 +4413,7 @@
       },
       "path": "Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.swift",
       "preview": "Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/DoubleTapHeartOverlay/DoubleTapHeartOverlay.swift"
     },
     {
       "id": "drag-select-grid",
@@ -4453,7 +4453,7 @@
       },
       "path": "Components/Gestures/DragSelectGrid/DragSelectGrid.swift",
       "preview": "Components/Gestures/DragSelectGrid/DragSelectGrid.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DragSelectGrid/DragSelectGrid.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/DragSelectGrid/DragSelectGrid.swift"
     },
     {
       "id": "drop-zone-highlight",
@@ -4494,7 +4494,7 @@
       },
       "path": "Components/Gestures/DropZoneHighlight/DropZoneHighlight.swift",
       "preview": "Components/Gestures/DropZoneHighlight/DropZoneHighlight.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/DropZoneHighlight/DropZoneHighlight.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/DropZoneHighlight/DropZoneHighlight.swift"
     },
     {
       "id": "long-press-radial-menu",
@@ -4535,7 +4535,7 @@
       },
       "path": "Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.swift",
       "preview": "Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/LongPressRadialMenu/LongPressRadialMenu.swift"
     },
     {
       "id": "pinch-zoom-view",
@@ -4577,7 +4577,7 @@
       },
       "path": "Components/Gestures/PinchZoomView/PinchZoomView.swift",
       "preview": "Components/Gestures/PinchZoomView/PinchZoomView.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/PinchZoomView/PinchZoomView.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/PinchZoomView/PinchZoomView.swift"
     },
     {
       "id": "scratch-to-reveal",
@@ -4620,7 +4620,7 @@
       },
       "path": "Components/Gestures/ScratchToReveal/ScratchToReveal.swift",
       "preview": "Components/Gestures/ScratchToReveal/ScratchToReveal.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/ScratchToReveal/ScratchToReveal.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/ScratchToReveal/ScratchToReveal.swift"
     },
     {
       "id": "snap-corner-draggable",
@@ -4660,7 +4660,7 @@
       },
       "path": "Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.swift",
       "preview": "Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/SnapCornerDraggable/SnapCornerDraggable.swift"
     },
     {
       "id": "swipe-action-row",
@@ -4701,7 +4701,7 @@
       },
       "path": "Components/Gestures/SwipeActionRow/SwipeActionRow.swift",
       "preview": "Components/Gestures/SwipeActionRow/SwipeActionRow.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Gestures/SwipeActionRow/SwipeActionRow.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Gestures/SwipeActionRow/SwipeActionRow.swift"
     },
     {
       "id": "glass-action-menu",
@@ -4740,7 +4740,7 @@
       },
       "path": "Components/Glass/GlassActionMenu/GlassActionMenu.swift",
       "preview": "Components/Glass/GlassActionMenu/GlassActionMenu.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassActionMenu/GlassActionMenu.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassActionMenu/GlassActionMenu.swift"
     },
     {
       "id": "glass-button-gallery",
@@ -4782,7 +4782,7 @@
       },
       "path": "Components/Glass/GlassButtonGallery/GlassButtonGallery.swift",
       "preview": "Components/Glass/GlassButtonGallery/GlassButtonGallery.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassButtonGallery/GlassButtonGallery.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassButtonGallery/GlassButtonGallery.swift"
     },
     {
       "id": "glass-segmented-control",
@@ -4823,7 +4823,7 @@
       },
       "path": "Components/Glass/GlassSegmentedControl/GlassSegmentedControl.swift",
       "preview": "Components/Glass/GlassSegmentedControl/GlassSegmentedControl.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassSegmentedControl/GlassSegmentedControl.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassSegmentedControl/GlassSegmentedControl.swift"
     },
     {
       "id": "glass-tab-accessory",
@@ -4864,7 +4864,7 @@
       },
       "path": "Components/Glass/GlassTabAccessory/GlassTabAccessory.swift",
       "preview": "Components/Glass/GlassTabAccessory/GlassTabAccessory.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassTabAccessory/GlassTabAccessory.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassTabAccessory/GlassTabAccessory.swift"
     },
     {
       "id": "glass-tag-cloud",
@@ -4905,7 +4905,7 @@
       },
       "path": "Components/Glass/GlassTagCloud/GlassTagCloud.swift",
       "preview": "Components/Glass/GlassTagCloud/GlassTagCloud.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassTagCloud/GlassTagCloud.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassTagCloud/GlassTagCloud.swift"
     },
     {
       "id": "glass-tool-strip",
@@ -4946,7 +4946,7 @@
       },
       "path": "Components/Glass/GlassToolStrip/GlassToolStrip.swift",
       "preview": "Components/Glass/GlassToolStrip/GlassToolStrip.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Glass/GlassToolStrip/GlassToolStrip.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Glass/GlassToolStrip/GlassToolStrip.swift"
     },
     {
       "id": "before-after-slider",
@@ -4986,7 +4986,7 @@
       },
       "path": "Components/Images/BeforeAfterSlider/BeforeAfterSlider.swift",
       "preview": "Components/Images/BeforeAfterSlider/BeforeAfterSlider.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/BeforeAfterSlider/BeforeAfterSlider.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/BeforeAfterSlider/BeforeAfterSlider.swift"
     },
     {
       "id": "blur-up-image",
@@ -5024,7 +5024,7 @@
       },
       "path": "Components/Images/BlurUpImage/BlurUpImage.swift",
       "preview": "Components/Images/BlurUpImage/BlurUpImage.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/BlurUpImage/BlurUpImage.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/BlurUpImage/BlurUpImage.swift"
     },
     {
       "id": "circular-avatar-cropper",
@@ -5065,7 +5065,7 @@
       },
       "path": "Components/Images/CircularAvatarCropper/CircularAvatarCropper.swift",
       "preview": "Components/Images/CircularAvatarCropper/CircularAvatarCropper.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/CircularAvatarCropper/CircularAvatarCropper.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/CircularAvatarCropper/CircularAvatarCropper.swift"
     },
     {
       "id": "crop-rectangle-overlay",
@@ -5106,7 +5106,7 @@
       },
       "path": "Components/Images/CropRectangleOverlay/CropRectangleOverlay.swift",
       "preview": "Components/Images/CropRectangleOverlay/CropRectangleOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/CropRectangleOverlay/CropRectangleOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/CropRectangleOverlay/CropRectangleOverlay.swift"
     },
     {
       "id": "double-tap-zoom-image",
@@ -5144,7 +5144,7 @@
       },
       "path": "Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.swift",
       "preview": "Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/DoubleTapZoomImage/DoubleTapZoomImage.swift"
     },
     {
       "id": "ken-burns-image",
@@ -5184,7 +5184,7 @@
       },
       "path": "Components/Images/KenBurnsImage/KenBurnsImage.swift",
       "preview": "Components/Images/KenBurnsImage/KenBurnsImage.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/KenBurnsImage/KenBurnsImage.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/KenBurnsImage/KenBurnsImage.swift"
     },
     {
       "id": "photo-adjustment-sliders",
@@ -5226,7 +5226,7 @@
       },
       "path": "Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.swift",
       "preview": "Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/PhotoAdjustmentSliders/PhotoAdjustmentSliders.swift"
     },
     {
       "id": "photo-filter-presets",
@@ -5266,7 +5266,7 @@
       },
       "path": "Components/Images/PhotoFilterPresets/PhotoFilterPresets.swift",
       "preview": "Components/Images/PhotoFilterPresets/PhotoFilterPresets.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoFilterPresets/PhotoFilterPresets.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/PhotoFilterPresets/PhotoFilterPresets.swift"
     },
     {
       "id": "photo-lightbox",
@@ -5306,7 +5306,7 @@
       },
       "path": "Components/Images/PhotoLightbox/PhotoLightbox.swift",
       "preview": "Components/Images/PhotoLightbox/PhotoLightbox.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoLightbox/PhotoLightbox.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/PhotoLightbox/PhotoLightbox.swift"
     },
     {
       "id": "photo-multi-select-grid",
@@ -5344,7 +5344,7 @@
       },
       "path": "Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.swift",
       "preview": "Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/PhotoMultiSelectGrid/PhotoMultiSelectGrid.swift"
     },
     {
       "id": "scattered-photo-board",
@@ -5384,7 +5384,7 @@
       },
       "path": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift",
       "preview": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
     },
     {
       "id": "color-swatch-picker",
@@ -5424,7 +5424,7 @@
       },
       "path": "Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.swift",
       "preview": "Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.swift"
     },
     {
       "id": "floating-label-text-field",
@@ -5464,7 +5464,7 @@
       },
       "path": "Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.swift",
       "preview": "Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.swift"
     },
     {
       "id": "masked-text-field",
@@ -5503,7 +5503,7 @@
       },
       "path": "Components/Inputs/MaskedTextField/MaskedTextField.swift",
       "preview": "Components/Inputs/MaskedTextField/MaskedTextField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/MaskedTextField/MaskedTextField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/MaskedTextField/MaskedTextField.swift"
     },
     {
       "id": "multi-step-form",
@@ -5543,7 +5543,7 @@
       },
       "path": "Components/Inputs/MultiStepForm/MultiStepForm.swift",
       "preview": "Components/Inputs/MultiStepForm/MultiStepForm.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/MultiStepForm/MultiStepForm.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/MultiStepForm/MultiStepForm.swift"
     },
     {
       "id": "otp-code-field",
@@ -5584,7 +5584,7 @@
       },
       "path": "Components/Inputs/OTPCodeField/OTPCodeField.swift",
       "preview": "Components/Inputs/OTPCodeField/OTPCodeField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/OTPCodeField/OTPCodeField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/OTPCodeField/OTPCodeField.swift"
     },
     {
       "id": "passcode-keypad",
@@ -5628,7 +5628,7 @@
       },
       "path": "Components/Inputs/PasscodeKeypad/PasscodeKeypad.swift",
       "preview": "Components/Inputs/PasscodeKeypad/PasscodeKeypad.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/PasscodeKeypad/PasscodeKeypad.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/PasscodeKeypad/PasscodeKeypad.swift"
     },
     {
       "id": "password-strength-field",
@@ -5669,7 +5669,7 @@
       },
       "path": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift",
       "preview": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift"
     },
     {
       "id": "rich-text-editor",
@@ -5713,7 +5713,7 @@
       },
       "path": "Components/Inputs/RichTextEditor/RichTextEditor.swift",
       "preview": "Components/Inputs/RichTextEditor/RichTextEditor.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/RichTextEditor/RichTextEditor.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/RichTextEditor/RichTextEditor.swift"
     },
     {
       "id": "search-field-with-suggestions",
@@ -5751,7 +5751,7 @@
       },
       "path": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift",
       "preview": "Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/SearchFieldWithSuggestions/SearchFieldWithSuggestions.swift"
     },
     {
       "id": "tag-input-field",
@@ -5793,7 +5793,7 @@
       },
       "path": "Components/Inputs/TagInputField/TagInputField.swift",
       "preview": "Components/Inputs/TagInputField/TagInputField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/TagInputField/TagInputField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/TagInputField/TagInputField.swift"
     },
     {
       "id": "validated-text-field",
@@ -5831,7 +5831,7 @@
       },
       "path": "Components/Inputs/ValidatedTextField/ValidatedTextField.swift",
       "preview": "Components/Inputs/ValidatedTextField/ValidatedTextField.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/ValidatedTextField/ValidatedTextField.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/ValidatedTextField/ValidatedTextField.swift"
     },
     {
       "id": "model-availability-gate",
@@ -5870,7 +5870,7 @@
       },
       "path": "Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.swift",
       "preview": "Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Intelligence/ModelAvailabilityGate/ModelAvailabilityGate.swift"
     },
     {
       "id": "on-device-streaming-answer",
@@ -5910,7 +5910,7 @@
       },
       "path": "Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.swift",
       "preview": "Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Intelligence/OnDeviceStreamingAnswer/OnDeviceStreamingAnswer.swift"
     },
     {
       "id": "structured-output-form",
@@ -5953,7 +5953,7 @@
       },
       "path": "Components/Intelligence/StructuredOutputForm/StructuredOutputForm.swift",
       "preview": "Components/Intelligence/StructuredOutputForm/StructuredOutputForm.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Intelligence/StructuredOutputForm/StructuredOutputForm.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Intelligence/StructuredOutputForm/StructuredOutputForm.swift"
     },
     {
       "id": "adaptive-columns-grid",
@@ -5993,7 +5993,7 @@
       },
       "path": "Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.swift",
       "preview": "Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/AdaptiveColumnsGrid/AdaptiveColumnsGrid.swift"
     },
     {
       "id": "any-layout-adaptive-switch",
@@ -6033,7 +6033,7 @@
       },
       "path": "Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.swift",
       "preview": "Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/AnyLayoutAdaptiveSwitch/AnyLayoutAdaptiveSwitch.swift"
     },
     {
       "id": "bento-grid-layout",
@@ -6072,7 +6072,7 @@
       },
       "path": "Components/Layouts/BentoGridLayout/BentoGridLayout.swift",
       "preview": "Components/Layouts/BentoGridLayout/BentoGridLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/BentoGridLayout/BentoGridLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/BentoGridLayout/BentoGridLayout.swift"
     },
     {
       "id": "flow-tags-layout",
@@ -6112,7 +6112,7 @@
       },
       "path": "Components/Layouts/FlowTagsLayout/FlowTagsLayout.swift",
       "preview": "Components/Layouts/FlowTagsLayout/FlowTagsLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/FlowTagsLayout/FlowTagsLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/FlowTagsLayout/FlowTagsLayout.swift"
     },
     {
       "id": "kanban-board",
@@ -6152,7 +6152,7 @@
       },
       "path": "Components/Layouts/KanbanBoard/KanbanBoard.swift",
       "preview": "Components/Layouts/KanbanBoard/KanbanBoard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/KanbanBoard/KanbanBoard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/KanbanBoard/KanbanBoard.swift"
     },
     {
       "id": "masonry-layout",
@@ -6191,7 +6191,7 @@
       },
       "path": "Components/Layouts/MasonryLayout/MasonryLayout.swift",
       "preview": "Components/Layouts/MasonryLayout/MasonryLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/MasonryLayout/MasonryLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/MasonryLayout/MasonryLayout.swift"
     },
     {
       "id": "morphing-layout-switch",
@@ -6231,7 +6231,7 @@
       },
       "path": "Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.swift",
       "preview": "Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/MorphingLayoutSwitch/MorphingLayoutSwitch.swift"
     },
     {
       "id": "radial-layout",
@@ -6272,7 +6272,7 @@
       },
       "path": "Components/Layouts/RadialLayout/RadialLayout.swift",
       "preview": "Components/Layouts/RadialLayout/RadialLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/RadialLayout/RadialLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/RadialLayout/RadialLayout.swift"
     },
     {
       "id": "readable-width-container",
@@ -6309,7 +6309,7 @@
       },
       "path": "Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.swift",
       "preview": "Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/ReadableWidthContainer/ReadableWidthContainer.swift"
     },
     {
       "id": "subview-card-container",
@@ -6349,7 +6349,7 @@
       },
       "path": "Components/Layouts/SubviewCardContainer/SubviewCardContainer.swift",
       "preview": "Components/Layouts/SubviewCardContainer/SubviewCardContainer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Layouts/SubviewCardContainer/SubviewCardContainer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Layouts/SubviewCardContainer/SubviewCardContainer.swift"
     },
     {
       "id": "accordion-section",
@@ -6388,7 +6388,7 @@
       },
       "path": "Components/Lists/AccordionSection/AccordionSection.swift",
       "preview": "Components/Lists/AccordionSection/AccordionSection.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/AccordionSection/AccordionSection.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/AccordionSection/AccordionSection.swift"
     },
     {
       "id": "disclosure-tree-view",
@@ -6429,7 +6429,7 @@
       },
       "path": "Components/Lists/DisclosureTreeView/DisclosureTreeView.swift",
       "preview": "Components/Lists/DisclosureTreeView/DisclosureTreeView.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/DisclosureTreeView/DisclosureTreeView.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/DisclosureTreeView/DisclosureTreeView.swift"
     },
     {
       "id": "edit-mode-multi-select",
@@ -6469,7 +6469,7 @@
       },
       "path": "Components/Lists/EditModeMultiSelect/EditModeMultiSelect.swift",
       "preview": "Components/Lists/EditModeMultiSelect/EditModeMultiSelect.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/EditModeMultiSelect/EditModeMultiSelect.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/EditModeMultiSelect/EditModeMultiSelect.swift"
     },
     {
       "id": "load-more-footer",
@@ -6509,7 +6509,7 @@
       },
       "path": "Components/Lists/LoadMoreFooter/LoadMoreFooter.swift",
       "preview": "Components/Lists/LoadMoreFooter/LoadMoreFooter.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/LoadMoreFooter/LoadMoreFooter.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/LoadMoreFooter/LoadMoreFooter.swift"
     },
     {
       "id": "reorderable-card-list",
@@ -6548,7 +6548,7 @@
       },
       "path": "Components/Lists/ReorderableCardList/ReorderableCardList.swift",
       "preview": "Components/Lists/ReorderableCardList/ReorderableCardList.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/ReorderableCardList/ReorderableCardList.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/ReorderableCardList/ReorderableCardList.swift"
     },
     {
       "id": "reorderable-grid",
@@ -6590,7 +6590,7 @@
       },
       "path": "Components/Lists/ReorderableGrid/ReorderableGrid.swift",
       "preview": "Components/Lists/ReorderableGrid/ReorderableGrid.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/ReorderableGrid/ReorderableGrid.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/ReorderableGrid/ReorderableGrid.swift"
     },
     {
       "id": "sticky-section-headers",
@@ -6630,7 +6630,7 @@
       },
       "path": "Components/Lists/StickySectionHeaders/StickySectionHeaders.swift",
       "preview": "Components/Lists/StickySectionHeaders/StickySectionHeaders.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/StickySectionHeaders/StickySectionHeaders.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/StickySectionHeaders/StickySectionHeaders.swift"
     },
     {
       "id": "swipe-action-cards",
@@ -6672,7 +6672,7 @@
       },
       "path": "Components/Lists/SwipeActionCards/SwipeActionCards.swift",
       "preview": "Components/Lists/SwipeActionCards/SwipeActionCards.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/SwipeActionCards/SwipeActionCards.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Lists/SwipeActionCards/SwipeActionCards.swift"
     },
     {
       "id": "arc-segments-loader",
@@ -6712,7 +6712,7 @@
       },
       "path": "Components/Loaders/ArcSegmentsLoader/ArcSegmentsLoader.swift",
       "preview": "Components/Loaders/ArcSegmentsLoader/ArcSegmentsLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/ArcSegmentsLoader/ArcSegmentsLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/ArcSegmentsLoader/ArcSegmentsLoader.swift"
     },
     {
       "id": "blob-morph-loader",
@@ -6753,7 +6753,7 @@
       },
       "path": "Components/Loaders/BlobMorphLoader/BlobMorphLoader.swift",
       "preview": "Components/Loaders/BlobMorphLoader/BlobMorphLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/BlobMorphLoader/BlobMorphLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/BlobMorphLoader/BlobMorphLoader.swift"
     },
     {
       "id": "dots-pulse-loader",
@@ -6791,7 +6791,7 @@
       },
       "path": "Components/Loaders/DotsPulseLoader/DotsPulseLoader.swift",
       "preview": "Components/Loaders/DotsPulseLoader/DotsPulseLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/DotsPulseLoader/DotsPulseLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/DotsPulseLoader/DotsPulseLoader.swift"
     },
     {
       "id": "orbit-loader",
@@ -6829,7 +6829,7 @@
       },
       "path": "Components/Loaders/OrbitLoader/OrbitLoader.swift",
       "preview": "Components/Loaders/OrbitLoader/OrbitLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/OrbitLoader/OrbitLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/OrbitLoader/OrbitLoader.swift"
     },
     {
       "id": "skeleton-shimmer-modifier",
@@ -6871,7 +6871,7 @@
       },
       "path": "Components/Loaders/SkeletonShimmerModifier/SkeletonShimmerModifier.swift",
       "preview": "Components/Loaders/SkeletonShimmerModifier/SkeletonShimmerModifier.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/SkeletonShimmerModifier/SkeletonShimmerModifier.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/SkeletonShimmerModifier/SkeletonShimmerModifier.swift"
     },
     {
       "id": "symbol-breathe-loader",
@@ -6909,7 +6909,7 @@
       },
       "path": "Components/Loaders/SymbolBreatheLoader/SymbolBreatheLoader.swift",
       "preview": "Components/Loaders/SymbolBreatheLoader/SymbolBreatheLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/SymbolBreatheLoader/SymbolBreatheLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/SymbolBreatheLoader/SymbolBreatheLoader.swift"
     },
     {
       "id": "wave-bars-loader",
@@ -6947,7 +6947,7 @@
       },
       "path": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift",
       "preview": "Components/Loaders/WaveBarsLoader/WaveBarsLoader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Loaders/WaveBarsLoader/WaveBarsLoader.swift"
     },
     {
       "id": "map-annotation-callout",
@@ -6989,7 +6989,7 @@
       },
       "path": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift",
       "preview": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift"
     },
     {
       "id": "map-route-tracker",
@@ -7031,7 +7031,7 @@
       },
       "path": "Components/Maps/MapRouteTracker/MapRouteTracker.swift",
       "preview": "Components/Maps/MapRouteTracker/MapRouteTracker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapRouteTracker/MapRouteTracker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Maps/MapRouteTracker/MapRouteTracker.swift"
     },
     {
       "id": "map-search-sheet",
@@ -7075,7 +7075,7 @@
       },
       "path": "Components/Maps/MapSearchSheet/MapSearchSheet.swift",
       "preview": "Components/Maps/MapSearchSheet/MapSearchSheet.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Maps/MapSearchSheet/MapSearchSheet.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Maps/MapSearchSheet/MapSearchSheet.swift"
     },
     {
       "id": "audio-player-card",
@@ -7116,7 +7116,7 @@
       },
       "path": "Components/Media/AudioPlayerCard/AudioPlayerCard.swift",
       "preview": "Components/Media/AudioPlayerCard/AudioPlayerCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/AudioPlayerCard/AudioPlayerCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/AudioPlayerCard/AudioPlayerCard.swift"
     },
     {
       "id": "double-tap-seek-overlay",
@@ -7157,7 +7157,7 @@
       },
       "path": "Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.swift",
       "preview": "Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/DoubleTapSeekOverlay/DoubleTapSeekOverlay.swift"
     },
     {
       "id": "expanding-mini-player",
@@ -7199,7 +7199,7 @@
       },
       "path": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift",
       "preview": "Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/ExpandingMiniPlayer/ExpandingMiniPlayer.swift"
     },
     {
       "id": "shutter-capture-button",
@@ -7239,7 +7239,7 @@
       },
       "path": "Components/Media/ShutterCaptureButton/ShutterCaptureButton.swift",
       "preview": "Components/Media/ShutterCaptureButton/ShutterCaptureButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/ShutterCaptureButton/ShutterCaptureButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/ShutterCaptureButton/ShutterCaptureButton.swift"
     },
     {
       "id": "spinning-vinyl-art",
@@ -7280,7 +7280,7 @@
       },
       "path": "Components/Media/SpinningVinylArt/SpinningVinylArt.swift",
       "preview": "Components/Media/SpinningVinylArt/SpinningVinylArt.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/SpinningVinylArt/SpinningVinylArt.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/SpinningVinylArt/SpinningVinylArt.swift"
     },
     {
       "id": "video-player-chrome",
@@ -7320,7 +7320,7 @@
       },
       "path": "Components/Media/VideoPlayerChrome/VideoPlayerChrome.swift",
       "preview": "Components/Media/VideoPlayerChrome/VideoPlayerChrome.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/VideoPlayerChrome/VideoPlayerChrome.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/VideoPlayerChrome/VideoPlayerChrome.swift"
     },
     {
       "id": "video-poster-to-player",
@@ -7360,7 +7360,7 @@
       },
       "path": "Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.swift",
       "preview": "Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/VideoPosterToPlayer/VideoPosterToPlayer.swift"
     },
     {
       "id": "waveform-scrubber",
@@ -7402,7 +7402,7 @@
       },
       "path": "Components/Media/WaveformScrubber/WaveformScrubber.swift",
       "preview": "Components/Media/WaveformScrubber/WaveformScrubber.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Media/WaveformScrubber/WaveformScrubber.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Media/WaveformScrubber/WaveformScrubber.swift"
     },
     {
       "id": "coach-mark-tour",
@@ -7443,7 +7443,7 @@
       },
       "path": "Components/Menus/CoachMarkTour/CoachMarkTour.swift",
       "preview": "Components/Menus/CoachMarkTour/CoachMarkTour.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/CoachMarkTour/CoachMarkTour.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Menus/CoachMarkTour/CoachMarkTour.swift"
     },
     {
       "id": "command-palette",
@@ -7483,7 +7483,7 @@
       },
       "path": "Components/Menus/CommandPalette/CommandPalette.swift",
       "preview": "Components/Menus/CommandPalette/CommandPalette.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/CommandPalette/CommandPalette.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Menus/CommandPalette/CommandPalette.swift"
     },
     {
       "id": "context-menu-preview-card",
@@ -7521,7 +7521,7 @@
       },
       "path": "Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.swift",
       "preview": "Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Menus/ContextMenuPreviewCard/ContextMenuPreviewCard.swift"
     },
     {
       "id": "dropdown-select-menu",
@@ -7561,7 +7561,7 @@
       },
       "path": "Components/Menus/DropdownSelectMenu/DropdownSelectMenu.swift",
       "preview": "Components/Menus/DropdownSelectMenu/DropdownSelectMenu.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/DropdownSelectMenu/DropdownSelectMenu.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Menus/DropdownSelectMenu/DropdownSelectMenu.swift"
     },
     {
       "id": "gooey-floating-menu",
@@ -7605,7 +7605,7 @@
       },
       "path": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift",
       "preview": "Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.swift"
     },
     {
       "id": "animatable-ring",
@@ -7647,7 +7647,7 @@
       },
       "path": "Components/Modern/AnimatableRing/AnimatableRing.swift",
       "preview": "Components/Modern/AnimatableRing/AnimatableRing.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/AnimatableRing/AnimatableRing.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/AnimatableRing/AnimatableRing.swift"
     },
     {
       "id": "concentric-card",
@@ -7686,7 +7686,7 @@
       },
       "path": "Components/Modern/ConcentricCard/ConcentricCard.swift",
       "preview": "Components/Modern/ConcentricCard/ConcentricCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/ConcentricCard/ConcentricCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/ConcentricCard/ConcentricCard.swift"
     },
     {
       "id": "prominent-tab-bar",
@@ -7725,7 +7725,7 @@
       },
       "path": "Components/Modern/ProminentTabBar/ProminentTabBar.swift",
       "preview": "Components/Modern/ProminentTabBar/ProminentTabBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/ProminentTabBar/ProminentTabBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/ProminentTabBar/ProminentTabBar.swift"
     },
     {
       "id": "scroll-edge-header",
@@ -7764,7 +7764,7 @@
       },
       "path": "Components/Modern/ScrollEdgeHeader/ScrollEdgeHeader.swift",
       "preview": "Components/Modern/ScrollEdgeHeader/ScrollEdgeHeader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/ScrollEdgeHeader/ScrollEdgeHeader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/ScrollEdgeHeader/ScrollEdgeHeader.swift"
     },
     {
       "id": "symbol-draw-on",
@@ -7804,7 +7804,7 @@
       },
       "path": "Components/Modern/SymbolDrawOn/SymbolDrawOn.swift",
       "preview": "Components/Modern/SymbolDrawOn/SymbolDrawOn.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/SymbolDrawOn/SymbolDrawOn.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/SymbolDrawOn/SymbolDrawOn.swift"
     },
     {
       "id": "toolbar-overflow-demo",
@@ -7843,7 +7843,7 @@
       },
       "path": "Components/Modern/ToolbarOverflowDemo/ToolbarOverflowDemo.swift",
       "preview": "Components/Modern/ToolbarOverflowDemo/ToolbarOverflowDemo.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Modern/ToolbarOverflowDemo/ToolbarOverflowDemo.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Modern/ToolbarOverflowDemo/ToolbarOverflowDemo.swift"
     },
     {
       "id": "adaptive-sidebar-layout",
@@ -7884,7 +7884,7 @@
       },
       "path": "Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.swift",
       "preview": "Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/AdaptiveSidebarLayout/AdaptiveSidebarLayout.swift"
     },
     {
       "id": "animated-tab-bar",
@@ -7925,7 +7925,7 @@
       },
       "path": "Components/Navigation/AnimatedTabBar/AnimatedTabBar.swift",
       "preview": "Components/Navigation/AnimatedTabBar/AnimatedTabBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/AnimatedTabBar/AnimatedTabBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/AnimatedTabBar/AnimatedTabBar.swift"
     },
     {
       "id": "bottom-drawer",
@@ -7966,7 +7966,7 @@
       },
       "path": "Components/Navigation/BottomDrawer/BottomDrawer.swift",
       "preview": "Components/Navigation/BottomDrawer/BottomDrawer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/BottomDrawer/BottomDrawer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/BottomDrawer/BottomDrawer.swift"
     },
     {
       "id": "breadcrumb-trail",
@@ -8005,7 +8005,7 @@
       },
       "path": "Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.swift",
       "preview": "Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/BreadcrumbTrail/BreadcrumbTrail.swift"
     },
     {
       "id": "drag-to-dismiss-screen",
@@ -8045,7 +8045,7 @@
       },
       "path": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift",
       "preview": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift"
     },
     {
       "id": "embedded-web-browser",
@@ -8087,7 +8087,7 @@
       },
       "path": "Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.swift",
       "preview": "Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.swift"
     },
     {
       "id": "full-screen-menu-overlay",
@@ -8128,7 +8128,7 @@
       },
       "path": "Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.swift",
       "preview": "Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/FullScreenMenuOverlay/FullScreenMenuOverlay.swift"
     },
     {
       "id": "navigation-path-router",
@@ -8168,7 +8168,7 @@
       },
       "path": "Components/Navigation/NavigationPathRouter/NavigationPathRouter.swift",
       "preview": "Components/Navigation/NavigationPathRouter/NavigationPathRouter.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/NavigationPathRouter/NavigationPathRouter.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/NavigationPathRouter/NavigationPathRouter.swift"
     },
     {
       "id": "page-dots-indicator",
@@ -8209,7 +8209,7 @@
       },
       "path": "Components/Navigation/PageDotsIndicator/PageDotsIndicator.swift",
       "preview": "Components/Navigation/PageDotsIndicator/PageDotsIndicator.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/PageDotsIndicator/PageDotsIndicator.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/PageDotsIndicator/PageDotsIndicator.swift"
     },
     {
       "id": "scroll-spy-header",
@@ -8251,7 +8251,7 @@
       },
       "path": "Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.swift",
       "preview": "Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/ScrollSpyHeader/ScrollSpyHeader.swift"
     },
     {
       "id": "scroll-to-top-button",
@@ -8291,7 +8291,7 @@
       },
       "path": "Components/Navigation/ScrollToTopButton/ScrollToTopButton.swift",
       "preview": "Components/Navigation/ScrollToTopButton/ScrollToTopButton.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/ScrollToTopButton/ScrollToTopButton.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/ScrollToTopButton/ScrollToTopButton.swift"
     },
     {
       "id": "search-scopes-and-suggestions",
@@ -8330,7 +8330,7 @@
       },
       "path": "Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.swift",
       "preview": "Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/SearchScopesAndSuggestions/SearchScopesAndSuggestions.swift"
     },
     {
       "id": "side-drawer",
@@ -8371,7 +8371,7 @@
       },
       "path": "Components/Navigation/SideDrawer/SideDrawer.swift",
       "preview": "Components/Navigation/SideDrawer/SideDrawer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SideDrawer/SideDrawer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/SideDrawer/SideDrawer.swift"
     },
     {
       "id": "sidebar-adaptive-tabs",
@@ -8408,7 +8408,7 @@
       },
       "path": "Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.swift",
       "preview": "Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/SidebarAdaptiveTabs/SidebarAdaptiveTabs.swift"
     },
     {
       "id": "tab-navigation-state-preserve",
@@ -8448,7 +8448,7 @@
       },
       "path": "Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.swift",
       "preview": "Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/TabNavigationStatePreserve/TabNavigationStatePreserve.swift"
     },
     {
       "id": "two-pane-split-layout",
@@ -8489,7 +8489,7 @@
       },
       "path": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift",
       "preview": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift"
     },
     {
       "id": "vertical-timeline",
@@ -8528,7 +8528,7 @@
       },
       "path": "Components/Patterns/VerticalTimeline/VerticalTimeline.swift",
       "preview": "Components/Patterns/VerticalTimeline/VerticalTimeline.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Patterns/VerticalTimeline/VerticalTimeline.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Patterns/VerticalTimeline/VerticalTimeline.swift"
     },
     {
       "id": "country-picker",
@@ -8568,7 +8568,7 @@
       },
       "path": "Components/Pickers/CountryPicker/CountryPicker.swift",
       "preview": "Components/Pickers/CountryPicker/CountryPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/CountryPicker/CountryPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/CountryPicker/CountryPicker.swift"
     },
     {
       "id": "emoji-picker",
@@ -8609,7 +8609,7 @@
       },
       "path": "Components/Pickers/EmojiPicker/EmojiPicker.swift",
       "preview": "Components/Pickers/EmojiPicker/EmojiPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/EmojiPicker/EmojiPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/EmojiPicker/EmojiPicker.swift"
     },
     {
       "id": "inline-date-picker-disclosure",
@@ -8650,7 +8650,7 @@
       },
       "path": "Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.swift",
       "preview": "Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/InlineDatePickerDisclosure/InlineDatePickerDisclosure.swift"
     },
     {
       "id": "multi-photo-picker-tray",
@@ -8690,7 +8690,7 @@
       },
       "path": "Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.swift",
       "preview": "Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/MultiPhotoPickerTray/MultiPhotoPickerTray.swift"
     },
     {
       "id": "time-slot-grid-picker",
@@ -8729,7 +8729,7 @@
       },
       "path": "Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.swift",
       "preview": "Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/TimeSlotGridPicker/TimeSlotGridPicker.swift"
     },
     {
       "id": "wheel-picker",
@@ -8770,7 +8770,7 @@
       },
       "path": "Components/Pickers/WheelPicker/WheelPicker.swift",
       "preview": "Components/Pickers/WheelPicker/WheelPicker.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Pickers/WheelPicker/WheelPicker.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Pickers/WheelPicker/WheelPicker.swift"
     },
     {
       "id": "bubble-wrap-pop",
@@ -8809,7 +8809,7 @@
       },
       "path": "Components/Playful/BubbleWrapPop/BubbleWrapPop.swift",
       "preview": "Components/Playful/BubbleWrapPop/BubbleWrapPop.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Playful/BubbleWrapPop/BubbleWrapPop.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Playful/BubbleWrapPop/BubbleWrapPop.swift"
     },
     {
       "id": "spin-wheel-roulette",
@@ -8850,7 +8850,7 @@
       },
       "path": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift",
       "preview": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift"
     },
     {
       "id": "stories-viewer",
@@ -8892,7 +8892,7 @@
       },
       "path": "Components/Profiles/StoriesViewer/StoriesViewer.swift",
       "preview": "Components/Profiles/StoriesViewer/StoriesViewer.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Profiles/StoriesViewer/StoriesViewer.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Profiles/StoriesViewer/StoriesViewer.swift"
     },
     {
       "id": "story-ring-avatar",
@@ -8931,7 +8931,7 @@
       },
       "path": "Components/Profiles/StoryRingAvatar/StoryRingAvatar.swift",
       "preview": "Components/Profiles/StoryRingAvatar/StoryRingAvatar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Profiles/StoryRingAvatar/StoryRingAvatar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Profiles/StoryRingAvatar/StoryRingAvatar.swift"
     },
     {
       "id": "activity-rings",
@@ -8972,7 +8972,7 @@
       },
       "path": "Components/Progress/ActivityRings/ActivityRings.swift",
       "preview": "Components/Progress/ActivityRings/ActivityRings.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/ActivityRings/ActivityRings.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/ActivityRings/ActivityRings.swift"
     },
     {
       "id": "circular-progress-ring",
@@ -9011,7 +9011,7 @@
       },
       "path": "Components/Progress/CircularProgressRing/CircularProgressRing.swift",
       "preview": "Components/Progress/CircularProgressRing/CircularProgressRing.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/CircularProgressRing/CircularProgressRing.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/CircularProgressRing/CircularProgressRing.swift"
     },
     {
       "id": "countdown-ring",
@@ -9050,7 +9050,7 @@
       },
       "path": "Components/Progress/CountdownRing/CountdownRing.swift",
       "preview": "Components/Progress/CountdownRing/CountdownRing.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/CountdownRing/CountdownRing.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/CountdownRing/CountdownRing.swift"
     },
     {
       "id": "download-pill-progress",
@@ -9091,7 +9091,7 @@
       },
       "path": "Components/Progress/DownloadPillProgress/DownloadPillProgress.swift",
       "preview": "Components/Progress/DownloadPillProgress/DownloadPillProgress.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/DownloadPillProgress/DownloadPillProgress.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/DownloadPillProgress/DownloadPillProgress.swift"
     },
     {
       "id": "gradient-progress-bar",
@@ -9129,7 +9129,7 @@
       },
       "path": "Components/Progress/GradientProgressBar/GradientProgressBar.swift",
       "preview": "Components/Progress/GradientProgressBar/GradientProgressBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/GradientProgressBar/GradientProgressBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/GradientProgressBar/GradientProgressBar.swift"
     },
     {
       "id": "liquid-fill-progress",
@@ -9170,7 +9170,7 @@
       },
       "path": "Components/Progress/LiquidFillProgress/LiquidFillProgress.swift",
       "preview": "Components/Progress/LiquidFillProgress/LiquidFillProgress.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/LiquidFillProgress/LiquidFillProgress.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/LiquidFillProgress/LiquidFillProgress.swift"
     },
     {
       "id": "step-progress-indicator",
@@ -9210,7 +9210,7 @@
       },
       "path": "Components/Progress/StepProgressIndicator/StepProgressIndicator.swift",
       "preview": "Components/Progress/StepProgressIndicator/StepProgressIndicator.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Progress/StepProgressIndicator/StepProgressIndicator.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Progress/StepProgressIndicator/StepProgressIndicator.swift"
     },
     {
       "id": "auto-advance-carousel",
@@ -9251,7 +9251,7 @@
       },
       "path": "Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.swift",
       "preview": "Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/AutoAdvanceCarousel/AutoAdvanceCarousel.swift"
     },
     {
       "id": "cover-flow-carousel",
@@ -9291,7 +9291,7 @@
       },
       "path": "Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.swift",
       "preview": "Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/CoverFlowCarousel/CoverFlowCarousel.swift"
     },
     {
       "id": "hide-on-scroll-bar",
@@ -9329,7 +9329,7 @@
       },
       "path": "Components/Scrolling/HideOnScrollBar/HideOnScrollBar.swift",
       "preview": "Components/Scrolling/HideOnScrollBar/HideOnScrollBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/HideOnScrollBar/HideOnScrollBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/HideOnScrollBar/HideOnScrollBar.swift"
     },
     {
       "id": "infinite-marquee-row",
@@ -9368,7 +9368,7 @@
       },
       "path": "Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.swift",
       "preview": "Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/InfiniteMarqueeRow/InfiniteMarqueeRow.swift"
     },
     {
       "id": "netflix-rows-scroller",
@@ -9409,7 +9409,7 @@
       },
       "path": "Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.swift",
       "preview": "Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/NetflixRowsScroller/NetflixRowsScroller.swift"
     },
     {
       "id": "onboarding-pager",
@@ -9450,7 +9450,7 @@
       },
       "path": "Components/Scrolling/OnboardingPager/OnboardingPager.swift",
       "preview": "Components/Scrolling/OnboardingPager/OnboardingPager.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/OnboardingPager/OnboardingPager.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/OnboardingPager/OnboardingPager.swift"
     },
     {
       "id": "paged-grid-launcher",
@@ -9489,7 +9489,7 @@
       },
       "path": "Components/Scrolling/PagedGridLauncher/PagedGridLauncher.swift",
       "preview": "Components/Scrolling/PagedGridLauncher/PagedGridLauncher.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PagedGridLauncher/PagedGridLauncher.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/PagedGridLauncher/PagedGridLauncher.swift"
     },
     {
       "id": "parallax-cards-row",
@@ -9529,7 +9529,7 @@
       },
       "path": "Components/Scrolling/ParallaxCardsRow/ParallaxCardsRow.swift",
       "preview": "Components/Scrolling/ParallaxCardsRow/ParallaxCardsRow.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ParallaxCardsRow/ParallaxCardsRow.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/ParallaxCardsRow/ParallaxCardsRow.swift"
     },
     {
       "id": "peek-carousel",
@@ -9570,7 +9570,7 @@
       },
       "path": "Components/Scrolling/PeekCarousel/PeekCarousel.swift",
       "preview": "Components/Scrolling/PeekCarousel/PeekCarousel.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PeekCarousel/PeekCarousel.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/PeekCarousel/PeekCarousel.swift"
     },
     {
       "id": "pull-progress-refresh",
@@ -9609,7 +9609,7 @@
       },
       "path": "Components/Scrolling/PullProgressRefresh/PullProgressRefresh.swift",
       "preview": "Components/Scrolling/PullProgressRefresh/PullProgressRefresh.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/PullProgressRefresh/PullProgressRefresh.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/PullProgressRefresh/PullProgressRefresh.swift"
     },
     {
       "id": "scroll-fade-cards",
@@ -9649,7 +9649,7 @@
       },
       "path": "Components/Scrolling/ScrollFadeCards/ScrollFadeCards.swift",
       "preview": "Components/Scrolling/ScrollFadeCards/ScrollFadeCards.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollFadeCards/ScrollFadeCards.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/ScrollFadeCards/ScrollFadeCards.swift"
     },
     {
       "id": "scroll-progress-bar",
@@ -9687,7 +9687,7 @@
       },
       "path": "Components/Scrolling/ScrollProgressBar/ScrollProgressBar.swift",
       "preview": "Components/Scrolling/ScrollProgressBar/ScrollProgressBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollProgressBar/ScrollProgressBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/ScrollProgressBar/ScrollProgressBar.swift"
     },
     {
       "id": "scroll-visibility-reveal",
@@ -9725,7 +9725,7 @@
       },
       "path": "Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.swift",
       "preview": "Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/ScrollVisibilityReveal/ScrollVisibilityReveal.swift"
     },
     {
       "id": "sticky-parallax-header",
@@ -9765,7 +9765,7 @@
       },
       "path": "Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.swift",
       "preview": "Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/StickyParallaxHeader/StickyParallaxHeader.swift"
     },
     {
       "id": "sticky-stacked-cards",
@@ -9803,7 +9803,7 @@
       },
       "path": "Components/Scrolling/StickyStackedCards/StickyStackedCards.swift",
       "preview": "Components/Scrolling/StickyStackedCards/StickyStackedCards.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/StickyStackedCards/StickyStackedCards.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/StickyStackedCards/StickyStackedCards.swift"
     },
     {
       "id": "vertical-full-screen-feed",
@@ -9843,7 +9843,7 @@
       },
       "path": "Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.swift",
       "preview": "Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Scrolling/VerticalFullScreenFeed/VerticalFullScreenFeed.swift"
     },
     {
       "id": "custom-detent-sheet",
@@ -9882,7 +9882,7 @@
       },
       "path": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift",
       "preview": "Components/Sheets/CustomDetentSheet/CustomDetentSheet.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Sheets/CustomDetentSheet/CustomDetentSheet.swift"
     },
     {
       "id": "dynamic-height-tray",
@@ -9926,7 +9926,7 @@
       },
       "path": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift",
       "preview": "Components/Sheets/DynamicHeightTray/DynamicHeightTray.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Sheets/DynamicHeightTray/DynamicHeightTray.swift"
     },
     {
       "id": "whats-new-sheet",
@@ -9970,7 +9970,7 @@
       },
       "path": "Components/Sheets/WhatsNewSheet/WhatsNewSheet.swift",
       "preview": "Components/Sheets/WhatsNewSheet/WhatsNewSheet.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Sheets/WhatsNewSheet/WhatsNewSheet.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Sheets/WhatsNewSheet/WhatsNewSheet.swift"
     },
     {
       "id": "minimizing-tab-bar",
@@ -10010,7 +10010,7 @@
       },
       "path": "Components/Tabs/MinimizingTabBar/MinimizingTabBar.swift",
       "preview": "Components/Tabs/MinimizingTabBar/MinimizingTabBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/MinimizingTabBar/MinimizingTabBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Tabs/MinimizingTabBar/MinimizingTabBar.swift"
     },
     {
       "id": "notched-tab-bar",
@@ -10050,7 +10050,7 @@
       },
       "path": "Components/Tabs/NotchedTabBar/NotchedTabBar.swift",
       "preview": "Components/Tabs/NotchedTabBar/NotchedTabBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/NotchedTabBar/NotchedTabBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Tabs/NotchedTabBar/NotchedTabBar.swift"
     },
     {
       "id": "scrolling-tab-strip",
@@ -10089,7 +10089,7 @@
       },
       "path": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift",
       "preview": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift"
     },
     {
       "id": "tabs-picker-pages",
@@ -10131,7 +10131,7 @@
       },
       "path": "Components/Tabs/TabsPickerPages/TabsPickerPages.swift",
       "preview": "Components/Tabs/TabsPickerPages/TabsPickerPages.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/TabsPickerPages/TabsPickerPages.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Tabs/TabsPickerPages/TabsPickerPages.swift"
     },
     {
       "id": "animated-gradient-text",
@@ -10169,7 +10169,7 @@
       },
       "path": "Components/Text/AnimatedGradientText/AnimatedGradientText.swift",
       "preview": "Components/Text/AnimatedGradientText/AnimatedGradientText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/AnimatedGradientText/AnimatedGradientText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/AnimatedGradientText/AnimatedGradientText.swift"
     },
     {
       "id": "bouncy-letters-text",
@@ -10208,7 +10208,7 @@
       },
       "path": "Components/Text/BouncyLettersText/BouncyLettersText.swift",
       "preview": "Components/Text/BouncyLettersText/BouncyLettersText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/BouncyLettersText/BouncyLettersText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/BouncyLettersText/BouncyLettersText.swift"
     },
     {
       "id": "counting-number-text",
@@ -10247,7 +10247,7 @@
       },
       "path": "Components/Text/CountingNumberText/CountingNumberText.swift",
       "preview": "Components/Text/CountingNumberText/CountingNumberText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/CountingNumberText/CountingNumberText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/CountingNumberText/CountingNumberText.swift"
     },
     {
       "id": "glitch-text",
@@ -10284,7 +10284,7 @@
       },
       "path": "Components/Text/GlitchText/GlitchText.swift",
       "preview": "Components/Text/GlitchText/GlitchText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/GlitchText/GlitchText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/GlitchText/GlitchText.swift"
     },
     {
       "id": "glyph-wave-text",
@@ -10323,7 +10323,7 @@
       },
       "path": "Components/Text/GlyphWaveText/GlyphWaveText.swift",
       "preview": "Components/Text/GlyphWaveText/GlyphWaveText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/GlyphWaveText/GlyphWaveText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/GlyphWaveText/GlyphWaveText.swift"
     },
     {
       "id": "highlighted-search-text",
@@ -10362,7 +10362,7 @@
       },
       "path": "Components/Text/HighlightedSearchText/HighlightedSearchText.swift",
       "preview": "Components/Text/HighlightedSearchText/HighlightedSearchText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/HighlightedSearchText/HighlightedSearchText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/HighlightedSearchText/HighlightedSearchText.swift"
     },
     {
       "id": "karaoke-lyrics-text",
@@ -10403,7 +10403,7 @@
       },
       "path": "Components/Text/KaraokeLyricsText/KaraokeLyricsText.swift",
       "preview": "Components/Text/KaraokeLyricsText/KaraokeLyricsText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/KaraokeLyricsText/KaraokeLyricsText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/KaraokeLyricsText/KaraokeLyricsText.swift"
     },
     {
       "id": "marquee-text",
@@ -10442,7 +10442,7 @@
       },
       "path": "Components/Text/MarqueeText/MarqueeText.swift",
       "preview": "Components/Text/MarqueeText/MarqueeText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/MarqueeText/MarqueeText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/MarqueeText/MarqueeText.swift"
     },
     {
       "id": "read-more-text",
@@ -10481,7 +10481,7 @@
       },
       "path": "Components/Text/ReadMoreText/ReadMoreText.swift",
       "preview": "Components/Text/ReadMoreText/ReadMoreText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ReadMoreText/ReadMoreText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/ReadMoreText/ReadMoreText.swift"
     },
     {
       "id": "rotating-words-text",
@@ -10519,7 +10519,7 @@
       },
       "path": "Components/Text/RotatingWordsText/RotatingWordsText.swift",
       "preview": "Components/Text/RotatingWordsText/RotatingWordsText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/RotatingWordsText/RotatingWordsText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/RotatingWordsText/RotatingWordsText.swift"
     },
     {
       "id": "scramble-text",
@@ -10558,7 +10558,7 @@
       },
       "path": "Components/Text/ScrambleText/ScrambleText.swift",
       "preview": "Components/Text/ScrambleText/ScrambleText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ScrambleText/ScrambleText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/ScrambleText/ScrambleText.swift"
     },
     {
       "id": "shimmer-text",
@@ -10597,7 +10597,7 @@
       },
       "path": "Components/Text/ShimmerText/ShimmerText.swift",
       "preview": "Components/Text/ShimmerText/ShimmerText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/ShimmerText/ShimmerText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/ShimmerText/ShimmerText.swift"
     },
     {
       "id": "streaming-text",
@@ -10639,7 +10639,7 @@
       },
       "path": "Components/Text/StreamingText/StreamingText.swift",
       "preview": "Components/Text/StreamingText/StreamingText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/StreamingText/StreamingText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/StreamingText/StreamingText.swift"
     },
     {
       "id": "text-blur-reveal",
@@ -10679,7 +10679,7 @@
       },
       "path": "Components/Text/TextBlurReveal/TextBlurReveal.swift",
       "preview": "Components/Text/TextBlurReveal/TextBlurReveal.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/TextBlurReveal/TextBlurReveal.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/TextBlurReveal/TextBlurReveal.swift"
     },
     {
       "id": "typewriter-text",
@@ -10718,7 +10718,7 @@
       },
       "path": "Components/Text/TypewriterText/TypewriterText.swift",
       "preview": "Components/Text/TypewriterText/TypewriterText.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Text/TypewriterText/TypewriterText.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Text/TypewriterText/TypewriterText.swift"
     },
     {
       "id": "collapsing-bottom-bar",
@@ -10758,7 +10758,7 @@
       },
       "path": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift",
       "preview": "Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Toolbars/CollapsingBottomBar/CollapsingBottomBar.swift"
     },
     {
       "id": "floating-dock-bar",
@@ -10797,7 +10797,7 @@
       },
       "path": "Components/Toolbars/FloatingDockBar/FloatingDockBar.swift",
       "preview": "Components/Toolbars/FloatingDockBar/FloatingDockBar.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Toolbars/FloatingDockBar/FloatingDockBar.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Toolbars/FloatingDockBar/FloatingDockBar.swift"
     },
     {
       "id": "blur-fade-transition",
@@ -10837,7 +10837,7 @@
       },
       "path": "Components/Transitions/BlurFadeTransition/BlurFadeTransition.swift",
       "preview": "Components/Transitions/BlurFadeTransition/BlurFadeTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/BlurFadeTransition/BlurFadeTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/BlurFadeTransition/BlurFadeTransition.swift"
     },
     {
       "id": "circle-reveal-transition",
@@ -10877,7 +10877,7 @@
       },
       "path": "Components/Transitions/CircleRevealTransition/CircleRevealTransition.swift",
       "preview": "Components/Transitions/CircleRevealTransition/CircleRevealTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/CircleRevealTransition/CircleRevealTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/CircleRevealTransition/CircleRevealTransition.swift"
     },
     {
       "id": "content-swap-transition",
@@ -10916,7 +10916,7 @@
       },
       "path": "Components/Transitions/ContentSwapTransition/ContentSwapTransition.swift",
       "preview": "Components/Transitions/ContentSwapTransition/ContentSwapTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/ContentSwapTransition/ContentSwapTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/ContentSwapTransition/ContentSwapTransition.swift"
     },
     {
       "id": "cross-fade-navigation",
@@ -10956,7 +10956,7 @@
       },
       "path": "Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.swift",
       "preview": "Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/CrossFadeNavigation/CrossFadeNavigation.swift"
     },
     {
       "id": "dissolve-shader-transition",
@@ -11004,8 +11004,8 @@
       "path": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift",
       "preview": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.webp",
       "shader": "Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift",
-      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.metal"
     },
     {
       "id": "flip-card-transition",
@@ -11043,7 +11043,7 @@
       },
       "path": "Components/Transitions/FlipCardTransition/FlipCardTransition.swift",
       "preview": "Components/Transitions/FlipCardTransition/FlipCardTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/FlipCardTransition/FlipCardTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/FlipCardTransition/FlipCardTransition.swift"
     },
     {
       "id": "interactive-pager-transition",
@@ -11084,7 +11084,7 @@
       },
       "path": "Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.swift",
       "preview": "Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/InteractivePagerTransition/InteractivePagerTransition.swift"
     },
     {
       "id": "matched-hero-card",
@@ -11123,7 +11123,7 @@
       },
       "path": "Components/Transitions/MatchedHeroCard/MatchedHeroCard.swift",
       "preview": "Components/Transitions/MatchedHeroCard/MatchedHeroCard.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/MatchedHeroCard/MatchedHeroCard.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/MatchedHeroCard/MatchedHeroCard.swift"
     },
     {
       "id": "parallax-push-transition",
@@ -11161,7 +11161,7 @@
       },
       "path": "Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.swift",
       "preview": "Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/ParallaxPushTransition/ParallaxPushTransition.swift"
     },
     {
       "id": "slide-scale-transition",
@@ -11201,7 +11201,7 @@
       },
       "path": "Components/Transitions/SlideScaleTransition/SlideScaleTransition.swift",
       "preview": "Components/Transitions/SlideScaleTransition/SlideScaleTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/SlideScaleTransition/SlideScaleTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/SlideScaleTransition/SlideScaleTransition.swift"
     },
     {
       "id": "staggered-appear-list",
@@ -11242,7 +11242,7 @@
       },
       "path": "Components/Transitions/StaggeredAppearList/StaggeredAppearList.swift",
       "preview": "Components/Transitions/StaggeredAppearList/StaggeredAppearList.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/StaggeredAppearList/StaggeredAppearList.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/StaggeredAppearList/StaggeredAppearList.swift"
     },
     {
       "id": "symbol-morph-toggle",
@@ -11281,7 +11281,7 @@
       },
       "path": "Components/Transitions/SymbolMorphToggle/SymbolMorphToggle.swift",
       "preview": "Components/Transitions/SymbolMorphToggle/SymbolMorphToggle.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/SymbolMorphToggle/SymbolMorphToggle.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/SymbolMorphToggle/SymbolMorphToggle.swift"
     },
     {
       "id": "zoom-hero-transition",
@@ -11321,7 +11321,7 @@
       },
       "path": "Components/Transitions/ZoomHeroTransition/ZoomHeroTransition.swift",
       "preview": "Components/Transitions/ZoomHeroTransition/ZoomHeroTransition.webp",
-      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Transitions/ZoomHeroTransition/ZoomHeroTransition.swift"
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Transitions/ZoomHeroTransition/ZoomHeroTransition.swift"
     }
   ]
 }

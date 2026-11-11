@@ -1,4 +1,4 @@
-# AwesomeSwiftUI: every component with its source
+# Awesome SwiftUI Components: every component with its source
 
 Copy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.
 
@@ -10,7 +10,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/BreathingGu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -145,7 +145,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/KeyframeTim
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -292,7 +292,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/PhaseAnimat
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -405,7 +405,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/SplitFlapCo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -581,7 +581,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/SpringStudy
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -780,7 +780,7 @@ Category: Animations. Minimum: iOS 18.0. Path: Components/Animations/SymbolEffec
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -910,7 +910,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/AnimatedG
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -992,7 +992,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/AuroraMes
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1070,7 +1070,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/BubblesBa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1177,7 +1177,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/ColorOrbs
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1275,7 +1275,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/GridPulse
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1388,7 +1388,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/ImageDeri
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1573,7 +1573,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/ParticleF
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1687,7 +1687,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/SnowfallB
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1808,7 +1808,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/Starfield
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -1910,7 +1910,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/Synthwave
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2036,7 +2036,7 @@ Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/WavesBack
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2149,7 +2149,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ElasticDragButton
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2272,7 +2272,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/EmojiReactionPick
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2505,7 +2505,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ExpandingSearchBu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2641,7 +2641,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/FloatingActionMen
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2842,7 +2842,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/GradientBorderBut
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -2926,7 +2926,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/HamburgerMenuButt
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3056,7 +3056,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/HoldToConfirmButt
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3195,7 +3195,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/LikeBurstButton/L
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3335,7 +3335,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/MorphingSubmitBut
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3462,7 +3462,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/PlayPauseMorphBut
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3579,7 +3579,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/PressableButtonSt
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3644,7 +3644,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ProviderSignInBut
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3793,7 +3793,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/PulseRingButton/P
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -3904,7 +3904,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ShimmerButton/Shi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4002,7 +4002,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ShrinkingExtended
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4114,7 +4114,7 @@ Category: Calendars. Minimum: iOS 18.0. Path: Components/Calendars/CalendarMonth
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4321,7 +4321,7 @@ Category: Calendars. Minimum: iOS 18.0. Path: Components/Calendars/CalendarRange
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4575,7 +4575,7 @@ Category: Calendars. Minimum: iOS 18.0. Path: Components/Calendars/DateStripPick
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4738,7 +4738,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/AvatarStack/AvatarSta
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4867,7 +4867,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/ExpandableInfoCard/Ex
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -4984,7 +4984,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/HolographicCard/Holog
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -5152,7 +5152,7 @@ Shader: Components/Cards/HolographicCard/HolographicCard.metal
 
 ```metal
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 #include <metal_stdlib>
 #include <SwiftUI/SwiftUI_Metal.h>
@@ -5214,7 +5214,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/SwipeableCardStack/Sw
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -5424,7 +5424,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/TiltCard/TiltCard.swi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -5551,7 +5551,7 @@ Category: Cards. Minimum: iOS 18.0. Path: Components/Cards/WalletCardStack/Walle
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -5768,7 +5768,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/AnimatedBarChart/An
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -5916,7 +5916,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/AnimatedDonutChart/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import SwiftUI
@@ -6133,7 +6133,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/CandlestickChart/Ca
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import SwiftUI
@@ -6340,7 +6340,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/ContributionHeatmap
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -6531,7 +6531,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/GaugeChart/GaugeCha
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -6702,7 +6702,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/InteractiveLineChar
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import SwiftUI
@@ -6850,7 +6850,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/LineChartDrawIn/Lin
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -7040,7 +7040,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/RadarChart/RadarCha
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -7263,7 +7263,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/ScrollableBarChart/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import SwiftUI
@@ -7423,7 +7423,7 @@ Category: Charts. Minimum: iOS 18.0. Path: Components/Charts/SparklineStatTile/S
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import SwiftUI
@@ -7602,7 +7602,7 @@ Category: Charts. Minimum: iOS 26.0. Path: Components/Charts/Surface3DChart/Surf
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import Charts
 import Spatial
@@ -7730,7 +7730,7 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/ChatAutoScrollList/Chat
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -7915,7 +7915,7 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/ChatBubbleShape/ChatBub
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -8124,7 +8124,7 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/KeyboardTrackingInputBa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -8252,7 +8252,7 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/NestedCommentThread/Nes
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -8475,7 +8475,7 @@ Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/TapbackReactionBubble/T
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -8681,7 +8681,7 @@ Category: Commerce. Minimum: iOS 18.0. Path: Components/Commerce/AddToCartFlyBut
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -8915,7 +8915,7 @@ Category: Commerce. Minimum: iOS 18.0. Path: Components/Commerce/AddToCartSteppe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -9072,7 +9072,7 @@ Category: Commerce. Minimum: iOS 18.0. Path: Components/Commerce/BillingPeriodTo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -9257,7 +9257,7 @@ Category: Commerce. Minimum: iOS 18.0. Path: Components/Commerce/PricingTierCard
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -9429,7 +9429,7 @@ Category: Commerce. Minimum: iOS 18.0. Path: Components/Commerce/TrialTimelinePa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -9706,7 +9706,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/AnimatedRadioBu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -9830,7 +9830,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/CircularRangeSl
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10143,7 +10143,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/CounterStepper/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10255,7 +10255,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/DayNightToggle/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10396,7 +10396,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/RangeSlider/Ran
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10660,7 +10660,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/RulerScrollPick
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10892,7 +10892,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/SlidingSegmente
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10997,7 +10997,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/SpringToggleSty
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11101,7 +11101,7 @@ Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/SwipeToConfirmS
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11274,7 +11274,7 @@ Category: Controls. Minimum: iOS 26.0. Path: Components/Controls/TickMarkSlider/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11391,7 +11391,7 @@ Category: Drawing. Minimum: iOS 18.0. Path: Components/Drawing/DrawingPadSpeedBr
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11558,7 +11558,7 @@ Category: Drawing. Minimum: iOS 18.0. Path: Components/Drawing/DrawingPadUndoRed
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11737,7 +11737,7 @@ Category: Drawing. Minimum: iOS 18.0. Path: Components/Drawing/PathTrimDrawOn/Pa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -11853,7 +11853,7 @@ Category: Drawing. Minimum: iOS 18.0. Path: Components/Drawing/PolygonMorphShape
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12039,7 +12039,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/BlurredImageBackd
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12170,7 +12170,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/BorderBeamModifie
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12334,7 +12334,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/CoinFlipView/Coin
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12538,7 +12538,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/ColorRevealImage/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12672,7 +12672,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/ConfettiBurst/Con
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -12837,7 +12837,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/FireworksBurst/Fi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13025,7 +13025,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/FloatingReactions
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13190,7 +13190,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/FlowFieldParticle
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13327,7 +13327,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/Globe3DWireframe/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13565,7 +13565,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/IntelligenceGlowB
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13732,7 +13732,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/JiggleEditModifie
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13878,7 +13878,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/MetaballLavaLamp/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -13976,7 +13976,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/NoiseGrainOverlay
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14091,7 +14091,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/PixelateShaderEff
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14215,7 +14215,7 @@ Shader: Components/Effects/PixelateShaderEffect/PixelateShaderEffect.metal
 
 ```metal
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 #include <metal_stdlib>
 #include <SwiftUI/SwiftUI_Metal.h>
@@ -14249,7 +14249,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/ProgressiveBlurHe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14387,7 +14387,7 @@ Shader: Components/Effects/ProgressiveBlurHeader/ProgressiveBlurHeader.metal
 
 ```metal
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 #include <metal_stdlib>
 #include <SwiftUI/SwiftUI_Metal.h>
@@ -14433,7 +14433,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/RippleShaderEffec
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14630,7 +14630,7 @@ Shader: Components/Effects/RippleShaderEffect/RippleShaderEffect.metal
 
 ```metal
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 #include <metal_stdlib>
 #include <SwiftUI/SwiftUI_Metal.h>
@@ -14681,7 +14681,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/RippleTapEffect/R
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14795,7 +14795,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/SpotlightOverlay/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -14937,7 +14937,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/TouchParticleTrai
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15140,7 +15140,7 @@ Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/VoiceOrb/VoiceOrb
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15324,7 +15324,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/AnimatedBadgeCo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15430,7 +15430,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/AnimatedCheckma
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15538,7 +15538,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/DynamicIslandPi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15687,7 +15687,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/EmptyStatePlace
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15770,7 +15770,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/RatingStars/Rat
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15905,7 +15905,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/ShakeErrorModif
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -16015,7 +16015,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/ToastBanner/Toa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -16148,7 +16148,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/ToastHost/Toast
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -16418,7 +16418,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/TooltipPopover/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -16675,7 +16675,7 @@ Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/UndoSnackbar/Un
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -16845,7 +16845,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/CompletionSwipe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17019,7 +17019,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/DoubleTapHeartO
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17234,7 +17234,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/DragSelectGrid/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17440,7 +17440,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/DropZoneHighlig
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17556,7 +17556,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/LongPressRadial
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17775,7 +17775,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/PinchZoomView/P
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -17966,7 +17966,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/ScratchToReveal
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18171,7 +18171,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/SnapCornerDragg
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18321,7 +18321,7 @@ Category: Gestures. Minimum: iOS 18.0. Path: Components/Gestures/SwipeActionRow/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18527,7 +18527,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassActionMenu/Glass
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18664,7 +18664,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassButtonGallery/Gl
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18795,7 +18795,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassSegmentedControl
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -18904,7 +18904,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassTabAccessory/Gla
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19023,7 +19023,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassTagCloud/GlassTa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19201,7 +19201,7 @@ Category: Glass. Minimum: iOS 26.0. Path: Components/Glass/GlassToolStrip/GlassT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19327,7 +19327,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/BeforeAfterSlider/B
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19468,7 +19468,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/BlurUpImage/BlurUpI
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19626,7 +19626,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/CircularAvatarCropp
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19871,7 +19871,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/CropRectangleOverla
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20138,7 +20138,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/DoubleTapZoomImage/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20310,7 +20310,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/KenBurnsImage/KenBu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20421,7 +20421,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/PhotoAdjustmentSlid
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20575,7 +20575,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/PhotoFilterPresets/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20729,7 +20729,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/PhotoLightbox/Photo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21000,7 +21000,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/PhotoMultiSelectGri
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21172,7 +21172,7 @@ Category: Images. Minimum: iOS 18.0. Path: Components/Images/ScatteredPhotoBoard
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21398,7 +21398,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/ColorSwatchPicker/C
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21502,7 +21502,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/FloatingLabelTextFi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21594,7 +21594,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/MaskedTextField/Mas
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -21760,7 +21760,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/MultiStepForm/Multi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22002,7 +22002,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/OTPCodeField/OTPCod
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22123,7 +22123,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/PasscodeKeypad/Pass
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22322,7 +22322,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/PasswordStrengthFie
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22497,7 +22497,7 @@ Category: Inputs. Minimum: iOS 26.0. Path: Components/Inputs/RichTextEditor/Rich
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22639,7 +22639,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/SearchFieldWithSugg
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22750,7 +22750,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/TagInputField/TagIn
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -22986,7 +22986,7 @@ Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/ValidatedTextField/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -23103,7 +23103,7 @@ Category: Intelligence. Minimum: iOS 26.0. Path: Components/Intelligence/ModelAv
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import FoundationModels
 import SwiftUI
@@ -23274,7 +23274,7 @@ Category: Intelligence. Minimum: iOS 26.0. Path: Components/Intelligence/OnDevic
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import FoundationModels
 import SwiftUI
@@ -23482,7 +23482,7 @@ Category: Intelligence. Minimum: iOS 27.0. Path: Components/Intelligence/Structu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import FoundationModels
 import SwiftUI
@@ -23700,7 +23700,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/AdaptiveColumnsGr
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -23831,7 +23831,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/AnyLayoutAdaptive
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -23937,7 +23937,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/BentoGridLayout/B
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24119,7 +24119,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/FlowTagsLayout/Fl
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24269,7 +24269,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/KanbanBoard/Kanba
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24441,7 +24441,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/MasonryLayout/Mas
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24583,7 +24583,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/MorphingLayoutSwi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24683,7 +24683,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/RadialLayout/Radi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24822,7 +24822,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/ReadableWidthCont
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -24910,7 +24910,7 @@ Category: Layouts. Minimum: iOS 18.0. Path: Components/Layouts/SubviewCardContai
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25021,7 +25021,7 @@ Category: Lists. Minimum: iOS 18.0. Path: Components/Lists/AccordionSection/Acco
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25130,7 +25130,7 @@ Category: Lists. Minimum: iOS 18.0. Path: Components/Lists/DisclosureTreeView/Di
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25285,7 +25285,7 @@ Category: Lists. Minimum: iOS 18.0. Path: Components/Lists/EditModeMultiSelect/E
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25452,7 +25452,7 @@ Category: Lists. Minimum: iOS 18.0. Path: Components/Lists/LoadMoreFooter/LoadMo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25591,7 +25591,7 @@ Category: Lists. Minimum: iOS 27.0. Path: Components/Lists/ReorderableCardList/R
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25695,7 +25695,7 @@ Category: Lists. Minimum: iOS 27.0. Path: Components/Lists/ReorderableGrid/Reord
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25811,7 +25811,7 @@ Category: Lists. Minimum: iOS 18.0. Path: Components/Lists/StickySectionHeaders/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -25912,7 +25912,7 @@ Category: Lists. Minimum: iOS 27.0. Path: Components/Lists/SwipeActionCards/Swip
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26031,7 +26031,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/ArcSegmentsLoader
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26131,7 +26131,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/BlobMorphLoader/B
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26249,7 +26249,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/DotsPulseLoader/D
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26337,7 +26337,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/OrbitLoader/Orbit
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26432,7 +26432,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/SkeletonShimmerMo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26582,7 +26582,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/SymbolBreatheLoad
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26657,7 +26657,7 @@ Category: Loaders. Minimum: iOS 18.0. Path: Components/Loaders/WaveBarsLoader/Wa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -26737,7 +26737,7 @@ Category: Maps. Minimum: iOS 18.0. Path: Components/Maps/MapAnnotationCallout/Ma
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import MapKit
 import SwiftUI
@@ -26887,7 +26887,7 @@ Category: Maps. Minimum: iOS 18.0. Path: Components/Maps/MapRouteTracker/MapRout
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import MapKit
 import SwiftUI
@@ -27103,7 +27103,7 @@ Category: Maps. Minimum: iOS 18.0. Path: Components/Maps/MapSearchSheet/MapSearc
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import MapKit
 import SwiftUI
@@ -27319,7 +27319,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/AudioPlayerCard/Audio
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -27487,7 +27487,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/DoubleTapSeekOverlay/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -27732,7 +27732,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/ExpandingMiniPlayer/E
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -27987,7 +27987,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/ShutterCaptureButton/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -28151,7 +28151,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/SpinningVinylArt/Spin
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -28320,7 +28320,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/VideoPlayerChrome/Vid
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -28510,7 +28510,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/VideoPosterToPlayer/V
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -28659,7 +28659,7 @@ Category: Media. Minimum: iOS 18.0. Path: Components/Media/WaveformScrubber/Wave
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -28827,7 +28827,7 @@ Category: Menus. Minimum: iOS 18.0. Path: Components/Menus/CoachMarkTour/CoachMa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29095,7 +29095,7 @@ Category: Menus. Minimum: iOS 18.0. Path: Components/Menus/CommandPalette/Comman
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29295,7 +29295,7 @@ Category: Menus. Minimum: iOS 18.0. Path: Components/Menus/ContextMenuPreviewCar
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29415,7 +29415,7 @@ Category: Menus. Minimum: iOS 18.0. Path: Components/Menus/DropdownSelectMenu/Dr
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29602,7 +29602,7 @@ Category: Menus. Minimum: iOS 18.0. Path: Components/Menus/GooeyFloatingMenu/Goo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29816,7 +29816,7 @@ Category: Modern. Minimum: iOS 26.0. Path: Components/Modern/AnimatableRing/Anim
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -29921,7 +29921,7 @@ Category: Modern. Minimum: iOS 26.0. Path: Components/Modern/ConcentricCard/Conc
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30015,7 +30015,7 @@ Category: Modern. Minimum: iOS 27.0. Path: Components/Modern/ProminentTabBar/Pro
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30113,7 +30113,7 @@ Category: Modern. Minimum: iOS 26.0. Path: Components/Modern/ScrollEdgeHeader/Sc
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30194,7 +30194,7 @@ Category: Modern. Minimum: iOS 26.0. Path: Components/Modern/SymbolDrawOn/Symbol
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30274,7 +30274,7 @@ Category: Modern. Minimum: iOS 27.0. Path: Components/Modern/ToolbarOverflowDemo
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30383,7 +30383,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/AdaptiveSid
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30525,7 +30525,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/AnimatedTab
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30660,7 +30660,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/BottomDrawe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30829,7 +30829,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/BreadcrumbT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30992,7 +30992,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/DragToDismi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -31157,7 +31157,7 @@ Category: Navigation. Minimum: iOS 26.0. Path: Components/Navigation/EmbeddedWeb
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 import WebKit
@@ -31326,7 +31326,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/FullScreenM
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -31480,7 +31480,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/NavigationP
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -31611,7 +31611,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/PageDotsInd
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -31697,7 +31697,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/ScrollSpyHe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -31898,7 +31898,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/ScrollToTop
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32003,7 +32003,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/SearchScope
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32147,7 +32147,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/SideDrawer/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32302,7 +32302,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/SidebarAdap
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32403,7 +32403,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/TabNavigati
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32564,7 +32564,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/TwoPaneSpli
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32667,7 +32667,7 @@ Category: Patterns. Minimum: iOS 18.0. Path: Components/Patterns/VerticalTimelin
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -32851,7 +32851,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/CountryPicker/Cou
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33045,7 +33045,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/EmojiPicker/Emoji
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33240,7 +33240,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/InlineDatePickerD
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33378,7 +33378,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/MultiPhotoPickerT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import PhotosUI
 import SwiftUI
@@ -33590,7 +33590,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/TimeSlotGridPicke
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33708,7 +33708,7 @@ Category: Pickers. Minimum: iOS 18.0. Path: Components/Pickers/WheelPicker/Wheel
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33853,7 +33853,7 @@ Category: Playful. Minimum: iOS 18.0. Path: Components/Playful/BubbleWrapPop/Bub
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -33960,7 +33960,7 @@ Category: Playful. Minimum: iOS 18.0. Path: Components/Playful/SpinWheelRoulette
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -34159,7 +34159,7 @@ Category: Profiles. Minimum: iOS 18.0. Path: Components/Profiles/StoriesViewer/S
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -34492,7 +34492,7 @@ Category: Profiles. Minimum: iOS 18.0. Path: Components/Profiles/StoryRingAvatar
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -34635,7 +34635,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/ActivityRings/A
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -34797,7 +34797,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/CircularProgres
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -34922,7 +34922,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/CountdownRing/C
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35070,7 +35070,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/DownloadPillPro
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35229,7 +35229,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/GradientProgres
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35334,7 +35334,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/LiquidFillProgr
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35482,7 +35482,7 @@ Category: Progress. Minimum: iOS 18.0. Path: Components/Progress/StepProgressInd
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35625,7 +35625,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/AutoAdvanceCa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35790,7 +35790,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/CoverFlowCaro
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -35953,7 +35953,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/HideOnScrollB
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36125,7 +36125,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/InfiniteMarqu
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36238,7 +36238,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/NetflixRowsSc
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36370,7 +36370,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/OnboardingPag
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36533,7 +36533,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/PagedGridLaun
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36732,7 +36732,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/ParallaxCards
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36838,7 +36838,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/PeekCarousel/
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -36956,7 +36956,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/PullProgressR
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37131,7 +37131,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/ScrollFadeCar
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37231,7 +37231,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/ScrollProgres
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37362,7 +37362,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/ScrollVisibil
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37490,7 +37490,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/StickyParalla
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37621,7 +37621,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/StickyStacked
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37773,7 +37773,7 @@ Category: Scrolling. Minimum: iOS 18.0. Path: Components/Scrolling/VerticalFullS
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -37914,7 +37914,7 @@ Category: Sheets. Minimum: iOS 18.0. Path: Components/Sheets/CustomDetentSheet/C
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38058,7 +38058,7 @@ Category: Sheets. Minimum: iOS 18.0. Path: Components/Sheets/DynamicHeightTray/D
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38237,7 +38237,7 @@ Category: Sheets. Minimum: iOS 18.0. Path: Components/Sheets/WhatsNewSheet/Whats
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38450,7 +38450,7 @@ Category: Tabs. Minimum: iOS 26.0. Path: Components/Tabs/MinimizingTabBar/Minimi
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38541,7 +38541,7 @@ Category: Tabs. Minimum: iOS 18.0. Path: Components/Tabs/NotchedTabBar/NotchedTa
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38740,7 +38740,7 @@ Category: Tabs. Minimum: iOS 18.0. Path: Components/Tabs/ScrollingTabStrip/Scrol
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38863,7 +38863,7 @@ Category: Tabs. Minimum: iOS 27.0. Path: Components/Tabs/TabsPickerPages/TabsPic
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38988,7 +38988,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/AnimatedGradientText/An
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39058,7 +39058,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/BouncyLettersText/Bounc
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39166,7 +39166,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/CountingNumberText/Coun
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39281,7 +39281,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/GlitchText/GlitchText.s
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39369,7 +39369,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/GlyphWaveText/GlyphWave
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39460,7 +39460,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/HighlightedSearchText/H
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39592,7 +39592,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/KaraokeLyricsText/Karao
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39737,7 +39737,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/MarqueeText/MarqueeText
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39870,7 +39870,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/ReadMoreText/ReadMoreTe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -39980,7 +39980,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/RotatingWordsText/Rotat
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40066,7 +40066,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/ScrambleText/ScrambleTe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40181,7 +40181,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/ShimmerText/ShimmerText
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40275,7 +40275,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/StreamingText/Streaming
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40415,7 +40415,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/TextBlurReveal/TextBlur
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40528,7 +40528,7 @@ Category: Text. Minimum: iOS 18.0. Path: Components/Text/TypewriterText/Typewrit
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40640,7 +40640,7 @@ Category: Toolbars. Minimum: iOS 18.0. Path: Components/Toolbars/CollapsingBotto
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40806,7 +40806,7 @@ Category: Toolbars. Minimum: iOS 18.0. Path: Components/Toolbars/FloatingDockBar
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -40969,7 +40969,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/BlurFadeT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41064,7 +41064,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/CircleRev
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41186,7 +41186,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/ContentSw
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41292,7 +41292,7 @@ Category: Transitions. Minimum: iOS 27.0. Path: Components/Transitions/CrossFade
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41402,7 +41402,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/DissolveS
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41548,7 +41548,7 @@ Shader: Components/Transitions/DissolveShaderTransition/DissolveShaderTransition
 
 ```metal
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 #include <metal_stdlib>
 #include <SwiftUI/SwiftUI_Metal.h>
@@ -41624,7 +41624,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/FlipCardT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41743,7 +41743,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/Interacti
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41937,7 +41937,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/MatchedHe
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -42098,7 +42098,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/ParallaxP
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -42232,7 +42232,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/SlideScal
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -42340,7 +42340,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/Staggered
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -42456,7 +42456,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/SymbolMor
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -42544,7 +42544,7 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/ZoomHeroT
 
 ```swift
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
