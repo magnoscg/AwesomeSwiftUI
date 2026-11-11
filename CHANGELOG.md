@@ -8,6 +8,12 @@ on `main`.
 
 ### Added
 
+- Day Schedule Timeline, the hours of a day down a column, with each event
+  drawn over the time it takes, overlapping events side by side and a line
+  at the current time.
+- Permission Primer Screen, the screen shown before the system asks for a
+  permission: what it is for, what the person gets and one button that leads
+  to the system's question.
 - Slot Machine Reels, reels of symbols that spin and stop one after another,
   with the result under a line across them.
 - Notification Stack, notifications piled under the newest one, like a lock
@@ -25,14 +31,15 @@ on `main`.
 - Rating Stars clears the rating with a tap on the chosen star.
 - Gooey Floating Menu closes with a tap outside it.
 - The Showcase app has the Spanish of one demo, Onboarding Pager, in a String
-  Catalog. It shows what passing texts as `LocalizedStringResource` buys:
-  the component is not touched, and the app that copies it translates it.
+  Catalog, shown when the app is launched with `-AppleLanguages "(es)"`. It
+  shows what passing texts as `LocalizedStringResource` buys: the component
+  is not touched, and the app that copies it translates it.
 
 ### Changed
 
 - `make check` rejects a text that agrees with its count and has no entry
   in the String Catalog of the Showcase. Without one it loses its plural
-  where the app runs in Spanish.
+  when the app is launched in Spanish.
 - The README opens with ten components playing, says how to use one in three
   steps and gives coding agents the line to paste and the four files they
   read. The number of components on its badge is read from `catalog.json`.

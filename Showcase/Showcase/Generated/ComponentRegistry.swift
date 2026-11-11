@@ -321,6 +321,15 @@ enum ComponentRegistry {
             demo: { AnyView(DateStripPickerDemo()) }
         ),
         ShowcaseEntry(
+            id: "day-schedule-timeline",
+            title: "Day Schedule Timeline",
+            category: "Calendars",
+            summary: "The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.",
+            keywords: ["day view", "schedule", "agenda", "timeline", "calendar events", "hours", "overlapping events", "current time", "vista de día", "horario", "agenda", "línea de tiempo", "eventos del calendario", "horas", "eventos solapados", "hora actual"],
+            minIOS: "18.0",
+            demo: { AnyView(DayScheduleTimelineDemo()) }
+        ),
+        ShowcaseEntry(
             id: "avatar-stack",
             title: "Avatar Stack",
             category: "Cards",
@@ -1969,6 +1978,15 @@ enum ComponentRegistry {
             keywords: ["master detail", "two pane", "split", "ipad", "size class", "adaptive", "list detail", "maestro detalle", "dos paneles", "dividido", "ipad", "adaptable", "lista y detalle"],
             minIOS: "18.0",
             demo: { AnyView(TwoPaneSplitLayoutDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "permission-primer-screen",
+            title: "Permission Primer Screen",
+            category: "Patterns",
+            summary: "The screen shown before the system asks for a permission: what it is for, what the person gets, and one button that leads to the system's question.",
+            keywords: ["permission", "pre-permission", "primer", "notifications", "onboarding", "allow", "privacy", "tracking", "permiso", "pantalla previa", "notificaciones", "bienvenida", "permitir", "privacidad", "seguimiento", "solicitar permiso"],
+            minIOS: "18.0",
+            demo: { AnyView(PermissionPrimerScreenDemo()) }
         ),
         ShowcaseEntry(
             id: "vertical-timeline",
