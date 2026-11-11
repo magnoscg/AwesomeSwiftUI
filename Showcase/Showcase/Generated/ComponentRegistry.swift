@@ -1947,7 +1947,7 @@ enum ComponentRegistry {
             id: "two-pane-split-layout",
             title: "Two Pane Split Layout",
             category: "Navigation",
-            summary: "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone.",
+            summary: "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone, on NavigationSplitView.",
             keywords: ["master detail", "two pane", "split", "ipad", "size class", "adaptive", "list detail", "maestro detalle", "dos paneles", "dividido", "ipad", "adaptable", "lista y detalle"],
             minIOS: "18.0",
             demo: { AnyView(TwoPaneSplitLayoutDemo()) }

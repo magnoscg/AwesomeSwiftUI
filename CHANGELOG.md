@@ -67,6 +67,8 @@ on `main`.
 
 ### Changed
 
+- Two Pane Split Layout is now built on the system's `NavigationSplitView`,
+  which adds the button that hides the list, the swipe back and the keyboard.
 - The nine components inspired by Kavsoft credit it by name and link to its
   channel.
 - A component inspired by something else must link it, and `make check`
