@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Slot Machine Reels, reels of symbols that spin and stop one after another,
+  with the result under a line across them.
 - Notification Stack, notifications piled under the newest one, like a lock
   screen, that open into a column with a tap and can be swiped away.
 - Typing Indicator Bubble, three dots that bounce in turn inside a message
@@ -28,6 +30,9 @@ on `main`.
 
 ### Changed
 
+- `make check` rejects a text that agrees with its count and has no entry
+  in the String Catalog of the Showcase. Without one it loses its plural
+  where the app runs in Spanish.
 - The README opens with ten components playing, says how to use one in three
   steps and gives coding agents the line to paste and the four files they
   read. The number of components on its badge is read from `catalog.json`.
