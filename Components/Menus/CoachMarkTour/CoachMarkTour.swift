@@ -136,9 +136,16 @@ private struct CoachMarkTourModifier: ViewModifier {
             Text(step.message).font(.subheadline).foregroundStyle(.secondary)
 
             HStack {
-                Button("Skip tour", action: skip)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Button(action: skip) {
+                    // A line of text is too short to hit. The padding widens what answers to
+                    // a touch, and the same padding taken back keeps the layout as it was.
+                    Text("Skip tour")
+                        .padding(.vertical, 13)
+                        .contentShape(.rect)
+                        .padding(.vertical, -13)
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
 
                 Spacer()
 

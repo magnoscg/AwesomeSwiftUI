@@ -6,6 +6,14 @@ on `main`.
 
 ## Unreleased
 
+### Fixed
+
+- Small buttons are easier to hit. In 27 components a button or a row answers
+  to a touch in an area of at least 44 points, the size Apple recommends:
+  links of one line of text, legends, crumbs, tabs, chips, stars and icons
+  inside fields, among others. Where a bigger button would have changed the
+  design, only the area that answers grew.
+
 ## 0.5.2 - 2026-11-11
 
 ### Changed

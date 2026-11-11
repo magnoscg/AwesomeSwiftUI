@@ -136,6 +136,11 @@ anything else:
    Content drawn over a color the caller chooses takes white or black from
    that color, with a `<Name>ContrastingForeground` style like the one in
    `ElasticDragButton`, listed in `ContrastingForegroundTests`.
+   Anything that takes a tap answers in an area of at least 44 by 44 points.
+   Where that size would break the design, like a line of text or an icon
+   inside a field, widen only what answers to the touch, on the label of the
+   button: `.padding(13).contentShape(.rect).padding(-13)`. A button with a
+   system style at its regular size is left as Apple sized it.
 8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
    mirrors layout there, which includes offsets, positions, rotations, shapes
    and unit points, but a gesture still reports screen points and a `Canvas`

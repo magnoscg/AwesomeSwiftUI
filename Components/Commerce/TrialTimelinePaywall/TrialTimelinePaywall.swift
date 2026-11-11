@@ -227,9 +227,16 @@ struct TrialTimelinePaywall: View {
             .allowsHitTesting(!isPurchasing)
             .accessibilityValue(isPurchasing ? "In progress" : "")
 
-            Button("Restore Purchases", action: onRestore)
-                .font(.footnote)
-                .disabled(isPurchasing)
+            Button(action: onRestore) {
+                // A line of text is too short to hit. The padding widens what answers to a
+                // touch, and the same padding taken back keeps the layout as it was.
+                Text("Restore Purchases")
+                    .padding(.vertical, 14)
+                    .contentShape(.rect)
+                    .padding(.vertical, -14)
+            }
+            .font(.footnote)
+            .disabled(isPurchasing)
         }
         .padding(.horizontal, margin)
         .padding(.vertical, 12)

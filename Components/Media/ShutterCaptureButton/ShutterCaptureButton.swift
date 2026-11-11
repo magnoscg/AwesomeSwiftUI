@@ -37,8 +37,15 @@ struct ShutterCaptureButton: View {
         VStack(spacing: 20) {
             HStack(spacing: 28) {
                 ForEach(ShutterCaptureButtonMode.allCases) { option in
-                    Button(option.rawValue) {
+                    Button {
                         withAnimation(animation) { mode = option }
+                    } label: {
+                        // A word is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the layout as it was.
+                        Text(option.rawValue)
+                            .padding(13)
+                            .contentShape(.rect)
+                            .padding(-13)
                     }
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(mode == option ? Color.yellow : Color.white)

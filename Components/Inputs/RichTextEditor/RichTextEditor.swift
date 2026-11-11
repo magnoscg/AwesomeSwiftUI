@@ -25,7 +25,7 @@ struct RichTextEditor: View {
     @Binding var text: AttributedString
     var highlights: [Color] = [.yellow, .green, .pink]
 
-    private let buttonSize: CGFloat = 40
+    private let buttonSize: CGFloat = 44
 
     @State private var selection = AttributedTextSelection()
     @Environment(\.fontResolutionContext) private var fontResolutionContext
