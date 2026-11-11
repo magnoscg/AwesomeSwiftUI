@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.4.0 - 2026-11-11
+
 ### Added
 
 - Intelligence Glow Border, a soft band of color that travels around a view's
