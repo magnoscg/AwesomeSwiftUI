@@ -28,6 +28,8 @@ on `main`.
 - Embedded Web Browser selects the whole address when you tap it, so typing
   replaces it, and its three buttons have a touch target of 44 points.
 - Command Palette runs the first match when you press Return.
+- Rich Text Editor formats each part of a selection on its own font, so a
+  title keeps its size when the selection also covers the text under it.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
