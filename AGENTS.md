@@ -197,7 +197,9 @@ anything else:
 
     The Showcase shows the rule at work. Its String Catalog,
     `Showcase/Showcase/Localizable.xcstrings`, has the Spanish of one demo,
-    Onboarding Pager:
+    Onboarding Pager. The app keeps to English, also on a device in Spanish,
+    where it would otherwise run half translated, and shows the Spanish when
+    it is launched asking for it:
 
     ```sh
     xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
@@ -209,10 +211,10 @@ anything else:
     component.
 
     A text that agrees with its count, `^[\(count) photo](inflect: true)`,
-    needs an entry there too. Where the app runs in Spanish the English text
-    loses its plural, "3 photo", so the catalog gives it the two forms, in
-    English while its demo is not translated. `make check` rejects one that
-    is missing.
+    needs an entry there too. Launched in Spanish, the English text loses its
+    plural, "3 photo", so the catalog gives it the two forms, in English
+    while its demo is not translated. `make check` rejects one that is
+    missing.
 
 14. **A demo stops playing when it is touched.** A demo may move by itself, so
     it looks alive and its preview records without touches, but never against
