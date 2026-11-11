@@ -17328,6 +17328,8 @@ private struct DoubleTapHeartOverlayHeart: View {
 struct DoubleTapHeartOverlayDemo: View {
     @State private var isLiked = false
     @State private var burst: DoubleTapHeartOverlayRequest?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -17362,6 +17364,7 @@ struct DoubleTapHeartOverlayDemo: View {
             .clipShape(.rect(cornerRadius: 24, style: .continuous))
             .padding(20)
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playHearts()
@@ -17371,14 +17374,14 @@ struct DoubleTapHeartOverlayDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playHearts() async {
         let points = [UnitPoint(x: 0.5, y: 0.45), UnitPoint(x: 0.28, y: 0.28), UnitPoint(x: 0.72, y: 0.62)]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for point in points {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 burst = DoubleTapHeartOverlayRequest(point: point)
             }
             try? await Task.sleep(for: .seconds(0.7))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             isLiked = false
         }
     }
@@ -20436,6 +20439,8 @@ struct DoubleTapZoomImageDemo: View {
     private let photo = demoPhoto()
 
     @State private var zoomTarget: UnitPoint?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -20450,6 +20455,7 @@ struct DoubleTapZoomImageDemo: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playZooms()
@@ -20459,10 +20465,10 @@ struct DoubleTapZoomImageDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playZooms() async {
         let targets: [UnitPoint?] = [UnitPoint(x: 0.75, y: 0.2), nil, UnitPoint(x: 0.3, y: 0.7), nil]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for target in targets {
                 try? await Task.sleep(for: .seconds(1.2))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 zoomTarget = target
             }
         }
@@ -23969,12 +23975,13 @@ struct AdaptiveColumnsGridDemo: View {
     }
 
     @State private var size = Size.narrow
-    @State private var autoPlays = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var selection: Binding<Size> {
         Binding(get: { size }, set: { newValue in
-            autoPlays = false
+            isAutoPlaying = false
             size = newValue
         })
     }
@@ -24001,11 +24008,12 @@ struct AdaptiveColumnsGridDemo: View {
             }
             .padding(20)
         }
-        .task(id: autoPlays && !reduceMotion) {
-            guard autoPlays, !reduceMotion else { return }
-            while !Task.isCancelled {
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: isAutoPlaying && !reduceMotion) {
+            guard isAutoPlaying, !reduceMotion else { return }
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 let all = Size.allCases
                 let next = ((all.firstIndex(of: size) ?? 0) + 1) % all.count
                 withAnimation(.smooth(duration: 0.4)) { size = all[next] }
@@ -24721,12 +24729,13 @@ struct MasonryLayoutDemo: View {
     ]
 
     @State private var columns = 2
-    @State private var autoPlays = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var columnsBinding: Binding<Int> {
         Binding(get: { columns }, set: { newValue in
-            autoPlays = false
+            isAutoPlaying = false
             columns = newValue
         })
     }
@@ -24755,11 +24764,12 @@ struct MasonryLayoutDemo: View {
             }
             .padding(20)
         }
-        .task(id: autoPlays && !reduceMotion) {
-            guard autoPlays, !reduceMotion else { return }
-            while !Task.isCancelled {
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: isAutoPlaying && !reduceMotion) {
+            guard isAutoPlaying, !reduceMotion else { return }
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.3))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 withAnimation(.smooth(duration: 0.5)) { columns = columns == 2 ? 3 : 2 }
             }
         }
@@ -28463,6 +28473,8 @@ struct SpinningVinylArt<Artwork: View>: View {
 
 struct SpinningVinylArtDemo: View {
     @State private var isPlaying = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -28492,11 +28504,12 @@ struct SpinningVinylArtDemo: View {
                 .accessibilityLabel(isPlaying ? "Pause" : "Play")
             }
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(isPlaying ? 2.2 : 1.4))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 isPlaying.toggle()
             }
         }
@@ -32317,7 +32330,6 @@ struct SearchScopesAndSuggestionsDemo: View {
     @State private var text = ""
     @State private var isSearching = false
     @State private var scope = SearchScopesAndSuggestionsDemoScope.all
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var results: [SearchScopesAndSuggestionsDemoProduce] {
         produce.filter { item in
@@ -32346,26 +32358,9 @@ struct SearchScopesAndSuggestionsDemo: View {
                     suggestions: produce.map(\.name)
                 )
             )
-        }
-        .task(id: reduceMotion) { await playDemo() }
-    }
-
-    /// Only for this demo: runs a few rounds so the search field is seen working, then leaves it to you.
-    private func playDemo() async {
-        guard !reduceMotion else { return }
-
-        for _ in 0..<3 {
-            let steps: [(seconds: Double, change: () -> Void)] = [
-                (0.5, { isSearching = true }),
-                (0.7, { text = "a" }),
-                (0.7, { text = "ap" }),
-                (0.8, { scope = .fruit }),
-                (0.8, { text = ""; scope = .all; isSearching = false }),
-            ]
-            for step in steps {
-                try? await Task.sleep(for: .seconds(step.seconds))
-                guard !Task.isCancelled else { return }
-                step.change()
+            // The scope bar goes away with the search, so its filter does too.
+            .onChange(of: isSearching) { _, isSearching in
+                if !isSearching { scope = .all }
             }
         }
     }
@@ -36177,6 +36172,8 @@ nonisolated enum CoverFlowCarouselMath {
 
 struct CoverFlowCarouselDemo: View {
     @State private var selection: String? = "Midnight"
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -36204,13 +36201,14 @@ struct CoverFlowCarouselDemo: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.black)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             let order = [3, 4, 3, 2, 1, 0, 1, 2]
             var step = 3
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.3))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 step = (step + 1) % order.count
                 withAnimation(.smooth(duration: 0.8)) { selection = items[order[step]].id }
             }
@@ -36339,6 +36337,8 @@ struct HideOnScrollBarTracker: Equatable {
 // MARK: - Demo
 
 struct HideOnScrollBarDemo: View {
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -36367,12 +36367,13 @@ struct HideOnScrollBarDemo: View {
                 .padding(.horizontal, 28)
                 .padding(.bottom, 4)
             }
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 var target = 0
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.6))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     target = target == 12 ? 4 : 12
                     withAnimation(.easeInOut(duration: 1)) {
                         proxy.scrollTo(target, anchor: .top)
@@ -36984,6 +36985,8 @@ enum PagedGridLauncherLayout {
 struct PagedGridLauncherDemo: View {
     @State private var page = 0
 
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let palettes: [[Color]] = [
@@ -37007,11 +37010,12 @@ struct PagedGridLauncherDemo: View {
         PagedGridLauncher(items: items, page: $page)
             .padding(.vertical, 12)
             .background(LinearGradient(colors: [.indigo.opacity(0.35), .teal.opacity(0.25)], startPoint: .top, endPoint: .bottom))
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.3))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     page = (page + 1) % 3
                 }
             }
@@ -37600,6 +37604,8 @@ extension View {
 struct ScrollProgressBarDemo: View {
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let paragraph = "Good interfaces explain themselves. A small sign of how much is left can turn a long read into something that feels easy to finish, and it asks nothing of the reader."
@@ -37629,6 +37635,7 @@ struct ScrollProgressBarDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await autoScroll()
@@ -37638,9 +37645,9 @@ struct ScrollProgressBarDemo: View {
     // Only the demo scrolls by itself: down for most of the loop, then quickly back up.
     private func autoScroll() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time = (time + 0.016).truncatingRemainder(dividingBy: 3)
             let fraction = time < 2.4 ? time / 2.4 : (3 - time) / 0.6
             position.scrollTo(y: maxOffset * fraction)
@@ -37720,6 +37727,8 @@ struct ScrollVisibilityRevealDemo: View {
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
     @State private var cycle = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -37740,6 +37749,7 @@ struct ScrollVisibilityRevealDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await replay()
@@ -37763,9 +37773,9 @@ struct ScrollVisibilityRevealDemo: View {
     // Only the demo scrolls by itself. Each pass scrolls to the end, then starts over.
     private func replay() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time += 0.016
             if time >= 4 {
                 time = 0
@@ -38002,6 +38012,8 @@ struct StickyStackedCardsDemo: View {
 
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -38020,6 +38032,7 @@ struct StickyStackedCardsDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await autoScroll()
@@ -38049,9 +38062,9 @@ struct StickyStackedCardsDemo: View {
     // Only the demo scrolls by itself: slowly down, then quickly back to the top.
     private func autoScroll() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time = (time + 0.016).truncatingRemainder(dividingBy: 5)
             let fraction = time < 4 ? time / 4 : 5 - time
             position.scrollTo(y: maxOffset * fraction)
@@ -38159,10 +38172,13 @@ struct VerticalFullScreenFeedDemo: View {
         VerticalFullScreenFeedDemo.item("Under the stars", symbol: "moon.stars.fill", colors: [.purple, .indigo, .black], imageLabel: "A moon and stars on a dark sky"),
     ]
     @State private var selection: String?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VerticalFullScreenFeed(items: items, selection: $selection)
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 await autoAdvance()
@@ -38172,9 +38188,9 @@ struct VerticalFullScreenFeedDemo: View {
     // Only the demo advances by itself. In an app the user swipes between pages.
     private func autoAdvance() async {
         var index = 0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.6))
-            guard !Task.isCancelled, !items.isEmpty else { return }
+            guard !Task.isCancelled, isAutoPlaying, !items.isEmpty else { return }
             index = (index + 1) % items.count
             withAnimation(.smooth(duration: 0.6)) {
                 selection = items[index].id
@@ -38277,6 +38293,8 @@ struct CustomDetentSheetDemo: View {
 
     @State private var isPresented = false
     @State private var selection = PresentationDetent.height(400)
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -38304,6 +38322,7 @@ struct CustomDetentSheetDemo: View {
         ) {
             sheet
         }
+        .simultaneousGesture(stopAutoPlay)
         .task { isPresented = true }
         .task(id: isPresented && !reduceMotion) {
             guard isPresented, !reduceMotion else { return }
@@ -38327,17 +38346,30 @@ struct CustomDetentSheetDemo: View {
             }
             .padding(24)
         }
+        // The sheet is its own presentation, so a touch in it does not reach the gesture behind.
+        .simultaneousGesture(stopAutoPlay)
+    }
+
+    private var stopAutoPlay: some Gesture {
+        DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false }
     }
 
     // Only the demo moves the sheet by itself, by changing the selected detent.
     private func cycleDetents() async {
         let order = [peek, middle, .large, middle]
         var index = 0
-        while !Task.isCancelled {
+        var expected = selection
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.1))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
+            // Dragging the sheet by its grabber does not touch its content, but it changes the detent.
+            guard selection == expected else {
+                isAutoPlaying = false
+                return
+            }
+            expected = order[index]
             withAnimation(.snappy(duration: 0.4)) {
-                selection = order[index]
+                selection = expected
             }
             index = (index + 1) % order.count
         }
