@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="720" height="220" role="img" aria-label="Browse the catalog">
+  <title>Browse the catalog</title>
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0" stop-color="#FF9F0A"/>
+      <stop offset="0.36" stop-color="#FF375F"/>
+      <stop offset="0.72" stop-color="#BF5AF2"/>
+      <stop offset="1" stop-color="#5E5CE6"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+    <clipPath id="pill"><rect x="110" y="60" width="500" height="96" rx="48"/></clipPath>
+  </defs>
+  <style>
+    .label { font: 800 34px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; fill: #FFFFFF; }
+    .chip { font: 700 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #FFFFFF; }
+    .glow, .ring, .arrow, .card { transform-box: fill-box; transform-origin: center; }
+    .shine { transform: translateX(-200px); }
+    @media (prefers-reduced-motion: reduce) {
+      .shine { display: none; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .glow { animation: glow 2.8s ease-in-out infinite; }
+      .ring { animation: ring 2.8s ease-out infinite; }
+      .shine { animation: shine 3.6s cubic-bezier(0.4, 0, 0.3, 1) infinite; }
+      .arrow { animation: nudge 1.4s ease-in-out infinite; }
+      .card { animation: float 5s ease-in-out infinite; }
+      .b { animation-delay: -1.2s; }
+      .c { animation-delay: -2.4s; }
+      .d { animation-delay: -3.6s; }
+    }
+    @keyframes glow { 50% { opacity: 0.95; transform: scale(1.03); } }
+    @keyframes ring { from { opacity: 0.7; transform: scale(1); } 70%, to { opacity: 0; transform: scale(1.07, 1.3); } }
+    @keyframes shine { from { transform: translateX(-200px); } 60%, to { transform: translateX(720px); } }
+    @keyframes nudge { 50% { transform: translateX(6px); } }
+    @keyframes float { 0%, 100% { transform: none; } 50% { transform: translateY(-9px); } }
+  </style>
+
+  <rect class="glow" x="118" y="70" width="484" height="92" rx="46" fill="#FF5E7E" opacity="0.6" filter="url(#blur)"/>
+  <rect class="ring" x="110" y="60" width="500" height="96" rx="48" fill="none" stroke="#FF7A6B" stroke-width="3" opacity="0"/>
+
+  <rect x="110" y="68" width="500" height="96" rx="48" fill="#7A2A8F"/>
+  <rect x="110" y="60" width="500" height="96" rx="48" fill="url(#face)"/>
+  <rect x="110" y="60" width="500" height="96" rx="48" fill="url(#gloss)"/>
+  <g clip-path="url(#pill)"><rect class="shine" x="0" y="40" width="170" height="140" fill="url(#shine)" transform="skewX(-18)"/></g>
+
+  <text class="label" x="150" y="120" textLength="330" lengthAdjust="spacingAndGlyphs">Browse the catalog</text>
+  <g class="arrow">
+    <circle cx="556" cy="108" r="30" fill="#FFFFFF"/>
+    <path d="M543 108h24m-10-11 11 11-11 11" fill="none" stroke="#BF5AF2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g transform="translate(24 18)"><g class="card">
+    <rect width="118" height="26" rx="13" fill="#FF9F0A"/>
+    <text class="chip" x="12" y="18" textLength="94">VoiceOrb.swift</text>
+  </g></g>
+  <g transform="translate(548 16)"><g class="card b">
+    <rect width="150" height="26" rx="13" fill="#5E5CE6"/>
+    <text class="chip" x="12" y="18" textLength="126">WalletCardStack.swift</text>
+  </g></g>
+  <g transform="translate(40 176)"><g class="card c">
+    <rect width="140" height="26" rx="13" fill="#BF5AF2"/>
+    <text class="chip" x="12" y="18" textLength="116">HolographicCard.swift</text>
+  </g></g>
+  <g transform="translate(560 178)"><g class="card d">
+    <rect width="112" height="26" rx="13" fill="#FF375F"/>
+    <text class="chip" x="12" y="18" textLength="88">ToastHost.swift</text>
+  </g></g>
+</svg>

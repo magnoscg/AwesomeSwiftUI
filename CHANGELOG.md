@@ -6,6 +6,13 @@ on `main`.
 
 ## Unreleased
 
+### Changed
+
+- The README has a logo and an animated button to the catalog, a table of
+  contents, the section for coding agents before the rest, with the three
+  things an agent has to check before copying a component, and sections for
+  development and credits.
+
 ## 0.5.3 - 2026-11-11
 
 ### Added
