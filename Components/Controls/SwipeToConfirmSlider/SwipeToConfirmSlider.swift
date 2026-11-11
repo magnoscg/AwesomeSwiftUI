@@ -74,16 +74,23 @@ struct SwipeToConfirmSlider: View {
                     .padding(.horizontal, height)
                     .frame(maxWidth: .infinity)
 
-                Image(systemName: isConfirmed ? "checkmark" : "chevron.forward.2")
-                    .font(.title3.bold())
-                    .foregroundStyle(tint)
-                    .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
-                    .frame(width: thumbWidth, height: thumbWidth)
-                    .background(.white, in: .circle)
-                    .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
-                    .contentShape(.circle)
-                    .offset(x: inset + offset)
-                    .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
+                // Both symbols live in the thumb and fade in place. One image that changes its
+                // symbol leaves the old one behind while the thumb travels back.
+                ZStack {
+                    Image(systemName: "chevron.forward.2")
+                        .opacity(isConfirmed ? 0 : 1)
+                    Image(systemName: "checkmark")
+                        .opacity(isConfirmed ? 1 : 0)
+                        .scaleEffect(isConfirmed || reduceMotion ? 1 : 0.4)
+                }
+                .font(.title3.bold())
+                .foregroundStyle(tint)
+                .frame(width: thumbWidth, height: thumbWidth)
+                .background(.white, in: .circle)
+                .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
+                .contentShape(.circle)
+                .offset(x: inset + offset)
+                .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
             }
         }
         .frame(height: height)

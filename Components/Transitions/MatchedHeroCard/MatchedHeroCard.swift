@@ -3,7 +3,8 @@
 
 import SwiftUI
 
-/// A card that grows in place to fill its parent, using `matchedGeometryEffect`.
+/// A card that grows in place to fill its parent. Its icon, title and subtitle travel to their
+/// new places with `matchedGeometryEffect`.
 ///
 /// With Reduce Motion on, the card changes state without animating.
 struct MatchedHeroCard<Detail: View>: View {
@@ -24,25 +25,29 @@ struct MatchedHeroCard<Detail: View>: View {
     }
 
     var body: some View {
+        // One background for both states, so the card is never see-through while it changes,
+        // and it clips the detail, so the text never runs over what is below the card.
         ZStack(alignment: .top) {
             if isExpanded {
-                expandedCard
+                expandedContent
             } else {
-                collapsedCard
+                collapsedContent
             }
         }
+        .frame(maxWidth: .infinity, minHeight: collapsedHeight, maxHeight: isExpanded ? .infinity : collapsedHeight)
+        .background(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
+        .clipShape(.rect(cornerRadius: 28, style: .continuous))
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .foregroundStyle(.white)
     }
 
-    private var collapsedCard: some View {
+    private var collapsedContent: some View {
         Button {
             withAnimation(animation) { isExpanded = true }
         } label: {
             header
                 .padding(24)
-                .frame(maxWidth: .infinity, minHeight: collapsedHeight, alignment: .bottomLeading)
-                .background { background }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -50,19 +55,17 @@ struct MatchedHeroCard<Detail: View>: View {
         .accessibilityHint("Expands the card")
     }
 
-    private var expandedCard: some View {
+    private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 24) {
             header
 
             detail()
-                .transition(.opacity)
 
             Spacer(minLength: 0)
         }
         .padding(24)
         .padding(.top, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background { background }
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation(animation) { isExpanded = false }
@@ -75,7 +78,6 @@ struct MatchedHeroCard<Detail: View>: View {
             .buttonStyle(.plain)
             .accessibilityLabel("Close")
             .padding(16)
-            .transition(.opacity)
         }
     }
 
@@ -95,12 +97,6 @@ struct MatchedHeroCard<Detail: View>: View {
                 .opacity(0.85)
                 .matchedGeometryEffect(id: "subtitle", in: namespace)
         }
-    }
-
-    private var background: some View {
-        RoundedRectangle(cornerRadius: 28, style: .continuous)
-            .fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
-            .matchedGeometryEffect(id: "background", in: namespace)
     }
 }
 

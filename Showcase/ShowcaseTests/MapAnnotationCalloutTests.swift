@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
+import MapKit
 import Testing
 @testable import Showcase
 
@@ -39,5 +40,32 @@ struct MapAnnotationCalloutTests {
 
         #expect(item.coordinate.latitude == 38.71)
         #expect(item.coordinate.longitude == -9.14)
+    }
+
+    @Test func theStartingRegionShowsEveryPinWithRoom() throws {
+        let items = [
+            MapAnnotationCalloutItem(id: "a", label: "1", title: "A", latitude: 38.70, longitude: -9.16),
+            MapAnnotationCalloutItem(id: "b", label: "2", title: "B", latitude: 38.72, longitude: -9.12),
+        ]
+
+        let region = try #require(MapAnnotationCalloutLogic.region(fitting: items))
+
+        #expect(abs(region.center.latitude - 38.71) < 0.000_001)
+        #expect(abs(region.center.longitude - -9.14) < 0.000_001)
+        #expect(abs(region.span.latitudeDelta - 0.032) < 0.000_001)
+        #expect(abs(region.span.longitudeDelta - 0.064) < 0.000_001)
+    }
+
+    @Test func aSinglePinDoesNotZoomAllTheWayIn() throws {
+        let item = MapAnnotationCalloutItem(id: "a", label: "1", title: "A", latitude: 38.7, longitude: -9.1)
+
+        let region = try #require(MapAnnotationCalloutLogic.region(fitting: [item]))
+
+        #expect(region.span.latitudeDelta == 0.01)
+        #expect(region.span.longitudeDelta == 0.01)
+    }
+
+    @Test func noPinsGiveNoStartingRegion() {
+        #expect(MapAnnotationCalloutLogic.region(fitting: []) == nil)
     }
 }
