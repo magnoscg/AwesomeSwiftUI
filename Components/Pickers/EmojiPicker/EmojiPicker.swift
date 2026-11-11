@@ -39,6 +39,12 @@ struct EmojiPicker: View {
     let onSelect: (String) -> Void
 
     @State private var activeID: String?
+    /// The tab that was tapped stays chosen until the grid moves again. A short section near
+    /// the end cannot reach the top, and would lose its tab to the one above it.
+    @State private var tappedID: String?
+    @State private var isJumping = false
+    /// A scroll view reader cannot jump to a section the lazy stack has not built yet. This can.
+    @State private var position = ScrollPosition(idType: String.self)
     @ScaledMetric(relativeTo: .title) private var cellSize = 44.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -54,11 +60,9 @@ struct EmojiPicker: View {
                 recentRow
             }
 
-            ScrollViewReader { proxy in
-                tabBar(proxy: proxy)
-                Divider()
-                grid
-            }
+            tabBar
+            Divider()
+            grid
         }
         .animation(reduceMotion ? nil : .snappy, value: recents)
     }
@@ -76,15 +80,20 @@ struct EmojiPicker: View {
         .accessibilityLabel("Recent")
     }
 
-    private func tabBar(proxy: ScrollViewProxy) -> some View {
+    private var tabBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 2) {
                 ForEach(categories) { category in
-                    let isActive = category.id == (activeID ?? categories.first?.id)
+                    let isActive = category.id == (tappedID ?? activeID ?? categories.first?.id)
 
                     Button {
-                        activeID = category.id
-                        withAnimation(animation) { proxy.scrollTo(category.id, anchor: .top) }
+                        tappedID = category.id
+                        isJumping = true
+                        withAnimation(animation, completionCriteria: .logicallyComplete) {
+                            position.scrollTo(id: category.id, anchor: .top)
+                        } completion: {
+                            isJumping = false
+                        }
                     } label: {
                         Image(systemName: category.systemImage)
                             .font(.title3)
@@ -122,6 +131,10 @@ struct EmojiPicker: View {
             }
             .scrollTargetLayout()
             .padding(edgePadding)
+        }
+        .scrollPosition($position, anchor: .top)
+        .onScrollPhaseChange { _, phase in
+            if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
             if let first = categories.first(where: { ids.contains($0.id) }) {

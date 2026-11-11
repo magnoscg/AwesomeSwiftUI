@@ -37,9 +37,9 @@
   },
   "previewSteps": [
     "sleep 0.4",
-    "swipe --start-x 50 --start-y 480 --end-x 350 --end-y 480 --duration 1.6",
+    "swipe --start-x 50 --start-y 480 --end-x 350 --end-y 480 --duration 1.6 --delta 4",
     "sleep 0.3",
-    "swipe --start-x 350 --start-y 480 --end-x 110 --end-y 480 --duration 1.2",
+    "swipe --start-x 350 --start-y 480 --end-x 110 --end-y 480 --duration 1.2 --delta 4",
     "sleep 0.5"
   ]
 }

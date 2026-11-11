@@ -181,11 +181,36 @@ anything else:
     - Data stays a `String`: a person's name, a message, the name of a symbol.
     - A text fixed inside the component is a literal passed straight to
       SwiftUI, which already makes it localizable.
+    - Never interpolate a resource into a `String`: it prints its internals,
+      `LocalizedStringResource(key: …)`, instead of the text. Keep the result
+      a resource, or resolve it with `String(localized:)`.
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
       the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
 
     Applied wherever the text is not the identity of an item or part of
     a `String` the component composes.
+
+14. **A demo stops playing when it is touched.** A demo may move by itself, so
+    it looks alive and its preview records without touches, but never against
+    the person trying it. Every demo that does uses the same piece:
+
+    ```swift
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+
+    // on the root of the demo, and inside a sheet it presents
+    .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+
+    // in the task that plays it
+    while isAutoPlaying {
+        try? await Task.sleep(for: .seconds(1.3))
+        guard !Task.isCancelled, isAutoPlaying else { return }
+        // the next step
+    }
+    ```
+
+    Do not present or dismiss a search or a sheet from that task when the
+    person can also do it: record those with `previewSteps` instead.
 
 ## Recording a preview
 

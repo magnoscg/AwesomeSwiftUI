@@ -31,4 +31,18 @@ struct InteractiveLineChartTests {
         #expect(InteractiveLineChartLogic.domain(for: []) == 0...1)
         #expect(InteractiveLineChartLogic.domain(for: flat) == 4...6)
     }
+
+    @Test func theTooltipStaysOverThePoint() {
+        #expect(InteractiveLineChartLogic.tooltipX(at: 150, width: 80, in: 20...320) == 150)
+    }
+
+    @Test func theTooltipStopsAtBothEndsOfThePlot() {
+        #expect(InteractiveLineChartLogic.tooltipX(at: 20, width: 80, in: 20...320) == 60)
+        #expect(InteractiveLineChartLogic.tooltipX(at: 320, width: 80, in: 20...320) == 280)
+    }
+
+    @Test func aTooltipWiderThanThePlotIsCentered() {
+        #expect(InteractiveLineChartLogic.tooltipX(at: 30, width: 400, in: 20...320) == 170)
+        #expect(InteractiveLineChartLogic.tooltipX(at: 30, width: -5, in: 20...320) == 30)
+    }
 }

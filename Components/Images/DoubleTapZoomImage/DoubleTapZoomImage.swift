@@ -101,6 +101,8 @@ struct DoubleTapZoomImageDemo: View {
     private let photo = demoPhoto()
 
     @State private var zoomTarget: UnitPoint?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -115,6 +117,7 @@ struct DoubleTapZoomImageDemo: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playZooms()
@@ -124,10 +127,10 @@ struct DoubleTapZoomImageDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playZooms() async {
         let targets: [UnitPoint?] = [UnitPoint(x: 0.75, y: 0.2), nil, UnitPoint(x: 0.3, y: 0.7), nil]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for target in targets {
                 try? await Task.sleep(for: .seconds(1.2))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 zoomTarget = target
             }
         }

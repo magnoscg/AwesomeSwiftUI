@@ -6,6 +6,55 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.2 - 2026-11-11
+
+### Changed
+
+- A demo that plays by itself stops for good when you touch it. Fourteen kept
+  moving and undid what you did: Adaptive Columns Grid, Cover Flow Carousel,
+  Custom Detent Sheet, Double Tap Heart Overlay, Double Tap Zoom Image, Hide
+  On Scroll Bar, Masonry Layout, Paged Grid Launcher, Scroll Progress Bar,
+  Scroll Visibility Reveal, Search Scopes And Suggestions, Spinning Vinyl Art,
+  Sticky Stacked Cards and Vertical Full Screen Feed.
+
+### Fixed
+
+- Scroll Spy Header jumps to the section of the chip you tap. It did nothing
+  for a section the list had not built yet. A chip whose section is too near
+  the end to reach the top stays chosen until the list moves again.
+- Undo Snackbar announces its message to VoiceOver again, and the demo of
+  Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
+  the localizable text instead of the text.
+- Swipe Action Row keeps one row open at a time: opening another, or tapping
+  one, closes it.
+- Embedded Web Browser selects the whole address when you tap it, so typing
+  replaces it, and its three buttons have a touch target of 44 points.
+- Command Palette runs the first match when you press Return.
+- Rich Text Editor formats each part of a selection on its own font, so a
+  title keeps its size when the selection also covers the text under it.
+- Swipe To Confirm Slider carries its symbol back with the thumb. The check
+  stayed at the far end for a moment, over an empty thumb.
+- Matched Hero Card stays opaque while it opens and closes, and clips its
+  detail, which ran over the rows below the card.
+- Interactive Pager Transition shows black behind the page that recedes, not
+  bands of the app's background.
+- Image Derived Gradient Background fades from one gradient to the next. It
+  dipped through black on every change.
+- Map Annotation Callout only moves the map when you tap a pin. The first
+  tap also zoomed it.
+- The demo of Search Scopes And Suggestions shows its scopes when you search
+  by hand. Playing by itself left the search without them.
+- Emoji Picker jumps to the section of the category you tap, and that tab
+  stays chosen until the grid moves again. It had the fault Scroll Spy Header
+  had.
+- Wheel Picker draws its wheel around the selected row. The effect was
+  centered two rows below it, so the selected value looked small and faded.
+- Dropdown Select Menu opens its list under the field, with every option. It
+  opened over the field, squeezed to the height of one row.
+- Interactive Line Chart shows the value and the date over the rule while you
+  drag. On iOS 27 the tooltip was not drawn, and before it its background was
+  black.
+
 ## 0.5.1 - 2026-11-11
 
 ### Added

@@ -86,6 +86,8 @@ struct HideOnScrollBarTracker: Equatable {
 // MARK: - Demo
 
 struct HideOnScrollBarDemo: View {
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -114,12 +116,13 @@ struct HideOnScrollBarDemo: View {
                 .padding(.horizontal, 28)
                 .padding(.bottom, 4)
             }
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 var target = 0
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.6))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     target = target == 12 ? 4 : 12
                     withAnimation(.easeInOut(duration: 1)) {
                         proxy.scrollTo(target, anchor: .top)

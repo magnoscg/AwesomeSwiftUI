@@ -151,6 +151,8 @@ enum PagedGridLauncherLayout {
 struct PagedGridLauncherDemo: View {
     @State private var page = 0
 
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let palettes: [[Color]] = [
@@ -174,11 +176,12 @@ struct PagedGridLauncherDemo: View {
         PagedGridLauncher(items: items, page: $page)
             .padding(.vertical, 12)
             .background(LinearGradient(colors: [.indigo.opacity(0.35), .teal.opacity(0.25)], startPoint: .top, endPoint: .bottom))
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.3))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     page = (page + 1) % 3
                 }
             }

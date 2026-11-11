@@ -72,12 +72,13 @@ struct AdaptiveColumnsGridDemo: View {
     }
 
     @State private var size = Size.narrow
-    @State private var autoPlays = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var selection: Binding<Size> {
         Binding(get: { size }, set: { newValue in
-            autoPlays = false
+            isAutoPlaying = false
             size = newValue
         })
     }
@@ -104,11 +105,12 @@ struct AdaptiveColumnsGridDemo: View {
             }
             .padding(20)
         }
-        .task(id: autoPlays && !reduceMotion) {
-            guard autoPlays, !reduceMotion else { return }
-            while !Task.isCancelled {
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: isAutoPlaying && !reduceMotion) {
+            guard isAutoPlaying, !reduceMotion else { return }
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 let all = Size.allCases
                 let next = ((all.firstIndex(of: size) ?? 0) + 1) % all.count
                 withAnimation(.smooth(duration: 0.4)) { size = all[next] }
