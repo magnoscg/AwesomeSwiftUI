@@ -209,15 +209,40 @@ const major = (version: string) => version.replace(/\.0$/, '');
     text-decoration: none;
   }
 
+  .grid a {
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
   .grid a:hover,
   .grid a:focus-visible {
     border-color: var(--sl-color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -22px color-mix(in srgb, var(--sl-color-accent) 70%, transparent);
   }
 
+  /* The shape of a phone screen, kept before the preview loads, so the grid does not jump. */
   .grid img {
     align-self: center;
     height: auto;
-    border-radius: 0.5rem;
+    aspect-ratio: 402 / 874;
+    object-fit: cover;
+    border-radius: 1.4rem;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-gray-6);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grid a {
+      transition: none;
+    }
+
+    .grid a:hover,
+    .grid a:focus-visible {
+      transform: none;
+    }
   }
 
   .grid strong {

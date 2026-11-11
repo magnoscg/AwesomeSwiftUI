@@ -2,19 +2,55 @@
 
 # Awesome SwiftUI Components
 
-*Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
+**Copy-paste SwiftUI components, animations and transitions.**<br>
+iOS 18 to iOS 27 · Swift 6 · one file each · nothing to install
 
+[![Components](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmagnoscg%2Fswiftui-components%2FHEAD%2Fcatalog.json&query=%24.count&label=components&color=5856d6)](https://magnoscg.github.io/swiftui-components/)
+[![iOS](https://img.shields.io/badge/iOS-18%20to%2027-0a84ff)](#at-a-glance)
+[![Swift](https://img.shields.io/badge/Swift-6-f05138)](#the-rules-every-component-keeps)
 [![CI](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-components)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/stargazers)
 
-From a one-line button style to full animated transitions. No package to
-install: find a component, copy its file, use it.
+### [Browse the catalog →](https://magnoscg.github.io/swiftui-components/)
+
+[Use a component](#use-a-component) · [For AI agents](#for-ai-agents) · [All components](#catalog) · [Contribute](#contributing)
+
+<br>
+
+<a href="Components/Cards/HolographicCard"><img src="Components/Cards/HolographicCard/HolographicCard.webp" width="150" alt="Holographic Card, a foil that shifts as the card tilts"></a>
+<a href="Components/Effects/VoiceOrb"><img src="Components/Effects/VoiceOrb/VoiceOrb.webp" width="150" alt="Voice Orb, a glowing orb that swells with the voice"></a>
+<a href="Components/Effects/IntelligenceGlowBorder"><img src="Components/Effects/IntelligenceGlowBorder/IntelligenceGlowBorder.webp" width="150" alt="Intelligence Glow Border, a band of color around a view"></a>
+<a href="Components/Cards/WalletCardStack"><img src="Components/Cards/WalletCardStack/WalletCardStack.webp" width="150" alt="Wallet Card Stack, cards that rise from a pile"></a>
+<a href="Components/Transitions/DissolveShaderTransition"><img src="Components/Transitions/DissolveShaderTransition/DissolveShaderTransition.webp" width="150" alt="Dissolve Shader Transition, a view that burns away"></a>
+
+<a href="Components/Menus/GooeyFloatingMenu"><img src="Components/Menus/GooeyFloatingMenu/GooeyFloatingMenu.webp" width="150" alt="Gooey Floating Menu, buttons that split like drops"></a>
+<a href="Components/Progress/ActivityRings"><img src="Components/Progress/ActivityRings/ActivityRings.webp" width="150" alt="Activity Rings, three rings that fill"></a>
+<a href="Components/Text/KaraokeLyricsText"><img src="Components/Text/KaraokeLyricsText/KaraokeLyricsText.webp" width="150" alt="Karaoke Lyrics Text, lyrics that light up as they are sung"></a>
+<a href="Components/Playful/SpinWheelRoulette"><img src="Components/Playful/SpinWheelRoulette/SpinWheelRoulette.webp" width="150" alt="Spin Wheel Roulette, a prize wheel"></a>
+<a href="Components/Backgrounds/SynthwaveGridBackground"><img src="Components/Backgrounds/SynthwaveGridBackground/SynthwaveGridBackground.webp" width="150" alt="Synthwave Grid Background, a neon grid under a sun"></a>
+
+<sub>Ten of them, playing. Every component has a preview like these.</sub>
 
 </div>
 
-**[Browse the catalog](https://magnoscg.github.io/swiftui-components/)**
+## Use a component
+
+1. **Find it.** [Search the catalog](https://magnoscg.github.io/swiftui-components/)
+   by name, category, iOS version, level or the Apple API it uses, or look in
+   [the table below](#catalog).
+2. **Copy its file.** One `.swift` file holds the component, a demo and a
+   preview. The few drawn by a shader have a `.metal` file to copy too.
+3. **Use it.** It is your code now: no package, no version to track.
+
+```swift
+PulseRingButton(systemImage: "mic.fill", label: "Record") {
+    startRecording()
+}
+```
+
+To try them all on a device, open `Showcase/Showcase.xcodeproj` and run it.
 
 ## At a glance
 
@@ -24,8 +60,27 @@ install: find a component, copy its file, use it.
 | Platforms | iOS 18 to iOS 27. Each component states its own minimum |
 | Language | Swift 6, with complete concurrency checking |
 | Technologies | The current Apple API for each iOS version, and nothing deprecated |
-| Search | Keywords on every component, for people and for AI agents |
+| Accessibility | Reduce Motion, Dynamic Type, VoiceOver and right-to-left layouts |
+| Search | Keywords on every component, in English and Spanish, for people and for AI agents |
 | License | MIT |
+
+## For AI agents
+
+The catalog is built to be read by a coding agent. Point yours at the index
+and ask for what you need:
+
+```text
+Find a SwiftUI component for <what you need> in
+https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
+and copy its file into my project.
+```
+
+| File | What it is for |
+|---|---|
+| [llms.txt](llms.txt) | The short index: every component with its summary and the address of its source |
+| [llms-full.txt](llms-full.txt) | The same index with the source of every component inline |
+| [catalog.json](catalog.json) | Every component as data: keywords in English and Spanish, minimum iOS, APIs, level, and `rawURL` to fetch, with `shaderRawURL` when it has a shader |
+| [AGENTS.md](AGENTS.md) | The map of the repository and the rules a change has to keep |
 
 ## Catalog
 
@@ -103,14 +158,6 @@ Components/
 - **Visible.** Every component has an animated preview, here and on the site.
 - **Clean origin.** Original work, or code under a compatible license with its
   notice kept. See [where code may come from](CONTRIBUTING.md#where-code-may-come-from).
-
-## For AI agents
-
-[AGENTS.md](AGENTS.md) maps the repository and lists the rules a change has to
-keep. To find a component, search [catalog.json](catalog.json) by keyword, in
-English or Spanish, and fetch its `rawURL`, and its `shaderRawURL` when it has
-one. [llms.txt](llms.txt) is the short index and [llms-full.txt](llms-full.txt)
-has every component with its source.
 
 ## Contributing
 

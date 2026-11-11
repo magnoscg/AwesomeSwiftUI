@@ -1,0 +1,128 @@
+---
+// Two rows of previews that drift in opposite directions under the hero.
+// Each row holds its previews twice, so the loop has no seam. With Reduce
+// Motion on, the rows stand still and scroll by hand.
+import { components, pageURL, previewBytes, previewURL } from '../lib/catalog';
+
+const picks = [
+  'HolographicCard', 'VoiceOrb', 'IntelligenceGlowBorder', 'WalletCardStack', 'DissolveShaderTransition',
+  'GooeyFloatingMenu', 'ActivityRings', 'KaraokeLyricsText', 'SpinWheelRoulette', 'SynthwaveGridBackground',
+  'RippleShaderEffect', 'LikeBurstButton', 'LiquidFillProgress', 'AuroraMeshBackground', 'TapbackReactionBubble',
+  'DynamicIslandPill', 'ElasticDragButton', 'CandlestickChart', 'StoriesViewer', 'GlassToolStrip',
+];
+// A preview can weigh up to 2 MB. The landing page keeps to the light ones.
+const maximumBytes = 700 * 1024;
+const shown = picks
+  .map((name) => components.find((component) => component.name === name))
+  .filter((component) => component !== undefined)
+  .filter((component) => previewBytes(component) <= maximumBytes);
+const half = Math.ceil(shown.length / 2);
+const rows = [shown.slice(0, half), shown.slice(half)];
+---
+
+<div class="preview-marquee not-content" aria-label="Some of the components, playing">
+  {
+    rows.map((row, index) => (
+      <div class:list={['row', { reverse: index === 1 }]}>
+        {[0, 1].map((copy) => (
+          <ul aria-hidden={copy === 1 ? 'true' : undefined}>
+            {row.map((component) => (
+              <li>
+                <a href={pageURL(component)} tabindex={copy === 1 ? -1 : undefined}>
+                  <img src={previewURL(component)} alt={component.title} width="160" height="348" loading="lazy" decoding="async" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .preview-marquee {
+    --gap: 1rem;
+    --duration: 70s;
+    display: grid;
+    gap: var(--gap);
+    margin: 2.5rem calc(50% - 50vw) 1rem;
+    padding-block: 0.5rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+
+  .row {
+    display: flex;
+    gap: var(--gap);
+    width: max-content;
+  }
+
+  .row ul {
+    display: flex;
+    flex-shrink: 0;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    animation: drift var(--duration) linear infinite;
+  }
+
+  .row.reverse ul {
+    animation-direction: reverse;
+  }
+
+  .preview-marquee:hover ul,
+  .preview-marquee:focus-within ul {
+    animation-play-state: paused;
+  }
+
+  .row a {
+    display: block;
+    border-radius: 1.6rem;
+    outline-offset: 3px;
+  }
+
+  .row img {
+    display: block;
+    width: 160px;
+    height: auto;
+    aspect-ratio: 402 / 874;
+    object-fit: cover;
+    border-radius: 1.6rem;
+    border: 1px solid color-mix(in srgb, var(--sl-color-white) 14%, transparent);
+    background: var(--sl-color-gray-6);
+    box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+    transition: transform 0.25s ease;
+  }
+
+  .row a:hover img,
+  .row a:focus-visible img {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  @keyframes drift {
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .preview-marquee {
+      overflow-x: auto;
+      mask-image: none;
+    }
+
+    .row ul {
+      animation: none;
+    }
+
+    .row ul[aria-hidden='true'] {
+      display: none;
+    }
+
+    .row img {
+      transition: none;
+    }
+  }
+</style>

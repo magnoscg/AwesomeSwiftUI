@@ -22,6 +22,18 @@ on `main`.
   Catalog. It shows what passing texts as `LocalizedStringResource` buys:
   the component is not touched, and the app that copies it translates it.
 
+### Changed
+
+- The README opens with ten components playing, says how to use one in three
+  steps and gives coding agents the line to paste and the four files they
+  read. The number of components on its badge is read from `catalog.json`.
+- The site has a landing page: previews that drift under the title, the
+  catalog in four figures counted when it builds, what every component
+  keeps, the line to give a coding agent, and every category as a link to
+  the catalog filtered by it. Cards in the catalog keep the shape of a phone
+  before their preview loads, and the preview on the page of a component is
+  framed like a screen.
+
 ### Fixed
 
 - Small buttons are easier to hit. In 27 components a button or a row answers
