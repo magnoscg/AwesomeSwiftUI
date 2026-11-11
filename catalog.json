@@ -1,5 +1,5 @@
 {
-  "count": 285,
+  "count": 286,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -9070,6 +9070,48 @@
       "path": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift",
       "preview": "Components/Playful/SpinWheelRoulette/SpinWheelRoulette.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Playful/SpinWheelRoulette/SpinWheelRoulette.swift"
+    },
+    {
+      "id": "profile-header-stretchy",
+      "name": "ProfileHeaderStretchy",
+      "title": "Profile Header Stretchy",
+      "category": "Profiles",
+      "summary": "A profile whose cover stretches when the page is pulled down and closes into a bar with the name as it scrolls, while the avatar on its edge shrinks away.",
+      "keywords": {
+        "en": [
+          "profile header",
+          "stretchy header",
+          "cover image",
+          "avatar",
+          "collapsing header",
+          "pull to stretch",
+          "social profile"
+        ],
+        "es": [
+          "cabecera de perfil",
+          "cabecera elástica",
+          "imagen de portada",
+          "avatar",
+          "cabecera que se contrae",
+          "tirar para estirar",
+          "perfil social"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "onScrollGeometryChange",
+        "GeometryReader",
+        "alignmentGuide",
+        "ScaledMetric",
+        "ignoresSafeArea"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Profiles/ProfileHeaderStretchy/ProfileHeaderStretchy.swift",
+      "preview": "Components/Profiles/ProfileHeaderStretchy/ProfileHeaderStretchy.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Profiles/ProfileHeaderStretchy/ProfileHeaderStretchy.swift"
     },
     {
       "id": "stories-viewer",

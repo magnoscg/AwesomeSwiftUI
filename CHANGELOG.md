@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Profile Header Stretchy, a profile whose cover stretches when the page is
+  pulled down and closes into a bar with the name as it scrolls.
 - Day Schedule Timeline, the hours of a day down a column, with each event
   drawn over the time it takes, overlapping events side by side and a line
   at the current time.
