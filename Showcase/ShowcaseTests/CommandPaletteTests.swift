@@ -55,4 +55,16 @@ import Testing
     @Test func noCommandsGivesNoGroups() {
         #expect(CommandPaletteFilter.groups([], query: "").isEmpty)
     }
+
+    @Test func returnRunsTheCommandAtTheTopOfTheList() {
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "folder")?.id == "New Folder")
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "new")?.id == "New Note")
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "export")?.id == "Share")
+    }
+
+    @Test func returnDoesNothingWithoutAQueryOrAMatch() {
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "") == nil)
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "   ") == nil)
+        #expect(CommandPaletteFilter.firstMatch(in: commands, query: "zzz") == nil)
+    }
 }

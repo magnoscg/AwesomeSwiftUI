@@ -1450,6 +1450,7 @@ struct ImageDerivedGradientBackground: View {
     var fallback: [Color] = [.indigo, .black]
 
     @State private var colors: [Color]?
+    @State private var previous: [Color]?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -1457,6 +1458,10 @@ struct ImageDerivedGradientBackground: View {
 
         ZStack {
             Color.black
+
+            // The gradient before stays underneath while the new one fades in over it.
+            // Fading one out as the other fades in would dip through the black.
+            LinearGradient(colors: previous ?? shown, startPoint: .top, endPoint: .bottom)
 
             LinearGradient(colors: shown, startPoint: .top, endPoint: .bottom)
                 .id(shown)
@@ -1467,6 +1472,7 @@ struct ImageDerivedGradientBackground: View {
         .task(id: Request(image: image, bands: bands)) {
             let sampled = sampledColors()
             guard !Task.isCancelled else { return }
+            previous = colors ?? fallback
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { colors = sampled }
         }
     }
@@ -11324,16 +11330,23 @@ struct SwipeToConfirmSlider: View {
                     .padding(.horizontal, height)
                     .frame(maxWidth: .infinity)
 
-                Image(systemName: isConfirmed ? "checkmark" : "chevron.forward.2")
-                    .font(.title3.bold())
-                    .foregroundStyle(tint)
-                    .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
-                    .frame(width: thumbWidth, height: thumbWidth)
-                    .background(.white, in: .circle)
-                    .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
-                    .contentShape(.circle)
-                    .offset(x: inset + offset)
-                    .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
+                // Both symbols live in the thumb and fade in place. One image that changes its
+                // symbol leaves the old one behind while the thumb travels back.
+                ZStack {
+                    Image(systemName: "chevron.forward.2")
+                        .opacity(isConfirmed ? 0 : 1)
+                    Image(systemName: "checkmark")
+                        .opacity(isConfirmed ? 1 : 0)
+                        .scaleEffect(isConfirmed || reduceMotion ? 1 : 0.4)
+                }
+                .font(.title3.bold())
+                .foregroundStyle(tint)
+                .frame(width: thumbWidth, height: thumbWidth)
+                .background(.white, in: .circle)
+                .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
+                .contentShape(.circle)
+                .offset(x: inset + offset)
+                .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
             }
         }
         .frame(height: height)
@@ -18534,8 +18547,16 @@ enum SwipeActionRowPhysics {
     }
 }
 
+/// The one row that is open, shared by every row, so opening another closes it.
+@MainActor @Observable private final class SwipeActionRowOpenRow {
+    static let shared = SwipeActionRowOpenRow()
+
+    var id: UUID?
+}
+
 /// A row that reveals action buttons under a horizontal swipe and snaps open or closed.
 ///
+/// Only one row is open at a time: opening another closes it, as in a system list.
 /// Vertical drags are left to the scroll view around it. VoiceOver reaches the same buttons as
 /// custom actions, and with Reduce Motion on the row settles without animating.
 struct SwipeActionRow<Content: View>: View {
@@ -18543,7 +18564,7 @@ struct SwipeActionRow<Content: View>: View {
     var buttonWidth: CGFloat = 80
     @ViewBuilder var content: () -> Content
 
-    @State private var isOpen = false
+    @State private var id = UUID()
     @GestureState private var translation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.layoutDirection) private var layoutDirection
@@ -18551,6 +18572,7 @@ struct SwipeActionRow<Content: View>: View {
     /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
     private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
+    private var isOpen: Bool { SwipeActionRowOpenRow.shared.id == id }
     private var width: CGFloat { max(buttonWidth, 0) }
     private var revealWidth: CGFloat { CGFloat(actions.count) * width }
     private var resting: CGFloat { isOpen ? -revealWidth : 0 }
@@ -18581,6 +18603,10 @@ struct SwipeActionRow<Content: View>: View {
             .background(alignment: .trailing) { buttons }
             .clipped()
             .simultaneousGesture(swipe)
+            // A tap on another row closes the one that is open, and still reaches that row.
+            .simultaneousGesture(TapGesture().onEnded {
+                if !isOpen { withAnimation(animation) { SwipeActionRowOpenRow.shared.id = nil } }
+            })
             .animation(animation, value: translation == 0)
     }
 
@@ -18625,12 +18651,21 @@ struct SwipeActionRow<Content: View>: View {
                     predictedTranslation: value.predictedEndTranslation.width * forward,
                     revealWidth: revealWidth
                 )
-                withAnimation(animation) { isOpen = opens }
+                withAnimation(animation) { setOpen(opens) }
             }
     }
 
     private func close() {
-        withAnimation(animation) { isOpen = false }
+        withAnimation(animation) { setOpen(false) }
+    }
+
+    private func setOpen(_ opens: Bool) {
+        let openRow = SwipeActionRowOpenRow.shared
+        if opens {
+            openRow.id = id
+        } else if openRow.id == id {
+            openRow.id = nil
+        }
     }
 }
 
@@ -22742,17 +22777,23 @@ struct RichTextEditor: View {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 6) {
-                    toggle("Bold", symbol: "bold", isOn: font.isBold) { attributes in
-                        attributes.font = (attributes.font ?? .body).bold(!font.isBold)
+                    // Each button reads its state once, so every run of the selection ends the same.
+                    let isBold = font.isBold
+                    let isItalic = font.isItalic
+                    let isUnderlined = typing.underlineStyle != nil
+                    let isStruck = typing.strikethroughStyle != nil
+
+                    toggle("Bold", symbol: "bold", isOn: isBold) { attributes in
+                        attributes.font = (attributes.font ?? .body).bold(!isBold)
                     }
-                    toggle("Italic", symbol: "italic", isOn: font.isItalic) { attributes in
-                        attributes.font = (attributes.font ?? .body).italic(!font.isItalic)
+                    toggle("Italic", symbol: "italic", isOn: isItalic) { attributes in
+                        attributes.font = (attributes.font ?? .body).italic(!isItalic)
                     }
-                    toggle("Underline", symbol: "underline", isOn: typing.underlineStyle != nil) { attributes in
-                        attributes.underlineStyle = attributes.underlineStyle == nil ? .single : nil
+                    toggle("Underline", symbol: "underline", isOn: isUnderlined) { attributes in
+                        attributes.underlineStyle = isUnderlined ? nil : .single
                     }
-                    toggle("Strikethrough", symbol: "strikethrough", isOn: typing.strikethroughStyle != nil) { attributes in
-                        attributes.strikethroughStyle = attributes.strikethroughStyle == nil ? .single : nil
+                    toggle("Strikethrough", symbol: "strikethrough", isOn: isStruck) { attributes in
+                        attributes.strikethroughStyle = isStruck ? nil : .single
                     }
 
                     Divider()
@@ -22761,9 +22802,8 @@ struct RichTextEditor: View {
 
                     ForEach(highlights, id: \.self) { color in
                         Button {
-                            text.transformAttributes(in: &selection) { attributes in
-                                attributes.backgroundColor = RichTextEditorLogic.toggled(attributes.backgroundColor, choosing: color.opacity(0.4))
-                            }
+                            let highlight = RichTextEditorLogic.toggled(typing.backgroundColor, choosing: color.opacity(0.4))
+                            apply { $0.backgroundColor = highlight }
                         } label: {
                             Image(systemName: "highlighter")
                                 .frame(width: buttonSize, height: buttonSize)
@@ -22780,9 +22820,38 @@ struct RichTextEditor: View {
         }
     }
 
+    /// Changes every run of the selection on its own attributes, so a run keeps what makes it
+    /// different, like the size of a title. With no selection it changes what is typed next.
+    private func apply(_ change: (inout AttributeContainer) -> Void) {
+        guard case .ranges(let ranges) = selection.indices(in: text), !ranges.isEmpty else {
+            text.transformAttributes(in: &selection, body: change)
+            return
+        }
+        // Indices do not survive a change, so the selection is kept as offsets and put back.
+        let offsets = ranges.ranges.map { range in
+            (
+                text.characters.distance(from: text.startIndex, to: range.lowerBound),
+                text.characters.distance(from: text.startIndex, to: range.upperBound)
+            )
+        }
+        for (lower, upper) in offsets {
+            let range = text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper)
+            for run in Array(text[range].runs) {
+                var attributes = run.attributes
+                change(&attributes)
+                text[run.range].setAttributes(attributes)
+            }
+        }
+        var selected = RangeSet<AttributedString.Index>()
+        for (lower, upper) in offsets {
+            selected.insert(contentsOf: text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper))
+        }
+        selection = AttributedTextSelection(ranges: selected)
+    }
+
     private func toggle(_ title: String, symbol: String, isOn: Bool, change: @escaping (inout AttributeContainer) -> Void) -> some View {
         Button {
-            text.transformAttributes(in: &selection, body: change)
+            apply(change)
         } label: {
             Image(systemName: symbol)
                 .font(.body.weight(.semibold))
@@ -26968,6 +27037,23 @@ nonisolated enum MapAnnotationCalloutLogic {
         guard latitude.isFinite, span.isFinite else { return 0 }
         return min(max(latitude + max(span, 0) * shift, -90), 90)
     }
+
+    /// The region that shows every item with some room around them. Nil when there are none.
+    /// `smallest` keeps a single pin, or pins on one spot, from zooming all the way in.
+    static func region(fitting items: [MapAnnotationCalloutItem], room: Double = 1.6, smallest: Double = 0.01) -> MKCoordinateRegion? {
+        let latitudes = items.map(\.latitude).filter(\.isFinite)
+        let longitudes = items.map(\.longitude).filter(\.isFinite)
+        guard let south = latitudes.min(), let north = latitudes.max(),
+              let west = longitudes.min(), let east = longitudes.max() else { return nil }
+
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: (south + north) / 2, longitude: (west + east) / 2),
+            span: MKCoordinateSpan(
+                latitudeDelta: min(max((north - south) * room, smallest), 180),
+                longitudeDelta: min(max((east - west) * room, smallest), 360)
+            )
+        )
+    }
 }
 
 /// A map of pins with a short label each. Tap one and it turns dark and opens a callout above
@@ -27000,6 +27086,13 @@ struct MapAnnotationCallout<Callout: View>: View {
         .mapStyle(.standard(pointsOfInterest: .excludingAll))
         .onMapCameraChange { context in
             visibleSpan = context.region.span
+        }
+        // The map starts on a region of its own, so the span is known from the start. With the
+        // automatic camera it is not, and the first pin tapped also zoomed the map.
+        .onAppear {
+            guard let region = MapAnnotationCalloutLogic.region(fitting: items) else { return }
+            position = .region(region)
+            visibleSpan = region.span
         }
         .onChange(of: selection) { _, id in
             guard let item = items.first(where: { $0.id == id }) else { return }
@@ -29344,11 +29437,18 @@ enum CommandPaletteFilter {
         }
         return titles.map { CommandPaletteGroup(title: $0, commands: bySection[$0] ?? []) }
     }
+
+    /// The command at the top of the list for a query, which Return runs. Nothing for an empty query.
+    static func firstMatch(in commands: [CommandPaletteCommand], query: String) -> CommandPaletteCommand? {
+        guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        return groups(commands, query: query).first?.commands.first
+    }
 }
 
 /// A searchable list of commands, filtered as you type. Show it in a sheet.
 ///
-/// The search field takes focus when it appears. Running a command closes the sheet first.
+/// The search field takes focus when it appears, and Return runs the first match.
+/// Running a command closes the sheet first.
 struct CommandPalette: View {
     let commands: [CommandPaletteCommand]
 
@@ -29381,6 +29481,10 @@ struct CommandPalette: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Type a command"
             )
+            // Return runs the first match, as in a command palette on a keyboard.
+            .onSubmit(of: .search) {
+                if let first = CommandPaletteFilter.firstMatch(in: commands, query: query) { run(first) }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }
@@ -29392,8 +29496,7 @@ struct CommandPalette: View {
 
     private func row(_ command: CommandPaletteCommand) -> some View {
         Button {
-            dismiss()
-            command.action()
+            run(command)
         } label: {
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 12) {
@@ -29407,6 +29510,11 @@ struct CommandPalette: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(command.title)
+    }
+
+    private func run(_ command: CommandPaletteCommand) {
+        dismiss()
+        command.action()
     }
 
     private func titleLabel(_ command: CommandPaletteCommand) -> some View {
@@ -31422,7 +31530,10 @@ struct EmbeddedWebBrowser: View {
     let page: WebPage
 
     @State private var address = ""
+    @State private var selection: TextSelection?
     @FocusState private var isEditing: Bool
+
+    private let touchTarget: CGFloat = 44
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31434,18 +31545,18 @@ struct EmbeddedWebBrowser: View {
                     .accessibilityLabel("Loading page")
             }
 
-            HStack(spacing: 14) {
-                Button("Back", systemImage: "chevron.backward") {
+            HStack(spacing: 2) {
+                barButton("Back", systemImage: "chevron.backward") {
                     if let item = page.backForwardList.backList.last { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.backList.isEmpty)
 
-                Button("Forward", systemImage: "chevron.forward") {
+                barButton("Forward", systemImage: "chevron.forward") {
                     if let item = page.backForwardList.forwardList.first { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.forwardList.isEmpty)
 
-                TextField("Address", text: $address)
+                TextField("Address", text: $address, selection: $selection)
                     .focused($isEditing)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -31459,7 +31570,7 @@ struct EmbeddedWebBrowser: View {
                         if let url = EmbeddedWebBrowserLogic.url(from: address) { _ = page.load(url) }
                     }
 
-                Button(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
+                barButton(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
                     if page.isLoading {
                         page.stopLoading()
                     } else {
@@ -31469,8 +31580,8 @@ struct EmbeddedWebBrowser: View {
             }
             .labelStyle(.iconOnly)
             .font(.body.weight(.medium))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
             .background(.bar)
         }
         .onChange(of: page.url, initial: true) { _, url in
@@ -31478,6 +31589,17 @@ struct EmbeddedWebBrowser: View {
         }
         .onChange(of: isEditing) { _, editing in
             address = editing ? (page.url?.absoluteString ?? "") : EmbeddedWebBrowserLogic.host(of: page.url)
+            // The whole address is selected, as in Safari, so typing replaces it.
+            selection = editing ? TextSelection(range: address.startIndex..<address.endIndex) : nil
+        }
+    }
+
+    /// An icon button with a touch target of the recommended size.
+    private func barButton(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label { Text(title) } icon: { Image(systemName: systemImage) }
+                .frame(minWidth: touchTarget, minHeight: touchTarget)
+                .contentShape(.rect)
         }
     }
 }
@@ -42146,6 +42268,9 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
                     }
                 }
             }
+            // The page underneath shrinks and darkens as it recedes. Black behind it reads as
+            // depth; the background of the app would flash as bands above and below.
+            .background { Color.black.ignoresSafeArea() }
             .contentShape(.rect)
             .gesture(dragGesture(width: width))
             // No animation while the finger is down, so the page tracks it exactly.
@@ -42272,7 +42397,8 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/MatchedHe
 
 import SwiftUI
 
-/// A card that grows in place to fill its parent, using `matchedGeometryEffect`.
+/// A card that grows in place to fill its parent. Its icon, title and subtitle travel to their
+/// new places with `matchedGeometryEffect`.
 ///
 /// With Reduce Motion on, the card changes state without animating.
 struct MatchedHeroCard<Detail: View>: View {
@@ -42293,25 +42419,29 @@ struct MatchedHeroCard<Detail: View>: View {
     }
 
     var body: some View {
+        // One background for both states, so the card is never see-through while it changes,
+        // and it clips the detail, so the text never runs over what is below the card.
         ZStack(alignment: .top) {
             if isExpanded {
-                expandedCard
+                expandedContent
             } else {
-                collapsedCard
+                collapsedContent
             }
         }
+        .frame(maxWidth: .infinity, minHeight: collapsedHeight, maxHeight: isExpanded ? .infinity : collapsedHeight)
+        .background(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
+        .clipShape(.rect(cornerRadius: 28, style: .continuous))
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .foregroundStyle(.white)
     }
 
-    private var collapsedCard: some View {
+    private var collapsedContent: some View {
         Button {
             withAnimation(animation) { isExpanded = true }
         } label: {
             header
                 .padding(24)
-                .frame(maxWidth: .infinity, minHeight: collapsedHeight, alignment: .bottomLeading)
-                .background { background }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -42319,19 +42449,17 @@ struct MatchedHeroCard<Detail: View>: View {
         .accessibilityHint("Expands the card")
     }
 
-    private var expandedCard: some View {
+    private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 24) {
             header
 
             detail()
-                .transition(.opacity)
 
             Spacer(minLength: 0)
         }
         .padding(24)
         .padding(.top, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background { background }
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation(animation) { isExpanded = false }
@@ -42344,7 +42472,6 @@ struct MatchedHeroCard<Detail: View>: View {
             .buttonStyle(.plain)
             .accessibilityLabel("Close")
             .padding(16)
-            .transition(.opacity)
         }
     }
 
@@ -42364,12 +42491,6 @@ struct MatchedHeroCard<Detail: View>: View {
                 .opacity(0.85)
                 .matchedGeometryEffect(id: "subtitle", in: namespace)
         }
-    }
-
-    private var background: some View {
-        RoundedRectangle(cornerRadius: 28, style: .continuous)
-            .fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
-            .matchedGeometryEffect(id: "background", in: namespace)
     }
 }
 

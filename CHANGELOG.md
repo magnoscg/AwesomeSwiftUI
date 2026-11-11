@@ -23,6 +23,23 @@ on `main`.
 - Undo Snackbar announces its message to VoiceOver again, and the demo of
   Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
   the localizable text instead of the text.
+- Swipe Action Row keeps one row open at a time: opening another, or tapping
+  one, closes it.
+- Embedded Web Browser selects the whole address when you tap it, so typing
+  replaces it, and its three buttons have a touch target of 44 points.
+- Command Palette runs the first match when you press Return.
+- Rich Text Editor formats each part of a selection on its own font, so a
+  title keeps its size when the selection also covers the text under it.
+- Swipe To Confirm Slider carries its symbol back with the thumb. The check
+  stayed at the far end for a moment, over an empty thumb.
+- Matched Hero Card stays opaque while it opens and closes, and clips its
+  detail, which ran over the rows below the card.
+- Interactive Pager Transition shows black behind the page that recedes, not
+  bands of the app's background.
+- Image Derived Gradient Background fades from one gradient to the next. It
+  dipped through black on every change.
+- Map Annotation Callout only moves the map when you tap a pin. The first
+  tap also zoomed it.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab

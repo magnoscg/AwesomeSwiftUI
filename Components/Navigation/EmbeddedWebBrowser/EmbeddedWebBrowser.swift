@@ -34,7 +34,10 @@ struct EmbeddedWebBrowser: View {
     let page: WebPage
 
     @State private var address = ""
+    @State private var selection: TextSelection?
     @FocusState private var isEditing: Bool
+
+    private let touchTarget: CGFloat = 44
 
     var body: some View {
         VStack(spacing: 0) {
@@ -46,18 +49,18 @@ struct EmbeddedWebBrowser: View {
                     .accessibilityLabel("Loading page")
             }
 
-            HStack(spacing: 14) {
-                Button("Back", systemImage: "chevron.backward") {
+            HStack(spacing: 2) {
+                barButton("Back", systemImage: "chevron.backward") {
                     if let item = page.backForwardList.backList.last { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.backList.isEmpty)
 
-                Button("Forward", systemImage: "chevron.forward") {
+                barButton("Forward", systemImage: "chevron.forward") {
                     if let item = page.backForwardList.forwardList.first { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.forwardList.isEmpty)
 
-                TextField("Address", text: $address)
+                TextField("Address", text: $address, selection: $selection)
                     .focused($isEditing)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -71,7 +74,7 @@ struct EmbeddedWebBrowser: View {
                         if let url = EmbeddedWebBrowserLogic.url(from: address) { _ = page.load(url) }
                     }
 
-                Button(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
+                barButton(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
                     if page.isLoading {
                         page.stopLoading()
                     } else {
@@ -81,8 +84,8 @@ struct EmbeddedWebBrowser: View {
             }
             .labelStyle(.iconOnly)
             .font(.body.weight(.medium))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
             .background(.bar)
         }
         .onChange(of: page.url, initial: true) { _, url in
@@ -90,6 +93,17 @@ struct EmbeddedWebBrowser: View {
         }
         .onChange(of: isEditing) { _, editing in
             address = editing ? (page.url?.absoluteString ?? "") : EmbeddedWebBrowserLogic.host(of: page.url)
+            // The whole address is selected, as in Safari, so typing replaces it.
+            selection = editing ? TextSelection(range: address.startIndex..<address.endIndex) : nil
+        }
+    }
+
+    /// An icon button with a touch target of the recommended size.
+    private func barButton(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label { Text(title) } icon: { Image(systemName: systemImage) }
+                .frame(minWidth: touchTarget, minHeight: touchTarget)
+                .contentShape(.rect)
         }
     }
 }
