@@ -3,7 +3,7 @@
   "name": "TwoPaneSplitLayout",
   "title": "Two Pane Split Layout",
   "category": "Navigation",
-  "summary": "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone.",
+  "summary": "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone, on NavigationSplitView.",
   "keywords": {
     "en": [
       "master detail",
@@ -26,9 +26,10 @@
   "difficulty": "intermediate",
   "minIOS": "18.0",
   "apis": [
-    "horizontalSizeClass",
-    "NavigationStack",
-    "navigationDestination(item:destination:)",
+    "NavigationSplitView",
+    "List",
+    "NavigationLink",
+    "navigationSplitViewColumnWidth",
     "ContentUnavailableView"
   ],
   "origin": {

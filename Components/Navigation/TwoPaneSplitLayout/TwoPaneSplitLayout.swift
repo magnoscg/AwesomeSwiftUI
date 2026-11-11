@@ -3,9 +3,12 @@
 
 import SwiftUI
 
-/// A list and its detail, side by side when there is room and pushed on one stack when not.
+/// A list and its detail, side by side when there is room and pushed on one stack when not,
+/// on the system's `NavigationSplitView`.
 ///
-/// Both forms share the same selection, so rotating an iPad or resizing a window keeps your place.
+/// The system keeps the selection when an iPad rotates or a window is resized, and adds what a
+/// split view is expected to have: the button that hides the list, the swipe back on iPhone
+/// and the keyboard. The list selects with its own selection, so VoiceOver reads the selected row.
 struct TwoPaneSplitLayout<Item: Identifiable & Hashable, Row: View, Detail: View>: View {
     let title: String
     let items: [Item]
@@ -14,49 +17,23 @@ struct TwoPaneSplitLayout<Item: Identifiable & Hashable, Row: View, Detail: View
     @ViewBuilder let row: (Item) -> Row
     @ViewBuilder let detail: (Item) -> Detail
 
-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
-
     var body: some View {
-        if horizontalSizeClass == .regular {
-            HStack(spacing: 0) {
-                NavigationStack { list }
-                    .frame(width: max(listWidth, 0))
-
-                Divider()
-                    .ignoresSafeArea()
-
-                NavigationStack { detailPane }
-                    .frame(maxWidth: .infinity)
-            }
-        } else {
-            NavigationStack {
-                list.navigationDestination(item: $selection) { item in
-                    detail(item)
+        NavigationSplitView {
+            List(items, selection: $selection) { item in
+                NavigationLink(value: item) {
+                    row(item)
                 }
             }
-        }
-    }
-
-    private var list: some View {
-        List(items) { item in
-            Button {
-                selection = item
-            } label: {
-                row(item)
+            .navigationTitle(title)
+            .navigationSplitViewColumnWidth(ideal: max(listWidth, 0))
+        } detail: {
+            if let selection {
+                detail(selection)
+            } else {
+                ContentUnavailableView("Nothing selected", systemImage: "sidebar.left")
             }
-            .listRowBackground(selection == item ? Color.accentColor.opacity(0.15) : nil)
-            .accessibilityAddTraits(selection == item ? .isSelected : [])
         }
-        .navigationTitle(title)
-    }
-
-    @ViewBuilder
-    private var detailPane: some View {
-        if let selection {
-            detail(selection)
-        } else {
-            ContentUnavailableView("Nothing selected", systemImage: "sidebar.left")
-        }
+        .navigationSplitViewStyle(.balanced)
     }
 }
 
