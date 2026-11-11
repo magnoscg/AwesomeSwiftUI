@@ -4,7 +4,7 @@
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const REPOSITORY = 'magnoscg/AwesomeSwiftUI';
+const REPOSITORY = 'magnoscg/swiftui-components';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPOSITORY}/HEAD`;
 const BLOB_BASE = `https://github.com/${REPOSITORY}/blob/HEAD`;
 
@@ -31,7 +31,7 @@ const RECORDING_FIELDS = ['previewSteps', 'previewManual'];
 const DEFAULT_PREVIEW_SECONDS = 4;
 
 export const CATEGORY_PAGES = 'catalog';
-const SITE_BASE = '/AwesomeSwiftUI';
+const SITE_BASE = '/swiftui-components';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
 // Longer than any run of backticks a Swift file is likely to hold.
@@ -191,8 +191,9 @@ function validateOrigin(origin, fail) {
     fail(`"origin.kind" must be one of ${ORIGINS.join(', ')}`);
     return;
   }
-  if (origin.kind === 'inspired' && !isText(origin.credit)) {
-    fail('"origin.credit" must name what inspired the component');
+  if (origin.kind === 'inspired') {
+    if (!isText(origin.credit)) fail('"origin.credit" must name what inspired the component');
+    if (!isText(origin.url)) fail('"origin.url" must link what inspired the component');
   }
   if (origin.kind === 'adapted') {
     if (!isText(origin.url)) fail('"origin.url" must link the adapted source');
@@ -216,6 +217,34 @@ function validateSource(meta, source, relative, name, errors) {
   for (const [pattern, message] of BANNED_CODE) {
     if (pattern.test(code)) fail(message);
   }
+
+  for (const number of repeatedNumbers(source)) {
+    fail(`${number} is written ${REPEATED_NUMBER_LIMIT} or more times outside the demo: give it a name`);
+  }
+}
+
+// A number written many times in a component is one value kept in several
+// places. The demo is left out, because it is an example and not the code
+// people keep, and so are the numbers that say nothing more with a name.
+const DEMO_MARK = '// MARK: - Demo';
+const REPEATED_NUMBER_LIMIT = 4;
+const PLAIN_NUMBERS = new Set(['0', '1', '2', '0.5', '90', '100', '180', '360']);
+const NAMED_NUMBER = /^\s*(?:(?:private|fileprivate|static|nonisolated)\s+)*(?:let|var)\s+\w+[^={]*=\s*-?[\d.]+\s*$/;
+
+function repeatedNumbers(source) {
+  const component = withoutLineComments(source.split(DEMO_MARK)[0]);
+  const counts = new Map();
+
+  for (const line of component.split('\n')) {
+    const code = line.replace(/"(?:\\.|[^"\\])*"/g, '""');
+    if (NAMED_NUMBER.test(code) || /[@#]available/.test(code)) continue;
+
+    for (const [number] of code.matchAll(/(?<![\w.])\d+(?:\.\d+)?(?![\w.])/g)) {
+      if (!PLAIN_NUMBERS.has(number)) counts.set(number, (counts.get(number) ?? 0) + 1);
+    }
+  }
+
+  return [...counts].filter(([, count]) => count >= REPEATED_NUMBER_LIMIT).map(([number]) => number);
 }
 
 function validateHeader(meta, text, line, fail) {
@@ -418,7 +447,7 @@ function renderDocsIndex(components) {
   const frontmatter = [
     '---',
     'title: Catalog',
-    'description: Every component in AwesomeSwiftUI, with an animated preview.',
+    'description: Every component in Awesome SwiftUI Components, with an animated preview.',
     'sidebar:',
     '  label: All components',
     '  order: 0',
@@ -493,8 +522,7 @@ function renderDocsSource(component) {
 function renderDocsOrigin(origin) {
   if (origin.kind === 'original') return 'Original';
   if (origin.kind === 'adapted') return `Adapted from [the source](${origin.url}), ${escapeHTML(origin.license)}`;
-  const credit = escapeHTML(origin.credit);
-  return origin.url ? `Inspired by [${credit}](${origin.url})` : `Inspired by ${credit}`;
+  return `Inspired by [${escapeHTML(origin.credit)}](${origin.url})`;
 }
 
 // Served from the repository, not the site: the previews make the site too big
@@ -541,7 +569,7 @@ function renderCatalogJSON(components) {
 
 function renderLLMs(components) {
   const lines = [
-    '# AwesomeSwiftUI',
+    '# Awesome SwiftUI Components',
     '',
     '> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. A component drawn by a Metal shader has a second file, which its entry links: add both. Each component states its minimum iOS.',
     '',
@@ -574,7 +602,7 @@ function renderLLMs(components) {
 
 function renderLLMsFull(components) {
   const header =
-    '# AwesomeSwiftUI: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.\n';
+    '# Awesome SwiftUI Components: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.\n';
   const sections = components.map((component) => {
     const shader = component.shader
       ? `\nShader: ${component.shader}\n\n\`\`\`metal\n${component.shaderSource.trimEnd()}\n\`\`\`\n`

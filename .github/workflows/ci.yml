@@ -56,8 +56,19 @@ jobs:
       # The shaders need it, and the runners do not always have it.
       - name: Install the Metal toolchain
         run: xcodebuild -downloadComponent MetalToolchain
-      - run: make showcase-test DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
-      - run: make showcase-build-mainactor DESTINATION='platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5'
+      # Some runners start before their simulators are ready, and xcodebuild then
+      # finds none. Waiting for the runtime and creating the device avoids that,
+      # and the list of runtimes stays in the log if it ever fails again.
+      - name: Create the iOS 26 simulator
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8 9 10 11 12; do
+            if xcrun simctl list runtimes | grep -q 'iOS 26.5'; then break; fi
+            sleep 10
+          done
+          xcrun simctl list runtimes
+          xcrun simctl create 'Showcase iOS 26' 'iPhone 17 Pro' com.apple.CoreSimulator.SimRuntime.iOS-26-5
+      - run: make showcase-test DESTINATION='platform=iOS Simulator,name=Showcase iOS 26,OS=26.5'
+      - run: make showcase-build-mainactor DESTINATION='platform=iOS Simulator,name=Showcase iOS 26,OS=26.5'
 
   # iOS 18 is the baseline every component claims unless it says otherwise.
   # The runner has no iOS 18 simulator, so this job downloads one.
@@ -78,8 +89,13 @@ jobs:
         run: node scripts/catalog.mjs prune 26
       - name: Install the Metal toolchain
         run: xcodebuild -downloadComponent MetalToolchain
+      # The download fails with "Unable to connect to simulator" when the runner
+      # starts before its simulator service is ready, so it is tried again.
       - name: Install the iOS 18 simulator
         run: |
-          xcodebuild -downloadPlatform iOS -buildVersion 18.5
+          for attempt in 1 2 3; do
+            if xcodebuild -downloadPlatform iOS -buildVersion 18.5; then break; fi
+            sleep 20
+          done
           xcrun simctl create 'Showcase iOS 18' 'iPhone 16' com.apple.CoreSimulator.SimRuntime.iOS-18-5
       - run: make showcase-test DESTINATION='platform=iOS Simulator,name=Showcase iOS 18,OS=18.5'

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -20,6 +20,8 @@ struct NetflixRowsScroller: View {
     let rows: [NetflixRowsScrollerRow]
     var onSelect: (NetflixRowsScrollerTitle) -> Void = { _ in }
 
+    private let posterSpacing: CGFloat = 10
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 24) {
@@ -31,10 +33,10 @@ struct NetflixRowsScroller: View {
                             .accessibilityAddTraits(.isHeader)
 
                         ScrollView(.horizontal) {
-                            LazyHStack(spacing: 10) {
+                            LazyHStack(spacing: posterSpacing) {
                                 ForEach(row.items) { item in
                                     poster(for: item)
-                                        .containerRelativeFrame(.horizontal, count: 3, span: 1, spacing: 10)
+                                        .containerRelativeFrame(.horizontal, count: 3, span: 1, spacing: posterSpacing)
                                 }
                             }
                             .scrollTargetLayout()

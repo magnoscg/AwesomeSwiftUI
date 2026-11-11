@@ -31,7 +31,6 @@
     "defaultScrollAnchor"
   ],
   "origin": {
-    "kind": "inspired",
-    "credit": "Public web component registries"
+    "kind": "original"
   }
 }

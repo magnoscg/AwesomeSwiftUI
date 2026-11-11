@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import FoundationModels
 import SwiftUI

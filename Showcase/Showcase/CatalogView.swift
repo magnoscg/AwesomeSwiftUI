@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -15,7 +15,7 @@ struct CatalogView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle("AwesomeSwiftUI")
+                .navigationTitle("Awesome SwiftUI Components")
                 .searchable(text: $query, prompt: "Name or keyword")
         }
     }

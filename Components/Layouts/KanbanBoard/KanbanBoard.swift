@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -41,6 +41,8 @@ struct KanbanBoard: View {
     @ScaledMetric private var columnWidth: CGFloat
     @State private var targetedColumnID: String?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let cardCornerRadius: CGFloat = 12
 
     init(columns: Binding<[KanbanBoardColumn]>, columnWidth: CGFloat = 220) {
         _columns = columns
@@ -116,8 +118,8 @@ struct KanbanBoard: View {
             .font(.subheadline)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
-            .background(.background, in: .rect(cornerRadius: 12, style: .continuous))
-            .contentShape(.dragPreview, .rect(cornerRadius: 12, style: .continuous))
+            .background(.background, in: .rect(cornerRadius: cardCornerRadius, style: .continuous))
+            .contentShape(.dragPreview, .rect(cornerRadius: cardCornerRadius, style: .continuous))
     }
 
     @ViewBuilder

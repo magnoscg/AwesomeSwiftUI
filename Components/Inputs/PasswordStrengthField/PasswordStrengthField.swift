@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -38,6 +38,8 @@ struct PasswordStrengthField: View {
     @State private var isRevealed = false
     @FocusState private var isFocused: Bool
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let fieldCornerRadius: CGFloat = 14
 
     private var level: Int { PasswordStrengthFieldMeter.level(for: password, rules: rules) }
 
@@ -116,9 +118,9 @@ struct PasswordStrengthField: View {
             .accessibilityLabel(isRevealed ? "Hide password" : "Show password")
         }
         .padding(14)
-        .background(.background, in: .rect(cornerRadius: 14, style: .continuous))
+        .background(.background, in: .rect(cornerRadius: fieldCornerRadius, style: .continuous))
         .overlay {
-            RoundedRectangle(cornerRadius: 14, style: .continuous)
+            RoundedRectangle(cornerRadius: fieldCornerRadius, style: .continuous)
                 .strokeBorder(isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(.quaternary), lineWidth: 1.5)
         }
     }

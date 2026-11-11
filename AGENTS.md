@@ -1,8 +1,8 @@
 # AGENTS.md
 
-How to work on AwesomeSwiftUI, for coding agents and people alike. Read it
-before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md) has the workflow
-for pull requests and releases.
+How to work on Awesome SwiftUI Components, for coding agents and people
+alike. Read it before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md)
+has the workflow for pull requests and releases.
 
 ## What this is
 
@@ -67,7 +67,8 @@ at Xcode 26.6, so that job removes components that need iOS 27 before
 compiling. Those are verified only by `make verify` on a machine with
 Xcode 27.2 or later, so run it before opening the pull request. Revisit this
 when a runner offers Xcode 27. The job also downloads the Metal toolchain,
-which the runners do not always have.
+which the runners do not always have, and creates its own simulator, because
+some runners start before theirs are ready.
 
 A second job runs the same tests on iOS 18, the baseline. The runners have no
 iOS 18 simulator, so it downloads one first, which makes it the slow job.
@@ -111,7 +112,7 @@ anything else:
 
    ```swift
    // SPDX-License-Identifier: MIT
-   // Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+   // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
    ```
 
    A `.metal` file starts with the same two lines.
@@ -163,6 +164,12 @@ anything else:
     still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
     the size, full color with no banding in gradients or glass, and GitHub
     renders it in Markdown, which it does not do for a committed video.
+12. **Name what repeats.** A number written four or more times in a component,
+    outside its demo, gets a name: a `private let`, or a parameter with a
+    default when whoever copies the component would want to change it. A
+    number that reads well where it is, like one padding or one opacity, stays
+    inline. `make check` rejects the repeats, and leaves out 0, 1, 2, 0.5, 90,
+    100, 180 and 360.
 
 ## Recording a preview
 
@@ -219,8 +226,9 @@ Do not trust memory for anything new. Check Apple's documentation or the SDK's
   the metadata.
 - **Everything else stays out**: paid courses and tutorials, code with no
   license, and anything else without permission to redistribute. An idea can
-  inspire a new implementation written from scratch, and should be credited,
-  but do not copy or closely translate its code.
+  inspire a new implementation written from scratch, and should be credited
+  with a link, which `make check` requires, but do not copy or closely
+  translate its code.
 
 ## Git
 

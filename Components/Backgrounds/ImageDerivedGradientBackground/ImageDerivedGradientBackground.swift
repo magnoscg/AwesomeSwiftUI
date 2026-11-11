@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -10,20 +10,22 @@ struct ImageDerivedGradientBackgroundSample: Equatable {
 }
 
 enum ImageDerivedGradientBackgroundMath {
+    static let bytesPerPixel = 4
+
     /// Averages horizontal bands of premultiplied RGBA pixels, from top to bottom.
     ///
     /// Saturated pixels count for more, so a photo gives vivid colors instead of grey.
     /// Fully transparent bands are left out.
     static func bands(pixels: [UInt8], width: Int, height: Int, count: Int) -> [ImageDerivedGradientBackgroundSample] {
-        guard width > 0, height > 0, count > 0, pixels.count / 4 / width >= height else { return [] }
+        guard width > 0, height > 0, count > 0, pixels.count / bytesPerPixel / width >= height else { return [] }
         let bandCount = min(count, height)
 
         return (0..<bandCount).compactMap { band in
-            var red = 0.0, green = 0.0, blue = 0.0, total = 0.0
+            var red: Double = 0, green: Double = 0, blue: Double = 0, total: Double = 0
 
             for row in (band * height / bandCount)..<((band + 1) * height / bandCount) {
                 for column in 0..<width {
-                    let offset = (row * width + column) * 4
+                    let offset = (row * width + column) * bytesPerPixel
                     let alpha = Double(pixels[offset + 3])
                     guard alpha > 0 else { continue }
 
@@ -90,14 +92,14 @@ struct ImageDerivedGradientBackground: View {
 
         let width = cgImage.width
         let height = cgImage.height
-        var pixels = [UInt8](repeating: 0, count: width * height * 4)
+        var pixels = [UInt8](repeating: 0, count: width * height * ImageDerivedGradientBackgroundMath.bytesPerPixel)
         let didDraw = pixels.withUnsafeMutableBytes { buffer -> Bool in
             guard let context = CGContext(
                 data: buffer.baseAddress,
                 width: width,
                 height: height,
                 bitsPerComponent: 8,
-                bytesPerRow: width * 4,
+                bytesPerRow: width * ImageDerivedGradientBackgroundMath.bytesPerPixel,
                 space: space,
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
             ) else { return false }

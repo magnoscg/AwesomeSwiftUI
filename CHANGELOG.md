@@ -1,10 +1,90 @@
 # Changelog
 
-Every notable change to AwesomeSwiftUI. Versions follow
+Every notable change to Awesome SwiftUI Components. Versions follow
 [Semantic Versioning](https://semver.org/), and each release is tagged `X.Y.Z`
 on `main`.
 
 ## Unreleased
+
+## 0.4.0 - 2026-11-11
+
+### Added
+
+- Intelligence Glow Border, a soft band of color that travels around a view's
+  edge and spreads inward, like an assistant that is listening.
+- Karaoke Lyrics Text, lyrics that start dim and light up from the first
+  letter to the last as they are sung.
+- Wallet Card Stack, a stack of cards where the one you tap rises to the top
+  with its details and the rest wait in a pile below.
+- Circular Range Slider, a dial with two handles that sets a range around the
+  clock, like a night of sleep.
+- Passcode Keypad, a number pad with a dot per digit that shakes and empties
+  when the passcode is wrong.
+- Range Slider, a slider with two thumbs that picks a range, like the lowest
+  and highest price of a filter.
+- Tag Input Field, a field that turns what you type into removable tags, which
+  wrap onto as many lines as they need.
+- What's New Sheet, a sheet that lists what a new version brings and comes up
+  once for each version.
+- Trial Timeline Paywall, a paywall that shows what happens on each day of the
+  free trial, with the plans and the button to start it.
+- Toast Host, a queue of toasts that show above everything, sheets and
+  full-screen covers included.
+- Map Search Sheet, the first component with a map: a sheet of places that
+  rests at the bottom, filters as you type and flies to the place you choose.
+- Map Annotation Callout, map pins with a short label that open a callout
+  above them when tapped, while the camera moves to fit it.
+- Map Route Tracker, a route on a map with a marker that travels along it,
+  like an order on its way.
+- Voice Orb, a glowing orb for a voice assistant whose colors swirl and that
+  swells with the voice while it listens or speaks.
+- Tapback Reaction Bubble, a message you press and hold to react to, with the
+  chosen reaction kept as a badge on its corner.
+- Dynamic Height Tray, a sheet exactly as tall as its content, which grows and
+  shrinks as one step of a flow gives way to the next.
+- Streaming Text, text that arrives in chunks, like the answer of a language
+  model, and fades each new part in.
+- Progressive Blur Header, a blur that grows toward the top edge of a scroll
+  view, drawn by a Metal shader, so what scrolls under a header melts away.
+- Pixelate Shader Effect, a modifier that draws a view in big square blocks,
+  like a spoiler, and brings it into focus as they shrink.
+- Candlestick Chart, a chart of open, high, low and close prices, with a rule
+  that reads the day under the finger.
+- Radar Chart, an axis per quality around a center and a shape per series that
+  grows out when it appears.
+- Gauge Chart, a half-moon gauge with colored zones and a needle that swings
+  to the value.
+- Scrollable Bar Chart, a bar chart that scrolls sideways a week at a time and
+  marks the average of the days in sight.
+- Tick Mark Slider, for iOS 26: the system slider with a mark at the values
+  that matter, which settles on the nearest one when let go.
+- Rich Text Editor, for iOS 26: a text editor with a bar to make the selection
+  bold, italic, underlined, struck through or highlighted.
+- Embedded Web Browser, for iOS 26: a small browser inside the app, with an
+  address bar, back, forward and reload.
+- Swipe Action Cards, for iOS 27: a column of cards with the system's swipe
+  actions, outside a `List`.
+- Tabs Picker Pages, for iOS 27: a row of tabs over a page that slides in with
+  them, on the new tabs picker style.
+
+### Changed
+
+- The project is now called Awesome SwiftUI Components, and its repository
+  `swiftui-components`, so the name says what is inside. The old repository
+  address redirects, and the site moves to
+  `https://magnoscg.github.io/swiftui-components/`.
+- Two Pane Split Layout is now built on the system's `NavigationSplitView`,
+  which adds the button that hides the list, the swipe back and the keyboard.
+- The nine components inspired by Kavsoft credit it by name and link to its
+  channel.
+- A component inspired by something else must link it, and `make check`
+  rejects one that does not. Border Beam Modifier now credits Magic UI, and
+  five components that named no source are listed as original: Command
+  Palette, Contribution Heatmap, Floating Dock Bar, Kanban Board and Sticky
+  Stacked Cards.
+- A number written four or more times in a component has a name, so there is
+  one place to change it. `make check` requires it, and 17 components were
+  updated.
 
 ## 0.3.1 - 2026-11-10
 

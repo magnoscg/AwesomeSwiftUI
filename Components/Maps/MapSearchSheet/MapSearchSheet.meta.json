@@ -1,0 +1,26 @@
+{
+  "id": "map-search-sheet",
+  "name": "MapSearchSheet",
+  "title": "Map Search Sheet",
+  "category": "Maps",
+  "summary": "A map with a sheet of places that rests at the bottom, filters as you type and flies to the place you choose.",
+  "keywords": {
+    "en": ["map", "search", "bottom sheet", "places", "detents", "markers", "mapkit"],
+    "es": ["mapa", "búsqueda", "hoja inferior", "lugares", "alturas", "marcadores", "mapkit"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Map", "MapCameraPosition", "Marker", "presentationDetents", "presentationBackgroundInteraction"],
+  "origin": { "kind": "inspired", "credit": "The search sheet of Apple Maps", "url": "https://www.apple.com/maps/" },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap -x 201 -y 657",
+    "sleep 2.4",
+    "tap -x 150 -y 462",
+    "sleep 1.1",
+    "type 'caf'",
+    "sleep 1.2",
+    "tap -x 201 -y 165",
+    "sleep 2.6"
+  ]
+}

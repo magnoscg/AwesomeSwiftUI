@@ -366,6 +366,15 @@ enum ComponentRegistry {
             demo: { AnyView(TiltCardDemo()) }
         ),
         ShowcaseEntry(
+            id: "wallet-card-stack",
+            title: "Wallet Card Stack",
+            category: "Cards",
+            summary: "A stack of cards where the one you tap rises to the top with its details and the rest wait in a pile below.",
+            keywords: ["wallet", "card stack", "credit cards", "passes", "expand", "pile", "payment cards", "cartera", "wallet", "pila de tarjetas", "tarjetas de crédito", "pases", "expandir", "tarjetas de pago"],
+            minIOS: "18.0",
+            demo: { AnyView(WalletCardStackDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-bar-chart",
             title: "Animated Bar Chart",
             category: "Charts",
@@ -384,6 +393,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedDonutChartDemo()) }
         ),
         ShowcaseEntry(
+            id: "candlestick-chart",
+            title: "Candlestick Chart",
+            category: "Charts",
+            summary: "A candlestick chart of open, high, low and close prices, with a rule that reads the day under the finger.",
+            keywords: ["candlestick", "ohlc", "stocks", "trading", "price chart", "finance", "swift charts", "velas", "ohlc", "bolsa", "trading", "gráfica de precios", "finanzas", "swift charts"],
+            minIOS: "18.0",
+            demo: { AnyView(CandlestickChartDemo()) }
+        ),
+        ShowcaseEntry(
             id: "contribution-heatmap",
             title: "Contribution Heatmap",
             category: "Charts",
@@ -391,6 +409,15 @@ enum ComponentRegistry {
             keywords: ["heatmap", "contribution graph", "activity", "calendar grid", "github", "streak", "mapa de calor", "gráfico de contribuciones", "actividad", "cuadrícula", "calendario", "racha"],
             minIOS: "18.0",
             demo: { AnyView(ContributionHeatmapDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "gauge-chart",
+            title: "Gauge Chart",
+            category: "Charts",
+            summary: "A half-moon gauge with colored zones and a needle that swings to the value.",
+            keywords: ["gauge", "dial", "speedometer", "meter", "needle", "zones", "dashboard", "medidor", "dial", "velocímetro", "indicador", "aguja", "zonas", "panel"],
+            minIOS: "18.0",
+            demo: { AnyView(GaugeChartDemo()) }
         ),
         ShowcaseEntry(
             id: "interactive-line-chart",
@@ -409,6 +436,24 @@ enum ComponentRegistry {
             keywords: ["line chart", "draw animation", "trim", "path", "animated chart", "graph", "gráfico de líneas", "animación de trazo", "trazado", "gráfica animada", "línea"],
             minIOS: "18.0",
             demo: { AnyView(LineChartDrawInDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "radar-chart",
+            title: "Radar Chart",
+            category: "Charts",
+            summary: "A radar chart with an axis per quality around a center and a shape per series that grows out when it appears.",
+            keywords: ["radar chart", "spider chart", "web chart", "compare", "profile", "polygon", "stats", "gráfica de radar", "gráfica de araña", "telaraña", "comparar", "perfil", "polígono", "estadísticas"],
+            minIOS: "18.0",
+            demo: { AnyView(RadarChartDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "scrollable-bar-chart",
+            title: "Scrollable Bar Chart",
+            category: "Charts",
+            summary: "A bar chart that scrolls sideways a week at a time and marks the average of the days in sight.",
+            keywords: ["scrollable chart", "bar chart", "weekly", "steps", "average", "health", "swift charts", "gráfica con scroll", "gráfica de barras", "semanal", "pasos", "media", "salud", "swift charts"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollableBarChartDemo()) }
         ),
         ShowcaseEntry(
             id: "sparkline-stat-tile",
@@ -468,6 +513,15 @@ enum ComponentRegistry {
             demo: { AnyView(NestedCommentThreadDemo()) }
         ),
         ShowcaseEntry(
+            id: "tapback-reaction-bubble",
+            title: "Tapback Reaction Bubble",
+            category: "Chat",
+            summary: "A message you press and hold to react to, with a bar of reactions above it and the chosen one kept as a badge on its corner.",
+            keywords: ["tapback", "message reaction", "long press", "chat bubble", "emoji", "react", "imessage", "tapback", "reacción a mensaje", "pulsación larga", "burbuja de chat", "emoji", "reaccionar", "mensajes"],
+            minIOS: "18.0",
+            demo: { AnyView(TapbackReactionBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",
@@ -504,6 +558,15 @@ enum ComponentRegistry {
             demo: { AnyView(PricingTierCardsDemo()) }
         ),
         ShowcaseEntry(
+            id: "trial-timeline-paywall",
+            title: "Trial Timeline Paywall",
+            category: "Commerce",
+            summary: "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+            keywords: ["paywall", "free trial", "trial timeline", "subscription", "pricing", "upgrade", "in-app purchase", "paywall", "prueba gratis", "línea de tiempo", "suscripción", "precios", "mejorar plan", "compra dentro de la app"],
+            minIOS: "18.0",
+            demo: { AnyView(TrialTimelinePaywallDemo()) }
+        ),
+        ShowcaseEntry(
             id: "animated-radio-button",
             title: "Animated Radio Button",
             category: "Controls",
@@ -511,6 +574,15 @@ enum ComponentRegistry {
             keywords: ["radio button", "radio", "selection", "option", "form", "choice", "pulse", "botón de opción", "radio", "selección", "opción", "formulario", "pulso"],
             minIOS: "18.0",
             demo: { AnyView(AnimatedRadioButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "circular-range-slider",
+            title: "Circular Range Slider",
+            category: "Controls",
+            summary: "A dial with two handles that sets a range around the clock, like a night of sleep.",
+            keywords: ["circular slider", "range slider", "dial", "sleep schedule", "bedtime", "time range", "knob", "slider circular", "rango", "dial", "horario de sueño", "hora de dormir", "intervalo de tiempo", "rueda"],
+            minIOS: "18.0",
+            demo: { AnyView(CircularRangeSliderDemo()) }
         ),
         ShowcaseEntry(
             id: "counter-stepper",
@@ -529,6 +601,15 @@ enum ComponentRegistry {
             keywords: ["toggle", "switch", "dark mode", "day", "night", "sun", "moon", "theme", "interruptor", "modo oscuro", "día", "noche", "sol", "luna", "tema"],
             minIOS: "18.0",
             demo: { AnyView(DayNightToggleDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "range-slider",
+            title: "Range Slider",
+            category: "Controls",
+            summary: "A slider with two thumbs that picks a range, like the lowest and highest price of a filter.",
+            keywords: ["range slider", "double slider", "two thumbs", "price filter", "min max", "dual slider", "interval", "slider de rango", "doble slider", "dos asas", "filtro de precio", "mínimo y máximo", "intervalo", "deslizador"],
+            minIOS: "18.0",
+            demo: { AnyView(RangeSliderDemo()) }
         ),
         ShowcaseEntry(
             id: "ruler-scroll-picker",
@@ -565,6 +646,18 @@ enum ComponentRegistry {
             keywords: ["slide to confirm", "swipe to pay", "slider", "drag", "unlock", "payment", "confirmation", "deslizar para confirmar", "deslizar para pagar", "deslizador", "arrastrar", "desbloquear", "pago", "confirmación"],
             minIOS: "18.0",
             demo: { AnyView(SwipeToConfirmSliderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "tick-mark-slider",
+            title: "Tick Mark Slider",
+            category: "Controls",
+            summary: "The system slider with a mark at the values that matter, which settles on the nearest one when let go.",
+            keywords: ["slider", "tick marks", "steps", "snap", "neutral value", "playback speed", "ios 26", "slider", "marcas", "pasos", "ajuste", "valor neutro", "velocidad de reproducción", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(TickMarkSliderDemo())
+            }
         ),
         ShowcaseEntry(
             id: "drawing-pad-speed-brush",
@@ -684,6 +777,15 @@ enum ComponentRegistry {
             demo: { AnyView(Globe3DWireframeDemo()) }
         ),
         ShowcaseEntry(
+            id: "intelligence-glow-border",
+            title: "Intelligence Glow Border",
+            category: "Effects",
+            summary: "A soft band of color that travels around a view's edge and spreads inward, like an assistant that is listening.",
+            keywords: ["glow", "border", "edge light", "assistant", "listening", "mesh gradient", "ai", "siri", "resplandor", "borde", "luz de borde", "asistente", "escuchando", "degradado de malla", "ia", "siri"],
+            minIOS: "18.0",
+            demo: { AnyView(IntelligenceGlowBorderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "jiggle-edit-modifier",
             title: "Jiggle Edit Modifier",
             category: "Effects",
@@ -709,6 +811,24 @@ enum ComponentRegistry {
             keywords: ["noise", "grain", "film grain", "texture", "overlay", "modifier", "ruido", "grano", "grano de película", "textura", "superposición", "modificador"],
             minIOS: "18.0",
             demo: { AnyView(NoiseGrainOverlayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "pixelate-shader-effect",
+            title: "Pixelate Shader Effect",
+            category: "Effects",
+            summary: "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+            keywords: ["pixelate", "mosaic", "spoiler", "censor", "shader", "metal", "reveal", "pixelar", "mosaico", "spoiler", "censurar", "shader", "metal", "revelar"],
+            minIOS: "18.0",
+            demo: { AnyView(PixelateShaderEffectDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "progressive-blur-header",
+            title: "Progressive Blur Header",
+            category: "Effects",
+            summary: "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+            keywords: ["progressive blur", "variable blur", "header", "shader", "metal", "scroll edge", "layer effect", "desenfoque progresivo", "desenfoque variable", "cabecera", "shader", "metal", "borde de scroll", "efecto de capa"],
+            minIOS: "18.0",
+            demo: { AnyView(ProgressiveBlurHeaderDemo()) }
         ),
         ShowcaseEntry(
             id: "ripple-shader-effect",
@@ -745,6 +865,15 @@ enum ComponentRegistry {
             keywords: ["particles", "trail", "touch", "finger", "drag", "sparkles", "canvas", "partículas", "estela", "toque", "dedo", "arrastrar", "destellos", "lienzo"],
             minIOS: "18.0",
             demo: { AnyView(TouchParticleTrailDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "voice-orb",
+            title: "Voice Orb",
+            category: "Effects",
+            summary: "A glowing orb for a voice assistant whose colors swirl and that swells with the voice while it listens or speaks.",
+            keywords: ["voice orb", "assistant", "audio reactive", "siri", "listening", "speaking", "ai", "orbe de voz", "asistente", "reactivo al audio", "siri", "escuchando", "hablando", "ia"],
+            minIOS: "18.0",
+            demo: { AnyView(VoiceOrbDemo()) }
         ),
         ShowcaseEntry(
             id: "animated-badge-count",
@@ -808,6 +937,15 @@ enum ComponentRegistry {
             keywords: ["toast", "banner", "notification", "alert", "message", "auto dismiss", "feedback", "toast", "aviso", "notificación", "alerta", "mensaje", "banner", "autodescartar"],
             minIOS: "18.0",
             demo: { AnyView(ToastBannerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "toast-host",
+            title: "Toast Host",
+            category: "Feedback",
+            summary: "A queue of toasts that show above everything, sheets and full-screen covers included.",
+            keywords: ["toast", "toast over sheet", "banner", "notification", "queue", "overlay window", "hud", "toast", "aviso sobre hoja", "banner", "notificación", "cola", "ventana superpuesta", "mensaje flotante"],
+            minIOS: "18.0",
+            demo: { AnyView(ToastHostDemo()) }
         ),
         ShowcaseEntry(
             id: "tooltip-popover",
@@ -1125,6 +1263,15 @@ enum ComponentRegistry {
             demo: { AnyView(OTPCodeFieldDemo()) }
         ),
         ShowcaseEntry(
+            id: "passcode-keypad",
+            title: "Passcode Keypad",
+            category: "Inputs",
+            summary: "A number pad with a dot per digit that shakes and empties when the passcode is wrong.",
+            keywords: ["passcode", "pin", "keypad", "number pad", "lock screen", "unlock", "app lock", "código", "pin", "teclado numérico", "pantalla de bloqueo", "desbloquear", "contraseña", "bloqueo de app"],
+            minIOS: "18.0",
+            demo: { AnyView(PasscodeKeypadDemo()) }
+        ),
+        ShowcaseEntry(
             id: "password-strength-field",
             title: "Password Strength Field",
             category: "Inputs",
@@ -1134,6 +1281,18 @@ enum ComponentRegistry {
             demo: { AnyView(PasswordStrengthFieldDemo()) }
         ),
         ShowcaseEntry(
+            id: "rich-text-editor",
+            title: "Rich Text Editor",
+            category: "Inputs",
+            summary: "A text editor with a bar to make the selection bold, italic, underlined, struck through or highlighted.",
+            keywords: ["rich text", "text editor", "formatting", "bold", "highlight", "attributed string", "ios 26", "texto enriquecido", "editor de texto", "formato", "negrita", "resaltar", "attributed string", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(RichTextEditorDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "search-field-with-suggestions",
             title: "Search Field With Suggestions",
             category: "Inputs",
@@ -1141,6 +1300,15 @@ enum ComponentRegistry {
             keywords: ["search", "searchable", "suggestions", "autocomplete", "completion", "filter", "búsqueda", "buscador", "sugerencias", "autocompletar", "filtro"],
             minIOS: "18.0",
             demo: { AnyView(SearchFieldWithSuggestionsDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "tag-input-field",
+            title: "Tag Input Field",
+            category: "Inputs",
+            summary: "A field that turns what you type into removable tags, which wrap onto as many lines as they need.",
+            keywords: ["tags", "token field", "chips input", "tag editor", "labels", "keywords", "multi value", "etiquetas", "campo de etiquetas", "chips", "tokens", "palabras clave", "editor de etiquetas", "varios valores"],
+            minIOS: "18.0",
+            demo: { AnyView(TagInputFieldDemo()) }
         ),
         ShowcaseEntry(
             id: "validated-text-field",
@@ -1347,6 +1515,18 @@ enum ComponentRegistry {
             demo: { AnyView(StickySectionHeadersDemo()) }
         ),
         ShowcaseEntry(
+            id: "swipe-action-cards",
+            title: "Swipe Action Cards",
+            category: "Lists",
+            summary: "A column of cards with the system's swipe actions, outside a List.",
+            keywords: ["swipe actions", "cards", "swipe to delete", "without list", "lazy stack", "row actions", "ios 27", "acciones al deslizar", "tarjetas", "deslizar para borrar", "sin list", "lazy stack", "acciones de fila", "ios 27"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(SwipeActionCardsDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "arc-segments-loader",
             title: "Arc Segments Loader",
             category: "Loaders",
@@ -1408,6 +1588,33 @@ enum ComponentRegistry {
             keywords: ["loader", "bars", "equalizer", "audio", "wave", "loading", "cargador", "barras", "ecualizador", "audio", "onda", "carga"],
             minIOS: "18.0",
             demo: { AnyView(WaveBarsLoaderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "map-annotation-callout",
+            title: "Map Annotation Callout",
+            category: "Maps",
+            summary: "Map pins with a short label that open a callout above them when tapped, while the camera moves to fit it.",
+            keywords: ["map", "annotation", "callout", "price pin", "marker", "popover", "mapkit", "mapa", "anotación", "globo", "pin con precio", "marcador", "tarjeta emergente", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapAnnotationCalloutDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "map-route-tracker",
+            title: "Map Route Tracker",
+            category: "Maps",
+            summary: "A route on a map with a marker that travels along it, the part done in solid and the rest dotted, like an order on its way.",
+            keywords: ["map", "route", "delivery tracking", "polyline", "live location", "progress", "mapkit", "mapa", "ruta", "seguimiento de pedido", "polilínea", "ubicación en vivo", "progreso", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapRouteTrackerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "map-search-sheet",
+            title: "Map Search Sheet",
+            category: "Maps",
+            summary: "A map with a sheet of places that rests at the bottom, filters as you type and flies to the place you choose.",
+            keywords: ["map", "search", "bottom sheet", "places", "detents", "markers", "mapkit", "mapa", "búsqueda", "hoja inferior", "lugares", "alturas", "marcadores", "mapkit"],
+            minIOS: "18.0",
+            demo: { AnyView(MapSearchSheetDemo()) }
         ),
         ShowcaseEntry(
             id: "audio-player-card",
@@ -1644,6 +1851,18 @@ enum ComponentRegistry {
             demo: { AnyView(DragToDismissScreenDemo()) }
         ),
         ShowcaseEntry(
+            id: "embedded-web-browser",
+            title: "Embedded Web Browser",
+            category: "Navigation",
+            summary: "A small browser inside the app, with an address bar, back, forward, reload and a line that fills while the page loads.",
+            keywords: ["web view", "browser", "webkit", "in-app browser", "web page", "address bar", "ios 26", "web view", "navegador", "webkit", "navegador en la app", "página web", "barra de direcciones", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(EmbeddedWebBrowserDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "full-screen-menu-overlay",
             title: "Full Screen Menu Overlay",
             category: "Navigation",
@@ -1728,7 +1947,7 @@ enum ComponentRegistry {
             id: "two-pane-split-layout",
             title: "Two Pane Split Layout",
             category: "Navigation",
-            summary: "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone.",
+            summary: "A list and its detail that sit side by side on iPad and share one navigation stack on iPhone, on NavigationSplitView.",
             keywords: ["master detail", "two pane", "split", "ipad", "size class", "adaptive", "list detail", "maestro detalle", "dos paneles", "dividido", "ipad", "adaptable", "lista y detalle"],
             minIOS: "18.0",
             demo: { AnyView(TwoPaneSplitLayoutDemo()) }
@@ -2049,6 +2268,24 @@ enum ComponentRegistry {
             demo: { AnyView(CustomDetentSheetDemo()) }
         ),
         ShowcaseEntry(
+            id: "dynamic-height-tray",
+            title: "Dynamic Height Tray",
+            category: "Sheets",
+            summary: "A sheet exactly as tall as its content, which grows and shrinks as one step of a flow gives way to the next.",
+            keywords: ["tray", "self sizing sheet", "dynamic height", "bottom sheet", "steps", "fit content", "detent", "bandeja", "hoja autoajustable", "altura dinámica", "hoja inferior", "pasos", "ajustar al contenido", "detent"],
+            minIOS: "18.0",
+            demo: { AnyView(DynamicHeightTrayDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "whats-new-sheet",
+            title: "What's New Sheet",
+            category: "Sheets",
+            summary: "A sheet that lists what a new version brings and comes up once for each version.",
+            keywords: ["whats new", "release notes", "update sheet", "new features", "changelog", "version", "welcome", "novedades", "notas de versión", "hoja de novedades", "nuevas funciones", "actualización", "versión", "bienvenida"],
+            minIOS: "18.0",
+            demo: { AnyView(WhatsNewSheetDemo()) }
+        ),
+        ShowcaseEntry(
             id: "minimizing-tab-bar",
             title: "Minimizing Tab Bar",
             category: "Tabs",
@@ -2077,6 +2314,18 @@ enum ComponentRegistry {
             keywords: ["tabs", "tab strip", "scrollable tabs", "segmented", "categories", "underline", "pestañas", "tira de pestañas", "pestañas desplazables", "segmentos", "categorías", "subrayado"],
             minIOS: "18.0",
             demo: { AnyView(ScrollingTabStripDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "tabs-picker-pages",
+            title: "Tabs Picker Pages",
+            category: "Tabs",
+            summary: "A row of tabs over a page that slides in with them, on the tabs picker style of iOS 27.",
+            keywords: ["tabs", "picker style", "segmented", "pages", "sections", "top tabs", "ios 27", "pestañas", "estilo de picker", "segmentado", "páginas", "secciones", "pestañas superiores", "ios 27"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(TabsPickerPagesDemo())
+            }
         ),
         ShowcaseEntry(
             id: "animated-gradient-text",
@@ -2133,6 +2382,15 @@ enum ComponentRegistry {
             demo: { AnyView(HighlightedSearchTextDemo()) }
         ),
         ShowcaseEntry(
+            id: "karaoke-lyrics-text",
+            title: "Karaoke Lyrics Text",
+            category: "Text",
+            summary: "Lyrics that start dim and light up from the first letter to the last as they are sung.",
+            keywords: ["karaoke", "lyrics", "sing along", "text fill", "highlight", "music", "text renderer", "karaoke", "letra", "letras de canciones", "cantar", "relleno de texto", "resaltado", "música"],
+            minIOS: "18.0",
+            demo: { AnyView(KaraokeLyricsTextDemo()) }
+        ),
+        ShowcaseEntry(
             id: "marquee-text",
             title: "Marquee Text",
             category: "Text",
@@ -2176,6 +2434,15 @@ enum ComponentRegistry {
             keywords: ["shimmer", "shine", "highlight", "loading", "mask", "text animation", "slide to unlock", "brillo", "destello", "reflejo", "cargando", "máscara", "animación de texto"],
             minIOS: "18.0",
             demo: { AnyView(ShimmerTextDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "streaming-text",
+            title: "Streaming Text",
+            category: "Text",
+            summary: "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+            keywords: ["streaming text", "llm", "ai answer", "token stream", "fade in", "chat", "text renderer", "texto en streaming", "llm", "respuesta de ia", "flujo de tokens", "aparecer", "chat", "text renderer"],
+            minIOS: "18.0",
+            demo: { AnyView(StreamingTextDemo()) }
         ),
         ShowcaseEntry(
             id: "text-blur-reveal",

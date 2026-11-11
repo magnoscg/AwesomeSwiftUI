@@ -11,7 +11,7 @@
   "difficulty": "advanced",
   "minIOS": "18.0",
   "apis": ["Canvas", "GraphicsContext.BlendMode", "DragGesture", "mask"],
-  "origin": { "kind": "inspired", "credit": "Kavsoft tutorials" },
+  "origin": { "kind": "inspired", "credit": "Kavsoft", "url": "https://www.youtube.com/@Kavsoft" },
   "previewSteps": [
     "sleep 0.4",
     "swipe --start-x 40 --start-y 360 --end-x 362 --end-y 360 --duration 0.4",

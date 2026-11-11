@@ -33,7 +33,8 @@
   ],
   "origin": {
     "kind": "inspired",
-    "credit": "Kavsoft tutorials"
+    "credit": "Kavsoft",
+    "url": "https://www.youtube.com/@Kavsoft"
   },
   "previewSteps": [
     "sleep 0.5",

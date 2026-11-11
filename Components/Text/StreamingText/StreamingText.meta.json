@@ -1,0 +1,20 @@
+{
+  "id": "streaming-text",
+  "name": "StreamingText",
+  "title": "Streaming Text",
+  "category": "Text",
+  "summary": "Text that arrives in chunks, like the answer of a language model, and fades each new part in from its first letter to its last.",
+  "keywords": {
+    "en": ["streaming text", "llm", "ai answer", "token stream", "fade in", "chat", "text renderer"],
+    "es": ["texto en streaming", "llm", "respuesta de ia", "flujo de tokens", "aparecer", "chat", "text renderer"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["TextRenderer", "Text.Layout", "GraphicsContext", "Animatable", "onChange"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.5",
+    "tap --label 'Ask Again'",
+    "sleep 6.5"
+  ]
+}

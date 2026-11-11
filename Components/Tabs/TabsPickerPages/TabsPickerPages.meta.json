@@ -1,0 +1,24 @@
+{
+  "id": "tabs-picker-pages",
+  "name": "TabsPickerPages",
+  "title": "Tabs Picker Pages",
+  "category": "Tabs",
+  "summary": "A row of tabs over a page that slides in with them, on the tabs picker style of iOS 27.",
+  "keywords": {
+    "en": ["tabs", "picker style", "segmented", "pages", "sections", "top tabs", "ios 27"],
+    "es": ["pestañas", "estilo de picker", "segmentado", "páginas", "secciones", "pestañas superiores", "ios 27"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "27.0",
+  "apis": ["Picker", "TabsPickerStyle", "pickerStyle", "AnyTransition", "onChange"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap --label Activity",
+    "sleep 1.4",
+    "tap --label Files",
+    "sleep 1.4",
+    "tap --label Overview",
+    "sleep 1.4"
+  ]
+}

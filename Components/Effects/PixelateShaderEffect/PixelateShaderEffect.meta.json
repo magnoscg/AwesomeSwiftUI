@@ -1,0 +1,22 @@
+{
+  "id": "pixelate-shader-effect",
+  "name": "PixelateShaderEffect",
+  "title": "Pixelate Shader Effect",
+  "category": "Effects",
+  "summary": "A view modifier that draws a view in big square blocks, like a spoiler, and brings it into focus as they shrink, drawn by a Metal shader.",
+  "keywords": {
+    "en": ["pixelate", "mosaic", "spoiler", "censor", "shader", "metal", "reveal"],
+    "es": ["pixelar", "mosaico", "spoiler", "censurar", "shader", "metal", "revelar"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["ShaderLibrary", "layerEffect", "Animatable", "ViewModifier", "withAnimation"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap --label 'Reveal Spoiler'",
+    "sleep 2",
+    "tap --label 'Hide Again'",
+    "sleep 1.6"
+  ]
+}

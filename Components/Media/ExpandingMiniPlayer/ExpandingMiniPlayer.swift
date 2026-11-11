@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -27,6 +27,9 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
     @ScaledMetric(relativeTo: .subheadline) private var miniArtworkSize = 46.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let minTouchTarget: CGFloat = 44
+    private let miniBarSpacing: CGFloat = 12
+
     private var safeProgress: Double { progress.isFinite ? min(max(progress, 0), 1) : 0 }
 
     var body: some View {
@@ -47,9 +50,9 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
     // MARK: Mini player
 
     private var miniBar: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: miniBarSpacing) {
             Button { setExpanded(true) } label: {
-                HStack(spacing: 12) {
+                HStack(spacing: miniBarSpacing) {
                     artwork()
                         .frame(width: miniArtworkSize, height: miniArtworkSize)
                         .clipShape(.rect(cornerRadius: 10))
@@ -93,7 +96,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
                 Image(systemName: "chevron.compact.down")
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .frame(maxWidth: .infinity, minHeight: minTouchTarget)
                     .contentShape(.rect)
             }
             .accessibilityLabel("Close player")
@@ -147,7 +150,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
         Button { isPlaying.toggle() } label: {
             Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                 .font(font)
-                .frame(minWidth: 44, minHeight: 44)
+                .frame(minWidth: minTouchTarget, minHeight: minTouchTarget)
                 .contentShape(.rect)
         }
         .accessibilityLabel(isPlaying ? "Pause" : "Play")
@@ -157,7 +160,7 @@ struct ExpandingMiniPlayer<Content: View, Artwork: View>: View {
         Button(action: action) {
             Image(systemName: systemImage)
                 .font(.title)
-                .frame(minWidth: 44, minHeight: 44)
+                .frame(minWidth: minTouchTarget, minHeight: minTouchTarget)
                 .contentShape(.rect)
         }
         .accessibilityLabel(label)

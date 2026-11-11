@@ -1,0 +1,24 @@
+{
+  "id": "progressive-blur-header",
+  "name": "ProgressiveBlurHeader",
+  "title": "Progressive Blur Header",
+  "category": "Effects",
+  "summary": "A blur that grows toward the top edge of a scroll view, drawn by a Metal shader, so what scrolls under a header melts away.",
+  "keywords": {
+    "en": ["progressive blur", "variable blur", "header", "shader", "metal", "scroll edge", "layer effect"],
+    "es": ["desenfoque progresivo", "desenfoque variable", "cabecera", "shader", "metal", "borde de scroll", "efecto de capa"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["ShaderLibrary", "layerEffect", "ViewModifier", "accessibilityReduceTransparency", "ScrollView"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "swipe --start-x 201 --start-y 620 --end-x 201 --end-y 330 --duration 1.4 --delta 3",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 600 --end-x 201 --end-y 380 --duration 1.2 --delta 3",
+    "sleep 0.9",
+    "swipe --start-x 201 --start-y 300 --end-x 201 --end-y 760 --duration 1.2 --delta 3",
+    "sleep 1"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "trial-timeline-paywall",
+  "name": "TrialTimelinePaywall",
+  "title": "Trial Timeline Paywall",
+  "category": "Commerce",
+  "summary": "A paywall that shows what happens on each day of the free trial, with the plans and the button to start it.",
+  "keywords": {
+    "en": ["paywall", "free trial", "trial timeline", "subscription", "pricing", "upgrade", "in-app purchase"],
+    "es": ["paywall", "prueba gratis", "línea de tiempo", "suscripción", "precios", "mejorar plan", "compra dentro de la app"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["ScrollView", "safeAreaInset", "ScaledMetric", "Calendar", "Date.FormatStyle"],
+  "origin": { "kind": "inspired", "credit": "Blinkist's free trial timeline", "url": "https://www.revenuecat.com/blog/growth/how-top-apps-approach-paywalls/" },
+  "previewSteps": [
+    "sleep 1",
+    "tap --label Monthly",
+    "sleep 1.6",
+    "tap --label Yearly",
+    "sleep 1.6",
+    "tap --label 'Start 7-Day Free Trial'",
+    "sleep 2.2"
+  ]
+}

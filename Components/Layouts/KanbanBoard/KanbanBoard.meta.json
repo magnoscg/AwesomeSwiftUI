@@ -11,6 +11,6 @@
   "difficulty": "advanced",
   "minIOS": "18.0",
   "apis": ["draggable(_:preview:)", "dropDestination(for:action:isTargeted:)", "accessibilityActions(_:)", "contextMenu(menuItems:)"],
-  "origin": { "kind": "inspired", "credit": "Public web component registries" },
+  "origin": { "kind": "original" },
   "previewManual": true
 }

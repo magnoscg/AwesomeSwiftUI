@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -30,11 +30,11 @@ struct ContributionHeatmap: View {
 
         VStack(alignment: .leading, spacing: 12) {
             ScrollView(.horizontal) {
-                LazyHGrid(rows: Array(repeating: GridItem(.fixed(size), spacing: gap), count: 7), spacing: gap) {
+                LazyHGrid(rows: Array(repeating: GridItem(.fixed(size), spacing: gap), count: ContributionHeatmapLogic.daysPerWeek), spacing: gap) {
                     ForEach(Array(counts.enumerated()), id: \.offset) { index, count in
                         cell(
                             level: ContributionHeatmapLogic.level(count: count, highest: highest, levels: levels),
-                            delay: Double((counts.count - 1 - index) / 7) * 0.03
+                            delay: Double((counts.count - 1 - index) / ContributionHeatmapLogic.daysPerWeek) * 0.03
                         )
                     }
                 }
@@ -99,12 +99,14 @@ struct ContributionHeatmap: View {
 
 /// The grid math, apart from the view so it can be tested.
 enum ContributionHeatmapLogic {
+    static let daysPerWeek = 7
+
     /// Every day shown, oldest first. The first day starts a week, so columns line up.
     static func days(endingAt end: Date, weeks: Int, calendar: Calendar) -> [Date] {
         let weeks = min(max(weeks, 1), 530)
         let last = calendar.startOfDay(for: end)
-        let daysIntoWeek = (calendar.component(.weekday, from: last) - calendar.firstWeekday + 7) % 7
-        let count = (weeks - 1) * 7 + daysIntoWeek + 1
+        let daysIntoWeek = (calendar.component(.weekday, from: last) - calendar.firstWeekday + daysPerWeek) % daysPerWeek
+        let count = (weeks - 1) * daysPerWeek + daysIntoWeek + 1
         return (0..<count).compactMap { calendar.date(byAdding: .day, value: $0 - count + 1, to: last) }
     }
 

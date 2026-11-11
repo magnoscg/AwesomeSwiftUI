@@ -1,0 +1,24 @@
+{
+  "id": "scrollable-bar-chart",
+  "name": "ScrollableBarChart",
+  "title": "Scrollable Bar Chart",
+  "category": "Charts",
+  "summary": "A bar chart that scrolls sideways a week at a time and marks the average of the days in sight.",
+  "keywords": {
+    "en": ["scrollable chart", "bar chart", "weekly", "steps", "average", "health", "swift charts"],
+    "es": ["gráfica con scroll", "gráfica de barras", "semanal", "pasos", "media", "salud", "swift charts"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Chart", "BarMark", "chartScrollableAxes", "chartScrollPosition", "chartScrollTargetBehavior"],
+  "origin": { "kind": "inspired", "credit": "The charts of Apple's Health app", "url": "https://www.apple.com/health/" },
+  "previewSteps": [
+    "sleep 0.8",
+    "swipe --start-x 120 --start-y 480 --end-x 330 --end-y 480 --duration 0.6",
+    "sleep 1.6",
+    "swipe --start-x 120 --start-y 480 --end-x 330 --end-y 480 --duration 0.6",
+    "sleep 1.6",
+    "swipe --start-x 330 --start-y 480 --end-x 120 --end-y 480 --duration 0.6",
+    "sleep 1.6"
+  ]
+}

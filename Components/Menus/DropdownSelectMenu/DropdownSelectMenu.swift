@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
 
 import SwiftUI
 
@@ -19,6 +19,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
 
     private var animation: Animation? { reduceMotion ? nil : .smooth(duration: 0.28) }
     private let cornerRadius: CGFloat = 14
+    private let contentPadding: CGFloat = 14
 
     var body: some View {
         field
@@ -61,7 +62,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                     .rotationEffect(.degrees(isOpen ? 180 : 0))
                     .accessibilityHidden(true)
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, contentPadding)
             .padding(.vertical, 10)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.background, in: .rect(cornerRadius: cornerRadius))
@@ -96,7 +97,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                 Text("No options")
                     .font(.body)
                     .foregroundStyle(.secondary)
-                    .padding(14)
+                    .padding(contentPadding)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
 
@@ -115,7 +116,7 @@ struct DropdownSelectMenu<Option: Hashable>: View {
                                 .accessibilityHidden(true)
                         }
                     }
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, contentPadding)
                     .frame(minHeight: 46)
                     .contentShape(.rect)
                 }

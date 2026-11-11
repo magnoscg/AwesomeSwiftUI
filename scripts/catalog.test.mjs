@@ -254,7 +254,8 @@ describe('invalid components', () => {
     ['no English keywords', { keywords: { en: [], es: ['x'] } }, /"keywords\.en"/],
     ['no Spanish keywords', { keywords: { en: ['x'] } }, /"keywords\.es"/],
     ['an unknown origin', { origin: { kind: 'internet' } }, /"origin\.kind" must be one of/],
-    ['inspiration without credit', { origin: { kind: 'inspired' } }, /"origin\.credit"/],
+    ['inspiration without credit', { origin: { kind: 'inspired', url: 'https://x.dev' } }, /"origin\.credit"/],
+    ['inspiration without a link', { origin: { kind: 'inspired', credit: 'A talk' } }, /"origin\.url"/],
     ['adapted code without a source', { origin: { kind: 'adapted', license: 'MIT' } }, /"origin\.url"/],
     ['adapted code without a license', { origin: { kind: 'adapted', url: 'https://x.dev' } }, /"origin\.license"/],
   ];
@@ -351,6 +352,30 @@ describe('invalid source', () => {
     const source = swift().replace('MIT', 'Apache-2.0');
 
     assert.deepEqual(errorsFor({ metadata: meta({ origin }), source }), []);
+  });
+
+  it('rejects a number written four times outside the demo', () => {
+    const source = swift('GlowButton', 'let insets = [12, 12, 12, 12]');
+
+    assertRejected({ source }, /12 is written 4 or more times outside the demo/);
+  });
+
+  it('allows a number that repeats only in the demo', () => {
+    const source = swift().replace('struct GlowButtonDemo', '// MARK: - Demo\nlet insets = [12, 12, 12, 12]\nstruct GlowButtonDemo');
+
+    assert.deepEqual(errorsFor({ source }), []);
+  });
+
+  it('allows a number that has a name', () => {
+    const source = swift('GlowButton', 'private let inset = 12.0\nlet insets = [inset, inset, 12, 12, 12]');
+
+    assert.deepEqual(errorsFor({ source }), []);
+  });
+
+  it('allows the numbers that say nothing more with a name', () => {
+    const source = swift('GlowButton', 'let turns = [0, 0, 0, 0, 2, 2, 2, 2, 0.5, 0.5, 0.5, 0.5, 360, 360, 360, 360]');
+
+    assert.deepEqual(errorsFor({ source }), []);
   });
 
   it('rejects a missing demo', () => {
@@ -670,9 +695,9 @@ describe('the documentation site', () => {
     assert.match(index, /<Card title=\{"Glow Button"\}>/);
     assert.match(
       index,
-      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
+      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
     );
-    assert.match(index, /href=\{"\/AwesomeSwiftUI\/catalog\/buttons\/glow-button\/"\}/);
+    assert.match(index, /href=\{"\/swiftui-components\/catalog\/buttons\/glow-button\/"\}/);
   });
 
   it('keeps braces in the text from being read as MDX', () => {
@@ -687,7 +712,7 @@ describe('the documentation site', () => {
     assert.match(page, /^---\ntitle: "Glow Button"\ndescription: "A button that glows\."\n---/);
     assert.match(
       page,
-      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
+      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
     );
     assert.match(page, /\| Keywords \| button, boton \|/);
     assert.match(page, /\| Minimum iOS \| 18\.0 \|/);
@@ -721,7 +746,6 @@ describe('the documentation site', () => {
 
   const origins = [
     ['original work', { kind: 'original' }, /\| Origin \| Original \|/],
-    ['credited inspiration', { kind: 'inspired', credit: 'A talk' }, /\| Origin \| Inspired by A talk \|/],
     [
       'linked inspiration',
       { kind: 'inspired', credit: 'A talk', url: 'https://x.dev' },
