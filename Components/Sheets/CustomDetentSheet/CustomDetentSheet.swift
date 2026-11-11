@@ -63,6 +63,8 @@ struct CustomDetentSheetDemo: View {
 
     @State private var isPresented = false
     @State private var selection = PresentationDetent.height(400)
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -90,6 +92,7 @@ struct CustomDetentSheetDemo: View {
         ) {
             sheet
         }
+        .simultaneousGesture(stopAutoPlay)
         .task { isPresented = true }
         .task(id: isPresented && !reduceMotion) {
             guard isPresented, !reduceMotion else { return }
@@ -113,17 +116,30 @@ struct CustomDetentSheetDemo: View {
             }
             .padding(24)
         }
+        // The sheet is its own presentation, so a touch in it does not reach the gesture behind.
+        .simultaneousGesture(stopAutoPlay)
+    }
+
+    private var stopAutoPlay: some Gesture {
+        DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false }
     }
 
     // Only the demo moves the sheet by itself, by changing the selected detent.
     private func cycleDetents() async {
         let order = [peek, middle, .large, middle]
         var index = 0
-        while !Task.isCancelled {
+        var expected = selection
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.1))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
+            // Dragging the sheet by its grabber does not touch its content, but it changes the detent.
+            guard selection == expected else {
+                isAutoPlaying = false
+                return
+            }
+            expected = order[index]
             withAnimation(.snappy(duration: 0.4)) {
-                selection = order[index]
+                selection = expected
             }
             index = (index + 1) % order.count
         }

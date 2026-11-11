@@ -6,6 +6,15 @@ on `main`.
 
 ## Unreleased
 
+### Changed
+
+- A demo that plays by itself stops for good when you touch it. Fourteen kept
+  moving and undid what you did: Adaptive Columns Grid, Cover Flow Carousel,
+  Custom Detent Sheet, Double Tap Heart Overlay, Double Tap Zoom Image, Hide
+  On Scroll Bar, Masonry Layout, Paged Grid Launcher, Scroll Progress Bar,
+  Scroll Visibility Reveal, Search Scopes And Suggestions, Spinning Vinyl Art,
+  Sticky Stacked Cards and Vertical Full Screen Feed.
+
 ### Fixed
 
 - Scroll Spy Header jumps to the section of the chip you tap. It did nothing
@@ -14,6 +23,8 @@ on `main`.
 - Undo Snackbar announces its message to VoiceOver again, and the demo of
   Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
   the localizable text instead of the text.
+- The demo of Search Scopes And Suggestions shows its scopes when you search
+  by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
   stays chosen until the grid moves again. It had the fault Scroll Spy Header
   had.

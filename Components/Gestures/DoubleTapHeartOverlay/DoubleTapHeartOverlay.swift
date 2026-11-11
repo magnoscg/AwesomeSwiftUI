@@ -124,6 +124,8 @@ private struct DoubleTapHeartOverlayHeart: View {
 struct DoubleTapHeartOverlayDemo: View {
     @State private var isLiked = false
     @State private var burst: DoubleTapHeartOverlayRequest?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -158,6 +160,7 @@ struct DoubleTapHeartOverlayDemo: View {
             .clipShape(.rect(cornerRadius: 24, style: .continuous))
             .padding(20)
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playHearts()
@@ -167,14 +170,14 @@ struct DoubleTapHeartOverlayDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playHearts() async {
         let points = [UnitPoint(x: 0.5, y: 0.45), UnitPoint(x: 0.28, y: 0.28), UnitPoint(x: 0.72, y: 0.62)]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for point in points {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 burst = DoubleTapHeartOverlayRequest(point: point)
             }
             try? await Task.sleep(for: .seconds(0.7))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             isLiked = false
         }
     }
