@@ -58,6 +58,8 @@ on `main`.
   that matter, which settles on the nearest one when let go.
 - Rich Text Editor, for iOS 26: a text editor with a bar to make the selection
   bold, italic, underlined, struck through or highlighted.
+- Embedded Web Browser, for iOS 26: a small browser inside the app, with an
+  address bar, back, forward and reload.
 
 ### Changed
 
