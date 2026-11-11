@@ -1450,6 +1450,7 @@ struct ImageDerivedGradientBackground: View {
     var fallback: [Color] = [.indigo, .black]
 
     @State private var colors: [Color]?
+    @State private var previous: [Color]?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -1457,6 +1458,10 @@ struct ImageDerivedGradientBackground: View {
 
         ZStack {
             Color.black
+
+            // The gradient before stays underneath while the new one fades in over it.
+            // Fading one out as the other fades in would dip through the black.
+            LinearGradient(colors: previous ?? shown, startPoint: .top, endPoint: .bottom)
 
             LinearGradient(colors: shown, startPoint: .top, endPoint: .bottom)
                 .id(shown)
@@ -1467,6 +1472,7 @@ struct ImageDerivedGradientBackground: View {
         .task(id: Request(image: image, bands: bands)) {
             let sampled = sampledColors()
             guard !Task.isCancelled else { return }
+            previous = colors ?? fallback
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { colors = sampled }
         }
     }
