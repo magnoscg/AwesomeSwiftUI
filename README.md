@@ -1,20 +1,20 @@
 <div align="center">
 
-# AwesomeSwiftUI
+# Awesome SwiftUI Components
 
 *Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
 
-[![CI](https://github.com/magnoscg/AwesomeSwiftUI/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/AwesomeSwiftUI/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/magnoscg/AwesomeSwiftUI)](https://github.com/magnoscg/AwesomeSwiftUI/releases/latest)
-[![License: MIT](https://img.shields.io/github/license/magnoscg/AwesomeSwiftUI)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/magnoscg/AwesomeSwiftUI)](https://github.com/magnoscg/AwesomeSwiftUI/stargazers)
+[![CI](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-components)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/stargazers)
 
 From a one-line button style to full animated transitions. No package to
 install: find a component, copy its file, use it.
 
 </div>
 
-**[Browse the catalog](https://magnoscg.github.io/AwesomeSwiftUI/)**
+**[Browse the catalog](https://magnoscg.github.io/swiftui-components/)**
 
 ## At a glance
 

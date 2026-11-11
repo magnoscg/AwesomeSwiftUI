@@ -1,8 +1,8 @@
 # AGENTS.md
 
-How to work on AwesomeSwiftUI, for coding agents and people alike. Read it
-before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md) has the workflow
-for pull requests and releases.
+How to work on Awesome SwiftUI Components, for coding agents and people
+alike. Read it before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md)
+has the workflow for pull requests and releases.
 
 ## What this is
 
@@ -112,7 +112,7 @@ anything else:
 
    ```swift
    // SPDX-License-Identifier: MIT
-   // Copyright (c) 2026 Oscar Canton and AwesomeSwiftUI contributors
+   // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
    ```
 
    A `.metal` file starts with the same two lines.

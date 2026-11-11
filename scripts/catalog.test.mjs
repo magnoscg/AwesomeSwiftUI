@@ -695,9 +695,9 @@ describe('the documentation site', () => {
     assert.match(index, /<Card title=\{"Glow Button"\}>/);
     assert.match(
       index,
-      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
+      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
     );
-    assert.match(index, /href=\{"\/AwesomeSwiftUI\/catalog\/buttons\/glow-button\/"\}/);
+    assert.match(index, /href=\{"\/swiftui-components\/catalog\/buttons\/glow-button\/"\}/);
   });
 
   it('keeps braces in the text from being read as MDX', () => {
@@ -712,7 +712,7 @@ describe('the documentation site', () => {
     assert.match(page, /^---\ntitle: "Glow Button"\ndescription: "A button that glows\."\n---/);
     assert.match(
       page,
-      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/AwesomeSwiftUI\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
+      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
     );
     assert.match(page, /\| Keywords \| button, boton \|/);
     assert.match(page, /\| Minimum iOS \| 18\.0 \|/);

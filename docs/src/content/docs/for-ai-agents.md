@@ -8,9 +8,9 @@ always describe the same components.
 
 | File | What it has |
 |---|---|
-| [`catalog.json`](/AwesomeSwiftUI/catalog.json) | Every component: keywords, minimum iOS, APIs, origin, a `rawURL` and, with a Metal shader, a `shaderRawURL` |
-| [`llms.txt`](/AwesomeSwiftUI/llms.txt) | A short index with a link to each component |
-| [`llms-full.txt`](/AwesomeSwiftUI/llms-full.txt) | Every component with its full source |
+| [`catalog.json`](/swiftui-components/catalog.json) | Every component: keywords, minimum iOS, APIs, origin, a `rawURL` and, with a Metal shader, a `shaderRawURL` |
+| [`llms.txt`](/swiftui-components/llms.txt) | A short index with a link to each component |
+| [`llms-full.txt`](/swiftui-components/llms-full.txt) | Every component with its full source |
 
 ## Find and add a component
 
@@ -23,5 +23,5 @@ always describe the same components.
 
 ## Contribute
 
-[AGENTS.md](https://github.com/magnoscg/AwesomeSwiftUI/blob/HEAD/AGENTS.md) maps
+[AGENTS.md](https://github.com/magnoscg/swiftui-components/blob/HEAD/AGENTS.md) maps
 the repository and lists the rules a change has to keep.

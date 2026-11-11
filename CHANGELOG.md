@@ -1,6 +1,6 @@
 # Changelog
 
-Every notable change to AwesomeSwiftUI. Versions follow
+Every notable change to Awesome SwiftUI Components. Versions follow
 [Semantic Versioning](https://semver.org/), and each release is tagged `X.Y.Z`
 on `main`.
 
@@ -67,6 +67,10 @@ on `main`.
 
 ### Changed
 
+- The project is now called Awesome SwiftUI Components, and its repository
+  `swiftui-components`, so the name says what is inside. The old repository
+  address redirects, and the site moves to
+  `https://magnoscg.github.io/swiftui-components/`.
 - Two Pane Split Layout is now built on the system's `NavigationSplitView`,
   which adds the button that hides the list, the swipe back and the keyboard.
 - The nine components inspired by Kavsoft credit it by name and link to its
