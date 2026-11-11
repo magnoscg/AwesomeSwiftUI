@@ -1,0 +1,116 @@
+---
+// What every component keeps, as cards that light up under the pointer.
+import { Icon } from '@astrojs/starlight/components';
+
+const features = [
+  {
+    icon: 'document',
+    title: 'One file, no package',
+    text: 'Copy one Swift file and it is your code. The few drawn by a shader bring a Metal file with them.',
+  },
+  {
+    icon: 'rocket',
+    title: 'iOS 18 to iOS 27',
+    text: 'Each component states its minimum and uses the newest API where there is one: Liquid Glass, shaders, 3D charts.',
+  },
+  {
+    icon: 'approve-check',
+    title: 'Swift 6',
+    text: 'Complete concurrency checking, in a project with the main actor as its default and in one without. Nothing deprecated.',
+  },
+  {
+    icon: 'heart',
+    title: 'Accessible',
+    text: 'Reduce Motion, Dynamic Type, VoiceOver and right-to-left layouts, checked in every component.',
+  },
+  {
+    icon: 'seti:video',
+    title: 'Seen before copied',
+    text: 'Every component has an animated preview, and a demo you can run in the Showcase app.',
+  },
+  {
+    icon: 'magnifier',
+    title: 'Ready for agents',
+    text: 'llms.txt and a JSON catalog with keywords in English and Spanish, so a coding agent finds and fetches what you ask for.',
+  },
+] as const;
+---
+
+<ul class="feature-grid not-content" data-feature-grid>
+  {
+    features.map((feature) => (
+      <li>
+        <span class="icon">
+          <Icon name={feature.icon} size="1.35rem" />
+        </span>
+        <strong>{feature.title}</strong>
+        <p>{feature.text}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .feature-grid li {
+    --x: 50%;
+    --y: 0%;
+    position: relative;
+    padding: 1.4rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1rem;
+    background:
+      radial-gradient(22rem circle at var(--x) var(--y), color-mix(in srgb, var(--sl-color-accent) 22%, transparent), transparent 60%),
+      var(--sl-color-black);
+    transition: border-color 0.2s ease;
+  }
+
+  .feature-grid li:hover {
+    border-color: color-mix(in srgb, var(--sl-color-accent) 60%, var(--sl-color-gray-5));
+  }
+
+  .icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.9rem;
+    border-radius: 0.7rem;
+    background: color-mix(in srgb, var(--sl-color-accent) 18%, transparent);
+    color: var(--sl-color-accent-high);
+  }
+
+  .feature-grid strong {
+    display: block;
+    font-size: var(--sl-text-lg);
+    color: var(--sl-color-white);
+  }
+
+  .feature-grid p {
+    margin: 0.4rem 0 0;
+    font-size: var(--sl-text-sm);
+    line-height: 1.6;
+    color: var(--sl-color-gray-2);
+  }
+</style>
+
+<script>
+  // The glow of a card follows the pointer.
+  for (const grid of document.querySelectorAll<HTMLElement>('[data-feature-grid]')) {
+    grid.addEventListener('pointermove', (event) => {
+      for (const card of grid.querySelectorAll<HTMLElement>('li')) {
+        const box = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${event.clientX - box.left}px`);
+        card.style.setProperty('--y', `${event.clientY - box.top}px`);
+      }
+    });
+  }
+</script>
