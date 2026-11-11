@@ -78,7 +78,7 @@ struct NestedCommentThread: View {
             .overlay {
                 Text(comment.author.prefix(1))
                     .font(.subheadline.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(NestedCommentThreadContrastingForeground(background: tint))
             }
             .accessibilityHidden(true)
     }
@@ -177,6 +177,18 @@ enum NestedCommentThreadLogic {
     /// Every reply below a comment, however deep.
     static func replyCount(of comment: NestedCommentThreadComment) -> Int {
         comment.replies.reduce(comment.replies.count) { $0 + replyCount(of: $1) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct NestedCommentThreadContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

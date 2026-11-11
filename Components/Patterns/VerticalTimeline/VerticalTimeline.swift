@@ -97,7 +97,7 @@ private struct VerticalTimelineMarker: View {
                 Circle().fill(tint)
                 Image(systemName: "checkmark")
                     .font(.caption.weight(.heavy))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(VerticalTimelineContrastingForeground(background: tint))
             case .current:
                 halo
                 Circle().fill(tint.opacity(0.18))
@@ -124,6 +124,18 @@ private struct VerticalTimelineMarker: View {
                     isExpanded ? .easeOut(duration: 1.1) : nil
                 }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct VerticalTimelineContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

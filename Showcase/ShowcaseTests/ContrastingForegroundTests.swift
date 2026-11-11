@@ -9,12 +9,25 @@ import Testing
 /// the style, because a component is one file. This runs the same cases on each.
 struct ContrastingForegroundTests {
     private static let styles: [(String, @Sendable (Color) -> Color)] = [
+        ("AddToCartStepper", { AddToCartStepperContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("AnimatedBadgeCount", { AnimatedBadgeCountContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("CompletionSwipeRow", { CompletionSwipeRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("DownloadPillProgress", { DownloadPillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ElasticDragButton", { ElasticDragButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("ExpandableInfoCard", { ExpandableInfoCardContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("FloatingActionMenu", { FloatingActionMenuContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("GooeyFloatingMenu", { GooeyFloatingMenuContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("HoldToConfirmButton", { HoldToConfirmButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("KeyboardTrackingInputBar", { KeyboardTrackingInputBarContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("LiquidFillProgress", { LiquidFillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("MorphingSubmitButton", { MorphingSubmitButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("NestedCommentThread", { NestedCommentThreadContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("PulseRingButton", { PulseRingButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("ScrollToTopButton", { ScrollToTopButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ShrinkingExtendedButton", { ShrinkingExtendedButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("SwipeActionRow", { SwipeActionRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("TooltipPopover", { TooltipPopoverContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("VerticalTimeline", { VerticalTimelineContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
     ]
 
     @Test(arguments: styles.indices)

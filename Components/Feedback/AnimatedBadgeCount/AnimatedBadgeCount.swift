@@ -25,7 +25,7 @@ struct AnimatedBadgeCount: View {
                 Text(text)
                     .font(.caption.weight(.bold))
                     .monospacedDigit()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AnimatedBadgeCountContrastingForeground(background: tint))
                     .contentTransition(reduceMotion ? .identity : .numericText(value: Double(count)))
                     .padding(.horizontal, height * 0.32)
                     .frame(minWidth: height, minHeight: height)
@@ -44,6 +44,18 @@ enum AnimatedBadgeCountFormat {
         guard count > 0 else { return nil }
         let maximum = max(maximum, 1)
         return count > maximum ? "\(maximum)+" : "\(count)"
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AnimatedBadgeCountContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

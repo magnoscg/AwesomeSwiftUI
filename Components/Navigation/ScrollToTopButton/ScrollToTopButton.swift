@@ -45,13 +45,25 @@ struct ScrollToTopButton<Content: View>: View {
         } label: {
             Image(systemName: "arrow.up")
                 .font(.title3.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(ScrollToTopButtonContrastingForeground(background: tint))
                 .frame(width: buttonSize, height: buttonSize)
                 .background(tint.gradient, in: .circle)
                 .shadow(color: .black.opacity(0.25), radius: 10, y: 5)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Back to top")
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ScrollToTopButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

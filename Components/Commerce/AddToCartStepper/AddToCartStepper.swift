@@ -41,7 +41,7 @@ struct AddToCartStepper: View {
                     .transition(.opacity)
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(AddToCartStepperContrastingForeground(background: tint))
         .background(tint.gradient, in: .capsule)
         .sensoryFeedback(.selection, trigger: quantity)
     }
@@ -95,6 +95,18 @@ struct AddToCartStepper: View {
 
     private func set(_ newValue: Int) {
         withAnimation(animation) { quantity = min(max(newValue, 0), limit) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AddToCartStepperContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

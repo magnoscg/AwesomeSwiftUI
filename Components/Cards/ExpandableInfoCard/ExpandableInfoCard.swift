@@ -49,7 +49,7 @@ struct ExpandableInfoCard<Details: View>: View {
         HStack(spacing: 14) {
             Image(systemName: systemImage)
                 .font(.title3)
-                .foregroundStyle(.white)
+                .foregroundStyle(ExpandableInfoCardContrastingForeground(background: tint))
                 .frame(width: iconSize, height: iconSize)
                 .background(tint.gradient, in: .rect(cornerRadius: 12))
                 .accessibilityHidden(true)
@@ -74,6 +74,18 @@ struct ExpandableInfoCard<Details: View>: View {
         }
         .padding(16)
         .contentShape(.rect)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ExpandableInfoCardContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

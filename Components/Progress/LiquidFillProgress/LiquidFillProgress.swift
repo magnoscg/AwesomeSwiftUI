@@ -41,7 +41,7 @@ struct LiquidFillProgress: View {
                     .foregroundStyle(color)
 
                 percentLabel
-                    .foregroundStyle(.white)
+                    .foregroundStyle(LiquidFillProgressContrastingForeground(background: color))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .mask(frontWave)
             }
@@ -94,6 +94,18 @@ nonisolated private struct LiquidFillWave: Shape {
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
         path.closeSubpath()
         return path
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct LiquidFillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

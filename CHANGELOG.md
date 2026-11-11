@@ -16,9 +16,11 @@ on `main`.
 
 - Text and icons drawn over a color you choose stay readable on a light one:
   they turn black on yellow or a pastel and stay white on the system's own
-  colors. So far in the six buttons that take a tint: Elastic Drag Button,
-  Floating Action Menu, Hold To Confirm Button, Morphing Submit Button, Pulse
-  Ring Button and Shrinking Extended Button.
+  colors. It reaches the 19 components that did it: the six buttons that take
+  a tint, Add To Cart Stepper, Animated Badge Count, Completion Swipe Row,
+  Download Pill Progress, Expandable Info Card, Gooey Floating Menu, Keyboard
+  Tracking Input Bar, Liquid Fill Progress, Nested Comment Thread, Scroll To
+  Top Button, Swipe Action Row, Tooltip Popover and Vertical Timeline.
 
 ## 0.4.0 - 2026-11-11
 
