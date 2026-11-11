@@ -59,7 +59,7 @@ struct DrawingPadSpeedBrush: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(strokes.count) strokes")
+        .accessibilityValue("^[\(strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
@@ -139,8 +139,7 @@ struct DrawingPadSpeedBrushDemo: View {
             }
 
             DrawingPadSpeedBrush(strokes: $strokes, color: .indigo)
-                .background(.white, in: .rect(cornerRadius: 24))
-                .shadow(color: .black.opacity(0.12), radius: 16, y: 8)
+                .background(.white.shadow(.drop(color: .black.opacity(0.12), radius: 16, y: 8)), in: .rect(cornerRadius: 24))
 
             Button("Clear", systemImage: "trash") {
                 strokes = []

@@ -321,6 +321,15 @@ enum ComponentRegistry {
             demo: { AnyView(DateStripPickerDemo()) }
         ),
         ShowcaseEntry(
+            id: "day-schedule-timeline",
+            title: "Day Schedule Timeline",
+            category: "Calendars",
+            summary: "The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.",
+            keywords: ["day view", "schedule", "agenda", "timeline", "calendar events", "hours", "overlapping events", "current time", "vista de día", "horario", "agenda", "línea de tiempo", "eventos del calendario", "horas", "eventos solapados", "hora actual"],
+            minIOS: "18.0",
+            demo: { AnyView(DayScheduleTimelineDemo()) }
+        ),
+        ShowcaseEntry(
             id: "avatar-stack",
             title: "Avatar Stack",
             category: "Cards",
@@ -522,6 +531,15 @@ enum ComponentRegistry {
             demo: { AnyView(TapbackReactionBubbleDemo()) }
         ),
         ShowcaseEntry(
+            id: "typing-indicator-bubble",
+            title: "Typing Indicator Bubble",
+            category: "Chat",
+            summary: "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+            keywords: ["typing indicator", "three dots", "chat", "message", "is typing", "bubble", "ellipsis", "indicador de escritura", "tres puntos", "chat", "mensaje", "está escribiendo", "burbuja", "puntos suspensivos"],
+            minIOS: "18.0",
+            demo: { AnyView(TypingIndicatorBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",
@@ -712,6 +730,15 @@ enum ComponentRegistry {
             keywords: ["border", "beam", "glow", "highlight", "light", "animated border", "outline", "borde", "haz", "brillo", "resplandor", "luz", "borde animado", "contorno"],
             minIOS: "18.0",
             demo: { AnyView(BorderBeamModifierDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "chromatic-glitch-shader",
+            title: "Chromatic Glitch Shader",
+            category: "Effects",
+            summary: "A view modifier that breaks a view up like a bad signal: its colors come apart, bands jump sideways and scan lines cross it, drawn by a Metal shader.",
+            keywords: ["glitch", "chromatic aberration", "rgb split", "shader", "metal", "scan lines", "vhs", "distortion", "glitch", "aberración cromática", "separación rgb", "shader", "metal", "líneas de escaneo", "vhs", "distorsión"],
+            minIOS: "18.0",
+            demo: { AnyView(ChromaticGlitchShaderDemo()) }
         ),
         ShowcaseEntry(
             id: "coin-flip-view",
@@ -910,6 +937,15 @@ enum ComponentRegistry {
             keywords: ["empty state", "placeholder", "no content", "symbol", "call to action", "content unavailable", "estado vacío", "marcador", "sin contenido", "símbolo", "llamada a la acción", "contenido no disponible"],
             minIOS: "18.0",
             demo: { AnyView(EmptyStatePlaceholderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "notification-stack",
+            title: "Notification Stack",
+            category: "Feedback",
+            summary: "Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.",
+            keywords: ["notification stack", "lock screen", "grouped notifications", "expand", "collapse", "pile", "swipe to clear", "pila de notificaciones", "pantalla de bloqueo", "notificaciones agrupadas", "expandir", "contraer", "montón", "deslizar para borrar"],
+            minIOS: "18.0",
+            demo: { AnyView(NotificationStackDemo()) }
         ),
         ShowcaseEntry(
             id: "rating-stars",
@@ -1599,6 +1635,15 @@ enum ComponentRegistry {
             demo: { AnyView(MapAnnotationCalloutDemo()) }
         ),
         ShowcaseEntry(
+            id: "map-cluster-annotations",
+            title: "Map Cluster Annotations",
+            category: "Maps",
+            summary: "A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.",
+            keywords: ["map clustering", "cluster", "annotations", "pins", "mapkit", "zoom", "grouped markers", "count bubble", "agrupar en el mapa", "clúster", "anotaciones", "chinchetas", "mapkit", "zoom", "marcadores agrupados", "burbuja con número"],
+            minIOS: "18.0",
+            demo: { AnyView(MapClusterAnnotationsDemo()) }
+        ),
+        ShowcaseEntry(
             id: "map-route-tracker",
             title: "Map Route Tracker",
             category: "Maps",
@@ -1953,6 +1998,15 @@ enum ComponentRegistry {
             demo: { AnyView(TwoPaneSplitLayoutDemo()) }
         ),
         ShowcaseEntry(
+            id: "permission-primer-screen",
+            title: "Permission Primer Screen",
+            category: "Patterns",
+            summary: "The screen shown before the system asks for a permission: what it is for, what the person gets, and one button that leads to the system's question.",
+            keywords: ["permission", "pre-permission", "primer", "notifications", "onboarding", "allow", "privacy", "tracking", "permiso", "pantalla previa", "notificaciones", "bienvenida", "permitir", "privacidad", "seguimiento", "solicitar permiso"],
+            minIOS: "18.0",
+            demo: { AnyView(PermissionPrimerScreenDemo()) }
+        ),
+        ShowcaseEntry(
             id: "vertical-timeline",
             title: "Vertical Timeline",
             category: "Patterns",
@@ -2025,6 +2079,15 @@ enum ComponentRegistry {
             demo: { AnyView(BubbleWrapPopDemo()) }
         ),
         ShowcaseEntry(
+            id: "slot-machine-reels",
+            title: "Slot Machine Reels",
+            category: "Playful",
+            summary: "Reels of symbols that spin and stop one after another, with the result under a line across them.",
+            keywords: ["slot machine", "reels", "spin", "jackpot", "casino", "random", "lottery", "game", "tragaperras", "rodillos", "girar", "premio", "casino", "aleatorio", "lotería", "juego"],
+            minIOS: "18.0",
+            demo: { AnyView(SlotMachineReelsDemo()) }
+        ),
+        ShowcaseEntry(
             id: "spin-wheel-roulette",
             title: "Spin Wheel Roulette",
             category: "Playful",
@@ -2032,6 +2095,15 @@ enum ComponentRegistry {
             keywords: ["spin wheel", "roulette", "prize wheel", "fortune", "random", "game", "lucky draw", "ruleta", "rueda de premios", "premio", "fortuna", "aleatorio", "juego", "sorteo"],
             minIOS: "18.0",
             demo: { AnyView(SpinWheelRouletteDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "profile-header-stretchy",
+            title: "Profile Header Stretchy",
+            category: "Profiles",
+            summary: "A profile whose cover stretches when the page is pulled down and closes into a bar with the name as it scrolls, while the avatar on its edge shrinks away.",
+            keywords: ["profile header", "stretchy header", "cover image", "avatar", "collapsing header", "pull to stretch", "social profile", "cabecera de perfil", "cabecera elástica", "imagen de portada", "avatar", "cabecera que se contrae", "tirar para estirar", "perfil social"],
+            minIOS: "18.0",
+            demo: { AnyView(ProfileHeaderStretchyDemo()) }
         ),
         ShowcaseEntry(
             id: "stories-viewer",

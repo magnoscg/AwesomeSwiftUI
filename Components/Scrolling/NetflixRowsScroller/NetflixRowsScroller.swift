@@ -22,6 +22,8 @@ struct NetflixRowsScroller: View {
 
     private let posterSpacing: CGFloat = 10
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 24) {
@@ -65,8 +67,20 @@ struct NetflixRowsScroller: View {
                 }
                 .clipShape(.rect(cornerRadius: 10, style: .continuous))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(NetflixRowsScrollerPosterStyle(reduceMotion: reduceMotion))
         .accessibilityLabel(item.name)
+    }
+}
+
+/// A poster dims and shrinks a little while it is pressed.
+private struct NetflixRowsScrollerPosterStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.7 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.95 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
     }
 }
 
@@ -90,10 +104,26 @@ struct NetflixRowsScrollerDemo: View {
         })
     }
 
+    @State private var selected: String?
+
     var body: some View {
-        NetflixRowsScroller(rows: rows)
-            .foregroundStyle(.white)
-            .background(.black)
+        NetflixRowsScroller(rows: rows) { title in
+            selected = title.name
+        }
+        .foregroundStyle(.white)
+        .background(.black)
+        .safeAreaInset(edge: .bottom) {
+            if let selected {
+                Label(selected, systemImage: "play.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
+                    .background(.ultraThinMaterial, in: .capsule)
+                    .environment(\.colorScheme, .dark)
+                    .padding(.bottom, 8)
+            }
+        }
     }
 
     private static func poster(_ colors: [Color], symbol: String) -> Image {

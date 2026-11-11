@@ -3,7 +3,7 @@ title: Awesome SwiftUI Components
 description: Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.
 template: splash
 hero:
-  tagline: Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.
+  tagline: Copy-paste components, animations and transitions for iOS 18 through iOS 27. One Swift file each, and nothing to install.
   actions:
     - text: Browse the catalog
       link: /swiftui-components/catalog/
@@ -13,21 +13,43 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import CategoryCloud from '../../components/CategoryCloud.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import LandingStats from '../../components/LandingStats.astro';
+import PreviewMarquee from '../../components/PreviewMarquee.astro';
 
-<CardGrid>
-  <Card title="No package" icon="document">
-    Find a component, copy one Swift file into your project and use it.
-  </Card>
-  <Card title="Current Apple APIs" icon="approve-check">
-    Swift 6, Observation and the newest API for each iOS version. Nothing
-    deprecated.
-  </Card>
-  <Card title="Easy to find" icon="magnifier">
-    Every component has keywords in English and Spanish and an animated
-    preview.
-  </Card>
-  <Card title="Ready for agents" icon="rocket">
-    A JSON catalog and `llms.txt` let AI agents find and fetch components.
-  </Card>
-</CardGrid>
+<PreviewMarquee />
+
+<LandingStats />
+
+## Copy, paste, done
+
+Find a component, copy its file into your project and use it. It is your
+code from then on: no package, no version to track.
+
+```swift
+PulseRingButton(systemImage: "mic.fill", label: "Record") {
+    startRecording()
+}
+```
+
+## What every component keeps
+
+<FeatureGrid />
+
+## Built for coding agents
+
+Point your agent at the index and ask for what you need. It reads the
+summary of every component, picks one and fetches its file.
+
+```text
+Find a SwiftUI component for <what you need> in
+https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
+and copy its file into my project.
+```
+
+[How agents use the catalog](/swiftui-components/for-ai-agents/)
+
+## Browse by category
+
+<CategoryCloud />

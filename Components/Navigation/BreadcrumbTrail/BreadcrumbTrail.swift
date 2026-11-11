@@ -17,6 +17,10 @@ struct BreadcrumbTrail: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// A crumb is a short line of text, too small to hit. This padding widens what answers to a
+    /// touch, and the same padding taken back keeps the trail as compact as it was.
+    private let touchPadding: CGFloat = 13
+
     var body: some View {
         ViewThatFits(in: .horizontal) {
             fullRow
@@ -54,6 +58,9 @@ struct BreadcrumbTrail: View {
                 Image(systemName: "ellipsis.circle.fill")
                     .symbolRenderingMode(.hierarchical)
                     .imageScale(.large)
+                    .padding(touchPadding)
+                    .contentShape(.rect)
+                    .padding(-touchPadding)
             }
             .accessibilityLabel("More")
             separator
@@ -75,9 +82,16 @@ struct BreadcrumbTrail: View {
                     .fixedSize()
                     .accessibilityAddTraits(.isSelected)
             } else {
-                Button(item.title) { onSelect(item) }
-                    .lineLimit(1)
-                    .fixedSize()
+                Button {
+                    onSelect(item)
+                } label: {
+                    Text(item.title)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
+                }
+                .lineLimit(1)
+                .fixedSize()
             }
         }
     }

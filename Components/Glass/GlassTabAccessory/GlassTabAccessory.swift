@@ -53,8 +53,15 @@ private struct GlassTabAccessoryPlayer: View {
 
             Spacer(minLength: 0)
 
-            Button(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill") {
+            Button {
                 isPlaying.toggle()
+            } label: {
+                // The glyph is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the accessory as it was.
+                Label(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill")
+                    .padding(17)
+                    .contentShape(.rect)
+                    .padding(-17)
             }
             .labelStyle(.iconOnly)
             .buttonStyle(.plain)

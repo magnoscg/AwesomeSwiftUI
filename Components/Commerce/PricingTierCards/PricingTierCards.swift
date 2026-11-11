@@ -44,6 +44,8 @@ struct PricingTierCards: View {
             .padding(.vertical, 24)
         }
         .scrollIndicators(.hidden)
+        // The shadow of the recommended plan reaches past the row.
+        .scrollClipDisabled()
         .contentMargins(.horizontal, max((containerWidth - cardWidth) / 2, 16), for: .scrollContent)
         .scrollTargetBehavior(.viewAligned)
         .scrollPosition(id: $centeredID)

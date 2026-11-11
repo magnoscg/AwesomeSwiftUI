@@ -80,7 +80,7 @@ struct CountdownRing: View {
             .padding(lineWidth / 2)
             .accessibilityElement()
             .accessibilityLabel("Time remaining")
-            .accessibilityValue("\(seconds) seconds")
+            .accessibilityValue("^[\(seconds) second](inflect: true)")
         }
         .aspectRatio(1, contentMode: .fit)
         .task(id: endDate) {

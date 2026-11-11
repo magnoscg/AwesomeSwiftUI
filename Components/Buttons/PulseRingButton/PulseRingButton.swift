@@ -9,7 +9,8 @@ private enum PulseRingButtonPhase {
 
 /// A round button with rings that keep radiating out from behind it.
 ///
-/// With Reduce Motion on, a single still halo replaces the rings.
+/// With Reduce Motion on, a single still halo replaces the rings. Set `isPulsing`
+/// to false to leave the button without them, as when what it signals has stopped.
 struct PulseRingButton: View {
     let systemImage: String
     let label: LocalizedStringResource
@@ -17,6 +18,7 @@ struct PulseRingButton: View {
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
     var stagger: Double = 0.35
+    var isPulsing = true
     let action: () -> Void
 
     @ScaledMetric(relativeTo: .largeTitle) private var diameter = 104.0
@@ -25,7 +27,9 @@ struct PulseRingButton: View {
     var body: some View {
         ZStack {
             Group {
-                if reduceMotion {
+                if !isPulsing {
+                    EmptyView()
+                } else if reduceMotion {
                     Circle()
                         .fill(tint.opacity(0.2))
                         .scaleEffect(1.35)
@@ -90,7 +94,7 @@ struct PulseRingButtonDemo: View {
     @State private var isRecording = true
 
     var body: some View {
-        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record") {
+        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record", isPulsing: isRecording) {
             isRecording.toggle()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

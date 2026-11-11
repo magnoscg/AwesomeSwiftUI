@@ -121,7 +121,7 @@ struct PullProgressRefreshDemo: View {
                 Text("Inbox")
                     .font(.largeTitle.bold())
 
-                Text(updates == 0 ? "Pull down to refresh" : "Updated \(updates) times")
+                Text(updates == 0 ? "Pull down to refresh" : "Updated ^[\(updates) time](inflect: true)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .contentTransition(.numericText())

@@ -52,6 +52,8 @@ struct CircularProgressRing: View {
                     .trim(from: 0, to: value > 0 ? 0.001 : 0)
                     .stroke(colors.first ?? .blue, style: strokeStyle)
             }
+            // A round cap draws a dot even on a line with no length.
+            .opacity(value > 0 ? 1 : 0)
             .rotationEffect(.degrees(-90))
 
             Text(percentText)

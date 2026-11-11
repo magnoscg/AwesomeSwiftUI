@@ -118,11 +118,19 @@ private struct MapSearchSheetPanel: View {
                 TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
+                    .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
 
                 if !query.isEmpty {
-                    Button("Clear", systemImage: "xmark.circle.fill") {
+                    Button {
                         query = ""
+                    } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the field as it was.
+                        Label("Clear", systemImage: "xmark.circle.fill")
+                            .padding(14)
+                            .contentShape(.rect)
+                            .padding(-14)
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)

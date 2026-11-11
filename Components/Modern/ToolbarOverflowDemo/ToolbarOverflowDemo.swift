@@ -16,6 +16,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// A navigation screen that ranks which toolbar actions survive when space runs out.
 ///
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
+/// The title is large, under the bar, where the actions cannot push it out.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
     let title: LocalizedStringResource
@@ -27,7 +28,7 @@ struct ToolbarOverflowDemo<Content: View>: View {
         NavigationStack {
             content()
                 .navigationTitle(title)
-                .toolbarTitleDisplayMode(.inline)
+                .toolbarTitleDisplayMode(.large)
                 .toolbar {
                     ForEach(barActions) { action in
                         ToolbarItem(placement: .primaryAction) {
@@ -83,6 +84,7 @@ struct ToolbarOverflowDemoDemo: View {
             ZStack {
                 LinearGradient(colors: [.indigo, .purple, .pink], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
+                    .toolbarColorScheme(.dark, for: .navigationBar)
 
                 Text(lastAction)
                     .font(.largeTitle.bold())

@@ -111,6 +111,8 @@ struct StepProgressIndicatorDemo: View {
                 .imageScale(.large)
                 .foregroundStyle(.indigo.gradient)
                 .contentTransition(.symbolEffect(.replace))
+                // The symbols are not equally tall. One height keeps what is below in place.
+                .frame(height: 56)
                 .accessibilityHidden(true)
 
             Text("Checkout")

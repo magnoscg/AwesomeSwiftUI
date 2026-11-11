@@ -76,8 +76,42 @@ export function loadCatalog(root, { requirePreview = true } = {}) {
   }
 
   reportDuplicateIds(components, errors);
+  reportUntranslatedCounts(root, components, errors);
   components.sort(byCategoryThenName);
   return { components, errors };
+}
+
+// A text like "^[\(count) photo](inflect: true)" agrees with its count in the
+// language the app runs in. The Showcase has a String Catalog with other
+// languages, and where it runs in one of them the English text loses its
+// plural ("3 photo") unless the catalog translates it. So every such text
+// needs a translation in every language of that catalog.
+const SHOWCASE_STRINGS = 'Showcase/Showcase/Localizable.xcstrings';
+const COUNTED_TEXT = /"((?:[^"\\\n]|\\.)*\^\[(?:[^"\\\n]|\\.)*\]\(inflect: true\)(?:[^"\\\n]|\\.)*)"/g;
+
+function reportUntranslatedCounts(root, components, errors) {
+  const file = join(root, SHOWCASE_STRINGS);
+  if (!existsSync(file)) return;
+
+  const catalog = JSON.parse(readFileSync(file, 'utf8'));
+  const strings = Object.entries(catalog.strings ?? {});
+  const languages = new Set(strings.flatMap(([, entry]) => Object.keys(entry.localizations ?? {})));
+  languages.delete(catalog.sourceLanguage);
+  const translations = new Map(
+    strings.map(([key, entry]) => [key.replace(/%(?:\d+\$)?(?:lld|ld|d|lf|f|@)/g, '%'), Object.keys(entry.localizations ?? {})]),
+  );
+
+  for (const component of components) {
+    for (const [, text] of withoutLineComments(component.source).matchAll(COUNTED_TEXT)) {
+      const translated = translations.get(text.replace(/\\\([^)]*\)/g, '%')) ?? [];
+      const missing = [...languages].filter((language) => !translated.includes(language));
+      if (missing.length > 0) {
+        errors.push(
+          `${component.path}: "${text}" agrees with its count, so it needs a translation for ${missing.join(', ')} in ${SHOWCASE_STRINGS}`,
+        );
+      }
+    }
+  }
 }
 
 function loadComponent(root, relative, category, name, files, errors, requirePreview) {

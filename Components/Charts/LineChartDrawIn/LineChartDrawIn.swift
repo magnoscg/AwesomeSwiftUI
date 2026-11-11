@@ -19,9 +19,8 @@ struct LineChartDrawIn: View {
 
     var body: some View {
         ZStack {
-            LineChartDrawInArea(values: values, inset: inset)
+            LineChartDrawInArea(values: values, inset: inset, progress: shownProgress)
                 .fill(.linearGradient(colors: [tint.opacity(0.28), tint.opacity(0)], startPoint: .top, endPoint: .bottom))
-                .opacity(shownProgress)
 
             LineChartDrawInLine(values: values, inset: inset)
                 .trim(from: 0, to: shownProgress)
@@ -62,16 +61,23 @@ nonisolated private struct LineChartDrawInLine: Shape {
     }
 }
 
+/// The fill under the line, up to its tip, so it never runs ahead of the line being drawn.
 nonisolated private struct LineChartDrawInArea: Shape {
     let values: [Double]
     let inset: CGFloat
+    var progress: Double
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
 
     func path(in rect: CGRect) -> Path {
         let points = LineChartDrawInLogic.points(for: values, in: rect.insetBy(dx: inset, dy: inset))
-        guard let first = points.first, let last = points.last else { return Path() }
+        guard let first = points.first, let last = LineChartDrawInLogic.point(at: progress, along: points) else { return Path() }
 
         var path = Path()
-        path.addLines(points)
+        path.addLines(points.filter { $0.x < last.x } + [last])
         path.addLine(to: CGPoint(x: last.x, y: rect.maxY))
         path.addLine(to: CGPoint(x: first.x, y: rect.maxY))
         path.closeSubpath()

@@ -74,12 +74,16 @@ struct JiggleEditModifierDemo: View {
             ScrollView {
                 VStack(spacing: 28) {
                     HStack {
-                        Button("Reset") {
+                        Button {
                             withAnimation(animation) { apps = Self.allApps }
+                        } label: {
+                            touchTarget(Text("Reset"))
                         }
                         Spacer()
-                        Button(isEditing ? "Done" : "Edit") {
+                        Button {
                             isEditing.toggle()
+                        } label: {
+                            touchTarget(Text(isEditing ? "Done" : "Edit"))
                         }
                         .fontWeight(.bold)
                     }
@@ -89,13 +93,22 @@ struct JiggleEditModifierDemo: View {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(Array(apps.enumerated()), id: \.element.id) { index, app in
                             icon(for: app)
-                                .jiggleEditing(isEditing, seed: index)
+                                // Its place in the full list, so removing an icon does not change the rhythm of the rest.
+                                .jiggleEditing(isEditing, seed: Self.allApps.firstIndex { $0.id == app.id } ?? index)
                         }
                     }
                 }
                 .padding(20)
             }
         }
+    }
+
+    /// Widens what answers to a touch around something small, without moving the layout.
+    private func touchTarget(_ content: some View) -> some View {
+        content
+            .padding(12)
+            .contentShape(.rect)
+            .padding(-12)
     }
 
     private func icon(for app: JiggleEditDemoApp) -> some View {
@@ -114,10 +127,12 @@ struct JiggleEditModifierDemo: View {
                         Button {
                             withAnimation(animation) { apps.removeAll { $0.id == app.id } }
                         } label: {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.title3)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .black.opacity(0.7))
+                            touchTarget(
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title3)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.white, .black.opacity(0.7))
+                            )
                         }
                         .accessibilityLabel("Remove \(app.id)")
                         .offset(x: -8, y: -8)

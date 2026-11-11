@@ -166,6 +166,8 @@ struct VideoPlayerChromeDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .seconds(0.25))
                 guard !Task.isCancelled else { return }

@@ -5,8 +5,10 @@ import SwiftUI
 
 /// A black capsule that grows to show a live status and shrinks back to a pill.
 ///
-/// Place it at the top of the screen. With Reduce Motion on, it changes size
-/// without bouncing and its content only fades.
+/// Place it at the top of the screen, over the island of the device. Its content starts
+/// under the pill, because the sensors of a real island would cover it there. Hide the
+/// status bar while it is expanded, because it takes that space. With Reduce Motion on,
+/// it changes size without bouncing and its content only fades.
 struct DynamicIslandPill<Content: View>: View {
     var isExpanded: Bool
     var pillSize = CGSize(width: 126, height: 37)
@@ -31,7 +33,8 @@ struct DynamicIslandPill<Content: View>: View {
                     .environment(\.colorScheme, .dark)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 22)
-                    .padding(.vertical, 18)
+                    .padding(.top, height + 8)
+                    .padding(.bottom, 18)
                     .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.8, anchor: .top)))
             }
         }
@@ -86,6 +89,7 @@ struct DynamicIslandPillDemo: View {
             .controlSize(.large)
             .frame(maxHeight: .infinity)
         }
+        .statusBarHidden(status != nil)
     }
 
     private var musicStatus: some View {

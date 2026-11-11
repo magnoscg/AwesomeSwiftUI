@@ -68,7 +68,7 @@ struct KanbanBoard: View {
                 Text("\(column.cards.count)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("\(column.cards.count) cards")
+                    .accessibilityLabel("^[\(column.cards.count) card](inflect: true)")
             }
             .accessibilityElement(children: .combine)
 
@@ -152,7 +152,8 @@ struct KanbanBoardDemo: View {
     ]
 
     var body: some View {
-        KanbanBoard(columns: $columns, columnWidth: 180)
+        // Narrow enough to show part of the third column, which says the board scrolls.
+        KanbanBoard(columns: $columns, columnWidth: 150)
             .tint(.indigo)
             .background(LinearGradient(colors: [.indigo.opacity(0.14), .teal.opacity(0.1)], startPoint: .top, endPoint: .bottom))
     }

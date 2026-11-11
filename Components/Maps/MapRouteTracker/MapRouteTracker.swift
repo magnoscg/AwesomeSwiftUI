@@ -173,7 +173,7 @@ struct MapRouteTrackerDemo: View {
                     Text(progress < 1 ? "Arriving in \(Int(((1 - progress) * tripMinutes).rounded(.up))) min" : "Your order is here")
                         .font(.headline)
                         .contentTransition(.numericText())
-                    Text("Alex is bringing your order")
+                    Text(progress < 1 ? "Alex is bringing your order" : "Delivered by Alex")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -189,6 +189,8 @@ struct MapRouteTrackerDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
 
             ProgressView(value: progress)

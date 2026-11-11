@@ -109,7 +109,8 @@ struct KeyframeTimelineShowcase<Content: View>: View {
                 let track = CGRect(x: 0, y: size.height / 2 - 2, width: size.width, height: 4)
                 context.fill(Path(roundedRect: track, cornerRadius: 2), with: .color(color.opacity(0.3)))
                 for tick in ticks {
-                    let dot = CGRect(x: size.width * tick - 5, y: size.height / 2 - 5, width: 10, height: 10)
+                    // The first and the last dot stay whole inside the lane.
+                    let dot = CGRect(x: (size.width - 10) * tick, y: size.height / 2 - 5, width: 10, height: 10)
                     context.fill(Path(ellipseIn: dot), with: .color(color))
                 }
             }

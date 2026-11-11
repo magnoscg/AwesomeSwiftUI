@@ -102,7 +102,7 @@ struct RadialLayoutDemo: View {
                 Text("\(count)")
                     .font(.system(.largeTitle, design: .rounded, weight: .bold))
                     .contentTransition(.numericText(value: Double(count)))
-                    .accessibilityLabel("\(count) apps")
+                    .accessibilityLabel("^[\(count) app](inflect: true)")
             }
             .frame(maxWidth: 340, maxHeight: 340)
 

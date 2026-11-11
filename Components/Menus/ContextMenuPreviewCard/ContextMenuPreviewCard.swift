@@ -31,13 +31,14 @@ private struct ContextMenuPreviewCardDemoTrip: Identifiable {
 }
 
 struct ContextMenuPreviewCardDemo: View {
-    private let trips = [
+    private static let allTrips = [
         ContextMenuPreviewCardDemoTrip(id: "Alps", subtitle: "Six days above the clouds", systemImage: "mountain.2.fill", colors: [.teal, .blue]),
         ContextMenuPreviewCardDemoTrip(id: "Coast", subtitle: "A slow week by the sea", systemImage: "sailboat.fill", colors: [.cyan, .indigo]),
         ContextMenuPreviewCardDemoTrip(id: "Desert", subtitle: "Stars and quiet nights", systemImage: "sun.max.fill", colors: [.orange, .pink]),
         ContextMenuPreviewCardDemoTrip(id: "Forest", subtitle: "Trails and cabins", systemImage: "tree.fill", colors: [.green, .mint]),
     ]
 
+    @State private var trips = allTrips
     @State private var lastAction = "Press and hold a card"
 
     var body: some View {
@@ -57,9 +58,22 @@ struct ContextMenuPreviewCardDemo: View {
                             } menuItems: {
                                 Button("Share", systemImage: "square.and.arrow.up") { lastAction = "Shared \(trip.id)" }
                                 Button("Save", systemImage: "bookmark") { lastAction = "Saved \(trip.id)" }
-                                Button("Remove", systemImage: "trash", role: .destructive) { lastAction = "Removed \(trip.id)" }
+                                Button("Remove", systemImage: "trash", role: .destructive) {
+                                    lastAction = "Removed \(trip.id)"
+                                    withAnimation { trips.removeAll { $0.id == trip.id } }
+                                }
                             }
                         }
+                    }
+
+                    // Only for this demo: a way back once every card is gone.
+                    if trips.isEmpty {
+                        Button("Start over") {
+                            lastAction = "Press and hold a card"
+                            withAnimation { trips = Self.allTrips }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(16)

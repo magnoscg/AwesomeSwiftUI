@@ -6,6 +6,139 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.3 - 2026-11-11
+
+### Added
+
+- Chromatic Glitch Shader, a modifier that breaks a view up like a bad
+  signal: its colors come apart, bands jump sideways and scan lines cross
+  it. Drawn by a Metal shader.
+- Map Cluster Annotations, a map where places that are close together are
+  drawn as one bubble with their count, which splits as the map zooms in.
+- Profile Header Stretchy, a profile whose cover stretches when the page is
+  pulled down and closes into a bar with the name as it scrolls.
+- Day Schedule Timeline, the hours of a day down a column, with each event
+  drawn over the time it takes, overlapping events side by side and a line
+  at the current time.
+- Permission Primer Screen, the screen shown before the system asks for a
+  permission: what it is for, what the person gets and one button that leads
+  to the system's question.
+- Slot Machine Reels, reels of symbols that spin and stop one after another,
+  with the result under a line across them.
+- Notification Stack, notifications piled under the newest one, like a lock
+  screen, that open into a column with a tap and can be swiped away.
+- Typing Indicator Bubble, three dots that bounce in turn inside a message
+  bubble while someone is typing.
+- Pulse Ring Button takes `isPulsing`. Set it to false to leave the button
+  without rings, as when what it signals has stopped.
+- Glass Segmented Control follows a finger dragged along it, as the system's
+  control does.
+- Sparkline Stat Tile takes `higherIsBetter`. Set it to false for a figure
+  that is good news when it falls, like churn, and a fall is drawn in green.
+- Masked Text Field takes `isValid`, to check what a mask cannot, like a
+  month over 12, before it shows its checkmark.
+- Rating Stars clears the rating with a tap on the chosen star.
+- Gooey Floating Menu closes with a tap outside it.
+- The Showcase app has the Spanish of one demo, Onboarding Pager, in a String
+  Catalog, shown when the app is launched with `-AppleLanguages "(es)"`. It
+  shows what passing texts as `LocalizedStringResource` buys: the component
+  is not touched, and the app that copies it translates it.
+
+### Changed
+
+- `make check` rejects a text that agrees with its count and has no entry
+  in the String Catalog of the Showcase. Without one it loses its plural
+  when the app is launched in Spanish.
+- The README opens with ten components playing, says how to use one in three
+  steps and gives coding agents the line to paste and the four files they
+  read. The number of components on its badge is read from `catalog.json`.
+- The site has a landing page: previews that drift under the title, the
+  catalog in four figures counted when it builds, what every component
+  keeps, the line to give a coding agent, and every category as a link to
+  the catalog filtered by it. Cards in the catalog keep the shape of a phone
+  before their preview loads, and the preview on the page of a component is
+  framed like a screen.
+
+### Fixed
+
+- Small buttons are easier to hit. In 27 components a button or a row answers
+  to a touch in an area of at least 44 points, the size Apple recommends:
+  links of one line of text, legends, crumbs, tabs, chips, stars and icons
+  inside fields, among others. Where a bigger button would have changed the
+  design, only the area that answers grew.
+- A count agrees with its noun: "1 photo", not "1 photos". Nine components
+  wrote the plural for every number, on screen or to VoiceOver: Adaptive
+  Sidebar Layout, Countdown Ring, Drawing Pad Speed Brush, Drawing Pad Undo
+  Redo, Kanban Board, Pull Progress Refresh, Radial Layout, Range Slider and
+  Shutter Capture Button.
+- A demo you can empty offers to start over. Five left an empty screen once
+  every item was gone: Context Menu Preview Card, Drop Zone Highlight, Edit
+  Mode Multi Select, Swipe Action Cards and Swipe Action Row.
+- In the demos of Audio Player Card and Video Player Chrome, Play at the end
+  starts again. It did nothing.
+- Netflix Rows Scroller and Shimmer Button dim and shrink a little while they
+  are pressed. They gave no answer to a touch.
+- Buttons that did nothing in a demo now do: Previous and Next in Expanding
+  Mini Player, the tabs of the bar in Hide On Scroll Bar, and the rows of
+  Dynamic Height Tray, which also closes from its last step.
+- Dynamic Island Pill starts its content under the pill. On a device the
+  sensors of the island covered the first line. Its demo hides the status
+  bar while the pill is expanded, which drew over it.
+- Surface 3D Chart fits in its view. In a frame taller than wide the corners
+  of the plot and the axis labels were cut at the sides.
+- Long Press Radial Menu keeps the title of the option under the finger on
+  one line. It broke a word in two.
+- Provider Sign In Button Stack keeps the button that is signing in at full
+  strength, and only dims the ones that wait.
+- Country Picker writes its rows in the color of text. They took the tint,
+  like links.
+- Inline Date Picker Disclosure fades its calendar in as the row grows. It
+  slid in over the row for a moment.
+- Spin Wheel Roulette spins when you tap the wheel, not only its hub.
+- Toolbar Overflow Demo shows its title, large and under the bar. Five
+  actions left no room for it.
+- In demos: the curve of Spring Study Playground reaches the line whatever
+  the spring takes to settle, the email field of Floating Label Text Field
+  has the keyboard of an email, Map Route Tracker says the order was
+  delivered when it arrives, the strokes of Drawing Pad Speed Brush cast no
+  shadow, and the sheet of Toast Host opens at half height, so a toast does
+  not cover its bar.
+- Candlestick Chart is one value to adjust for VoiceOver, which reads the
+  date and the four prices of a day at a time. Charts grouped the candles
+  into ranges of dates, with no prices.
+- Emoji Picker lights the tab of the last section when the grid reaches its
+  end. A short section there never got its tab.
+- Expanding Search Button and Map Search Sheet do not capitalize what you
+  search for.
+- In demos: Calendar Range Selector asks for a later day when the stay has no
+  nights, Contribution Heatmap shuffles its data from a button and not every
+  two seconds, Expanding Search Button says when nothing matches, Glass Tool
+  Strip only holds tools, Inline Date Picker Disclosure keeps the return on
+  or after the departure, Kanban Board shows part of its third column, the
+  expiry of Masked Text Field rejects a month over 12, and the pages of Paged
+  Grid Launcher tell their apps apart.
+- Line Chart Draw In fills under the line only as far as it is drawn. The
+  fill showed whole from the start.
+- Circular Progress Ring draws nothing at zero. Its round cap left a dot.
+- Animated Tab Bar keeps the tabs that are not chosen readable over a
+  colorful screen.
+- Full Screen Menu Overlay lines up the titles of its links, whatever the
+  width of their symbols.
+- Scattered Photo Board keeps a tilted photo whole inside the board. A
+  corner went past the edge.
+- Pricing Tier Cards shows the whole shadow of the recommended plan.
+- Keyframe Timeline Showcase draws its last dots whole.
+- In demos: titles and buttons that were hard to read over a color in
+  Adaptive Sidebar Layout, Navigation Path Router, Scroll Edge Header and Two
+  Pane Split Layout, names that did not line up in Bottom Drawer and
+  Hamburger Menu Button, buttons of unequal width in Spring Study
+  Playground, a title that moved in Step Progress Indicator, rows that
+  changed height when Skeleton Shimmer Modifier finished loading, figures
+  that jumped in Activity Rings, thumbs that overlapped in Range Slider, a
+  photo cut by the edge in Multi Photo Picker Tray, icons that changed their
+  rhythm in Jiggle Edit Modifier when one was removed, and the white corners
+  of the drag preview in Drop Zone Highlight.
+
 ## 0.5.2 - 2026-11-11
 
 ### Changed

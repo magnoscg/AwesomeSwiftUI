@@ -167,9 +167,11 @@ struct PagedGridLauncherDemo: View {
         ("Phone", "phone.fill"), ("Chat", "message.fill"), ("Video", "video.fill"), ("Radio", "dot.radiowaves.left.and.right"),
     ]
 
+    // A page shows 20, so the names of the first page come back on the next one with a number.
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
+        let copy = index / apps.count + 1
+        return PagedGridLauncherItem(id: "\(index)", title: copy == 1 ? "\(app.0)" : "\(app.0) \(copy)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {

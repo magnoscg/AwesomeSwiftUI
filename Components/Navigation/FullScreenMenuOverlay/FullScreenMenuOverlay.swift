@@ -41,6 +41,7 @@ private struct FullScreenMenuOverlayPanel: View {
     let close: () -> Void
 
     @State private var showsLinks = false
+    @ScaledMetric(relativeTo: .largeTitle) private var iconWidth = 48.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -89,7 +90,12 @@ private struct FullScreenMenuOverlayPanel: View {
             close()
             link.action()
         } label: {
-            Label(link.title, systemImage: link.systemImage)
+            Label {
+                Text(link.title)
+            } icon: {
+                // One width for every symbol, so the titles line up.
+                Image(systemName: link.systemImage).frame(width: iconWidth)
+            }
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .foregroundStyle(.white)
         }
@@ -119,10 +125,16 @@ struct FullScreenMenuOverlayDemo: View {
             VStack(spacing: 20) {
                 HStack {
                     Spacer()
-                    Button("Menu", systemImage: "line.3.horizontal") { isOpen = true }
-                        .labelStyle(.iconOnly)
-                        .font(.title2.weight(.semibold))
-                        .padding(20)
+                    Button {
+                        isOpen = true
+                    } label: {
+                        // The padding is part of the button, so all of it answers to a touch.
+                        Label("Menu", systemImage: "line.3.horizontal")
+                            .padding(20)
+                            .contentShape(.rect)
+                    }
+                    .labelStyle(.iconOnly)
+                    .font(.title2.weight(.semibold))
                 }
 
                 Spacer()
