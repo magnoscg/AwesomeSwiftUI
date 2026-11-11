@@ -99,10 +99,14 @@ struct HamburgerMenuButtonDemo: View {
 
             if isOpen {
                 VStack(alignment: .leading, spacing: 22) {
-                    Label("Inbox", systemImage: "tray.fill")
-                    Label("Starred", systemImage: "star.fill")
-                    Label("Sent", systemImage: "paperplane.fill")
-                    Label("Trash", systemImage: "trash.fill")
+                    // One width for every symbol, so the names line up.
+                    ForEach([("Inbox", "tray.fill"), ("Starred", "star.fill"), ("Sent", "paperplane.fill"), ("Trash", "trash.fill")], id: \.0) { title, symbol in
+                        Label {
+                            Text(title)
+                        } icon: {
+                            Image(systemName: symbol).frame(width: 30)
+                        }
+                    }
                 }
                 .font(.title3.weight(.medium))
                 .padding(28)

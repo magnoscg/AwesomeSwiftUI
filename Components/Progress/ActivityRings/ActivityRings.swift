@@ -124,6 +124,7 @@ struct ActivityRingsDemo: View {
                         Text("\(Int(goal.value * fill)) / \(Int(goal.goal)) \(goal.unit)")
                             .font(.body.monospacedDigit())
                             .foregroundStyle(.white.opacity(0.75))
+                            .contentTransition(.numericText())
                     }
                 }
             }

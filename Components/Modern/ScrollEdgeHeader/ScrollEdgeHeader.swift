@@ -35,8 +35,7 @@ struct ScrollEdgeHeaderDemo: View {
                         .font(.largeTitle.bold())
 
                     Text(isHard ? "Hard edge" : "Soft edge")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.subheadline.weight(.medium))
                 }
 
                 Spacer()
