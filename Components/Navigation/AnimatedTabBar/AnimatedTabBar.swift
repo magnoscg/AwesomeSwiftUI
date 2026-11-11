@@ -58,7 +58,8 @@ struct AnimatedTabBar<Value: Hashable>: View {
                     .font(.caption2.weight(.semibold))
                     .lineLimit(1)
             }
-            .foregroundStyle(isSelected ? tint : Color.secondary)
+            // Not `.secondary`, which takes the color of what is behind the material and can fade into it.
+            .foregroundStyle(isSelected ? tint : Color.primary.opacity(0.65))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
             .background {

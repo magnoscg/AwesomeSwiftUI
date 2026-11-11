@@ -1,0 +1,16 @@
+{
+  "id": "map-cluster-annotations",
+  "name": "MapClusterAnnotations",
+  "title": "Map Cluster Annotations",
+  "category": "Maps",
+  "summary": "A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.",
+  "keywords": {
+    "en": ["map clustering", "cluster", "annotations", "pins", "mapkit", "zoom", "grouped markers", "count bubble"],
+    "es": ["agrupar en el mapa", "clúster", "anotaciones", "chinchetas", "mapkit", "zoom", "marcadores agrupados", "burbuja con número"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["Map", "Annotation", "onMapCameraChange", "MapCameraPosition", "MKCoordinateRegion"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 1.5", "tap -x 287 -y 558", "sleep 2.4", "tap --label 'Retiro Park'", "sleep 1.6"]
+}

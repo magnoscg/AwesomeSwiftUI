@@ -102,6 +102,7 @@ private struct NavigationPathRouterDemoScreen: View {
             .padding(32)
         }
         .navigationTitle(current?.rawValue ?? "Router")
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 

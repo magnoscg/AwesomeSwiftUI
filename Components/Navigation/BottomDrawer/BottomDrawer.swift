@@ -144,7 +144,8 @@ struct BottomDrawerDemo: View {
                         Label {
                             Text(name).font(.headline)
                         } icon: {
-                            Image(systemName: symbol).foregroundStyle(color.gradient)
+                            // One width for every symbol, so the names line up.
+                            Image(systemName: symbol).foregroundStyle(color.gradient).frame(width: 28)
                         }
                     }
                 }

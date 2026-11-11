@@ -21,7 +21,7 @@ easy to copy matters as much as the code itself.
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the index between the `catalog` markers | In place |
 | `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
-| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses | In place |
+| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses. The landing page is `src/content/docs/index.mdx`, built from the other components in that folder, which read `catalog.json` through `src/lib/catalog.ts`. `src/styles/custom.css` holds the look of the site | In place |
 | `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
 
 Update the State column when a planned part lands.
@@ -136,6 +136,11 @@ anything else:
    Content drawn over a color the caller chooses takes white or black from
    that color, with a `<Name>ContrastingForeground` style like the one in
    `ElasticDragButton`, listed in `ContrastingForegroundTests`.
+   Anything that takes a tap answers in an area of at least 44 by 44 points.
+   Where that size would break the design, like a line of text or an icon
+   inside a field, widen only what answers to the touch, on the label of the
+   button: `.padding(13).contentShape(.rect).padding(-13)`. A button with a
+   system style at its regular size is left as Apple sized it.
 8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
    mirrors layout there, which includes offsets, positions, rotations, shapes
    and unit points, but a gesture still reports screen points and a `Canvas`
@@ -189,6 +194,27 @@ anything else:
 
     Applied wherever the text is not the identity of an item or part of
     a `String` the component composes.
+
+    The Showcase shows the rule at work. Its String Catalog,
+    `Showcase/Showcase/Localizable.xcstrings`, has the Spanish of one demo,
+    Onboarding Pager. The app keeps to English, also on a device in Spanish,
+    where it would otherwise run half translated, and shows the Spanish when
+    it is launched asking for it:
+
+    ```sh
+    xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
+      -showcaseComponent onboarding-pager -AppleLanguages "(es)"
+    ```
+
+    Its keys are written by hand. The target does not extract strings into
+    it, so a build in Xcode does not fill it with the texts of every
+    component.
+
+    A text that agrees with its count, `^[\(count) photo](inflect: true)`,
+    needs an entry there too. Launched in Spanish, the English text loses its
+    plural, "3 photo", so the catalog gives it the two forms, in English
+    while its demo is not translated. `make check` rejects one that is
+    missing.
 
 14. **A demo stops playing when it is touched.** A demo may move by itself, so
     it looks alive and its preview records without touches, but never against

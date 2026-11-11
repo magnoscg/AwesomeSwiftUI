@@ -74,6 +74,10 @@ struct MatchedHeroCard<Detail: View>: View {
                     .font(.headline)
                     .padding(12)
                     .background(.white.opacity(0.2), in: .circle)
+                    // A little bigger for a touch than it looks, up to the size of a touch target.
+                    .padding(2)
+                    .contentShape(.rect)
+                    .padding(-2)
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Close")

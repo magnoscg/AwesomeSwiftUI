@@ -216,6 +216,7 @@ struct CalendarRangeSelectorDemo: View {
         guard let start else { return "Pick your arrival" }
         guard let end else { return "Now pick your departure" }
         let nights = calendar.dateComponents([.day], from: start, to: end).day ?? 0
+        guard nights > 0 else { return "Pick a later day to leave" }
         return nights == 1 ? "1 night" : "\(nights) nights"
     }
 

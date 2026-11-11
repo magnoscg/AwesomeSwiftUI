@@ -111,8 +111,13 @@ struct PasswordStrengthField: View {
                 isRevealed.toggle()
                 isFocused = true
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the field as it was.
                 Image(systemName: isRevealed ? "eye.slash" : "eye")
                     .foregroundStyle(.secondary)
+                    .padding(15)
+                    .contentShape(.rect)
+                    .padding(-15)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(isRevealed ? "Hide password" : "Show password")

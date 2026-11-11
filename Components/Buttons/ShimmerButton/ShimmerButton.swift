@@ -39,7 +39,7 @@ struct ShimmerButton: View {
             .contentShape(.capsule)
             .shadow(color: (colors.first ?? .clear).opacity(0.5), radius: 18, y: 8)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ShimmerButtonPressStyle(reduceMotion: reduceMotion))
     }
 
     private var sweep: some View {
@@ -61,9 +61,23 @@ struct ShimmerButton: View {
     }
 }
 
+/// The button dims and shrinks a little while it is pressed.
+private struct ShimmerButtonPressStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.96 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
 // MARK: - Demo
 
 struct ShimmerButtonDemo: View {
+    @State private var isStarted = false
+
     var body: some View {
         VStack(spacing: 36) {
             VStack(spacing: 10) {
@@ -74,7 +88,12 @@ struct ShimmerButtonDemo: View {
                     .foregroundStyle(.white.opacity(0.7))
             }
 
-            ShimmerButton(title: "Start free trial", systemImage: "sparkles") {}
+            ShimmerButton(
+                title: isStarted ? "Trial started" : "Start free trial",
+                systemImage: isStarted ? "checkmark" : "sparkles"
+            ) {
+                isStarted.toggle()
+            }
         }
         .foregroundStyle(.white)
         .multilineTextAlignment(.center)

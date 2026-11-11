@@ -255,7 +255,8 @@ struct KeyframeTimelineShowcase<Content: View>: View {
                 let track = CGRect(x: 0, y: size.height / 2 - 2, width: size.width, height: 4)
                 context.fill(Path(roundedRect: track, cornerRadius: 2), with: .color(color.opacity(0.3)))
                 for tick in ticks {
-                    let dot = CGRect(x: size.width * tick - 5, y: size.height / 2 - 5, width: 10, height: 10)
+                    // The first and the last dot stay whole inside the lane.
+                    let dot = CGRect(x: (size.width - 10) * tick, y: size.height / 2 - 5, width: 10, height: 10)
                     context.fill(Path(ellipseIn: dot), with: .color(color))
                 }
             }
@@ -682,8 +683,9 @@ struct SpringStudyPlayground: View {
     }
 
     private var curve: some View {
-        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: 2)
         let settling = Spring(response: response, dampingRatio: damping).settlingDuration
+        // The curve covers the time the spring takes to settle, so it always reaches the line.
+        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: max(settling, 1))
 
         return VStack(alignment: .leading, spacing: 10) {
             ZStack {
@@ -734,22 +736,25 @@ struct SpringStudyPlayground: View {
 
     @ViewBuilder private var presetButtons: some View {
         ForEach(Preset.allCases) { preset in
-            Button(preset.rawValue) {
+            Button {
                 response = preset.values.response
                 damping = preset.values.damping
                 play()
+            } label: {
+                // In a narrow row a name shrinks a little before it would break in two.
+                Text(preset.rawValue)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
-            // In a narrow row a name shrinks a little before it would break in two.
-            .lineLimit(1)
-            .minimumScaleFactor(0.75)
-            .frame(maxWidth: .infinity)
         }
 
-        Button("Play", action: play)
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
-            .frame(maxWidth: .infinity)
+        Button(action: play) {
+            Text("Play").frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.pink)
     }
 
     private func play() {
@@ -2560,6 +2565,8 @@ struct ExpandingSearchButton: View {
 
             if isExpanded {
                 TextField(text: $text) { Text(prompt) }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -2637,6 +2644,10 @@ struct ExpandingSearchButtonDemo: View {
                     Label(row.id, systemImage: row.systemImage)
                         .font(.title3)
                 }
+            }
+
+            if visibleRows.isEmpty {
+                ContentUnavailableView.search(text: text)
             }
 
             Spacer(minLength: 0)
@@ -3056,10 +3067,14 @@ struct HamburgerMenuButtonDemo: View {
 
             if isOpen {
                 VStack(alignment: .leading, spacing: 22) {
-                    Label("Inbox", systemImage: "tray.fill")
-                    Label("Starred", systemImage: "star.fill")
-                    Label("Sent", systemImage: "paperplane.fill")
-                    Label("Trash", systemImage: "trash.fill")
+                    // One width for every symbol, so the names line up.
+                    ForEach([("Inbox", "tray.fill"), ("Starred", "star.fill"), ("Sent", "paperplane.fill"), ("Trash", "trash.fill")], id: \.0) { title, symbol in
+                        Label {
+                            Text(title)
+                        } icon: {
+                            Image(systemName: symbol).frame(width: 30)
+                        }
+                    }
                 }
                 .font(.title3.weight(.medium))
                 .padding(28)
@@ -3773,7 +3788,8 @@ struct ProviderSignInButtonStack: View {
             .opacity(isWaiting ? 0.5 : 1)
         }
         .buttonStyle(.plain)
-        .disabled(loadingID != nil)
+        // Not `disabled`, which would also dim the button that is signing in.
+        .allowsHitTesting(loadingID == nil)
         .accessibilityLabel(option.title)
         .accessibilityValue(isLoading ? "Signing in" : "")
     }
@@ -3857,7 +3873,8 @@ private enum PulseRingButtonPhase {
 
 /// A round button with rings that keep radiating out from behind it.
 ///
-/// With Reduce Motion on, a single still halo replaces the rings.
+/// With Reduce Motion on, a single still halo replaces the rings. Set `isPulsing`
+/// to false to leave the button without them, as when what it signals has stopped.
 struct PulseRingButton: View {
     let systemImage: String
     let label: LocalizedStringResource
@@ -3865,6 +3882,7 @@ struct PulseRingButton: View {
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
     var stagger: Double = 0.35
+    var isPulsing = true
     let action: () -> Void
 
     @ScaledMetric(relativeTo: .largeTitle) private var diameter = 104.0
@@ -3873,7 +3891,9 @@ struct PulseRingButton: View {
     var body: some View {
         ZStack {
             Group {
-                if reduceMotion {
+                if !isPulsing {
+                    EmptyView()
+                } else if reduceMotion {
                     Circle()
                         .fill(tint.opacity(0.2))
                         .scaleEffect(1.35)
@@ -3938,7 +3958,7 @@ struct PulseRingButtonDemo: View {
     @State private var isRecording = true
 
     var body: some View {
-        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record") {
+        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record", isPulsing: isRecording) {
             isRecording.toggle()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -4010,7 +4030,7 @@ struct ShimmerButton: View {
             .contentShape(.capsule)
             .shadow(color: (colors.first ?? .clear).opacity(0.5), radius: 18, y: 8)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ShimmerButtonPressStyle(reduceMotion: reduceMotion))
     }
 
     private var sweep: some View {
@@ -4032,9 +4052,23 @@ struct ShimmerButton: View {
     }
 }
 
+/// The button dims and shrinks a little while it is pressed.
+private struct ShimmerButtonPressStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.96 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
 // MARK: - Demo
 
 struct ShimmerButtonDemo: View {
+    @State private var isStarted = false
+
     var body: some View {
         VStack(spacing: 36) {
             VStack(spacing: 10) {
@@ -4045,7 +4079,12 @@ struct ShimmerButtonDemo: View {
                     .foregroundStyle(.white.opacity(0.7))
             }
 
-            ShimmerButton(title: "Start free trial", systemImage: "sparkles") {}
+            ShimmerButton(
+                title: isStarted ? "Trial started" : "Start free trial",
+                systemImage: isStarted ? "checkmark" : "sparkles"
+            ) {
+                isStarted.toggle()
+            }
         }
         .foregroundStyle(.white)
         .multilineTextAlignment(.center)
@@ -4616,6 +4655,7 @@ struct CalendarRangeSelectorDemo: View {
         guard let start else { return "Pick your arrival" }
         guard let end else { return "Now pick your departure" }
         let nights = calendar.dateComponents([.day], from: start, to: end).day ?? 0
+        guard nights > 0 else { return "Pick a later day to leave" }
         return nights == 1 ? "1 night" : "\(nights) nights"
     }
 
@@ -4805,6 +4845,265 @@ struct DateStripPickerDemo: View {
 
 #Preview {
     DateStripPickerDemo()
+}
+```
+
+## Day Schedule Timeline
+
+The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.
+
+Category: Calendars. Minimum: iOS 18.0. Path: Components/Calendars/DayScheduleTimeline/DayScheduleTimeline.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// An event of the day. `start` and `end` are minutes after midnight: 570 is half past nine.
+struct DayScheduleTimelineEvent: Identifiable {
+    let id: String
+    let title: String
+    let start: Int
+    let end: Int
+    var color: Color = .blue
+}
+
+nonisolated enum DayScheduleTimelineMath {
+    static let minutesPerHour = 60
+
+    struct Slot: Equatable, Sendable {
+        /// The column of the event, from the leading edge.
+        let column: Int
+        /// How many columns share the width where the event is.
+        let columns: Int
+    }
+
+    /// Puts events that overlap side by side. Each takes the first free column, and every
+    /// event of a run of overlaps is as wide as the others, so none hides another.
+    static func slots(for spans: [ClosedRange<Int>]) -> [Slot] {
+        var slots = [Slot](repeating: Slot(column: 0, columns: 1), count: spans.count)
+        let order = spans.indices.sorted { (spans[$0].lowerBound, spans[$0].upperBound) < (spans[$1].lowerBound, spans[$1].upperBound) }
+
+        var run: [Int] = []
+        var runEnd = Int.min
+        var columnEnds: [Int] = []
+
+        func close() {
+            for index in run { slots[index] = Slot(column: slots[index].column, columns: max(columnEnds.count, 1)) }
+            run = []
+            columnEnds = []
+        }
+
+        for index in order {
+            let span = spans[index]
+            if span.lowerBound >= runEnd { close() }
+
+            let column = columnEnds.firstIndex { $0 <= span.lowerBound } ?? columnEnds.count
+            if column == columnEnds.count { columnEnds.append(span.upperBound) } else { columnEnds[column] = span.upperBound }
+            slots[index] = Slot(column: column, columns: 1)
+            run.append(index)
+            runEnd = max(runEnd, span.upperBound)
+        }
+        close()
+        return slots
+    }
+
+    /// How far down a minute of the day is, in a column that starts at `firstHour`.
+    static func offset(minute: Int, firstHour: Int, hourHeight: CGFloat) -> CGFloat {
+        CGFloat(minute - firstHour * minutesPerHour) / CGFloat(minutesPerHour) * hourHeight
+    }
+}
+
+/// The hours of a day down a column, with each event drawn over the time it takes. Events
+/// that overlap share the width, and a line marks the time it is.
+///
+/// A tap on an event sets `selection`. The column starts scrolled to its first event.
+struct DayScheduleTimeline: View {
+    let events: [DayScheduleTimelineEvent]
+    @Binding var selection: DayScheduleTimelineEvent.ID?
+    var hours: ClosedRange<Int> = 7...21
+    var showsCurrentTime = true
+
+    @ScaledMetric(relativeTo: .body) private var hourHeight = 88.0
+    @ScaledMetric(relativeTo: .caption) private var labelWidth = 52.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let calendar = Calendar.current
+    private let gap: CGFloat = 3
+    private let cornerRadius: CGFloat = 10
+    private let minutesPerHour = DayScheduleTimelineMath.minutesPerHour
+
+    private var firstHour: Int { min(max(hours.lowerBound, 0), 23) }
+    private var lastHour: Int { min(max(hours.upperBound, firstHour + 1), 24) }
+
+    private func date(atMinute minute: Int) -> Date {
+        calendar.date(byAdding: .minute, value: minute, to: calendar.startOfDay(for: .now)) ?? .now
+    }
+
+    var body: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                ZStack(alignment: .topLeading) {
+                    grid
+                    eventLayer
+                    if showsCurrentTime { currentTime }
+                }
+                .padding(.vertical, 12)
+            }
+            .onAppear {
+                guard let first = events.map(\.start).min() else { return }
+                proxy.scrollTo(min(max(first / minutesPerHour, firstHour), lastHour - 1), anchor: .top)
+            }
+        }
+    }
+
+    private var grid: some View {
+        VStack(spacing: 0) {
+            ForEach(firstHour..<lastHour, id: \.self) { hour in
+                HStack(alignment: .top, spacing: 8) {
+                    Text(date(atMinute: hour * minutesPerHour), format: .dateTime.hour())
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .frame(width: labelWidth, alignment: .trailing)
+                        // The label sits on its line, not under it.
+                        .alignmentGuide(.top) { $0[VerticalAlignment.center] }
+
+                    Rectangle()
+                        .fill(.quaternary)
+                        .frame(height: 1)
+                }
+                .frame(height: hourHeight, alignment: .top)
+                .id(hour)
+            }
+        }
+    }
+
+    private var eventLayer: some View {
+        let slots = DayScheduleTimelineMath.slots(for: events.map { $0.start...max($0.end, $0.start) })
+
+        return GeometryReader { proxy in
+            let width = max(proxy.size.width - labelWidth - 8, 0)
+
+            ForEach(Array(events.enumerated()), id: \.element.id) { index, event in
+                let slot = slots[index]
+                let column = width / CGFloat(slot.columns)
+                let height = max(DayScheduleTimelineMath.offset(minute: event.end, firstHour: 0, hourHeight: hourHeight) - DayScheduleTimelineMath.offset(minute: event.start, firstHour: 0, hourHeight: hourHeight), hourHeight / 2)
+
+                block(event)
+                    .frame(width: max(column - gap, 0), height: max(height - gap, 0), alignment: .topLeading)
+                    .offset(
+                        x: labelWidth + 8 + column * CGFloat(slot.column),
+                        y: DayScheduleTimelineMath.offset(minute: event.start, firstHour: firstHour, hourHeight: hourHeight)
+                    )
+            }
+        }
+    }
+
+    private func block(_ event: DayScheduleTimelineEvent) -> some View {
+        let isSelected = selection == event.id
+
+        return Button {
+            withAnimation(reduceMotion ? nil : .snappy(duration: 0.25)) {
+                selection = isSelected ? nil : event.id
+            }
+        } label: {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(event.title)
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(2)
+                Text(date(atMinute: event.start)...date(atMinute: event.end))
+                    .font(.caption)
+                    .opacity(0.8)
+                    .lineLimit(1)
+            }
+            .foregroundStyle(isSelected ? AnyShapeStyle(DayScheduleTimelineContrastingForeground(background: event.color)) : AnyShapeStyle(.primary))
+            .padding(.horizontal, cornerRadius)
+            .padding(.vertical, 6)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .background(event.color.opacity(isSelected ? 1 : 0.22), in: .rect(cornerRadius: cornerRadius))
+            .overlay(alignment: .leading) {
+                UnevenRoundedRectangle(cornerRadii: .init(topLeading: cornerRadius, bottomLeading: cornerRadius))
+                    .fill(event.color)
+                    .frame(width: 4)
+            }
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private var currentTime: some View {
+        TimelineView(.everyMinute) { context in
+            let parts = calendar.dateComponents([.hour, .minute], from: context.date)
+            let minute = (parts.hour ?? 0) * minutesPerHour + (parts.minute ?? 0)
+
+            if minute >= firstHour * minutesPerHour, minute <= lastHour * minutesPerHour {
+                HStack(spacing: 0) {
+                    Circle()
+                        .fill(.red)
+                        .frame(width: 9, height: 9)
+                    Rectangle()
+                        .fill(.red)
+                        .frame(height: 1.5)
+                }
+                .padding(.leading, labelWidth + 3)
+                .offset(y: DayScheduleTimelineMath.offset(minute: minute, firstHour: firstHour, hourHeight: hourHeight) - 4.5)
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+            }
+        }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct DayScheduleTimelineContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct DayScheduleTimelineDemo: View {
+    private let events = [
+        DayScheduleTimelineEvent(id: "standup", title: "Stand-up", start: 9 * 60, end: 9 * 60 + 30, color: .teal),
+        DayScheduleTimelineEvent(id: "review", title: "Design review", start: 10 * 60, end: 11 * 60 + 30, color: .indigo),
+        DayScheduleTimelineEvent(id: "interview", title: "Interview", start: 10 * 60 + 30, end: 11 * 60 + 15, color: .orange),
+        DayScheduleTimelineEvent(id: "lunch", title: "Lunch with Ana", start: 13 * 60, end: 14 * 60, color: .green),
+        DayScheduleTimelineEvent(id: "focus", title: "Focus time", start: 15 * 60, end: 17 * 60, color: .purple),
+        DayScheduleTimelineEvent(id: "gym", title: "Gym", start: 18 * 60 + 30, end: 19 * 60 + 30, color: .pink),
+    ]
+
+    @State private var selection: String? = "review"
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(Date.now, format: .dateTime.weekday(.wide))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                Text(Date.now, format: .dateTime.day().month(.wide))
+                    .font(.largeTitle.bold())
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+
+            Divider()
+
+            DayScheduleTimeline(events: events, selection: $selection)
+                .padding(.trailing, 16)
+        }
+    }
+}
+
+#Preview {
+    DayScheduleTimelineDemo()
 }
 ```
 
@@ -6133,7 +6432,11 @@ struct AnimatedDonutChart: View {
                         Text(percent).foregroundStyle(.secondary)
                     }
                     .font(isSelected ? .subheadline.weight(.semibold) : .subheadline)
+                    // A row is too short to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the legend as compact as it was.
+                    .padding(.vertical, 13)
                     .contentShape(.rect)
+                    .padding(.vertical, -13)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(segment.id)
@@ -6272,7 +6575,8 @@ nonisolated enum CandlestickChartMath {
 /// open to its close, in one color when the price rose and another when it fell.
 ///
 /// Drag over it to read a day: a rule follows the finger and `selection` gets its candle.
-/// VoiceOver reads the four prices of each day. With Differentiate Without Color on, the days
+/// VoiceOver treats the chart as one value to adjust, and reads the date and the four prices
+/// of a day at a time. With Differentiate Without Color on, the days
 /// that fell are drawn lighter, so the two kinds do not depend on the color alone.
 struct CandlestickChart: View {
     let candles: [CandlestickChartCandle]
@@ -6329,6 +6633,26 @@ struct CandlestickChart: View {
             selection = date.flatMap { CandlestickChartMath.nearest(to: $0, in: candles) }
         }
         .sensoryFeedback(.selection, trigger: selection)
+        // Charts groups marks this close into ranges of dates, with no prices. One element that
+        // steps through the days reads them instead.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Candlestick chart")
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAdjustableAction { direction in
+            guard !candles.isEmpty else { return }
+            let last = candles.count - 1
+            let current = selection.flatMap { chosen in candles.firstIndex { $0.date == chosen.date } } ?? last
+            switch direction {
+            case .increment: selection = candles[min(current + 1, last)]
+            case .decrement: selection = candles[max(current - 1, 0)]
+            @unknown default: break
+            }
+        }
+    }
+
+    private var accessibilityValue: String {
+        guard let candle = selection ?? candles.last else { return "" }
+        return "\(candle.date.formatted(date: .abbreviated, time: .omitted)), \(description(of: candle))"
     }
 
     private func description(of candle: CandlestickChartCandle) -> String {
@@ -6571,7 +6895,6 @@ enum ContributionHeatmapLogic {
 
 struct ContributionHeatmapDemo: View {
     @State private var seed = 1.0
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var activity: [Date: Int] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -6594,17 +6917,15 @@ struct ContributionHeatmapDemo: View {
                 .foregroundStyle(.secondary)
 
             ContributionHeatmap(activity: activity, weeks: 30)
+
+            Button("Shuffle", systemImage: "shuffle") {
+                seed = seed > 1.3 ? 1 : seed + 0.17
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
             Spacer()
         }
         .padding(24)
-        .task(id: reduceMotion) {
-            guard !reduceMotion else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(2.4))
-                guard !Task.isCancelled else { return }
-                seed = seed > 1.3 ? 1 : seed + 0.17
-            }
-        }
     }
 }
 
@@ -6988,9 +7309,8 @@ struct LineChartDrawIn: View {
 
     var body: some View {
         ZStack {
-            LineChartDrawInArea(values: values, inset: inset)
+            LineChartDrawInArea(values: values, inset: inset, progress: shownProgress)
                 .fill(.linearGradient(colors: [tint.opacity(0.28), tint.opacity(0)], startPoint: .top, endPoint: .bottom))
-                .opacity(shownProgress)
 
             LineChartDrawInLine(values: values, inset: inset)
                 .trim(from: 0, to: shownProgress)
@@ -7031,16 +7351,23 @@ nonisolated private struct LineChartDrawInLine: Shape {
     }
 }
 
+/// The fill under the line, up to its tip, so it never runs ahead of the line being drawn.
 nonisolated private struct LineChartDrawInArea: Shape {
     let values: [Double]
     let inset: CGFloat
+    var progress: Double
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
 
     func path(in rect: CGRect) -> Path {
         let points = LineChartDrawInLogic.points(for: values, in: rect.insetBy(dx: inset, dy: inset))
-        guard let first = points.first, let last = points.last else { return Path() }
+        guard let first = points.first, let last = LineChartDrawInLogic.point(at: progress, along: points) else { return Path() }
 
         var path = Path()
-        path.addLines(points)
+        path.addLines(points.filter { $0.x < last.x } + [last])
         path.addLine(to: CGPoint(x: last.x, y: rect.maxY))
         path.addLine(to: CGPoint(x: first.x, y: rect.maxY))
         path.closeSubpath()
@@ -7556,6 +7883,8 @@ struct SparklineStatTile: View {
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
     var tint: Color = .indigo
+    /// Set it to false for a figure that is good news when it falls, like churn. A fall is then green.
+    var higherIsBetter = true
 
     @ScaledMetric(relativeTo: .largeTitle) private var minimumHeight = 150.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -7593,7 +7922,7 @@ struct SparklineStatTile: View {
     private func changeLabel(_ change: Double) -> some View {
         Label(percent(change), systemImage: change >= 0 ? "arrow.up.right" : "arrow.down.right")
             .font(.caption.weight(.semibold))
-            .foregroundStyle(change >= 0 ? .green : .red)
+            .foregroundStyle((change >= 0) == higherIsBetter ? .green : .red)
     }
 
     @ViewBuilder
@@ -7668,13 +7997,14 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "", higherIsBetter: Bool = true) -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
             trend: trend,
             systemImage: systemImage,
-            tint: tint
+            tint: tint,
+            higherIsBetter: higherIsBetter
         )
     }
 
@@ -7687,10 +8017,10 @@ struct SparklineStatTileDemo: View {
                 LazyVGrid(columns: columns, spacing: 14) {
                     tile("Revenue", "eurosign.circle", .indigo, series(base: 4_200, swing: 320, slope: 60, phase: 0))
                     tile("Signups", "person.badge.plus", .teal, series(base: 310, swing: 40, slope: 8, phase: 1.4))
-                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users")
+                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users", higherIsBetter: false)
                     tile("Sessions", "waveform.path.ecg", .orange, series(base: 1_900, swing: 240, slope: 18, phase: 3.1))
                     tile("Orders", "shippingbox", .green, series(base: 840, swing: 90, slope: 12, phase: 4.3))
-                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5))
+                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5), higherIsBetter: false)
                 }
             }
             .padding(20)
@@ -7780,6 +8110,9 @@ struct Surface3DChart: View {
             .chartXScale(domain: safeDomain)
             .chartZScale(domain: safeDomain)
             .chart3DPose($pose)
+            // The chart sizes its plot for the longer side of its frame. In a tall frame that
+            // is wider than the view, which cuts the corners and the axis labels.
+            .aspectRatio(1, contentMode: .fit)
             .accessibilityLabel("3D surface plot")
             .accessibilityValue(currentPreset.map { "\($0.rawValue) view" } ?? "Custom view")
             .accessibilityHint("Use the view buttons to change the angle")
@@ -8501,7 +8834,11 @@ struct NestedCommentThread: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(tint)
                 .frame(minHeight: 28)
+                // The padding widens what answers to a touch, and the same padding taken
+                // back keeps the thread as compact as it was.
+                .padding(.vertical, 8)
                 .contentShape(.rect)
+                .padding(.vertical, -8)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(title) to \(comment.author)")
@@ -8812,6 +9149,172 @@ struct TapbackReactionBubbleDemo: View {
 
 #Preview {
     TapbackReactionBubbleDemo()
+}
+```
+
+## Typing Indicator Bubble
+
+Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.
+
+Category: Chat. Minimum: iOS 18.0. Path: Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// When each dot rises. Every dot waits, bounces and rests for the same total, so the three
+/// keep their order however long the indicator stays on screen.
+nonisolated enum TypingIndicatorBubbleTiming {
+    static let bounce = 0.5
+
+    /// What a dot waits before it rises: each one a step after the one before it.
+    static func delay(for index: Int, stagger: Double) -> Double {
+        Double(max(index, 0)) * max(stagger, 0)
+    }
+
+    /// What a dot rests after its bounce, so its wait, bounce and rest add up to `period`.
+    static func rest(for index: Int, stagger: Double, period: Double) -> Double {
+        max(period - bounce - delay(for: index, stagger: stagger), 0)
+    }
+
+    /// The shortest period in which the last dot still has time to bounce.
+    static func period(_ period: Double, dots: Int, stagger: Double) -> Double {
+        max(period, bounce + delay(for: dots - 1, stagger: stagger))
+    }
+}
+
+/// Three dots that bounce in turn inside a message bubble while someone is typing.
+///
+/// Set `isTyping` to false and the bubble shrinks away into its corner. With Reduce Motion
+/// on, the dots only brighten in turn and the bubble fades. VoiceOver reads `label`.
+struct TypingIndicatorBubble: View {
+    var isTyping = true
+    var label: LocalizedStringResource = "Typing"
+    var bubbleColor = Color(.secondarySystemFill)
+    var dotColor = Color.secondary
+    var dotCount = 3
+    var period = 1.3
+
+    @ScaledMetric(relativeTo: .body) private var dotSize = 9.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let stagger = 0.16
+    private let cornerRadius: CGFloat = 20
+
+    var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            if isTyping {
+                bubble
+                    .transition(reduceMotion ? .opacity : .scale(scale: 0.5, anchor: .bottomLeading).combined(with: .opacity))
+            }
+        }
+        .animation(reduceMotion ? .easeInOut(duration: 0.2) : .spring(duration: 0.4, bounce: 0.35), value: isTyping)
+    }
+
+    private var bubble: some View {
+        HStack(spacing: dotSize * 0.6) {
+            ForEach(0..<max(dotCount, 1), id: \.self) { index in
+                dot(at: index)
+            }
+        }
+        .padding(.horizontal, dotSize * 1.6)
+        .padding(.vertical, dotSize * 1.5)
+        // The corner next to the sender is tighter, like the tail of a message.
+        .background(bubbleColor, in: .rect(cornerRadii: .init(topLeading: cornerRadius, bottomLeading: 6, bottomTrailing: cornerRadius, topTrailing: cornerRadius)))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+    }
+
+    private func dot(at index: Int) -> some View {
+        let count = max(dotCount, 1)
+        let total = TypingIndicatorBubbleTiming.period(period, dots: count, stagger: stagger)
+        let delay = TypingIndicatorBubbleTiming.delay(for: index, stagger: stagger)
+        let rest = TypingIndicatorBubbleTiming.rest(for: index, stagger: stagger, period: total)
+        let half = TypingIndicatorBubbleTiming.bounce / 2
+        let lift = reduceMotion ? 0 : dotSize * 0.7
+
+        return Circle()
+            .fill(dotColor)
+            .frame(width: dotSize, height: dotSize)
+            .keyframeAnimator(initialValue: 0.0, repeating: true) { content, rise in
+                content
+                    .offset(y: -lift * rise)
+                    .opacity(0.45 + 0.55 * rise)
+            } keyframes: { _ in
+                KeyframeTrack {
+                    LinearKeyframe(0, duration: delay)
+                    CubicKeyframe(1, duration: half)
+                    CubicKeyframe(0, duration: half)
+                    LinearKeyframe(0, duration: rest)
+                }
+            }
+    }
+}
+
+// MARK: - Demo
+
+struct TypingIndicatorBubbleDemo: View {
+    private static let replies = ["On my way!", "Save me a seat", "Five minutes, I promise"]
+
+    @State private var messages = ["Are you coming tonight?"]
+    @State private var isTyping = false
+
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Maya")
+                .font(.largeTitle.bold())
+                .padding(.bottom, 8)
+
+            ForEach(Array(messages.enumerated()), id: \.offset) { index, message in
+                Text(message)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .foregroundStyle(index == 0 ? .white : .primary)
+                    .background(index == 0 ? AnyShapeStyle(.tint) : AnyShapeStyle(Color(.secondarySystemFill)), in: .rect(cornerRadius: 20))
+                    .frame(maxWidth: .infinity, alignment: index == 0 ? .trailing : .leading)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+
+            TypingIndicatorBubble(isTyping: isTyping, label: "Maya is typing")
+
+            Spacer(minLength: 0)
+
+            Button(isTyping ? "Stop typing" : "Start typing") {
+                isTyping.toggle()
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .frame(maxWidth: .infinity)
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .animation(reduceMotion ? nil : .snappy, value: messages)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task {
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(0.7))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                isTyping = true
+
+                try? await Task.sleep(for: .seconds(1.9))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                isTyping = false
+                messages = messages.count > Self.replies.count
+                    ? [messages[0]]
+                    : messages + [Self.replies[messages.count - 1]]
+            }
+        }
+    }
+}
+
+#Preview {
+    TypingIndicatorBubbleDemo()
 }
 ```
 
@@ -9456,6 +9959,8 @@ struct PricingTierCards: View {
             .padding(.vertical, 24)
         }
         .scrollIndicators(.hidden)
+        // The shadow of the recommended plan reaches past the row.
+        .scrollClipDisabled()
         .contentMargins(.horizontal, max((containerWidth - cardWidth) / 2, 16), for: .scrollContent)
         .scrollTargetBehavior(.viewAligned)
         .scrollPosition(id: $centeredID)
@@ -9811,9 +10316,16 @@ struct TrialTimelinePaywall: View {
             .allowsHitTesting(!isPurchasing)
             .accessibilityValue(isPurchasing ? "In progress" : "")
 
-            Button("Restore Purchases", action: onRestore)
-                .font(.footnote)
-                .disabled(isPurchasing)
+            Button(action: onRestore) {
+                // A line of text is too short to hit. The padding widens what answers to a
+                // touch, and the same padding taken back keeps the layout as it was.
+                Text("Restore Purchases")
+                    .padding(.vertical, 14)
+                    .contentShape(.rect)
+                    .padding(.vertical, -14)
+            }
+            .font(.footnote)
+            .disabled(isPurchasing)
         }
         .padding(.horizontal, margin)
         .padding(.vertical, 12)
@@ -9888,6 +10400,8 @@ struct AnimatedRadioButton: View {
 
                 Spacer(minLength: 0)
             }
+            // The whole row is the touch target, at the height recommended for one.
+            .frame(minHeight: 44)
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -9941,7 +10455,7 @@ struct AnimatedRadioButtonDemo: View {
                 Text("How should we send it?")
                     .font(.system(.title, design: .rounded, weight: .bold))
 
-                VStack(spacing: 22) {
+                VStack(spacing: 4) {
                     ForEach(options.indices, id: \.self) { index in
                         AnimatedRadioButton(title: options[index], isSelected: selection == index) {
                             isAutoPlaying = false
@@ -10733,7 +11247,7 @@ struct RangeSliderDemo: View {
             VStack(spacing: 0) {
                 histogram
 
-                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 20, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
+                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 30, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
             }
 
             HStack {
@@ -10742,7 +11256,7 @@ struct RangeSliderDemo: View {
                 amount("Maximum", price.upperBound)
             }
 
-            Text("\(matches) stays")
+            Text("^[\(matches) stay](inflect: true)")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
@@ -11612,7 +12126,7 @@ struct DrawingPadSpeedBrush: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(strokes.count) strokes")
+        .accessibilityValue("^[\(strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
@@ -11692,8 +12206,7 @@ struct DrawingPadSpeedBrushDemo: View {
             }
 
             DrawingPadSpeedBrush(strokes: $strokes, color: .indigo)
-                .background(.white, in: .rect(cornerRadius: 24))
-                .shadow(color: .black.opacity(0.12), radius: 16, y: 8)
+                .background(.white.shadow(.drop(color: .black.opacity(0.12), radius: 16, y: 8)), in: .rect(cornerRadius: 24))
 
             Button("Clear", systemImage: "trash") {
                 strokes = []
@@ -11804,7 +12317,7 @@ struct DrawingPadUndoRedo: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(history.strokes.count) strokes")
+        .accessibilityValue("^[\(history.strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
@@ -12484,6 +12997,210 @@ struct BorderBeamModifierDemo: View {
 
 #Preview {
     BorderBeamModifierDemo()
+}
+```
+
+## Chromatic Glitch Shader
+
+A view modifier that breaks a view up like a bad signal: its colors come apart, bands jump sideways and scan lines cross it, drawn by a Metal shader.
+
+Category: Effects. Minimum: iOS 18.0. Path: Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+nonisolated enum ChromaticGlitchShaderMath {
+    /// The farthest a color channel moves from its place, in points.
+    static let split = 7.0
+    /// The farthest a band moves sideways, in points.
+    static let shift = 26.0
+
+    static func clamped(_ amount: Double) -> Double {
+        guard amount.isFinite else { return 0 }
+        return min(max(amount, 0), 1)
+    }
+
+    /// How far from a point the shader reads, which SwiftUI has to know beforehand.
+    static func reach(amount: Double) -> Double {
+        (split + shift) * clamped(amount)
+    }
+
+    /// The function in `ChromaticGlitchShader.metal`, with its arguments in the order it declares them.
+    static func shader(amount: Double, time: Double, bounds: CGSize) -> Shader {
+        ShaderLibrary.ChromaticGlitchShaderSplit(.float(clamped(amount)), .float(time), .float(split), .float(shift), .float2(bounds))
+    }
+}
+
+extension View {
+    /// Breaks this view up like a bad signal, by a Metal shader: its colors come apart, some
+    /// bands jump sideways and scan lines cross it. `amount` goes from 0, untouched, to 1, and
+    /// animates.
+    ///
+    /// Copy two files into the same target: `ChromaticGlitchShader.swift` and `ChromaticGlitchShader.metal`.
+    /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
+    ///
+    /// The bands change ten times a second. With Reduce Motion on they stand still, and only
+    /// the colors come apart. It only changes how the view looks, not what VoiceOver reads.
+    func chromaticGlitch(_ amount: Double) -> some View {
+        modifier(ChromaticGlitchShaderModifier(amount: amount))
+    }
+}
+
+/// `Animatable`, so the shader gets every step of the change: a shader's arguments do not animate by themselves.
+private struct ChromaticGlitchShaderModifier: ViewModifier, Animatable {
+    var amount: Double
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    nonisolated var animatableData: Double {
+        get { amount }
+        set { amount = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        let strength = ChromaticGlitchShaderMath.clamped(amount)
+        let reach = ChromaticGlitchShaderMath.reach(amount: strength)
+
+        // The clock only runs while there is something to move.
+        TimelineView(.animation(minimumInterval: 1 / 30, paused: reduceMotion || strength == 0)) { context in
+            let time = reduceMotion ? 0 : context.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 600)
+
+            content
+                // `visualEffect` gives the shader the size of the view, which it needs at the edges.
+                .visualEffect { view, proxy in
+                    view.layerEffect(
+                        ChromaticGlitchShaderMath.shader(amount: strength, time: time, bounds: proxy.size),
+                        maxSampleOffset: CGSize(width: reach, height: 0),
+                        isEnabled: strength > 0
+                    )
+                }
+        }
+        // The first use of a shader waits for it to compile. Doing that now keeps the first frames smooth.
+        .task {
+            try? await ChromaticGlitchShaderMath.shader(amount: 1, time: 0, bounds: .zero).compile(as: .layerEffect)
+        }
+    }
+}
+
+// MARK: - Demo
+
+struct ChromaticGlitchShaderDemo: View {
+    @State private var amount = 0.0
+
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        VStack(spacing: 36) {
+            VStack(spacing: 14) {
+                Image(systemName: "antenna.radiowaves.left.and.right")
+                    .font(.system(size: 64, weight: .semibold))
+                    .accessibilityHidden(true)
+                Text("SIGNAL LOST")
+                    .font(.system(.largeTitle, design: .monospaced, weight: .heavy))
+                Text("Reconnecting to channel 7")
+                    .font(.system(.subheadline, design: .monospaced))
+                    .opacity(0.7)
+            }
+            .foregroundStyle(.white)
+            .padding(.vertical, 44)
+            .frame(maxWidth: .infinity)
+            .background(LinearGradient(colors: [.cyan, .blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing), in: .rect(cornerRadius: 28))
+            .chromaticGlitch(amount)
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Glitch")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.7))
+                Slider(value: $amount, in: 0...1)
+                    .tint(.cyan)
+                    .accessibilityLabel("Glitch")
+            }
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.04, green: 0.04, blue: 0.09).ignoresSafeArea())
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task {
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(0.9))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                withAnimation(reduceMotion ? nil : .easeIn(duration: 0.25)) { amount = 1 }
+
+                try? await Task.sleep(for: .seconds(1.1))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.6)) { amount = 0 }
+            }
+        }
+    }
+}
+
+#Preview {
+    ChromaticGlitchShaderDemo()
+}
+```
+
+Shader: Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.metal
+
+```metal
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+#include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h>
+
+using namespace metal;
+
+// The color of the view at a point, or nothing outside it. Without this a band
+// that moves past an edge would drag the last color of the view along with it.
+static half4 ChromaticGlitchShaderSample(SwiftUI::Layer layer, float2 point, float2 bounds) {
+    if (point.x < 0.0 || point.y < 0.0 || point.x > bounds.x || point.y > bounds.y) {
+        return half4(0.0);
+    }
+    return layer.sample(point);
+}
+
+// For SwiftUI's `layerEffect`. Splits the view into its red, green and blue,
+// each a little to one side, shifts some horizontal bands sideways and draws
+// faint scan lines over it. `amount` goes from 0, which leaves the view as it
+// is, to 1. `time` picks which bands are shifted, and they change `rate` times
+// a second. `split` and `shift` are the farthest a channel and a band move, in
+// points, and `bounds` is the size of the view.
+[[ stitchable ]] half4 ChromaticGlitchShaderSplit(
+    float2 position,
+    SwiftUI::Layer layer,
+    float amount,
+    float time,
+    float split,
+    float shift,
+    float2 bounds
+) {
+    if (amount <= 0.0) {
+        return layer.sample(position);
+    }
+
+    float rate = 10.0;
+    float band = floor(position.y / 22.0);
+    float noise = fract(sin(band * 91.7 + floor(time * rate) * 37.3) * 43758.5453);
+    float moved = noise > 0.7 ? (noise - 0.7) / 0.3 : 0.0;
+
+    float direction = noise > 0.85 ? -1.0 : 1.0;
+
+    float2 point = float2(position.x + moved * direction * shift * amount, position.y);
+    float2 offset = float2(split * amount, 0.0);
+
+    half4 red = ChromaticGlitchShaderSample(layer, point + offset, bounds);
+    half4 green = ChromaticGlitchShaderSample(layer, point, bounds);
+    half4 blue = ChromaticGlitchShaderSample(layer, point - offset, bounds);
+    half4 color = half4(red.r, green.g, blue.b, max(max(red.a, green.a), blue.a));
+
+    float lines = 1.0 - 0.14 * amount * step(0.5, fract(position.y / 3.0));
+    color.rgb *= half(lines);
+    return color;
 }
 ```
 
@@ -13968,12 +14685,16 @@ struct JiggleEditModifierDemo: View {
             ScrollView {
                 VStack(spacing: 28) {
                     HStack {
-                        Button("Reset") {
+                        Button {
                             withAnimation(animation) { apps = Self.allApps }
+                        } label: {
+                            touchTarget(Text("Reset"))
                         }
                         Spacer()
-                        Button(isEditing ? "Done" : "Edit") {
+                        Button {
                             isEditing.toggle()
+                        } label: {
+                            touchTarget(Text(isEditing ? "Done" : "Edit"))
                         }
                         .fontWeight(.bold)
                     }
@@ -13983,13 +14704,22 @@ struct JiggleEditModifierDemo: View {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(Array(apps.enumerated()), id: \.element.id) { index, app in
                             icon(for: app)
-                                .jiggleEditing(isEditing, seed: index)
+                                // Its place in the full list, so removing an icon does not change the rhythm of the rest.
+                                .jiggleEditing(isEditing, seed: Self.allApps.firstIndex { $0.id == app.id } ?? index)
                         }
                     }
                 }
                 .padding(20)
             }
         }
+    }
+
+    /// Widens what answers to a touch around something small, without moving the layout.
+    private func touchTarget(_ content: some View) -> some View {
+        content
+            .padding(12)
+            .contentShape(.rect)
+            .padding(-12)
     }
 
     private func icon(for app: JiggleEditDemoApp) -> some View {
@@ -14008,10 +14738,12 @@ struct JiggleEditModifierDemo: View {
                         Button {
                             withAnimation(animation) { apps.removeAll { $0.id == app.id } }
                         } label: {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.title3)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .black.opacity(0.7))
+                            touchTarget(
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title3)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.white, .black.opacity(0.7))
+                            )
                         }
                         .accessibilityLabel("Remove \(app.id)")
                         .offset(x: -8, y: -8)
@@ -15717,8 +16449,10 @@ import SwiftUI
 
 /// A black capsule that grows to show a live status and shrinks back to a pill.
 ///
-/// Place it at the top of the screen. With Reduce Motion on, it changes size
-/// without bouncing and its content only fades.
+/// Place it at the top of the screen, over the island of the device. Its content starts
+/// under the pill, because the sensors of a real island would cover it there. Hide the
+/// status bar while it is expanded, because it takes that space. With Reduce Motion on,
+/// it changes size without bouncing and its content only fades.
 struct DynamicIslandPill<Content: View>: View {
     var isExpanded: Bool
     var pillSize = CGSize(width: 126, height: 37)
@@ -15743,7 +16477,8 @@ struct DynamicIslandPill<Content: View>: View {
                     .environment(\.colorScheme, .dark)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 22)
-                    .padding(.vertical, 18)
+                    .padding(.top, height + 8)
+                    .padding(.bottom, 18)
                     .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.8, anchor: .top)))
             }
         }
@@ -15798,6 +16533,7 @@ struct DynamicIslandPillDemo: View {
             .controlSize(.large)
             .frame(maxHeight: .infinity)
         }
+        .statusBarHidden(status != nil)
     }
 
     private var musicStatus: some View {
@@ -15935,6 +16671,295 @@ struct EmptyStatePlaceholderDemo: View {
 }
 ```
 
+## Notification Stack
+
+Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.
+
+Category: Feedback. Minimum: iOS 18.0. Path: Components/Feedback/NotificationStack/NotificationStack.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// Where each card sits, apart from the views so it can be tested.
+nonisolated enum NotificationStackMath {
+    /// How many cards show their edge under the first one while the stack is collapsed.
+    static let visibleBehind = 2
+
+    /// The top of every card. Collapsed, each card behind the first lines its bottom edge up
+    /// `peek` points under the one before it. Expanded, they follow one another.
+    static func tops(heights: [CGFloat], spacing: CGFloat, peek: CGFloat, progress: Double) -> [CGFloat] {
+        guard let front = heights.first else { return [] }
+        let progress = CGFloat(min(max(progress, 0), 1))
+        var expanded: CGFloat = 0
+
+        return heights.enumerated().map { index, height in
+            let collapsed = front + peek * CGFloat(min(index, visibleBehind)) - height
+            let top = collapsed + (expanded - collapsed) * progress
+            expanded += height + spacing
+            return top
+        }
+    }
+
+    static func height(heights: [CGFloat], spacing: CGFloat, peek: CGFloat, progress: Double) -> CGFloat {
+        guard let front = heights.first else { return 0 }
+        let progress = CGFloat(min(max(progress, 0), 1))
+        let collapsed = front + peek * CGFloat(min(heights.count - 1, visibleBehind))
+        let expanded = heights.reduce(0, +) + spacing * CGFloat(heights.count - 1)
+        return collapsed + (expanded - collapsed) * progress
+    }
+
+    /// How much smaller a card is drawn while it waits behind the first one.
+    static func scale(depth: Int, progress: Double) -> Double {
+        1 - 0.06 * Double(min(max(depth, 0), visibleBehind)) * (1 - min(max(progress, 0), 1))
+    }
+}
+
+/// A pile that opens into a column. `progress` animates, so the cards travel between the two.
+nonisolated private struct NotificationStackLayout: Layout {
+    var progress: Double
+    var spacing: CGFloat
+    var peek: CGFloat
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
+
+    private func heights(of subviews: Subviews, width: CGFloat) -> [CGFloat] {
+        subviews.map { $0.sizeThatFits(ProposedViewSize(width: width, height: nil)).height }
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let width = proposal.width ?? subviews.map { $0.sizeThatFits(.unspecified).width }.max() ?? 0
+        let height = NotificationStackMath.height(heights: heights(of: subviews, width: width), spacing: spacing, peek: peek, progress: progress)
+        return CGSize(width: width, height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let heights = heights(of: subviews, width: bounds.width)
+        let tops = NotificationStackMath.tops(heights: heights, spacing: spacing, peek: peek, progress: progress)
+        for (index, subview) in subviews.enumerated() {
+            subview.place(
+                at: CGPoint(x: bounds.minX, y: bounds.minY + tops[index]),
+                proposal: ProposedViewSize(width: bounds.width, height: heights[index])
+            )
+        }
+    }
+}
+
+/// Notifications piled under the newest one, like a lock screen. A tap opens the pile into a
+/// column, and there each card can be swiped away.
+///
+/// Give the cards a similar height: a card taller than the first shows over it while the pile
+/// is closed. With Reduce Motion on, the pile opens and closes without moving.
+struct NotificationStack<Item: Identifiable, Card: View>: View {
+    let items: [Item]
+    @Binding var isExpanded: Bool
+    var title: LocalizedStringResource = "Notifications"
+    var spacing: CGFloat = 10
+    var peek: CGFloat = 10
+    var onDismiss: ((Item) -> Void)?
+    @ViewBuilder var card: (Item) -> Card
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let minimumTarget: CGFloat = 44
+
+    private var isOpen: Bool { isExpanded || items.count < 2 }
+    private var progress: Double { isOpen ? 1 : 0 }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: spacing) {
+            if isExpanded, items.count > 1 {
+                header
+                    .transition(.opacity)
+            }
+
+            NotificationStackLayout(progress: progress, spacing: spacing, peek: peek) {
+                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                    NotificationStackRow(isSwipeable: isOpen && onDismiss != nil, onDismiss: { onDismiss?(item) }) {
+                        card(item)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .scaleEffect(NotificationStackMath.scale(depth: index, progress: progress), anchor: .bottom)
+                    .opacity(isOpen || index <= NotificationStackMath.visibleBehind ? 1 : 0)
+                    .zIndex(Double(items.count - index))
+                    .accessibilityHidden(!isOpen && index > 0)
+                }
+            }
+            .allowsHitTesting(isOpen)
+            .contentShape(.rect)
+            .onTapGesture { isExpanded = true }
+            .accessibilityElement(children: isOpen ? .contain : .combine)
+            .accessibilityAddTraits(isOpen ? [] : .isButton)
+            .accessibilityValue(isOpen ? Text(verbatim: "") : Text("^[\(items.count) notification](inflect: true)"))
+            .accessibilityHint(isOpen ? Text(verbatim: "") : Text("Shows them all"))
+        }
+        .animation(reduceMotion ? nil : .spring(duration: 0.45, bounce: 0.2), value: isExpanded)
+        .animation(reduceMotion ? nil : .spring(duration: 0.4, bounce: 0.15), value: items.map(\.id).count)
+    }
+
+    private var header: some View {
+        HStack {
+            Text(title)
+                .font(.title3.bold())
+            Spacer()
+            Button("Show less") { isExpanded = false }
+                .font(.subheadline.weight(.semibold))
+                .frame(minHeight: minimumTarget)
+                .contentShape(.rect)
+        }
+    }
+}
+
+/// A card that follows the finger towards the leading edge and leaves when it is let go far enough.
+private struct NotificationStackRow<Content: View>: View {
+    let isSwipeable: Bool
+    let onDismiss: () -> Void
+    @ViewBuilder var content: () -> Content
+
+    @State private var offset: CGFloat = 0
+    @Environment(\.layoutDirection) private var layoutDirection
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let threshold: CGFloat = 110
+
+    var body: some View {
+        content()
+            .offset(x: offset)
+            .opacity(1 - min(abs(offset) / (threshold * 2.5), 0.6))
+            .gesture(swipe, isEnabled: isSwipeable)
+            .accessibilityAction(named: "Clear") { if isSwipeable { onDismiss() } }
+    }
+
+    private var swipe: some Gesture {
+        DragGesture(minimumDistance: 20)
+            .onChanged { value in
+                // A gesture reports screen points. Offsets are mirrored in a right-to-left layout.
+                let towardsLeading = layoutDirection == .rightToLeft ? -value.translation.width : value.translation.width
+                offset = min(towardsLeading, 0)
+            }
+            .onEnded { _ in
+                if offset < -threshold {
+                    onDismiss()
+                } else {
+                    withAnimation(reduceMotion ? nil : .spring(duration: 0.35, bounce: 0.25)) { offset = 0 }
+                }
+            }
+    }
+}
+
+// MARK: - Demo
+
+private struct NotificationStackDemoNote: Identifiable {
+    let id: String
+    let app: String
+    let symbol: String
+    let color: Color
+    let title: String
+    let message: String
+    let time: String
+}
+
+struct NotificationStackDemo: View {
+    private static let all = [
+        NotificationStackDemoNote(id: "messages", app: "Messages", symbol: "message.fill", color: .green, title: "Maya", message: "Are you coming tonight?", time: "now"),
+        NotificationStackDemoNote(id: "calendar", app: "Calendar", symbol: "calendar", color: .red, title: "Design review", message: "Starts in 15 minutes, room 4", time: "5m"),
+        NotificationStackDemoNote(id: "mail", app: "Mail", symbol: "envelope.fill", color: .blue, title: "Your order has shipped", message: "It arrives on Thursday", time: "22m"),
+        NotificationStackDemoNote(id: "fitness", app: "Fitness", symbol: "figure.run", color: .orange, title: "Almost there", message: "A 10 minute walk closes your ring", time: "1h"),
+    ]
+
+    @State private var notes = all
+    @State private var isExpanded = false
+
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 28) {
+                VStack(spacing: 0) {
+                    Text(Date.now, format: .dateTime.weekday(.wide).day().month(.wide))
+                        .font(.title3.weight(.medium))
+                    Text(Date.now, format: .dateTime.hour().minute())
+                        .font(.system(size: 84, weight: .bold, design: .rounded))
+                        .monospacedDigit()
+                }
+                .foregroundStyle(.white)
+                .padding(.top, 36)
+
+                NotificationStack(items: notes, isExpanded: $isExpanded, onDismiss: { note in
+                    notes.removeAll { $0.id == note.id }
+                }) { note in
+                    card(note)
+                }
+                .foregroundStyle(.white)
+
+                // Only for this demo: a way back once every notification is cleared.
+                if notes.isEmpty {
+                    Button("Start over") {
+                        isExpanded = false
+                        notes = Self.all
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.white.opacity(0.25))
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+        .background(LinearGradient(colors: [.indigo, .purple, .pink], startPoint: .topLeading, endPoint: .bottomTrailing).ignoresSafeArea())
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: reduceMotion) {
+            guard !reduceMotion else { return }
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(1.5))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                isExpanded.toggle()
+            }
+        }
+    }
+
+    private func card(_ note: NotificationStackDemoNote) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: note.symbol)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .frame(width: 42, height: 42)
+                .background(note.color.gradient, in: .rect(cornerRadius: 10))
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 2) {
+                HStack {
+                    Text(note.title)
+                        .font(.subheadline.weight(.semibold))
+                    Spacer()
+                    Text(note.time)
+                        .font(.caption)
+                        .foregroundStyle(Color.secondary)
+                }
+                Text(note.message)
+                    .font(.subheadline)
+                    .lineLimit(1)
+            }
+        }
+        .padding(14)
+        // `Color.primary`, not `.primary`: the white set around the stack would make it white too.
+        .foregroundStyle(Color.primary)
+        .background(.regularMaterial, in: .rect(cornerRadius: 22))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(note.app), \(note.title), \(note.message)")
+    }
+}
+
+#Preview {
+    NotificationStackDemo()
+}
+```
+
 ## Rating Stars
 
 Tappable rating stars that pop with a spring and work as an adjustable value in VoiceOver.
@@ -15952,9 +16977,15 @@ enum RatingStarsValue {
     static func clamped(_ rating: Int, maximum: Int) -> Int {
         min(max(rating, 0), max(maximum, 0))
     }
+
+    /// The rating after a tap on `star`: that star, or none when it was already the rating.
+    static func tapping(_ star: Int, rating: Int, maximum: Int) -> Int {
+        star == rating ? 0 : clamped(star, maximum: maximum)
+    }
 }
 
-/// A row of tappable stars. Each star pops with a spring when it fills.
+/// A row of tappable stars. Each star pops with a spring when it fills, and a tap on the
+/// chosen star clears the rating.
 ///
 /// VoiceOver treats the row as one adjustable value. With Reduce Motion on, the stars only change color.
 struct RatingStars: View {
@@ -15986,7 +17017,7 @@ struct RatingStars: View {
         let isFilled = star <= rating
 
         return Button {
-            rating = RatingStarsValue.clamped(star, maximum: maximum)
+            rating = RatingStarsValue.tapping(star, rating: rating, maximum: maximum)
         } label: {
             Image(systemName: "star.fill")
                 .font(.largeTitle)
@@ -15997,6 +17028,11 @@ struct RatingStars: View {
                 } animation: { scale in
                     scale > 1 ? .easeOut(duration: 0.1) : .spring(duration: 0.4, bounce: 0.6)
                 }
+                // A star answers to a touch up to the middle of the gap to the next one,
+                // which makes it as big as a touch target should be. The stars do not move.
+                .padding(5)
+                .contentShape(.rect)
+                .padding(-5)
         }
         .buttonStyle(.plain)
     }
@@ -16407,7 +17443,8 @@ extension View {
     /// covers included. Put it once on the root view of a scene.
     ///
     /// The toasts live in a window of their own, so a `tint` or a `preferredColorScheme` set
-    /// on your views does not reach them.
+    /// on your views does not reach them. A toast covers what is under it while it shows,
+    /// and a tap or a swipe up dismisses it.
     func toastHost() -> some View {
         modifier(ToastHostModifier())
     }
@@ -16575,6 +17612,8 @@ private struct ToastHostDemoSheet: View {
                 }
             }
         }
+        // A toast covers what is under it while it shows. At half height the bar of the sheet stays clear.
+        .presentationDetents([.medium, .large])
     }
 }
 
@@ -16836,8 +17875,13 @@ struct TooltipPopoverDemo: View {
             Button {
                 activeTip = id
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the row as it was.
                 Image(systemName: "info.circle.fill")
                     .font(.title2)
+                    .padding(9)
+                    .contentShape(.rect)
+                    .padding(-9)
             }
             .accessibilityLabel("About \(title)")
             .tooltipPopoverAnchor(id: id, text: "\(tip)")
@@ -17359,10 +18403,15 @@ struct DoubleTapHeartOverlayDemo: View {
                     Button {
                         isLiked.toggle()
                     } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the row as it was.
                         Image(systemName: isLiked ? "heart.fill" : "heart")
                             .font(.title2)
                             .foregroundStyle(isLiked ? .pink : .primary)
                             .symbolEffect(.bounce, value: isLiked)
+                            .padding(10)
+                            .contentShape(.rect)
+                            .padding(-10)
                     }
                     .accessibilityLabel(isLiked ? "Unlike" : "Like")
 
@@ -17582,8 +18631,17 @@ struct DragSelectGridDemo: View {
                     .font(.title2.bold())
                     .contentTransition(reduceMotion ? .identity : .numericText())
                 Spacer()
-                Button("Clear") { selection = [] }
-                    .disabled(selection.isEmpty)
+                Button {
+                    selection = []
+                } label: {
+                    // A word is too small to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the layout as it was.
+                    Text("Clear")
+                        .padding(12)
+                        .contentShape(.rect)
+                        .padding(-12)
+                }
+                .disabled(selection.isEmpty)
             }
             .animation(reduceMotion ? nil : .snappy, value: selection.count)
             .padding(.horizontal, 16)
@@ -17693,7 +18751,8 @@ struct DropZoneHighlight<Payload: Transferable>: View {
 // MARK: - Demo
 
 struct DropZoneHighlightDemo: View {
-    @State private var waiting = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    private static let files = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    @State private var waiting = files
     @State private var dropped: [String] = []
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -17709,6 +18768,8 @@ struct DropZoneHighlightDemo: View {
 
                     ForEach(waiting, id: \.self) { name in
                         chip(name)
+                            // Without it the preview of the drag is the chip on a white rectangle.
+                            .contentShape(.dragPreview, .capsule)
                             .draggable(name)
                             .accessibilityAction(named: "Add to the box") { add([name]) }
                     }
@@ -17721,6 +18782,17 @@ struct DropZoneHighlightDemo: View {
                     Text(dropped.isEmpty ? "Nothing in the box yet" : "In the box: \(dropped.joined(separator: ", "))")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+
+                    // Only for this demo: a way back once every file is in the box.
+                    if waiting.isEmpty {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) {
+                                waiting = Self.files
+                                dropped = []
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
                 .padding(24)
             }
@@ -17825,8 +18897,11 @@ struct LongPressRadialMenu<Label: View>: View {
 
             if let hoveredIndex, items.indices.contains(hoveredIndex) {
                 // Its bottom edge clears the largest bubble, so a taller title grows away from the ring.
+                // The overlay offers it the width of the label, which would break a word in two.
                 Text(items[hoveredIndex].title)
                     .font(.headline)
+                    .lineLimit(1)
+                    .fixedSize()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.regularMaterial, in: .capsule)
@@ -18689,12 +19764,13 @@ struct SwipeActionRowDemo: View {
         let preview: String
     }
 
-    @State private var messages = [
+    private static let allMessages = [
         Message(id: "Weekly report", preview: "The numbers look great this week"),
         Message(id: "Flight update", preview: "Your gate has changed to B12"),
         Message(id: "Dinner on Friday?", preview: "I found a new place downtown"),
         Message(id: "Design review", preview: "Notes from this morning's session"),
     ]
+    @State private var messages = allMessages
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -18709,6 +19785,18 @@ struct SwipeActionRowDemo: View {
                         row(message)
                     }
                     .clipShape(.rect(cornerRadius: 18))
+                }
+
+                // Only for this demo: a way back once every row is gone.
+                if messages.isEmpty {
+                    ContentUnavailableView {
+                        Label("Inbox zero", systemImage: "tray")
+                    } actions: {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) { messages = Self.allMessages }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -19044,7 +20132,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
     let title: (Segment) -> String
 
     @ScaledMetric(relativeTo: .subheadline) private var height = 44.0
+    @State private var width: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     var body: some View {
         HStack(spacing: 0) {
@@ -19053,6 +20143,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
             }
         }
         .background { thumb }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+        // The thumb follows a finger dragged along the control, as the system's does.
+        .simultaneousGesture(DragGesture(minimumDistance: 10).onChanged { select(at: $0.location.x) })
         .padding(4)
         .background(.ultraThinMaterial, in: .capsule)
         .sensoryFeedback(.selection, trigger: selection)
@@ -19068,6 +20161,17 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
                 .frame(width: width)
                 .glassEffect(.regular.tint(tint), in: .capsule)
                 .offset(x: width * CGFloat(index))
+        }
+    }
+
+    private func select(at x: CGFloat) {
+        guard width > 0, !segments.isEmpty else { return }
+        // A gesture reports screen points, and a right-to-left layout counts from the other edge.
+        let leading = layoutDirection == .rightToLeft ? width - x : x
+        let index = min(max(Int(leading / width * CGFloat(segments.count)), 0), segments.count - 1)
+        guard segments[index] != selection else { return }
+        withAnimation(reduceMotion ? nil : .snappy(duration: 0.4)) {
+            selection = segments[index]
         }
     }
 
@@ -19192,8 +20296,15 @@ private struct GlassTabAccessoryPlayer: View {
 
             Spacer(minLength: 0)
 
-            Button(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill") {
+            Button {
                 isPlaying.toggle()
+            } label: {
+                // The glyph is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the accessory as it was.
+                Label(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill")
+                    .padding(17)
+                    .contentShape(.rect)
+                    .padding(-17)
             }
             .labelStyle(.iconOnly)
             .buttonStyle(.plain)
@@ -19311,7 +20422,10 @@ struct GlassTagCloud: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, horizontalPadding)
                 .padding(.vertical, verticalPadding)
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 3)
                 .contentShape(.capsule)
+                .padding(.vertical, -3)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -19520,8 +20634,8 @@ struct GlassToolStripDemo: View {
         GlassToolStripTool(id: "pen", title: "Pen", systemImage: "pencil.tip", group: "draw"),
         GlassToolStripTool(id: "marker", title: "Marker", systemImage: "highlighter", group: "draw"),
         GlassToolStripTool(id: "eraser", title: "Eraser", systemImage: "eraser", group: "draw"),
-        GlassToolStripTool(id: "undo", title: "Undo", systemImage: "arrow.uturn.backward", group: "history"),
-        GlassToolStripTool(id: "redo", title: "Redo", systemImage: "arrow.uturn.forward", group: "history"),
+        GlassToolStripTool(id: "lasso", title: "Lasso", systemImage: "lasso", group: "edit"),
+        GlassToolStripTool(id: "ruler", title: "Ruler", systemImage: "ruler", group: "edit"),
     ]
 
     var body: some View {
@@ -21426,12 +22540,20 @@ enum ScatteredPhotoBoardLayout {
         return value - value.rounded(.down) - 0.5
     }
 
+    static let maximumAngle = 9.0
+
     static func angle(index: Int) -> Double {
-        noise(index, salt: 7) * 18
+        noise(index, salt: 7) * maximumAngle * 2
     }
 
     /// Keeps a card's center inside the board, or in its middle if the card does not fit.
     static func clamped(_ point: CGPoint, card: CGSize, board: CGSize) -> CGPoint {
+        // A tilted card is wider and taller than it is straight. This is the box at the widest tilt.
+        let tilt = maximumAngle * .pi / 180
+        let card = CGSize(
+            width: card.width * cos(tilt) + card.height * sin(tilt),
+            height: card.height * cos(tilt) + card.width * sin(tilt)
+        )
         func clamp(_ value: CGFloat, side: CGFloat, length: CGFloat) -> CGFloat {
             guard length > side else { return length / 2 }
             return min(max(value, side / 2), length - side / 2)
@@ -21809,6 +22931,10 @@ struct FloatingLabelTextFieldDemo: View {
 
                 FloatingLabelTextField(title: "Name", text: $name)
                 FloatingLabelTextField(title: "Email", text: $email)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                 FloatingLabelTextField(title: "City", text: $city)
             }
             .padding(24)
@@ -21904,7 +23030,9 @@ nonisolated enum MaskedTextFieldFormatter {
 /// A text field that formats its input as the user types, such as `12/34` or a phone number.
 ///
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
-/// text. With Reduce Motion on, the completion checkmark appears without animating.
+/// text. The checkmark shows when the mask is full and `isValid` agrees, which is where to
+/// check what a mask cannot, like a month over 12. With Reduce Motion on, it appears without
+/// animating.
 struct MaskedTextField: View {
     let title: LocalizedStringResource
     @Binding var text: String
@@ -21912,10 +23040,11 @@ struct MaskedTextField: View {
     var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
+    var isValid: (String) -> Bool = { _ in true }
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) }
+    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) && isValid(text) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -21975,7 +23104,9 @@ struct MaskedTextFieldDemo: View {
                     .font(.largeTitle.bold())
 
                 MaskedTextField(title: "Card number", text: $card, mask: "#### #### #### ####", systemImage: "creditcard.fill")
-                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar")
+                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar") { expiry in
+                    (1...12).contains(Int(expiry.prefix(2)) ?? 0)
+                }
                 MaskedTextField(title: "Phone", text: $phone, mask: "(###) ###-####", systemImage: "phone.fill")
             }
             .padding(20)
@@ -22671,8 +23802,13 @@ struct PasswordStrengthField: View {
                 isRevealed.toggle()
                 isFocused = true
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the field as it was.
                 Image(systemName: isRevealed ? "eye.slash" : "eye")
                     .foregroundStyle(.secondary)
+                    .padding(15)
+                    .contentShape(.rect)
+                    .padding(-15)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(isRevealed ? "Hide password" : "Show password")
@@ -22760,7 +23896,7 @@ struct RichTextEditor: View {
     @Binding var text: AttributedString
     var highlights: [Color] = [.yellow, .green, .pink]
 
-    private let buttonSize: CGFloat = 40
+    private let buttonSize: CGFloat = 44
 
     @State private var selection = AttributedTextSelection()
     @Environment(\.fontResolutionContext) private var fontResolutionContext
@@ -23151,7 +24287,13 @@ struct TagInputField: View {
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 24, minHeight: 20)
+                    // Too small to hit. The padding widens what answers to a touch, and the
+                    // same padding taken back keeps the tag as compact as it was.
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 12)
                     .contentShape(.rect)
+                    .padding(.horizontal, -10)
+                    .padding(.vertical, -12)
             }
             .buttonStyle(.plain)
         }
@@ -24611,7 +25753,7 @@ struct KanbanBoard: View {
                 Text("\(column.cards.count)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("\(column.cards.count) cards")
+                    .accessibilityLabel("^[\(column.cards.count) card](inflect: true)")
             }
             .accessibilityElement(children: .combine)
 
@@ -24695,7 +25837,8 @@ struct KanbanBoardDemo: View {
     ]
 
     var body: some View {
-        KanbanBoard(columns: $columns, columnWidth: 180)
+        // Narrow enough to show part of the third column, which says the board scrolls.
+        KanbanBoard(columns: $columns, columnWidth: 150)
             .tint(.indigo)
             .background(LinearGradient(colors: [.indigo.opacity(0.14), .teal.opacity(0.1)], startPoint: .top, endPoint: .bottom))
     }
@@ -25061,7 +26204,7 @@ struct RadialLayoutDemo: View {
                 Text("\(count)")
                     .font(.system(.largeTitle, design: .rounded, weight: .bold))
                     .contentTransition(.numericText(value: Double(count)))
-                    .accessibilityLabel("\(count) apps")
+                    .accessibilityLabel("^[\(count) app](inflect: true)")
             }
             .frame(maxWidth: 340, maxHeight: 340)
 
@@ -25664,7 +26807,7 @@ private struct EditModeMultiSelectDemoMail: Identifiable {
 }
 
 struct EditModeMultiSelectDemo: View {
-    @State private var mails = [
+    private static let allMails = [
         EditModeMultiSelectDemoMail(id: "Flights", subtitle: "Your boarding pass is ready", systemImage: "airplane", tint: .blue),
         EditModeMultiSelectDemoMail(id: "Receipts", subtitle: "Thanks for your order", systemImage: "cart.fill", tint: .green),
         EditModeMultiSelectDemoMail(id: "Newsletter", subtitle: "Five things to read this week", systemImage: "newspaper.fill", tint: .orange),
@@ -25674,6 +26817,7 @@ struct EditModeMultiSelectDemo: View {
         EditModeMultiSelectDemoMail(id: "Podcasts", subtitle: "A new episode just landed", systemImage: "mic.fill", tint: .pink),
         EditModeMultiSelectDemoMail(id: "Fitness", subtitle: "You closed all your rings", systemImage: "figure.run", tint: .mint),
     ]
+    @State private var mails = allMails
     @State private var selection = Set<String>()
     @ScaledMetric(relativeTo: .headline) private var iconSize = 40.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -25704,6 +26848,16 @@ struct EditModeMultiSelectDemo: View {
             }
             .navigationTitle("Inbox")
             .navigationBarTitleDisplayMode(.inline)
+            // Only for this demo: a way back once every row is gone.
+            .safeAreaInset(edge: .bottom) {
+                if mails.isEmpty {
+                    Button("Start over") {
+                        withAnimation(reduceMotion ? nil : .default) { mails = Self.allMails }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.bottom, 24)
+                }
+            }
         }
     }
 
@@ -26249,12 +27403,13 @@ private struct SwipeActionCardsDemoTask: Identifiable {
 
 @available(iOS 27, *)
 struct SwipeActionCardsDemo: View {
-    @State private var tasks = [
+    private static let allTasks = [
         SwipeActionCardsDemoTask(id: 0, title: "Water the plants", detail: "Balcony and kitchen", symbol: "leaf.fill", color: .green),
         SwipeActionCardsDemoTask(id: 1, title: "Call the dentist", detail: "Before five", symbol: "phone.fill", color: .blue),
         SwipeActionCardsDemoTask(id: 2, title: "Renew the bike pass", detail: "Ends on Friday", symbol: "bicycle", color: .orange),
         SwipeActionCardsDemoTask(id: 3, title: "Pick up the parcel", detail: "Locker 12", symbol: "shippingbox.fill", color: .purple),
     ]
+    @State private var tasks = allTasks
 
     var body: some View {
         SwipeActionCards(items: tasks) { task in
@@ -26287,6 +27442,19 @@ struct SwipeActionCardsDemo: View {
                 withAnimation { tasks = SwipeActionCardsLogic.pinning(task.id, in: tasks) }
             }
             .tint(.orange)
+        }
+        // Only for this demo: a way back once every card is gone.
+        .overlay {
+            if tasks.isEmpty {
+                ContentUnavailableView {
+                    Label("All done", systemImage: "checkmark.circle")
+                } actions: {
+                    Button("Start over") {
+                        withAnimation { tasks = Self.allTasks }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
         }
         .background(Color(.systemGroupedBackground))
     }
@@ -26826,12 +27994,15 @@ struct SkeletonShimmerModifierDemo: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
+                // One line each, so a row is as tall loaded as it is as a skeleton.
                 Text(row.name)
                     .font(.headline)
+                    .lineLimit(1)
 
                 Text(row.message)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
 
             Spacer(minLength: 8)
@@ -27178,6 +28349,252 @@ struct MapAnnotationCalloutDemo: View {
 }
 ```
 
+## Map Cluster Annotations
+
+A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.
+
+Category: Maps. Minimum: iOS 18.0. Path: Components/Maps/MapClusterAnnotations/MapClusterAnnotations.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import MapKit
+import SwiftUI
+
+nonisolated struct MapClusterAnnotationsPlace: Identifiable, Hashable, Sendable {
+    var id: String
+    var name: String
+    var systemImage: String = "mappin"
+    var latitude: Double
+    var longitude: Double
+}
+
+nonisolated enum MapClusterAnnotationsLogic {
+    /// Places that fall in the same cell of a grid over the map, drawn as one.
+    struct Cluster: Identifiable, Equatable, Sendable {
+        let places: [MapClusterAnnotationsPlace]
+        let latitude: Double
+        let longitude: Double
+
+        var id: String { places.map(\.id).joined(separator: "|") }
+    }
+
+    /// Groups the places by the cell they fall in. A cell is one of `divisions` across what
+    /// the map shows, so the groups split as the map zooms in and join as it zooms out.
+    /// A group sits at the middle of its places, and the groups keep the order of the places.
+    static func clusters(
+        of places: [MapClusterAnnotationsPlace],
+        latitudeDelta: Double,
+        longitudeDelta: Double,
+        divisions: Int = 6
+    ) -> [Cluster] {
+        let divisions = Double(max(divisions, 1))
+        let cellLatitude = latitudeDelta / divisions
+        let cellLongitude = longitudeDelta / divisions
+        guard cellLatitude.isFinite, cellLongitude.isFinite, cellLatitude > 0, cellLongitude > 0 else {
+            return places.map { Cluster(places: [$0], latitude: $0.latitude, longitude: $0.longitude) }
+        }
+
+        var order: [String] = []
+        var cells: [String: [MapClusterAnnotationsPlace]] = [:]
+        for place in places where place.latitude.isFinite && place.longitude.isFinite {
+            let key = "\(Int((place.latitude / cellLatitude).rounded(.down))):\(Int((place.longitude / cellLongitude).rounded(.down)))"
+            if cells[key] == nil { order.append(key) }
+            cells[key, default: []].append(place)
+        }
+
+        return order.compactMap { key in
+            guard let members = cells[key], !members.isEmpty else { return nil }
+            let count = Double(members.count)
+            return Cluster(
+                places: members,
+                latitude: members.map(\.latitude).reduce(0, +) / count,
+                longitude: members.map(\.longitude).reduce(0, +) / count
+            )
+        }
+    }
+
+    /// The region that shows every place of a group with room around them.
+    static func region(fitting places: [MapClusterAnnotationsPlace], room: Double = 1.8, smallest: Double = 0.004) -> MKCoordinateRegion? {
+        let latitudes = places.map(\.latitude).filter(\.isFinite)
+        let longitudes = places.map(\.longitude).filter(\.isFinite)
+        guard let south = latitudes.min(), let north = latitudes.max(),
+              let west = longitudes.min(), let east = longitudes.max() else { return nil }
+
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: (south + north) / 2, longitude: (west + east) / 2),
+            span: MKCoordinateSpan(
+                latitudeDelta: min(max((north - south) * room, smallest), 180),
+                longitudeDelta: min(max((east - west) * room, smallest), 360)
+            )
+        )
+    }
+}
+
+/// A map where places that are close together are drawn as one bubble with their count.
+/// Zooming in splits a bubble into its places, and a tap on it flies there.
+///
+/// A tap on a place sets `selection` and shows its name. With Reduce Motion on, the camera
+/// does not fly.
+struct MapClusterAnnotations: View {
+    let places: [MapClusterAnnotationsPlace]
+    @Binding var selection: MapClusterAnnotationsPlace.ID?
+    var tint: Color = .indigo
+
+    @State private var position = MapCameraPosition.automatic
+    @State private var span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    @ScaledMetric(relativeTo: .body) private var pinSize = 44.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let shadow = Color.black.opacity(0.25)
+
+    private var clusters: [MapClusterAnnotationsLogic.Cluster] {
+        MapClusterAnnotationsLogic.clusters(of: places, latitudeDelta: span.latitudeDelta, longitudeDelta: span.longitudeDelta)
+    }
+
+    var body: some View {
+        Map(position: $position) {
+            ForEach(clusters) { cluster in
+                Annotation(
+                    cluster.places.count == 1 ? cluster.places[0].name : "",
+                    coordinate: CLLocationCoordinate2D(latitude: cluster.latitude, longitude: cluster.longitude)
+                ) {
+                    if cluster.places.count == 1 {
+                        pin(cluster.places[0])
+                    } else {
+                        bubble(cluster)
+                    }
+                }
+                .annotationTitles(.hidden)
+            }
+        }
+        .mapStyle(.standard(pointsOfInterest: .excludingAll))
+        // The groups are made again when the map comes to rest, not on every frame of a pinch.
+        .onMapCameraChange(frequency: .onEnd) { context in
+            withAnimation(reduceMotion ? nil : .snappy(duration: 0.3)) {
+                span = context.region.span
+            }
+        }
+        .onAppear {
+            guard let region = MapClusterAnnotationsLogic.region(fitting: places, room: 1.3) else { return }
+            position = .region(region)
+            span = region.span
+        }
+    }
+
+    private func pin(_ place: MapClusterAnnotationsPlace) -> some View {
+        let isSelected = selection == place.id
+
+        return Button {
+            withAnimation(reduceMotion ? nil : .snappy(duration: 0.25)) {
+                selection = isSelected ? nil : place.id
+            }
+        } label: {
+            VStack(spacing: 4) {
+                Image(systemName: place.systemImage)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(MapClusterAnnotationsContrastingForeground(background: isSelected ? tint : .white))
+                    .frame(width: pinSize * 0.75, height: pinSize * 0.75)
+                    .background(isSelected ? tint : .white, in: .circle)
+                    .shadow(color: shadow, radius: 5, y: 2)
+
+                if isSelected {
+                    Text(place.name)
+                        .font(.caption.weight(.semibold))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(.regularMaterial, in: .capsule)
+                        .fixedSize()
+                        .transition(.opacity)
+                }
+            }
+            .frame(minWidth: pinSize, minHeight: pinSize, alignment: .top)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(place.name)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .transition(.scale.combined(with: .opacity))
+    }
+
+    private func bubble(_ cluster: MapClusterAnnotationsLogic.Cluster) -> some View {
+        Button {
+            guard let region = MapClusterAnnotationsLogic.region(fitting: cluster.places) else { return }
+            withAnimation(reduceMotion ? nil : .smooth(duration: 0.7)) {
+                position = .region(region)
+            }
+        } label: {
+            Text(cluster.places.count, format: .number)
+                .font(.headline)
+                .monospacedDigit()
+                .foregroundStyle(MapClusterAnnotationsContrastingForeground(background: tint))
+                .frame(width: pinSize, height: pinSize)
+                .background(tint.gradient, in: .circle)
+                .overlay { Circle().stroke(.white, lineWidth: 3) }
+                .shadow(color: shadow, radius: 6, y: 3)
+                .contentShape(.circle)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("^[\(cluster.places.count) place](inflect: true)"))
+        .accessibilityHint("Zooms in to show them")
+        .transition(.scale.combined(with: .opacity))
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct MapClusterAnnotationsContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct MapClusterAnnotationsDemo: View {
+    private let places = [
+        MapClusterAnnotationsPlace(id: "prado", name: "Prado Museum", systemImage: "building.columns.fill", latitude: 40.4138, longitude: -3.6921),
+        MapClusterAnnotationsPlace(id: "thyssen", name: "Thyssen Museum", systemImage: "building.columns.fill", latitude: 40.4160, longitude: -3.6949),
+        MapClusterAnnotationsPlace(id: "retiro", name: "Retiro Park", systemImage: "tree.fill", latitude: 40.4153, longitude: -3.6845),
+        MapClusterAnnotationsPlace(id: "sol", name: "Puerta del Sol", systemImage: "star.fill", latitude: 40.4169, longitude: -3.7035),
+        MapClusterAnnotationsPlace(id: "mayor", name: "Plaza Mayor", systemImage: "star.fill", latitude: 40.4155, longitude: -3.7074),
+        MapClusterAnnotationsPlace(id: "palace", name: "Royal Palace", systemImage: "crown.fill", latitude: 40.4180, longitude: -3.7143),
+        MapClusterAnnotationsPlace(id: "debod", name: "Temple of Debod", systemImage: "sun.horizon.fill", latitude: 40.4240, longitude: -3.7178),
+        MapClusterAnnotationsPlace(id: "bernabeu", name: "Bernabéu Stadium", systemImage: "sportscourt.fill", latitude: 40.4531, longitude: -3.6883),
+        MapClusterAnnotationsPlace(id: "matadero", name: "Matadero", systemImage: "theatermasks.fill", latitude: 40.3917, longitude: -3.6976),
+    ]
+
+    @State private var selection: String?
+
+    var body: some View {
+        MapClusterAnnotations(places: places, selection: $selection)
+            .safeAreaInset(edge: .top) {
+                VStack(spacing: 2) {
+                    Text("Madrid in a day")
+                        .font(.headline)
+                    Text(selection.flatMap { id in places.first { $0.id == id }?.name } ?? "Tap a bubble to zoom in")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .contentTransition(.opacity)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(.regularMaterial, in: .capsule)
+                .padding(.top, 8)
+            }
+    }
+}
+
+#Preview {
+    MapClusterAnnotationsDemo()
+}
+```
+
 ## Map Route Tracker
 
 A route on a map with a marker that travels along it, the part done in solid and the rest dotted, like an order on its way.
@@ -27360,7 +28777,7 @@ struct MapRouteTrackerDemo: View {
                     Text(progress < 1 ? "Arriving in \(Int(((1 - progress) * tripMinutes).rounded(.up))) min" : "Your order is here")
                         .font(.headline)
                         .contentTransition(.numericText())
-                    Text("Alex is bringing your order")
+                    Text(progress < 1 ? "Alex is bringing your order" : "Delivered by Alex")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -27376,6 +28793,8 @@ struct MapRouteTrackerDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
 
             ProgressView(value: progress)
@@ -27521,11 +28940,19 @@ private struct MapSearchSheetPanel: View {
                 TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
+                    .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
 
                 if !query.isEmpty {
-                    Button("Clear", systemImage: "xmark.circle.fill") {
+                    Button {
                         query = ""
+                    } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the field as it was.
+                        Label("Clear", systemImage: "xmark.circle.fill")
+                            .padding(14)
+                            .contentShape(.rect)
+                            .padding(-14)
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
@@ -27744,6 +29171,8 @@ struct AudioPlayerCardDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .milliseconds(250))
                 guard !Task.isCancelled else { return }
@@ -28228,14 +29657,17 @@ struct ExpandingMiniPlayerDemo: View {
 
     @State private var isPlaying = false
     @State private var progress = 0.2
+    @State private var index = 0
     @ScaledMetric(relativeTo: .body) private var coverSize = 48.0
 
     var body: some View {
         ExpandingMiniPlayer(
-            title: "Midnight Drive",
+            title: songs[index],
             subtitle: "The Night Owls",
             isPlaying: $isPlaying,
-            progress: progress
+            progress: progress,
+            onPrevious: { play(index - 1) },
+            onNext: { play(index + 1) }
         ) {
             NavigationStack {
                 List(songs, id: \.self) { song in
@@ -28259,6 +29691,11 @@ struct ExpandingMiniPlayerDemo: View {
                 progress = progress >= 1 ? 0 : progress + 0.004
             }
         }
+    }
+
+    private func play(_ song: Int) {
+        index = (song + songs.count) % songs.count
+        progress = 0
     }
 
     private var cover: some View {
@@ -28324,8 +29761,15 @@ struct ShutterCaptureButton: View {
         VStack(spacing: 20) {
             HStack(spacing: 28) {
                 ForEach(ShutterCaptureButtonMode.allCases) { option in
-                    Button(option.rawValue) {
+                    Button {
                         withAnimation(animation) { mode = option }
+                    } label: {
+                        // A word is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the layout as it was.
+                        Text(option.rawValue)
+                            .padding(13)
+                            .contentShape(.rect)
+                            .padding(-13)
                     }
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(mode == option ? Color.yellow : Color.white)
@@ -28420,7 +29864,7 @@ struct ShutterCaptureButtonDemo: View {
                             .foregroundStyle(.white.opacity(0.7))
                     }
                     .overlay(alignment: .top) {
-                        Text(isRecording ? "Recording" : "\(photos) photos")
+                        Text(isRecording ? "Recording" : "^[\(photos) photo](inflect: true)")
                             .font(.footnote.weight(.semibold).monospacedDigit())
                             .foregroundStyle(.white)
                             .padding(.horizontal, 12)
@@ -28789,6 +30233,8 @@ struct VideoPlayerChromeDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .seconds(0.25))
                 guard !Task.isCancelled else { return }
@@ -28852,9 +30298,11 @@ struct VideoPosterToPlayer<Poster: View, Player: View>: View {
                             .foregroundStyle(.white)
                             .frame(width: 36, height: 36)
                             .background(.black.opacity(0.5), in: .circle)
+                            // The padding is part of the button, so all of it answers to a touch.
+                            .padding(10)
+                            .contentShape(.rect)
                     }
                     .accessibilityLabel("Close video")
-                    .padding(10)
                     .transition(.opacity)
                 }
             }
@@ -29266,9 +30714,16 @@ private struct CoachMarkTourModifier: ViewModifier {
             Text(step.message).font(.subheadline).foregroundStyle(.secondary)
 
             HStack {
-                Button("Skip tour", action: skip)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Button(action: skip) {
+                    // A line of text is too short to hit. The padding widens what answers to
+                    // a touch, and the same padding taken back keeps the layout as it was.
+                    Text("Skip tour")
+                        .padding(.vertical, 13)
+                        .contentShape(.rect)
+                        .padding(.vertical, -13)
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
 
                 Spacer()
 
@@ -29644,13 +31099,14 @@ private struct ContextMenuPreviewCardDemoTrip: Identifiable {
 }
 
 struct ContextMenuPreviewCardDemo: View {
-    private let trips = [
+    private static let allTrips = [
         ContextMenuPreviewCardDemoTrip(id: "Alps", subtitle: "Six days above the clouds", systemImage: "mountain.2.fill", colors: [.teal, .blue]),
         ContextMenuPreviewCardDemoTrip(id: "Coast", subtitle: "A slow week by the sea", systemImage: "sailboat.fill", colors: [.cyan, .indigo]),
         ContextMenuPreviewCardDemoTrip(id: "Desert", subtitle: "Stars and quiet nights", systemImage: "sun.max.fill", colors: [.orange, .pink]),
         ContextMenuPreviewCardDemoTrip(id: "Forest", subtitle: "Trails and cabins", systemImage: "tree.fill", colors: [.green, .mint]),
     ]
 
+    @State private var trips = allTrips
     @State private var lastAction = "Press and hold a card"
 
     var body: some View {
@@ -29670,9 +31126,22 @@ struct ContextMenuPreviewCardDemo: View {
                             } menuItems: {
                                 Button("Share", systemImage: "square.and.arrow.up") { lastAction = "Shared \(trip.id)" }
                                 Button("Save", systemImage: "bookmark") { lastAction = "Saved \(trip.id)" }
-                                Button("Remove", systemImage: "trash", role: .destructive) { lastAction = "Removed \(trip.id)" }
+                                Button("Remove", systemImage: "trash", role: .destructive) {
+                                    lastAction = "Removed \(trip.id)"
+                                    withAnimation { trips.removeAll { $0.id == trip.id } }
+                                }
                             }
                         }
+                    }
+
+                    // Only for this demo: a way back once every card is gone.
+                    if trips.isEmpty {
+                        Button("Start over") {
+                            lastAction = "Press and hold a card"
+                            withAnimation { trips = Self.allTrips }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(16)
@@ -29970,6 +31439,16 @@ struct GooeyFloatingMenu: View {
         )
         // The buttons only hold icons. The stage reads its size under this cap, which keeps the fan on screen.
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        // A tap outside closes the fan, as it does a menu.
+        .background {
+            if isOpen {
+                Color.clear
+                    .frame(width: 4000, height: 4000)
+                    .contentShape(.rect)
+                    .onTapGesture { withAnimation(animation) { isOpen = false } }
+                    .accessibilityHidden(true)
+            }
+        }
     }
 }
 
@@ -30487,8 +31966,7 @@ struct ScrollEdgeHeaderDemo: View {
                         .font(.largeTitle.bold())
 
                     Text(isHard ? "Hard edge" : "Soft edge")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.subheadline.weight(.medium))
                 }
 
                 Spacer()
@@ -30499,6 +31977,8 @@ struct ScrollEdgeHeaderDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.glass)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
@@ -30629,6 +32109,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// A navigation screen that ranks which toolbar actions survive when space runs out.
 ///
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
+/// The title is large, under the bar, where the actions cannot push it out.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
     let title: LocalizedStringResource
@@ -30640,7 +32121,7 @@ struct ToolbarOverflowDemo<Content: View>: View {
         NavigationStack {
             content()
                 .navigationTitle(title)
-                .toolbarTitleDisplayMode(.inline)
+                .toolbarTitleDisplayMode(.large)
                 .toolbar {
                     ForEach(barActions) { action in
                         ToolbarItem(placement: .primaryAction) {
@@ -30696,6 +32177,7 @@ struct ToolbarOverflowDemoDemo: View {
             ZStack {
                 LinearGradient(colors: [.indigo, .purple, .pink], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
+                    .toolbarColorScheme(.dark, for: .navigationBar)
 
                 Text(lastAction)
                     .font(.largeTitle.bold())
@@ -30830,14 +32312,15 @@ struct AdaptiveSidebarLayoutDemo: View {
                     Text(selected.title)
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
 
-                    Text("\(selected.count) messages")
+                    Text("^[\(selected.count) message](inflect: true)")
                         .font(.headline)
 
                     Button("Folders", systemImage: "sidebar.left") {
                         showsSidebar = true
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .tint(.white)
+                    .foregroundStyle(.black)
                     .padding(.top, 10)
                 }
                 .foregroundStyle(.white)
@@ -30922,7 +32405,8 @@ struct AnimatedTabBar<Value: Hashable>: View {
                     .font(.caption2.weight(.semibold))
                     .lineLimit(1)
             }
-            .foregroundStyle(isSelected ? tint : Color.secondary)
+            // Not `.secondary`, which takes the color of what is behind the material and can fade into it.
+            .foregroundStyle(isSelected ? tint : Color.primary.opacity(0.65))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
             .background {
@@ -31143,7 +32627,8 @@ struct BottomDrawerDemo: View {
                         Label {
                             Text(name).font(.headline)
                         } icon: {
-                            Image(systemName: symbol).foregroundStyle(color.gradient)
+                            // One width for every symbol, so the names line up.
+                            Image(systemName: symbol).foregroundStyle(color.gradient).frame(width: 28)
                         }
                     }
                 }
@@ -31185,6 +32670,10 @@ struct BreadcrumbTrail: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// A crumb is a short line of text, too small to hit. This padding widens what answers to a
+    /// touch, and the same padding taken back keeps the trail as compact as it was.
+    private let touchPadding: CGFloat = 13
+
     var body: some View {
         ViewThatFits(in: .horizontal) {
             fullRow
@@ -31222,6 +32711,9 @@ struct BreadcrumbTrail: View {
                 Image(systemName: "ellipsis.circle.fill")
                     .symbolRenderingMode(.hierarchical)
                     .imageScale(.large)
+                    .padding(touchPadding)
+                    .contentShape(.rect)
+                    .padding(-touchPadding)
             }
             .accessibilityLabel("More")
             separator
@@ -31243,9 +32735,16 @@ struct BreadcrumbTrail: View {
                     .fixedSize()
                     .accessibilityAddTraits(.isSelected)
             } else {
-                Button(item.title) { onSelect(item) }
-                    .lineLimit(1)
-                    .fixedSize()
+                Button {
+                    onSelect(item)
+                } label: {
+                    Text(item.title)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
+                }
+                .lineLimit(1)
+                .fixedSize()
             }
         }
     }
@@ -31720,6 +33219,7 @@ private struct FullScreenMenuOverlayPanel: View {
     let close: () -> Void
 
     @State private var showsLinks = false
+    @ScaledMetric(relativeTo: .largeTitle) private var iconWidth = 48.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -31768,7 +33268,12 @@ private struct FullScreenMenuOverlayPanel: View {
             close()
             link.action()
         } label: {
-            Label(link.title, systemImage: link.systemImage)
+            Label {
+                Text(link.title)
+            } icon: {
+                // One width for every symbol, so the titles line up.
+                Image(systemName: link.systemImage).frame(width: iconWidth)
+            }
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .foregroundStyle(.white)
         }
@@ -31798,10 +33303,16 @@ struct FullScreenMenuOverlayDemo: View {
             VStack(spacing: 20) {
                 HStack {
                     Spacer()
-                    Button("Menu", systemImage: "line.3.horizontal") { isOpen = true }
-                        .labelStyle(.iconOnly)
-                        .font(.title2.weight(.semibold))
-                        .padding(20)
+                    Button {
+                        isOpen = true
+                    } label: {
+                        // The padding is part of the button, so all of it answers to a touch.
+                        Label("Menu", systemImage: "line.3.horizontal")
+                            .padding(20)
+                            .contentShape(.rect)
+                    }
+                    .labelStyle(.iconOnly)
+                    .font(.title2.weight(.semibold))
                 }
 
                 Spacer()
@@ -31935,6 +33446,7 @@ private struct NavigationPathRouterDemoScreen: View {
             .padding(32)
         }
         .navigationTitle(current?.rawValue ?? "Router")
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
@@ -32158,6 +33670,10 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View where Element
                             .fill(.quaternary)
                     }
                 }
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 5)
+                .contentShape(.rect)
+                .padding(.vertical, -5)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isActive ? .isSelected : [])
@@ -32591,18 +34107,21 @@ struct SideDrawerDemo: View {
 
     var body: some View {
         SideDrawer(isOpen: $isOpen) {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text("Workspace")
                     .font(.title2.bold())
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 20)
 
                 ForEach(destinations, id: \.0) { name, symbol in
                     Button {
                         current = symbol
                         isOpen = false
                     } label: {
+                        // The whole row answers to a touch, not only its text.
                         Label(name, systemImage: symbol)
                             .font(.headline)
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .contentShape(.rect)
                     }
                 }
 
@@ -33002,8 +34521,9 @@ struct TwoPaneSplitLayoutDemo: View {
                         .font(.title3.weight(.medium))
 
                     Button("Done") { selection = nil }
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         .tint(.white)
+                        .foregroundStyle(.black)
                         .padding(.top, 8)
                 }
                 .foregroundStyle(.white)
@@ -33016,6 +34536,217 @@ struct TwoPaneSplitLayoutDemo: View {
 
 #Preview {
     TwoPaneSplitLayoutDemo()
+}
+```
+
+## Permission Primer Screen
+
+The screen shown before the system asks for a permission: what it is for, what the person gets, and one button that leads to the system's question.
+
+Category: Patterns. Minimum: iOS 18.0. Path: Components/Patterns/PermissionPrimerScreen/PermissionPrimerScreen.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+struct PermissionPrimerScreenBenefit: Identifiable {
+    let systemImage: String
+    let title: LocalizedStringResource
+    let text: LocalizedStringResource
+
+    var id: String { systemImage }
+}
+
+/// The screen an app shows before the system asks for a permission: what it is for, what the
+/// person gets, and one button that leads to the system's question.
+///
+/// Ask for the permission in `onContinue`. Pass `skipTitle` as nil where the only way on has
+/// to be the system's question, as Apple asks before the tracking prompt. With Reduce Motion
+/// on, the rings stand still and the benefits appear together.
+struct PermissionPrimerScreen: View {
+    let systemImage: String
+    let title: LocalizedStringResource
+    let message: LocalizedStringResource
+    let benefits: [PermissionPrimerScreenBenefit]
+    var continueTitle: LocalizedStringResource = "Continue"
+    var skipTitle: LocalizedStringResource? = "Not Now"
+    var tint: Color = .blue
+    let onContinue: () -> Void
+    var onSkip: () -> Void = {}
+
+    @State private var hasAppeared = false
+    @ScaledMetric(relativeTo: .largeTitle) private var heroSize = 96.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let minimumTarget: CGFloat = 44
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 28) {
+                hero
+
+                VStack(spacing: 10) {
+                    Text(title)
+                        .font(.largeTitle.bold())
+                        .accessibilityAddTraits(.isHeader)
+                    Text(message)
+                        .font(.body)
+                        .foregroundStyle(.secondary)
+                }
+                .multilineTextAlignment(.center)
+
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(Array(benefits.enumerated()), id: \.element.id) { index, benefit in
+                        row(benefit)
+                            .opacity(hasAppeared ? 1 : 0)
+                            .offset(y: hasAppeared || reduceMotion ? 0 : 18)
+                            .animation(reduceMotion ? .easeInOut(duration: 0.2) : .spring(duration: 0.5, bounce: 0.2).delay(0.2 + 0.12 * Double(index)), value: hasAppeared)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.horizontal, 28)
+            .padding(.top, 36)
+            .padding(.bottom, 16)
+        }
+        .scrollBounceBehavior(.basedOnSize)
+        .safeAreaInset(edge: .bottom) { buttons }
+        .onAppear { hasAppeared = true }
+    }
+
+    private var hero: some View {
+        Image(systemName: systemImage)
+            .font(.system(size: heroSize * 0.44, weight: .semibold))
+            .foregroundStyle(PermissionPrimerScreenContrastingForeground(background: tint))
+            .frame(width: heroSize, height: heroSize)
+            .background(tint.gradient, in: .circle)
+            .background {
+                if !reduceMotion {
+                    ForEach(0..<2, id: \.self) { ring in
+                        Circle()
+                            .stroke(tint, lineWidth: 2)
+                            .phaseAnimator([false, true]) { content, isWide in
+                                content
+                                    .scaleEffect(isWide ? 1.7 : 1)
+                                    .opacity(isWide ? 0 : 0.5)
+                            } animation: { isWide in
+                                isWide ? .easeOut(duration: 2).delay(Double(ring) * 0.7) : .linear(duration: 0.01).delay(Double(1 - ring) * 0.7)
+                            }
+                    }
+                }
+            }
+            .padding(.vertical, heroSize * 0.3)
+            .accessibilityHidden(true)
+    }
+
+    private func row(_ benefit: PermissionPrimerScreenBenefit) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            Image(systemName: benefit.systemImage)
+                .font(.title2)
+                .foregroundStyle(tint)
+                .frame(width: 36)
+                .accessibilityHidden(true)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(benefit.title)
+                    .font(.headline)
+                Text(benefit.text)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    private var buttons: some View {
+        VStack(spacing: 4) {
+            Button(action: onContinue) {
+                Text(continueTitle)
+                    .font(.headline)
+                    .foregroundStyle(PermissionPrimerScreenContrastingForeground(background: tint))
+                    .frame(maxWidth: .infinity, minHeight: 54)
+                    .background(tint.gradient, in: .rect(cornerRadius: 16))
+            }
+            .buttonStyle(.plain)
+
+            if let skipTitle {
+                Button(action: onSkip) {
+                    Text(skipTitle)
+                        .font(.subheadline.weight(.medium))
+                        .frame(maxWidth: .infinity, minHeight: minimumTarget)
+                        .contentShape(.rect)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(.secondary)
+            }
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 12)
+        .padding(.bottom, 8)
+        .background(.bar)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct PermissionPrimerScreenContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct PermissionPrimerScreenDemo: View {
+    private enum Answer {
+        case allowed, later
+    }
+
+    @State private var answer: Answer?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            if let answer {
+                // Only for this demo: what came of the choice, and a way back to the screen.
+                ContentUnavailableView {
+                    Label(answer == .allowed ? "The system would ask now" : "Maybe later", systemImage: answer == .allowed ? "bell.badge.fill" : "moon.zzz.fill")
+                } description: {
+                    Text(answer == .allowed ? "This is where your app requests the permission." : "Ask again when the person reaches something that needs it.")
+                } actions: {
+                    Button("Start over") { self.answer = nil }
+                        .buttonStyle(.borderedProminent)
+                }
+                .transition(.opacity)
+            } else {
+                PermissionPrimerScreen(
+                    systemImage: "bell.badge.fill",
+                    title: "Stay in the loop",
+                    message: "Turn on notifications and we only write when it matters.",
+                    benefits: [
+                        PermissionPrimerScreenBenefit(systemImage: "shippingbox.fill", title: "Order updates", text: "Know the moment your order ships and arrives."),
+                        PermissionPrimerScreenBenefit(systemImage: "tag.fill", title: "Price drops", text: "Hear first when something you saved gets cheaper."),
+                        PermissionPrimerScreenBenefit(systemImage: "moon.fill", title: "Quiet by default", text: "No marketing, and nothing at night."),
+                    ],
+                    tint: .indigo,
+                    onContinue: { answer = .allowed },
+                    onSkip: { answer = .later }
+                )
+                .transition(.opacity)
+            }
+        }
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.3), value: answer)
+    }
+}
+
+#Preview {
+    PermissionPrimerScreenDemo()
 }
 ```
 
@@ -33278,13 +35009,14 @@ struct CountryPicker: View {
                     .font(.title2)
                     .accessibilityHidden(true)
 
+                // `Color.primary`, not `.primary`: inside a button the style is a shade of the tint.
                 Text(country.name)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.primary)
 
                 Spacer(minLength: 8)
 
                 Text(country.dialCode)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.secondary)
                     .monospacedDigit()
 
                 Image(systemName: "checkmark")
@@ -33456,7 +35188,8 @@ struct EmojiPicker: View {
     var recentLimit = 12
     let onSelect: (String) -> Void
 
-    @State private var activeID: String?
+    @State private var visibleIDs: [String] = []
+    @State private var isAtEnd = false
     /// The tab that was tapped stays chosen until the grid moves again. A short section near
     /// the end cannot reach the top, and would lose its tab to the one above it.
     @State private var tappedID: String?
@@ -33467,6 +35200,13 @@ struct EmojiPicker: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let edgePadding: CGFloat = 12
+
+    /// The first section in sight, or the last one once the grid is at its end, which a short
+    /// section there would never reach otherwise.
+    private var activeID: String? {
+        let visible = categories.filter { visibleIDs.contains($0.id) }
+        return isAtEnd ? visible.last?.id : visible.first?.id
+    }
 
     private var animation: Animation? {
         reduceMotion ? nil : .smooth(duration: 0.35)
@@ -33555,9 +35295,12 @@ struct EmojiPicker: View {
             if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
-            if let first = categories.first(where: { ids.contains($0.id) }) {
-                activeID = first.id
-            }
+            visibleIDs = ids
+        }
+        .onScrollGeometryChange(for: Bool.self) { geometry in
+            geometry.visibleRect.maxY >= geometry.contentSize.height - 1
+        } action: { _, atEnd in
+            isAtEnd = atEnd
         }
     }
 
@@ -33663,7 +35406,7 @@ struct InlineDatePickerDisclosure: View {
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .transition(.opacity)
             }
         }
         .clipped()
@@ -33740,10 +35483,14 @@ struct InlineDatePickerDisclosureDemo: View {
                     InlineDatePickerDisclosure(title: "Departure", date: $departure)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
 
-                    InlineDatePickerDisclosure(title: "Return", date: $comeback)
+                    InlineDatePickerDisclosure(title: "Return", date: $comeback, range: departure...Date.distantFuture)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
                 }
                 .tint(.indigo)
+                // The return never comes before the departure.
+                .onChange(of: departure) { _, newValue in
+                    if comeback < newValue { comeback = newValue }
+                }
             }
             .padding(20)
         }
@@ -33908,7 +35655,7 @@ struct MultiPhotoPickerTrayThumbnail: View {
 // MARK: - Demo
 
 struct MultiPhotoPickerTrayDemo: View {
-    @State private var selection: [PhotosPickerItem] = (0..<4).map {
+    @State private var selection: [PhotosPickerItem] = (0..<3).map {
         PhotosPickerItem(itemIdentifier: "demo-\($0)")
     }
 
@@ -34344,6 +36091,219 @@ struct BubbleWrapPopDemo: View {
 }
 ```
 
+## Slot Machine Reels
+
+Reels of symbols that spin and stop one after another, with the result under a line across them.
+
+Category: Playful. Minimum: iOS 18.0. Path: Components/Playful/SlotMachineReels/SlotMachineReels.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+nonisolated enum SlotMachineReelsMath {
+    /// The symbol under the line when a reel has turned `position` rows.
+    static func index(at position: Int, count: Int) -> Int {
+        guard count > 0 else { return 0 }
+        return ((position % count) + count) % count
+    }
+
+    /// Where a reel stops: `turns` whole turns further on, and then on to `target`.
+    static func stop(from position: Int, on target: Int, count: Int, turns: Int) -> Int {
+        guard count > 0 else { return position }
+        let ahead = index(at: target - index(at: position, count: count), count: count)
+        return position + max(turns, 0) * count + ahead
+    }
+
+    /// A win is every reel on the same symbol.
+    static func isWin(_ result: [Int]) -> Bool {
+        guard let first = result.first, result.count > 1 else { return false }
+        return result.allSatisfy { $0 == first }
+    }
+}
+
+/// Reels that spin and stop one after another, each a little later than the one before.
+///
+/// `onResult` gets the symbols under the line once the last reel stops. With Reduce Motion
+/// on, the reels change to their result without spinning.
+struct SlotMachineReels: View {
+    let symbols: [String]
+    var reelCount = 3
+    var spinTitle: LocalizedStringResource = "Spin"
+    var tint: Color = .red
+    var onResult: ([String]) -> Void = { _ in }
+
+    @State private var positions: [Int] = []
+    @State private var isSpinning = false
+    @State private var stops = 0
+    @ScaledMetric(relativeTo: .largeTitle) private var cell = 78.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let firstStop = 1.3
+    private let stagger = 0.45
+
+    private var reels: Int { max(reelCount, 1) }
+
+    private func position(of reel: Int) -> Int {
+        positions.indices.contains(reel) ? positions[reel] : 0
+    }
+
+    private var result: [String] {
+        guard !symbols.isEmpty else { return [] }
+        return (0..<reels).map { symbols[SlotMachineReelsMath.index(at: position(of: $0), count: symbols.count)] }
+    }
+
+    var body: some View {
+        VStack(spacing: 22) {
+            HStack(spacing: 10) {
+                ForEach(0..<reels, id: \.self) { reel in
+                    SlotMachineReelsStrip(position: Double(position(of: reel)), symbols: symbols, cell: cell)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: cell * 2.2)
+                        .background(.white, in: .rect(cornerRadius: 16))
+                        .overlay {
+                            // Light from above and below, so the symbols seem to turn on a drum.
+                            LinearGradient(colors: [.black.opacity(0.28), .clear, .clear, .black.opacity(0.28)], startPoint: .top, endPoint: .bottom)
+                                .clipShape(.rect(cornerRadius: 16))
+                                .allowsHitTesting(false)
+                        }
+                }
+            }
+            .padding(12)
+            .background(tint.gradient, in: .rect(cornerRadius: 26))
+            .overlay {
+                Capsule()
+                    .fill(SlotMachineReelsContrastingForeground(background: tint))
+                    .frame(height: 3)
+                    .padding(.horizontal, 4)
+                    .opacity(0.9)
+                    .allowsHitTesting(false)
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Reels")
+            .accessibilityValue(isSpinning ? Text("Spinning") : Text(verbatim: result.joined(separator: ", ")))
+
+            Button(action: spin) {
+                Text(spinTitle)
+                    .font(.title3.bold())
+                    .foregroundStyle(SlotMachineReelsContrastingForeground(background: tint))
+                    .frame(maxWidth: .infinity, minHeight: 56)
+                    .background(tint.gradient, in: .capsule)
+                    .opacity(isSpinning ? 0.5 : 1)
+            }
+            .buttonStyle(.plain)
+            .disabled(isSpinning || symbols.isEmpty)
+        }
+        .sensoryFeedback(.impact(weight: .medium), trigger: stops)
+    }
+
+    private func spin() {
+        guard !isSpinning, !symbols.isEmpty else { return }
+        isSpinning = true
+        if positions.count != reels { positions = (0..<reels).map(position(of:)) }
+
+        for reel in 0..<reels {
+            let target = Int.random(in: symbols.indices)
+            let next = SlotMachineReelsMath.stop(from: positions[reel], on: target, count: symbols.count, turns: 3 + reel)
+            let isLast = reel == reels - 1
+
+            withAnimation(reduceMotion ? nil : .timingCurve(0.2, 0.75, 0.25, 1, duration: firstStop + stagger * Double(reel))) {
+                positions[reel] = next
+            } completion: {
+                stops += 1
+                guard isLast else { return }
+                isSpinning = false
+                onResult(result)
+            }
+        }
+    }
+}
+
+/// One reel. `Animatable` redraws it for every frame of a spin, so the symbols travel past the line.
+private struct SlotMachineReelsStrip: View, Animatable {
+    var position: Double
+    let symbols: [String]
+    let cell: CGFloat
+
+    nonisolated var animatableData: Double {
+        get { position }
+        set { position = newValue }
+    }
+
+    var body: some View {
+        let base = Int(position.rounded(.down))
+        let fraction = position - Double(base)
+
+        ZStack {
+            if !symbols.isEmpty {
+                ForEach(-2...2, id: \.self) { row in
+                    Text(verbatim: symbols[SlotMachineReelsMath.index(at: base + row, count: symbols.count)])
+                        .font(.system(size: cell * 0.56))
+                        .frame(height: cell)
+                        .offset(y: (fraction - Double(row)) * cell)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .clipped()
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct SlotMachineReelsContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct SlotMachineReelsDemo: View {
+    private let symbols = ["🍒", "🍋", "🔔", "⭐️", "💎", "🍀"]
+
+    @State private var message: LocalizedStringResource = "Pull your luck"
+    @State private var spins = 0
+
+    var body: some View {
+        VStack(spacing: 28) {
+            VStack(spacing: 6) {
+                Text("Lucky Reels")
+                    .font(.system(.largeTitle, design: .rounded, weight: .heavy))
+                Text(message)
+                    .font(.title3.weight(.medium))
+                    .foregroundStyle(.white.opacity(0.8))
+                    .contentTransition(.opacity)
+            }
+
+            SlotMachineReels(symbols: symbols, tint: .yellow) { result in
+                spins += 1
+                message = Set(result).count == 1 ? "Three of a kind!" : (Set(result).count == 2 ? "So close" : "Try again")
+            }
+
+            Text("^[\(spins) spin](inflect: true)")
+                .font(.footnote)
+                .foregroundStyle(.white.opacity(0.6))
+        }
+        .foregroundStyle(.white)
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(LinearGradient(colors: [Color(red: 0.36, green: 0.05, blue: 0.2), Color(red: 0.1, green: 0.02, blue: 0.12)], startPoint: .top, endPoint: .bottom).ignoresSafeArea())
+        .animation(.easeInOut(duration: 0.25), value: spins)
+    }
+}
+
+#Preview {
+    SlotMachineReelsDemo()
+}
+```
+
 ## Spin Wheel Roulette
 
 A prize wheel that spins with friction and lands on a random slice.
@@ -34381,6 +36341,8 @@ struct SpinWheelRoulette: View {
         ZStack {
             wheel
                 .rotationEffect(.degrees(rotation))
+                .contentShape(.circle)
+                .onTapGesture(perform: spin)
                 .accessibilityElement()
                 .accessibilityLabel("Prize wheel")
                 .accessibilityValue(drawnSlices.joined(separator: ", "))
@@ -34540,6 +36502,202 @@ struct SpinWheelRouletteDemo: View {
 
 #Preview {
     SpinWheelRouletteDemo()
+}
+```
+
+## Profile Header Stretchy
+
+A profile whose cover stretches when the page is pulled down and closes into a bar with the name as it scrolls, while the avatar on its edge shrinks away.
+
+Category: Profiles. Minimum: iOS 18.0. Path: Components/Profiles/ProfileHeaderStretchy/ProfileHeaderStretchy.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+nonisolated enum ProfileHeaderStretchyMath {
+    /// How tall the cover is for a scroll offset: it grows when the content is pulled down,
+    /// and shrinks with the scroll until it is the bar.
+    static func coverHeight(offset: CGFloat, expanded: CGFloat, collapsed: CGFloat) -> CGFloat {
+        max(expanded - offset, min(collapsed, expanded))
+    }
+
+    /// From 0, the whole cover, to 1, only the bar.
+    static func progress(offset: CGFloat, expanded: CGFloat, collapsed: CGFloat) -> Double {
+        let travel = expanded - collapsed
+        guard travel > 0 else { return 1 }
+        return Double(min(max(offset / travel, 0), 1))
+    }
+
+    /// The avatar gets smaller as the cover closes, and is gone a little before it is the bar.
+    static func avatarScale(progress: Double) -> Double {
+        1 - 0.45 * min(max(progress, 0), 1)
+    }
+
+    static func avatarOpacity(progress: Double) -> Double {
+        1 - min(max((progress - 0.55) / 0.35, 0), 1)
+    }
+
+    /// The name shows in the bar over the last stretch, once the avatar is gone.
+    static func titleOpacity(progress: Double) -> Double {
+        min(max((progress - 0.8) / 0.2, 0), 1)
+    }
+}
+
+/// A profile whose cover stretches when the page is pulled down and closes into a bar with the
+/// name as it scrolls, while the avatar on its edge shrinks away.
+///
+/// The cover and the avatar follow the scroll itself, so there is nothing to slow down for
+/// Reduce Motion. Put it at the top of a screen: the cover runs under the status bar.
+struct ProfileHeaderStretchy<Cover: View, Avatar: View, Content: View>: View {
+    let name: String
+    var coverHeight: CGFloat = 190
+    @ViewBuilder var cover: () -> Cover
+    @ViewBuilder var avatar: () -> Avatar
+    @ViewBuilder var content: () -> Content
+
+    @State private var offset: CGFloat = 0
+    @ScaledMetric(relativeTo: .title) private var avatarSize = 88.0
+
+    private let barHeight: CGFloat = 44
+    private let margin: CGFloat = 20
+
+    var body: some View {
+        GeometryReader { proxy in
+            let collapsed = proxy.safeAreaInsets.top + barHeight
+            let progress = ProfileHeaderStretchyMath.progress(offset: offset, expanded: coverHeight, collapsed: collapsed)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    // Room for the cover, and for the half of the avatar that hangs under it.
+                    Color.clear
+                        .frame(height: coverHeight + avatarSize / 2 + 12)
+
+                    content()
+                }
+            }
+            .onScrollGeometryChange(for: CGFloat.self) { $0.contentOffset.y + $0.contentInsets.top } action: { _, new in
+                offset = new
+            }
+            .overlay(alignment: .top) {
+                header(height: ProfileHeaderStretchyMath.coverHeight(offset: offset, expanded: coverHeight, collapsed: collapsed), progress: progress)
+            }
+            .ignoresSafeArea(edges: .top)
+        }
+    }
+
+    private func header(height: CGFloat, progress: Double) -> some View {
+        cover()
+            .frame(maxWidth: .infinity)
+            .frame(height: height)
+            .clipped()
+            .overlay {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .opacity(progress)
+            }
+            .overlay(alignment: .bottom) {
+                Text(name)
+                    .font(.headline)
+                    .lineLimit(1)
+                    .frame(height: barHeight)
+                    .padding(.horizontal, margin)
+                    .opacity(ProfileHeaderStretchyMath.titleOpacity(progress: progress))
+                    .accessibilityHidden(progress < 1)
+            }
+            .overlay(alignment: .bottomLeading) {
+                avatar()
+                    .frame(width: avatarSize, height: avatarSize)
+                    .clipShape(.circle)
+                    .overlay { Circle().stroke(.background, lineWidth: 4) }
+                    .scaleEffect(ProfileHeaderStretchyMath.avatarScale(progress: progress), anchor: .bottomLeading)
+                    .opacity(ProfileHeaderStretchyMath.avatarOpacity(progress: progress))
+                    .padding(.leading, margin)
+                    // Half of it hangs under the cover.
+                    .alignmentGuide(.bottom) { $0[VerticalAlignment.center] }
+            }
+            .allowsHitTesting(false)
+    }
+}
+
+// MARK: - Demo
+
+struct ProfileHeaderStretchyDemo: View {
+    private let posts = ["Morning light over the bay", "Notes from the design review", "A slow Sunday in the hills", "Why I draw every day", "The best coffee in Lisbon", "Sketches for the next app", "Ten minutes of quiet", "What the sea taught me", "Small tools, big ideas", "Walking home at dusk"]
+
+    var body: some View {
+        ProfileHeaderStretchy(name: "Maya Okafor") {
+            LinearGradient(colors: [.orange, .pink, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)
+                .overlay {
+                    Image(systemName: "mountain.2.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(.white.opacity(0.25))
+                        .padding(.top, 60)
+                        .accessibilityHidden(true)
+                }
+        } avatar: {
+            LinearGradient(colors: [.indigo, .teal], startPoint: .top, endPoint: .bottom)
+                .overlay {
+                    Text("MO")
+                        .font(.title.bold())
+                        .foregroundStyle(.white)
+                }
+                .accessibilityLabel("Maya Okafor")
+        } content: {
+            VStack(alignment: .leading, spacing: 18) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Maya Okafor")
+                        .font(.title2.bold())
+                    Text("Designer. Draws, walks and writes about both.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(spacing: 28) {
+                    stat("128", "Posts")
+                    stat("4.2K", "Followers")
+                    stat("310", "Following")
+                }
+
+                Divider()
+
+                ForEach(posts, id: \.self) { post in
+                    HStack(spacing: 14) {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.quaternary)
+                            .frame(width: 56, height: 56)
+                            .overlay {
+                                Image(systemName: "photo")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .accessibilityHidden(true)
+                        Text(post)
+                            .font(.body)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 32)
+        }
+    }
+
+    private func stat(_ value: String, _ label: LocalizedStringResource) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(value)
+                .font(.headline)
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .combine)
+    }
+}
+
+#Preview {
+    ProfileHeaderStretchyDemo()
 }
 ```
 
@@ -35152,6 +37310,7 @@ struct ActivityRingsDemo: View {
                         Text("\(Int(goal.value * fill)) / \(Int(goal.goal)) \(goal.unit)")
                             .font(.body.monospacedDigit())
                             .foregroundStyle(.white.opacity(0.75))
+                            .contentTransition(.numericText())
                     }
                 }
             }
@@ -35242,6 +37401,8 @@ struct CircularProgressRing: View {
                     .trim(from: 0, to: value > 0 ? 0.001 : 0)
                     .stroke(colors.first ?? .blue, style: strokeStyle)
             }
+            // A round cap draws a dot even on a line with no length.
+            .opacity(value > 0 ? 1 : 0)
             .rotationEffect(.degrees(-90))
 
             Text(percentText)
@@ -35395,7 +37556,7 @@ struct CountdownRing: View {
             .padding(lineWidth / 2)
             .accessibilityElement()
             .accessibilityLabel("Time remaining")
-            .accessibilityValue("\(seconds) seconds")
+            .accessibilityValue("^[\(seconds) second](inflect: true)")
         }
         .aspectRatio(1, contentMode: .fit)
         .task(id: endDate) {
@@ -36010,6 +38171,8 @@ struct StepProgressIndicatorDemo: View {
                 .imageScale(.large)
                 .foregroundStyle(.indigo.gradient)
                 .contentTransition(.symbolEffect(.replace))
+                // The symbols are not equally tall. One height keeps what is below in place.
+                .frame(height: 56)
                 .accessibilityHidden(true)
 
             Text("Checkout")
@@ -36461,6 +38624,7 @@ struct HideOnScrollBarTracker: Equatable {
 struct HideOnScrollBarDemo: View {
     /// Only for this demo: it plays by itself until someone touches it.
     @State private var isAutoPlaying = true
+    @State private var selected = "Home"
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -36525,12 +38689,18 @@ struct HideOnScrollBarDemo: View {
     }
 
     private func barButton(_ title: String, symbol: String) -> some View {
-        Button {} label: {
+        Button {
+            selected = title
+        } label: {
             Image(systemName: symbol)
                 .font(.title3)
                 .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(.rect)
         }
+        .buttonStyle(.plain)
+        .foregroundStyle(selected == title ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
         .accessibilityLabel(title)
+        .accessibilityAddTraits(selected == title ? .isSelected : [])
     }
 }
 
@@ -36683,6 +38853,8 @@ struct NetflixRowsScroller: View {
 
     private let posterSpacing: CGFloat = 10
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 24) {
@@ -36726,8 +38898,20 @@ struct NetflixRowsScroller: View {
                 }
                 .clipShape(.rect(cornerRadius: 10, style: .continuous))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(NetflixRowsScrollerPosterStyle(reduceMotion: reduceMotion))
         .accessibilityLabel(item.name)
+    }
+}
+
+/// A poster dims and shrinks a little while it is pressed.
+private struct NetflixRowsScrollerPosterStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.7 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.95 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
     }
 }
 
@@ -36751,10 +38935,26 @@ struct NetflixRowsScrollerDemo: View {
         })
     }
 
+    @State private var selected: String?
+
     var body: some View {
-        NetflixRowsScroller(rows: rows)
-            .foregroundStyle(.white)
-            .background(.black)
+        NetflixRowsScroller(rows: rows) { title in
+            selected = title.name
+        }
+        .foregroundStyle(.white)
+        .background(.black)
+        .safeAreaInset(edge: .bottom) {
+            if let selected {
+                Label(selected, systemImage: "play.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
+                    .background(.ultraThinMaterial, in: .capsule)
+                    .environment(\.colorScheme, .dark)
+                    .padding(.bottom, 8)
+            }
+        }
     }
 
     private static func poster(_ colors: [Color], symbol: String) -> Image {
@@ -37123,9 +39323,11 @@ struct PagedGridLauncherDemo: View {
         ("Phone", "phone.fill"), ("Chat", "message.fill"), ("Video", "video.fill"), ("Radio", "dot.radiowaves.left.and.right"),
     ]
 
+    // A page shows 20, so the names of the first page come back on the next one with a number.
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
+        let copy = index / apps.count + 1
+        return PagedGridLauncherItem(id: "\(index)", title: copy == 1 ? "\(app.0)" : "\(app.0) \(copy)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {
@@ -37503,7 +39705,7 @@ struct PullProgressRefreshDemo: View {
                 Text("Inbox")
                     .font(.largeTitle.bold())
 
-                Text(updates == 0 ? "Pull down to refresh" : "Updated \(updates) times")
+                Text(updates == 0 ? "Pull down to refresh" : "Updated ^[\(updates) time](inflect: true)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .contentTransition(.numericText())
@@ -38576,11 +40778,15 @@ private struct DynamicHeightTrayModifier<Tray: View>: ViewModifier {
 
 struct DynamicHeightTrayDemo: View {
     private enum Step {
-        case options, confirm, done
+        case options, phrase, confirm, done
     }
+
+    private let words = ["river", "amber", "quiet", "orbit", "maple", "candle", "harbor", "velvet", "summit", "ember", "willow", "north"]
 
     @State private var isPresented = false
     @State private var step = Step.options
+    @State private var hasWallet = true
+    @State private var hidesSmallBalances = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -38589,10 +40795,14 @@ struct DynamicHeightTrayDemo: View {
                 .font(.system(size: 52))
                 .foregroundStyle(.tint)
                 .accessibilityHidden(true)
-            Text("Main Wallet")
+            Text(hasWallet ? "Main Wallet" : "No wallet")
                 .font(.title2.bold())
 
-            Button("Manage Wallet") {
+            Button(hasWallet ? "Manage Wallet" : "Add Wallet") {
+                guard hasWallet else {
+                    hasWallet = true
+                    return
+                }
                 step = .options
                 isPresented = true
             }
@@ -38606,6 +40816,7 @@ struct DynamicHeightTrayDemo: View {
             VStack(alignment: .leading, spacing: 16) {
                 switch step {
                 case .options: options
+                case .phrase: phrase
                 case .confirm: confirm
                 case .done: done
                 }
@@ -38625,12 +40836,39 @@ struct DynamicHeightTrayDemo: View {
         Text("Manage Wallet")
             .font(.title3.bold())
 
-        row("View Recovery Phrase", symbol: "key.fill") {}
-        row("Rename Wallet", symbol: "pencil") {}
-        row("Hide Small Balances", symbol: "eye.slash.fill") {}
+        row("View Recovery Phrase", symbol: "key.fill") {
+            go(to: .phrase)
+        }
+        row(hidesSmallBalances ? "Show Small Balances" : "Hide Small Balances", symbol: hidesSmallBalances ? "eye.fill" : "eye.slash.fill") {
+            hidesSmallBalances.toggle()
+        }
         row("Remove Wallet", symbol: "trash.fill", role: .destructive) {
             go(to: .confirm)
         }
+    }
+
+    @ViewBuilder private var phrase: some View {
+        Text("Recovery Phrase")
+            .font(.title3.bold())
+
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 3), spacing: 10) {
+            ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                Text("\(index + 1). \(word)")
+                    .font(.callout.monospaced())
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(.fill.quaternary, in: .rect(cornerRadius: 12))
+            }
+        }
+
+        Button("Back") {
+            go(to: .options)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder private var confirm: some View {
@@ -38647,6 +40885,7 @@ struct DynamicHeightTrayDemo: View {
             .buttonStyle(.bordered)
 
             Button("Remove", role: .destructive) {
+                hasWallet = false
                 go(to: .done)
             }
             .buttonStyle(.borderedProminent)
@@ -38661,6 +40900,13 @@ struct DynamicHeightTrayDemo: View {
             .foregroundStyle(.green)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
+
+        Button("Done") {
+            isPresented = false
+        }
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     private func row(_ title: String, symbol: String, role: ButtonRole? = nil, action: @escaping () -> Void) -> some View {
@@ -39255,7 +41501,13 @@ struct ScrollingTabStrip: View {
                 .frame(height: 3)
             }
             .fixedSize()
+            // A tab is shorter than a touch target. The padding widens what answers to a
+            // touch, and the same padding taken back keeps the strip as it was.
+            .padding(.horizontal, 2)
+            .padding(.vertical, 7)
             .contentShape(.rect)
+            .padding(.horizontal, -2)
+            .padding(.vertical, -7)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(tab)
@@ -40342,6 +42594,8 @@ struct ReadMoreText: View {
     @State private var collapsedHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let touchPadding: CGFloat = 13
+
     private var isTruncated: Bool { fullHeight > collapsedHeight + 1 && collapsedHeight > 0 }
     private var isFaded: Bool { isTruncated && !isExpanded }
 
@@ -40356,8 +42610,15 @@ struct ReadMoreText: View {
                 .mask { fade }
 
             if isTruncated {
-                Button(isExpanded ? lessLabel : moreLabel) {
+                Button {
                     isExpanded.toggle()
+                } label: {
+                    // A line of text is too short to hit. The padding widens what answers to a
+                    // touch, and the same padding taken back keeps the layout as it was.
+                    Text(isExpanded ? lessLabel : moreLabel)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
                 }
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.tint)
@@ -42468,6 +44729,10 @@ struct MatchedHeroCard<Detail: View>: View {
                     .font(.headline)
                     .padding(12)
                     .background(.white.opacity(0.2), in: .circle)
+                    // A little bigger for a touch than it looks, up to the size of a touch target.
+                    .padding(2)
+                    .contentShape(.rect)
+                    .padding(-2)
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Close")

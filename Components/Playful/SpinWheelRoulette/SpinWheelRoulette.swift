@@ -28,6 +28,8 @@ struct SpinWheelRoulette: View {
         ZStack {
             wheel
                 .rotationEffect(.degrees(rotation))
+                .contentShape(.circle)
+                .onTapGesture(perform: spin)
                 .accessibilityElement()
                 .accessibilityLabel("Prize wheel")
                 .accessibilityValue(drawnSlices.joined(separator: ", "))

@@ -27,6 +27,8 @@ struct AnimatedRadioButton: View {
 
                 Spacer(minLength: 0)
             }
+            // The whole row is the touch target, at the height recommended for one.
+            .frame(minHeight: 44)
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -80,7 +82,7 @@ struct AnimatedRadioButtonDemo: View {
                 Text("How should we send it?")
                     .font(.system(.title, design: .rounded, weight: .bold))
 
-                VStack(spacing: 22) {
+                VStack(spacing: 4) {
                     ForEach(options.indices, id: \.self) { index in
                         AnimatedRadioButton(title: options[index], isSelected: selection == index) {
                             isAutoPlaying = false

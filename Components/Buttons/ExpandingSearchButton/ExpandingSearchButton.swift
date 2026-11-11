@@ -36,6 +36,8 @@ struct ExpandingSearchButton: View {
 
             if isExpanded {
                 TextField(text: $text) { Text(prompt) }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -113,6 +115,10 @@ struct ExpandingSearchButtonDemo: View {
                     Label(row.id, systemImage: row.systemImage)
                         .font(.title3)
                 }
+            }
+
+            if visibleRows.isEmpty {
+                ContentUnavailableView.search(text: text)
             }
 
             Spacer(minLength: 0)

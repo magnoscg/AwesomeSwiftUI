@@ -118,7 +118,11 @@ struct NestedCommentThread: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(tint)
                 .frame(minHeight: 28)
+                // The padding widens what answers to a touch, and the same padding taken
+                // back keeps the thread as compact as it was.
+                .padding(.vertical, 8)
                 .contentShape(.rect)
+                .padding(.vertical, -8)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(title) to \(comment.author)")

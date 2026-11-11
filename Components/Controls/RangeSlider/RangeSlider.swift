@@ -182,7 +182,7 @@ struct RangeSliderDemo: View {
             VStack(spacing: 0) {
                 histogram
 
-                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 20, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
+                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 30, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
             }
 
             HStack {
@@ -191,7 +191,7 @@ struct RangeSliderDemo: View {
                 amount("Maximum", price.upperBound)
             }
 
-            Text("\(matches) stays")
+            Text("^[\(matches) stay](inflect: true)")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)

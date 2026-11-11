@@ -89,18 +89,21 @@ struct SideDrawerDemo: View {
 
     var body: some View {
         SideDrawer(isOpen: $isOpen) {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text("Workspace")
                     .font(.title2.bold())
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 20)
 
                 ForEach(destinations, id: \.0) { name, symbol in
                     Button {
                         current = symbol
                         isOpen = false
                     } label: {
+                        // The whole row answers to a touch, not only its text.
                         Label(name, systemImage: symbol)
                             .font(.headline)
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .contentShape(.rect)
                     }
                 }
 

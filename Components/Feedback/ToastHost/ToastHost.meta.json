@@ -14,13 +14,13 @@
   "origin": { "kind": "original" },
   "previewSteps": [
     "sleep 0.5",
-    "tap -x 201 -y 477",
+    "tap --label 'Copy Link'",
     "sleep 1.5",
-    "tap -x 201 -y 541",
+    "tap --label 'Edit Profile'",
     "sleep 1.1",
-    "tap -x 201 -y 245",
+    "tap --label 'Save Changes'",
     "sleep 1.2",
-    "tap -x 201 -y 297",
+    "tap --label 'Upload Photo'",
     "sleep 3"
   ]
 }
