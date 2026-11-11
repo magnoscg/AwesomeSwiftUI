@@ -19,6 +19,8 @@ on `main`.
   had.
 - Wheel Picker draws its wheel around the selected row. The effect was
   centered two rows below it, so the selected value looked small and faded.
+- Dropdown Select Menu opens its list under the field, with every option. It
+  opened over the field, squeezed to the height of one row.
 
 ## 0.5.1 - 2026-11-11
 
