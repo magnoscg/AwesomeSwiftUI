@@ -2187,7 +2187,7 @@ struct ElasticDragButton: View {
 
             Image(systemName: systemImage)
                 .font(.largeTitle.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(ElasticDragButtonContrastingForeground(background: tint))
         }
         .frame(width: diameter, height: diameter)
         .offset(pull)
@@ -2229,6 +2229,18 @@ struct ElasticDragButton: View {
                     action()
                 }
             }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ElasticDragButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -2735,7 +2747,7 @@ private struct FloatingActionMenuStage: View {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
                     .rotationEffect(.degrees(isOpen ? 135 : 0))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(FloatingActionMenuContrastingForeground(background: tint))
                     .frame(width: buttonSize, height: buttonSize)
                     .background(tint.gradient, in: Circle())
                     .shadow(color: tint.opacity(0.4), radius: 12, y: 6)
@@ -2783,7 +2795,7 @@ private struct FloatingActionMenuStage: View {
         } label: {
             Image(systemName: item.systemImage)
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(FloatingActionMenuContrastingForeground(background: item.tint))
                 .frame(width: itemSize, height: itemSize)
                 .background(item.tint, in: Circle())
                 .shadow(color: .black.opacity(0.18), radius: 8, y: 4)
@@ -2799,6 +2811,18 @@ private struct FloatingActionMenuStage: View {
             reduceMotion ? nil : .spring(duration: 0.42, bounce: 0.32).delay(isOpen ? Double(index) * 0.04 : 0),
             value: isOpen
         )
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct FloatingActionMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3095,7 +3119,7 @@ struct HoldToConfirmButton: View {
                     .padding(ringWidth * 1.75)
                 Image(systemName: isConfirmed ? "checkmark" : systemImage)
                     .font(.title.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(HoldToConfirmButtonContrastingForeground(background: isConfirmed ? .green : tint))
                     .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
             }
             .frame(width: diameter, height: diameter)
@@ -3151,6 +3175,18 @@ struct HoldToConfirmButton: View {
                 isConfirmed = false
             }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct HoldToConfirmButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3384,7 +3420,7 @@ struct MorphingSubmitButton: View {
 
                 if phase == .loading {
                     ProgressView()
-                        .tint(.white)
+                        .tint(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
                         .transition(.opacity)
                 }
 
@@ -3394,7 +3430,7 @@ struct MorphingSubmitButton: View {
                         .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
             .padding(.horizontal, isCollapsed ? 0 : 52)
             .frame(width: isCollapsed ? height : nil, height: height)
             .background(
@@ -3418,6 +3454,18 @@ struct MorphingSubmitButton: View {
             try? await Task.sleep(for: .seconds(successDuration))
             withAnimation(morph) { phase = .idle }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct MorphingSubmitButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3835,7 +3883,7 @@ struct PulseRingButton: View {
             Button(action: action) {
                 Image(systemName: systemImage)
                     .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(PulseRingButtonContrastingForeground(background: tint))
                     .frame(width: diameter, height: diameter)
                     .background(tint.gradient, in: .circle)
                     .contentShape(.circle)
@@ -3863,6 +3911,18 @@ struct PulseRingButton: View {
                     ? .easeOut(duration: ringDuration).delay(startDelay)
                     : .linear(duration: 0.01).delay(endDelay)
             }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct PulseRingButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -4039,7 +4099,7 @@ struct ShrinkingExtendedButton: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(ShrinkingExtendedButtonContrastingForeground(background: tint))
             .padding(.horizontal, isExtended ? 22 : 0)
             .frame(minWidth: height, minHeight: height)
             .background(tint.gradient, in: Capsule())
@@ -4065,6 +4125,18 @@ struct ShrinkingExtendedButtonScrollTracker: ViewModifier {
         } action: { _, shouldExtend in
             isExtended = shouldExtend
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ShrinkingExtendedButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

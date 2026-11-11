@@ -12,6 +12,14 @@ on `main`.
   version your app runs on and by level. The filters stay in the address, so a
   filtered view can be shared.
 
+### Fixed
+
+- Text and icons drawn over a color you choose stay readable on a light one:
+  they turn black on yellow or a pastel and stay white on the system's own
+  colors. So far in the six buttons that take a tint: Elastic Drag Button,
+  Floating Action Menu, Hold To Confirm Button, Morphing Submit Button, Pulse
+  Ring Button and Shrinking Extended Button.
+
 ## 0.4.0 - 2026-11-11
 
 ### Added

@@ -36,7 +36,7 @@ struct ShrinkingExtendedButton: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(ShrinkingExtendedButtonContrastingForeground(background: tint))
             .padding(.horizontal, isExtended ? 22 : 0)
             .frame(minWidth: height, minHeight: height)
             .background(tint.gradient, in: Capsule())
@@ -62,6 +62,18 @@ struct ShrinkingExtendedButtonScrollTracker: ViewModifier {
         } action: { _, shouldExtend in
             isExtended = shouldExtend
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ShrinkingExtendedButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
