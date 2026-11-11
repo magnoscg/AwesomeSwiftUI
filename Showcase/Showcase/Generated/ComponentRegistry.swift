@@ -522,6 +522,15 @@ enum ComponentRegistry {
             demo: { AnyView(TapbackReactionBubbleDemo()) }
         ),
         ShowcaseEntry(
+            id: "typing-indicator-bubble",
+            title: "Typing Indicator Bubble",
+            category: "Chat",
+            summary: "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+            keywords: ["typing indicator", "three dots", "chat", "message", "is typing", "bubble", "ellipsis", "indicador de escritura", "tres puntos", "chat", "mensaje", "está escribiendo", "burbuja", "puntos suspensivos"],
+            minIOS: "18.0",
+            demo: { AnyView(TypingIndicatorBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",
