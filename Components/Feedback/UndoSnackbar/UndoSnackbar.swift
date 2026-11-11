@@ -49,7 +49,7 @@ struct UndoSnackbar: View {
     }
 
     private func runTimer() async {
-        AccessibilityNotification.Announcement("\(message). Undo available.").post()
+        AccessibilityNotification.Announcement(String(localized: "\(message). Undo available.")).post()
         let seconds = voiceOverEnabled ? duration * 2 : duration
         if !reduceMotion {
             withAnimation(.linear(duration: seconds)) { remaining = 0 }

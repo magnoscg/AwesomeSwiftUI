@@ -20,6 +20,8 @@ struct InteractiveLineChart: View {
     var format: (Double) -> String = { $0.formatted() }
 
     @State private var touchedDate: Date?
+    @State private var tooltipWidth: CGFloat = 0
+    @Environment(\.layoutDirection) private var layoutDirection
     @ScaledMetric(relativeTo: .caption) private var tooltipHeadroom = 60.0
 
     private var selected: InteractiveLineChartPoint? {
@@ -52,9 +54,6 @@ struct InteractiveLineChart: View {
                 RuleMark(x: .value("Selected", selected.date))
                     .foregroundStyle(.secondary)
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
-                    .annotation(position: .top, spacing: 6, overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
-                        tooltip(for: selected)
-                    }
                     .accessibilityHidden(true)
 
                 PointMark(x: .value("Selected", selected.date), y: .value("Value", selected.value))
@@ -63,11 +62,31 @@ struct InteractiveLineChart: View {
                     .accessibilityHidden(true)
             }
         }
-        .chartYScale(domain: domain)
+        .chartYScale(domain: domain, range: .plotDimension(endPadding: tooltipHeadroom))
         // Keeps the last date inside the plot. Before iOS 26 it is drawn half cut at the trailing edge.
         .chartXAxis { AxisMarks(preset: .aligned) }
         .chartXSelection(value: $touchedDate)
-        .padding(.top, tooltipHeadroom)
+        // Drawn over the chart and not as an annotation of the rule: on iOS 27 that
+        // annotation is not drawn at all.
+        .chartOverlay { proxy in
+            GeometryReader { geometry in
+                if let selected, let plotFrame = proxy.plotFrame, let x = proxy.position(forX: selected.date) {
+                    let plot = geometry[plotFrame]
+                    tooltip(for: selected)
+                        .environment(\.layoutDirection, layoutDirection)
+                        .fixedSize()
+                        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { tooltipWidth = $0 }
+                        .position(
+                            x: InteractiveLineChartLogic.tooltipX(at: plot.minX + x, width: tooltipWidth, in: plot.minX...plot.maxX),
+                            y: plot.minY + tooltipHeadroom / 2
+                        )
+                        .allowsHitTesting(false)
+                }
+            }
+            // The chart reports screen points, and a position is mirrored in a right-to-left
+            // layout. Left to right here keeps the tooltip over the rule.
+            .environment(\.layoutDirection, .leftToRight)
+        }
         .sensoryFeedback(.selection, trigger: selected?.id)
     }
 
@@ -81,13 +100,22 @@ struct InteractiveLineChart: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(.regularMaterial, in: .rect(cornerRadius: 12))
+        // A material does not draw inside a chart annotation: it comes out black, or not at all.
+        .background(Color(.secondarySystemBackground), in: .rect(cornerRadius: 12))
+        .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(.separator) }
     }
 }
 
 enum InteractiveLineChartLogic {
     static func nearest(to date: Date, in points: [InteractiveLineChartPoint]) -> InteractiveLineChartPoint? {
         points.min { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }
+    }
+
+    /// The center of the tooltip: over the point, but never past either end of the plot.
+    static func tooltipX(at x: CGFloat, width: CGFloat, in plot: ClosedRange<CGFloat>) -> CGFloat {
+        let half = max(width, 0) / 2
+        guard plot.upperBound - plot.lowerBound > half * 2 else { return (plot.lowerBound + plot.upperBound) / 2 }
+        return min(max(x, plot.lowerBound + half), plot.upperBound - half)
     }
 
     /// The vertical range with some breathing room. A flat or empty series still gets a valid range.

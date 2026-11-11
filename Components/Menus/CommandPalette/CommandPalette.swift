@@ -39,11 +39,18 @@ enum CommandPaletteFilter {
         }
         return titles.map { CommandPaletteGroup(title: $0, commands: bySection[$0] ?? []) }
     }
+
+    /// The command at the top of the list for a query, which Return runs. Nothing for an empty query.
+    static func firstMatch(in commands: [CommandPaletteCommand], query: String) -> CommandPaletteCommand? {
+        guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        return groups(commands, query: query).first?.commands.first
+    }
 }
 
 /// A searchable list of commands, filtered as you type. Show it in a sheet.
 ///
-/// The search field takes focus when it appears. Running a command closes the sheet first.
+/// The search field takes focus when it appears, and Return runs the first match.
+/// Running a command closes the sheet first.
 struct CommandPalette: View {
     let commands: [CommandPaletteCommand]
 
@@ -76,6 +83,10 @@ struct CommandPalette: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Type a command"
             )
+            // Return runs the first match, as in a command palette on a keyboard.
+            .onSubmit(of: .search) {
+                if let first = CommandPaletteFilter.firstMatch(in: commands, query: query) { run(first) }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }
@@ -87,8 +98,7 @@ struct CommandPalette: View {
 
     private func row(_ command: CommandPaletteCommand) -> some View {
         Button {
-            dismiss()
-            command.action()
+            run(command)
         } label: {
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 12) {
@@ -102,6 +112,11 @@ struct CommandPalette: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(command.title)
+    }
+
+    private func run(_ command: CommandPaletteCommand) {
+        dismiss()
+        command.action()
     }
 
     private func titleLabel(_ command: CommandPaletteCommand) -> some View {

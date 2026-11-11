@@ -1450,6 +1450,7 @@ struct ImageDerivedGradientBackground: View {
     var fallback: [Color] = [.indigo, .black]
 
     @State private var colors: [Color]?
+    @State private var previous: [Color]?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -1457,6 +1458,10 @@ struct ImageDerivedGradientBackground: View {
 
         ZStack {
             Color.black
+
+            // The gradient before stays underneath while the new one fades in over it.
+            // Fading one out as the other fades in would dip through the black.
+            LinearGradient(colors: previous ?? shown, startPoint: .top, endPoint: .bottom)
 
             LinearGradient(colors: shown, startPoint: .top, endPoint: .bottom)
                 .id(shown)
@@ -1467,6 +1472,7 @@ struct ImageDerivedGradientBackground: View {
         .task(id: Request(image: image, bands: bands)) {
             let sampled = sampledColors()
             guard !Task.isCancelled else { return }
+            previous = colors ?? fallback
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.8)) { colors = sampled }
         }
     }
@@ -6807,6 +6813,8 @@ struct InteractiveLineChart: View {
     var format: (Double) -> String = { $0.formatted() }
 
     @State private var touchedDate: Date?
+    @State private var tooltipWidth: CGFloat = 0
+    @Environment(\.layoutDirection) private var layoutDirection
     @ScaledMetric(relativeTo: .caption) private var tooltipHeadroom = 60.0
 
     private var selected: InteractiveLineChartPoint? {
@@ -6839,9 +6847,6 @@ struct InteractiveLineChart: View {
                 RuleMark(x: .value("Selected", selected.date))
                     .foregroundStyle(.secondary)
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
-                    .annotation(position: .top, spacing: 6, overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
-                        tooltip(for: selected)
-                    }
                     .accessibilityHidden(true)
 
                 PointMark(x: .value("Selected", selected.date), y: .value("Value", selected.value))
@@ -6850,11 +6855,31 @@ struct InteractiveLineChart: View {
                     .accessibilityHidden(true)
             }
         }
-        .chartYScale(domain: domain)
+        .chartYScale(domain: domain, range: .plotDimension(endPadding: tooltipHeadroom))
         // Keeps the last date inside the plot. Before iOS 26 it is drawn half cut at the trailing edge.
         .chartXAxis { AxisMarks(preset: .aligned) }
         .chartXSelection(value: $touchedDate)
-        .padding(.top, tooltipHeadroom)
+        // Drawn over the chart and not as an annotation of the rule: on iOS 27 that
+        // annotation is not drawn at all.
+        .chartOverlay { proxy in
+            GeometryReader { geometry in
+                if let selected, let plotFrame = proxy.plotFrame, let x = proxy.position(forX: selected.date) {
+                    let plot = geometry[plotFrame]
+                    tooltip(for: selected)
+                        .environment(\.layoutDirection, layoutDirection)
+                        .fixedSize()
+                        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { tooltipWidth = $0 }
+                        .position(
+                            x: InteractiveLineChartLogic.tooltipX(at: plot.minX + x, width: tooltipWidth, in: plot.minX...plot.maxX),
+                            y: plot.minY + tooltipHeadroom / 2
+                        )
+                        .allowsHitTesting(false)
+                }
+            }
+            // The chart reports screen points, and a position is mirrored in a right-to-left
+            // layout. Left to right here keeps the tooltip over the rule.
+            .environment(\.layoutDirection, .leftToRight)
+        }
         .sensoryFeedback(.selection, trigger: selected?.id)
     }
 
@@ -6868,13 +6893,22 @@ struct InteractiveLineChart: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(.regularMaterial, in: .rect(cornerRadius: 12))
+        // A material does not draw inside a chart annotation: it comes out black, or not at all.
+        .background(Color(.secondarySystemBackground), in: .rect(cornerRadius: 12))
+        .overlay { RoundedRectangle(cornerRadius: 12).strokeBorder(.separator) }
     }
 }
 
 enum InteractiveLineChartLogic {
     static func nearest(to date: Date, in points: [InteractiveLineChartPoint]) -> InteractiveLineChartPoint? {
         points.min { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }
+    }
+
+    /// The center of the tooltip: over the point, but never past either end of the plot.
+    static func tooltipX(at x: CGFloat, width: CGFloat, in plot: ClosedRange<CGFloat>) -> CGFloat {
+        let half = max(width, 0) / 2
+        guard plot.upperBound - plot.lowerBound > half * 2 else { return (plot.lowerBound + plot.upperBound) / 2 }
+        return min(max(x, plot.lowerBound + half), plot.upperBound - half)
     }
 
     /// The vertical range with some breathing room. A flat or empty series still gets a valid range.
@@ -11296,16 +11330,23 @@ struct SwipeToConfirmSlider: View {
                     .padding(.horizontal, height)
                     .frame(maxWidth: .infinity)
 
-                Image(systemName: isConfirmed ? "checkmark" : "chevron.forward.2")
-                    .font(.title3.bold())
-                    .foregroundStyle(tint)
-                    .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
-                    .frame(width: thumbWidth, height: thumbWidth)
-                    .background(.white, in: .circle)
-                    .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
-                    .contentShape(.circle)
-                    .offset(x: inset + offset)
-                    .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
+                // Both symbols live in the thumb and fade in place. One image that changes its
+                // symbol leaves the old one behind while the thumb travels back.
+                ZStack {
+                    Image(systemName: "chevron.forward.2")
+                        .opacity(isConfirmed ? 0 : 1)
+                    Image(systemName: "checkmark")
+                        .opacity(isConfirmed ? 1 : 0)
+                        .scaleEffect(isConfirmed || reduceMotion ? 1 : 0.4)
+                }
+                .font(.title3.bold())
+                .foregroundStyle(tint)
+                .frame(width: thumbWidth, height: thumbWidth)
+                .background(.white, in: .circle)
+                .shadow(color: .black.opacity(0.2), radius: 5, y: 3)
+                .contentShape(.circle)
+                .offset(x: inset + offset)
+                .gesture(drag(trackWidth: trackWidth, thumbWidth: thumbWidth))
             }
         }
         .frame(height: height)
@@ -16869,7 +16910,7 @@ struct UndoSnackbar: View {
     }
 
     private func runTimer() async {
-        AccessibilityNotification.Announcement("\(message). Undo available.").post()
+        AccessibilityNotification.Announcement(String(localized: "\(message). Undo available.")).post()
         let seconds = voiceOverEnabled ? duration * 2 : duration
         if !reduceMotion {
             withAnimation(.linear(duration: seconds)) { remaining = 0 }
@@ -17300,6 +17341,8 @@ private struct DoubleTapHeartOverlayHeart: View {
 struct DoubleTapHeartOverlayDemo: View {
     @State private var isLiked = false
     @State private var burst: DoubleTapHeartOverlayRequest?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -17334,6 +17377,7 @@ struct DoubleTapHeartOverlayDemo: View {
             .clipShape(.rect(cornerRadius: 24, style: .continuous))
             .padding(20)
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playHearts()
@@ -17343,14 +17387,14 @@ struct DoubleTapHeartOverlayDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playHearts() async {
         let points = [UnitPoint(x: 0.5, y: 0.45), UnitPoint(x: 0.28, y: 0.28), UnitPoint(x: 0.72, y: 0.62)]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for point in points {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 burst = DoubleTapHeartOverlayRequest(point: point)
             }
             try? await Task.sleep(for: .seconds(0.7))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             isLiked = false
         }
     }
@@ -18503,8 +18547,16 @@ enum SwipeActionRowPhysics {
     }
 }
 
+/// The one row that is open, shared by every row, so opening another closes it.
+@MainActor @Observable private final class SwipeActionRowOpenRow {
+    static let shared = SwipeActionRowOpenRow()
+
+    var id: UUID?
+}
+
 /// A row that reveals action buttons under a horizontal swipe and snaps open or closed.
 ///
+/// Only one row is open at a time: opening another closes it, as in a system list.
 /// Vertical drags are left to the scroll view around it. VoiceOver reaches the same buttons as
 /// custom actions, and with Reduce Motion on the row settles without animating.
 struct SwipeActionRow<Content: View>: View {
@@ -18512,7 +18564,7 @@ struct SwipeActionRow<Content: View>: View {
     var buttonWidth: CGFloat = 80
     @ViewBuilder var content: () -> Content
 
-    @State private var isOpen = false
+    @State private var id = UUID()
     @GestureState private var translation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.layoutDirection) private var layoutDirection
@@ -18520,6 +18572,7 @@ struct SwipeActionRow<Content: View>: View {
     /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
     private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
+    private var isOpen: Bool { SwipeActionRowOpenRow.shared.id == id }
     private var width: CGFloat { max(buttonWidth, 0) }
     private var revealWidth: CGFloat { CGFloat(actions.count) * width }
     private var resting: CGFloat { isOpen ? -revealWidth : 0 }
@@ -18550,6 +18603,10 @@ struct SwipeActionRow<Content: View>: View {
             .background(alignment: .trailing) { buttons }
             .clipped()
             .simultaneousGesture(swipe)
+            // A tap on another row closes the one that is open, and still reaches that row.
+            .simultaneousGesture(TapGesture().onEnded {
+                if !isOpen { withAnimation(animation) { SwipeActionRowOpenRow.shared.id = nil } }
+            })
             .animation(animation, value: translation == 0)
     }
 
@@ -18594,12 +18651,21 @@ struct SwipeActionRow<Content: View>: View {
                     predictedTranslation: value.predictedEndTranslation.width * forward,
                     revealWidth: revealWidth
                 )
-                withAnimation(animation) { isOpen = opens }
+                withAnimation(animation) { setOpen(opens) }
             }
     }
 
     private func close() {
-        withAnimation(animation) { isOpen = false }
+        withAnimation(animation) { setOpen(false) }
+    }
+
+    private func setOpen(_ opens: Bool) {
+        let openRow = SwipeActionRowOpenRow.shared
+        if opens {
+            openRow.id = id
+        } else if openRow.id == id {
+            openRow.id = nil
+        }
     }
 }
 
@@ -20408,6 +20474,8 @@ struct DoubleTapZoomImageDemo: View {
     private let photo = demoPhoto()
 
     @State private var zoomTarget: UnitPoint?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -20422,6 +20490,7 @@ struct DoubleTapZoomImageDemo: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await playZooms()
@@ -20431,10 +20500,10 @@ struct DoubleTapZoomImageDemo: View {
     // Only the demo plays by itself, because a real double tap needs a finger.
     private func playZooms() async {
         let targets: [UnitPoint?] = [UnitPoint(x: 0.75, y: 0.2), nil, UnitPoint(x: 0.3, y: 0.7), nil]
-        while !Task.isCancelled {
+        while isAutoPlaying {
             for target in targets {
                 try? await Task.sleep(for: .seconds(1.2))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 zoomTarget = target
             }
         }
@@ -22708,17 +22777,23 @@ struct RichTextEditor: View {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 6) {
-                    toggle("Bold", symbol: "bold", isOn: font.isBold) { attributes in
-                        attributes.font = (attributes.font ?? .body).bold(!font.isBold)
+                    // Each button reads its state once, so every run of the selection ends the same.
+                    let isBold = font.isBold
+                    let isItalic = font.isItalic
+                    let isUnderlined = typing.underlineStyle != nil
+                    let isStruck = typing.strikethroughStyle != nil
+
+                    toggle("Bold", symbol: "bold", isOn: isBold) { attributes in
+                        attributes.font = (attributes.font ?? .body).bold(!isBold)
                     }
-                    toggle("Italic", symbol: "italic", isOn: font.isItalic) { attributes in
-                        attributes.font = (attributes.font ?? .body).italic(!font.isItalic)
+                    toggle("Italic", symbol: "italic", isOn: isItalic) { attributes in
+                        attributes.font = (attributes.font ?? .body).italic(!isItalic)
                     }
-                    toggle("Underline", symbol: "underline", isOn: typing.underlineStyle != nil) { attributes in
-                        attributes.underlineStyle = attributes.underlineStyle == nil ? .single : nil
+                    toggle("Underline", symbol: "underline", isOn: isUnderlined) { attributes in
+                        attributes.underlineStyle = isUnderlined ? nil : .single
                     }
-                    toggle("Strikethrough", symbol: "strikethrough", isOn: typing.strikethroughStyle != nil) { attributes in
-                        attributes.strikethroughStyle = attributes.strikethroughStyle == nil ? .single : nil
+                    toggle("Strikethrough", symbol: "strikethrough", isOn: isStruck) { attributes in
+                        attributes.strikethroughStyle = isStruck ? nil : .single
                     }
 
                     Divider()
@@ -22727,9 +22802,8 @@ struct RichTextEditor: View {
 
                     ForEach(highlights, id: \.self) { color in
                         Button {
-                            text.transformAttributes(in: &selection) { attributes in
-                                attributes.backgroundColor = RichTextEditorLogic.toggled(attributes.backgroundColor, choosing: color.opacity(0.4))
-                            }
+                            let highlight = RichTextEditorLogic.toggled(typing.backgroundColor, choosing: color.opacity(0.4))
+                            apply { $0.backgroundColor = highlight }
                         } label: {
                             Image(systemName: "highlighter")
                                 .frame(width: buttonSize, height: buttonSize)
@@ -22746,9 +22820,38 @@ struct RichTextEditor: View {
         }
     }
 
+    /// Changes every run of the selection on its own attributes, so a run keeps what makes it
+    /// different, like the size of a title. With no selection it changes what is typed next.
+    private func apply(_ change: (inout AttributeContainer) -> Void) {
+        guard case .ranges(let ranges) = selection.indices(in: text), !ranges.isEmpty else {
+            text.transformAttributes(in: &selection, body: change)
+            return
+        }
+        // Indices do not survive a change, so the selection is kept as offsets and put back.
+        let offsets = ranges.ranges.map { range in
+            (
+                text.characters.distance(from: text.startIndex, to: range.lowerBound),
+                text.characters.distance(from: text.startIndex, to: range.upperBound)
+            )
+        }
+        for (lower, upper) in offsets {
+            let range = text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper)
+            for run in Array(text[range].runs) {
+                var attributes = run.attributes
+                change(&attributes)
+                text[run.range].setAttributes(attributes)
+            }
+        }
+        var selected = RangeSet<AttributedString.Index>()
+        for (lower, upper) in offsets {
+            selected.insert(contentsOf: text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper))
+        }
+        selection = AttributedTextSelection(ranges: selected)
+    }
+
     private func toggle(_ title: String, symbol: String, isOn: Bool, change: @escaping (inout AttributeContainer) -> Void) -> some View {
         Button {
-            text.transformAttributes(in: &selection, body: change)
+            apply(change)
         } label: {
             Image(systemName: symbol)
                 .font(.body.weight(.semibold))
@@ -23941,12 +24044,13 @@ struct AdaptiveColumnsGridDemo: View {
     }
 
     @State private var size = Size.narrow
-    @State private var autoPlays = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var selection: Binding<Size> {
         Binding(get: { size }, set: { newValue in
-            autoPlays = false
+            isAutoPlaying = false
             size = newValue
         })
     }
@@ -23973,11 +24077,12 @@ struct AdaptiveColumnsGridDemo: View {
             }
             .padding(20)
         }
-        .task(id: autoPlays && !reduceMotion) {
-            guard autoPlays, !reduceMotion else { return }
-            while !Task.isCancelled {
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: isAutoPlaying && !reduceMotion) {
+            guard isAutoPlaying, !reduceMotion else { return }
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.1))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 let all = Size.allCases
                 let next = ((all.firstIndex(of: size) ?? 0) + 1) % all.count
                 withAnimation(.smooth(duration: 0.4)) { size = all[next] }
@@ -24693,12 +24798,13 @@ struct MasonryLayoutDemo: View {
     ]
 
     @State private var columns = 2
-    @State private var autoPlays = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var columnsBinding: Binding<Int> {
         Binding(get: { columns }, set: { newValue in
-            autoPlays = false
+            isAutoPlaying = false
             columns = newValue
         })
     }
@@ -24727,11 +24833,12 @@ struct MasonryLayoutDemo: View {
             }
             .padding(20)
         }
-        .task(id: autoPlays && !reduceMotion) {
-            guard autoPlays, !reduceMotion else { return }
-            while !Task.isCancelled {
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task(id: isAutoPlaying && !reduceMotion) {
+            guard isAutoPlaying, !reduceMotion else { return }
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.3))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 withAnimation(.smooth(duration: 0.5)) { columns = columns == 2 ? 3 : 2 }
             }
         }
@@ -26930,6 +27037,23 @@ nonisolated enum MapAnnotationCalloutLogic {
         guard latitude.isFinite, span.isFinite else { return 0 }
         return min(max(latitude + max(span, 0) * shift, -90), 90)
     }
+
+    /// The region that shows every item with some room around them. Nil when there are none.
+    /// `smallest` keeps a single pin, or pins on one spot, from zooming all the way in.
+    static func region(fitting items: [MapAnnotationCalloutItem], room: Double = 1.6, smallest: Double = 0.01) -> MKCoordinateRegion? {
+        let latitudes = items.map(\.latitude).filter(\.isFinite)
+        let longitudes = items.map(\.longitude).filter(\.isFinite)
+        guard let south = latitudes.min(), let north = latitudes.max(),
+              let west = longitudes.min(), let east = longitudes.max() else { return nil }
+
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: (south + north) / 2, longitude: (west + east) / 2),
+            span: MKCoordinateSpan(
+                latitudeDelta: min(max((north - south) * room, smallest), 180),
+                longitudeDelta: min(max((east - west) * room, smallest), 360)
+            )
+        )
+    }
 }
 
 /// A map of pins with a short label each. Tap one and it turns dark and opens a callout above
@@ -26962,6 +27086,13 @@ struct MapAnnotationCallout<Callout: View>: View {
         .mapStyle(.standard(pointsOfInterest: .excludingAll))
         .onMapCameraChange { context in
             visibleSpan = context.region.span
+        }
+        // The map starts on a region of its own, so the span is known from the start. With the
+        // automatic camera it is not, and the first pin tapped also zoomed the map.
+        .onAppear {
+            guard let region = MapAnnotationCalloutLogic.region(fitting: items) else { return }
+            position = .region(region)
+            visibleSpan = region.span
         }
         .onChange(of: selection) { _, id in
             guard let item = items.first(where: { $0.id == id }) else { return }
@@ -28435,6 +28566,8 @@ struct SpinningVinylArt<Artwork: View>: View {
 
 struct SpinningVinylArtDemo: View {
     @State private var isPlaying = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -28464,11 +28597,12 @@ struct SpinningVinylArtDemo: View {
                 .accessibilityLabel(isPlaying ? "Pause" : "Play")
             }
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(isPlaying ? 2.2 : 1.4))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 isPlaying.toggle()
             }
         }
@@ -29303,11 +29437,18 @@ enum CommandPaletteFilter {
         }
         return titles.map { CommandPaletteGroup(title: $0, commands: bySection[$0] ?? []) }
     }
+
+    /// The command at the top of the list for a query, which Return runs. Nothing for an empty query.
+    static func firstMatch(in commands: [CommandPaletteCommand], query: String) -> CommandPaletteCommand? {
+        guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return nil }
+        return groups(commands, query: query).first?.commands.first
+    }
 }
 
 /// A searchable list of commands, filtered as you type. Show it in a sheet.
 ///
-/// The search field takes focus when it appears. Running a command closes the sheet first.
+/// The search field takes focus when it appears, and Return runs the first match.
+/// Running a command closes the sheet first.
 struct CommandPalette: View {
     let commands: [CommandPaletteCommand]
 
@@ -29340,6 +29481,10 @@ struct CommandPalette: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Type a command"
             )
+            // Return runs the first match, as in a command palette on a keyboard.
+            .onSubmit(of: .search) {
+                if let first = CommandPaletteFilter.firstMatch(in: commands, query: query) { run(first) }
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }
@@ -29351,8 +29496,7 @@ struct CommandPalette: View {
 
     private func row(_ command: CommandPaletteCommand) -> some View {
         Button {
-            dismiss()
-            command.action()
+            run(command)
         } label: {
             ViewThatFits(in: .horizontal) {
                 HStack(spacing: 12) {
@@ -29366,6 +29510,11 @@ struct CommandPalette: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel(command.title)
+    }
+
+    private func run(_ command: CommandPaletteCommand) {
+        dismiss()
+        command.action()
     }
 
     private func titleLabel(_ command: CommandPaletteCommand) -> some View {
@@ -29599,19 +29748,29 @@ struct DropdownSelectMenu<Option: Hashable>: View {
     let label: (Option) -> String
 
     @State private var isOpen = false
+    @State private var fieldHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var animation: Animation? { reduceMotion ? nil : .smooth(duration: 0.28) }
     private let cornerRadius: CGFloat = 14
     private let contentPadding: CGFloat = 14
+    private let maxListHeight: CGFloat = 280
+
+    private var listTop: CGFloat { fieldHeight + 6 }
+    /// The top edge of the list, as a point of the padded box the transition scales.
+    private var listAnchor: UnitPoint { UnitPoint(x: 0.5, y: listTop / (listTop + maxListHeight)) }
 
     var body: some View {
         field
-            .overlay(alignment: .bottom) {
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { fieldHeight = $0 }
+            .overlay(alignment: .top) {
                 if isOpen {
+                    // An overlay is offered the size of the field, which would squeeze the list
+                    // into one row. This offers it its own height, and starts it under the field.
                     optionsList
-                        .alignmentGuide(.bottom) { $0[.top] - 6 }
-                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: .top).combined(with: .opacity))
+                        .frame(height: maxListHeight, alignment: .top)
+                        .padding(.top, listTop)
+                        .transition(reduceMotion ? .opacity : .scale(scale: 0.9, anchor: listAnchor).combined(with: .opacity))
                 }
             }
             .background {
@@ -29666,7 +29825,6 @@ struct DropdownSelectMenu<Option: Hashable>: View {
             optionStack
             ScrollView { optionStack }
         }
-        .frame(maxHeight: 280)
         .background(.regularMaterial, in: .rect(cornerRadius: cornerRadius))
         .overlay {
             RoundedRectangle(cornerRadius: cornerRadius).strokeBorder(.separator)
@@ -31372,7 +31530,10 @@ struct EmbeddedWebBrowser: View {
     let page: WebPage
 
     @State private var address = ""
+    @State private var selection: TextSelection?
     @FocusState private var isEditing: Bool
+
+    private let touchTarget: CGFloat = 44
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31384,18 +31545,18 @@ struct EmbeddedWebBrowser: View {
                     .accessibilityLabel("Loading page")
             }
 
-            HStack(spacing: 14) {
-                Button("Back", systemImage: "chevron.backward") {
+            HStack(spacing: 2) {
+                barButton("Back", systemImage: "chevron.backward") {
                     if let item = page.backForwardList.backList.last { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.backList.isEmpty)
 
-                Button("Forward", systemImage: "chevron.forward") {
+                barButton("Forward", systemImage: "chevron.forward") {
                     if let item = page.backForwardList.forwardList.first { _ = page.load(item) }
                 }
                 .disabled(page.backForwardList.forwardList.isEmpty)
 
-                TextField("Address", text: $address)
+                TextField("Address", text: $address, selection: $selection)
                     .focused($isEditing)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -31409,7 +31570,7 @@ struct EmbeddedWebBrowser: View {
                         if let url = EmbeddedWebBrowserLogic.url(from: address) { _ = page.load(url) }
                     }
 
-                Button(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
+                barButton(page.isLoading ? "Stop" : "Reload", systemImage: page.isLoading ? "xmark" : "arrow.clockwise") {
                     if page.isLoading {
                         page.stopLoading()
                     } else {
@@ -31419,8 +31580,8 @@ struct EmbeddedWebBrowser: View {
             }
             .labelStyle(.iconOnly)
             .font(.body.weight(.medium))
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
             .background(.bar)
         }
         .onChange(of: page.url, initial: true) { _, url in
@@ -31428,6 +31589,17 @@ struct EmbeddedWebBrowser: View {
         }
         .onChange(of: isEditing) { _, editing in
             address = editing ? (page.url?.absoluteString ?? "") : EmbeddedWebBrowserLogic.host(of: page.url)
+            // The whole address is selected, as in Safari, so typing replaces it.
+            selection = editing ? TextSelection(range: address.startIndex..<address.endIndex) : nil
+        }
+    }
+
+    /// An icon button with a touch target of the recommended size.
+    private func barButton(_ title: LocalizedStringResource, systemImage: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label { Text(title) } icon: { Image(systemName: systemImage) }
+                .frame(minWidth: touchTarget, minHeight: touchTarget)
+                .contentShape(.rect)
         }
     }
 }
@@ -31885,7 +32057,7 @@ import SwiftUI
 /// and tapping a chip jumps to its section.
 ///
 /// With Reduce Motion on, jumps and the highlight happen without animation.
-struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
+struct ScrollSpyHeader<Element: Identifiable, Content: View>: View where Element.ID: Sendable {
     let sections: [Element]
     let title: (Element) -> String
     @ViewBuilder let content: (Element) -> Content
@@ -31894,54 +32066,61 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
     @State private var visibleIDs: Set<Element.ID> = []
     @State private var isAtEnd = false
     @State private var jumpTarget: Element.ID?
+    @State private var isJumping = false
+    /// A scroll view reader cannot jump to a section the lazy stack has not built yet. This can.
+    @State private var position = ScrollPosition(idType: Element.ID.self)
     @Namespace private var chipNamespace
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// A jump in progress wins, so the highlight does not flicker across the sections it passes.
+    /// A jump wins, so the highlight does not flicker across the sections it passes.
     private var highlightedID: Element.ID? {
         jumpTarget ?? activeID ?? sections.first?.id
     }
 
     var body: some View {
-        ScrollViewReader { contentProxy in
-            VStack(spacing: 0) {
-                chipBar(contentProxy: contentProxy)
-                Divider()
+        VStack(spacing: 0) {
+            chipBar
+            Divider()
 
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 28) {
-                        ForEach(sections) { section in
-                            content(section)
-                                .id(section.id)
-                        }
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 28) {
+                    ForEach(sections) { section in
+                        content(section)
+                            .id(section.id)
                     }
-                    .scrollTargetLayout()
-                    .padding()
                 }
-                .onScrollTargetVisibilityChange(idType: Element.ID.self, threshold: 0.01) { ids in
-                    visibleIDs = Set(ids)
-                    refreshActiveID()
-                }
-                .onScrollGeometryChange(for: Bool.self) { geometry in
-                    ScrollSpyHeaderMath.isAtEnd(
-                        visibleMaxY: geometry.visibleRect.maxY,
-                        contentHeight: geometry.contentSize.height,
-                        containerHeight: geometry.containerSize.height
-                    )
-                } action: { _, newValue in
-                    isAtEnd = newValue
-                    refreshActiveID()
-                }
+                .scrollTargetLayout()
+                .padding()
+            }
+            .scrollPosition($position, anchor: .top)
+            // The chip that was tapped stays chosen until the list moves again. A short
+            // section near the end cannot reach the top, and would lose it to the last one.
+            .onScrollPhaseChange { _, phase in
+                if phase == .interacting || (phase == .animating && !isJumping) { jumpTarget = nil }
+            }
+            .onScrollTargetVisibilityChange(idType: Element.ID.self, threshold: 0.01) { ids in
+                visibleIDs = Set(ids)
+                refreshActiveID()
+            }
+            .onScrollGeometryChange(for: Bool.self) { geometry in
+                ScrollSpyHeaderMath.isAtEnd(
+                    visibleMaxY: geometry.visibleRect.maxY,
+                    contentHeight: geometry.contentSize.height,
+                    containerHeight: geometry.containerSize.height
+                )
+            } action: { _, newValue in
+                isAtEnd = newValue
+                refreshActiveID()
             }
         }
     }
 
-    private func chipBar(contentProxy: ScrollViewProxy) -> some View {
+    private var chipBar: some View {
         ScrollViewReader { chipProxy in
             ScrollView(.horizontal) {
                 HStack(spacing: 8) {
                     ForEach(sections) { section in
-                        chip(for: section, contentProxy: contentProxy)
+                        chip(for: section)
                             .id(section.id)
                     }
                 }
@@ -31958,11 +32137,11 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
         }
     }
 
-    private func chip(for section: Element, contentProxy: ScrollViewProxy) -> some View {
+    private func chip(for section: Element) -> some View {
         let isActive = section.id == highlightedID
 
         return Button {
-            jump(to: section.id, contentProxy: contentProxy)
+            jump(to: section.id)
         } label: {
             Text(title(section))
                 .font(.subheadline.weight(.semibold))
@@ -31985,12 +32164,13 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
         .animation(reduceMotion ? nil : .snappy, value: highlightedID)
     }
 
-    private func jump(to id: Element.ID, contentProxy: ScrollViewProxy) {
+    private func jump(to id: Element.ID) {
         jumpTarget = id
+        isJumping = true
         withAnimation(reduceMotion ? nil : .smooth(duration: 0.45), completionCriteria: .logicallyComplete) {
-            contentProxy.scrollTo(id, anchor: .top)
+            position.scrollTo(id: id, anchor: .top)
         } completion: {
-            jumpTarget = nil
+            isJumping = false
             refreshActiveID()
         }
     }
@@ -32272,7 +32452,6 @@ struct SearchScopesAndSuggestionsDemo: View {
     @State private var text = ""
     @State private var isSearching = false
     @State private var scope = SearchScopesAndSuggestionsDemoScope.all
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var results: [SearchScopesAndSuggestionsDemoProduce] {
         produce.filter { item in
@@ -32301,26 +32480,9 @@ struct SearchScopesAndSuggestionsDemo: View {
                     suggestions: produce.map(\.name)
                 )
             )
-        }
-        .task(id: reduceMotion) { await playDemo() }
-    }
-
-    /// Only for this demo: runs a few rounds so the search field is seen working, then leaves it to you.
-    private func playDemo() async {
-        guard !reduceMotion else { return }
-
-        for _ in 0..<3 {
-            let steps: [(seconds: Double, change: () -> Void)] = [
-                (0.5, { isSearching = true }),
-                (0.7, { text = "a" }),
-                (0.7, { text = "ap" }),
-                (0.8, { scope = .fruit }),
-                (0.8, { text = ""; scope = .all; isSearching = false }),
-            ]
-            for step in steps {
-                try? await Task.sleep(for: .seconds(step.seconds))
-                guard !Task.isCancelled else { return }
-                step.change()
+            // The scope bar goes away with the search, so its filter does too.
+            .onChange(of: isSearching) { _, isSearching in
+                if !isSearching { scope = .all }
             }
         }
     }
@@ -33295,6 +33457,12 @@ struct EmojiPicker: View {
     let onSelect: (String) -> Void
 
     @State private var activeID: String?
+    /// The tab that was tapped stays chosen until the grid moves again. A short section near
+    /// the end cannot reach the top, and would lose its tab to the one above it.
+    @State private var tappedID: String?
+    @State private var isJumping = false
+    /// A scroll view reader cannot jump to a section the lazy stack has not built yet. This can.
+    @State private var position = ScrollPosition(idType: String.self)
     @ScaledMetric(relativeTo: .title) private var cellSize = 44.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -33310,11 +33478,9 @@ struct EmojiPicker: View {
                 recentRow
             }
 
-            ScrollViewReader { proxy in
-                tabBar(proxy: proxy)
-                Divider()
-                grid
-            }
+            tabBar
+            Divider()
+            grid
         }
         .animation(reduceMotion ? nil : .snappy, value: recents)
     }
@@ -33332,15 +33498,20 @@ struct EmojiPicker: View {
         .accessibilityLabel("Recent")
     }
 
-    private func tabBar(proxy: ScrollViewProxy) -> some View {
+    private var tabBar: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 2) {
                 ForEach(categories) { category in
-                    let isActive = category.id == (activeID ?? categories.first?.id)
+                    let isActive = category.id == (tappedID ?? activeID ?? categories.first?.id)
 
                     Button {
-                        activeID = category.id
-                        withAnimation(animation) { proxy.scrollTo(category.id, anchor: .top) }
+                        tappedID = category.id
+                        isJumping = true
+                        withAnimation(animation, completionCriteria: .logicallyComplete) {
+                            position.scrollTo(id: category.id, anchor: .top)
+                        } completion: {
+                            isJumping = false
+                        }
                     } label: {
                         Image(systemName: category.systemImage)
                             .font(.title3)
@@ -33378,6 +33549,10 @@ struct EmojiPicker: View {
             }
             .scrollTargetLayout()
             .padding(edgePadding)
+        }
+        .scrollPosition($position, anchor: .top)
+        .onScrollPhaseChange { _, phase in
+            if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
             if let first = categories.first(where: { ids.contains($0.id) }) {
@@ -33936,10 +34111,14 @@ struct WheelPicker<Value: Hashable>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var scrolledValue: Value?
 
+    private let wheelSpace = "WheelPicker"
+
     var body: some View {
         let height = rowHeight * CGFloat(max(1, min(visibleRows, 15)))
         let row = rowHeight
         let tilts = !reduceMotion
+        // A local copy: the effect below runs off the main actor and cannot capture the view.
+        let space = wheelSpace
 
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
@@ -33953,7 +34132,7 @@ struct WheelPicker<Value: Hashable>: View {
                         .contentShape(.rect)
                         .onTapGesture { selection = value }
                         .visualEffect { content, proxy in
-                            let position = WheelPickerMath.position(midY: proxy.frame(in: .scrollView).midY, height: height)
+                            let position = WheelPickerMath.position(midY: proxy.frame(in: .named(space)).midY, height: height)
                             return content
                                 .rotation3DEffect(.degrees(tilts ? position * -62 : 0), axis: (1, 0, 0), perspective: 0.55)
                                 .scaleEffect(tilts ? 1 - abs(position) * 0.12 : 1)
@@ -33968,6 +34147,9 @@ struct WheelPicker<Value: Hashable>: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollPosition(id: $scrolledValue, anchor: .center)
         .frame(height: height)
+        // The frame of the wheel itself. The scroll view's own space starts after its content
+        // margin, which put the middle of the effect two rows below the selected one.
+        .coordinateSpace(.named(wheelSpace))
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(.quaternary)
@@ -36112,6 +36294,8 @@ nonisolated enum CoverFlowCarouselMath {
 
 struct CoverFlowCarouselDemo: View {
     @State private var selection: String? = "Midnight"
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -36139,13 +36323,14 @@ struct CoverFlowCarouselDemo: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.black)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             let order = [3, 4, 3, 2, 1, 0, 1, 2]
             var step = 3
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.3))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 step = (step + 1) % order.count
                 withAnimation(.smooth(duration: 0.8)) { selection = items[order[step]].id }
             }
@@ -36274,6 +36459,8 @@ struct HideOnScrollBarTracker: Equatable {
 // MARK: - Demo
 
 struct HideOnScrollBarDemo: View {
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -36302,12 +36489,13 @@ struct HideOnScrollBarDemo: View {
                 .padding(.horizontal, 28)
                 .padding(.bottom, 4)
             }
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 var target = 0
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.6))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     target = target == 12 ? 4 : 12
                     withAnimation(.easeInOut(duration: 1)) {
                         proxy.scrollTo(target, anchor: .top)
@@ -36919,6 +37107,8 @@ enum PagedGridLauncherLayout {
 struct PagedGridLauncherDemo: View {
     @State private var page = 0
 
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private static let palettes: [[Color]] = [
@@ -36942,11 +37132,12 @@ struct PagedGridLauncherDemo: View {
         PagedGridLauncher(items: items, page: $page)
             .padding(.vertical, 12)
             .background(LinearGradient(colors: [.indigo.opacity(0.35), .teal.opacity(0.25)], startPoint: .top, endPoint: .bottom))
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
-                while !Task.isCancelled {
+                while isAutoPlaying {
                     try? await Task.sleep(for: .seconds(1.3))
-                    guard !Task.isCancelled else { return }
+                    guard !Task.isCancelled, isAutoPlaying else { return }
                     page = (page + 1) % 3
                 }
             }
@@ -37535,6 +37726,8 @@ extension View {
 struct ScrollProgressBarDemo: View {
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let paragraph = "Good interfaces explain themselves. A small sign of how much is left can turn a long read into something that feels easy to finish, and it asks nothing of the reader."
@@ -37564,6 +37757,7 @@ struct ScrollProgressBarDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await autoScroll()
@@ -37573,9 +37767,9 @@ struct ScrollProgressBarDemo: View {
     // Only the demo scrolls by itself: down for most of the loop, then quickly back up.
     private func autoScroll() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time = (time + 0.016).truncatingRemainder(dividingBy: 3)
             let fraction = time < 2.4 ? time / 2.4 : (3 - time) / 0.6
             position.scrollTo(y: maxOffset * fraction)
@@ -37655,6 +37849,8 @@ struct ScrollVisibilityRevealDemo: View {
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
     @State private var cycle = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -37675,6 +37871,7 @@ struct ScrollVisibilityRevealDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await replay()
@@ -37698,9 +37895,9 @@ struct ScrollVisibilityRevealDemo: View {
     // Only the demo scrolls by itself. Each pass scrolls to the end, then starts over.
     private func replay() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time += 0.016
             if time >= 4 {
                 time = 0
@@ -37937,6 +38134,8 @@ struct StickyStackedCardsDemo: View {
 
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -37955,6 +38154,7 @@ struct StickyStackedCardsDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await autoScroll()
@@ -37984,9 +38184,9 @@ struct StickyStackedCardsDemo: View {
     // Only the demo scrolls by itself: slowly down, then quickly back to the top.
     private func autoScroll() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time = (time + 0.016).truncatingRemainder(dividingBy: 5)
             let fraction = time < 4 ? time / 4 : 5 - time
             position.scrollTo(y: maxOffset * fraction)
@@ -38094,10 +38294,13 @@ struct VerticalFullScreenFeedDemo: View {
         VerticalFullScreenFeedDemo.item("Under the stars", symbol: "moon.stars.fill", colors: [.purple, .indigo, .black], imageLabel: "A moon and stars on a dark sky"),
     ]
     @State private var selection: String?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VerticalFullScreenFeed(items: items, selection: $selection)
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 await autoAdvance()
@@ -38107,9 +38310,9 @@ struct VerticalFullScreenFeedDemo: View {
     // Only the demo advances by itself. In an app the user swipes between pages.
     private func autoAdvance() async {
         var index = 0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.6))
-            guard !Task.isCancelled, !items.isEmpty else { return }
+            guard !Task.isCancelled, isAutoPlaying, !items.isEmpty else { return }
             index = (index + 1) % items.count
             withAnimation(.smooth(duration: 0.6)) {
                 selection = items[index].id
@@ -38212,6 +38415,8 @@ struct CustomDetentSheetDemo: View {
 
     @State private var isPresented = false
     @State private var selection = PresentationDetent.height(400)
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -38239,6 +38444,7 @@ struct CustomDetentSheetDemo: View {
         ) {
             sheet
         }
+        .simultaneousGesture(stopAutoPlay)
         .task { isPresented = true }
         .task(id: isPresented && !reduceMotion) {
             guard isPresented, !reduceMotion else { return }
@@ -38262,17 +38468,30 @@ struct CustomDetentSheetDemo: View {
             }
             .padding(24)
         }
+        // The sheet is its own presentation, so a touch in it does not reach the gesture behind.
+        .simultaneousGesture(stopAutoPlay)
+    }
+
+    private var stopAutoPlay: some Gesture {
+        DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false }
     }
 
     // Only the demo moves the sheet by itself, by changing the selected detent.
     private func cycleDetents() async {
         let order = [peek, middle, .large, middle]
         var index = 0
-        while !Task.isCancelled {
+        var expected = selection
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.1))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
+            // Dragging the sheet by its grabber does not touch its content, but it changes the detent.
+            guard selection == expected else {
+                isAutoPlaying = false
+                return
+            }
+            expected = order[index]
             withAnimation(.snappy(duration: 0.4)) {
-                selection = order[index]
+                selection = expected
             }
             index = (index + 1) % order.count
         }
@@ -38941,7 +39160,7 @@ struct NotchedTabBarDemo: View {
 
     @State private var selection = "home"
 
-    private var heading: String {
+    private var heading: LocalizedStringResource {
         items.first { $0.id == selection }.map { "\($0.title) page" } ?? ""
     }
 
@@ -42049,6 +42268,9 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
                     }
                 }
             }
+            // The page underneath shrinks and darkens as it recedes. Black behind it reads as
+            // depth; the background of the app would flash as bands above and below.
+            .background { Color.black.ignoresSafeArea() }
             .contentShape(.rect)
             .gesture(dragGesture(width: width))
             // No animation while the finger is down, so the page tracks it exactly.
@@ -42175,7 +42397,8 @@ Category: Transitions. Minimum: iOS 18.0. Path: Components/Transitions/MatchedHe
 
 import SwiftUI
 
-/// A card that grows in place to fill its parent, using `matchedGeometryEffect`.
+/// A card that grows in place to fill its parent. Its icon, title and subtitle travel to their
+/// new places with `matchedGeometryEffect`.
 ///
 /// With Reduce Motion on, the card changes state without animating.
 struct MatchedHeroCard<Detail: View>: View {
@@ -42196,25 +42419,29 @@ struct MatchedHeroCard<Detail: View>: View {
     }
 
     var body: some View {
+        // One background for both states, so the card is never see-through while it changes,
+        // and it clips the detail, so the text never runs over what is below the card.
         ZStack(alignment: .top) {
             if isExpanded {
-                expandedCard
+                expandedContent
             } else {
-                collapsedCard
+                collapsedContent
             }
         }
+        .frame(maxWidth: .infinity, minHeight: collapsedHeight, maxHeight: isExpanded ? .infinity : collapsedHeight)
+        .background(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
+        .clipShape(.rect(cornerRadius: 28, style: .continuous))
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .foregroundStyle(.white)
     }
 
-    private var collapsedCard: some View {
+    private var collapsedContent: some View {
         Button {
             withAnimation(animation) { isExpanded = true }
         } label: {
             header
                 .padding(24)
-                .frame(maxWidth: .infinity, minHeight: collapsedHeight, alignment: .bottomLeading)
-                .background { background }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -42222,19 +42449,17 @@ struct MatchedHeroCard<Detail: View>: View {
         .accessibilityHint("Expands the card")
     }
 
-    private var expandedCard: some View {
+    private var expandedContent: some View {
         VStack(alignment: .leading, spacing: 24) {
             header
 
             detail()
-                .transition(.opacity)
 
             Spacer(minLength: 0)
         }
         .padding(24)
         .padding(.top, 32)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background { background }
         .overlay(alignment: .topTrailing) {
             Button {
                 withAnimation(animation) { isExpanded = false }
@@ -42247,7 +42472,6 @@ struct MatchedHeroCard<Detail: View>: View {
             .buttonStyle(.plain)
             .accessibilityLabel("Close")
             .padding(16)
-            .transition(.opacity)
         }
     }
 
@@ -42267,12 +42491,6 @@ struct MatchedHeroCard<Detail: View>: View {
                 .opacity(0.85)
                 .matchedGeometryEffect(id: "subtitle", in: namespace)
         }
-    }
-
-    private var background: some View {
-        RoundedRectangle(cornerRadius: 28, style: .continuous)
-            .fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
-            .matchedGeometryEffect(id: "background", in: namespace)
     }
 }
 

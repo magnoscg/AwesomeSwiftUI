@@ -71,6 +71,9 @@ struct InteractivePagerTransition<Page: Identifiable, PageContent: View>: View {
                     }
                 }
             }
+            // The page underneath shrinks and darkens as it recedes. Black behind it reads as
+            // depth; the background of the app would flash as bands above and below.
+            .background { Color.black.ignoresSafeArea() }
             .contentShape(.rect)
             .gesture(dragGesture(width: width))
             // No animation while the finger is down, so the page tracks it exactly.
