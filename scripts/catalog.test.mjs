@@ -83,6 +83,12 @@ function addComponent(
   return directory;
 }
 
+function addShowcaseStrings(root, strings) {
+  const directory = join(root, 'Showcase', 'Showcase');
+  mkdirSync(directory, { recursive: true });
+  writeFileSync(join(directory, 'Localizable.xcstrings'), JSON.stringify({ sourceLanguage: 'en', strings }));
+}
+
 function errorsFor(options) {
   const root = makeRoot();
   addComponent(root, options);
@@ -352,6 +358,33 @@ describe('invalid source', () => {
     const source = swift().replace('MIT', 'Apache-2.0');
 
     assert.deepEqual(errorsFor({ metadata: meta({ origin }), source }), []);
+  });
+
+  it('rejects a counted text the Showcase does not translate', () => {
+    const root = makeRoot();
+    addComponent(root, { source: swift('GlowButton', 'let label = Text("^[\\(count) photo](inflect: true)")') });
+    addShowcaseStrings(root, { Welcome: { localizations: { es: {} } } });
+
+    const errors = loadCatalog(root).errors;
+
+    assert.match(errors.join('\n'), /"\^\[\\\(count\) photo\]\(inflect: true\)" agrees with its count, so it needs a translation for es/);
+  });
+
+  it('accepts a counted text the Showcase translates', () => {
+    const root = makeRoot();
+    addComponent(root, { source: swift('GlowButton', 'let label = Text("^[\\(count) photo](inflect: true)")') });
+    addShowcaseStrings(root, {
+      Welcome: { localizations: { es: {} } },
+      '^[%lld photo](inflect: true)': { localizations: { es: {} } },
+    });
+
+    assert.deepEqual(loadCatalog(root).errors, []);
+  });
+
+  it('accepts a counted text when the Showcase has one language', () => {
+    const source = swift('GlowButton', 'let label = Text("^[\\(count) photo](inflect: true)")');
+
+    assert.deepEqual(errorsFor({ source }), []);
   });
 
   it('rejects a number written four times outside the demo', () => {
