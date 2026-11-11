@@ -77,8 +77,9 @@ struct TwoPaneSplitLayoutDemo: View {
                         .font(.title3.weight(.medium))
 
                     Button("Done") { selection = nil }
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         .tint(.white)
+                        .foregroundStyle(.black)
                         .padding(.top, 8)
                 }
                 .foregroundStyle(.white)

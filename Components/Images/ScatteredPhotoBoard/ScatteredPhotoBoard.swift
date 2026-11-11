@@ -16,12 +16,20 @@ enum ScatteredPhotoBoardLayout {
         return value - value.rounded(.down) - 0.5
     }
 
+    static let maximumAngle = 9.0
+
     static func angle(index: Int) -> Double {
-        noise(index, salt: 7) * 18
+        noise(index, salt: 7) * maximumAngle * 2
     }
 
     /// Keeps a card's center inside the board, or in its middle if the card does not fit.
     static func clamped(_ point: CGPoint, card: CGSize, board: CGSize) -> CGPoint {
+        // A tilted card is wider and taller than it is straight. This is the box at the widest tilt.
+        let tilt = maximumAngle * .pi / 180
+        let card = CGSize(
+            width: card.width * cos(tilt) + card.height * sin(tilt),
+            height: card.height * cos(tilt) + card.width * sin(tilt)
+        )
         func clamp(_ value: CGFloat, side: CGFloat, length: CGFloat) -> CGFloat {
             guard length > side else { return length / 2 }
             return min(max(value, side / 2), length - side / 2)

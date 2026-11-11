@@ -93,7 +93,8 @@ struct JiggleEditModifierDemo: View {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(Array(apps.enumerated()), id: \.element.id) { index, app in
                             icon(for: app)
-                                .jiggleEditing(isEditing, seed: index)
+                                // Its place in the full list, so removing an icon does not change the rhythm of the rest.
+                                .jiggleEditing(isEditing, seed: Self.allApps.firstIndex { $0.id == app.id } ?? index)
                         }
                     }
                 }

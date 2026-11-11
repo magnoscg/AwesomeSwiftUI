@@ -118,12 +118,15 @@ struct SkeletonShimmerModifierDemo: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
+                // One line each, so a row is as tall loaded as it is as a skeleton.
                 Text(row.name)
                     .font(.headline)
+                    .lineLimit(1)
 
                 Text(row.message)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
 
             Spacer(minLength: 8)
