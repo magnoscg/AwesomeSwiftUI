@@ -1626,6 +1626,15 @@ enum ComponentRegistry {
             demo: { AnyView(MapAnnotationCalloutDemo()) }
         ),
         ShowcaseEntry(
+            id: "map-cluster-annotations",
+            title: "Map Cluster Annotations",
+            category: "Maps",
+            summary: "A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.",
+            keywords: ["map clustering", "cluster", "annotations", "pins", "mapkit", "zoom", "grouped markers", "count bubble", "agrupar en el mapa", "clúster", "anotaciones", "chinchetas", "mapkit", "zoom", "marcadores agrupados", "burbuja con número"],
+            minIOS: "18.0",
+            demo: { AnyView(MapClusterAnnotationsDemo()) }
+        ),
+        ShowcaseEntry(
             id: "map-route-tracker",
             title: "Map Route Tracker",
             category: "Maps",
