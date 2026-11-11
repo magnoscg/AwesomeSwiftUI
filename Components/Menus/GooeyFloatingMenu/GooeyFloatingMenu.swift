@@ -41,6 +41,16 @@ struct GooeyFloatingMenu: View {
         )
         // The buttons only hold icons. The stage reads its size under this cap, which keeps the fan on screen.
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        // A tap outside closes the fan, as it does a menu.
+        .background {
+            if isOpen {
+                Color.clear
+                    .frame(width: 4000, height: 4000)
+                    .contentShape(.rect)
+                    .onTapGesture { withAnimation(animation) { isOpen = false } }
+                    .accessibilityHidden(true)
+            }
+        }
     }
 }
 

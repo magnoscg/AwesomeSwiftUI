@@ -84,8 +84,8 @@ struct GlassToolStripDemo: View {
         GlassToolStripTool(id: "pen", title: "Pen", systemImage: "pencil.tip", group: "draw"),
         GlassToolStripTool(id: "marker", title: "Marker", systemImage: "highlighter", group: "draw"),
         GlassToolStripTool(id: "eraser", title: "Eraser", systemImage: "eraser", group: "draw"),
-        GlassToolStripTool(id: "undo", title: "Undo", systemImage: "arrow.uturn.backward", group: "history"),
-        GlassToolStripTool(id: "redo", title: "Redo", systemImage: "arrow.uturn.forward", group: "history"),
+        GlassToolStripTool(id: "lasso", title: "Lasso", systemImage: "lasso", group: "edit"),
+        GlassToolStripTool(id: "ruler", title: "Ruler", systemImage: "ruler", group: "edit"),
     ]
 
     var body: some View {
