@@ -196,14 +196,17 @@ struct ExpandingMiniPlayerDemo: View {
 
     @State private var isPlaying = false
     @State private var progress = 0.2
+    @State private var index = 0
     @ScaledMetric(relativeTo: .body) private var coverSize = 48.0
 
     var body: some View {
         ExpandingMiniPlayer(
-            title: "Midnight Drive",
+            title: songs[index],
             subtitle: "The Night Owls",
             isPlaying: $isPlaying,
-            progress: progress
+            progress: progress,
+            onPrevious: { play(index - 1) },
+            onNext: { play(index + 1) }
         ) {
             NavigationStack {
                 List(songs, id: \.self) { song in
@@ -227,6 +230,11 @@ struct ExpandingMiniPlayerDemo: View {
                 progress = progress >= 1 ? 0 : progress + 0.004
             }
         }
+    }
+
+    private func play(_ song: Int) {
+        index = (song + songs.count) % songs.count
+        progress = 0
     }
 
     private var cover: some View {

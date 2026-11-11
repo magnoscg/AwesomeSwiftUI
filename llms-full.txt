@@ -3857,7 +3857,8 @@ private enum PulseRingButtonPhase {
 
 /// A round button with rings that keep radiating out from behind it.
 ///
-/// With Reduce Motion on, a single still halo replaces the rings.
+/// With Reduce Motion on, a single still halo replaces the rings. Set `isPulsing`
+/// to false to leave the button without them, as when what it signals has stopped.
 struct PulseRingButton: View {
     let systemImage: String
     let label: LocalizedStringResource
@@ -3865,6 +3866,7 @@ struct PulseRingButton: View {
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
     var stagger: Double = 0.35
+    var isPulsing = true
     let action: () -> Void
 
     @ScaledMetric(relativeTo: .largeTitle) private var diameter = 104.0
@@ -3873,7 +3875,9 @@ struct PulseRingButton: View {
     var body: some View {
         ZStack {
             Group {
-                if reduceMotion {
+                if !isPulsing {
+                    EmptyView()
+                } else if reduceMotion {
                     Circle()
                         .fill(tint.opacity(0.2))
                         .scaleEffect(1.35)
@@ -3938,7 +3942,7 @@ struct PulseRingButtonDemo: View {
     @State private var isRecording = true
 
     var body: some View {
-        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record") {
+        PulseRingButton(systemImage: isRecording ? "mic.fill" : "mic.slash.fill", label: "Record", isPulsing: isRecording) {
             isRecording.toggle()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -4010,7 +4014,7 @@ struct ShimmerButton: View {
             .contentShape(.capsule)
             .shadow(color: (colors.first ?? .clear).opacity(0.5), radius: 18, y: 8)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ShimmerButtonPressStyle(reduceMotion: reduceMotion))
     }
 
     private var sweep: some View {
@@ -4032,9 +4036,23 @@ struct ShimmerButton: View {
     }
 }
 
+/// The button dims and shrinks a little while it is pressed.
+private struct ShimmerButtonPressStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.96 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
+    }
+}
+
 // MARK: - Demo
 
 struct ShimmerButtonDemo: View {
+    @State private var isStarted = false
+
     var body: some View {
         VStack(spacing: 36) {
             VStack(spacing: 10) {
@@ -4045,7 +4063,12 @@ struct ShimmerButtonDemo: View {
                     .foregroundStyle(.white.opacity(0.7))
             }
 
-            ShimmerButton(title: "Start free trial", systemImage: "sparkles") {}
+            ShimmerButton(
+                title: isStarted ? "Trial started" : "Start free trial",
+                systemImage: isStarted ? "checkmark" : "sparkles"
+            ) {
+                isStarted.toggle()
+            }
         }
         .foregroundStyle(.white)
         .multilineTextAlignment(.center)
@@ -17748,7 +17771,8 @@ struct DropZoneHighlight<Payload: Transferable>: View {
 // MARK: - Demo
 
 struct DropZoneHighlightDemo: View {
-    @State private var waiting = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    private static let files = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    @State private var waiting = files
     @State private var dropped: [String] = []
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -17776,6 +17800,17 @@ struct DropZoneHighlightDemo: View {
                     Text(dropped.isEmpty ? "Nothing in the box yet" : "In the box: \(dropped.joined(separator: ", "))")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+
+                    // Only for this demo: a way back once every file is in the box.
+                    if waiting.isEmpty {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) {
+                                waiting = Self.files
+                                dropped = []
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
                 .padding(24)
             }
@@ -18744,12 +18779,13 @@ struct SwipeActionRowDemo: View {
         let preview: String
     }
 
-    @State private var messages = [
+    private static let allMessages = [
         Message(id: "Weekly report", preview: "The numbers look great this week"),
         Message(id: "Flight update", preview: "Your gate has changed to B12"),
         Message(id: "Dinner on Friday?", preview: "I found a new place downtown"),
         Message(id: "Design review", preview: "Notes from this morning's session"),
     ]
+    @State private var messages = allMessages
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -18764,6 +18800,18 @@ struct SwipeActionRowDemo: View {
                         row(message)
                     }
                     .clipShape(.rect(cornerRadius: 18))
+                }
+
+                // Only for this demo: a way back once every row is gone.
+                if messages.isEmpty {
+                    ContentUnavailableView {
+                        Label("Inbox zero", systemImage: "tray")
+                    } actions: {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) { messages = Self.allMessages }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -25740,7 +25788,7 @@ private struct EditModeMultiSelectDemoMail: Identifiable {
 }
 
 struct EditModeMultiSelectDemo: View {
-    @State private var mails = [
+    private static let allMails = [
         EditModeMultiSelectDemoMail(id: "Flights", subtitle: "Your boarding pass is ready", systemImage: "airplane", tint: .blue),
         EditModeMultiSelectDemoMail(id: "Receipts", subtitle: "Thanks for your order", systemImage: "cart.fill", tint: .green),
         EditModeMultiSelectDemoMail(id: "Newsletter", subtitle: "Five things to read this week", systemImage: "newspaper.fill", tint: .orange),
@@ -25750,6 +25798,7 @@ struct EditModeMultiSelectDemo: View {
         EditModeMultiSelectDemoMail(id: "Podcasts", subtitle: "A new episode just landed", systemImage: "mic.fill", tint: .pink),
         EditModeMultiSelectDemoMail(id: "Fitness", subtitle: "You closed all your rings", systemImage: "figure.run", tint: .mint),
     ]
+    @State private var mails = allMails
     @State private var selection = Set<String>()
     @ScaledMetric(relativeTo: .headline) private var iconSize = 40.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -25780,6 +25829,16 @@ struct EditModeMultiSelectDemo: View {
             }
             .navigationTitle("Inbox")
             .navigationBarTitleDisplayMode(.inline)
+            // Only for this demo: a way back once every row is gone.
+            .safeAreaInset(edge: .bottom) {
+                if mails.isEmpty {
+                    Button("Start over") {
+                        withAnimation(reduceMotion ? nil : .default) { mails = Self.allMails }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.bottom, 24)
+                }
+            }
         }
     }
 
@@ -26325,12 +26384,13 @@ private struct SwipeActionCardsDemoTask: Identifiable {
 
 @available(iOS 27, *)
 struct SwipeActionCardsDemo: View {
-    @State private var tasks = [
+    private static let allTasks = [
         SwipeActionCardsDemoTask(id: 0, title: "Water the plants", detail: "Balcony and kitchen", symbol: "leaf.fill", color: .green),
         SwipeActionCardsDemoTask(id: 1, title: "Call the dentist", detail: "Before five", symbol: "phone.fill", color: .blue),
         SwipeActionCardsDemoTask(id: 2, title: "Renew the bike pass", detail: "Ends on Friday", symbol: "bicycle", color: .orange),
         SwipeActionCardsDemoTask(id: 3, title: "Pick up the parcel", detail: "Locker 12", symbol: "shippingbox.fill", color: .purple),
     ]
+    @State private var tasks = allTasks
 
     var body: some View {
         SwipeActionCards(items: tasks) { task in
@@ -26363,6 +26423,19 @@ struct SwipeActionCardsDemo: View {
                 withAnimation { tasks = SwipeActionCardsLogic.pinning(task.id, in: tasks) }
             }
             .tint(.orange)
+        }
+        // Only for this demo: a way back once every card is gone.
+        .overlay {
+            if tasks.isEmpty {
+                ContentUnavailableView {
+                    Label("All done", systemImage: "checkmark.circle")
+                } actions: {
+                    Button("Start over") {
+                        withAnimation { tasks = Self.allTasks }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
         }
         .background(Color(.systemGroupedBackground))
     }
@@ -27829,6 +27902,8 @@ struct AudioPlayerCardDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .milliseconds(250))
                 guard !Task.isCancelled else { return }
@@ -28313,14 +28388,17 @@ struct ExpandingMiniPlayerDemo: View {
 
     @State private var isPlaying = false
     @State private var progress = 0.2
+    @State private var index = 0
     @ScaledMetric(relativeTo: .body) private var coverSize = 48.0
 
     var body: some View {
         ExpandingMiniPlayer(
-            title: "Midnight Drive",
+            title: songs[index],
             subtitle: "The Night Owls",
             isPlaying: $isPlaying,
-            progress: progress
+            progress: progress,
+            onPrevious: { play(index - 1) },
+            onNext: { play(index + 1) }
         ) {
             NavigationStack {
                 List(songs, id: \.self) { song in
@@ -28344,6 +28422,11 @@ struct ExpandingMiniPlayerDemo: View {
                 progress = progress >= 1 ? 0 : progress + 0.004
             }
         }
+    }
+
+    private func play(_ song: Int) {
+        index = (song + songs.count) % songs.count
+        progress = 0
     }
 
     private var cover: some View {
@@ -28881,6 +28964,8 @@ struct VideoPlayerChromeDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .seconds(0.25))
                 guard !Task.isCancelled else { return }
@@ -29745,13 +29830,14 @@ private struct ContextMenuPreviewCardDemoTrip: Identifiable {
 }
 
 struct ContextMenuPreviewCardDemo: View {
-    private let trips = [
+    private static let allTrips = [
         ContextMenuPreviewCardDemoTrip(id: "Alps", subtitle: "Six days above the clouds", systemImage: "mountain.2.fill", colors: [.teal, .blue]),
         ContextMenuPreviewCardDemoTrip(id: "Coast", subtitle: "A slow week by the sea", systemImage: "sailboat.fill", colors: [.cyan, .indigo]),
         ContextMenuPreviewCardDemoTrip(id: "Desert", subtitle: "Stars and quiet nights", systemImage: "sun.max.fill", colors: [.orange, .pink]),
         ContextMenuPreviewCardDemoTrip(id: "Forest", subtitle: "Trails and cabins", systemImage: "tree.fill", colors: [.green, .mint]),
     ]
 
+    @State private var trips = allTrips
     @State private var lastAction = "Press and hold a card"
 
     var body: some View {
@@ -29771,9 +29857,22 @@ struct ContextMenuPreviewCardDemo: View {
                             } menuItems: {
                                 Button("Share", systemImage: "square.and.arrow.up") { lastAction = "Shared \(trip.id)" }
                                 Button("Save", systemImage: "bookmark") { lastAction = "Saved \(trip.id)" }
-                                Button("Remove", systemImage: "trash", role: .destructive) { lastAction = "Removed \(trip.id)" }
+                                Button("Remove", systemImage: "trash", role: .destructive) {
+                                    lastAction = "Removed \(trip.id)"
+                                    withAnimation { trips.removeAll { $0.id == trip.id } }
+                                }
                             }
                         }
+                    }
+
+                    // Only for this demo: a way back once every card is gone.
+                    if trips.isEmpty {
+                        Button("Start over") {
+                            lastAction = "Press and hold a card"
+                            withAnimation { trips = Self.allTrips }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(16)
@@ -36591,6 +36690,7 @@ struct HideOnScrollBarTracker: Equatable {
 struct HideOnScrollBarDemo: View {
     /// Only for this demo: it plays by itself until someone touches it.
     @State private var isAutoPlaying = true
+    @State private var selected = "Home"
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -36655,12 +36755,18 @@ struct HideOnScrollBarDemo: View {
     }
 
     private func barButton(_ title: String, symbol: String) -> some View {
-        Button {} label: {
+        Button {
+            selected = title
+        } label: {
             Image(systemName: symbol)
                 .font(.title3)
                 .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(.rect)
         }
+        .buttonStyle(.plain)
+        .foregroundStyle(selected == title ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
         .accessibilityLabel(title)
+        .accessibilityAddTraits(selected == title ? .isSelected : [])
     }
 }
 
@@ -36813,6 +36919,8 @@ struct NetflixRowsScroller: View {
 
     private let posterSpacing: CGFloat = 10
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 24) {
@@ -36856,8 +36964,20 @@ struct NetflixRowsScroller: View {
                 }
                 .clipShape(.rect(cornerRadius: 10, style: .continuous))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(NetflixRowsScrollerPosterStyle(reduceMotion: reduceMotion))
         .accessibilityLabel(item.name)
+    }
+}
+
+/// A poster dims and shrinks a little while it is pressed.
+private struct NetflixRowsScrollerPosterStyle: ButtonStyle {
+    let reduceMotion: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.7 : 1)
+            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.95 : 1)
+            .animation(.snappy(duration: 0.2), value: configuration.isPressed)
     }
 }
 
@@ -36881,10 +37001,26 @@ struct NetflixRowsScrollerDemo: View {
         })
     }
 
+    @State private var selected: String?
+
     var body: some View {
-        NetflixRowsScroller(rows: rows)
-            .foregroundStyle(.white)
-            .background(.black)
+        NetflixRowsScroller(rows: rows) { title in
+            selected = title.name
+        }
+        .foregroundStyle(.white)
+        .background(.black)
+        .safeAreaInset(edge: .bottom) {
+            if let selected {
+                Label(selected, systemImage: "play.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
+                    .background(.ultraThinMaterial, in: .capsule)
+                    .environment(\.colorScheme, .dark)
+                    .padding(.bottom, 8)
+            }
+        }
     }
 
     private static func poster(_ colors: [Color], symbol: String) -> Image {
@@ -38706,11 +38842,15 @@ private struct DynamicHeightTrayModifier<Tray: View>: ViewModifier {
 
 struct DynamicHeightTrayDemo: View {
     private enum Step {
-        case options, confirm, done
+        case options, phrase, confirm, done
     }
+
+    private let words = ["river", "amber", "quiet", "orbit", "maple", "candle", "harbor", "velvet", "summit", "ember", "willow", "north"]
 
     @State private var isPresented = false
     @State private var step = Step.options
+    @State private var hasWallet = true
+    @State private var hidesSmallBalances = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -38719,10 +38859,14 @@ struct DynamicHeightTrayDemo: View {
                 .font(.system(size: 52))
                 .foregroundStyle(.tint)
                 .accessibilityHidden(true)
-            Text("Main Wallet")
+            Text(hasWallet ? "Main Wallet" : "No wallet")
                 .font(.title2.bold())
 
-            Button("Manage Wallet") {
+            Button(hasWallet ? "Manage Wallet" : "Add Wallet") {
+                guard hasWallet else {
+                    hasWallet = true
+                    return
+                }
                 step = .options
                 isPresented = true
             }
@@ -38736,6 +38880,7 @@ struct DynamicHeightTrayDemo: View {
             VStack(alignment: .leading, spacing: 16) {
                 switch step {
                 case .options: options
+                case .phrase: phrase
                 case .confirm: confirm
                 case .done: done
                 }
@@ -38755,12 +38900,39 @@ struct DynamicHeightTrayDemo: View {
         Text("Manage Wallet")
             .font(.title3.bold())
 
-        row("View Recovery Phrase", symbol: "key.fill") {}
-        row("Rename Wallet", symbol: "pencil") {}
-        row("Hide Small Balances", symbol: "eye.slash.fill") {}
+        row("View Recovery Phrase", symbol: "key.fill") {
+            go(to: .phrase)
+        }
+        row(hidesSmallBalances ? "Show Small Balances" : "Hide Small Balances", symbol: hidesSmallBalances ? "eye.fill" : "eye.slash.fill") {
+            hidesSmallBalances.toggle()
+        }
         row("Remove Wallet", symbol: "trash.fill", role: .destructive) {
             go(to: .confirm)
         }
+    }
+
+    @ViewBuilder private var phrase: some View {
+        Text("Recovery Phrase")
+            .font(.title3.bold())
+
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 3), spacing: 10) {
+            ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                Text("\(index + 1). \(word)")
+                    .font(.callout.monospaced())
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(.fill.quaternary, in: .rect(cornerRadius: 12))
+            }
+        }
+
+        Button("Back") {
+            go(to: .options)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     @ViewBuilder private var confirm: some View {
@@ -38777,6 +38949,7 @@ struct DynamicHeightTrayDemo: View {
             .buttonStyle(.bordered)
 
             Button("Remove", role: .destructive) {
+                hasWallet = false
                 go(to: .done)
             }
             .buttonStyle(.borderedProminent)
@@ -38791,6 +38964,13 @@ struct DynamicHeightTrayDemo: View {
             .foregroundStyle(.green)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
+
+        Button("Done") {
+            isPresented = false
+        }
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .frame(maxWidth: .infinity)
     }
 
     private func row(_ title: String, symbol: String, role: ButtonRole? = nil, action: @escaping () -> Void) -> some View {

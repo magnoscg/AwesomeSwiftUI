@@ -61,12 +61,13 @@ private struct SwipeActionCardsDemoTask: Identifiable {
 
 @available(iOS 27, *)
 struct SwipeActionCardsDemo: View {
-    @State private var tasks = [
+    private static let allTasks = [
         SwipeActionCardsDemoTask(id: 0, title: "Water the plants", detail: "Balcony and kitchen", symbol: "leaf.fill", color: .green),
         SwipeActionCardsDemoTask(id: 1, title: "Call the dentist", detail: "Before five", symbol: "phone.fill", color: .blue),
         SwipeActionCardsDemoTask(id: 2, title: "Renew the bike pass", detail: "Ends on Friday", symbol: "bicycle", color: .orange),
         SwipeActionCardsDemoTask(id: 3, title: "Pick up the parcel", detail: "Locker 12", symbol: "shippingbox.fill", color: .purple),
     ]
+    @State private var tasks = allTasks
 
     var body: some View {
         SwipeActionCards(items: tasks) { task in
@@ -99,6 +100,19 @@ struct SwipeActionCardsDemo: View {
                 withAnimation { tasks = SwipeActionCardsLogic.pinning(task.id, in: tasks) }
             }
             .tint(.orange)
+        }
+        // Only for this demo: a way back once every card is gone.
+        .overlay {
+            if tasks.isEmpty {
+                ContentUnavailableView {
+                    Label("All done", systemImage: "checkmark.circle")
+                } actions: {
+                    Button("Start over") {
+                        withAnimation { tasks = Self.allTasks }
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
         }
         .background(Color(.systemGroupedBackground))
     }
