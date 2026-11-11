@@ -22,6 +22,7 @@ struct ContrastingForegroundTests {
         ("LiquidFillProgress", { LiquidFillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("MorphingSubmitButton", { MorphingSubmitButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("NestedCommentThread", { NestedCommentThreadContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("PermissionPrimerScreen", { PermissionPrimerScreenContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("PulseRingButton", { PulseRingButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ScrollToTopButton", { ScrollToTopButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("SlotMachineReels", { SlotMachineReelsContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

@@ -1971,6 +1971,15 @@ enum ComponentRegistry {
             demo: { AnyView(TwoPaneSplitLayoutDemo()) }
         ),
         ShowcaseEntry(
+            id: "permission-primer-screen",
+            title: "Permission Primer Screen",
+            category: "Patterns",
+            summary: "The screen shown before the system asks for a permission: what it is for, what the person gets, and one button that leads to the system's question.",
+            keywords: ["permission", "pre-permission", "primer", "notifications", "onboarding", "allow", "privacy", "tracking", "permiso", "pantalla previa", "notificaciones", "bienvenida", "permitir", "privacidad", "seguimiento", "solicitar permiso"],
+            minIOS: "18.0",
+            demo: { AnyView(PermissionPrimerScreenDemo()) }
+        ),
+        ShowcaseEntry(
             id: "vertical-timeline",
             title: "Vertical Timeline",
             category: "Patterns",

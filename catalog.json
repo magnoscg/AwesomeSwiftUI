@@ -1,5 +1,5 @@
 {
-  "count": 283,
+  "count": 284,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -8575,6 +8575,50 @@
       "path": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift",
       "preview": "Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Navigation/TwoPaneSplitLayout/TwoPaneSplitLayout.swift"
+    },
+    {
+      "id": "permission-primer-screen",
+      "name": "PermissionPrimerScreen",
+      "title": "Permission Primer Screen",
+      "category": "Patterns",
+      "summary": "The screen shown before the system asks for a permission: what it is for, what the person gets, and one button that leads to the system's question.",
+      "keywords": {
+        "en": [
+          "permission",
+          "pre-permission",
+          "primer",
+          "notifications",
+          "onboarding",
+          "allow",
+          "privacy",
+          "tracking"
+        ],
+        "es": [
+          "permiso",
+          "pantalla previa",
+          "notificaciones",
+          "bienvenida",
+          "permitir",
+          "privacidad",
+          "seguimiento",
+          "solicitar permiso"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "phaseAnimator",
+        "safeAreaInset",
+        "ScaledMetric",
+        "scrollBounceBehavior",
+        "ShapeStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Patterns/PermissionPrimerScreen/PermissionPrimerScreen.swift",
+      "preview": "Components/Patterns/PermissionPrimerScreen/PermissionPrimerScreen.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Patterns/PermissionPrimerScreen/PermissionPrimerScreen.swift"
     },
     {
       "id": "vertical-timeline",

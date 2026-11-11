@@ -8,6 +8,9 @@ on `main`.
 
 ### Added
 
+- Permission Primer Screen, the screen shown before the system asks for a
+  permission: what it is for, what the person gets and one button that leads
+  to the system's question.
 - Slot Machine Reels, reels of symbols that spin and stop one after another,
   with the result under a line across them.
 - Notification Stack, notifications piled under the newest one, like a lock
