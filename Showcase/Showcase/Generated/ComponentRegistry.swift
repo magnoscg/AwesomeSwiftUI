@@ -522,6 +522,15 @@ enum ComponentRegistry {
             demo: { AnyView(TapbackReactionBubbleDemo()) }
         ),
         ShowcaseEntry(
+            id: "typing-indicator-bubble",
+            title: "Typing Indicator Bubble",
+            category: "Chat",
+            summary: "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+            keywords: ["typing indicator", "three dots", "chat", "message", "is typing", "bubble", "ellipsis", "indicador de escritura", "tres puntos", "chat", "mensaje", "está escribiendo", "burbuja", "puntos suspensivos"],
+            minIOS: "18.0",
+            demo: { AnyView(TypingIndicatorBubbleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "add-to-cart-fly-button",
             title: "Add To Cart Fly Button",
             category: "Commerce",
@@ -910,6 +919,15 @@ enum ComponentRegistry {
             keywords: ["empty state", "placeholder", "no content", "symbol", "call to action", "content unavailable", "estado vacío", "marcador", "sin contenido", "símbolo", "llamada a la acción", "contenido no disponible"],
             minIOS: "18.0",
             demo: { AnyView(EmptyStatePlaceholderDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "notification-stack",
+            title: "Notification Stack",
+            category: "Feedback",
+            summary: "Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.",
+            keywords: ["notification stack", "lock screen", "grouped notifications", "expand", "collapse", "pile", "swipe to clear", "pila de notificaciones", "pantalla de bloqueo", "notificaciones agrupadas", "expandir", "contraer", "montón", "deslizar para borrar"],
+            minIOS: "18.0",
+            demo: { AnyView(NotificationStackDemo()) }
         ),
         ShowcaseEntry(
             id: "rating-stars",

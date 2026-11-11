@@ -1,5 +1,5 @@
 {
-  "count": 280,
+  "count": 282,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2309,6 +2309,47 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
     },
     {
+      "id": "typing-indicator-bubble",
+      "name": "TypingIndicatorBubble",
+      "title": "Typing Indicator Bubble",
+      "category": "Chat",
+      "summary": "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+      "keywords": {
+        "en": [
+          "typing indicator",
+          "three dots",
+          "chat",
+          "message",
+          "is typing",
+          "bubble",
+          "ellipsis"
+        ],
+        "es": [
+          "indicador de escritura",
+          "tres puntos",
+          "chat",
+          "mensaje",
+          "está escribiendo",
+          "burbuja",
+          "puntos suspensivos"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "keyframeAnimator",
+        "KeyframeTrack",
+        "ScaledMetric",
+        "UnevenRoundedRectangle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.swift",
+      "preview": "Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.swift"
+    },
+    {
       "id": "add-to-cart-fly-button",
       "name": "AddToCartFlyButton",
       "title": "Add To Cart Fly Button",
@@ -4089,6 +4130,50 @@
       "path": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift",
       "preview": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift"
+    },
+    {
+      "id": "notification-stack",
+      "name": "NotificationStack",
+      "title": "Notification Stack",
+      "category": "Feedback",
+      "summary": "Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.",
+      "keywords": {
+        "en": [
+          "notification stack",
+          "lock screen",
+          "grouped notifications",
+          "expand",
+          "collapse",
+          "pile",
+          "swipe to clear"
+        ],
+        "es": [
+          "pila de notificaciones",
+          "pantalla de bloqueo",
+          "notificaciones agrupadas",
+          "expandir",
+          "contraer",
+          "montón",
+          "deslizar para borrar"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "Animatable",
+        "DragGesture",
+        "accessibilityAction",
+        "layoutDirection"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Notification groups on the iPhone Lock Screen",
+        "url": "https://support.apple.com/guide/iphone/view-and-respond-to-notifications-iph6534c01bc/ios"
+      },
+      "path": "Components/Feedback/NotificationStack/NotificationStack.swift",
+      "preview": "Components/Feedback/NotificationStack/NotificationStack.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/NotificationStack/NotificationStack.swift"
     },
     {
       "id": "rating-stars",
