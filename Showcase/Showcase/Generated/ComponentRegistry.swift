@@ -429,6 +429,15 @@ enum ComponentRegistry {
             demo: { AnyView(LineChartDrawInDemo()) }
         ),
         ShowcaseEntry(
+            id: "radar-chart",
+            title: "Radar Chart",
+            category: "Charts",
+            summary: "A radar chart with an axis per quality around a center and a shape per series that grows out when it appears.",
+            keywords: ["radar chart", "spider chart", "web chart", "compare", "profile", "polygon", "stats", "gráfica de radar", "gráfica de araña", "telaraña", "comparar", "perfil", "polígono", "estadísticas"],
+            minIOS: "18.0",
+            demo: { AnyView(RadarChartDemo()) }
+        ),
+        ShowcaseEntry(
             id: "sparkline-stat-tile",
             title: "Sparkline Stat Tile",
             category: "Charts",

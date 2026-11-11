@@ -1,5 +1,5 @@
 {
-  "count": 272,
+  "count": 273,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1895,6 +1895,48 @@
       "path": "Components/Charts/LineChartDrawIn/LineChartDrawIn.swift",
       "preview": "Components/Charts/LineChartDrawIn/LineChartDrawIn.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/LineChartDrawIn/LineChartDrawIn.swift"
+    },
+    {
+      "id": "radar-chart",
+      "name": "RadarChart",
+      "title": "Radar Chart",
+      "category": "Charts",
+      "summary": "A radar chart with an axis per quality around a center and a shape per series that grows out when it appears.",
+      "keywords": {
+        "en": [
+          "radar chart",
+          "spider chart",
+          "web chart",
+          "compare",
+          "profile",
+          "polygon",
+          "stats"
+        ],
+        "es": [
+          "gráfica de radar",
+          "gráfica de araña",
+          "telaraña",
+          "comparar",
+          "perfil",
+          "polígono",
+          "estadísticas"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Shape",
+        "Animatable",
+        "GeometryReader",
+        "accessibilityChildren",
+        "Path"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/RadarChart/RadarChart.swift",
+      "preview": "Components/Charts/RadarChart/RadarChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/RadarChart/RadarChart.swift"
     },
     {
       "id": "sparkline-stat-tile",

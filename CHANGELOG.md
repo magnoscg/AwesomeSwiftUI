@@ -48,6 +48,8 @@ on `main`.
   like a spoiler, and brings it into focus as they shrink.
 - Candlestick Chart, a chart of open, high, low and close prices, with a rule
   that reads the day under the finger.
+- Radar Chart, an axis per quality around a center and a shape per series that
+  grows out when it appears.
 
 ### Changed
 
