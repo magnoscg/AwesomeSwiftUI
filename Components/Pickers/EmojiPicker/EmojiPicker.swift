@@ -38,7 +38,8 @@ struct EmojiPicker: View {
     var recentLimit = 12
     let onSelect: (String) -> Void
 
-    @State private var activeID: String?
+    @State private var visibleIDs: [String] = []
+    @State private var isAtEnd = false
     /// The tab that was tapped stays chosen until the grid moves again. A short section near
     /// the end cannot reach the top, and would lose its tab to the one above it.
     @State private var tappedID: String?
@@ -49,6 +50,13 @@ struct EmojiPicker: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let edgePadding: CGFloat = 12
+
+    /// The first section in sight, or the last one once the grid is at its end, which a short
+    /// section there would never reach otherwise.
+    private var activeID: String? {
+        let visible = categories.filter { visibleIDs.contains($0.id) }
+        return isAtEnd ? visible.last?.id : visible.first?.id
+    }
 
     private var animation: Animation? {
         reduceMotion ? nil : .smooth(duration: 0.35)
@@ -137,9 +145,12 @@ struct EmojiPicker: View {
             if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
-            if let first = categories.first(where: { ids.contains($0.id) }) {
-                activeID = first.id
-            }
+            visibleIDs = ids
+        }
+        .onScrollGeometryChange(for: Bool.self) { geometry in
+            geometry.visibleRect.maxY >= geometry.contentSize.height - 1
+        } action: { _, atEnd in
+            isAtEnd = atEnd
         }
     }
 

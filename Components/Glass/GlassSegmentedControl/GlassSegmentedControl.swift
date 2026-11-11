@@ -14,7 +14,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
     let title: (Segment) -> String
 
     @ScaledMetric(relativeTo: .subheadline) private var height = 44.0
+    @State private var width: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     var body: some View {
         HStack(spacing: 0) {
@@ -23,6 +25,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
             }
         }
         .background { thumb }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+        // The thumb follows a finger dragged along the control, as the system's does.
+        .simultaneousGesture(DragGesture(minimumDistance: 10).onChanged { select(at: $0.location.x) })
         .padding(4)
         .background(.ultraThinMaterial, in: .capsule)
         .sensoryFeedback(.selection, trigger: selection)
@@ -38,6 +43,17 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
                 .frame(width: width)
                 .glassEffect(.regular.tint(tint), in: .capsule)
                 .offset(x: width * CGFloat(index))
+        }
+    }
+
+    private func select(at x: CGFloat) {
+        guard width > 0, !segments.isEmpty else { return }
+        // A gesture reports screen points, and a right-to-left layout counts from the other edge.
+        let leading = layoutDirection == .rightToLeft ? width - x : x
+        let index = min(max(Int(leading / width * CGFloat(segments.count)), 0), segments.count - 1)
+        guard segments[index] != selection else { return }
+        withAnimation(reduceMotion ? nil : .snappy(duration: 0.4)) {
+            selection = segments[index]
         }
     }
 
