@@ -1,0 +1,22 @@
+{
+  "id": "candlestick-chart",
+  "name": "CandlestickChart",
+  "title": "Candlestick Chart",
+  "category": "Charts",
+  "summary": "A candlestick chart of open, high, low and close prices, with a rule that reads the day under the finger.",
+  "keywords": {
+    "en": ["candlestick", "ohlc", "stocks", "trading", "price chart", "finance", "swift charts"],
+    "es": ["velas", "ohlc", "bolsa", "trading", "gráfica de precios", "finanzas", "swift charts"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Chart", "RectangleMark", "RuleMark", "chartXSelection", "chartYScale"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "swipe --start-x 80 --start-y 440 --end-x 320 --end-y 440 --duration 2.6 --delta 3",
+    "sleep 0.6",
+    "swipe --start-x 300 --start-y 420 --end-x 150 --end-y 420 --duration 1.8 --delta 3",
+    "sleep 1"
+  ]
+}

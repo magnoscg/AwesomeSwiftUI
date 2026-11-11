@@ -46,6 +46,8 @@ on `main`.
   view, drawn by a Metal shader, so what scrolls under a header melts away.
 - Pixelate Shader Effect, a modifier that draws a view in big square blocks,
   like a spoiler, and brings it into focus as they shrink.
+- Candlestick Chart, a chart of open, high, low and close prices, with a rule
+  that reads the day under the finger.
 
 ### Changed
 

@@ -1,5 +1,5 @@
 {
-  "count": 271,
+  "count": 272,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1735,6 +1735,48 @@
       "path": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift",
       "preview": "Components/Charts/AnimatedDonutChart/AnimatedDonutChart.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/AnimatedDonutChart/AnimatedDonutChart.swift"
+    },
+    {
+      "id": "candlestick-chart",
+      "name": "CandlestickChart",
+      "title": "Candlestick Chart",
+      "category": "Charts",
+      "summary": "A candlestick chart of open, high, low and close prices, with a rule that reads the day under the finger.",
+      "keywords": {
+        "en": [
+          "candlestick",
+          "ohlc",
+          "stocks",
+          "trading",
+          "price chart",
+          "finance",
+          "swift charts"
+        ],
+        "es": [
+          "velas",
+          "ohlc",
+          "bolsa",
+          "trading",
+          "gráfica de precios",
+          "finanzas",
+          "swift charts"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "18.0",
+      "apis": [
+        "Chart",
+        "RectangleMark",
+        "RuleMark",
+        "chartXSelection",
+        "chartYScale"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Charts/CandlestickChart/CandlestickChart.swift",
+      "preview": "Components/Charts/CandlestickChart/CandlestickChart.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Charts/CandlestickChart/CandlestickChart.swift"
     },
     {
       "id": "contribution-heatmap",
