@@ -2159,7 +2159,7 @@ import SwiftUI
 /// With Reduce Motion on, the button stays in place and only dims while pressed.
 struct ElasticDragButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .indigo
     var reach: Double = 80
     let action: () -> Void
@@ -2290,9 +2290,9 @@ import SwiftUI
 
 struct EmojiReactionPickerOption: Identifiable, Equatable, Sendable {
     let emoji: String
-    let name: String
+    let name: LocalizedStringResource
 
-    var id: String { name }
+    var id: String { emoji }
 
     static let defaults = [
         EmojiReactionPickerOption(emoji: "👍", name: "Like"),
@@ -2527,7 +2527,7 @@ import SwiftUI
 /// With Reduce Motion on, the field appears without animating.
 struct ExpandingSearchButton: View {
     @Binding var text: String
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
     var onSubmit: () -> Void = {}
 
     @State private var isExpanded = false
@@ -2553,7 +2553,7 @@ struct ExpandingSearchButton: View {
             .accessibilityLabel("Search")
 
             if isExpanded {
-                TextField(prompt, text: $text)
+                TextField(text: $text) { Text(prompt) }
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -2658,7 +2658,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/FloatingActionMen
 import SwiftUI
 
 struct FloatingActionMenuItem {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var tint: Color = .indigo
     let action: () -> Void
@@ -3090,7 +3090,7 @@ import SwiftUI
 /// With Reduce Motion on, the ring still fills, because it carries the meaning,
 /// but the button does not squeeze. VoiceOver users confirm with a double tap.
 struct HoldToConfirmButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String = "checkmark"
     var tint: Color = .red
     var holdDuration: Double = 1.2
@@ -3384,7 +3384,7 @@ private enum MorphingSubmitButtonPhase {
 ///
 /// With Reduce Motion on, the button keeps its shape and only its content crossfades.
 struct MorphingSubmitButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var tint: Color = .blue
     var successColor: Color = .green
     var successDuration: Double = 1.2
@@ -3400,7 +3400,7 @@ struct MorphingSubmitButton: View {
 
     private var isCollapsed: Bool { phase != .idle && !reduceMotion }
 
-    private var accessibilityTitle: String {
+    private var accessibilityTitle: LocalizedStringResource {
         switch phase {
         case .idle: title
         case .loading: "Submitting"
@@ -3698,7 +3698,7 @@ import SwiftUI
 
 struct ProviderSignInButtonStackOption: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let icon: Image
     var background: Color = .indigo
     var foreground: Color = .white
@@ -3799,7 +3799,7 @@ struct ProviderSignInButtonStackDemo: View {
         ]
     }
 
-    private func option(_ id: String, _ title: String, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
+    private func option(_ id: String, _ title: LocalizedStringResource, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
         ProviderSignInButtonStackOption(id: id, title: title, icon: Image(systemName: symbol), background: color) {
             do {
                 try await Task.sleep(for: .seconds(1.4))
@@ -3854,7 +3854,7 @@ private enum PulseRingButtonPhase {
 /// With Reduce Motion on, a single still halo replaces the rings.
 struct PulseRingButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .red
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
@@ -3972,7 +3972,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the sweep is removed and the button stays still.
 struct ShimmerButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String?
     var colors: [Color] = [.indigo, .purple]
     var sweepDuration: Double = 1.1
@@ -4078,7 +4078,7 @@ enum ShrinkingExtendedButtonMath {
 /// Pass `isExtended`, or drive it from a scroll view with `ShrinkingExtendedButtonScrollTracker`.
 /// With Reduce Motion on, it changes shape without animating.
 struct ShrinkingExtendedButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var isExtended = true
     var tint: Color = .indigo

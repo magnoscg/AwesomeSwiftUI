@@ -5,7 +5,7 @@ import SwiftUI
 
 struct ProviderSignInButtonStackOption: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let icon: Image
     var background: Color = .indigo
     var foreground: Color = .white
@@ -106,7 +106,7 @@ struct ProviderSignInButtonStackDemo: View {
         ]
     }
 
-    private func option(_ id: String, _ title: String, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
+    private func option(_ id: String, _ title: LocalizedStringResource, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
         ProviderSignInButtonStackOption(id: id, title: title, icon: Image(systemName: symbol), background: color) {
             do {
                 try await Task.sleep(for: .seconds(1.4))

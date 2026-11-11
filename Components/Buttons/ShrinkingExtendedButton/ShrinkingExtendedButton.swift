@@ -15,7 +15,7 @@ enum ShrinkingExtendedButtonMath {
 /// Pass `isExtended`, or drive it from a scroll view with `ShrinkingExtendedButtonScrollTracker`.
 /// With Reduce Motion on, it changes shape without animating.
 struct ShrinkingExtendedButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var isExtended = true
     var tint: Color = .indigo

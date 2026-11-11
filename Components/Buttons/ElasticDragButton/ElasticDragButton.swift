@@ -9,7 +9,7 @@ import SwiftUI
 /// With Reduce Motion on, the button stays in place and only dims while pressed.
 struct ElasticDragButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .indigo
     var reach: Double = 80
     let action: () -> Void

@@ -12,7 +12,7 @@ private enum MorphingSubmitButtonPhase {
 ///
 /// With Reduce Motion on, the button keeps its shape and only its content crossfades.
 struct MorphingSubmitButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var tint: Color = .blue
     var successColor: Color = .green
     var successDuration: Double = 1.2
@@ -28,7 +28,7 @@ struct MorphingSubmitButton: View {
 
     private var isCollapsed: Bool { phase != .idle && !reduceMotion }
 
-    private var accessibilityTitle: String {
+    private var accessibilityTitle: LocalizedStringResource {
         switch phase {
         case .idle: title
         case .loading: "Submitting"

@@ -12,6 +12,14 @@ on `main`.
   version your app runs on and by level. The filters stay in the address, so a
   filtered view can be shared.
 
+### Changed
+
+- The texts you pass to a component are becoming `LocalizedStringResource`, so
+  a literal lands in your app's String Catalog. A literal keeps working as it
+  is; a `String` variable is now passed as `"\(value)"`. Done in the ten
+  buttons that take a title, a label or a prompt.
+- Emoji Reaction Picker identifies each option by its emoji, not by its name.
+
 ### Fixed
 
 - Text and icons drawn over a color you choose stay readable on a light one:

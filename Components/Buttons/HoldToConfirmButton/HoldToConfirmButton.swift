@@ -9,7 +9,7 @@ import SwiftUI
 /// With Reduce Motion on, the ring still fills, because it carries the meaning,
 /// but the button does not squeeze. VoiceOver users confirm with a double tap.
 struct HoldToConfirmButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String = "checkmark"
     var tint: Color = .red
     var holdDuration: Double = 1.2
