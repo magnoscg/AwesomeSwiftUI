@@ -6,6 +6,13 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.1 - 2026-11-11
+
+### Added
+
+- The site carries the file that verifies it in Google Search Console, so its
+  pages can be submitted for indexing.
+
 ## 0.5.0 - 2026-11-11
 
 ### Added
