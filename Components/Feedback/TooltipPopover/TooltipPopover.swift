@@ -74,7 +74,7 @@ struct TooltipPopoverHost<Content: View>: View {
     private func bubbleText(_ text: String) -> some View {
         Text(text)
             .font(.subheadline)
-            .foregroundStyle(.white)
+            .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -196,6 +196,18 @@ nonisolated private struct TooltipPopoverArrow: Shape {
         path.addLine(to: CGPoint(x: rect.maxX, y: baseY))
         path.closeSubpath()
         return path
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct TooltipPopoverContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

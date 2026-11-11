@@ -47,7 +47,7 @@ struct CompletionSwipeRow<Content: View>: View {
 
                     Image(systemName: "checkmark")
                         .font(.title2.bold())
-                        .foregroundStyle(.white)
+                        .foregroundStyle(CompletionSwipeRowContrastingForeground(background: tint))
                         .scaleEffect(isPastThreshold ? 1.15 : (reduceMotion ? 1 : 0.5))
                         .opacity(isPastThreshold ? 1 : 0.55)
                         .padding(.leading, 24)
@@ -105,6 +105,18 @@ enum CompletionSwipeRowMath {
     static func shouldComplete(translation: CGSize, width: CGFloat) -> Bool {
         guard width > 0, translation.width > abs(translation.height) else { return false }
         return translation.width >= min(width * 0.4, maximumThreshold)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct CompletionSwipeRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

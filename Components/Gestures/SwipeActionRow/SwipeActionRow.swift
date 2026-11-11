@@ -90,7 +90,7 @@ struct SwipeActionRow<Content: View>: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                     }
-                    .foregroundStyle(.white)
+                    .foregroundStyle(SwipeActionRowContrastingForeground(background: action.tint))
                     .padding(.horizontal, 4)
                     .frame(width: width)
                     .frame(maxHeight: .infinity)
@@ -122,6 +122,18 @@ struct SwipeActionRow<Content: View>: View {
 
     private func close() {
         withAnimation(animation) { isOpen = false }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct SwipeActionRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

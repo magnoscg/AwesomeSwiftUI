@@ -4989,7 +4989,7 @@ struct ExpandableInfoCard<Details: View>: View {
         HStack(spacing: 14) {
             Image(systemName: systemImage)
                 .font(.title3)
-                .foregroundStyle(.white)
+                .foregroundStyle(ExpandableInfoCardContrastingForeground(background: tint))
                 .frame(width: iconSize, height: iconSize)
                 .background(tint.gradient, in: .rect(cornerRadius: 12))
                 .accessibilityHidden(true)
@@ -5014,6 +5014,18 @@ struct ExpandableInfoCard<Details: View>: View {
         }
         .padding(16)
         .contentShape(.rect)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ExpandableInfoCardContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -8250,7 +8262,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
                 Button(action: send) {
                     Image(systemName: "arrow.up")
                         .font(.body.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(KeyboardTrackingInputBarContrastingForeground(background: tint))
                         .frame(width: sendSize, height: sendSize)
                         .background(message.isEmpty ? AnyShapeStyle(.gray.opacity(0.4)) : AnyShapeStyle(tint), in: .circle)
                         .frame(minWidth: 44, minHeight: 44)
@@ -8271,6 +8283,18 @@ struct KeyboardTrackingInputBar<Content: View>: View {
         guard !sent.isEmpty else { return }
         text = ""
         onSend(sent)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct KeyboardTrackingInputBarContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -8403,7 +8427,7 @@ struct NestedCommentThread: View {
             .overlay {
                 Text(comment.author.prefix(1))
                     .font(.subheadline.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(NestedCommentThreadContrastingForeground(background: tint))
             }
             .accessibilityHidden(true)
     }
@@ -8502,6 +8526,18 @@ enum NestedCommentThreadLogic {
     /// Every reply below a comment, however deep.
     static func replyCount(of comment: NestedCommentThreadComment) -> Int {
         comment.replies.reduce(comment.replies.count) { $0 + replyCount(of: $1) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct NestedCommentThreadContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -9029,7 +9065,7 @@ struct AddToCartStepper: View {
                     .transition(.opacity)
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(AddToCartStepperContrastingForeground(background: tint))
         .background(tint.gradient, in: .capsule)
         .sensoryFeedback(.selection, trigger: quantity)
     }
@@ -9083,6 +9119,18 @@ struct AddToCartStepper: View {
 
     private func set(_ newValue: Int) {
         withAnimation(animation) { quantity = min(max(newValue, 0), limit) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AddToCartStepperContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -15422,7 +15470,7 @@ struct AnimatedBadgeCount: View {
                 Text(text)
                     .font(.caption.weight(.bold))
                     .monospacedDigit()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AnimatedBadgeCountContrastingForeground(background: tint))
                     .contentTransition(reduceMotion ? .identity : .numericText(value: Double(count)))
                     .padding(.horizontal, height * 0.32)
                     .frame(minWidth: height, minHeight: height)
@@ -15441,6 +15489,18 @@ enum AnimatedBadgeCountFormat {
         guard count > 0 else { return nil }
         let maximum = max(maximum, 1)
         return count > maximum ? "\(maximum)+" : "\(count)"
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AnimatedBadgeCountContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -16565,7 +16625,7 @@ struct TooltipPopoverHost<Content: View>: View {
     private func bubbleText(_ text: String) -> some View {
         Text(text)
             .font(.subheadline)
-            .foregroundStyle(.white)
+            .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -16687,6 +16747,18 @@ nonisolated private struct TooltipPopoverArrow: Shape {
         path.addLine(to: CGPoint(x: rect.maxX, y: baseY))
         path.closeSubpath()
         return path
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct TooltipPopoverContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -16965,7 +17037,7 @@ struct CompletionSwipeRow<Content: View>: View {
 
                     Image(systemName: "checkmark")
                         .font(.title2.bold())
-                        .foregroundStyle(.white)
+                        .foregroundStyle(CompletionSwipeRowContrastingForeground(background: tint))
                         .scaleEffect(isPastThreshold ? 1.15 : (reduceMotion ? 1 : 0.5))
                         .opacity(isPastThreshold ? 1 : 0.55)
                         .padding(.leading, 24)
@@ -17023,6 +17095,18 @@ enum CompletionSwipeRowMath {
     static func shouldComplete(translation: CGSize, width: CGFloat) -> Bool {
         guard width > 0, translation.width > abs(translation.height) else { return false }
         return translation.width >= min(width * 0.4, maximumThreshold)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct CompletionSwipeRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -18484,7 +18568,7 @@ struct SwipeActionRow<Content: View>: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                     }
-                    .foregroundStyle(.white)
+                    .foregroundStyle(SwipeActionRowContrastingForeground(background: action.tint))
                     .padding(.horizontal, 4)
                     .frame(width: width)
                     .frame(maxHeight: .infinity)
@@ -18516,6 +18600,18 @@ struct SwipeActionRow<Content: View>: View {
 
     private func close() {
         withAnimation(animation) { isOpen = false }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct SwipeActionRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -29765,7 +29861,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
                 Button { select(item) } label: {
                     Image(systemName: item.systemImage)
                         .font(.title3.weight(.semibold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                         .frame(width: buttonSize * 0.8, height: buttonSize * 0.8)
                         .contentShape(.circle)
                 }
@@ -29780,7 +29876,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
             Button(action: toggle) {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                     .rotationEffect(.degrees(45 * progress))
                     .frame(width: buttonSize, height: buttonSize)
                     .contentShape(.circle)
@@ -29838,6 +29934,18 @@ enum GooeyFloatingMenuMath {
         guard count > 1 else { return max(progress, 0) }
         let delay = 0.35 * Double(index) / Double(count - 1)
         return max((progress - delay) / (1 - delay), 0)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct GooeyFloatingMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -32016,13 +32124,25 @@ struct ScrollToTopButton<Content: View>: View {
         } label: {
             Image(systemName: "arrow.up")
                 .font(.title3.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(ScrollToTopButtonContrastingForeground(background: tint))
                 .frame(width: buttonSize, height: buttonSize)
                 .background(tint.gradient, in: .circle)
                 .shadow(color: .black.opacity(0.25), radius: 10, y: 5)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Back to top")
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ScrollToTopButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -32837,7 +32957,7 @@ private struct VerticalTimelineMarker: View {
                 Circle().fill(tint)
                 Image(systemName: "checkmark")
                     .font(.caption.weight(.heavy))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(VerticalTimelineContrastingForeground(background: tint))
             case .current:
                 halo
                 Circle().fill(tint.opacity(0.18))
@@ -32864,6 +32984,18 @@ private struct VerticalTimelineMarker: View {
                     isExpanded ? .easeOut(duration: 1.1) : nil
                 }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct VerticalTimelineContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -35183,7 +35315,7 @@ struct DownloadPillProgress: View {
                     Text(title)
                         .font(.headline)
                         .lineLimit(1)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .padding(.horizontal, 24)
                         .transition(.opacity)
                 case .downloading:
@@ -35191,7 +35323,7 @@ struct DownloadPillProgress: View {
                 case .finished:
                     Image(systemName: "checkmark")
                         .font(.headline.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .transition(.scale(scale: 0.4).combined(with: .opacity))
                 }
             }
@@ -35235,6 +35367,18 @@ struct DownloadPillProgress: View {
         case .downloading: "Downloading, \(fraction.formatted(.percent.precision(.fractionLength(0))))"
         case .finished: "Finished"
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct DownloadPillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -35448,7 +35592,7 @@ struct LiquidFillProgress: View {
                     .foregroundStyle(color)
 
                 percentLabel
-                    .foregroundStyle(.white)
+                    .foregroundStyle(LiquidFillProgressContrastingForeground(background: color))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .mask(frontWave)
             }
@@ -35501,6 +35645,18 @@ nonisolated private struct LiquidFillWave: Shape {
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
         path.closeSubpath()
         return path
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct LiquidFillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

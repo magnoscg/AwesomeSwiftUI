@@ -40,7 +40,7 @@ struct DownloadPillProgress: View {
                     Text(title)
                         .font(.headline)
                         .lineLimit(1)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .padding(.horizontal, 24)
                         .transition(.opacity)
                 case .downloading:
@@ -48,7 +48,7 @@ struct DownloadPillProgress: View {
                 case .finished:
                     Image(systemName: "checkmark")
                         .font(.headline.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .transition(.scale(scale: 0.4).combined(with: .opacity))
                 }
             }
@@ -92,6 +92,18 @@ struct DownloadPillProgress: View {
         case .downloading: "Downloading, \(fraction.formatted(.percent.precision(.fractionLength(0))))"
         case .finished: "Finished"
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct DownloadPillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
