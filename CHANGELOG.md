@@ -6,6 +6,12 @@ on `main`.
 
 ## Unreleased
 
+### Fixed
+
+- Scroll Spy Header jumps to the section of the chip you tap. It did nothing
+  for a section the list had not built yet. A chip whose section is too near
+  the end to reach the top stays chosen until the list moves again.
+
 ## 0.5.1 - 2026-11-11
 
 ### Added
