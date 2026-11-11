@@ -22,7 +22,7 @@ easy to copy matters as much as the code itself.
 | `README.md` | Written by hand, except the index between the `catalog` markers | In place |
 | `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
 | `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses. The landing page is `src/content/docs/index.mdx`, built from the other components in that folder, which read `catalog.json` through `src/lib/catalog.ts`. `src/styles/custom.css` holds the look of the site | In place |
-| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
+| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot. `readme/` has the logo and the button of the README, two animated SVG files | In place |
 
 Update the State column when a planned part lands.
 
