@@ -24,6 +24,7 @@ struct ContrastingForegroundTests {
         ("NestedCommentThread", { NestedCommentThreadContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("PulseRingButton", { PulseRingButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ScrollToTopButton", { ScrollToTopButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("SlotMachineReels", { SlotMachineReelsContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ShrinkingExtendedButton", { ShrinkingExtendedButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("SwipeActionRow", { SwipeActionRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("TooltipPopover", { TooltipPopoverContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

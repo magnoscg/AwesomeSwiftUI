@@ -2043,6 +2043,15 @@ enum ComponentRegistry {
             demo: { AnyView(BubbleWrapPopDemo()) }
         ),
         ShowcaseEntry(
+            id: "slot-machine-reels",
+            title: "Slot Machine Reels",
+            category: "Playful",
+            summary: "Reels of symbols that spin and stop one after another, with the result under a line across them.",
+            keywords: ["slot machine", "reels", "spin", "jackpot", "casino", "random", "lottery", "game", "tragaperras", "rodillos", "girar", "premio", "casino", "aleatorio", "lotería", "juego"],
+            minIOS: "18.0",
+            demo: { AnyView(SlotMachineReelsDemo()) }
+        ),
+        ShowcaseEntry(
             id: "spin-wheel-roulette",
             title: "Spin Wheel Roulette",
             category: "Playful",
