@@ -59,6 +59,9 @@ struct Surface3DChart: View {
             .chartXScale(domain: safeDomain)
             .chartZScale(domain: safeDomain)
             .chart3DPose($pose)
+            // The chart sizes its plot for the longer side of its frame. In a tall frame that
+            // is wider than the view, which cuts the corners and the axis labels.
+            .aspectRatio(1, contentMode: .fit)
             .accessibilityLabel("3D surface plot")
             .accessibilityValue(currentPreset.map { "\($0.rawValue) view" } ?? "Custom view")
             .accessibilityHint("Use the view buttons to change the angle")

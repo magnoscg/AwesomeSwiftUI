@@ -85,7 +85,8 @@ extension View {
     /// covers included. Put it once on the root view of a scene.
     ///
     /// The toasts live in a window of their own, so a `tint` or a `preferredColorScheme` set
-    /// on your views does not reach them.
+    /// on your views does not reach them. A toast covers what is under it while it shows,
+    /// and a tap or a swipe up dismisses it.
     func toastHost() -> some View {
         modifier(ToastHostModifier())
     }
@@ -253,6 +254,8 @@ private struct ToastHostDemoSheet: View {
                 }
             }
         }
+        // A toast covers what is under it while it shows. At half height the bar of the sheet stays clear.
+        .presentationDetents([.medium, .large])
     }
 }
 

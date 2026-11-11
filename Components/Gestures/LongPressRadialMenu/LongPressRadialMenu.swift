@@ -68,8 +68,11 @@ struct LongPressRadialMenu<Label: View>: View {
 
             if let hoveredIndex, items.indices.contains(hoveredIndex) {
                 // Its bottom edge clears the largest bubble, so a taller title grows away from the ring.
+                // The overlay offers it the width of the label, which would break a word in two.
                 Text(items[hoveredIndex].title)
                     .font(.headline)
+                    .lineLimit(1)
+                    .fixedSize()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.regularMaterial, in: .capsule)
