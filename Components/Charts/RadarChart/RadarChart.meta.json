@@ -1,0 +1,22 @@
+{
+  "id": "radar-chart",
+  "name": "RadarChart",
+  "title": "Radar Chart",
+  "category": "Charts",
+  "summary": "A radar chart with an axis per quality around a center and a shape per series that grows out when it appears.",
+  "keywords": {
+    "en": ["radar chart", "spider chart", "web chart", "compare", "profile", "polygon", "stats"],
+    "es": ["gráfica de radar", "gráfica de araña", "telaraña", "comparar", "perfil", "polígono", "estadísticas"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Shape", "Animatable", "GeometryReader", "accessibilityChildren", "Path"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Replay",
+    "sleep 2.4",
+    "tap --label Replay",
+    "sleep 2"
+  ]
+}
