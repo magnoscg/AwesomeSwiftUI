@@ -47,6 +47,8 @@ struct ScrollEdgeHeaderDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.glass)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)

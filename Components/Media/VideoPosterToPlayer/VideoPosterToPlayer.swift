@@ -39,9 +39,11 @@ struct VideoPosterToPlayer<Poster: View, Player: View>: View {
                             .foregroundStyle(.white)
                             .frame(width: 36, height: 36)
                             .background(.black.opacity(0.5), in: .circle)
+                            // The padding is part of the button, so all of it answers to a touch.
+                            .padding(10)
+                            .contentShape(.rect)
                     }
                     .accessibilityLabel("Close video")
-                    .padding(10)
                     .transition(.opacity)
                 }
             }

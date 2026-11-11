@@ -18,6 +18,8 @@ struct ReadMoreText: View {
     @State private var collapsedHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let touchPadding: CGFloat = 13
+
     private var isTruncated: Bool { fullHeight > collapsedHeight + 1 && collapsedHeight > 0 }
     private var isFaded: Bool { isTruncated && !isExpanded }
 
@@ -32,8 +34,15 @@ struct ReadMoreText: View {
                 .mask { fade }
 
             if isTruncated {
-                Button(isExpanded ? lessLabel : moreLabel) {
+                Button {
                     isExpanded.toggle()
+                } label: {
+                    // A line of text is too short to hit. The padding widens what answers to a
+                    // touch, and the same padding taken back keeps the layout as it was.
+                    Text(isExpanded ? lessLabel : moreLabel)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
                 }
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.tint)

@@ -53,6 +53,11 @@ struct RatingStars: View {
                 } animation: { scale in
                     scale > 1 ? .easeOut(duration: 0.1) : .spring(duration: 0.4, bounce: 0.6)
                 }
+                // A star answers to a touch up to the middle of the gap to the next one,
+                // which makes it as big as a touch target should be. The stars do not move.
+                .padding(5)
+                .contentShape(.rect)
+                .padding(-5)
         }
         .buttonStyle(.plain)
     }

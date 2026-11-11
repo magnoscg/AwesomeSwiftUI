@@ -108,6 +108,10 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View where Element
                             .fill(.quaternary)
                     }
                 }
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 5)
+                .contentShape(.rect)
+                .padding(.vertical, -5)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isActive ? .isSelected : [])

@@ -119,10 +119,16 @@ struct FullScreenMenuOverlayDemo: View {
             VStack(spacing: 20) {
                 HStack {
                     Spacer()
-                    Button("Menu", systemImage: "line.3.horizontal") { isOpen = true }
-                        .labelStyle(.iconOnly)
-                        .font(.title2.weight(.semibold))
-                        .padding(20)
+                    Button {
+                        isOpen = true
+                    } label: {
+                        // The padding is part of the button, so all of it answers to a touch.
+                        Label("Menu", systemImage: "line.3.horizontal")
+                            .padding(20)
+                            .contentShape(.rect)
+                    }
+                    .labelStyle(.iconOnly)
+                    .font(.title2.weight(.semibold))
                 }
 
                 Spacer()
