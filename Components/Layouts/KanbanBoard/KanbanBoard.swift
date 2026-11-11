@@ -68,7 +68,7 @@ struct KanbanBoard: View {
                 Text("\(column.cards.count)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("\(column.cards.count) cards")
+                    .accessibilityLabel("^[\(column.cards.count) card](inflect: true)")
             }
             .accessibilityElement(children: .combine)
 

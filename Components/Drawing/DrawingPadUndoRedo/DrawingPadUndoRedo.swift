@@ -84,7 +84,7 @@ struct DrawingPadUndoRedo: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(history.strokes.count) strokes")
+        .accessibilityValue("^[\(history.strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 

@@ -59,7 +59,7 @@ struct DrawingPadSpeedBrush: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(strokes.count) strokes")
+        .accessibilityValue("^[\(strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
