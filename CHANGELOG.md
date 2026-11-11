@@ -8,6 +8,9 @@ on `main`.
 
 ### Added
 
+- Day Schedule Timeline, the hours of a day down a column, with each event
+  drawn over the time it takes, overlapping events side by side and a line
+  at the current time.
 - Permission Primer Screen, the screen shown before the system asks for a
   permission: what it is for, what the person gets and one button that leads
   to the system's question.
