@@ -34,6 +34,8 @@ on `main`.
   stayed at the far end for a moment, over an empty thumb.
 - Matched Hero Card stays opaque while it opens and closes, and clips its
   detail, which ran over the rows below the card.
+- Interactive Pager Transition shows black behind the page that recedes, not
+  bands of the app's background.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
