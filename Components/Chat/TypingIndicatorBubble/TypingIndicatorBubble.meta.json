@@ -1,0 +1,15 @@
+{
+  "id": "typing-indicator-bubble",
+  "name": "TypingIndicatorBubble",
+  "title": "Typing Indicator Bubble",
+  "category": "Chat",
+  "summary": "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+  "keywords": {
+    "en": ["typing indicator", "three dots", "chat", "message", "is typing", "bubble", "ellipsis"],
+    "es": ["indicador de escritura", "tres puntos", "chat", "mensaje", "está escribiendo", "burbuja", "puntos suspensivos"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["keyframeAnimator", "KeyframeTrack", "ScaledMetric", "UnevenRoundedRectangle"],
+  "origin": { "kind": "original" }
+}
