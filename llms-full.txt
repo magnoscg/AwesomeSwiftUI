@@ -10759,7 +10759,7 @@ struct RangeSliderDemo: View {
                 amount("Maximum", price.upperBound)
             }
 
-            Text("\(matches) stays")
+            Text("^[\(matches) stay](inflect: true)")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
@@ -11629,7 +11629,7 @@ struct DrawingPadSpeedBrush: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(strokes.count) strokes")
+        .accessibilityValue("^[\(strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
@@ -11821,7 +11821,7 @@ struct DrawingPadUndoRedo: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Drawing pad")
-        .accessibilityValue("\(history.strokes.count) strokes")
+        .accessibilityValue("^[\(history.strokes.count) stroke](inflect: true)")
         .accessibilityAddTraits(.allowsDirectInteraction)
     }
 
@@ -24687,7 +24687,7 @@ struct KanbanBoard: View {
                 Text("\(column.cards.count)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("\(column.cards.count) cards")
+                    .accessibilityLabel("^[\(column.cards.count) card](inflect: true)")
             }
             .accessibilityElement(children: .combine)
 
@@ -25137,7 +25137,7 @@ struct RadialLayoutDemo: View {
                 Text("\(count)")
                     .font(.system(.largeTitle, design: .rounded, weight: .bold))
                     .contentTransition(.numericText(value: Double(count)))
-                    .accessibilityLabel("\(count) apps")
+                    .accessibilityLabel("^[\(count) app](inflect: true)")
             }
             .frame(maxWidth: 340, maxHeight: 340)
 
@@ -28512,7 +28512,7 @@ struct ShutterCaptureButtonDemo: View {
                             .foregroundStyle(.white.opacity(0.7))
                     }
                     .overlay(alignment: .top) {
-                        Text(isRecording ? "Recording" : "\(photos) photos")
+                        Text(isRecording ? "Recording" : "^[\(photos) photo](inflect: true)")
                             .font(.footnote.weight(.semibold).monospacedDigit())
                             .foregroundStyle(.white)
                             .padding(.horizontal, 12)
@@ -30933,7 +30933,7 @@ struct AdaptiveSidebarLayoutDemo: View {
                     Text(selected.title)
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
 
-                    Text("\(selected.count) messages")
+                    Text("^[\(selected.count) message](inflect: true)")
                         .font(.headline)
 
                     Button("Folders", systemImage: "sidebar.left") {
@@ -35525,7 +35525,7 @@ struct CountdownRing: View {
             .padding(lineWidth / 2)
             .accessibilityElement()
             .accessibilityLabel("Time remaining")
-            .accessibilityValue("\(seconds) seconds")
+            .accessibilityValue("^[\(seconds) second](inflect: true)")
         }
         .aspectRatio(1, contentMode: .fit)
         .task(id: endDate) {
@@ -37633,7 +37633,7 @@ struct PullProgressRefreshDemo: View {
                 Text("Inbox")
                     .font(.largeTitle.bold())
 
-                Text(updates == 0 ? "Pull down to refresh" : "Updated \(updates) times")
+                Text(updates == 0 ? "Pull down to refresh" : "Updated ^[\(updates) time](inflect: true)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .contentTransition(.numericText())
