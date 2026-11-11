@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Typing Indicator Bubble, three dots that bounce in turn inside a message
+  bubble while someone is typing.
 - Pulse Ring Button takes `isPulsing`. Set it to false to leave the button
   without rings, as when what it signals has stopped.
 - Glass Segmented Control follows a finger dragged along it, as the system's

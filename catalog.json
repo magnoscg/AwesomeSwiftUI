@@ -1,5 +1,5 @@
 {
-  "count": 280,
+  "count": 281,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2307,6 +2307,47 @@
       "path": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift",
       "preview": "Components/Chat/TapbackReactionBubble/TapbackReactionBubble.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/TapbackReactionBubble/TapbackReactionBubble.swift"
+    },
+    {
+      "id": "typing-indicator-bubble",
+      "name": "TypingIndicatorBubble",
+      "title": "Typing Indicator Bubble",
+      "category": "Chat",
+      "summary": "Three dots that bounce in turn inside a message bubble while someone is typing, and shrink away when they stop.",
+      "keywords": {
+        "en": [
+          "typing indicator",
+          "three dots",
+          "chat",
+          "message",
+          "is typing",
+          "bubble",
+          "ellipsis"
+        ],
+        "es": [
+          "indicador de escritura",
+          "tres puntos",
+          "chat",
+          "mensaje",
+          "está escribiendo",
+          "burbuja",
+          "puntos suspensivos"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "keyframeAnimator",
+        "KeyframeTrack",
+        "ScaledMetric",
+        "UnevenRoundedRectangle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.swift",
+      "preview": "Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Chat/TypingIndicatorBubble/TypingIndicatorBubble.swift"
     },
     {
       "id": "add-to-cart-fly-button",
