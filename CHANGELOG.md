@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.0 - 2026-11-11
+
 ### Added
 
 - The catalog on the site can be searched and filtered by category, by the iOS
