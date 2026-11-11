@@ -181,6 +181,9 @@ anything else:
     - Data stays a `String`: a person's name, a message, the name of a symbol.
     - A text fixed inside the component is a literal passed straight to
       SwiftUI, which already makes it localizable.
+    - Never interpolate a resource into a `String`: it prints its internals,
+      `LocalizedStringResource(key: …)`, instead of the text. Keep the result
+      a resource, or resolve it with `String(localized:)`.
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
       the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
 

@@ -11,6 +11,9 @@ on `main`.
 - Scroll Spy Header jumps to the section of the chip you tap. It did nothing
   for a section the list had not built yet. A chip whose section is too near
   the end to reach the top stays chosen until the list moves again.
+- Undo Snackbar announces its message to VoiceOver again, and the demo of
+  Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
+  the localizable text instead of the text.
 
 ## 0.5.1 - 2026-11-11
 
