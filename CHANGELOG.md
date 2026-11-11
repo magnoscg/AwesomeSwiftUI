@@ -60,6 +60,10 @@ on `main`.
   bold, italic, underlined, struck through or highlighted.
 - Embedded Web Browser, for iOS 26: a small browser inside the app, with an
   address bar, back, forward and reload.
+- Swipe Action Cards, for iOS 27: a column of cards with the system's swipe
+  actions, outside a `List`.
+- Tabs Picker Pages, for iOS 27: a row of tabs over a page that slides in with
+  them, on the new tabs picker style.
 
 ### Changed
 

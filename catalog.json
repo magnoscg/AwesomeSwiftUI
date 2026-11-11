@@ -1,5 +1,5 @@
 {
-  "count": 278,
+  "count": 280,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -6633,6 +6633,48 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/StickySectionHeaders/StickySectionHeaders.swift"
     },
     {
+      "id": "swipe-action-cards",
+      "name": "SwipeActionCards",
+      "title": "Swipe Action Cards",
+      "category": "Lists",
+      "summary": "A column of cards with the system's swipe actions, outside a List.",
+      "keywords": {
+        "en": [
+          "swipe actions",
+          "cards",
+          "swipe to delete",
+          "without list",
+          "lazy stack",
+          "row actions",
+          "ios 27"
+        ],
+        "es": [
+          "acciones al deslizar",
+          "tarjetas",
+          "deslizar para borrar",
+          "sin list",
+          "lazy stack",
+          "acciones de fila",
+          "ios 27"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "27.0",
+      "apis": [
+        "swipeActions",
+        "swipeActionsContainer",
+        "LazyVStack",
+        "ScrollView",
+        "ForEach"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/SwipeActionCards/SwipeActionCards.swift",
+      "preview": "Components/Lists/SwipeActionCards/SwipeActionCards.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/SwipeActionCards/SwipeActionCards.swift"
+    },
+    {
       "id": "arc-segments-loader",
       "name": "ArcSegmentsLoader",
       "title": "Arc Segments Loader",
@@ -10047,6 +10089,48 @@
       "path": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift",
       "preview": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift"
+    },
+    {
+      "id": "tabs-picker-pages",
+      "name": "TabsPickerPages",
+      "title": "Tabs Picker Pages",
+      "category": "Tabs",
+      "summary": "A row of tabs over a page that slides in with them, on the tabs picker style of iOS 27.",
+      "keywords": {
+        "en": [
+          "tabs",
+          "picker style",
+          "segmented",
+          "pages",
+          "sections",
+          "top tabs",
+          "ios 27"
+        ],
+        "es": [
+          "pestañas",
+          "estilo de picker",
+          "segmentado",
+          "páginas",
+          "secciones",
+          "pestañas superiores",
+          "ios 27"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "27.0",
+      "apis": [
+        "Picker",
+        "TabsPickerStyle",
+        "pickerStyle",
+        "AnyTransition",
+        "onChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Tabs/TabsPickerPages/TabsPickerPages.swift",
+      "preview": "Components/Tabs/TabsPickerPages/TabsPickerPages.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/TabsPickerPages/TabsPickerPages.swift"
     },
     {
       "id": "animated-gradient-text",
