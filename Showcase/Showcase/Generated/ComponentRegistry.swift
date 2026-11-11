@@ -732,6 +732,15 @@ enum ComponentRegistry {
             demo: { AnyView(BorderBeamModifierDemo()) }
         ),
         ShowcaseEntry(
+            id: "chromatic-glitch-shader",
+            title: "Chromatic Glitch Shader",
+            category: "Effects",
+            summary: "A view modifier that breaks a view up like a bad signal: its colors come apart, bands jump sideways and scan lines cross it, drawn by a Metal shader.",
+            keywords: ["glitch", "chromatic aberration", "rgb split", "shader", "metal", "scan lines", "vhs", "distortion", "glitch", "aberración cromática", "separación rgb", "shader", "metal", "líneas de escaneo", "vhs", "distorsión"],
+            minIOS: "18.0",
+            demo: { AnyView(ChromaticGlitchShaderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "coin-flip-view",
             title: "Coin Flip View",
             category: "Effects",
@@ -1624,6 +1633,15 @@ enum ComponentRegistry {
             keywords: ["map", "annotation", "callout", "price pin", "marker", "popover", "mapkit", "mapa", "anotación", "globo", "pin con precio", "marcador", "tarjeta emergente", "mapkit"],
             minIOS: "18.0",
             demo: { AnyView(MapAnnotationCalloutDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "map-cluster-annotations",
+            title: "Map Cluster Annotations",
+            category: "Maps",
+            summary: "A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.",
+            keywords: ["map clustering", "cluster", "annotations", "pins", "mapkit", "zoom", "grouped markers", "count bubble", "agrupar en el mapa", "clúster", "anotaciones", "chinchetas", "mapkit", "zoom", "marcadores agrupados", "burbuja con número"],
+            minIOS: "18.0",
+            demo: { AnyView(MapClusterAnnotationsDemo()) }
         ),
         ShowcaseEntry(
             id: "map-route-tracker",

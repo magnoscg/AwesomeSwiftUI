@@ -21,6 +21,7 @@ struct ContrastingForegroundTests {
         ("HoldToConfirmButton", { HoldToConfirmButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("KeyboardTrackingInputBar", { KeyboardTrackingInputBarContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("LiquidFillProgress", { LiquidFillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("MapClusterAnnotations", { MapClusterAnnotationsContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("MorphingSubmitButton", { MorphingSubmitButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("NestedCommentThread", { NestedCommentThreadContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("PermissionPrimerScreen", { PermissionPrimerScreenContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

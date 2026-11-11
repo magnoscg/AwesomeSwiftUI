@@ -1,5 +1,5 @@
 {
-  "count": 286,
+  "count": 288,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3260,6 +3260,52 @@
       "path": "Components/Effects/BorderBeamModifier/BorderBeamModifier.swift",
       "preview": "Components/Effects/BorderBeamModifier/BorderBeamModifier.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/BorderBeamModifier/BorderBeamModifier.swift"
+    },
+    {
+      "id": "chromatic-glitch-shader",
+      "name": "ChromaticGlitchShader",
+      "title": "Chromatic Glitch Shader",
+      "category": "Effects",
+      "summary": "A view modifier that breaks a view up like a bad signal: its colors come apart, bands jump sideways and scan lines cross it, drawn by a Metal shader.",
+      "keywords": {
+        "en": [
+          "glitch",
+          "chromatic aberration",
+          "rgb split",
+          "shader",
+          "metal",
+          "scan lines",
+          "vhs",
+          "distortion"
+        ],
+        "es": [
+          "glitch",
+          "aberración cromática",
+          "separación rgb",
+          "shader",
+          "metal",
+          "líneas de escaneo",
+          "vhs",
+          "distorsión"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "ShaderLibrary",
+        "layerEffect",
+        "TimelineView",
+        "Animatable",
+        "visualEffect"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.swift",
+      "preview": "Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.webp",
+      "shader": "Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.metal",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.swift",
+      "shaderRawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Effects/ChromaticGlitchShader/ChromaticGlitchShader.metal"
     },
     {
       "id": "coin-flip-view",
@@ -7121,6 +7167,50 @@
       "path": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift",
       "preview": "Components/Maps/MapAnnotationCallout/MapAnnotationCallout.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Maps/MapAnnotationCallout/MapAnnotationCallout.swift"
+    },
+    {
+      "id": "map-cluster-annotations",
+      "name": "MapClusterAnnotations",
+      "title": "Map Cluster Annotations",
+      "category": "Maps",
+      "summary": "A map where places that are close together are drawn as one bubble with their count, which splits into its places as the map zooms in.",
+      "keywords": {
+        "en": [
+          "map clustering",
+          "cluster",
+          "annotations",
+          "pins",
+          "mapkit",
+          "zoom",
+          "grouped markers",
+          "count bubble"
+        ],
+        "es": [
+          "agrupar en el mapa",
+          "clúster",
+          "anotaciones",
+          "chinchetas",
+          "mapkit",
+          "zoom",
+          "marcadores agrupados",
+          "burbuja con número"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Map",
+        "Annotation",
+        "onMapCameraChange",
+        "MapCameraPosition",
+        "MKCoordinateRegion"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Maps/MapClusterAnnotations/MapClusterAnnotations.swift",
+      "preview": "Components/Maps/MapClusterAnnotations/MapClusterAnnotations.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Maps/MapClusterAnnotations/MapClusterAnnotations.swift"
     },
     {
       "id": "map-route-tracker",
