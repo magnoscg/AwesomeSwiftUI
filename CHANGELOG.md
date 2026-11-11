@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Map Cluster Annotations, a map where places that are close together are
+  drawn as one bubble with their count, which splits as the map zooms in.
 - Profile Header Stretchy, a profile whose cover stretches when the page is
   pulled down and closes into a bar with the name as it scrolls.
 - Day Schedule Timeline, the hours of a day down a column, with each event
