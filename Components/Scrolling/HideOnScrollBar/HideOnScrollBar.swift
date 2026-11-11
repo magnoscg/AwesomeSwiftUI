@@ -88,6 +88,7 @@ struct HideOnScrollBarTracker: Equatable {
 struct HideOnScrollBarDemo: View {
     /// Only for this demo: it plays by itself until someone touches it.
     @State private var isAutoPlaying = true
+    @State private var selected = "Home"
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let colors: [Color] = [.indigo, .teal, .orange, .pink, .blue, .green]
@@ -152,12 +153,18 @@ struct HideOnScrollBarDemo: View {
     }
 
     private func barButton(_ title: String, symbol: String) -> some View {
-        Button {} label: {
+        Button {
+            selected = title
+        } label: {
             Image(systemName: symbol)
                 .font(.title3)
                 .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(.rect)
         }
+        .buttonStyle(.plain)
+        .foregroundStyle(selected == title ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
         .accessibilityLabel(title)
+        .accessibilityAddTraits(selected == title ? .isSelected : [])
     }
 }
 

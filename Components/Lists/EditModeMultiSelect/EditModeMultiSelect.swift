@@ -103,7 +103,7 @@ private struct EditModeMultiSelectDemoMail: Identifiable {
 }
 
 struct EditModeMultiSelectDemo: View {
-    @State private var mails = [
+    private static let allMails = [
         EditModeMultiSelectDemoMail(id: "Flights", subtitle: "Your boarding pass is ready", systemImage: "airplane", tint: .blue),
         EditModeMultiSelectDemoMail(id: "Receipts", subtitle: "Thanks for your order", systemImage: "cart.fill", tint: .green),
         EditModeMultiSelectDemoMail(id: "Newsletter", subtitle: "Five things to read this week", systemImage: "newspaper.fill", tint: .orange),
@@ -113,6 +113,7 @@ struct EditModeMultiSelectDemo: View {
         EditModeMultiSelectDemoMail(id: "Podcasts", subtitle: "A new episode just landed", systemImage: "mic.fill", tint: .pink),
         EditModeMultiSelectDemoMail(id: "Fitness", subtitle: "You closed all your rings", systemImage: "figure.run", tint: .mint),
     ]
+    @State private var mails = allMails
     @State private var selection = Set<String>()
     @ScaledMetric(relativeTo: .headline) private var iconSize = 40.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -143,6 +144,16 @@ struct EditModeMultiSelectDemo: View {
             }
             .navigationTitle("Inbox")
             .navigationBarTitleDisplayMode(.inline)
+            // Only for this demo: a way back once every row is gone.
+            .safeAreaInset(edge: .bottom) {
+                if mails.isEmpty {
+                    Button("Start over") {
+                        withAnimation(reduceMotion ? nil : .default) { mails = Self.allMails }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.bottom, 24)
+                }
+            }
         }
     }
 

@@ -125,6 +125,8 @@ struct AudioPlayerCardDemo: View {
         }
         .task(id: isPlaying) {
             guard isPlaying else { return }
+            // Play at the end starts again, as a player does.
+            if currentTime >= duration { currentTime = 0 }
             while currentTime < duration {
                 try? await Task.sleep(for: .milliseconds(250))
                 guard !Task.isCancelled else { return }

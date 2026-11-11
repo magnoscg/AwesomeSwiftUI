@@ -6,6 +6,11 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Pulse Ring Button takes `isPulsing`. Set it to false to leave the button
+  without rings, as when what it signals has stopped.
+
 ### Fixed
 
 - Small buttons are easier to hit. In 27 components a button or a row answers
@@ -13,6 +18,21 @@ on `main`.
   links of one line of text, legends, crumbs, tabs, chips, stars and icons
   inside fields, among others. Where a bigger button would have changed the
   design, only the area that answers grew.
+- A count agrees with its noun: "1 photo", not "1 photos". Nine components
+  wrote the plural for every number, on screen or to VoiceOver: Adaptive
+  Sidebar Layout, Countdown Ring, Drawing Pad Speed Brush, Drawing Pad Undo
+  Redo, Kanban Board, Pull Progress Refresh, Radial Layout, Range Slider and
+  Shutter Capture Button.
+- A demo you can empty offers to start over. Five left an empty screen once
+  every item was gone: Context Menu Preview Card, Drop Zone Highlight, Edit
+  Mode Multi Select, Swipe Action Cards and Swipe Action Row.
+- In the demos of Audio Player Card and Video Player Chrome, Play at the end
+  starts again. It did nothing.
+- Netflix Rows Scroller and Shimmer Button dim and shrink a little while they
+  are pressed. They gave no answer to a touch.
+- Buttons that did nothing in a demo now do: Previous and Next in Expanding
+  Mini Player, the tabs of the bar in Hide On Scroll Bar, and the rows of
+  Dynamic Height Tray, which also closes from its last step.
 
 ## 0.5.2 - 2026-11-11
 
