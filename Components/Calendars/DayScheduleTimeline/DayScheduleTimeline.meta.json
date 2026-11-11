@@ -1,0 +1,16 @@
+{
+  "id": "day-schedule-timeline",
+  "name": "DayScheduleTimeline",
+  "title": "Day Schedule Timeline",
+  "category": "Calendars",
+  "summary": "The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.",
+  "keywords": {
+    "en": ["day view", "schedule", "agenda", "timeline", "calendar events", "hours", "overlapping events", "current time"],
+    "es": ["vista de día", "horario", "agenda", "línea de tiempo", "eventos del calendario", "horas", "eventos solapados", "hora actual"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["TimelineView", "ScrollViewReader", "GeometryReader", "alignmentGuide", "ScaledMetric"],
+  "origin": { "kind": "inspired", "credit": "The day view of Apple's Calendar", "url": "https://support.apple.com/guide/iphone/view-events-iph3d110f84/ios" },
+  "previewSteps": ["sleep 0.8", "tap --label Interview", "sleep 1", "swipe --start-x 201 --start-y 650 --end-x 201 --end-y 330 --duration 0.6", "sleep 0.9", "tap --label 'Focus time'", "sleep 1.3"]
+}
