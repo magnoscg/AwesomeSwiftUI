@@ -1,5 +1,5 @@
 {
-  "count": 275,
+  "count": 276,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2882,6 +2882,48 @@
       "path": "Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift",
       "preview": "Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/SwipeToConfirmSlider/SwipeToConfirmSlider.swift"
+    },
+    {
+      "id": "tick-mark-slider",
+      "name": "TickMarkSlider",
+      "title": "Tick Mark Slider",
+      "category": "Controls",
+      "summary": "The system slider with a mark at the values that matter, which settles on the nearest one when let go.",
+      "keywords": {
+        "en": [
+          "slider",
+          "tick marks",
+          "steps",
+          "snap",
+          "neutral value",
+          "playback speed",
+          "ios 26"
+        ],
+        "es": [
+          "slider",
+          "marcas",
+          "pasos",
+          "ajuste",
+          "valor neutro",
+          "velocidad de reproducción",
+          "ios 26"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "26.0",
+      "apis": [
+        "Slider",
+        "SliderTick",
+        "SliderTickContentForEach",
+        "neutralValue",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/TickMarkSlider/TickMarkSlider.swift",
+      "preview": "Components/Controls/TickMarkSlider/TickMarkSlider.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
     },
     {
       "id": "drawing-pad-speed-brush",

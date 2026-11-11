@@ -648,6 +648,18 @@ enum ComponentRegistry {
             demo: { AnyView(SwipeToConfirmSliderDemo()) }
         ),
         ShowcaseEntry(
+            id: "tick-mark-slider",
+            title: "Tick Mark Slider",
+            category: "Controls",
+            summary: "The system slider with a mark at the values that matter, which settles on the nearest one when let go.",
+            keywords: ["slider", "tick marks", "steps", "snap", "neutral value", "playback speed", "ios 26", "slider", "marcas", "pasos", "ajuste", "valor neutro", "velocidad de reproducción", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(TickMarkSliderDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "drawing-pad-speed-brush",
             title: "Drawing Pad Speed Brush",
             category: "Drawing",

@@ -54,6 +54,8 @@ on `main`.
   to the value.
 - Scrollable Bar Chart, a bar chart that scrolls sideways a week at a time and
   marks the average of the days in sight.
+- Tick Mark Slider, for iOS 26: the system slider with a mark at the values
+  that matter, which settles on the nearest one when let go.
 
 ### Changed
 
