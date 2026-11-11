@@ -195,6 +195,19 @@ anything else:
     Applied wherever the text is not the identity of an item or part of
     a `String` the component composes.
 
+    The Showcase shows the rule at work. Its String Catalog,
+    `Showcase/Showcase/Localizable.xcstrings`, has the Spanish of one demo,
+    Onboarding Pager:
+
+    ```sh
+    xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
+      -showcaseComponent onboarding-pager -AppleLanguages "(es)"
+    ```
+
+    Its keys are written by hand. The target does not extract strings into
+    it, so a build in Xcode does not fill it with the texts of every
+    component.
+
 14. **A demo stops playing when it is touched.** A demo may move by itself, so
     it looks alive and its preview records without touches, but never against
     the person trying it. Every demo that does uses the same piece:

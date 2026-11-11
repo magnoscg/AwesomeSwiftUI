@@ -18,6 +18,9 @@ on `main`.
   month over 12, before it shows its checkmark.
 - Rating Stars clears the rating with a tap on the chosen star.
 - Gooey Floating Menu closes with a tap outside it.
+- The Showcase app has the Spanish of one demo, Onboarding Pager, in a String
+  Catalog. It shows what passing texts as `LocalizedStringResource` buys:
+  the component is not touched, and the app that copies it translates it.
 
 ### Fixed
 
