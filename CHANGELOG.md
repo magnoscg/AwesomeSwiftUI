@@ -21,6 +21,9 @@ on `main`.
   centered two rows below it, so the selected value looked small and faded.
 - Dropdown Select Menu opens its list under the field, with every option. It
   opened over the field, squeezed to the height of one row.
+- Interactive Line Chart shows the value and the date over the rule while you
+  drag. On iOS 27 the tooltip was not drawn, and before it its background was
+  black.
 
 ## 0.5.1 - 2026-11-11
 
