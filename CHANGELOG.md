@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.2 - 2026-11-11
+
 ### Changed
 
 - A demo that plays by itself stops for good when you touch it. Fourteen kept
