@@ -126,7 +126,11 @@ struct AnimatedDonutChart: View {
                         Text(percent).foregroundStyle(.secondary)
                     }
                     .font(isSelected ? .subheadline.weight(.semibold) : .subheadline)
+                    // A row is too short to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the legend as compact as it was.
+                    .padding(.vertical, 13)
                     .contentShape(.rect)
+                    .padding(.vertical, -13)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(segment.id)

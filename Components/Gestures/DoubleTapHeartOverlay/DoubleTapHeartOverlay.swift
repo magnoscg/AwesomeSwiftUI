@@ -142,10 +142,15 @@ struct DoubleTapHeartOverlayDemo: View {
                     Button {
                         isLiked.toggle()
                     } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the row as it was.
                         Image(systemName: isLiked ? "heart.fill" : "heart")
                             .font(.title2)
                             .foregroundStyle(isLiked ? .pink : .primary)
                             .symbolEffect(.bounce, value: isLiked)
+                            .padding(10)
+                            .contentShape(.rect)
+                            .padding(-10)
                     }
                     .accessibilityLabel(isLiked ? "Unlike" : "Like")
 

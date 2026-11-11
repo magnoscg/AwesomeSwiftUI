@@ -147,8 +147,17 @@ struct DragSelectGridDemo: View {
                     .font(.title2.bold())
                     .contentTransition(reduceMotion ? .identity : .numericText())
                 Spacer()
-                Button("Clear") { selection = [] }
-                    .disabled(selection.isEmpty)
+                Button {
+                    selection = []
+                } label: {
+                    // A word is too small to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the layout as it was.
+                    Text("Clear")
+                        .padding(12)
+                        .contentShape(.rect)
+                        .padding(-12)
+                }
+                .disabled(selection.isEmpty)
             }
             .animation(reduceMotion ? nil : .snappy, value: selection.count)
             .padding(.horizontal, 16)

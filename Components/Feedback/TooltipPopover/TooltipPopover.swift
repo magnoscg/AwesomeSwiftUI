@@ -244,8 +244,13 @@ struct TooltipPopoverDemo: View {
             Button {
                 activeTip = id
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the row as it was.
                 Image(systemName: "info.circle.fill")
                     .font(.title2)
+                    .padding(9)
+                    .contentShape(.rect)
+                    .padding(-9)
             }
             .accessibilityLabel("About \(title)")
             .tooltipPopoverAnchor(id: id, text: "\(tip)")
