@@ -32,6 +32,8 @@ on `main`.
   title keeps its size when the selection also covers the text under it.
 - Swipe To Confirm Slider carries its symbol back with the thumb. The check
   stayed at the far end for a moment, over an empty thumb.
+- Matched Hero Card stays opaque while it opens and closes, and clips its
+  detail, which ran over the rows below the card.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
