@@ -8,9 +8,15 @@ enum RatingStarsValue {
     static func clamped(_ rating: Int, maximum: Int) -> Int {
         min(max(rating, 0), max(maximum, 0))
     }
+
+    /// The rating after a tap on `star`: that star, or none when it was already the rating.
+    static func tapping(_ star: Int, rating: Int, maximum: Int) -> Int {
+        star == rating ? 0 : clamped(star, maximum: maximum)
+    }
 }
 
-/// A row of tappable stars. Each star pops with a spring when it fills.
+/// A row of tappable stars. Each star pops with a spring when it fills, and a tap on the
+/// chosen star clears the rating.
 ///
 /// VoiceOver treats the row as one adjustable value. With Reduce Motion on, the stars only change color.
 struct RatingStars: View {
@@ -42,7 +48,7 @@ struct RatingStars: View {
         let isFilled = star <= rating
 
         return Button {
-            rating = RatingStarsValue.clamped(star, maximum: maximum)
+            rating = RatingStarsValue.tapping(star, rating: rating, maximum: maximum)
         } label: {
             Image(systemName: "star.fill")
                 .font(.largeTitle)

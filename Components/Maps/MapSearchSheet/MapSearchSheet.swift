@@ -118,6 +118,7 @@ private struct MapSearchSheetPanel: View {
                 TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
+                    .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
 
                 if !query.isEmpty {

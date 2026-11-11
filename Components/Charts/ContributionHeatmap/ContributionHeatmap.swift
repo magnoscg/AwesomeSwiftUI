@@ -140,7 +140,6 @@ enum ContributionHeatmapLogic {
 
 struct ContributionHeatmapDemo: View {
     @State private var seed = 1.0
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var activity: [Date: Int] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -163,17 +162,15 @@ struct ContributionHeatmapDemo: View {
                 .foregroundStyle(.secondary)
 
             ContributionHeatmap(activity: activity, weeks: 30)
+
+            Button("Shuffle", systemImage: "shuffle") {
+                seed = seed > 1.3 ? 1 : seed + 0.17
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
             Spacer()
         }
         .padding(24)
-        .task(id: reduceMotion) {
-            guard !reduceMotion else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(2.4))
-                guard !Task.isCancelled else { return }
-                seed = seed > 1.3 ? 1 : seed + 0.17
-            }
-        }
     }
 }
 
