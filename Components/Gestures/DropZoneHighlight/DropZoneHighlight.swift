@@ -52,7 +52,8 @@ struct DropZoneHighlight<Payload: Transferable>: View {
 // MARK: - Demo
 
 struct DropZoneHighlightDemo: View {
-    @State private var waiting = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    private static let files = ["Report.pdf", "Photo.heic", "Notes.txt", "Budget.xlsx"]
+    @State private var waiting = files
     @State private var dropped: [String] = []
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -80,6 +81,17 @@ struct DropZoneHighlightDemo: View {
                     Text(dropped.isEmpty ? "Nothing in the box yet" : "In the box: \(dropped.joined(separator: ", "))")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+
+                    // Only for this demo: a way back once every file is in the box.
+                    if waiting.isEmpty {
+                        Button("Start over") {
+                            withAnimation(reduceMotion ? nil : .snappy) {
+                                waiting = Self.files
+                                dropped = []
+                            }
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
                 }
                 .padding(24)
             }

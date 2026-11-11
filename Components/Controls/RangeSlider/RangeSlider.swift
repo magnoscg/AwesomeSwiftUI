@@ -191,7 +191,7 @@ struct RangeSliderDemo: View {
                 amount("Maximum", price.upperBound)
             }
 
-            Text("\(matches) stays")
+            Text("^[\(matches) stay](inflect: true)")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)

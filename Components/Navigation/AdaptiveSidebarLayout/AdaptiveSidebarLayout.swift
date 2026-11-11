@@ -108,7 +108,7 @@ struct AdaptiveSidebarLayoutDemo: View {
                     Text(selected.title)
                         .font(.system(.largeTitle, design: .rounded, weight: .bold))
 
-                    Text("\(selected.count) messages")
+                    Text("^[\(selected.count) message](inflect: true)")
                         .font(.headline)
 
                     Button("Folders", systemImage: "sidebar.left") {
