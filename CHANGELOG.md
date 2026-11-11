@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Notification Stack, notifications piled under the newest one, like a lock
+  screen, that open into a column with a tap and can be swiped away.
 - Typing Indicator Bubble, three dots that bounce in turn inside a message
   bubble while someone is typing.
 - Pulse Ring Button takes `isPulsing`. Set it to false to leave the button

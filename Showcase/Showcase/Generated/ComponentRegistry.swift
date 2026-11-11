@@ -921,6 +921,15 @@ enum ComponentRegistry {
             demo: { AnyView(EmptyStatePlaceholderDemo()) }
         ),
         ShowcaseEntry(
+            id: "notification-stack",
+            title: "Notification Stack",
+            category: "Feedback",
+            summary: "Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.",
+            keywords: ["notification stack", "lock screen", "grouped notifications", "expand", "collapse", "pile", "swipe to clear", "pila de notificaciones", "pantalla de bloqueo", "notificaciones agrupadas", "expandir", "contraer", "montón", "deslizar para borrar"],
+            minIOS: "18.0",
+            demo: { AnyView(NotificationStackDemo()) }
+        ),
+        ShowcaseEntry(
             id: "rating-stars",
             title: "Rating Stars",
             category: "Feedback",

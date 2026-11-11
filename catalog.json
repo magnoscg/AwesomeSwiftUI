@@ -1,5 +1,5 @@
 {
-  "count": 281,
+  "count": 282,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -4130,6 +4130,50 @@
       "path": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift",
       "preview": "Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/EmptyStatePlaceholder/EmptyStatePlaceholder.swift"
+    },
+    {
+      "id": "notification-stack",
+      "name": "NotificationStack",
+      "title": "Notification Stack",
+      "category": "Feedback",
+      "summary": "Notifications piled under the newest one, like a lock screen, that open into a column with a tap and can be swiped away one by one.",
+      "keywords": {
+        "en": [
+          "notification stack",
+          "lock screen",
+          "grouped notifications",
+          "expand",
+          "collapse",
+          "pile",
+          "swipe to clear"
+        ],
+        "es": [
+          "pila de notificaciones",
+          "pantalla de bloqueo",
+          "notificaciones agrupadas",
+          "expandir",
+          "contraer",
+          "montón",
+          "deslizar para borrar"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "Animatable",
+        "DragGesture",
+        "accessibilityAction",
+        "layoutDirection"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Notification groups on the iPhone Lock Screen",
+        "url": "https://support.apple.com/guide/iphone/view-and-respond-to-notifications-iph6534c01bc/ios"
+      },
+      "path": "Components/Feedback/NotificationStack/NotificationStack.swift",
+      "preview": "Components/Feedback/NotificationStack/NotificationStack.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Feedback/NotificationStack/NotificationStack.swift"
     },
     {
       "id": "rating-stars",
