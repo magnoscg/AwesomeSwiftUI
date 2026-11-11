@@ -23,6 +23,8 @@ struct WheelPicker<Value: Hashable>: View {
         let height = rowHeight * CGFloat(max(1, min(visibleRows, 15)))
         let row = rowHeight
         let tilts = !reduceMotion
+        // A local copy: the effect below runs off the main actor and cannot capture the view.
+        let space = wheelSpace
 
         ScrollView(.vertical) {
             LazyVStack(spacing: 0) {
@@ -36,7 +38,7 @@ struct WheelPicker<Value: Hashable>: View {
                         .contentShape(.rect)
                         .onTapGesture { selection = value }
                         .visualEffect { content, proxy in
-                            let position = WheelPickerMath.position(midY: proxy.frame(in: .named(wheelSpace)).midY, height: height)
+                            let position = WheelPickerMath.position(midY: proxy.frame(in: .named(space)).midY, height: height)
                             return content
                                 .rotation3DEffect(.degrees(tilts ? position * -62 : 0), axis: (1, 0, 0), perspective: 0.55)
                                 .scaleEffect(tilts ? 1 - abs(position) * 0.12 : 1)
