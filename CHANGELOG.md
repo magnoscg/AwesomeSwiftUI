@@ -38,6 +38,8 @@ on `main`.
   bands of the app's background.
 - Image Derived Gradient Background fades from one gradient to the next. It
   dipped through black on every change.
+- Map Annotation Callout only moves the map when you tap a pin. The first
+  tap also zoomed it.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab

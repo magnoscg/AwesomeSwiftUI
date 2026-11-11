@@ -27037,6 +27037,23 @@ nonisolated enum MapAnnotationCalloutLogic {
         guard latitude.isFinite, span.isFinite else { return 0 }
         return min(max(latitude + max(span, 0) * shift, -90), 90)
     }
+
+    /// The region that shows every item with some room around them. Nil when there are none.
+    /// `smallest` keeps a single pin, or pins on one spot, from zooming all the way in.
+    static func region(fitting items: [MapAnnotationCalloutItem], room: Double = 1.6, smallest: Double = 0.01) -> MKCoordinateRegion? {
+        let latitudes = items.map(\.latitude).filter(\.isFinite)
+        let longitudes = items.map(\.longitude).filter(\.isFinite)
+        guard let south = latitudes.min(), let north = latitudes.max(),
+              let west = longitudes.min(), let east = longitudes.max() else { return nil }
+
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: (south + north) / 2, longitude: (west + east) / 2),
+            span: MKCoordinateSpan(
+                latitudeDelta: min(max((north - south) * room, smallest), 180),
+                longitudeDelta: min(max((east - west) * room, smallest), 360)
+            )
+        )
+    }
 }
 
 /// A map of pins with a short label each. Tap one and it turns dark and opens a callout above
@@ -27069,6 +27086,13 @@ struct MapAnnotationCallout<Callout: View>: View {
         .mapStyle(.standard(pointsOfInterest: .excludingAll))
         .onMapCameraChange { context in
             visibleSpan = context.region.span
+        }
+        // The map starts on a region of its own, so the span is known from the start. With the
+        // automatic camera it is not, and the first pin tapped also zoomed the map.
+        .onAppear {
+            guard let region = MapAnnotationCalloutLogic.region(fitting: items) else { return }
+            position = .region(region)
+            visibleSpan = region.span
         }
         .onChange(of: selection) { _, id in
             guard let item = items.first(where: { $0.id == id }) else { return }
