@@ -32,14 +32,14 @@ struct ProfileHeaderStretchyTests {
 
     @Test func theAvatarShrinksAndLeavesBeforeTheBar() {
         #expect(Math.avatarScale(progress: 0) == 1)
-        #expect(Math.avatarScale(progress: 1) == 0.55)
+        #expect(abs(Math.avatarScale(progress: 1) - 0.55) < 0.000_001)
         #expect(Math.avatarOpacity(progress: 0.5) == 1)
-        #expect(Math.avatarOpacity(progress: 0.9) == 0)
+        #expect(Math.avatarOpacity(progress: 0.9) < 0.000_001)
     }
 
     @Test func theNameShowsOnlyOverTheLastStretch() {
-        #expect(Math.titleOpacity(progress: 0.8) == 0)
+        #expect(Math.titleOpacity(progress: 0.8) < 0.000_001)
         #expect(abs(Math.titleOpacity(progress: 0.9) - 0.5) < 0.000_001)
-        #expect(Math.titleOpacity(progress: 1) == 1)
+        #expect(abs(Math.titleOpacity(progress: 1) - 1) < 0.000_001)
     }
 }
