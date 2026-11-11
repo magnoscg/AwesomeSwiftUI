@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct FloatingActionMenuItem {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var tint: Color = .indigo
     let action: () -> Void

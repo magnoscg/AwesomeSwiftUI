@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the label changes place without sliding.
 struct FloatingLabelTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     var tint: Color = .indigo
 
@@ -29,7 +29,7 @@ struct FloatingLabelTextField: View {
                 .accessibilityRepresentation { EmptyView() }
                 .allowsHitTesting(false)
 
-            TextField(title, text: $text, prompt: Text(verbatim: ""))
+            TextField(text: $text, prompt: Text(verbatim: "")) { Text(title) }
                 .accessibilityLabel(title)
                 .font(.body)
                 .focused($isFocused)

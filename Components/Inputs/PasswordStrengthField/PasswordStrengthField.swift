@@ -6,7 +6,7 @@ import SwiftUI
 /// One requirement of the password, shown as a line of the checklist.
 struct PasswordStrengthFieldRule: Identifiable, Sendable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isMet: @Sendable (String) -> Bool
 
     static let defaults: [PasswordStrengthFieldRule] = [
@@ -31,7 +31,7 @@ enum PasswordStrengthFieldMeter {
 
 /// A password field with a strength meter and a checklist of rules that tick off as they are met.
 struct PasswordStrengthField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var password: String
     var rules = PasswordStrengthFieldRule.defaults
 
@@ -96,9 +96,9 @@ struct PasswordStrengthField: View {
         HStack(spacing: 10) {
             Group {
                 if isRevealed {
-                    TextField(title, text: $password)
+                    TextField(text: $password) { Text(title) }
                 } else {
-                    SecureField(title, text: $password)
+                    SecureField(text: $password) { Text(title) }
                 }
             }
             .focused($isFocused)

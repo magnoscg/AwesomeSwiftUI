@@ -5,9 +5,9 @@ import SwiftUI
 
 struct EmojiReactionPickerOption: Identifiable, Equatable, Sendable {
     let emoji: String
-    let name: String
+    let name: LocalizedStringResource
 
-    var id: String { name }
+    var id: String { emoji }
 
     static let defaults = [
         EmojiReactionPickerOption(emoji: "👍", name: "Like"),

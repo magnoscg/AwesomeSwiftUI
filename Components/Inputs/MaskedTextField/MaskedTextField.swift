@@ -74,10 +74,10 @@ nonisolated enum MaskedTextFieldFormatter {
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
 /// text. With Reduce Motion on, the completion checkmark appears without animating.
 struct MaskedTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     let mask: String
-    var prompt: String? = nil
+    var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
 
@@ -99,7 +99,7 @@ struct MaskedTextField: View {
                         .accessibilityHidden(true)
                 }
 
-                TextField(title, text: $text, prompt: Text(prompt ?? mask))
+                TextField(text: $text, prompt: prompt.map { Text($0) } ?? Text(verbatim: mask)) { Text(title) }
                     .keyboardType(keyboard)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()

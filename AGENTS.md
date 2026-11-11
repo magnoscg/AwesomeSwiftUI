@@ -173,6 +173,18 @@ anything else:
     number that reads well where it is, like one padding or one opacity, stays
     inline. `make check` rejects the repeats, and leaves out 0, 1, 2, 0.5, 90,
     100, 180 and 360.
+13. **Localizable text.** A text the caller passes to be shown or read aloud,
+    like a title, a label or a prompt, is a `LocalizedStringResource`, not a
+    `String`. A literal at the call site then lands in the String Catalog of
+    the app the component is copied to, and a value that is not a literal is
+    passed as `"\(value)"`.
+    - Data stays a `String`: a person's name, a message, the name of a symbol.
+    - A text fixed inside the component is a literal passed straight to
+      SwiftUI, which already makes it localizable.
+    - Some overloads that take a `LocalizedStringResource` need iOS 26, like
+      the one of `TextField`. On iOS 18 wrap it: `Text(resource)`.
+
+    Being applied by category: Buttons, Controls and Inputs so far.
 
 ## Recording a preview
 

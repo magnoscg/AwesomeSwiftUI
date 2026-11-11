@@ -12,7 +12,7 @@ private enum PulseRingButtonPhase {
 /// With Reduce Motion on, a single still halo replaces the rings.
 struct PulseRingButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .red
     var ringCount: Int = 3
     var ringDuration: Double = 1.6

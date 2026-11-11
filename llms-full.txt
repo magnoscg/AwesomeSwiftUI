@@ -2159,7 +2159,7 @@ import SwiftUI
 /// With Reduce Motion on, the button stays in place and only dims while pressed.
 struct ElasticDragButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .indigo
     var reach: Double = 80
     let action: () -> Void
@@ -2290,9 +2290,9 @@ import SwiftUI
 
 struct EmojiReactionPickerOption: Identifiable, Equatable, Sendable {
     let emoji: String
-    let name: String
+    let name: LocalizedStringResource
 
-    var id: String { name }
+    var id: String { emoji }
 
     static let defaults = [
         EmojiReactionPickerOption(emoji: "👍", name: "Like"),
@@ -2527,7 +2527,7 @@ import SwiftUI
 /// With Reduce Motion on, the field appears without animating.
 struct ExpandingSearchButton: View {
     @Binding var text: String
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
     var onSubmit: () -> Void = {}
 
     @State private var isExpanded = false
@@ -2553,7 +2553,7 @@ struct ExpandingSearchButton: View {
             .accessibilityLabel("Search")
 
             if isExpanded {
-                TextField(prompt, text: $text)
+                TextField(text: $text) { Text(prompt) }
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -2658,7 +2658,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/FloatingActionMen
 import SwiftUI
 
 struct FloatingActionMenuItem {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var tint: Color = .indigo
     let action: () -> Void
@@ -3090,7 +3090,7 @@ import SwiftUI
 /// With Reduce Motion on, the ring still fills, because it carries the meaning,
 /// but the button does not squeeze. VoiceOver users confirm with a double tap.
 struct HoldToConfirmButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String = "checkmark"
     var tint: Color = .red
     var holdDuration: Double = 1.2
@@ -3384,7 +3384,7 @@ private enum MorphingSubmitButtonPhase {
 ///
 /// With Reduce Motion on, the button keeps its shape and only its content crossfades.
 struct MorphingSubmitButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var tint: Color = .blue
     var successColor: Color = .green
     var successDuration: Double = 1.2
@@ -3400,7 +3400,7 @@ struct MorphingSubmitButton: View {
 
     private var isCollapsed: Bool { phase != .idle && !reduceMotion }
 
-    private var accessibilityTitle: String {
+    private var accessibilityTitle: LocalizedStringResource {
         switch phase {
         case .idle: title
         case .loading: "Submitting"
@@ -3698,7 +3698,7 @@ import SwiftUI
 
 struct ProviderSignInButtonStackOption: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let icon: Image
     var background: Color = .indigo
     var foreground: Color = .white
@@ -3799,7 +3799,7 @@ struct ProviderSignInButtonStackDemo: View {
         ]
     }
 
-    private func option(_ id: String, _ title: String, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
+    private func option(_ id: String, _ title: LocalizedStringResource, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
         ProviderSignInButtonStackOption(id: id, title: title, icon: Image(systemName: symbol), background: color) {
             do {
                 try await Task.sleep(for: .seconds(1.4))
@@ -3854,7 +3854,7 @@ private enum PulseRingButtonPhase {
 /// With Reduce Motion on, a single still halo replaces the rings.
 struct PulseRingButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .red
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
@@ -3972,7 +3972,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the sweep is removed and the button stays still.
 struct ShimmerButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String?
     var colors: [Color] = [.indigo, .purple]
     var sweepDuration: Double = 1.1
@@ -4078,7 +4078,7 @@ enum ShrinkingExtendedButtonMath {
 /// Pass `isExtended`, or drive it from a scroll view with `ShrinkingExtendedButtonScrollTracker`.
 /// With Reduce Motion on, it changes shape without animating.
 struct ShrinkingExtendedButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var isExtended = true
     var tint: Color = .indigo
@@ -9834,7 +9834,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the dot appears at once and there is no pulse.
 struct AnimatedRadioButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let isSelected: Bool
     var tint: Color = .indigo
     let action: () -> Void
@@ -9895,7 +9895,7 @@ struct AnimatedRadioButton: View {
 // MARK: - Demo
 
 struct AnimatedRadioButtonDemo: View {
-    private let options = ["Standard delivery", "Express delivery", "Pick up in store"]
+    private let options: [LocalizedStringResource] = ["Standard delivery", "Express delivery", "Pick up in store"]
 
     @State private var selection = 0
     @State private var isAutoPlaying = true
@@ -10289,7 +10289,7 @@ struct CounterStepper: View {
     @Binding var value: Int
     var range: ClosedRange<Int> = 0...99
     var step: Int = 1
-    var title: String = "Value"
+    var title: LocalizedStringResource = "Value"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .title) private var buttonSize = 56.0
@@ -10385,10 +10385,10 @@ import SwiftUI
 /// With Reduce Motion on, it changes without sliding.
 struct DayNightToggle: View {
     @Binding var isNight: Bool
-    var title: String = "Night mode"
+    var title: LocalizedStringResource = "Night mode"
 
     var body: some View {
-        Toggle(title, isOn: $isNight)
+        Toggle(isOn: $isNight) { Text(title) }
             .toggleStyle(DayNightToggleStyle())
     }
 }
@@ -10828,7 +10828,7 @@ struct RulerScrollPickerScale: Equatable {
 /// Dragging writes the value, and changing the value from outside scrolls the ruler.
 /// With Reduce Motion on, outside changes jump instead of gliding.
 struct RulerScrollPicker: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var value: Double
     var range: ClosedRange<Double> = 0...100
     var step: Double = 1
@@ -11247,8 +11247,8 @@ enum SwipeToConfirmSliderMath {
 /// With Reduce Motion on, the thumb returns without bouncing. VoiceOver users
 /// confirm with a double tap.
 struct SwipeToConfirmSlider: View {
-    let title: String
-    var confirmedTitle: String = "Confirmed"
+    let title: LocalizedStringResource
+    var confirmedTitle: LocalizedStringResource = "Confirmed"
     var tint: Color = .indigo
     var resetDelay: Double = 1.4
     let onConfirm: () -> Void
@@ -21678,7 +21678,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the label changes place without sliding.
 struct FloatingLabelTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     var tint: Color = .indigo
 
@@ -21700,7 +21700,7 @@ struct FloatingLabelTextField: View {
                 .accessibilityRepresentation { EmptyView() }
                 .allowsHitTesting(false)
 
-            TextField(title, text: $text, prompt: Text(verbatim: ""))
+            TextField(text: $text, prompt: Text(verbatim: "")) { Text(title) }
                 .accessibilityLabel(title)
                 .font(.body)
                 .focused($isFocused)
@@ -21837,10 +21837,10 @@ nonisolated enum MaskedTextFieldFormatter {
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
 /// text. With Reduce Motion on, the completion checkmark appears without animating.
 struct MaskedTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     let mask: String
-    var prompt: String? = nil
+    var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
 
@@ -21862,7 +21862,7 @@ struct MaskedTextField: View {
                         .accessibilityHidden(true)
                 }
 
-                TextField(title, text: $text, prompt: Text(prompt ?? mask))
+                TextField(text: $text, prompt: prompt.map { Text($0) } ?? Text(verbatim: mask)) { Text(title) }
                     .keyboardType(keyboard)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -21935,11 +21935,11 @@ import SwiftUI
 /// One page of a `MultiStepForm`. `isValid` decides whether the person can continue.
 struct MultiStepFormStep: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isValid: Bool
     let content: AnyView
 
-    init<Content: View>(id: String, title: String, isValid: Bool = true, @ViewBuilder content: () -> Content) {
+    init<Content: View>(id: String, title: LocalizedStringResource, isValid: Bool = true, @ViewBuilder content: () -> Content) {
         self.id = id
         self.title = title
         self.isValid = isValid
@@ -22188,7 +22188,7 @@ enum OTPCodeFieldInput {
 struct OTPCodeField: View {
     @Binding var code: String
     var length: Int = 6
-    var title: String = "Verification code"
+    var title: LocalizedStringResource = "Verification code"
     var tint: Color = .indigo
     var onComplete: ((String) -> Void)? = nil
 
@@ -22203,7 +22203,7 @@ struct OTPCodeField: View {
             }
         }
         .background {
-            TextField(title, text: $code)
+            TextField(text: $code) { Text(title) }
                 .textContentType(.oneTimeCode)
                 .keyboardType(.numberPad)
                 .focused($isFocused)
@@ -22497,7 +22497,7 @@ import SwiftUI
 /// One requirement of the password, shown as a line of the checklist.
 struct PasswordStrengthFieldRule: Identifiable, Sendable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isMet: @Sendable (String) -> Bool
 
     static let defaults: [PasswordStrengthFieldRule] = [
@@ -22522,7 +22522,7 @@ enum PasswordStrengthFieldMeter {
 
 /// A password field with a strength meter and a checklist of rules that tick off as they are met.
 struct PasswordStrengthField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var password: String
     var rules = PasswordStrengthFieldRule.defaults
 
@@ -22587,9 +22587,9 @@ struct PasswordStrengthField: View {
         HStack(spacing: 10) {
             Group {
                 if isRevealed {
-                    TextField(title, text: $password)
+                    TextField(text: $password) { Text(title) }
                 } else {
-                    SecureField(title, text: $password)
+                    SecureField(text: $password) { Text(title) }
                 }
             }
             .focused($isFocused)
@@ -23175,7 +23175,7 @@ struct ValidatedTextFieldFeedback: Equatable {
 
 /// A text field that checks its value when it loses focus and shows its error only after that.
 struct ValidatedTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     /// Returns the message to show, or `nil` when the value is fine.
     let validate: (String) -> String?

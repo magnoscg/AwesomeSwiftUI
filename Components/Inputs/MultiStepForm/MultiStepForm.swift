@@ -6,11 +6,11 @@ import SwiftUI
 /// One page of a `MultiStepForm`. `isValid` decides whether the person can continue.
 struct MultiStepFormStep: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isValid: Bool
     let content: AnyView
 
-    init<Content: View>(id: String, title: String, isValid: Bool = true, @ViewBuilder content: () -> Content) {
+    init<Content: View>(id: String, title: LocalizedStringResource, isValid: Bool = true, @ViewBuilder content: () -> Content) {
         self.id = id
         self.title = title
         self.isValid = isValid
