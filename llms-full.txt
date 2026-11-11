@@ -682,8 +682,9 @@ struct SpringStudyPlayground: View {
     }
 
     private var curve: some View {
-        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: 2)
         let settling = Spring(response: response, dampingRatio: damping).settlingDuration
+        // The curve covers the time the spring takes to settle, so it always reaches the line.
+        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: max(settling, 1))
 
         return VStack(alignment: .leading, spacing: 10) {
             ZStack {
@@ -3773,7 +3774,8 @@ struct ProviderSignInButtonStack: View {
             .opacity(isWaiting ? 0.5 : 1)
         }
         .buttonStyle(.plain)
-        .disabled(loadingID != nil)
+        // Not `disabled`, which would also dim the button that is signing in.
+        .allowsHitTesting(loadingID == nil)
         .accessibilityLabel(option.title)
         .accessibilityValue(isLoading ? "Signing in" : "")
     }
@@ -7807,6 +7809,9 @@ struct Surface3DChart: View {
             .chartXScale(domain: safeDomain)
             .chartZScale(domain: safeDomain)
             .chart3DPose($pose)
+            // The chart sizes its plot for the longer side of its frame. In a tall frame that
+            // is wider than the view, which cuts the corners and the axis labels.
+            .aspectRatio(1, contentMode: .fit)
             .accessibilityLabel("3D surface plot")
             .accessibilityValue(currentPreset.map { "\($0.rawValue) view" } ?? "Custom view")
             .accessibilityHint("Use the view buttons to change the angle")
@@ -11732,8 +11737,7 @@ struct DrawingPadSpeedBrushDemo: View {
             }
 
             DrawingPadSpeedBrush(strokes: $strokes, color: .indigo)
-                .background(.white, in: .rect(cornerRadius: 24))
-                .shadow(color: .black.opacity(0.12), radius: 16, y: 8)
+                .background(.white.shadow(.drop(color: .black.opacity(0.12), radius: 16, y: 8)), in: .rect(cornerRadius: 24))
 
             Button("Clear", systemImage: "trash") {
                 strokes = []
@@ -15771,8 +15775,10 @@ import SwiftUI
 
 /// A black capsule that grows to show a live status and shrinks back to a pill.
 ///
-/// Place it at the top of the screen. With Reduce Motion on, it changes size
-/// without bouncing and its content only fades.
+/// Place it at the top of the screen, over the island of the device. Its content starts
+/// under the pill, because the sensors of a real island would cover it there. Hide the
+/// status bar while it is expanded, because it takes that space. With Reduce Motion on,
+/// it changes size without bouncing and its content only fades.
 struct DynamicIslandPill<Content: View>: View {
     var isExpanded: Bool
     var pillSize = CGSize(width: 126, height: 37)
@@ -15797,7 +15803,8 @@ struct DynamicIslandPill<Content: View>: View {
                     .environment(\.colorScheme, .dark)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 22)
-                    .padding(.vertical, 18)
+                    .padding(.top, height + 8)
+                    .padding(.bottom, 18)
                     .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.8, anchor: .top)))
             }
         }
@@ -15852,6 +15859,7 @@ struct DynamicIslandPillDemo: View {
             .controlSize(.large)
             .frame(maxHeight: .infinity)
         }
+        .statusBarHidden(status != nil)
     }
 
     private var musicStatus: some View {
@@ -16466,7 +16474,8 @@ extension View {
     /// covers included. Put it once on the root view of a scene.
     ///
     /// The toasts live in a window of their own, so a `tint` or a `preferredColorScheme` set
-    /// on your views does not reach them.
+    /// on your views does not reach them. A toast covers what is under it while it shows,
+    /// and a tap or a swipe up dismisses it.
     func toastHost() -> some View {
         modifier(ToastHostModifier())
     }
@@ -16634,6 +16643,8 @@ private struct ToastHostDemoSheet: View {
                 }
             }
         }
+        // A toast covers what is under it while it shows. At half height the bar of the sheet stays clear.
+        .presentationDetents([.medium, .large])
     }
 }
 
@@ -17915,8 +17926,11 @@ struct LongPressRadialMenu<Label: View>: View {
 
             if let hoveredIndex, items.indices.contains(hoveredIndex) {
                 // Its bottom edge clears the largest bubble, so a taller title grows away from the ring.
+                // The overlay offers it the width of the label, which would break a word in two.
                 Text(items[hoveredIndex].title)
                     .font(.headline)
+                    .lineLimit(1)
+                    .fixedSize()
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(.regularMaterial, in: .capsule)
@@ -21922,6 +21936,10 @@ struct FloatingLabelTextFieldDemo: View {
 
                 FloatingLabelTextField(title: "Name", text: $name)
                 FloatingLabelTextField(title: "Email", text: $email)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                 FloatingLabelTextField(title: "City", text: $city)
             }
             .padding(24)
@@ -27509,7 +27527,7 @@ struct MapRouteTrackerDemo: View {
                     Text(progress < 1 ? "Arriving in \(Int(((1 - progress) * tripMinutes).rounded(.up))) min" : "Your order is here")
                         .font(.headline)
                         .contentTransition(.numericText())
-                    Text("Alex is bringing your order")
+                    Text(progress < 1 ? "Alex is bringing your order" : "Delivered by Alex")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -30831,6 +30849,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// A navigation screen that ranks which toolbar actions survive when space runs out.
 ///
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
+/// The title is large, under the bar, where the actions cannot push it out.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
     let title: LocalizedStringResource
@@ -30842,7 +30861,7 @@ struct ToolbarOverflowDemo<Content: View>: View {
         NavigationStack {
             content()
                 .navigationTitle(title)
-                .toolbarTitleDisplayMode(.inline)
+                .toolbarTitleDisplayMode(.large)
                 .toolbar {
                     ForEach(barActions) { action in
                         ToolbarItem(placement: .primaryAction) {
@@ -30898,6 +30917,7 @@ struct ToolbarOverflowDemoDemo: View {
             ZStack {
                 LinearGradient(colors: [.indigo, .purple, .pink], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
+                    .toolbarColorScheme(.dark, for: .navigationBar)
 
                 Text(lastAction)
                     .font(.largeTitle.bold())
@@ -33507,13 +33527,14 @@ struct CountryPicker: View {
                     .font(.title2)
                     .accessibilityHidden(true)
 
+                // `Color.primary`, not `.primary`: inside a button the style is a shade of the tint.
                 Text(country.name)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.primary)
 
                 Spacer(minLength: 8)
 
                 Text(country.dialCode)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.secondary)
                     .monospacedDigit()
 
                 Image(systemName: "checkmark")
@@ -33892,7 +33913,7 @@ struct InlineDatePickerDisclosure: View {
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .transition(.opacity)
             }
         }
         .clipped()
@@ -34610,6 +34631,8 @@ struct SpinWheelRoulette: View {
         ZStack {
             wheel
                 .rotationEffect(.degrees(rotation))
+                .contentShape(.circle)
+                .onTapGesture(perform: spin)
                 .accessibilityElement()
                 .accessibilityLabel("Prize wheel")
                 .accessibilityValue(drawnSlices.joined(separator: ", "))

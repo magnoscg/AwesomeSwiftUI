@@ -69,6 +69,10 @@ struct FloatingLabelTextFieldDemo: View {
 
                 FloatingLabelTextField(title: "Name", text: $name)
                 FloatingLabelTextField(title: "Email", text: $email)
+                    .keyboardType(.emailAddress)
+                    .textContentType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                 FloatingLabelTextField(title: "City", text: $city)
             }
             .padding(24)

@@ -37,7 +37,7 @@ struct InlineDatePickerDisclosure: View {
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .transition(.opacity)
             }
         }
         .clipped()
