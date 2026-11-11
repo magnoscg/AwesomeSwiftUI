@@ -709,6 +709,8 @@ describe('the documentation site', () => {
         minIOS: '18.0',
         difficulty: 'beginner',
         keywords: 'button boton',
+        apis: ['ButtonStyle'],
+        shader: false,
       },
     ]);
   });

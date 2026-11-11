@@ -1,5 +1,6 @@
 ---
-// The catalog as a grid of previews that can be searched and filtered. The
+// The catalog as a grid of previews that can be searched and filtered: by
+// category, iOS version, level, an Apple API and having a Metal shader. The
 // generated catalog index passes it every component. Without JavaScript the
 // filters stay hidden and every card shows.
 interface Item {
@@ -11,6 +12,8 @@ interface Item {
   minIOS: string;
   difficulty: string;
   keywords: string;
+  apis: string[];
+  shader: boolean;
 }
 
 interface Props {
@@ -21,6 +24,14 @@ const { items } = Astro.props;
 const categories = [...new Set(items.map((item) => item.category))].sort();
 const versions = [...new Set(items.map((item) => item.minIOS))].sort((a, b) => Number(a) - Number(b));
 const levels = ['beginner', 'intermediate', 'advanced'];
+// An API used once or twice would make the list too long to scan. Search still finds it.
+const uses = new Map<string, number>();
+for (const item of items) for (const api of item.apis) uses.set(api, (uses.get(api) ?? 0) + 1);
+const apis = [...uses]
+  .filter(([, count]) => count >= 3)
+  .map(([api]) => api)
+  .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
+const hasShaders = items.some((item) => item.shader);
 const capitalized = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 const major = (version: string) => version.replace(/\.0$/, '');
 ---
@@ -52,6 +63,21 @@ const major = (version: string) => version.replace(/\.0$/, '');
         {levels.map((level) => <option value={level}>{capitalized(level)}</option>)}
       </select>
     </label>
+    <label>
+      <span>Uses</span>
+      <select name="api">
+        <option value="">Any API</option>
+        {apis.map((api) => <option value={api}>{api}</option>)}
+      </select>
+    </label>
+    {
+      hasShaders && (
+        <label class="check">
+          <input type="checkbox" name="shader" value="1" />
+          <span>Metal shader</span>
+        </label>
+      )
+    }
     <button type="reset">Clear</button>
   </form>
 
@@ -65,7 +91,9 @@ const major = (version: string) => version.replace(/\.0$/, '');
           data-category={item.category}
           data-ios={item.minIOS}
           data-level={item.difficulty}
-          data-search={`${item.title} ${item.summary} ${item.category} ${item.keywords}`}
+          data-apis={item.apis.join('|')}
+          data-shader={item.shader ? '1' : undefined}
+          data-search={`${item.title} ${item.summary} ${item.category} ${item.keywords} ${item.apis.join(' ')}`}
         >
           <a href={item.href}>
             <img src={item.preview} alt="" width="160" loading="lazy" />
@@ -96,6 +124,27 @@ const major = (version: string) => version.replace(/\.0$/, '');
     gap: 0.25rem;
     font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
+  }
+
+  .filters .check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .filters .check input {
+    width: 1.1rem;
+    height: 1.1rem;
+    min-height: 0;
+    padding: 0;
+    accent-color: var(--sl-color-accent);
+  }
+
+  .filters select {
+    max-width: 14rem;
   }
 
   .filters .search {
@@ -205,22 +254,29 @@ const major = (version: string) => version.replace(/\.0$/, '');
       category: element.dataset.category ?? '',
       ios: Number(element.dataset.ios),
       level: element.dataset.level ?? '',
+      apis: (element.dataset.apis ?? '').split('|'),
+      shader: element.dataset.shader === '1',
     }));
-    const names = ['q', 'category', 'ios', 'level'];
+    const names = ['q', 'category', 'ios', 'level', 'api'];
     const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    const shader = form.elements.namedItem('shader') as HTMLInputElement | null;
 
     const apply = () => {
       const words = plain(field('q').value).split(/\s+/).filter(Boolean);
       const category = field('category').value;
       const ios = field('ios').value;
       const level = field('level').value;
+      const api = field('api').value;
+      const onlyShaders = shader?.checked ?? false;
       let shown = 0;
       for (const item of items) {
         const matches =
           words.every((word) => item.text.includes(word)) &&
           (!category || item.category === category) &&
           (!ios || item.ios <= Number(ios)) &&
-          (!level || item.level === level);
+          (!level || item.level === level) &&
+          (!api || item.apis.includes(api)) &&
+          (!onlyShaders || item.shader);
         item.element.hidden = !matches;
         if (matches) shown += 1;
       }
@@ -230,6 +286,7 @@ const major = (version: string) => version.replace(/\.0$/, '');
 
       const query = new URLSearchParams();
       for (const name of names) if (field(name).value) query.set(name, field(name).value);
+      if (onlyShaders) query.set('shader', '1');
       const search = query.toString();
       history.replaceState(null, '', search ? `?${search}` : location.pathname);
     };
@@ -239,6 +296,7 @@ const major = (version: string) => version.replace(/\.0$/, '');
       const value = query.get(name);
       if (value) field(name).value = value;
     }
+    if (shader) shader.checked = query.get('shader') === '1';
     form.hidden = false;
     form.addEventListener('input', apply);
     form.addEventListener('submit', (event) => event.preventDefault());

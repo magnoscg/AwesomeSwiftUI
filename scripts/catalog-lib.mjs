@@ -468,6 +468,8 @@ function renderDocsIndex(components) {
       minIOS: component.minIOS,
       difficulty: component.difficulty,
       keywords: [...component.keywords.en, ...component.keywords.es].join(' '),
+      apis: component.apis,
+      shader: Boolean(component.shader),
     }),
   );
   return [

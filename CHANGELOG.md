@@ -10,7 +10,11 @@ on `main`.
 
 - The catalog on the site can be searched and filtered by category, by the iOS
   version your app runs on and by level. The filters stay in the address, so a
-  filtered view can be shared.
+  filtered view can be shared. It also filters by an Apple API, like
+  `TimelineView` or `Canvas`, and by having a Metal shader, and the search
+  finds a component by the APIs it uses.
+- A page of the site shared on a network or in a chat shows a card with six
+  components.
 
 ### Changed
 
