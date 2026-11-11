@@ -5,7 +5,7 @@ import SwiftUI
 
 struct AnimatedTabBarItem<Value: Hashable>: Identifiable {
     let value: Value
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
 
     var id: Value { value }

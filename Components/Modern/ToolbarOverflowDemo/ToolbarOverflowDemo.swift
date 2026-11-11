@@ -18,7 +18,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let barActions: [ToolbarOverflowDemoAction]
     let overflowActions: [ToolbarOverflowDemoAction]
     @ViewBuilder let content: () -> Content

@@ -182,9 +182,10 @@ anything else:
     - A text fixed inside the component is a literal passed straight to
       SwiftUI, which already makes it localizable.
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
-      the one of `TextField`. On iOS 18 wrap it: `Text(resource)`.
+      the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
 
-    Being applied by category: Buttons, Controls and Inputs so far.
+    Being applied by category: Buttons, Controls, Inputs, Navigation, Tabs,
+    Toolbars and Modern so far.
 
 ## Recording a preview
 

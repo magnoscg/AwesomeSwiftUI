@@ -5,7 +5,7 @@ import SwiftUI
 
 struct FloatingDockBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let colors: [Color]
     let action: () -> Void
