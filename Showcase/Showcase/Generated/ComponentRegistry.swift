@@ -1839,6 +1839,18 @@ enum ComponentRegistry {
             demo: { AnyView(DragToDismissScreenDemo()) }
         ),
         ShowcaseEntry(
+            id: "embedded-web-browser",
+            title: "Embedded Web Browser",
+            category: "Navigation",
+            summary: "A small browser inside the app, with an address bar, back, forward, reload and a line that fills while the page loads.",
+            keywords: ["web view", "browser", "webkit", "in-app browser", "web page", "address bar", "ios 26", "web view", "navegador", "webkit", "navegador en la app", "página web", "barra de direcciones", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(EmbeddedWebBrowserDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "full-screen-menu-overlay",
             title: "Full Screen Menu Overlay",
             category: "Navigation",

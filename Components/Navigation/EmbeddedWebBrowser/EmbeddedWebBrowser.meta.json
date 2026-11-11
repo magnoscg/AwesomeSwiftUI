@@ -1,0 +1,28 @@
+{
+  "id": "embedded-web-browser",
+  "name": "EmbeddedWebBrowser",
+  "title": "Embedded Web Browser",
+  "category": "Navigation",
+  "summary": "A small browser inside the app, with an address bar, back, forward, reload and a line that fills while the page loads.",
+  "keywords": {
+    "en": ["web view", "browser", "webkit", "in-app browser", "web page", "address bar", "ios 26"],
+    "es": ["web view", "navegador", "webkit", "navegador en la app", "página web", "barra de direcciones", "ios 26"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": ["WebView", "WebPage", "URLSchemeHandler", "ProgressView", "FocusState"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "tap -x 150 -y 301",
+    "sleep 1.5",
+    "tap -x 22 -y 811",
+    "sleep 1.4",
+    "tap -x 150 -y 370",
+    "sleep 1.5",
+    "tap -x 22 -y 811",
+    "sleep 1.2",
+    "tap -x 50 -y 811",
+    "sleep 1.3"
+  ]
+}

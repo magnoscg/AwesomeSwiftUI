@@ -1,5 +1,5 @@
 {
-  "count": 277,
+  "count": 278,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -8004,6 +8004,48 @@
       "path": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift",
       "preview": "Components/Navigation/DragToDismissScreen/DragToDismissScreen.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/DragToDismissScreen/DragToDismissScreen.swift"
+    },
+    {
+      "id": "embedded-web-browser",
+      "name": "EmbeddedWebBrowser",
+      "title": "Embedded Web Browser",
+      "category": "Navigation",
+      "summary": "A small browser inside the app, with an address bar, back, forward, reload and a line that fills while the page loads.",
+      "keywords": {
+        "en": [
+          "web view",
+          "browser",
+          "webkit",
+          "in-app browser",
+          "web page",
+          "address bar",
+          "ios 26"
+        ],
+        "es": [
+          "web view",
+          "navegador",
+          "webkit",
+          "navegador en la app",
+          "página web",
+          "barra de direcciones",
+          "ios 26"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "26.0",
+      "apis": [
+        "WebView",
+        "WebPage",
+        "URLSchemeHandler",
+        "ProgressView",
+        "FocusState"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.swift",
+      "preview": "Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Navigation/EmbeddedWebBrowser/EmbeddedWebBrowser.swift"
     },
     {
       "id": "full-screen-menu-overlay",
