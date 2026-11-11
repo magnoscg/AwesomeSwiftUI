@@ -17,6 +17,8 @@ on `main`.
 - Emoji Picker jumps to the section of the category you tap, and that tab
   stays chosen until the grid moves again. It had the fault Scroll Spy Header
   had.
+- Wheel Picker draws its wheel around the selected row. The effect was
+  centered two rows below it, so the selected value looked small and faded.
 
 ## 0.5.1 - 2026-11-11
 
