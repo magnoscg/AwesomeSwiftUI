@@ -1,0 +1,16 @@
+{
+  "id": "slot-machine-reels",
+  "name": "SlotMachineReels",
+  "title": "Slot Machine Reels",
+  "category": "Playful",
+  "summary": "Reels of symbols that spin and stop one after another, with the result under a line across them.",
+  "keywords": {
+    "en": ["slot machine", "reels", "spin", "jackpot", "casino", "random", "lottery", "game"],
+    "es": ["tragaperras", "rodillos", "girar", "premio", "casino", "aleatorio", "lotería", "juego"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "18.0",
+  "apis": ["Animatable", "withAnimation completion", "sensoryFeedback", "ScaledMetric", "ShapeStyle"],
+  "origin": { "kind": "original" },
+  "previewSteps": ["sleep 0.5", "tap --label Spin", "sleep 3", "tap --label Spin", "sleep 3"]
+}
