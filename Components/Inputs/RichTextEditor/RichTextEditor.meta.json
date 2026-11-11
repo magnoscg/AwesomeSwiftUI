@@ -1,0 +1,33 @@
+{
+  "id": "rich-text-editor",
+  "name": "RichTextEditor",
+  "title": "Rich Text Editor",
+  "category": "Inputs",
+  "summary": "A text editor with a bar to make the selection bold, italic, underlined, struck through or highlighted.",
+  "keywords": {
+    "en": ["rich text", "text editor", "formatting", "bold", "highlight", "attributed string", "ios 26"],
+    "es": ["texto enriquecido", "editor de texto", "formato", "negrita", "resaltar", "attributed string", "ios 26"]
+  },
+  "difficulty": "intermediate",
+  "minIOS": "26.0",
+  "apis": ["TextEditor", "AttributedString", "AttributedTextSelection", "transformAttributes", "fontResolutionContext"],
+  "origin": { "kind": "inspired", "credit": "Apple, WWDC25: Code-along: Cook up a rich text experience in SwiftUI with AttributedString", "url": "https://developer.apple.com/videos/play/wwdc2025/280/" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap -x 300 -y 300",
+    "sleep 0.8",
+    "tap -x 48 -y 414",
+    "sleep 0.4",
+    "type ' Pack'",
+    "sleep 0.2",
+    "type ' snacks.'",
+    "sleep 0.6",
+    "tap -x 48 -y 414",
+    "tap -x 292 -y 414",
+    "sleep 0.4",
+    "type ' Charge'",
+    "sleep 0.2",
+    "type ' the camera.'",
+    "sleep 1.2"
+  ]
+}
