@@ -1281,6 +1281,18 @@ enum ComponentRegistry {
             demo: { AnyView(PasswordStrengthFieldDemo()) }
         ),
         ShowcaseEntry(
+            id: "rich-text-editor",
+            title: "Rich Text Editor",
+            category: "Inputs",
+            summary: "A text editor with a bar to make the selection bold, italic, underlined, struck through or highlighted.",
+            keywords: ["rich text", "text editor", "formatting", "bold", "highlight", "attributed string", "ios 26", "texto enriquecido", "editor de texto", "formato", "negrita", "resaltar", "attributed string", "ios 26"],
+            minIOS: "26.0",
+            demo: {
+                guard #available(iOS 26.0, *) else { return nil }
+                return AnyView(RichTextEditorDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "search-field-with-suggestions",
             title: "Search Field With Suggestions",
             category: "Inputs",

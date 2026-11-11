@@ -56,6 +56,8 @@ on `main`.
   marks the average of the days in sight.
 - Tick Mark Slider, for iOS 26: the system slider with a mark at the values
   that matter, which settles on the nearest one when let go.
+- Rich Text Editor, for iOS 26: a text editor with a bar to make the selection
+  bold, italic, underlined, struck through or highlighted.
 
 ### Changed
 

@@ -1,5 +1,5 @@
 {
-  "count": 276,
+  "count": 277,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -5670,6 +5670,50 @@
       "path": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift",
       "preview": "Components/Inputs/PasswordStrengthField/PasswordStrengthField.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/PasswordStrengthField/PasswordStrengthField.swift"
+    },
+    {
+      "id": "rich-text-editor",
+      "name": "RichTextEditor",
+      "title": "Rich Text Editor",
+      "category": "Inputs",
+      "summary": "A text editor with a bar to make the selection bold, italic, underlined, struck through or highlighted.",
+      "keywords": {
+        "en": [
+          "rich text",
+          "text editor",
+          "formatting",
+          "bold",
+          "highlight",
+          "attributed string",
+          "ios 26"
+        ],
+        "es": [
+          "texto enriquecido",
+          "editor de texto",
+          "formato",
+          "negrita",
+          "resaltar",
+          "attributed string",
+          "ios 26"
+        ]
+      },
+      "difficulty": "intermediate",
+      "minIOS": "26.0",
+      "apis": [
+        "TextEditor",
+        "AttributedString",
+        "AttributedTextSelection",
+        "transformAttributes",
+        "fontResolutionContext"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "Apple, WWDC25: Code-along: Cook up a rich text experience in SwiftUI with AttributedString",
+        "url": "https://developer.apple.com/videos/play/wwdc2025/280/"
+      },
+      "path": "Components/Inputs/RichTextEditor/RichTextEditor.swift",
+      "preview": "Components/Inputs/RichTextEditor/RichTextEditor.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Inputs/RichTextEditor/RichTextEditor.swift"
     },
     {
       "id": "search-field-with-suggestions",
