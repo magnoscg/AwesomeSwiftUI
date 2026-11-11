@@ -50,6 +50,8 @@ on `main`.
   that reads the day under the finger.
 - Radar Chart, an axis per quality around a center and a shape per series that
   grows out when it appears.
+- Gauge Chart, a half-moon gauge with colored zones and a needle that swings
+  to the value.
 
 ### Changed
 
