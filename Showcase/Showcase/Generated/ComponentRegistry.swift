@@ -447,6 +447,15 @@ enum ComponentRegistry {
             demo: { AnyView(RadarChartDemo()) }
         ),
         ShowcaseEntry(
+            id: "scrollable-bar-chart",
+            title: "Scrollable Bar Chart",
+            category: "Charts",
+            summary: "A bar chart that scrolls sideways a week at a time and marks the average of the days in sight.",
+            keywords: ["scrollable chart", "bar chart", "weekly", "steps", "average", "health", "swift charts", "gráfica con scroll", "gráfica de barras", "semanal", "pasos", "media", "salud", "swift charts"],
+            minIOS: "18.0",
+            demo: { AnyView(ScrollableBarChartDemo()) }
+        ),
+        ShowcaseEntry(
             id: "sparkline-stat-tile",
             title: "Sparkline Stat Tile",
             category: "Charts",
