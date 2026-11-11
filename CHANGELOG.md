@@ -17,7 +17,11 @@ on `main`.
 - The texts you pass to a component are becoming `LocalizedStringResource`, so
   a literal lands in your app's String Catalog. A literal keeps working as it
   is; a `String` variable is now passed as `"\(value)"`. Done in the ten
-  buttons that take a title, a label or a prompt.
+  buttons that take a title, a label or a prompt, in five controls (Animated
+  Radio Button, Counter Stepper, Day Night Toggle, Ruler Scroll Picker and
+  Swipe To Confirm Slider) and in six inputs (Floating Label Text Field,
+  Masked Text Field, Multi Step Form, OTP Code Field, Password Strength Field
+  and Validated Text Field).
 - Emoji Reaction Picker identifies each option by its emoji, not by its name.
 
 ### Fixed

@@ -184,7 +184,7 @@ anything else:
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
       the one of `TextField`. On iOS 18 wrap it: `Text(resource)`.
 
-    Being applied by category: Buttons so far.
+    Being applied by category: Buttons, Controls and Inputs so far.
 
 ## Recording a preview
 

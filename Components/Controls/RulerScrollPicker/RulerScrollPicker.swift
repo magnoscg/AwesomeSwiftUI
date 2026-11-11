@@ -47,7 +47,7 @@ struct RulerScrollPickerScale: Equatable {
 /// Dragging writes the value, and changing the value from outside scrolls the ruler.
 /// With Reduce Motion on, outside changes jump instead of gliding.
 struct RulerScrollPicker: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var value: Double
     var range: ClosedRange<Double> = 0...100
     var step: Double = 1

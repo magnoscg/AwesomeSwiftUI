@@ -9,10 +9,10 @@ import SwiftUI
 /// With Reduce Motion on, it changes without sliding.
 struct DayNightToggle: View {
     @Binding var isNight: Bool
-    var title: String = "Night mode"
+    var title: LocalizedStringResource = "Night mode"
 
     var body: some View {
-        Toggle(title, isOn: $isNight)
+        Toggle(isOn: $isNight) { Text(title) }
             .toggleStyle(DayNightToggleStyle())
     }
 }

@@ -25,7 +25,7 @@ struct CounterStepper: View {
     @Binding var value: Int
     var range: ClosedRange<Int> = 0...99
     var step: Int = 1
-    var title: String = "Value"
+    var title: LocalizedStringResource = "Value"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .title) private var buttonSize = 56.0

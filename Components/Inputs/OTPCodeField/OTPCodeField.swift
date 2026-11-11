@@ -17,7 +17,7 @@ enum OTPCodeFieldInput {
 struct OTPCodeField: View {
     @Binding var code: String
     var length: Int = 6
-    var title: String = "Verification code"
+    var title: LocalizedStringResource = "Verification code"
     var tint: Color = .indigo
     var onComplete: ((String) -> Void)? = nil
 
@@ -32,7 +32,7 @@ struct OTPCodeField: View {
             }
         }
         .background {
-            TextField(title, text: $code)
+            TextField(text: $code) { Text(title) }
                 .textContentType(.oneTimeCode)
                 .keyboardType(.numberPad)
                 .focused($isFocused)
