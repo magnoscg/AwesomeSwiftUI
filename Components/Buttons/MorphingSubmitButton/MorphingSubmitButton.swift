@@ -48,7 +48,7 @@ struct MorphingSubmitButton: View {
 
                 if phase == .loading {
                     ProgressView()
-                        .tint(.white)
+                        .tint(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
                         .transition(.opacity)
                 }
 
@@ -58,7 +58,7 @@ struct MorphingSubmitButton: View {
                         .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
             .padding(.horizontal, isCollapsed ? 0 : 52)
             .frame(width: isCollapsed ? height : nil, height: height)
             .background(
@@ -82,6 +82,18 @@ struct MorphingSubmitButton: View {
             try? await Task.sleep(for: .seconds(successDuration))
             withAnimation(morph) { phase = .idle }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct MorphingSubmitButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

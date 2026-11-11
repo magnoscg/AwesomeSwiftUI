@@ -41,7 +41,7 @@ struct PulseRingButton: View {
             Button(action: action) {
                 Image(systemName: systemImage)
                     .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(PulseRingButtonContrastingForeground(background: tint))
                     .frame(width: diameter, height: diameter)
                     .background(tint.gradient, in: .circle)
                     .contentShape(.circle)
@@ -69,6 +69,18 @@ struct PulseRingButton: View {
                     ? .easeOut(duration: ringDuration).delay(startDelay)
                     : .linear(duration: 0.01).delay(endDelay)
             }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct PulseRingButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

@@ -38,7 +38,7 @@ struct HoldToConfirmButton: View {
                     .padding(ringWidth * 1.75)
                 Image(systemName: isConfirmed ? "checkmark" : systemImage)
                     .font(.title.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(HoldToConfirmButtonContrastingForeground(background: isConfirmed ? .green : tint))
                     .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
             }
             .frame(width: diameter, height: diameter)
@@ -94,6 +94,18 @@ struct HoldToConfirmButton: View {
                 isConfirmed = false
             }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct HoldToConfirmButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

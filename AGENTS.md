@@ -133,6 +133,9 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
+   Content drawn over a color the caller chooses takes white or black from
+   that color, with a `<Name>ContrastingForeground` style like the one in
+   `ElasticDragButton`, listed in `ContrastingForegroundTests`.
 8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
    mirrors layout there, which includes offsets, positions, rotations, shapes
    and unit points, but a gesture still reports screen points and a `Canvas`
