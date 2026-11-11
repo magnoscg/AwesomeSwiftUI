@@ -22764,17 +22764,23 @@ struct RichTextEditor: View {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 6) {
-                    toggle("Bold", symbol: "bold", isOn: font.isBold) { attributes in
-                        attributes.font = (attributes.font ?? .body).bold(!font.isBold)
+                    // Each button reads its state once, so every run of the selection ends the same.
+                    let isBold = font.isBold
+                    let isItalic = font.isItalic
+                    let isUnderlined = typing.underlineStyle != nil
+                    let isStruck = typing.strikethroughStyle != nil
+
+                    toggle("Bold", symbol: "bold", isOn: isBold) { attributes in
+                        attributes.font = (attributes.font ?? .body).bold(!isBold)
                     }
-                    toggle("Italic", symbol: "italic", isOn: font.isItalic) { attributes in
-                        attributes.font = (attributes.font ?? .body).italic(!font.isItalic)
+                    toggle("Italic", symbol: "italic", isOn: isItalic) { attributes in
+                        attributes.font = (attributes.font ?? .body).italic(!isItalic)
                     }
-                    toggle("Underline", symbol: "underline", isOn: typing.underlineStyle != nil) { attributes in
-                        attributes.underlineStyle = attributes.underlineStyle == nil ? .single : nil
+                    toggle("Underline", symbol: "underline", isOn: isUnderlined) { attributes in
+                        attributes.underlineStyle = isUnderlined ? nil : .single
                     }
-                    toggle("Strikethrough", symbol: "strikethrough", isOn: typing.strikethroughStyle != nil) { attributes in
-                        attributes.strikethroughStyle = attributes.strikethroughStyle == nil ? .single : nil
+                    toggle("Strikethrough", symbol: "strikethrough", isOn: isStruck) { attributes in
+                        attributes.strikethroughStyle = isStruck ? nil : .single
                     }
 
                     Divider()
@@ -22783,9 +22789,8 @@ struct RichTextEditor: View {
 
                     ForEach(highlights, id: \.self) { color in
                         Button {
-                            text.transformAttributes(in: &selection) { attributes in
-                                attributes.backgroundColor = RichTextEditorLogic.toggled(attributes.backgroundColor, choosing: color.opacity(0.4))
-                            }
+                            let highlight = RichTextEditorLogic.toggled(typing.backgroundColor, choosing: color.opacity(0.4))
+                            apply { $0.backgroundColor = highlight }
                         } label: {
                             Image(systemName: "highlighter")
                                 .frame(width: buttonSize, height: buttonSize)
@@ -22802,9 +22807,38 @@ struct RichTextEditor: View {
         }
     }
 
+    /// Changes every run of the selection on its own attributes, so a run keeps what makes it
+    /// different, like the size of a title. With no selection it changes what is typed next.
+    private func apply(_ change: (inout AttributeContainer) -> Void) {
+        guard case .ranges(let ranges) = selection.indices(in: text), !ranges.isEmpty else {
+            text.transformAttributes(in: &selection, body: change)
+            return
+        }
+        // Indices do not survive a change, so the selection is kept as offsets and put back.
+        let offsets = ranges.ranges.map { range in
+            (
+                text.characters.distance(from: text.startIndex, to: range.lowerBound),
+                text.characters.distance(from: text.startIndex, to: range.upperBound)
+            )
+        }
+        for (lower, upper) in offsets {
+            let range = text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper)
+            for run in Array(text[range].runs) {
+                var attributes = run.attributes
+                change(&attributes)
+                text[run.range].setAttributes(attributes)
+            }
+        }
+        var selected = RangeSet<AttributedString.Index>()
+        for (lower, upper) in offsets {
+            selected.insert(contentsOf: text.index(text.startIndex, offsetByCharacters: lower)..<text.index(text.startIndex, offsetByCharacters: upper))
+        }
+        selection = AttributedTextSelection(ranges: selected)
+    }
+
     private func toggle(_ title: String, symbol: String, isOn: Bool, change: @escaping (inout AttributeContainer) -> Void) -> some View {
         Button {
-            text.transformAttributes(in: &selection, body: change)
+            apply(change)
         } label: {
             Image(systemName: symbol)
                 .font(.body.weight(.semibold))
