@@ -20,7 +20,7 @@ private struct BlurUpImageFocus: Transition {
 struct BlurUpImage: View {
     let preview: Image
     let image: Image?
-    let label: String
+    let label: LocalizedStringResource
     var blurRadius: CGFloat = 24
     var isLoading = true
 
@@ -67,7 +67,7 @@ struct BlurUpImage: View {
 struct BlurUpImageRemote: View {
     let url: URL?
     let preview: Image
-    let label: String
+    let label: LocalizedStringResource
 
     var body: some View {
         AsyncImage(url: url) { phase in

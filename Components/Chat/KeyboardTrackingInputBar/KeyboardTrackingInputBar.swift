@@ -9,7 +9,7 @@ import SwiftUI
 /// keyboard, so nothing here needs to measure it.
 struct KeyboardTrackingInputBar<Content: View>: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: LocalizedStringResource
     var tint: Color
     var onSend: (String) -> Void
     @ViewBuilder let content: Content
@@ -20,7 +20,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
 
     init(
         text: Binding<String>,
-        placeholder: String = "Message",
+        placeholder: LocalizedStringResource = "Message",
         tint: Color = .blue,
         onSend: @escaping (String) -> Void,
         @ViewBuilder content: () -> Content

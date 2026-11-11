@@ -6,8 +6,8 @@ import SwiftUI
 struct CoachMarkTourStep: Identifiable {
     /// Matches the id passed to `coachMarkTourTarget(_:)`.
     let id: String
-    let title: String
-    let message: String
+    let title: LocalizedStringResource
+    let message: LocalizedStringResource
 }
 
 /// Where the tour is. `advance` and `finish` report the end only once.

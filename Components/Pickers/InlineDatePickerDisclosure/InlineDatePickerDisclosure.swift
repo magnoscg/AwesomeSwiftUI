@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the calendar appears and disappears without animating.
 struct InlineDatePickerDisclosure: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var date: Date
     var range: ClosedRange<Date> = Date.distantPast...Date.distantFuture
 
@@ -33,7 +33,7 @@ struct InlineDatePickerDisclosure: View {
             if isExpanded {
                 Divider()
 
-                DatePicker(title, selection: $date, in: range, displayedComponents: .date)
+                DatePicker(selection: $date, in: range, displayedComponents: .date) { Text(title) }
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)

@@ -9,7 +9,7 @@ import SwiftUI
 struct EmptyStatePlaceholder: View {
     var systemImage: String
     var title: LocalizedStringResource
-    var message: String
+    var message: LocalizedStringResource
     var actionTitle: LocalizedStringResource?
     var action: (() -> Void)?
 

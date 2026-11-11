@@ -41,7 +41,7 @@ nonisolated enum MapSearchSheetLogic {
 /// the camera to it. The places are yours: fill them from `MKLocalSearch` or from your own data.
 struct MapSearchSheet: View {
     let places: [MapSearchSheetPlace]
-    var prompt = "Search places"
+    var prompt: LocalizedStringResource = "Search places"
     /// How far above a chosen place the camera stops, in meters.
     var closeUpDistance = 1500.0
 
@@ -101,7 +101,7 @@ struct MapSearchSheet: View {
 /// focus of a field in a sheet has to be kept inside the sheet.
 private struct MapSearchSheetPanel: View {
     let places: [MapSearchSheetPlace]
-    let prompt: String
+    let prompt: LocalizedStringResource
     @Binding var query: String
     @Binding var selection: MapSearchSheetPlace.ID?
     @Binding var detent: PresentationDetent
@@ -115,7 +115,7 @@ private struct MapSearchSheetPanel: View {
                     .foregroundStyle(.secondary)
                     .accessibilityHidden(true)
 
-                TextField(prompt, text: $query)
+                TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
                     .autocorrectionDisabled()
