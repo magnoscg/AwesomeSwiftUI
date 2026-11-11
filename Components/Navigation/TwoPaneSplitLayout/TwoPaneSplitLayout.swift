@@ -10,7 +10,7 @@ import SwiftUI
 /// split view is expected to have: the button that hides the list, the swipe back on iPhone
 /// and the keyboard. The list selects with its own selection, so VoiceOver reads the selected row.
 struct TwoPaneSplitLayout<Item: Identifiable & Hashable, Row: View, Detail: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let items: [Item]
     @Binding var selection: Item?
     var listWidth: CGFloat = 320

@@ -5,7 +5,7 @@ import SwiftUI
 
 struct FullScreenMenuOverlayLink: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -110,7 +110,7 @@ struct FullScreenMenuOverlayDemo: View {
             ("Journal", "book.fill"),
             ("Contact", "paperplane.fill"),
         ].map { title, systemImage in
-            FullScreenMenuOverlayLink(id: title, title: title, systemImage: systemImage) { page = title }
+            FullScreenMenuOverlayLink(id: title, title: "\(title)", systemImage: systemImage) { page = title }
         }
     }
 

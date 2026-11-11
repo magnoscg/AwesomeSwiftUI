@@ -21,7 +21,11 @@ on `main`.
   Radio Button, Counter Stepper, Day Night Toggle, Ruler Scroll Picker and
   Swipe To Confirm Slider) and in six inputs (Floating Label Text Field,
   Masked Text Field, Multi Step Form, OTP Code Field, Password Strength Field
-  and Validated Text Field).
+  and Validated Text Field), and in eleven components with tabs, bars and
+  navigation titles: Animated Tab Bar, Collapsing Bottom Bar, Floating Dock
+  Bar, Full Screen Menu Overlay, Notched Tab Bar, Prominent Tab Bar, Search
+  Scopes And Suggestions, Sidebar Adaptive Tabs, Tab Navigation State
+  Preserve, Toolbar Overflow Demo and Two Pane Split Layout.
 - Emoji Reaction Picker identifies each option by its emoji, not by its name.
 
 ### Fixed

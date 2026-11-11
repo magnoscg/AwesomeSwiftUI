@@ -30201,7 +30201,7 @@ import SwiftUI
 
 @available(iOS 27, *)
 struct ProminentTabBarItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 
@@ -30473,7 +30473,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let barActions: [ToolbarOverflowDemoAction]
     let overflowActions: [ToolbarOverflowDemoAction]
     @ViewBuilder let content: () -> Content
@@ -30711,7 +30711,7 @@ import SwiftUI
 
 struct AnimatedTabBarItem<Value: Hashable>: Identifiable {
     let value: Value
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
 
     var id: Value { value }
@@ -31512,7 +31512,7 @@ import SwiftUI
 
 struct FullScreenMenuOverlayLink: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -31617,7 +31617,7 @@ struct FullScreenMenuOverlayDemo: View {
             ("Journal", "book.fill"),
             ("Contact", "paperplane.fill"),
         ].map { title, systemImage in
-            FullScreenMenuOverlayLink(id: title, title: title, systemImage: systemImage) { page = title }
+            FullScreenMenuOverlayLink(id: title, title: "\(title)", systemImage: systemImage) { page = title }
         }
     }
 
@@ -32209,7 +32209,7 @@ struct SearchScopesAndSuggestions<Scope: Hashable>: ViewModifier {
     let scopes: [Scope]
     let scopeTitle: (Scope) -> String
     let suggestions: [String]
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
 
     func body(content: Content) -> some View {
         content
@@ -32499,7 +32499,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/SidebarAdap
 import SwiftUI
 
 struct SidebarAdaptiveTabsItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 
@@ -32515,8 +32515,11 @@ struct SidebarAdaptiveTabs<Value: Hashable, Content: View>: View {
     var body: some View {
         TabView(selection: $selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.value) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.value) {
                     content(item)
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }
@@ -32637,7 +32640,7 @@ final class TabNavigationStatePreserveStore<TabID: Hashable> {
 }
 
 struct TabNavigationStatePreserveItem<TabID: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tab: TabID
 
@@ -32657,11 +32660,14 @@ struct TabNavigationStatePreserve<TabID: Hashable, Route: Hashable, Root: View, 
     var body: some View {
         TabView(selection: selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.tab) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.tab) {
                     NavigationStack(path: path(for: item.tab)) {
                         root(item.tab)
                             .navigationDestination(for: Route.self, destination: screen)
                     }
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }
@@ -32683,7 +32689,7 @@ private enum TabNavigationStatePreserveDemoTab: Hashable {
 }
 
 private struct TabNavigationStatePreserveDemoPage: View {
-    let title: String
+    let title: LocalizedStringResource
     let link: String
     let route: Int
     let colors: [Color]
@@ -32767,7 +32773,7 @@ import SwiftUI
 /// split view is expected to have: the button that hides the list, the swipe back on iPhone
 /// and the keyboard. The list selects with its own selection, so VoiceOver reads the selected row.
 struct TwoPaneSplitLayout<Item: Identifiable & Hashable, Row: View, Detail: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let items: [Item]
     @Binding var selection: Item?
     var listWidth: CGFloat = 320
@@ -38775,7 +38781,7 @@ import SwiftUI
 
 struct NotchedTabBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
 }
 
@@ -40874,7 +40880,7 @@ import SwiftUI
 
 struct CollapsingBottomBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -41040,7 +41046,7 @@ import SwiftUI
 
 struct FloatingDockBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let colors: [Color]
     let action: () -> Void

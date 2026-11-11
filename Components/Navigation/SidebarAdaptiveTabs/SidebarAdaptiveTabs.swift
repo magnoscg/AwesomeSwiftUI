@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct SidebarAdaptiveTabsItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 
@@ -20,8 +20,11 @@ struct SidebarAdaptiveTabs<Value: Hashable, Content: View>: View {
     var body: some View {
         TabView(selection: $selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.value) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.value) {
                     content(item)
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }

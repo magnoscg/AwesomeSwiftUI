@@ -13,7 +13,7 @@ struct SearchScopesAndSuggestions<Scope: Hashable>: ViewModifier {
     let scopes: [Scope]
     let scopeTitle: (Scope) -> String
     let suggestions: [String]
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
 
     func body(content: Content) -> some View {
         content
