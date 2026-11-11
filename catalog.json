@@ -1,5 +1,5 @@
 {
-  "count": 284,
+  "count": 285,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -1399,6 +1399,52 @@
       "path": "Components/Calendars/DateStripPicker/DateStripPicker.swift",
       "preview": "Components/Calendars/DateStripPicker/DateStripPicker.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Calendars/DateStripPicker/DateStripPicker.swift"
+    },
+    {
+      "id": "day-schedule-timeline",
+      "name": "DayScheduleTimeline",
+      "title": "Day Schedule Timeline",
+      "category": "Calendars",
+      "summary": "The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.",
+      "keywords": {
+        "en": [
+          "day view",
+          "schedule",
+          "agenda",
+          "timeline",
+          "calendar events",
+          "hours",
+          "overlapping events",
+          "current time"
+        ],
+        "es": [
+          "vista de día",
+          "horario",
+          "agenda",
+          "línea de tiempo",
+          "eventos del calendario",
+          "horas",
+          "eventos solapados",
+          "hora actual"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "TimelineView",
+        "ScrollViewReader",
+        "GeometryReader",
+        "alignmentGuide",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The day view of Apple's Calendar",
+        "url": "https://support.apple.com/guide/iphone/view-events-iph3d110f84/ios"
+      },
+      "path": "Components/Calendars/DayScheduleTimeline/DayScheduleTimeline.swift",
+      "preview": "Components/Calendars/DayScheduleTimeline/DayScheduleTimeline.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Calendars/DayScheduleTimeline/DayScheduleTimeline.swift"
     },
     {
       "id": "avatar-stack",

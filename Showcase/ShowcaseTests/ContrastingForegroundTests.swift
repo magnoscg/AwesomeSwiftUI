@@ -12,6 +12,7 @@ struct ContrastingForegroundTests {
         ("AddToCartStepper", { AddToCartStepperContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("AnimatedBadgeCount", { AnimatedBadgeCountContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("CompletionSwipeRow", { CompletionSwipeRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("DayScheduleTimeline", { DayScheduleTimelineContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("DownloadPillProgress", { DownloadPillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ElasticDragButton", { ElasticDragButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ExpandableInfoCard", { ExpandableInfoCardContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

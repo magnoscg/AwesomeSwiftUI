@@ -321,6 +321,15 @@ enum ComponentRegistry {
             demo: { AnyView(DateStripPickerDemo()) }
         ),
         ShowcaseEntry(
+            id: "day-schedule-timeline",
+            title: "Day Schedule Timeline",
+            category: "Calendars",
+            summary: "The hours of a day down a column, with each event drawn over the time it takes, overlapping events side by side and a line at the current time.",
+            keywords: ["day view", "schedule", "agenda", "timeline", "calendar events", "hours", "overlapping events", "current time", "vista de día", "horario", "agenda", "línea de tiempo", "eventos del calendario", "horas", "eventos solapados", "hora actual"],
+            minIOS: "18.0",
+            demo: { AnyView(DayScheduleTimelineDemo()) }
+        ),
+        ShowcaseEntry(
             id: "avatar-stack",
             title: "Avatar Stack",
             category: "Cards",
