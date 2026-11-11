@@ -7,7 +7,7 @@ import SwiftUI
 /// and tapping a chip jumps to its section.
 ///
 /// With Reduce Motion on, jumps and the highlight happen without animation.
-struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
+struct ScrollSpyHeader<Element: Identifiable, Content: View>: View where Element.ID: Sendable {
     let sections: [Element]
     let title: (Element) -> String
     @ViewBuilder let content: (Element) -> Content
@@ -16,54 +16,61 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
     @State private var visibleIDs: Set<Element.ID> = []
     @State private var isAtEnd = false
     @State private var jumpTarget: Element.ID?
+    @State private var isJumping = false
+    /// A scroll view reader cannot jump to a section the lazy stack has not built yet. This can.
+    @State private var position = ScrollPosition(idType: Element.ID.self)
     @Namespace private var chipNamespace
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    /// A jump in progress wins, so the highlight does not flicker across the sections it passes.
+    /// A jump wins, so the highlight does not flicker across the sections it passes.
     private var highlightedID: Element.ID? {
         jumpTarget ?? activeID ?? sections.first?.id
     }
 
     var body: some View {
-        ScrollViewReader { contentProxy in
-            VStack(spacing: 0) {
-                chipBar(contentProxy: contentProxy)
-                Divider()
+        VStack(spacing: 0) {
+            chipBar
+            Divider()
 
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 28) {
-                        ForEach(sections) { section in
-                            content(section)
-                                .id(section.id)
-                        }
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 28) {
+                    ForEach(sections) { section in
+                        content(section)
+                            .id(section.id)
                     }
-                    .scrollTargetLayout()
-                    .padding()
                 }
-                .onScrollTargetVisibilityChange(idType: Element.ID.self, threshold: 0.01) { ids in
-                    visibleIDs = Set(ids)
-                    refreshActiveID()
-                }
-                .onScrollGeometryChange(for: Bool.self) { geometry in
-                    ScrollSpyHeaderMath.isAtEnd(
-                        visibleMaxY: geometry.visibleRect.maxY,
-                        contentHeight: geometry.contentSize.height,
-                        containerHeight: geometry.containerSize.height
-                    )
-                } action: { _, newValue in
-                    isAtEnd = newValue
-                    refreshActiveID()
-                }
+                .scrollTargetLayout()
+                .padding()
+            }
+            .scrollPosition($position, anchor: .top)
+            // The chip that was tapped stays chosen until the list moves again. A short
+            // section near the end cannot reach the top, and would lose it to the last one.
+            .onScrollPhaseChange { _, phase in
+                if phase == .interacting || (phase == .animating && !isJumping) { jumpTarget = nil }
+            }
+            .onScrollTargetVisibilityChange(idType: Element.ID.self, threshold: 0.01) { ids in
+                visibleIDs = Set(ids)
+                refreshActiveID()
+            }
+            .onScrollGeometryChange(for: Bool.self) { geometry in
+                ScrollSpyHeaderMath.isAtEnd(
+                    visibleMaxY: geometry.visibleRect.maxY,
+                    contentHeight: geometry.contentSize.height,
+                    containerHeight: geometry.containerSize.height
+                )
+            } action: { _, newValue in
+                isAtEnd = newValue
+                refreshActiveID()
             }
         }
     }
 
-    private func chipBar(contentProxy: ScrollViewProxy) -> some View {
+    private var chipBar: some View {
         ScrollViewReader { chipProxy in
             ScrollView(.horizontal) {
                 HStack(spacing: 8) {
                     ForEach(sections) { section in
-                        chip(for: section, contentProxy: contentProxy)
+                        chip(for: section)
                             .id(section.id)
                     }
                 }
@@ -80,11 +87,11 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
         }
     }
 
-    private func chip(for section: Element, contentProxy: ScrollViewProxy) -> some View {
+    private func chip(for section: Element) -> some View {
         let isActive = section.id == highlightedID
 
         return Button {
-            jump(to: section.id, contentProxy: contentProxy)
+            jump(to: section.id)
         } label: {
             Text(title(section))
                 .font(.subheadline.weight(.semibold))
@@ -107,12 +114,13 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View {
         .animation(reduceMotion ? nil : .snappy, value: highlightedID)
     }
 
-    private func jump(to id: Element.ID, contentProxy: ScrollViewProxy) {
+    private func jump(to id: Element.ID) {
         jumpTarget = id
+        isJumping = true
         withAnimation(reduceMotion ? nil : .smooth(duration: 0.45), completionCriteria: .logicallyComplete) {
-            contentProxy.scrollTo(id, anchor: .top)
+            position.scrollTo(id: id, anchor: .top)
         } completion: {
-            jumpTarget = nil
+            isJumping = false
             refreshActiveID()
         }
     }
