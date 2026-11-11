@@ -33,6 +33,28 @@ on `main`.
 - Buttons that did nothing in a demo now do: Previous and Next in Expanding
   Mini Player, the tabs of the bar in Hide On Scroll Bar, and the rows of
   Dynamic Height Tray, which also closes from its last step.
+- Dynamic Island Pill starts its content under the pill. On a device the
+  sensors of the island covered the first line. Its demo hides the status
+  bar while the pill is expanded, which drew over it.
+- Surface 3D Chart fits in its view. In a frame taller than wide the corners
+  of the plot and the axis labels were cut at the sides.
+- Long Press Radial Menu keeps the title of the option under the finger on
+  one line. It broke a word in two.
+- Provider Sign In Button Stack keeps the button that is signing in at full
+  strength, and only dims the ones that wait.
+- Country Picker writes its rows in the color of text. They took the tint,
+  like links.
+- Inline Date Picker Disclosure fades its calendar in as the row grows. It
+  slid in over the row for a moment.
+- Spin Wheel Roulette spins when you tap the wheel, not only its hub.
+- Toolbar Overflow Demo shows its title, large and under the bar. Five
+  actions left no room for it.
+- In demos: the curve of Spring Study Playground reaches the line whatever
+  the spring takes to settle, the email field of Floating Label Text Field
+  has the keyboard of an email, Map Route Tracker says the order was
+  delivered when it arrives, the strokes of Drawing Pad Speed Brush cast no
+  shadow, and the sheet of Toast Host opens at half height, so a toast does
+  not cover its bar.
 
 ## 0.5.2 - 2026-11-11
 

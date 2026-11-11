@@ -173,7 +173,7 @@ struct MapRouteTrackerDemo: View {
                     Text(progress < 1 ? "Arriving in \(Int(((1 - progress) * tripMinutes).rounded(.up))) min" : "Your order is here")
                         .font(.headline)
                         .contentTransition(.numericText())
-                    Text("Alex is bringing your order")
+                    Text(progress < 1 ? "Alex is bringing your order" : "Delivered by Alex")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
