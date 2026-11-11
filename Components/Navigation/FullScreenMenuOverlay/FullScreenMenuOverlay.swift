@@ -41,6 +41,7 @@ private struct FullScreenMenuOverlayPanel: View {
     let close: () -> Void
 
     @State private var showsLinks = false
+    @ScaledMetric(relativeTo: .largeTitle) private var iconWidth = 48.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -89,7 +90,12 @@ private struct FullScreenMenuOverlayPanel: View {
             close()
             link.action()
         } label: {
-            Label(link.title, systemImage: link.systemImage)
+            Label {
+                Text(link.title)
+            } icon: {
+                // One width for every symbol, so the titles line up.
+                Image(systemName: link.systemImage).frame(width: iconWidth)
+            }
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .foregroundStyle(.white)
         }

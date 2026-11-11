@@ -32,7 +32,8 @@ struct ScatteredPhotoBoardTests {
     @Test func aDraggedCardStopsAtTheEdge() {
         let point = ScatteredPhotoBoardLayout.clamped(CGPoint(x: -500, y: 9000), card: card, board: board)
 
-        #expect(point == CGPoint(x: 50, y: 740))
+        #expect(abs(point.x - 58.77) < 0.01)
+        #expect(abs(point.y - 732.92) < 0.01)
     }
 
     @Test func aCardBiggerThanTheBoardIsCentered() {
@@ -52,8 +53,9 @@ struct ScatteredPhotoBoardTests {
         let saved = ScatteredPhotoBoardLayout.settledOffset(home: home, saved: .zero, translation: CGSize(width: 180, height: 0), card: wide, board: board)
 
         let next = ScatteredPhotoBoardLayout.settledOffset(home: home, saved: saved, translation: CGSize(width: -40, height: 0), card: wide, board: board)
+        let edge = ScatteredPhotoBoardLayout.clamped(CGPoint(x: 9000, y: home.y), card: wide, board: board).x
 
-        #expect(saved.width == 119)
-        #expect(home.x + next.width == 285)
+        #expect(abs(home.x + saved.width - edge) < 0.001)
+        #expect(abs(home.x + next.width - (edge - 40)) < 0.001)
     }
 }

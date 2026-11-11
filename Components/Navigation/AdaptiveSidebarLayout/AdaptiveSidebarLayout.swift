@@ -114,8 +114,9 @@ struct AdaptiveSidebarLayoutDemo: View {
                     Button("Folders", systemImage: "sidebar.left") {
                         showsSidebar = true
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .tint(.white)
+                    .foregroundStyle(.black)
                     .padding(.top, 10)
                 }
                 .foregroundStyle(.white)

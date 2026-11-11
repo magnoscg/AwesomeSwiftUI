@@ -255,7 +255,8 @@ struct KeyframeTimelineShowcase<Content: View>: View {
                 let track = CGRect(x: 0, y: size.height / 2 - 2, width: size.width, height: 4)
                 context.fill(Path(roundedRect: track, cornerRadius: 2), with: .color(color.opacity(0.3)))
                 for tick in ticks {
-                    let dot = CGRect(x: size.width * tick - 5, y: size.height / 2 - 5, width: 10, height: 10)
+                    // The first and the last dot stay whole inside the lane.
+                    let dot = CGRect(x: (size.width - 10) * tick, y: size.height / 2 - 5, width: 10, height: 10)
                     context.fill(Path(ellipseIn: dot), with: .color(color))
                 }
             }
@@ -735,22 +736,25 @@ struct SpringStudyPlayground: View {
 
     @ViewBuilder private var presetButtons: some View {
         ForEach(Preset.allCases) { preset in
-            Button(preset.rawValue) {
+            Button {
                 response = preset.values.response
                 damping = preset.values.damping
                 play()
+            } label: {
+                // In a narrow row a name shrinks a little before it would break in two.
+                Text(preset.rawValue)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
-            // In a narrow row a name shrinks a little before it would break in two.
-            .lineLimit(1)
-            .minimumScaleFactor(0.75)
-            .frame(maxWidth: .infinity)
         }
 
-        Button("Play", action: play)
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
-            .frame(maxWidth: .infinity)
+        Button(action: play) {
+            Text("Play").frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.pink)
     }
 
     private func play() {
@@ -3063,10 +3067,14 @@ struct HamburgerMenuButtonDemo: View {
 
             if isOpen {
                 VStack(alignment: .leading, spacing: 22) {
-                    Label("Inbox", systemImage: "tray.fill")
-                    Label("Starred", systemImage: "star.fill")
-                    Label("Sent", systemImage: "paperplane.fill")
-                    Label("Trash", systemImage: "trash.fill")
+                    // One width for every symbol, so the names line up.
+                    ForEach([("Inbox", "tray.fill"), ("Starred", "star.fill"), ("Sent", "paperplane.fill"), ("Trash", "trash.fill")], id: \.0) { title, symbol in
+                        Label {
+                            Text(title)
+                        } icon: {
+                            Image(systemName: symbol).frame(width: 30)
+                        }
+                    }
                 }
                 .font(.title3.weight(.medium))
                 .padding(28)
@@ -7042,9 +7050,8 @@ struct LineChartDrawIn: View {
 
     var body: some View {
         ZStack {
-            LineChartDrawInArea(values: values, inset: inset)
+            LineChartDrawInArea(values: values, inset: inset, progress: shownProgress)
                 .fill(.linearGradient(colors: [tint.opacity(0.28), tint.opacity(0)], startPoint: .top, endPoint: .bottom))
-                .opacity(shownProgress)
 
             LineChartDrawInLine(values: values, inset: inset)
                 .trim(from: 0, to: shownProgress)
@@ -7085,16 +7092,23 @@ nonisolated private struct LineChartDrawInLine: Shape {
     }
 }
 
+/// The fill under the line, up to its tip, so it never runs ahead of the line being drawn.
 nonisolated private struct LineChartDrawInArea: Shape {
     let values: [Double]
     let inset: CGFloat
+    var progress: Double
+
+    var animatableData: Double {
+        get { progress }
+        set { progress = newValue }
+    }
 
     func path(in rect: CGRect) -> Path {
         let points = LineChartDrawInLogic.points(for: values, in: rect.insetBy(dx: inset, dy: inset))
-        guard let first = points.first, let last = points.last else { return Path() }
+        guard let first = points.first, let last = LineChartDrawInLogic.point(at: progress, along: points) else { return Path() }
 
         var path = Path()
-        path.addLines(points)
+        path.addLines(points.filter { $0.x < last.x } + [last])
         path.addLine(to: CGPoint(x: last.x, y: rect.maxY))
         path.addLine(to: CGPoint(x: first.x, y: rect.maxY))
         path.closeSubpath()
@@ -9520,6 +9534,8 @@ struct PricingTierCards: View {
             .padding(.vertical, 24)
         }
         .scrollIndicators(.hidden)
+        // The shadow of the recommended plan reaches past the row.
+        .scrollClipDisabled()
         .contentMargins(.horizontal, max((containerWidth - cardWidth) / 2, 16), for: .scrollContent)
         .scrollTargetBehavior(.viewAligned)
         .scrollPosition(id: $centeredID)
@@ -10806,7 +10822,7 @@ struct RangeSliderDemo: View {
             VStack(spacing: 0) {
                 histogram
 
-                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 20, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
+                RangeSlider(range: $price, bounds: bounds, step: 5, minimumSpan: 30, lowerLabel: "Minimum price", upperLabel: "Maximum price", valueText: dollars)
             }
 
             HStack {
@@ -14059,7 +14075,8 @@ struct JiggleEditModifierDemo: View {
                     LazyVGrid(columns: columns, spacing: 24) {
                         ForEach(Array(apps.enumerated()), id: \.element.id) { index, app in
                             icon(for: app)
-                                .jiggleEditing(isEditing, seed: index)
+                                // Its place in the full list, so removing an icon does not change the rhythm of the rest.
+                                .jiggleEditing(isEditing, seed: Self.allApps.firstIndex { $0.id == app.id } ?? index)
                         }
                     }
                 }
@@ -17833,6 +17850,8 @@ struct DropZoneHighlightDemo: View {
 
                     ForEach(waiting, id: \.self) { name in
                         chip(name)
+                            // Without it the preview of the drag is the chip on a white rectangle.
+                            .contentShape(.dragPreview, .capsule)
                             .draggable(name)
                             .accessibilityAction(named: "Add to the box") { add([name]) }
                     }
@@ -21603,12 +21622,20 @@ enum ScatteredPhotoBoardLayout {
         return value - value.rounded(.down) - 0.5
     }
 
+    static let maximumAngle = 9.0
+
     static func angle(index: Int) -> Double {
-        noise(index, salt: 7) * 18
+        noise(index, salt: 7) * maximumAngle * 2
     }
 
     /// Keeps a card's center inside the board, or in its middle if the card does not fit.
     static func clamped(_ point: CGPoint, card: CGSize, board: CGSize) -> CGPoint {
+        // A tilted card is wider and taller than it is straight. This is the box at the widest tilt.
+        let tilt = maximumAngle * .pi / 180
+        let card = CGSize(
+            width: card.width * cos(tilt) + card.height * sin(tilt),
+            height: card.height * cos(tilt) + card.width * sin(tilt)
+        )
         func clamp(_ value: CGFloat, side: CGFloat, length: CGFloat) -> CGFloat {
             guard length > side else { return length / 2 }
             return min(max(value, side / 2), length - side / 2)
@@ -27049,12 +27076,15 @@ struct SkeletonShimmerModifierDemo: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
+                // One line each, so a row is as tall loaded as it is as a skeleton.
                 Text(row.name)
                     .font(.headline)
+                    .lineLimit(1)
 
                 Text(row.message)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
 
             Spacer(minLength: 8)
@@ -30772,8 +30802,7 @@ struct ScrollEdgeHeaderDemo: View {
                         .font(.largeTitle.bold())
 
                     Text(isHard ? "Hard edge" : "Soft edge")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.subheadline.weight(.medium))
                 }
 
                 Spacer()
@@ -31125,8 +31154,9 @@ struct AdaptiveSidebarLayoutDemo: View {
                     Button("Folders", systemImage: "sidebar.left") {
                         showsSidebar = true
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.borderedProminent)
                     .tint(.white)
+                    .foregroundStyle(.black)
                     .padding(.top, 10)
                 }
                 .foregroundStyle(.white)
@@ -31211,7 +31241,8 @@ struct AnimatedTabBar<Value: Hashable>: View {
                     .font(.caption2.weight(.semibold))
                     .lineLimit(1)
             }
-            .foregroundStyle(isSelected ? tint : Color.secondary)
+            // Not `.secondary`, which takes the color of what is behind the material and can fade into it.
+            .foregroundStyle(isSelected ? tint : Color.primary.opacity(0.65))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
             .background {
@@ -31432,7 +31463,8 @@ struct BottomDrawerDemo: View {
                         Label {
                             Text(name).font(.headline)
                         } icon: {
-                            Image(systemName: symbol).foregroundStyle(color.gradient)
+                            // One width for every symbol, so the names line up.
+                            Image(systemName: symbol).foregroundStyle(color.gradient).frame(width: 28)
                         }
                     }
                 }
@@ -32023,6 +32055,7 @@ private struct FullScreenMenuOverlayPanel: View {
     let close: () -> Void
 
     @State private var showsLinks = false
+    @ScaledMetric(relativeTo: .largeTitle) private var iconWidth = 48.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -32071,7 +32104,12 @@ private struct FullScreenMenuOverlayPanel: View {
             close()
             link.action()
         } label: {
-            Label(link.title, systemImage: link.systemImage)
+            Label {
+                Text(link.title)
+            } icon: {
+                // One width for every symbol, so the titles line up.
+                Image(systemName: link.systemImage).frame(width: iconWidth)
+            }
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .foregroundStyle(.white)
         }
@@ -32244,6 +32282,7 @@ private struct NavigationPathRouterDemoScreen: View {
             .padding(32)
         }
         .navigationTitle(current?.rawValue ?? "Router")
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
@@ -33318,8 +33357,9 @@ struct TwoPaneSplitLayoutDemo: View {
                         .font(.title3.weight(.medium))
 
                     Button("Done") { selection = nil }
-                        .buttonStyle(.bordered)
+                        .buttonStyle(.borderedProminent)
                         .tint(.white)
+                        .foregroundStyle(.black)
                         .padding(.top, 8)
                 }
                 .foregroundStyle(.white)
@@ -34240,7 +34280,7 @@ struct MultiPhotoPickerTrayThumbnail: View {
 // MARK: - Demo
 
 struct MultiPhotoPickerTrayDemo: View {
-    @State private var selection: [PhotosPickerItem] = (0..<4).map {
+    @State private var selection: [PhotosPickerItem] = (0..<3).map {
         PhotosPickerItem(itemIdentifier: "demo-\($0)")
     }
 
@@ -35486,6 +35526,7 @@ struct ActivityRingsDemo: View {
                         Text("\(Int(goal.value * fill)) / \(Int(goal.goal)) \(goal.unit)")
                             .font(.body.monospacedDigit())
                             .foregroundStyle(.white.opacity(0.75))
+                            .contentTransition(.numericText())
                     }
                 }
             }
@@ -35576,6 +35617,8 @@ struct CircularProgressRing: View {
                     .trim(from: 0, to: value > 0 ? 0.001 : 0)
                     .stroke(colors.first ?? .blue, style: strokeStyle)
             }
+            // A round cap draws a dot even on a line with no length.
+            .opacity(value > 0 ? 1 : 0)
             .rotationEffect(.degrees(-90))
 
             Text(percentText)
@@ -36344,6 +36387,8 @@ struct StepProgressIndicatorDemo: View {
                 .imageScale(.large)
                 .foregroundStyle(.indigo.gradient)
                 .contentTransition(.symbolEffect(.replace))
+                // The symbols are not equally tall. One height keeps what is below in place.
+                .frame(height: 56)
                 .accessibilityHidden(true)
 
             Text("Checkout")

@@ -77,6 +77,27 @@ on `main`.
   or after the departure, Kanban Board shows part of its third column, the
   expiry of Masked Text Field rejects a month over 12, and the pages of Paged
   Grid Launcher tell their apps apart.
+- Line Chart Draw In fills under the line only as far as it is drawn. The
+  fill showed whole from the start.
+- Circular Progress Ring draws nothing at zero. Its round cap left a dot.
+- Animated Tab Bar keeps the tabs that are not chosen readable over a
+  colorful screen.
+- Full Screen Menu Overlay lines up the titles of its links, whatever the
+  width of their symbols.
+- Scattered Photo Board keeps a tilted photo whole inside the board. A
+  corner went past the edge.
+- Pricing Tier Cards shows the whole shadow of the recommended plan.
+- Keyframe Timeline Showcase draws its last dots whole.
+- In demos: titles and buttons that were hard to read over a color in
+  Adaptive Sidebar Layout, Navigation Path Router, Scroll Edge Header and Two
+  Pane Split Layout, names that did not line up in Bottom Drawer and
+  Hamburger Menu Button, buttons of unequal width in Spring Study
+  Playground, a title that moved in Step Progress Indicator, rows that
+  changed height when Skeleton Shimmer Modifier finished loading, figures
+  that jumped in Activity Rings, thumbs that overlapped in Range Slider, a
+  photo cut by the edge in Multi Photo Picker Tray, icons that changed their
+  rhythm in Jiggle Edit Modifier when one was removed, and the white corners
+  of the drag preview in Drop Zone Highlight.
 
 ## 0.5.2 - 2026-11-11
 

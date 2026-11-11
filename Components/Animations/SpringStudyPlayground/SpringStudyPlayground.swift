@@ -153,22 +153,25 @@ struct SpringStudyPlayground: View {
 
     @ViewBuilder private var presetButtons: some View {
         ForEach(Preset.allCases) { preset in
-            Button(preset.rawValue) {
+            Button {
                 response = preset.values.response
                 damping = preset.values.damping
                 play()
+            } label: {
+                // In a narrow row a name shrinks a little before it would break in two.
+                Text(preset.rawValue)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
-            // In a narrow row a name shrinks a little before it would break in two.
-            .lineLimit(1)
-            .minimumScaleFactor(0.75)
-            .frame(maxWidth: .infinity)
         }
 
-        Button("Play", action: play)
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
-            .frame(maxWidth: .infinity)
+        Button(action: play) {
+            Text("Play").frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.borderedProminent)
+        .tint(.pink)
     }
 
     private func play() {

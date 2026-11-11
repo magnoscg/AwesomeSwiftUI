@@ -144,7 +144,7 @@ struct MultiPhotoPickerTrayThumbnail: View {
 // MARK: - Demo
 
 struct MultiPhotoPickerTrayDemo: View {
-    @State private var selection: [PhotosPickerItem] = (0..<4).map {
+    @State private var selection: [PhotosPickerItem] = (0..<3).map {
         PhotosPickerItem(itemIdentifier: "demo-\($0)")
     }
 

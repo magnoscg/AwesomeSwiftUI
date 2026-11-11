@@ -69,6 +69,8 @@ struct DropZoneHighlightDemo: View {
 
                     ForEach(waiting, id: \.self) { name in
                         chip(name)
+                            // Without it the preview of the drag is the chip on a white rectangle.
+                            .contentShape(.dragPreview, .capsule)
                             .draggable(name)
                             .accessibilityAction(named: "Add to the box") { add([name]) }
                     }
