@@ -25,8 +25,16 @@ enum SwipeActionRowPhysics {
     }
 }
 
+/// The one row that is open, shared by every row, so opening another closes it.
+@MainActor @Observable private final class SwipeActionRowOpenRow {
+    static let shared = SwipeActionRowOpenRow()
+
+    var id: UUID?
+}
+
 /// A row that reveals action buttons under a horizontal swipe and snaps open or closed.
 ///
+/// Only one row is open at a time: opening another closes it, as in a system list.
 /// Vertical drags are left to the scroll view around it. VoiceOver reaches the same buttons as
 /// custom actions, and with Reduce Motion on the row settles without animating.
 struct SwipeActionRow<Content: View>: View {
@@ -34,7 +42,7 @@ struct SwipeActionRow<Content: View>: View {
     var buttonWidth: CGFloat = 80
     @ViewBuilder var content: () -> Content
 
-    @State private var isOpen = false
+    @State private var id = UUID()
     @GestureState private var translation: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.layoutDirection) private var layoutDirection
@@ -42,6 +50,7 @@ struct SwipeActionRow<Content: View>: View {
     /// Gestures report screen points, but layout mirrors in right-to-left layouts: 1 or -1 converts between them.
     private var forward: CGFloat { layoutDirection == .rightToLeft ? -1 : 1 }
 
+    private var isOpen: Bool { SwipeActionRowOpenRow.shared.id == id }
     private var width: CGFloat { max(buttonWidth, 0) }
     private var revealWidth: CGFloat { CGFloat(actions.count) * width }
     private var resting: CGFloat { isOpen ? -revealWidth : 0 }
@@ -72,6 +81,10 @@ struct SwipeActionRow<Content: View>: View {
             .background(alignment: .trailing) { buttons }
             .clipped()
             .simultaneousGesture(swipe)
+            // A tap on another row closes the one that is open, and still reaches that row.
+            .simultaneousGesture(TapGesture().onEnded {
+                if !isOpen { withAnimation(animation) { SwipeActionRowOpenRow.shared.id = nil } }
+            })
             .animation(animation, value: translation == 0)
     }
 
@@ -116,12 +129,21 @@ struct SwipeActionRow<Content: View>: View {
                     predictedTranslation: value.predictedEndTranslation.width * forward,
                     revealWidth: revealWidth
                 )
-                withAnimation(animation) { isOpen = opens }
+                withAnimation(animation) { setOpen(opens) }
             }
     }
 
     private func close() {
-        withAnimation(animation) { isOpen = false }
+        withAnimation(animation) { setOpen(false) }
+    }
+
+    private func setOpen(_ opens: Bool) {
+        let openRow = SwipeActionRowOpenRow.shared
+        if opens {
+            openRow.id = id
+        } else if openRow.id == id {
+            openRow.id = nil
+        }
     }
 }
 

@@ -23,6 +23,8 @@ on `main`.
 - Undo Snackbar announces its message to VoiceOver again, and the demo of
   Notched Tab Bar shows its heading. Since 0.5.0 both printed the internals of
   the localizable text instead of the text.
+- Swipe Action Row keeps one row open at a time: opening another, or tapping
+  one, closes it.
 - The demo of Search Scopes And Suggestions shows its scopes when you search
   by hand. Playing by itself left the search without them.
 - Emoji Picker jumps to the section of the category you tap, and that tab
