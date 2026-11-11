@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.3 - 2026-11-11
+
 ### Added
 
 - Chromatic Glitch Shader, a modifier that breaks a view up like a bad
