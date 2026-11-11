@@ -21,7 +21,7 @@ easy to copy matters as much as the code itself.
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the index between the `catalog` markers | In place |
 | `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
-| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed | In place |
+| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses | In place |
 | `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
 
 Update the State column when a planned part lands.

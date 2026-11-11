@@ -6,6 +6,12 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- The catalog on the site can be searched and filtered by category, by the iOS
+  version your app runs on and by level. The filters stay in the address, so a
+  filtered view can be shared.
+
 ## 0.4.0 - 2026-11-11
 
 ### Added
