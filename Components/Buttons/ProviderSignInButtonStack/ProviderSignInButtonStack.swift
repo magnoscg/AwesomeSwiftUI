@@ -74,7 +74,8 @@ struct ProviderSignInButtonStack: View {
             .opacity(isWaiting ? 0.5 : 1)
         }
         .buttonStyle(.plain)
-        .disabled(loadingID != nil)
+        // Not `disabled`, which would also dim the button that is signing in.
+        .allowsHitTesting(loadingID == nil)
         .accessibilityLabel(option.title)
         .accessibilityValue(isLoading ? "Signing in" : "")
     }

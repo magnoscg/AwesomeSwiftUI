@@ -100,8 +100,9 @@ struct SpringStudyPlayground: View {
     }
 
     private var curve: some View {
-        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: 2)
         let settling = Spring(response: response, dampingRatio: damping).settlingDuration
+        // The curve covers the time the spring takes to settle, so it always reaches the line.
+        let samples = SpringStudyPlaygroundMath.samples(response: response, damping: damping, count: 120, duration: max(settling, 1))
 
         return VStack(alignment: .leading, spacing: 10) {
             ZStack {

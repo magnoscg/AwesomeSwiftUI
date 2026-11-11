@@ -54,13 +54,14 @@ struct CountryPicker: View {
                     .font(.title2)
                     .accessibilityHidden(true)
 
+                // `Color.primary`, not `.primary`: inside a button the style is a shade of the tint.
                 Text(country.name)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(Color.primary)
 
                 Spacer(minLength: 8)
 
                 Text(country.dialCode)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.secondary)
                     .monospacedDigit()
 
                 Image(systemName: "checkmark")
