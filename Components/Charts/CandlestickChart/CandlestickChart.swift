@@ -48,7 +48,8 @@ nonisolated enum CandlestickChartMath {
 /// open to its close, in one color when the price rose and another when it fell.
 ///
 /// Drag over it to read a day: a rule follows the finger and `selection` gets its candle.
-/// VoiceOver reads the four prices of each day. With Differentiate Without Color on, the days
+/// VoiceOver treats the chart as one value to adjust, and reads the date and the four prices
+/// of a day at a time. With Differentiate Without Color on, the days
 /// that fell are drawn lighter, so the two kinds do not depend on the color alone.
 struct CandlestickChart: View {
     let candles: [CandlestickChartCandle]
@@ -105,6 +106,26 @@ struct CandlestickChart: View {
             selection = date.flatMap { CandlestickChartMath.nearest(to: $0, in: candles) }
         }
         .sensoryFeedback(.selection, trigger: selection)
+        // Charts groups marks this close into ranges of dates, with no prices. One element that
+        // steps through the days reads them instead.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Candlestick chart")
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAdjustableAction { direction in
+            guard !candles.isEmpty else { return }
+            let last = candles.count - 1
+            let current = selection.flatMap { chosen in candles.firstIndex { $0.date == chosen.date } } ?? last
+            switch direction {
+            case .increment: selection = candles[min(current + 1, last)]
+            case .decrement: selection = candles[max(current - 1, 0)]
+            @unknown default: break
+            }
+        }
+    }
+
+    private var accessibilityValue: String {
+        guard let candle = selection ?? candles.last else { return "" }
+        return "\(candle.date.formatted(date: .abbreviated, time: .omitted)), \(description(of: candle))"
     }
 
     private func description(of candle: CandlestickChartCandle) -> String {

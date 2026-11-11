@@ -14,6 +14,8 @@ struct SparklineStatTile: View {
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
     var tint: Color = .indigo
+    /// Set it to false for a figure that is good news when it falls, like churn. A fall is then green.
+    var higherIsBetter = true
 
     @ScaledMetric(relativeTo: .largeTitle) private var minimumHeight = 150.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -51,7 +53,7 @@ struct SparklineStatTile: View {
     private func changeLabel(_ change: Double) -> some View {
         Label(percent(change), systemImage: change >= 0 ? "arrow.up.right" : "arrow.down.right")
             .font(.caption.weight(.semibold))
-            .foregroundStyle(change >= 0 ? .green : .red)
+            .foregroundStyle((change >= 0) == higherIsBetter ? .green : .red)
     }
 
     @ViewBuilder
@@ -126,13 +128,14 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "", higherIsBetter: Bool = true) -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
             trend: trend,
             systemImage: systemImage,
-            tint: tint
+            tint: tint,
+            higherIsBetter: higherIsBetter
         )
     }
 
@@ -145,10 +148,10 @@ struct SparklineStatTileDemo: View {
                 LazyVGrid(columns: columns, spacing: 14) {
                     tile("Revenue", "eurosign.circle", .indigo, series(base: 4_200, swing: 320, slope: 60, phase: 0))
                     tile("Signups", "person.badge.plus", .teal, series(base: 310, swing: 40, slope: 8, phase: 1.4))
-                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users")
+                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users", higherIsBetter: false)
                     tile("Sessions", "waveform.path.ecg", .orange, series(base: 1_900, swing: 240, slope: 18, phase: 3.1))
                     tile("Orders", "shippingbox", .green, series(base: 840, swing: 90, slope: 12, phase: 4.3))
-                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5))
+                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5), higherIsBetter: false)
                 }
             }
             .padding(20)

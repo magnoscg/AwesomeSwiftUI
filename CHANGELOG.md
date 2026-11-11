@@ -10,6 +10,14 @@ on `main`.
 
 - Pulse Ring Button takes `isPulsing`. Set it to false to leave the button
   without rings, as when what it signals has stopped.
+- Glass Segmented Control follows a finger dragged along it, as the system's
+  control does.
+- Sparkline Stat Tile takes `higherIsBetter`. Set it to false for a figure
+  that is good news when it falls, like churn, and a fall is drawn in green.
+- Masked Text Field takes `isValid`, to check what a mask cannot, like a
+  month over 12, before it shows its checkmark.
+- Rating Stars clears the rating with a tap on the chosen star.
+- Gooey Floating Menu closes with a tap outside it.
 
 ### Fixed
 
@@ -55,6 +63,20 @@ on `main`.
   delivered when it arrives, the strokes of Drawing Pad Speed Brush cast no
   shadow, and the sheet of Toast Host opens at half height, so a toast does
   not cover its bar.
+- Candlestick Chart is one value to adjust for VoiceOver, which reads the
+  date and the four prices of a day at a time. Charts grouped the candles
+  into ranges of dates, with no prices.
+- Emoji Picker lights the tab of the last section when the grid reaches its
+  end. A short section there never got its tab.
+- Expanding Search Button and Map Search Sheet do not capitalize what you
+  search for.
+- In demos: Calendar Range Selector asks for a later day when the stay has no
+  nights, Contribution Heatmap shuffles its data from a button and not every
+  two seconds, Expanding Search Button says when nothing matches, Glass Tool
+  Strip only holds tools, Inline Date Picker Disclosure keeps the return on
+  or after the departure, Kanban Board shows part of its third column, the
+  expiry of Masked Text Field rejects a month over 12, and the pages of Paged
+  Grid Launcher tell their apps apart.
 
 ## 0.5.2 - 2026-11-11
 

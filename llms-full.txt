@@ -2561,6 +2561,8 @@ struct ExpandingSearchButton: View {
 
             if isExpanded {
                 TextField(text: $text) { Text(prompt) }
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -2638,6 +2640,10 @@ struct ExpandingSearchButtonDemo: View {
                     Label(row.id, systemImage: row.systemImage)
                         .font(.title3)
                 }
+            }
+
+            if visibleRows.isEmpty {
+                ContentUnavailableView.search(text: text)
             }
 
             Spacer(minLength: 0)
@@ -4641,6 +4647,7 @@ struct CalendarRangeSelectorDemo: View {
         guard let start else { return "Pick your arrival" }
         guard let end else { return "Now pick your departure" }
         let nights = calendar.dateComponents([.day], from: start, to: end).day ?? 0
+        guard nights > 0 else { return "Pick a later day to leave" }
         return nights == 1 ? "1 night" : "\(nights) nights"
     }
 
@@ -6301,7 +6308,8 @@ nonisolated enum CandlestickChartMath {
 /// open to its close, in one color when the price rose and another when it fell.
 ///
 /// Drag over it to read a day: a rule follows the finger and `selection` gets its candle.
-/// VoiceOver reads the four prices of each day. With Differentiate Without Color on, the days
+/// VoiceOver treats the chart as one value to adjust, and reads the date and the four prices
+/// of a day at a time. With Differentiate Without Color on, the days
 /// that fell are drawn lighter, so the two kinds do not depend on the color alone.
 struct CandlestickChart: View {
     let candles: [CandlestickChartCandle]
@@ -6358,6 +6366,26 @@ struct CandlestickChart: View {
             selection = date.flatMap { CandlestickChartMath.nearest(to: $0, in: candles) }
         }
         .sensoryFeedback(.selection, trigger: selection)
+        // Charts groups marks this close into ranges of dates, with no prices. One element that
+        // steps through the days reads them instead.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Candlestick chart")
+        .accessibilityValue(accessibilityValue)
+        .accessibilityAdjustableAction { direction in
+            guard !candles.isEmpty else { return }
+            let last = candles.count - 1
+            let current = selection.flatMap { chosen in candles.firstIndex { $0.date == chosen.date } } ?? last
+            switch direction {
+            case .increment: selection = candles[min(current + 1, last)]
+            case .decrement: selection = candles[max(current - 1, 0)]
+            @unknown default: break
+            }
+        }
+    }
+
+    private var accessibilityValue: String {
+        guard let candle = selection ?? candles.last else { return "" }
+        return "\(candle.date.formatted(date: .abbreviated, time: .omitted)), \(description(of: candle))"
     }
 
     private func description(of candle: CandlestickChartCandle) -> String {
@@ -6600,7 +6628,6 @@ enum ContributionHeatmapLogic {
 
 struct ContributionHeatmapDemo: View {
     @State private var seed = 1.0
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var activity: [Date: Int] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -6623,17 +6650,15 @@ struct ContributionHeatmapDemo: View {
                 .foregroundStyle(.secondary)
 
             ContributionHeatmap(activity: activity, weeks: 30)
+
+            Button("Shuffle", systemImage: "shuffle") {
+                seed = seed > 1.3 ? 1 : seed + 0.17
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.large)
             Spacer()
         }
         .padding(24)
-        .task(id: reduceMotion) {
-            guard !reduceMotion else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(for: .seconds(2.4))
-                guard !Task.isCancelled else { return }
-                seed = seed > 1.3 ? 1 : seed + 0.17
-            }
-        }
     }
 }
 
@@ -7585,6 +7610,8 @@ struct SparklineStatTile: View {
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
     var tint: Color = .indigo
+    /// Set it to false for a figure that is good news when it falls, like churn. A fall is then green.
+    var higherIsBetter = true
 
     @ScaledMetric(relativeTo: .largeTitle) private var minimumHeight = 150.0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -7622,7 +7649,7 @@ struct SparklineStatTile: View {
     private func changeLabel(_ change: Double) -> some View {
         Label(percent(change), systemImage: change >= 0 ? "arrow.up.right" : "arrow.down.right")
             .font(.caption.weight(.semibold))
-            .foregroundStyle(change >= 0 ? .green : .red)
+            .foregroundStyle((change >= 0) == higherIsBetter ? .green : .red)
     }
 
     @ViewBuilder
@@ -7697,13 +7724,14 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "", higherIsBetter: Bool = true) -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
             trend: trend,
             systemImage: systemImage,
-            tint: tint
+            tint: tint,
+            higherIsBetter: higherIsBetter
         )
     }
 
@@ -7716,10 +7744,10 @@ struct SparklineStatTileDemo: View {
                 LazyVGrid(columns: columns, spacing: 14) {
                     tile("Revenue", "eurosign.circle", .indigo, series(base: 4_200, swing: 320, slope: 60, phase: 0))
                     tile("Signups", "person.badge.plus", .teal, series(base: 310, swing: 40, slope: 8, phase: 1.4))
-                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users")
+                    tile("Churn", "arrow.uturn.left.circle", .pink, series(base: 60, swing: 7, slope: -1.5, phase: 2.2), suffix: " users", higherIsBetter: false)
                     tile("Sessions", "waveform.path.ecg", .orange, series(base: 1_900, swing: 240, slope: 18, phase: 3.1))
                     tile("Orders", "shippingbox", .green, series(base: 840, swing: 90, slope: 12, phase: 4.3))
-                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5))
+                    tile("Tickets", "lifepreserver", .purple, series(base: 120, swing: 22, slope: -2, phase: 5), higherIsBetter: false)
                 }
             }
             .padding(20)
@@ -16014,9 +16042,15 @@ enum RatingStarsValue {
     static func clamped(_ rating: Int, maximum: Int) -> Int {
         min(max(rating, 0), max(maximum, 0))
     }
+
+    /// The rating after a tap on `star`: that star, or none when it was already the rating.
+    static func tapping(_ star: Int, rating: Int, maximum: Int) -> Int {
+        star == rating ? 0 : clamped(star, maximum: maximum)
+    }
 }
 
-/// A row of tappable stars. Each star pops with a spring when it fills.
+/// A row of tappable stars. Each star pops with a spring when it fills, and a tap on the
+/// chosen star clears the rating.
 ///
 /// VoiceOver treats the row as one adjustable value. With Reduce Motion on, the stars only change color.
 struct RatingStars: View {
@@ -16048,7 +16082,7 @@ struct RatingStars: View {
         let isFilled = star <= rating
 
         return Button {
-            rating = RatingStarsValue.clamped(star, maximum: maximum)
+            rating = RatingStarsValue.tapping(star, rating: rating, maximum: maximum)
         } label: {
             Image(systemName: "star.fill")
                 .font(.largeTitle)
@@ -19161,7 +19195,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
     let title: (Segment) -> String
 
     @ScaledMetric(relativeTo: .subheadline) private var height = 44.0
+    @State private var width: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     var body: some View {
         HStack(spacing: 0) {
@@ -19170,6 +19206,9 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
             }
         }
         .background { thumb }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+        // The thumb follows a finger dragged along the control, as the system's does.
+        .simultaneousGesture(DragGesture(minimumDistance: 10).onChanged { select(at: $0.location.x) })
         .padding(4)
         .background(.ultraThinMaterial, in: .capsule)
         .sensoryFeedback(.selection, trigger: selection)
@@ -19185,6 +19224,17 @@ struct GlassSegmentedControl<Segment: Hashable>: View {
                 .frame(width: width)
                 .glassEffect(.regular.tint(tint), in: .capsule)
                 .offset(x: width * CGFloat(index))
+        }
+    }
+
+    private func select(at x: CGFloat) {
+        guard width > 0, !segments.isEmpty else { return }
+        // A gesture reports screen points, and a right-to-left layout counts from the other edge.
+        let leading = layoutDirection == .rightToLeft ? width - x : x
+        let index = min(max(Int(leading / width * CGFloat(segments.count)), 0), segments.count - 1)
+        guard segments[index] != selection else { return }
+        withAnimation(reduceMotion ? nil : .snappy(duration: 0.4)) {
+            selection = segments[index]
         }
     }
 
@@ -19647,8 +19697,8 @@ struct GlassToolStripDemo: View {
         GlassToolStripTool(id: "pen", title: "Pen", systemImage: "pencil.tip", group: "draw"),
         GlassToolStripTool(id: "marker", title: "Marker", systemImage: "highlighter", group: "draw"),
         GlassToolStripTool(id: "eraser", title: "Eraser", systemImage: "eraser", group: "draw"),
-        GlassToolStripTool(id: "undo", title: "Undo", systemImage: "arrow.uturn.backward", group: "history"),
-        GlassToolStripTool(id: "redo", title: "Redo", systemImage: "arrow.uturn.forward", group: "history"),
+        GlassToolStripTool(id: "lasso", title: "Lasso", systemImage: "lasso", group: "edit"),
+        GlassToolStripTool(id: "ruler", title: "Ruler", systemImage: "ruler", group: "edit"),
     ]
 
     var body: some View {
@@ -22035,7 +22085,9 @@ nonisolated enum MaskedTextFieldFormatter {
 /// A text field that formats its input as the user types, such as `12/34` or a phone number.
 ///
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
-/// text. With Reduce Motion on, the completion checkmark appears without animating.
+/// text. The checkmark shows when the mask is full and `isValid` agrees, which is where to
+/// check what a mask cannot, like a month over 12. With Reduce Motion on, it appears without
+/// animating.
 struct MaskedTextField: View {
     let title: LocalizedStringResource
     @Binding var text: String
@@ -22043,10 +22095,11 @@ struct MaskedTextField: View {
     var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
+    var isValid: (String) -> Bool = { _ in true }
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) }
+    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) && isValid(text) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -22106,7 +22159,9 @@ struct MaskedTextFieldDemo: View {
                     .font(.largeTitle.bold())
 
                 MaskedTextField(title: "Card number", text: $card, mask: "#### #### #### ####", systemImage: "creditcard.fill")
-                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar")
+                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar") { expiry in
+                    (1...12).contains(Int(expiry.prefix(2)) ?? 0)
+                }
                 MaskedTextField(title: "Phone", text: $phone, mask: "(###) ###-####", systemImage: "phone.fill")
             }
             .padding(20)
@@ -24837,7 +24892,8 @@ struct KanbanBoardDemo: View {
     ]
 
     var body: some View {
-        KanbanBoard(columns: $columns, columnWidth: 180)
+        // Narrow enough to show part of the third column, which says the board scrolls.
+        KanbanBoard(columns: $columns, columnWidth: 150)
             .tint(.indigo)
             .background(LinearGradient(colors: [.indigo.opacity(0.14), .teal.opacity(0.1)], startPoint: .top, endPoint: .bottom))
     }
@@ -27690,6 +27746,7 @@ private struct MapSearchSheetPanel: View {
                 TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
+                    .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
 
                 if !query.isEmpty {
@@ -30188,6 +30245,16 @@ struct GooeyFloatingMenu: View {
         )
         // The buttons only hold icons. The stage reads its size under this cap, which keeps the fan on screen.
         .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        // A tap outside closes the fan, as it does a menu.
+        .background {
+            if isOpen {
+                Color.clear
+                    .frame(width: 4000, height: 4000)
+                    .contentShape(.rect)
+                    .onTapGesture { withAnimation(animation) { isOpen = false } }
+                    .accessibilityHidden(true)
+            }
+        }
     }
 }
 
@@ -33706,7 +33773,8 @@ struct EmojiPicker: View {
     var recentLimit = 12
     let onSelect: (String) -> Void
 
-    @State private var activeID: String?
+    @State private var visibleIDs: [String] = []
+    @State private var isAtEnd = false
     /// The tab that was tapped stays chosen until the grid moves again. A short section near
     /// the end cannot reach the top, and would lose its tab to the one above it.
     @State private var tappedID: String?
@@ -33717,6 +33785,13 @@ struct EmojiPicker: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let edgePadding: CGFloat = 12
+
+    /// The first section in sight, or the last one once the grid is at its end, which a short
+    /// section there would never reach otherwise.
+    private var activeID: String? {
+        let visible = categories.filter { visibleIDs.contains($0.id) }
+        return isAtEnd ? visible.last?.id : visible.first?.id
+    }
 
     private var animation: Animation? {
         reduceMotion ? nil : .smooth(duration: 0.35)
@@ -33805,9 +33880,12 @@ struct EmojiPicker: View {
             if phase == .interacting || (phase == .animating && !isJumping) { tappedID = nil }
         }
         .onScrollTargetVisibilityChange(idType: String.self, threshold: 0.01) { ids in
-            if let first = categories.first(where: { ids.contains($0.id) }) {
-                activeID = first.id
-            }
+            visibleIDs = ids
+        }
+        .onScrollGeometryChange(for: Bool.self) { geometry in
+            geometry.visibleRect.maxY >= geometry.contentSize.height - 1
+        } action: { _, atEnd in
+            isAtEnd = atEnd
         }
     }
 
@@ -33990,10 +34068,14 @@ struct InlineDatePickerDisclosureDemo: View {
                     InlineDatePickerDisclosure(title: "Departure", date: $departure)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
 
-                    InlineDatePickerDisclosure(title: "Return", date: $comeback)
+                    InlineDatePickerDisclosure(title: "Return", date: $comeback, range: departure...Date.distantFuture)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
                 }
                 .tint(.indigo)
+                // The return never comes before the departure.
+                .onChange(of: departure) { _, newValue in
+                    if comeback < newValue { comeback = newValue }
+                }
             }
             .padding(20)
         }
@@ -37412,9 +37494,11 @@ struct PagedGridLauncherDemo: View {
         ("Phone", "phone.fill"), ("Chat", "message.fill"), ("Video", "video.fill"), ("Radio", "dot.radiowaves.left.and.right"),
     ]
 
+    // A page shows 20, so the names of the first page come back on the next one with a number.
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
+        let copy = index / apps.count + 1
+        return PagedGridLauncherItem(id: "\(index)", title: copy == 1 ? "\(app.0)" : "\(app.0) \(copy)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {

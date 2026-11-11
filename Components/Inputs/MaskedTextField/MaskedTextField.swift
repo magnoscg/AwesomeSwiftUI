@@ -72,7 +72,9 @@ nonisolated enum MaskedTextFieldFormatter {
 /// A text field that formats its input as the user types, such as `12/34` or a phone number.
 ///
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
-/// text. With Reduce Motion on, the completion checkmark appears without animating.
+/// text. The checkmark shows when the mask is full and `isValid` agrees, which is where to
+/// check what a mask cannot, like a month over 12. With Reduce Motion on, it appears without
+/// animating.
 struct MaskedTextField: View {
     let title: LocalizedStringResource
     @Binding var text: String
@@ -80,10 +82,11 @@ struct MaskedTextField: View {
     var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
+    var isValid: (String) -> Bool = { _ in true }
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) }
+    private var isComplete: Bool { MaskedTextFieldFormatter.isComplete(text, mask: mask) && isValid(text) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -143,7 +146,9 @@ struct MaskedTextFieldDemo: View {
                     .font(.largeTitle.bold())
 
                 MaskedTextField(title: "Card number", text: $card, mask: "#### #### #### ####", systemImage: "creditcard.fill")
-                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar")
+                MaskedTextField(title: "Expiry date", text: $expiry, mask: "##/##", prompt: "MM/YY", systemImage: "calendar") { expiry in
+                    (1...12).contains(Int(expiry.prefix(2)) ?? 0)
+                }
                 MaskedTextField(title: "Phone", text: $phone, mask: "(###) ###-####", systemImage: "phone.fill")
             }
             .padding(20)

@@ -114,10 +114,14 @@ struct InlineDatePickerDisclosureDemo: View {
                     InlineDatePickerDisclosure(title: "Departure", date: $departure)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
 
-                    InlineDatePickerDisclosure(title: "Return", date: $comeback)
+                    InlineDatePickerDisclosure(title: "Return", date: $comeback, range: departure...Date.distantFuture)
                         .background(.background.secondary, in: .rect(cornerRadius: 20))
                 }
                 .tint(.indigo)
+                // The return never comes before the departure.
+                .onChange(of: departure) { _, newValue in
+                    if comeback < newValue { comeback = newValue }
+                }
             }
             .padding(20)
         }
