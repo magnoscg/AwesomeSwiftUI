@@ -21,6 +21,7 @@ struct InteractiveLineChart: View {
 
     @State private var touchedDate: Date?
     @State private var tooltipWidth: CGFloat = 0
+    @Environment(\.layoutDirection) private var layoutDirection
     @ScaledMetric(relativeTo: .caption) private var tooltipHeadroom = 60.0
 
     private var selected: InteractiveLineChartPoint? {
@@ -72,6 +73,7 @@ struct InteractiveLineChart: View {
                 if let selected, let plotFrame = proxy.plotFrame, let x = proxy.position(forX: selected.date) {
                     let plot = geometry[plotFrame]
                     tooltip(for: selected)
+                        .environment(\.layoutDirection, layoutDirection)
                         .fixedSize()
                         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { tooltipWidth = $0 }
                         .position(
@@ -81,6 +83,9 @@ struct InteractiveLineChart: View {
                         .allowsHitTesting(false)
                 }
             }
+            // The chart reports screen points, and a position is mirrored in a right-to-left
+            // layout. Left to right here keeps the tooltip over the rule.
+            .environment(\.layoutDirection, .leftToRight)
         }
         .sensoryFeedback(.selection, trigger: selected?.id)
     }
