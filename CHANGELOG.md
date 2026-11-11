@@ -8,6 +8,9 @@ on `main`.
 
 ### Added
 
+- Chromatic Glitch Shader, a modifier that breaks a view up like a bad
+  signal: its colors come apart, bands jump sideways and scan lines cross
+  it. Drawn by a Metal shader.
 - Map Cluster Annotations, a map where places that are close together are
   drawn as one bubble with their count, which splits as the map zooms in.
 - Profile Header Stretchy, a profile whose cover stretches when the page is

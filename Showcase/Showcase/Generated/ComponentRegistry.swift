@@ -732,6 +732,15 @@ enum ComponentRegistry {
             demo: { AnyView(BorderBeamModifierDemo()) }
         ),
         ShowcaseEntry(
+            id: "chromatic-glitch-shader",
+            title: "Chromatic Glitch Shader",
+            category: "Effects",
+            summary: "A view modifier that breaks a view up like a bad signal: its colors come apart, bands jump sideways and scan lines cross it, drawn by a Metal shader.",
+            keywords: ["glitch", "chromatic aberration", "rgb split", "shader", "metal", "scan lines", "vhs", "distortion", "glitch", "aberración cromática", "separación rgb", "shader", "metal", "líneas de escaneo", "vhs", "distorsión"],
+            minIOS: "18.0",
+            demo: { AnyView(ChromaticGlitchShaderDemo()) }
+        ),
+        ShowcaseEntry(
             id: "coin-flip-view",
             title: "Coin Flip View",
             category: "Effects",
