@@ -6133,7 +6133,11 @@ struct AnimatedDonutChart: View {
                         Text(percent).foregroundStyle(.secondary)
                     }
                     .font(isSelected ? .subheadline.weight(.semibold) : .subheadline)
+                    // A row is too short to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the legend as compact as it was.
+                    .padding(.vertical, 13)
                     .contentShape(.rect)
+                    .padding(.vertical, -13)
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(segment.id)
@@ -8501,7 +8505,11 @@ struct NestedCommentThread: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(tint)
                 .frame(minHeight: 28)
+                // The padding widens what answers to a touch, and the same padding taken
+                // back keeps the thread as compact as it was.
+                .padding(.vertical, 8)
                 .contentShape(.rect)
+                .padding(.vertical, -8)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("\(title) to \(comment.author)")
@@ -9811,9 +9819,16 @@ struct TrialTimelinePaywall: View {
             .allowsHitTesting(!isPurchasing)
             .accessibilityValue(isPurchasing ? "In progress" : "")
 
-            Button("Restore Purchases", action: onRestore)
-                .font(.footnote)
-                .disabled(isPurchasing)
+            Button(action: onRestore) {
+                // A line of text is too short to hit. The padding widens what answers to a
+                // touch, and the same padding taken back keeps the layout as it was.
+                Text("Restore Purchases")
+                    .padding(.vertical, 14)
+                    .contentShape(.rect)
+                    .padding(.vertical, -14)
+            }
+            .font(.footnote)
+            .disabled(isPurchasing)
         }
         .padding(.horizontal, margin)
         .padding(.vertical, 12)
@@ -9888,6 +9903,8 @@ struct AnimatedRadioButton: View {
 
                 Spacer(minLength: 0)
             }
+            // The whole row is the touch target, at the height recommended for one.
+            .frame(minHeight: 44)
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
@@ -9941,7 +9958,7 @@ struct AnimatedRadioButtonDemo: View {
                 Text("How should we send it?")
                     .font(.system(.title, design: .rounded, weight: .bold))
 
-                VStack(spacing: 22) {
+                VStack(spacing: 4) {
                     ForEach(options.indices, id: \.self) { index in
                         AnimatedRadioButton(title: options[index], isSelected: selection == index) {
                             isAutoPlaying = false
@@ -13968,12 +13985,16 @@ struct JiggleEditModifierDemo: View {
             ScrollView {
                 VStack(spacing: 28) {
                     HStack {
-                        Button("Reset") {
+                        Button {
                             withAnimation(animation) { apps = Self.allApps }
+                        } label: {
+                            touchTarget(Text("Reset"))
                         }
                         Spacer()
-                        Button(isEditing ? "Done" : "Edit") {
+                        Button {
                             isEditing.toggle()
+                        } label: {
+                            touchTarget(Text(isEditing ? "Done" : "Edit"))
                         }
                         .fontWeight(.bold)
                     }
@@ -13992,6 +14013,14 @@ struct JiggleEditModifierDemo: View {
         }
     }
 
+    /// Widens what answers to a touch around something small, without moving the layout.
+    private func touchTarget(_ content: some View) -> some View {
+        content
+            .padding(12)
+            .contentShape(.rect)
+            .padding(-12)
+    }
+
     private func icon(for app: JiggleEditDemoApp) -> some View {
         VStack(spacing: 6) {
             RoundedRectangle(cornerRadius: iconSize * 0.23, style: .continuous)
@@ -14008,10 +14037,12 @@ struct JiggleEditModifierDemo: View {
                         Button {
                             withAnimation(animation) { apps.removeAll { $0.id == app.id } }
                         } label: {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.title3)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .black.opacity(0.7))
+                            touchTarget(
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title3)
+                                    .symbolRenderingMode(.palette)
+                                    .foregroundStyle(.white, .black.opacity(0.7))
+                            )
                         }
                         .accessibilityLabel("Remove \(app.id)")
                         .offset(x: -8, y: -8)
@@ -15997,6 +16028,11 @@ struct RatingStars: View {
                 } animation: { scale in
                     scale > 1 ? .easeOut(duration: 0.1) : .spring(duration: 0.4, bounce: 0.6)
                 }
+                // A star answers to a touch up to the middle of the gap to the next one,
+                // which makes it as big as a touch target should be. The stars do not move.
+                .padding(5)
+                .contentShape(.rect)
+                .padding(-5)
         }
         .buttonStyle(.plain)
     }
@@ -16836,8 +16872,13 @@ struct TooltipPopoverDemo: View {
             Button {
                 activeTip = id
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the row as it was.
                 Image(systemName: "info.circle.fill")
                     .font(.title2)
+                    .padding(9)
+                    .contentShape(.rect)
+                    .padding(-9)
             }
             .accessibilityLabel("About \(title)")
             .tooltipPopoverAnchor(id: id, text: "\(tip)")
@@ -17359,10 +17400,15 @@ struct DoubleTapHeartOverlayDemo: View {
                     Button {
                         isLiked.toggle()
                     } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the row as it was.
                         Image(systemName: isLiked ? "heart.fill" : "heart")
                             .font(.title2)
                             .foregroundStyle(isLiked ? .pink : .primary)
                             .symbolEffect(.bounce, value: isLiked)
+                            .padding(10)
+                            .contentShape(.rect)
+                            .padding(-10)
                     }
                     .accessibilityLabel(isLiked ? "Unlike" : "Like")
 
@@ -17582,8 +17628,17 @@ struct DragSelectGridDemo: View {
                     .font(.title2.bold())
                     .contentTransition(reduceMotion ? .identity : .numericText())
                 Spacer()
-                Button("Clear") { selection = [] }
-                    .disabled(selection.isEmpty)
+                Button {
+                    selection = []
+                } label: {
+                    // A word is too small to hit. The padding widens what answers to a touch,
+                    // and the same padding taken back keeps the layout as it was.
+                    Text("Clear")
+                        .padding(12)
+                        .contentShape(.rect)
+                        .padding(-12)
+                }
+                .disabled(selection.isEmpty)
             }
             .animation(reduceMotion ? nil : .snappy, value: selection.count)
             .padding(.horizontal, 16)
@@ -19192,8 +19247,15 @@ private struct GlassTabAccessoryPlayer: View {
 
             Spacer(minLength: 0)
 
-            Button(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill") {
+            Button {
                 isPlaying.toggle()
+            } label: {
+                // The glyph is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the accessory as it was.
+                Label(isPlaying ? "Pause" : "Play", systemImage: isPlaying ? "pause.fill" : "play.fill")
+                    .padding(17)
+                    .contentShape(.rect)
+                    .padding(-17)
             }
             .labelStyle(.iconOnly)
             .buttonStyle(.plain)
@@ -19311,7 +19373,10 @@ struct GlassTagCloud: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, horizontalPadding)
                 .padding(.vertical, verticalPadding)
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 3)
                 .contentShape(.capsule)
+                .padding(.vertical, -3)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -22671,8 +22736,13 @@ struct PasswordStrengthField: View {
                 isRevealed.toggle()
                 isFocused = true
             } label: {
+                // The icon is too small to hit. The padding widens what answers to a touch,
+                // and the same padding taken back keeps the field as it was.
                 Image(systemName: isRevealed ? "eye.slash" : "eye")
                     .foregroundStyle(.secondary)
+                    .padding(15)
+                    .contentShape(.rect)
+                    .padding(-15)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(isRevealed ? "Hide password" : "Show password")
@@ -22760,7 +22830,7 @@ struct RichTextEditor: View {
     @Binding var text: AttributedString
     var highlights: [Color] = [.yellow, .green, .pink]
 
-    private let buttonSize: CGFloat = 40
+    private let buttonSize: CGFloat = 44
 
     @State private var selection = AttributedTextSelection()
     @Environment(\.fontResolutionContext) private var fontResolutionContext
@@ -23151,7 +23221,13 @@ struct TagInputField: View {
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 24, minHeight: 20)
+                    // Too small to hit. The padding widens what answers to a touch, and the
+                    // same padding taken back keeps the tag as compact as it was.
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 12)
                     .contentShape(.rect)
+                    .padding(.horizontal, -10)
+                    .padding(.vertical, -12)
             }
             .buttonStyle(.plain)
         }
@@ -27376,6 +27452,8 @@ struct MapRouteTrackerDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
 
             ProgressView(value: progress)
@@ -27524,8 +27602,15 @@ private struct MapSearchSheetPanel: View {
                     .autocorrectionDisabled()
 
                 if !query.isEmpty {
-                    Button("Clear", systemImage: "xmark.circle.fill") {
+                    Button {
                         query = ""
+                    } label: {
+                        // The icon is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the field as it was.
+                        Label("Clear", systemImage: "xmark.circle.fill")
+                            .padding(14)
+                            .contentShape(.rect)
+                            .padding(-14)
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
@@ -28324,8 +28409,15 @@ struct ShutterCaptureButton: View {
         VStack(spacing: 20) {
             HStack(spacing: 28) {
                 ForEach(ShutterCaptureButtonMode.allCases) { option in
-                    Button(option.rawValue) {
+                    Button {
                         withAnimation(animation) { mode = option }
+                    } label: {
+                        // A word is too small to hit. The padding widens what answers to a
+                        // touch, and the same padding taken back keeps the layout as it was.
+                        Text(option.rawValue)
+                            .padding(13)
+                            .contentShape(.rect)
+                            .padding(-13)
                     }
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(mode == option ? Color.yellow : Color.white)
@@ -28852,9 +28944,11 @@ struct VideoPosterToPlayer<Poster: View, Player: View>: View {
                             .foregroundStyle(.white)
                             .frame(width: 36, height: 36)
                             .background(.black.opacity(0.5), in: .circle)
+                            // The padding is part of the button, so all of it answers to a touch.
+                            .padding(10)
+                            .contentShape(.rect)
                     }
                     .accessibilityLabel("Close video")
-                    .padding(10)
                     .transition(.opacity)
                 }
             }
@@ -29266,9 +29360,16 @@ private struct CoachMarkTourModifier: ViewModifier {
             Text(step.message).font(.subheadline).foregroundStyle(.secondary)
 
             HStack {
-                Button("Skip tour", action: skip)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Button(action: skip) {
+                    // A line of text is too short to hit. The padding widens what answers to
+                    // a touch, and the same padding taken back keeps the layout as it was.
+                    Text("Skip tour")
+                        .padding(.vertical, 13)
+                        .contentShape(.rect)
+                        .padding(.vertical, -13)
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
 
                 Spacer()
 
@@ -30499,6 +30600,8 @@ struct ScrollEdgeHeaderDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.glass)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
@@ -31185,6 +31288,10 @@ struct BreadcrumbTrail: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// A crumb is a short line of text, too small to hit. This padding widens what answers to a
+    /// touch, and the same padding taken back keeps the trail as compact as it was.
+    private let touchPadding: CGFloat = 13
+
     var body: some View {
         ViewThatFits(in: .horizontal) {
             fullRow
@@ -31222,6 +31329,9 @@ struct BreadcrumbTrail: View {
                 Image(systemName: "ellipsis.circle.fill")
                     .symbolRenderingMode(.hierarchical)
                     .imageScale(.large)
+                    .padding(touchPadding)
+                    .contentShape(.rect)
+                    .padding(-touchPadding)
             }
             .accessibilityLabel("More")
             separator
@@ -31243,9 +31353,16 @@ struct BreadcrumbTrail: View {
                     .fixedSize()
                     .accessibilityAddTraits(.isSelected)
             } else {
-                Button(item.title) { onSelect(item) }
-                    .lineLimit(1)
-                    .fixedSize()
+                Button {
+                    onSelect(item)
+                } label: {
+                    Text(item.title)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
+                }
+                .lineLimit(1)
+                .fixedSize()
             }
         }
     }
@@ -31798,10 +31915,16 @@ struct FullScreenMenuOverlayDemo: View {
             VStack(spacing: 20) {
                 HStack {
                     Spacer()
-                    Button("Menu", systemImage: "line.3.horizontal") { isOpen = true }
-                        .labelStyle(.iconOnly)
-                        .font(.title2.weight(.semibold))
-                        .padding(20)
+                    Button {
+                        isOpen = true
+                    } label: {
+                        // The padding is part of the button, so all of it answers to a touch.
+                        Label("Menu", systemImage: "line.3.horizontal")
+                            .padding(20)
+                            .contentShape(.rect)
+                    }
+                    .labelStyle(.iconOnly)
+                    .font(.title2.weight(.semibold))
                 }
 
                 Spacer()
@@ -32158,6 +32281,10 @@ struct ScrollSpyHeader<Element: Identifiable, Content: View>: View where Element
                             .fill(.quaternary)
                     }
                 }
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 5)
+                .contentShape(.rect)
+                .padding(.vertical, -5)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isActive ? .isSelected : [])
@@ -32591,18 +32718,21 @@ struct SideDrawerDemo: View {
 
     var body: some View {
         SideDrawer(isOpen: $isOpen) {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text("Workspace")
                     .font(.title2.bold())
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 20)
 
                 ForEach(destinations, id: \.0) { name, symbol in
                     Button {
                         current = symbol
                         isOpen = false
                     } label: {
+                        // The whole row answers to a touch, not only its text.
                         Label(name, systemImage: symbol)
                             .font(.headline)
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .contentShape(.rect)
                     }
                 }
 
@@ -39255,7 +39385,13 @@ struct ScrollingTabStrip: View {
                 .frame(height: 3)
             }
             .fixedSize()
+            // A tab is shorter than a touch target. The padding widens what answers to a
+            // touch, and the same padding taken back keeps the strip as it was.
+            .padding(.horizontal, 2)
+            .padding(.vertical, 7)
             .contentShape(.rect)
+            .padding(.horizontal, -2)
+            .padding(.vertical, -7)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(tab)
@@ -40342,6 +40478,8 @@ struct ReadMoreText: View {
     @State private var collapsedHeight: CGFloat = 0
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    private let touchPadding: CGFloat = 13
+
     private var isTruncated: Bool { fullHeight > collapsedHeight + 1 && collapsedHeight > 0 }
     private var isFaded: Bool { isTruncated && !isExpanded }
 
@@ -40356,8 +40494,15 @@ struct ReadMoreText: View {
                 .mask { fade }
 
             if isTruncated {
-                Button(isExpanded ? lessLabel : moreLabel) {
+                Button {
                     isExpanded.toggle()
+                } label: {
+                    // A line of text is too short to hit. The padding widens what answers to a
+                    // touch, and the same padding taken back keeps the layout as it was.
+                    Text(isExpanded ? lessLabel : moreLabel)
+                        .padding(.vertical, touchPadding)
+                        .contentShape(.rect)
+                        .padding(.vertical, -touchPadding)
                 }
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.tint)
@@ -42468,6 +42613,10 @@ struct MatchedHeroCard<Detail: View>: View {
                     .font(.headline)
                     .padding(12)
                     .background(.white.opacity(0.2), in: .circle)
+                    // A little bigger for a touch than it looks, up to the size of a touch target.
+                    .padding(2)
+                    .contentShape(.rect)
+                    .padding(-2)
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Close")

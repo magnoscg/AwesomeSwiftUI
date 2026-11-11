@@ -53,7 +53,10 @@ struct GlassTagCloud: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, horizontalPadding)
                 .padding(.vertical, verticalPadding)
+                // A little taller for a touch than it looks, up to the size of a touch target.
+                .padding(.vertical, 3)
                 .contentShape(.capsule)
+                .padding(.vertical, -3)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isSelected ? .isSelected : [])

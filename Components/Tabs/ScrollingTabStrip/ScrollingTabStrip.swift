@@ -61,7 +61,13 @@ struct ScrollingTabStrip: View {
                 .frame(height: 3)
             }
             .fixedSize()
+            // A tab is shorter than a touch target. The padding widens what answers to a
+            // touch, and the same padding taken back keeps the strip as it was.
+            .padding(.horizontal, 2)
+            .padding(.vertical, 7)
             .contentShape(.rect)
+            .padding(.horizontal, -2)
+            .padding(.vertical, -7)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(tab)

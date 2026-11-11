@@ -129,7 +129,13 @@ struct TagInputField: View {
                     .font(.caption2.weight(.bold))
                     .foregroundStyle(.secondary)
                     .frame(minWidth: 24, minHeight: 20)
+                    // Too small to hit. The padding widens what answers to a touch, and the
+                    // same padding taken back keeps the tag as compact as it was.
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 12)
                     .contentShape(.rect)
+                    .padding(.horizontal, -10)
+                    .padding(.vertical, -12)
             }
             .buttonStyle(.plain)
         }

@@ -189,6 +189,8 @@ struct MapRouteTrackerDemo: View {
                 .labelStyle(.iconOnly)
                 .buttonStyle(.bordered)
                 .buttonBorderShape(.circle)
+                // The regular size of an icon in a circle is too small to hit.
+                .controlSize(.large)
             }
 
             ProgressView(value: progress)
