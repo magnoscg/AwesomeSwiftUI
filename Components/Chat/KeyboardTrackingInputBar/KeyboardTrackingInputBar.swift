@@ -9,7 +9,7 @@ import SwiftUI
 /// keyboard, so nothing here needs to measure it.
 struct KeyboardTrackingInputBar<Content: View>: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: LocalizedStringResource
     var tint: Color
     var onSend: (String) -> Void
     @ViewBuilder let content: Content
@@ -20,7 +20,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
 
     init(
         text: Binding<String>,
-        placeholder: String = "Message",
+        placeholder: LocalizedStringResource = "Message",
         tint: Color = .blue,
         onSend: @escaping (String) -> Void,
         @ViewBuilder content: () -> Content
@@ -53,7 +53,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
                 Button(action: send) {
                     Image(systemName: "arrow.up")
                         .font(.body.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(KeyboardTrackingInputBarContrastingForeground(background: tint))
                         .frame(width: sendSize, height: sendSize)
                         .background(message.isEmpty ? AnyShapeStyle(.gray.opacity(0.4)) : AnyShapeStyle(tint), in: .circle)
                         .frame(minWidth: 44, minHeight: 44)
@@ -74,6 +74,18 @@ struct KeyboardTrackingInputBar<Content: View>: View {
         guard !sent.isEmpty else { return }
         text = ""
         onSend(sent)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct KeyboardTrackingInputBarContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

@@ -1,0 +1,306 @@
+---
+// The catalog as a grid of previews that can be searched and filtered: by
+// category, iOS version, level, an Apple API and having a Metal shader. The
+// generated catalog index passes it every component. Without JavaScript the
+// filters stay hidden and every card shows.
+interface Item {
+  title: string;
+  summary: string;
+  preview: string;
+  href: string;
+  category: string;
+  minIOS: string;
+  difficulty: string;
+  keywords: string;
+  apis: string[];
+  shader: boolean;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+const categories = [...new Set(items.map((item) => item.category))].sort();
+const versions = [...new Set(items.map((item) => item.minIOS))].sort((a, b) => Number(a) - Number(b));
+const levels = ['beginner', 'intermediate', 'advanced'];
+// An API used once or twice would make the list too long to scan. Search still finds it.
+const uses = new Map<string, number>();
+for (const item of items) for (const api of item.apis) uses.set(api, (uses.get(api) ?? 0) + 1);
+const apis = [...uses]
+  .filter(([, count]) => count >= 3)
+  .map(([api]) => api)
+  .sort((a, b) => a.localeCompare(b, 'en', { sensitivity: 'base' }));
+const hasShaders = items.some((item) => item.shader);
+const capitalized = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+const major = (version: string) => version.replace(/\.0$/, '');
+---
+
+<div class="catalog-gallery not-content" data-gallery>
+  <form class="filters" role="search" aria-label="Filter the catalog" hidden data-filters>
+    <label class="search">
+      <span>Search</span>
+      <input type="search" name="q" placeholder="button, sheet, gráfico…" autocomplete="off" />
+    </label>
+    <label>
+      <span>Category</span>
+      <select name="category">
+        <option value="">All categories</option>
+        {categories.map((category) => <option value={category}>{category}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>Runs on</span>
+      <select name="ios">
+        <option value="">Any iOS</option>
+        {versions.map((version) => <option value={version}>iOS {major(version)}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>Level</span>
+      <select name="level">
+        <option value="">Any level</option>
+        {levels.map((level) => <option value={level}>{capitalized(level)}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>Uses</span>
+      <select name="api">
+        <option value="">Any API</option>
+        {apis.map((api) => <option value={api}>{api}</option>)}
+      </select>
+    </label>
+    {
+      hasShaders && (
+        <label class="check">
+          <input type="checkbox" name="shader" value="1" />
+          <span>Metal shader</span>
+        </label>
+      )
+    }
+    <button type="reset">Clear</button>
+  </form>
+
+  <p class="count" aria-live="polite" data-count>{items.length} components</p>
+
+  <ul class="grid">
+    {
+      items.map((item) => (
+        <li
+          data-item
+          data-category={item.category}
+          data-ios={item.minIOS}
+          data-level={item.difficulty}
+          data-apis={item.apis.join('|')}
+          data-shader={item.shader ? '1' : undefined}
+          data-search={`${item.title} ${item.summary} ${item.category} ${item.keywords} ${item.apis.join(' ')}`}
+        >
+          <a href={item.href}>
+            <img src={item.preview} alt="" width="160" loading="lazy" />
+            <strong>{item.title}</strong>
+            <span class="summary">{item.summary}</span>
+            <span class="tags">
+              iOS {major(item.minIOS)}+ · {item.category} · {capitalized(item.difficulty)}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="empty" hidden data-empty>No component matches. Try fewer words, or clear the filters.</p>
+</div>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  .filters label {
+    display: grid;
+    gap: 0.25rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .filters .check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+  }
+
+  .filters .check input {
+    width: 1.1rem;
+    height: 1.1rem;
+    min-height: 0;
+    padding: 0;
+    accent-color: var(--sl-color-accent);
+  }
+
+  .filters select {
+    max-width: 14rem;
+  }
+
+  .filters .search {
+    flex: 1 1 14rem;
+  }
+
+  .filters input,
+  .filters select,
+  .filters button {
+    min-height: 2.75rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    font: inherit;
+    font-size: var(--sl-text-base);
+  }
+
+  .filters input {
+    width: 100%;
+  }
+
+  .filters button {
+    cursor: pointer;
+  }
+
+  .filters :focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .count {
+    margin: 1rem 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .grid li[hidden] {
+    display: none;
+  }
+
+  .grid a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-black);
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+
+  .grid a:hover,
+  .grid a:focus-visible {
+    border-color: var(--sl-color-accent);
+  }
+
+  .grid img {
+    align-self: center;
+    height: auto;
+    border-radius: 0.5rem;
+  }
+
+  .grid strong {
+    font-size: var(--sl-text-lg);
+    line-height: 1.3;
+  }
+
+  .summary {
+    flex: 1;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .tags {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+</style>
+
+<script>
+  const plain = (text: string) =>
+    text
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .toLowerCase();
+
+  for (const gallery of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+    const form = gallery.querySelector<HTMLFormElement>('[data-filters]')!;
+    const count = gallery.querySelector<HTMLElement>('[data-count]')!;
+    const empty = gallery.querySelector<HTMLElement>('[data-empty]')!;
+    const items = [...gallery.querySelectorAll<HTMLElement>('[data-item]')].map((element) => ({
+      element,
+      text: plain(element.dataset.search ?? ''),
+      category: element.dataset.category ?? '',
+      ios: Number(element.dataset.ios),
+      level: element.dataset.level ?? '',
+      apis: (element.dataset.apis ?? '').split('|'),
+      shader: element.dataset.shader === '1',
+    }));
+    const names = ['q', 'category', 'ios', 'level', 'api'];
+    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    const shader = form.elements.namedItem('shader') as HTMLInputElement | null;
+
+    const apply = () => {
+      const words = plain(field('q').value).split(/\s+/).filter(Boolean);
+      const category = field('category').value;
+      const ios = field('ios').value;
+      const level = field('level').value;
+      const api = field('api').value;
+      const onlyShaders = shader?.checked ?? false;
+      let shown = 0;
+      for (const item of items) {
+        const matches =
+          words.every((word) => item.text.includes(word)) &&
+          (!category || item.category === category) &&
+          (!ios || item.ios <= Number(ios)) &&
+          (!level || item.level === level) &&
+          (!api || item.apis.includes(api)) &&
+          (!onlyShaders || item.shader);
+        item.element.hidden = !matches;
+        if (matches) shown += 1;
+      }
+      count.textContent =
+        shown === items.length ? `${items.length} components` : `${shown} of ${items.length} components`;
+      empty.hidden = shown > 0;
+
+      const query = new URLSearchParams();
+      for (const name of names) if (field(name).value) query.set(name, field(name).value);
+      if (onlyShaders) query.set('shader', '1');
+      const search = query.toString();
+      history.replaceState(null, '', search ? `?${search}` : location.pathname);
+    };
+
+    const query = new URLSearchParams(location.search);
+    for (const name of names) {
+      const value = query.get(name);
+      if (value) field(name).value = value;
+    }
+    if (shader) shader.checked = query.get('shader') === '1';
+    form.hidden = false;
+    form.addEventListener('input', apply);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.addEventListener('reset', () => setTimeout(apply));
+    apply();
+  }
+</script>

@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the sweep is removed and the button stays still.
 struct ShimmerButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String?
     var colors: [Color] = [.indigo, .purple]
     var sweepDuration: Double = 1.1

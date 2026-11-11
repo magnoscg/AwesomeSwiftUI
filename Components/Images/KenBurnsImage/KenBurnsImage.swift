@@ -9,7 +9,7 @@ import SwiftUI
 /// point inside the image. With Reduce Motion on, the picture stays still.
 struct KenBurnsImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var duration: Double = 12
     var zoom: CGFloat = 1.3
     var from: UnitPoint = .topLeading

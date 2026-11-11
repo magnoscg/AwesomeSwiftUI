@@ -27,7 +27,7 @@ nonisolated enum ToastHostRole: Equatable, Sendable {
 
 nonisolated struct ToastHostToast: Identifiable, Equatable, Sendable {
     var id = UUID()
-    var message: String
+    var message: LocalizedStringResource
     var role = ToastHostRole.info
     var duration = Duration.seconds(3)
 }
@@ -58,7 +58,7 @@ nonisolated struct ToastHostQueue: Equatable, Sendable {
     private(set) var queue = ToastHostQueue()
     @ObservationIgnored fileprivate var window: ToastHostWindow?
 
-    func show(_ message: String, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
+    func show(_ message: LocalizedStringResource, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
         queue.add(ToastHostToast(message: message, role: role, duration: duration))
     }
 
@@ -145,7 +145,7 @@ private struct ToastHostOverlay: View {
                     .id(toast.id)
                     .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
                     .task(id: toast.id) {
-                        AccessibilityNotification.Announcement(toast.message).post()
+                        AccessibilityNotification.Announcement(String(localized: toast.message)).post()
                         try? await Task.sleep(for: toast.duration)
                         if !Task.isCancelled { center.dismiss(toast) }
                     }

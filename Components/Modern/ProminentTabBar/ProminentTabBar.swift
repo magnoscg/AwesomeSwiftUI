@@ -5,7 +5,7 @@ import SwiftUI
 
 @available(iOS 27, *)
 struct ProminentTabBarItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 

@@ -5,7 +5,7 @@ import SwiftUI
 
 struct GooeyFloatingMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -90,7 +90,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
                 Button { select(item) } label: {
                     Image(systemName: item.systemImage)
                         .font(.title3.weight(.semibold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                         .frame(width: buttonSize * 0.8, height: buttonSize * 0.8)
                         .contentShape(.circle)
                 }
@@ -105,7 +105,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
             Button(action: toggle) {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                     .rotationEffect(.degrees(45 * progress))
                     .frame(width: buttonSize, height: buttonSize)
                     .contentShape(.circle)
@@ -163,6 +163,18 @@ enum GooeyFloatingMenuMath {
         guard count > 1 else { return max(progress, 0) }
         let delay = 0.35 * Double(index) / Double(count - 1)
         return max((progress - delay) / (1 - delay), 0)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct GooeyFloatingMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

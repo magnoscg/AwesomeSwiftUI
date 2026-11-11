@@ -9,7 +9,7 @@ import SwiftUI
 /// With Reduce Motion on, the field appears without animating.
 struct ExpandingSearchButton: View {
     @Binding var text: String
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
     var onSubmit: () -> Void = {}
 
     @State private var isExpanded = false
@@ -35,7 +35,7 @@ struct ExpandingSearchButton: View {
             .accessibilityLabel("Search")
 
             if isExpanded {
-                TextField(prompt, text: $text)
+                TextField(text: $text) { Text(prompt) }
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)

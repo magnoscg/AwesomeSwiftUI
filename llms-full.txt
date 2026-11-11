@@ -2159,7 +2159,7 @@ import SwiftUI
 /// With Reduce Motion on, the button stays in place and only dims while pressed.
 struct ElasticDragButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .indigo
     var reach: Double = 80
     let action: () -> Void
@@ -2187,7 +2187,7 @@ struct ElasticDragButton: View {
 
             Image(systemName: systemImage)
                 .font(.largeTitle.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(ElasticDragButtonContrastingForeground(background: tint))
         }
         .frame(width: diameter, height: diameter)
         .offset(pull)
@@ -2229,6 +2229,18 @@ struct ElasticDragButton: View {
                     action()
                 }
             }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ElasticDragButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -2278,9 +2290,9 @@ import SwiftUI
 
 struct EmojiReactionPickerOption: Identifiable, Equatable, Sendable {
     let emoji: String
-    let name: String
+    let name: LocalizedStringResource
 
-    var id: String { name }
+    var id: String { emoji }
 
     static let defaults = [
         EmojiReactionPickerOption(emoji: "👍", name: "Like"),
@@ -2515,7 +2527,7 @@ import SwiftUI
 /// With Reduce Motion on, the field appears without animating.
 struct ExpandingSearchButton: View {
     @Binding var text: String
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
     var onSubmit: () -> Void = {}
 
     @State private var isExpanded = false
@@ -2541,7 +2553,7 @@ struct ExpandingSearchButton: View {
             .accessibilityLabel("Search")
 
             if isExpanded {
-                TextField(prompt, text: $text)
+                TextField(text: $text) { Text(prompt) }
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit(onSubmit)
@@ -2646,7 +2658,7 @@ Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/FloatingActionMen
 import SwiftUI
 
 struct FloatingActionMenuItem {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var tint: Color = .indigo
     let action: () -> Void
@@ -2735,7 +2747,7 @@ private struct FloatingActionMenuStage: View {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
                     .rotationEffect(.degrees(isOpen ? 135 : 0))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(FloatingActionMenuContrastingForeground(background: tint))
                     .frame(width: buttonSize, height: buttonSize)
                     .background(tint.gradient, in: Circle())
                     .shadow(color: tint.opacity(0.4), radius: 12, y: 6)
@@ -2783,7 +2795,7 @@ private struct FloatingActionMenuStage: View {
         } label: {
             Image(systemName: item.systemImage)
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(FloatingActionMenuContrastingForeground(background: item.tint))
                 .frame(width: itemSize, height: itemSize)
                 .background(item.tint, in: Circle())
                 .shadow(color: .black.opacity(0.18), radius: 8, y: 4)
@@ -2799,6 +2811,18 @@ private struct FloatingActionMenuStage: View {
             reduceMotion ? nil : .spring(duration: 0.42, bounce: 0.32).delay(isOpen ? Double(index) * 0.04 : 0),
             value: isOpen
         )
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct FloatingActionMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3066,7 +3090,7 @@ import SwiftUI
 /// With Reduce Motion on, the ring still fills, because it carries the meaning,
 /// but the button does not squeeze. VoiceOver users confirm with a double tap.
 struct HoldToConfirmButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String = "checkmark"
     var tint: Color = .red
     var holdDuration: Double = 1.2
@@ -3095,7 +3119,7 @@ struct HoldToConfirmButton: View {
                     .padding(ringWidth * 1.75)
                 Image(systemName: isConfirmed ? "checkmark" : systemImage)
                     .font(.title.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(HoldToConfirmButtonContrastingForeground(background: isConfirmed ? .green : tint))
                     .contentTransition(reduceMotion ? .identity : .symbolEffect(.replace))
             }
             .frame(width: diameter, height: diameter)
@@ -3151,6 +3175,18 @@ struct HoldToConfirmButton: View {
                 isConfirmed = false
             }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct HoldToConfirmButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3348,7 +3384,7 @@ private enum MorphingSubmitButtonPhase {
 ///
 /// With Reduce Motion on, the button keeps its shape and only its content crossfades.
 struct MorphingSubmitButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var tint: Color = .blue
     var successColor: Color = .green
     var successDuration: Double = 1.2
@@ -3364,7 +3400,7 @@ struct MorphingSubmitButton: View {
 
     private var isCollapsed: Bool { phase != .idle && !reduceMotion }
 
-    private var accessibilityTitle: String {
+    private var accessibilityTitle: LocalizedStringResource {
         switch phase {
         case .idle: title
         case .loading: "Submitting"
@@ -3384,7 +3420,7 @@ struct MorphingSubmitButton: View {
 
                 if phase == .loading {
                     ProgressView()
-                        .tint(.white)
+                        .tint(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
                         .transition(.opacity)
                 }
 
@@ -3394,7 +3430,7 @@ struct MorphingSubmitButton: View {
                         .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
             .padding(.horizontal, isCollapsed ? 0 : 52)
             .frame(width: isCollapsed ? height : nil, height: height)
             .background(
@@ -3418,6 +3454,18 @@ struct MorphingSubmitButton: View {
             try? await Task.sleep(for: .seconds(successDuration))
             withAnimation(morph) { phase = .idle }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct MorphingSubmitButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3650,7 +3698,7 @@ import SwiftUI
 
 struct ProviderSignInButtonStackOption: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let icon: Image
     var background: Color = .indigo
     var foreground: Color = .white
@@ -3751,7 +3799,7 @@ struct ProviderSignInButtonStackDemo: View {
         ]
     }
 
-    private func option(_ id: String, _ title: String, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
+    private func option(_ id: String, _ title: LocalizedStringResource, symbol: String, color: Color) -> ProviderSignInButtonStackOption {
         ProviderSignInButtonStackOption(id: id, title: title, icon: Image(systemName: symbol), background: color) {
             do {
                 try await Task.sleep(for: .seconds(1.4))
@@ -3806,7 +3854,7 @@ private enum PulseRingButtonPhase {
 /// With Reduce Motion on, a single still halo replaces the rings.
 struct PulseRingButton: View {
     let systemImage: String
-    let label: String
+    let label: LocalizedStringResource
     var tint: Color = .red
     var ringCount: Int = 3
     var ringDuration: Double = 1.6
@@ -3835,7 +3883,7 @@ struct PulseRingButton: View {
             Button(action: action) {
                 Image(systemName: systemImage)
                     .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(PulseRingButtonContrastingForeground(background: tint))
                     .frame(width: diameter, height: diameter)
                     .background(tint.gradient, in: .circle)
                     .contentShape(.circle)
@@ -3863,6 +3911,18 @@ struct PulseRingButton: View {
                     ? .easeOut(duration: ringDuration).delay(startDelay)
                     : .linear(duration: 0.01).delay(endDelay)
             }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct PulseRingButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -3912,7 +3972,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the sweep is removed and the button stays still.
 struct ShimmerButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var systemImage: String?
     var colors: [Color] = [.indigo, .purple]
     var sweepDuration: Double = 1.1
@@ -4018,7 +4078,7 @@ enum ShrinkingExtendedButtonMath {
 /// Pass `isExtended`, or drive it from a scroll view with `ShrinkingExtendedButtonScrollTracker`.
 /// With Reduce Motion on, it changes shape without animating.
 struct ShrinkingExtendedButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var isExtended = true
     var tint: Color = .indigo
@@ -4039,7 +4099,7 @@ struct ShrinkingExtendedButton: View {
                         .transition(.opacity.combined(with: .scale(scale: 0.8, anchor: .leading)))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(ShrinkingExtendedButtonContrastingForeground(background: tint))
             .padding(.horizontal, isExtended ? 22 : 0)
             .frame(minWidth: height, minHeight: height)
             .background(tint.gradient, in: Capsule())
@@ -4065,6 +4125,18 @@ struct ShrinkingExtendedButtonScrollTracker: ViewModifier {
         } action: { _, shouldExtend in
             isExtended = shouldExtend
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ShrinkingExtendedButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -4875,8 +4947,8 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the details fade in place.
 struct ExpandableInfoCard<Details: View>: View {
-    let title: String
-    var subtitle: String?
+    let title: LocalizedStringResource
+    var subtitle: LocalizedStringResource?
     var systemImage = "info.circle.fill"
     var tint: Color = .blue
     @ViewBuilder var details: () -> Details
@@ -4917,7 +4989,7 @@ struct ExpandableInfoCard<Details: View>: View {
         HStack(spacing: 14) {
             Image(systemName: systemImage)
                 .font(.title3)
-                .foregroundStyle(.white)
+                .foregroundStyle(ExpandableInfoCardContrastingForeground(background: tint))
                 .frame(width: iconSize, height: iconSize)
                 .background(tint.gradient, in: .rect(cornerRadius: 12))
                 .accessibilityHidden(true)
@@ -4942,6 +5014,18 @@ struct ExpandableInfoCard<Details: View>: View {
         }
         .padding(16)
         .contentShape(.rect)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ExpandableInfoCardContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -7433,7 +7517,7 @@ import SwiftUI
 /// VoiceOver reads the title, the value and the change as one element. With Reduce Motion
 /// on, new values appear without animating the line.
 struct SparklineStatTile: View {
-    let title: String
+    let title: LocalizedStringResource
     let value: String
     let trend: [Double]
     var systemImage: String = "chart.line.uptrend.xyaxis"
@@ -7550,7 +7634,7 @@ struct SparklineStatTileDemo: View {
         Array(repeating: GridItem(.flexible(), spacing: 14), count: dynamicTypeSize.isAccessibilitySize ? 1 : 2)
     }
 
-    private func tile(_ title: String, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
+    private func tile(_ title: LocalizedStringResource, _ systemImage: String, _ tint: Color, _ trend: [Double], suffix: String = "") -> some View {
         SparklineStatTile(
             title: title,
             value: (trend.last ?? 0).formatted() + suffix,
@@ -8134,7 +8218,7 @@ import SwiftUI
 /// keyboard, so nothing here needs to measure it.
 struct KeyboardTrackingInputBar<Content: View>: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: LocalizedStringResource
     var tint: Color
     var onSend: (String) -> Void
     @ViewBuilder let content: Content
@@ -8145,7 +8229,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
 
     init(
         text: Binding<String>,
-        placeholder: String = "Message",
+        placeholder: LocalizedStringResource = "Message",
         tint: Color = .blue,
         onSend: @escaping (String) -> Void,
         @ViewBuilder content: () -> Content
@@ -8178,7 +8262,7 @@ struct KeyboardTrackingInputBar<Content: View>: View {
                 Button(action: send) {
                     Image(systemName: "arrow.up")
                         .font(.body.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(KeyboardTrackingInputBarContrastingForeground(background: tint))
                         .frame(width: sendSize, height: sendSize)
                         .background(message.isEmpty ? AnyShapeStyle(.gray.opacity(0.4)) : AnyShapeStyle(tint), in: .circle)
                         .frame(minWidth: 44, minHeight: 44)
@@ -8199,6 +8283,18 @@ struct KeyboardTrackingInputBar<Content: View>: View {
         guard !sent.isEmpty else { return }
         text = ""
         onSend(sent)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct KeyboardTrackingInputBarContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -8331,7 +8427,7 @@ struct NestedCommentThread: View {
             .overlay {
                 Text(comment.author.prefix(1))
                     .font(.subheadline.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(NestedCommentThreadContrastingForeground(background: tint))
             }
             .accessibilityHidden(true)
     }
@@ -8430,6 +8526,18 @@ enum NestedCommentThreadLogic {
     /// Every reply below a comment, however deep.
     static func replyCount(of comment: NestedCommentThreadComment) -> Int {
         comment.replies.reduce(comment.replies.count) { $0 + replyCount(of: $1) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct NestedCommentThreadContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -8694,8 +8802,8 @@ struct AddToCartFlyButton: View {
     let image: Image
     @Binding var count: Int
     var cartFrame: CGRect?
-    var title: String = "Add to Cart"
-    var imageLabel: String = "Product"
+    var title: LocalizedStringResource = "Add to Cart"
+    var imageLabel: LocalizedStringResource = "Product"
     var tint: Color = .indigo
     var onAdd: () -> Void = {}
 
@@ -8933,7 +9041,7 @@ enum AddToCartStepperMath {
 struct AddToCartStepper: View {
     @Binding var quantity: Int
     var maximum: Int = 99
-    var title: String = "Add"
+    var title: LocalizedStringResource = "Add"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .headline) private var buttonSize = 44.0
@@ -8957,7 +9065,7 @@ struct AddToCartStepper: View {
                     .transition(.opacity)
             }
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(AddToCartStepperContrastingForeground(background: tint))
         .background(tint.gradient, in: .capsule)
         .sensoryFeedback(.selection, trigger: quantity)
     }
@@ -9011,6 +9119,18 @@ struct AddToCartStepper: View {
 
     private func set(_ newValue: Int) {
         withAnimation(animation) { quantity = min(max(newValue, 0), limit) }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AddToCartStepperContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -9449,10 +9569,10 @@ nonisolated enum TrialTimelinePaywallLogic {
 
 struct TrialTimelinePaywallPlan: Identifiable, Equatable {
     var id: String
-    var title: String
+    var title: LocalizedStringResource
     /// The price as it should be read, such as StoreKit's `displayPrice` and its period.
     var price: String
-    var badge: String?
+    var badge: LocalizedStringResource?
     /// How long its free trial lasts. Zero when it has none.
     var trialDays = 0
 }
@@ -9463,7 +9583,7 @@ struct TrialTimelinePaywallPlan: Identifiable, Equatable {
 /// with StoreKit or whatever you use. The reminder step is a promise, so schedule that
 /// notification, or set `reminderLead` to 0 to leave the step out.
 struct TrialTimelinePaywall: View {
-    var title = "How your free trial works"
+    var title: LocalizedStringResource = "How your free trial works"
     let plans: [TrialTimelinePaywallPlan]
     @Binding var selection: TrialTimelinePaywallPlan.ID
     /// How many days before the trial ends the reminder is sent.
@@ -9714,7 +9834,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the dot appears at once and there is no pulse.
 struct AnimatedRadioButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let isSelected: Bool
     var tint: Color = .indigo
     let action: () -> Void
@@ -9775,7 +9895,7 @@ struct AnimatedRadioButton: View {
 // MARK: - Demo
 
 struct AnimatedRadioButtonDemo: View {
-    private let options = ["Standard delivery", "Express delivery", "Pick up in store"]
+    private let options: [LocalizedStringResource] = ["Standard delivery", "Express delivery", "Pick up in store"]
 
     @State private var selection = 0
     @State private var isAutoPlaying = true
@@ -10169,7 +10289,7 @@ struct CounterStepper: View {
     @Binding var value: Int
     var range: ClosedRange<Int> = 0...99
     var step: Int = 1
-    var title: String = "Value"
+    var title: LocalizedStringResource = "Value"
     var tint: Color = .indigo
 
     @ScaledMetric(relativeTo: .title) private var buttonSize = 56.0
@@ -10265,10 +10385,10 @@ import SwiftUI
 /// With Reduce Motion on, it changes without sliding.
 struct DayNightToggle: View {
     @Binding var isNight: Bool
-    var title: String = "Night mode"
+    var title: LocalizedStringResource = "Night mode"
 
     var body: some View {
-        Toggle(title, isOn: $isNight)
+        Toggle(isOn: $isNight) { Text(title) }
             .toggleStyle(DayNightToggleStyle())
     }
 }
@@ -10708,7 +10828,7 @@ struct RulerScrollPickerScale: Equatable {
 /// Dragging writes the value, and changing the value from outside scrolls the ruler.
 /// With Reduce Motion on, outside changes jump instead of gliding.
 struct RulerScrollPicker: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var value: Double
     var range: ClosedRange<Double> = 0...100
     var step: Double = 1
@@ -11127,8 +11247,8 @@ enum SwipeToConfirmSliderMath {
 /// With Reduce Motion on, the thumb returns without bouncing. VoiceOver users
 /// confirm with a double tap.
 struct SwipeToConfirmSlider: View {
-    let title: String
-    var confirmedTitle: String = "Confirmed"
+    let title: LocalizedStringResource
+    var confirmedTitle: LocalizedStringResource = "Confirmed"
     var tint: Color = .indigo
     var resetDelay: Double = 1.4
     let onConfirm: () -> Void
@@ -11747,7 +11867,7 @@ import SwiftUI
 struct PathTrimDrawOn<Outline: Shape>: View {
     let shape: Outline
     let isDrawn: Bool
-    var label: String = "Logo"
+    var label: LocalizedStringResource = "Logo"
     var colors: [Color] = [.pink, .orange]
     var lineWidth: CGFloat = 8
     var duration: Double = 1.6
@@ -12560,7 +12680,7 @@ nonisolated enum ColorRevealImageMath {
 /// on, a tap changes it at once. Scrolling still fades the color, which adds no movement.
 struct ColorRevealImage: View {
     let image: Image
-    let title: String
+    let title: LocalizedStringResource
     var aspectRatio: CGFloat = 4.0 / 3.0
     var cornerRadius: CGFloat = 24
 
@@ -12651,7 +12771,7 @@ struct ColorRevealImageDemo: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 ForEach(photos) { photo in
-                    ColorRevealImage(image: photo.image, title: photo.title)
+                    ColorRevealImage(image: photo.image, title: "\(photo.title)")
                 }
             }
             .padding(24)
@@ -15350,7 +15470,7 @@ struct AnimatedBadgeCount: View {
                 Text(text)
                     .font(.caption.weight(.bold))
                     .monospacedDigit()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(AnimatedBadgeCountContrastingForeground(background: tint))
                     .contentTransition(reduceMotion ? .identity : .numericText(value: Double(count)))
                     .padding(.horizontal, height * 0.32)
                     .frame(minWidth: height, minHeight: height)
@@ -15369,6 +15489,18 @@ enum AnimatedBadgeCountFormat {
         guard count > 0 else { return nil }
         let maximum = max(maximum, 1)
         return count > maximum ? "\(maximum)+" : "\(count)"
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct AnimatedBadgeCountContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -15696,9 +15828,9 @@ import SwiftUI
 /// With Reduce Motion on, the symbol stays still.
 struct EmptyStatePlaceholder: View {
     var systemImage: String
-    var title: String
-    var message: String
-    var actionTitle: String?
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
+    var actionTitle: LocalizedStringResource?
     var action: (() -> Void)?
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -16021,7 +16153,7 @@ import SwiftUI
 
 /// The capsule shown by the `.toast(isPresented:)` modifier.
 struct ToastBanner: View {
-    let message: String
+    let message: LocalizedStringResource
     var systemImage: String = "checkmark.circle.fill"
     var tint: Color = .green
 
@@ -16045,7 +16177,7 @@ struct ToastBanner: View {
 
 private struct ToastBannerModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let duration: Double
@@ -16066,7 +16198,7 @@ private struct ToastBannerModifier: ViewModifier {
     }
 
     private func announceAndDismiss() async {
-        AccessibilityNotification.Announcement(message).post()
+        AccessibilityNotification.Announcement(String(localized: message)).post()
         do {
             try await Task.sleep(for: .seconds(duration))
         } catch {
@@ -16082,7 +16214,7 @@ extension View {
     /// With Reduce Motion on, the banner fades instead of sliding.
     func toast(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         systemImage: String = "checkmark.circle.fill",
         tint: Color = .green,
         duration: Double = 2.2
@@ -16176,7 +16308,7 @@ nonisolated enum ToastHostRole: Equatable, Sendable {
 
 nonisolated struct ToastHostToast: Identifiable, Equatable, Sendable {
     var id = UUID()
-    var message: String
+    var message: LocalizedStringResource
     var role = ToastHostRole.info
     var duration = Duration.seconds(3)
 }
@@ -16207,7 +16339,7 @@ nonisolated struct ToastHostQueue: Equatable, Sendable {
     private(set) var queue = ToastHostQueue()
     @ObservationIgnored fileprivate var window: ToastHostWindow?
 
-    func show(_ message: String, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
+    func show(_ message: LocalizedStringResource, role: ToastHostRole = .info, duration: Duration = .seconds(3)) {
         queue.add(ToastHostToast(message: message, role: role, duration: duration))
     }
 
@@ -16294,7 +16426,7 @@ private struct ToastHostOverlay: View {
                     .id(toast.id)
                     .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
                     .task(id: toast.id) {
-                        AccessibilityNotification.Announcement(toast.message).post()
+                        AccessibilityNotification.Announcement(String(localized: toast.message)).post()
                         try? await Task.sleep(for: toast.duration)
                         if !Task.isCancelled { center.dismiss(toast) }
                     }
@@ -16424,7 +16556,7 @@ import SwiftUI
 
 extension View {
     /// Marks this view as the place a tooltip points to.
-    func tooltipPopoverAnchor(id: String, text: String) -> some View {
+    func tooltipPopoverAnchor(id: String, text: LocalizedStringResource) -> some View {
         anchorPreference(key: TooltipPopoverAnchorKey.self, value: .bounds) { bounds in
             [id: TooltipPopoverAnchor(text: text, bounds: bounds)]
         }
@@ -16456,7 +16588,7 @@ struct TooltipPopoverHost<Content: View>: View {
             }
     }
 
-    private func tooltip(text: String, anchor: CGRect, container: CGSize) -> some View {
+    private func tooltip(text: LocalizedStringResource, anchor: CGRect, container: CGSize) -> some View {
         let opensAbove = TooltipPopoverGeometry.opensAbove(anchor: anchor, container: container)
         let scaleAnchor = TooltipPopoverGeometry.arrowTip(anchor: anchor, container: container, opensAbove: opensAbove)
 
@@ -16484,16 +16616,16 @@ struct TooltipPopoverHost<Content: View>: View {
                     .accessibilityHidden(true)
             }
         }
-        .id(text)
+        .id(activeID)
         .transition(
             reduceMotion ? .opacity : .scale(scale: 0.2, anchor: scaleAnchor).combined(with: .opacity)
         )
     }
 
-    private func bubbleText(_ text: String) -> some View {
+    private func bubbleText(_ text: LocalizedStringResource) -> some View {
         Text(text)
             .font(.subheadline)
-            .foregroundStyle(.white)
+            .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -16501,7 +16633,7 @@ struct TooltipPopoverHost<Content: View>: View {
 }
 
 struct TooltipPopoverAnchor {
-    var text: String
+    var text: LocalizedStringResource
     var bounds: Anchor<CGRect>
 }
 
@@ -16618,6 +16750,18 @@ nonisolated private struct TooltipPopoverArrow: Shape {
     }
 }
 
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct TooltipPopoverContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
 // MARK: - Demo
 
 struct TooltipPopoverDemo: View {
@@ -16655,7 +16799,7 @@ struct TooltipPopoverDemo: View {
                     .font(.title2)
             }
             .accessibilityLabel("About \(title)")
-            .tooltipPopoverAnchor(id: id, text: tip)
+            .tooltipPopoverAnchor(id: id, text: "\(tip)")
         }
         .padding(18)
         .background(.background, in: .rect(cornerRadius: 16, style: .continuous))
@@ -16683,7 +16827,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the line stays still and the bar simply fades away on time.
 struct UndoSnackbar: View {
-    let message: String
+    let message: LocalizedStringResource
     var duration: Double = 5
     var tint: Color = .yellow
     let onUndo: () -> Void
@@ -16741,7 +16885,7 @@ struct UndoSnackbar: View {
 
 private struct UndoSnackbarModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let duration: Double
     let onUndo: () -> Void
 
@@ -16770,7 +16914,7 @@ extension View {
     /// Shows an `UndoSnackbar` at the bottom for `duration` seconds.
     func undoSnackbar(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         duration: Double = 5,
         onUndo: @escaping () -> Void
     ) -> some View {
@@ -16893,7 +17037,7 @@ struct CompletionSwipeRow<Content: View>: View {
 
                     Image(systemName: "checkmark")
                         .font(.title2.bold())
-                        .foregroundStyle(.white)
+                        .foregroundStyle(CompletionSwipeRowContrastingForeground(background: tint))
                         .scaleEffect(isPastThreshold ? 1.15 : (reduceMotion ? 1 : 0.5))
                         .opacity(isPastThreshold ? 1 : 0.55)
                         .padding(.leading, 24)
@@ -16951,6 +17095,18 @@ enum CompletionSwipeRowMath {
     static func shouldComplete(translation: CGSize, width: CGFloat) -> Bool {
         guard width > 0, translation.width > abs(translation.height) else { return false }
         return translation.width >= min(width * 0.4, maximumThreshold)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct CompletionSwipeRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -17562,7 +17718,7 @@ import SwiftUI
 
 struct LongPressRadialMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18327,7 +18483,7 @@ import SwiftUI
 
 struct SwipeActionRowAction: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let handler: () -> Void
@@ -18412,7 +18568,7 @@ struct SwipeActionRow<Content: View>: View {
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                     }
-                    .foregroundStyle(.white)
+                    .foregroundStyle(SwipeActionRowContrastingForeground(background: action.tint))
                     .padding(.horizontal, 4)
                     .frame(width: width)
                     .frame(maxHeight: .infinity)
@@ -18444,6 +18600,18 @@ struct SwipeActionRow<Content: View>: View {
 
     private func close() {
         withAnimation(animation) { isOpen = false }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct SwipeActionRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -18534,7 +18702,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassActionItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -18590,7 +18758,7 @@ struct GlassActionMenu: View {
     private func glassButton(
         id: GlassID,
         systemImage: String,
-        label: String,
+        label: LocalizedStringResource,
         rotation: Double = 0,
         action: @escaping () -> Void
     ) -> some View {
@@ -19208,7 +19376,7 @@ import SwiftUI
 @available(iOS 26, *)
 struct GlassToolStripTool: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     /// Tools with the same group share one piece of glass. Nil keeps the tool on its own.
     var group: String?
@@ -19489,7 +19657,7 @@ private struct BlurUpImageFocus: Transition {
 struct BlurUpImage: View {
     let preview: Image
     let image: Image?
-    let label: String
+    let label: LocalizedStringResource
     var blurRadius: CGFloat = 24
     var isLoading = true
 
@@ -19536,7 +19704,7 @@ struct BlurUpImage: View {
 struct BlurUpImageRemote: View {
     let url: URL?
     let preview: Image
-    let label: String
+    let label: LocalizedStringResource
 
     var body: some View {
         AsyncImage(url: url) { phase in
@@ -20165,7 +20333,7 @@ enum DoubleTapZoomImageMath {
 /// With Reduce Motion on, the zoom changes without animating.
 struct DoubleTapZoomImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var zoom: CGFloat = 2.5
     /// Zooms in on this point without a touch, for demos. `nil` returns to fit.
     var programmaticZoom: UnitPoint? = nil
@@ -20320,7 +20488,7 @@ import SwiftUI
 /// point inside the image. With Reduce Motion on, the picture stays still.
 struct KenBurnsImage: View {
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
     var duration: Double = 12
     var zoom: CGFloat = 1.3
     var from: UnitPoint = .topLeading
@@ -21007,7 +21175,7 @@ import SwiftUI
 struct PhotoMultiSelectGridPhoto: Identifiable {
     let id: String
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
 }
 
 /// A photo grid where a long press enters a multi-select mode with checkmarks.
@@ -21510,7 +21678,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the label changes place without sliding.
 struct FloatingLabelTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     var tint: Color = .indigo
 
@@ -21532,7 +21700,7 @@ struct FloatingLabelTextField: View {
                 .accessibilityRepresentation { EmptyView() }
                 .allowsHitTesting(false)
 
-            TextField(title, text: $text, prompt: Text(verbatim: ""))
+            TextField(text: $text, prompt: Text(verbatim: "")) { Text(title) }
                 .accessibilityLabel(title)
                 .font(.body)
                 .focused($isFocused)
@@ -21669,10 +21837,10 @@ nonisolated enum MaskedTextFieldFormatter {
 /// Editing in the middle of the text moves the cursor to the end, because the field rewrites its
 /// text. With Reduce Motion on, the completion checkmark appears without animating.
 struct MaskedTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     let mask: String
-    var prompt: String? = nil
+    var prompt: LocalizedStringResource? = nil
     var systemImage: String? = nil
     var keyboard: UIKeyboardType = .numberPad
 
@@ -21694,7 +21862,7 @@ struct MaskedTextField: View {
                         .accessibilityHidden(true)
                 }
 
-                TextField(title, text: $text, prompt: Text(prompt ?? mask))
+                TextField(text: $text, prompt: prompt.map { Text($0) } ?? Text(verbatim: mask)) { Text(title) }
                     .keyboardType(keyboard)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -21767,11 +21935,11 @@ import SwiftUI
 /// One page of a `MultiStepForm`. `isValid` decides whether the person can continue.
 struct MultiStepFormStep: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isValid: Bool
     let content: AnyView
 
-    init<Content: View>(id: String, title: String, isValid: Bool = true, @ViewBuilder content: () -> Content) {
+    init<Content: View>(id: String, title: LocalizedStringResource, isValid: Bool = true, @ViewBuilder content: () -> Content) {
         self.id = id
         self.title = title
         self.isValid = isValid
@@ -22020,7 +22188,7 @@ enum OTPCodeFieldInput {
 struct OTPCodeField: View {
     @Binding var code: String
     var length: Int = 6
-    var title: String = "Verification code"
+    var title: LocalizedStringResource = "Verification code"
     var tint: Color = .indigo
     var onComplete: ((String) -> Void)? = nil
 
@@ -22035,7 +22203,7 @@ struct OTPCodeField: View {
             }
         }
         .background {
-            TextField(title, text: $code)
+            TextField(text: $code) { Text(title) }
                 .textContentType(.oneTimeCode)
                 .keyboardType(.numberPad)
                 .focused($isFocused)
@@ -22329,7 +22497,7 @@ import SwiftUI
 /// One requirement of the password, shown as a line of the checklist.
 struct PasswordStrengthFieldRule: Identifiable, Sendable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let isMet: @Sendable (String) -> Bool
 
     static let defaults: [PasswordStrengthFieldRule] = [
@@ -22354,7 +22522,7 @@ enum PasswordStrengthFieldMeter {
 
 /// A password field with a strength meter and a checklist of rules that tick off as they are met.
 struct PasswordStrengthField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var password: String
     var rules = PasswordStrengthFieldRule.defaults
 
@@ -22419,9 +22587,9 @@ struct PasswordStrengthField: View {
         HStack(spacing: 10) {
             Group {
                 if isRevealed {
-                    TextField(title, text: $password)
+                    TextField(text: $password) { Text(title) }
                 } else {
-                    SecureField(title, text: $password)
+                    SecureField(text: $password) { Text(title) }
                 }
             }
             .focused($isFocused)
@@ -23007,7 +23175,7 @@ struct ValidatedTextFieldFeedback: Equatable {
 
 /// A text field that checks its value when it loses focus and shows its error only after that.
 struct ValidatedTextField: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var text: String
     /// Returns the message to show, or `nil` when the value is fine.
     let validate: (String) -> String?
@@ -27145,7 +27313,7 @@ nonisolated enum MapSearchSheetLogic {
 /// the camera to it. The places are yours: fill them from `MKLocalSearch` or from your own data.
 struct MapSearchSheet: View {
     let places: [MapSearchSheetPlace]
-    var prompt = "Search places"
+    var prompt: LocalizedStringResource = "Search places"
     /// How far above a chosen place the camera stops, in meters.
     var closeUpDistance = 1500.0
 
@@ -27205,7 +27373,7 @@ struct MapSearchSheet: View {
 /// focus of a field in a sheet has to be kept inside the sheet.
 private struct MapSearchSheetPanel: View {
     let places: [MapSearchSheetPlace]
-    let prompt: String
+    let prompt: LocalizedStringResource
     @Binding var query: String
     @Binding var selection: MapSearchSheetPlace.ID?
     @Binding var detent: PresentationDetent
@@ -27219,7 +27387,7 @@ private struct MapSearchSheetPanel: View {
                     .foregroundStyle(.secondary)
                     .accessibilityHidden(true)
 
-                TextField(prompt, text: $query)
+                TextField(text: $query) { Text(prompt) }
                     .focused($isSearching)
                     .submitLabel(.search)
                     .autocorrectionDisabled()
@@ -28834,8 +29002,8 @@ import SwiftUI
 struct CoachMarkTourStep: Identifiable {
     /// Matches the id passed to `coachMarkTourTarget(_:)`.
     let id: String
-    let title: String
-    let message: String
+    let title: LocalizedStringResource
+    let message: LocalizedStringResource
 }
 
 /// Where the tour is. `advance` and `finish` report the end only once.
@@ -29424,7 +29592,7 @@ import SwiftUI
 /// The list floats over the views below, so use it in a stack where it can overlap
 /// them. It raises itself with `zIndex` while open, and a tap outside closes it.
 struct DropdownSelectMenu<Option: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let options: [Option]
     @Binding var selection: Option?
     var placeholder = "Choose"
@@ -29608,7 +29776,7 @@ import SwiftUI
 
 struct GooeyFloatingMenuItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -29693,7 +29861,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
                 Button { select(item) } label: {
                     Image(systemName: item.systemImage)
                         .font(.title3.weight(.semibold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                         .frame(width: buttonSize * 0.8, height: buttonSize * 0.8)
                         .contentShape(.circle)
                 }
@@ -29708,7 +29876,7 @@ private struct GooeyFloatingMenuStage: View, Animatable {
             Button(action: toggle) {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(GooeyFloatingMenuContrastingForeground(background: tint))
                     .rotationEffect(.degrees(45 * progress))
                     .frame(width: buttonSize, height: buttonSize)
                     .contentShape(.circle)
@@ -29766,6 +29934,18 @@ enum GooeyFloatingMenuMath {
         guard count > 1 else { return max(progress, 0) }
         let delay = 0.35 * Double(index) / Double(count - 1)
         return max((progress - delay) / (1 - delay), 0)
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct GooeyFloatingMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -30021,7 +30201,7 @@ import SwiftUI
 
 @available(iOS 27, *)
 struct ProminentTabBarItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 
@@ -30293,7 +30473,7 @@ struct ToolbarOverflowDemoAction: Identifiable {
 /// `barActions` leave the bar lowest priority first. `overflowActions` always live in the menu.
 @available(iOS 27, *)
 struct ToolbarOverflowDemo<Content: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let barActions: [ToolbarOverflowDemoAction]
     let overflowActions: [ToolbarOverflowDemoAction]
     @ViewBuilder let content: () -> Content
@@ -30531,7 +30711,7 @@ import SwiftUI
 
 struct AnimatedTabBarItem<Value: Hashable>: Identifiable {
     let value: Value
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
 
     var id: Value { value }
@@ -31332,7 +31512,7 @@ import SwiftUI
 
 struct FullScreenMenuOverlayLink: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -31437,7 +31617,7 @@ struct FullScreenMenuOverlayDemo: View {
             ("Journal", "book.fill"),
             ("Contact", "paperplane.fill"),
         ].map { title, systemImage in
-            FullScreenMenuOverlayLink(id: title, title: title, systemImage: systemImage) { page = title }
+            FullScreenMenuOverlayLink(id: title, title: "\(title)", systemImage: systemImage) { page = title }
         }
     }
 
@@ -31944,13 +32124,25 @@ struct ScrollToTopButton<Content: View>: View {
         } label: {
             Image(systemName: "arrow.up")
                 .font(.title3.bold())
-                .foregroundStyle(.white)
+                .foregroundStyle(ScrollToTopButtonContrastingForeground(background: tint))
                 .frame(width: buttonSize, height: buttonSize)
                 .background(tint.gradient, in: .circle)
                 .shadow(color: .black.opacity(0.25), radius: 10, y: 5)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Back to top")
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct ScrollToTopButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -32017,7 +32209,7 @@ struct SearchScopesAndSuggestions<Scope: Hashable>: ViewModifier {
     let scopes: [Scope]
     let scopeTitle: (Scope) -> String
     let suggestions: [String]
-    var prompt: String = "Search"
+    var prompt: LocalizedStringResource = "Search"
 
     func body(content: Content) -> some View {
         content
@@ -32307,7 +32499,7 @@ Category: Navigation. Minimum: iOS 18.0. Path: Components/Navigation/SidebarAdap
 import SwiftUI
 
 struct SidebarAdaptiveTabsItem<Value: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let value: Value
 
@@ -32323,8 +32515,11 @@ struct SidebarAdaptiveTabs<Value: Hashable, Content: View>: View {
     var body: some View {
         TabView(selection: $selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.value) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.value) {
                     content(item)
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }
@@ -32445,7 +32640,7 @@ final class TabNavigationStatePreserveStore<TabID: Hashable> {
 }
 
 struct TabNavigationStatePreserveItem<TabID: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tab: TabID
 
@@ -32465,11 +32660,14 @@ struct TabNavigationStatePreserve<TabID: Hashable, Route: Hashable, Root: View, 
     var body: some View {
         TabView(selection: selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.tab) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.tab) {
                     NavigationStack(path: path(for: item.tab)) {
                         root(item.tab)
                             .navigationDestination(for: Route.self, destination: screen)
                     }
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }
@@ -32491,7 +32689,7 @@ private enum TabNavigationStatePreserveDemoTab: Hashable {
 }
 
 private struct TabNavigationStatePreserveDemoPage: View {
-    let title: String
+    let title: LocalizedStringResource
     let link: String
     let route: Int
     let colors: [Color]
@@ -32575,7 +32773,7 @@ import SwiftUI
 /// split view is expected to have: the button that hides the list, the swipe back on iPhone
 /// and the keyboard. The list selects with its own selection, so VoiceOver reads the selected row.
 struct TwoPaneSplitLayout<Item: Identifiable & Hashable, Row: View, Detail: View>: View {
-    let title: String
+    let title: LocalizedStringResource
     let items: [Item]
     @Binding var selection: Item?
     var listWidth: CGFloat = 320
@@ -32673,8 +32871,8 @@ import SwiftUI
 
 struct VerticalTimelineStep: Identifiable {
     let id: String
-    let title: String
-    let detail: String
+    let title: LocalizedStringResource
+    let detail: LocalizedStringResource
 }
 
 enum VerticalTimelineStatus: Equatable {
@@ -32765,7 +32963,7 @@ private struct VerticalTimelineMarker: View {
                 Circle().fill(tint)
                 Image(systemName: "checkmark")
                     .font(.caption.weight(.heavy))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(VerticalTimelineContrastingForeground(background: tint))
             case .current:
                 halo
                 Circle().fill(tint.opacity(0.18))
@@ -32792,6 +32990,18 @@ private struct VerticalTimelineMarker: View {
                     isExpanded ? .easeOut(duration: 1.1) : nil
                 }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct VerticalTimelineContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -33248,7 +33458,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the calendar appears and disappears without animating.
 struct InlineDatePickerDisclosure: View {
-    let title: String
+    let title: LocalizedStringResource
     @Binding var date: Date
     var range: ClosedRange<Date> = Date.distantPast...Date.distantFuture
 
@@ -33274,7 +33484,7 @@ struct InlineDatePickerDisclosure: View {
             if isExpanded {
                 Divider()
 
-                DatePicker(title, selection: $date, in: range, displayedComponents: .date)
+                DatePicker(selection: $date, in: range, displayedComponents: .date) { Text(title) }
                     .datePickerStyle(.graphical)
                     .labelsHidden()
                     .padding(.horizontal, 8)
@@ -33716,7 +33926,7 @@ import SwiftUI
 ///
 /// `values` must be unique. With Reduce Motion on, rows stay flat and only fade.
 struct WheelPicker<Value: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let values: [Value]
     @Binding var selection: Value
     var visibleRows: Int = 5
@@ -35082,7 +35292,7 @@ enum DownloadPillProgressState: Equatable {
 
 /// A capsule button that shrinks into a progress ring while downloading, then shows a checkmark.
 struct DownloadPillProgress: View {
-    var title: String = "Download"
+    var title: LocalizedStringResource = "Download"
     let state: DownloadPillProgressState
     var tint: Color = .blue
     let action: () -> Void
@@ -35111,7 +35321,7 @@ struct DownloadPillProgress: View {
                     Text(title)
                         .font(.headline)
                         .lineLimit(1)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .padding(.horizontal, 24)
                         .transition(.opacity)
                 case .downloading:
@@ -35119,7 +35329,7 @@ struct DownloadPillProgress: View {
                 case .finished:
                     Image(systemName: "checkmark")
                         .font(.headline.weight(.bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(DownloadPillProgressContrastingForeground(background: background))
                         .transition(.scale(scale: 0.4).combined(with: .opacity))
                 }
             }
@@ -35163,6 +35373,18 @@ struct DownloadPillProgress: View {
         case .downloading: "Downloading, \(fraction.formatted(.percent.precision(.fractionLength(0))))"
         case .finished: "Finished"
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct DownloadPillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -35376,7 +35598,7 @@ struct LiquidFillProgress: View {
                     .foregroundStyle(color)
 
                 percentLabel
-                    .foregroundStyle(.white)
+                    .foregroundStyle(LiquidFillProgressContrastingForeground(background: color))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .mask(frontWave)
             }
@@ -35429,6 +35651,18 @@ nonisolated private struct LiquidFillWave: Shape {
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
         path.closeSubpath()
         return path
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct LiquidFillProgressContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 
@@ -36376,8 +36610,8 @@ import SwiftUI
 
 struct OnboardingPagerPage {
     var symbol: String
-    var title: String
-    var message: String
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
     var colors: [Color]
 }
 
@@ -36385,7 +36619,7 @@ struct OnboardingPagerPage {
 /// that advances or finishes. `onFinish` runs once.
 struct OnboardingPager: View {
     let pages: [OnboardingPagerPage]
-    var finishTitle: String = "Get Started"
+    var finishTitle: LocalizedStringResource = "Get Started"
     var onFinish: () -> Void = {}
 
     @State private var page = 0
@@ -36539,7 +36773,7 @@ import SwiftUI
 
 struct PagedGridLauncherItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let symbol: String
     let colors: [Color]
 }
@@ -36701,7 +36935,7 @@ struct PagedGridLauncherDemo: View {
 
     private let items: [PagedGridLauncherItem] = (0..<46).map { index in
         let app = apps[index % apps.count]
-        return PagedGridLauncherItem(id: "\(index)", title: app.0, symbol: app.1, colors: palettes[index % palettes.count])
+        return PagedGridLauncherItem(id: "\(index)", title: "\(app.0)", symbol: app.1, colors: palettes[index % palettes.count])
     }
 
     var body: some View {
@@ -38268,11 +38502,11 @@ nonisolated enum WhatsNewSheetLogic {
 
 struct WhatsNewSheetFeature: Identifiable {
     var symbol: String
-    var title: String
-    var text: String
+    var title: LocalizedStringResource
+    var text: LocalizedStringResource
     var tint: Color = .accentColor
 
-    var id: String { title }
+    var id: String { title.key }
 }
 
 /// The page that tells what a new version brings: a title, a row per feature and a button.
@@ -38280,7 +38514,7 @@ struct WhatsNewSheetFeature: Identifiable {
 /// Show it yourself in a sheet, or let `whatsNewSheet(version:features:)` show it once per version.
 /// The rows come in one after another. With Reduce Motion on, they fade in together.
 struct WhatsNewSheet: View {
-    var title = "What’s New"
+    var title: LocalizedStringResource = "What’s New"
     let features: [WhatsNewSheetFeature]
     var buttonTitle = "Continue"
     var onContinue: () -> Void
@@ -38360,13 +38594,13 @@ struct WhatsNewSheet: View {
 
 struct WhatsNewSheetModifier: ViewModifier {
     let version: String
-    let title: String
+    let title: LocalizedStringResource
     let features: [WhatsNewSheetFeature]
 
     @AppStorage private var seenVersion: String
     @State private var isPresented = false
 
-    init(version: String, title: String, features: [WhatsNewSheetFeature], storageKey: String) {
+    init(version: String, title: LocalizedStringResource, features: [WhatsNewSheetFeature], storageKey: String) {
         self.version = version
         self.title = title
         self.features = features
@@ -38391,7 +38625,7 @@ struct WhatsNewSheetModifier: ViewModifier {
 extension View {
     /// Shows `WhatsNewSheet` the first time the app runs a `version` newer than the last one it
     /// was shown for, and remembers it in `UserDefaults` when the sheet closes.
-    func whatsNewSheet(version: String, title: String = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
+    func whatsNewSheet(version: String, title: LocalizedStringResource = "What’s New", features: [WhatsNewSheetFeature], storageKey: String = "WhatsNewSheet.seenVersion") -> some View {
         modifier(WhatsNewSheetModifier(version: version, title: title, features: features, storageKey: storageKey))
     }
 }
@@ -38547,7 +38781,7 @@ import SwiftUI
 
 struct NotchedTabBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
 }
 
@@ -40646,7 +40880,7 @@ import SwiftUI
 
 struct CollapsingBottomBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let action: () -> Void
 }
@@ -40812,7 +41046,7 @@ import SwiftUI
 
 struct FloatingDockBarItem: Identifiable {
     let id: String
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let colors: [Color]
     let action: () -> Void
@@ -42465,7 +42699,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the symbols fade.
 struct SymbolMorphToggle: View {
-    let title: String
+    let title: LocalizedStringResource
     let onSymbol: String
     let offSymbol: String
     @Binding var isOn: Bool

@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct FloatingActionMenuItem {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     var tint: Color = .indigo
     let action: () -> Void
@@ -93,7 +93,7 @@ private struct FloatingActionMenuStage: View {
                 Image(systemName: "plus")
                     .font(.title2.weight(.bold))
                     .rotationEffect(.degrees(isOpen ? 135 : 0))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(FloatingActionMenuContrastingForeground(background: tint))
                     .frame(width: buttonSize, height: buttonSize)
                     .background(tint.gradient, in: Circle())
                     .shadow(color: tint.opacity(0.4), radius: 12, y: 6)
@@ -141,7 +141,7 @@ private struct FloatingActionMenuStage: View {
         } label: {
             Image(systemName: item.systemImage)
                 .font(.title3.weight(.semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(FloatingActionMenuContrastingForeground(background: item.tint))
                 .frame(width: itemSize, height: itemSize)
                 .background(item.tint, in: Circle())
                 .shadow(color: .black.opacity(0.18), radius: 8, y: 4)
@@ -157,6 +157,18 @@ private struct FloatingActionMenuStage: View {
             reduceMotion ? nil : .spring(duration: 0.42, bounce: 0.32).delay(isOpen ? Double(index) * 0.04 : 0),
             value: isOpen
         )
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct FloatingActionMenuContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

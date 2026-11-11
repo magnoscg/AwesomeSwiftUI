@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// `values` must be unique. With Reduce Motion on, rows stay flat and only fade.
 struct WheelPicker<Value: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let values: [Value]
     @Binding var selection: Value
     var visibleRows: Int = 5

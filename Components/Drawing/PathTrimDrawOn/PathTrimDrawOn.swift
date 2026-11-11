@@ -9,7 +9,7 @@ import SwiftUI
 struct PathTrimDrawOn<Outline: Shape>: View {
     let shape: Outline
     let isDrawn: Bool
-    var label: String = "Logo"
+    var label: LocalizedStringResource = "Logo"
     var colors: [Color] = [.pink, .orange]
     var lineWidth: CGFloat = 8
     var duration: Double = 1.6

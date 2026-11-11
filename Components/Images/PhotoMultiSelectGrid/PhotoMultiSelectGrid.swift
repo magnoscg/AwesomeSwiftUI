@@ -6,7 +6,7 @@ import SwiftUI
 struct PhotoMultiSelectGridPhoto: Identifiable {
     let id: String
     let image: Image
-    let label: String
+    let label: LocalizedStringResource
 }
 
 /// A photo grid where a long press enters a multi-select mode with checkmarks.

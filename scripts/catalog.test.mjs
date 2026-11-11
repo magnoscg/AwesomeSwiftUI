@@ -686,24 +686,39 @@ describe('the documentation site', () => {
 
     assert.deepEqual([...pages.keys()], [INDEX]);
     assert.match(pages.get(INDEX), /No components yet\./);
-    assert.doesNotMatch(pages.get(INDEX), /CardGrid/);
+    assert.doesNotMatch(pages.get(INDEX), /CatalogGallery/);
   });
 
-  it('adds a card that links to the page of the component', () => {
+  function galleryItems(index) {
+    const lines = index.split('\n').filter((line) => line.startsWith('    {'));
+    return lines.map((line) => JSON.parse(line.slice(0, -1)));
+  }
+
+  it('gives the gallery what it shows and what it filters by', () => {
     const index = docsFor().pages.get(INDEX);
 
-    assert.match(index, /<Card title=\{"Glow Button"\}>/);
-    assert.match(
-      index,
-      /src=\{"https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"\}/,
-    );
-    assert.match(index, /href=\{"\/swiftui-components\/catalog\/buttons\/glow-button\/"\}/);
+    assert.match(index, /import CatalogGallery from '\.\.\/\.\.\/\.\.\/components\/CatalogGallery\.astro';/);
+    assert.deepEqual(galleryItems(index), [
+      {
+        title: 'Glow Button',
+        summary: 'A button that glows.',
+        preview:
+          'https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/GlowButton/GlowButton.webp',
+        href: '/swiftui-components/catalog/buttons/glow-button/',
+        category: 'Buttons',
+        minIOS: '18.0',
+        difficulty: 'beginner',
+        keywords: 'button boton',
+        apis: ['ButtonStyle'],
+        shader: false,
+      },
+    ]);
   });
 
   it('keeps braces in the text from being read as MDX', () => {
     const index = docsFor(meta({ summary: 'Uses {braces} and <tags>.' })).pages.get(INDEX);
 
-    assert.match(index, /<p>\{"Uses \{braces\} and <tags>\."\}<\/p>/);
+    assert.equal(galleryItems(index)[0].summary, 'Uses {braces} and <tags>.');
   });
 
   it('gives each component a page with its keywords and source', () => {

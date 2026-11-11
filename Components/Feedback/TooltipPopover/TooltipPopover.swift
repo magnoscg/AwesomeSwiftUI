@@ -5,7 +5,7 @@ import SwiftUI
 
 extension View {
     /// Marks this view as the place a tooltip points to.
-    func tooltipPopoverAnchor(id: String, text: String) -> some View {
+    func tooltipPopoverAnchor(id: String, text: LocalizedStringResource) -> some View {
         anchorPreference(key: TooltipPopoverAnchorKey.self, value: .bounds) { bounds in
             [id: TooltipPopoverAnchor(text: text, bounds: bounds)]
         }
@@ -37,7 +37,7 @@ struct TooltipPopoverHost<Content: View>: View {
             }
     }
 
-    private func tooltip(text: String, anchor: CGRect, container: CGSize) -> some View {
+    private func tooltip(text: LocalizedStringResource, anchor: CGRect, container: CGSize) -> some View {
         let opensAbove = TooltipPopoverGeometry.opensAbove(anchor: anchor, container: container)
         let scaleAnchor = TooltipPopoverGeometry.arrowTip(anchor: anchor, container: container, opensAbove: opensAbove)
 
@@ -65,16 +65,16 @@ struct TooltipPopoverHost<Content: View>: View {
                     .accessibilityHidden(true)
             }
         }
-        .id(text)
+        .id(activeID)
         .transition(
             reduceMotion ? .opacity : .scale(scale: 0.2, anchor: scaleAnchor).combined(with: .opacity)
         )
     }
 
-    private func bubbleText(_ text: String) -> some View {
+    private func bubbleText(_ text: LocalizedStringResource) -> some View {
         Text(text)
             .font(.subheadline)
-            .foregroundStyle(.white)
+            .foregroundStyle(TooltipPopoverContrastingForeground(background: tint))
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -82,7 +82,7 @@ struct TooltipPopoverHost<Content: View>: View {
 }
 
 struct TooltipPopoverAnchor {
-    var text: String
+    var text: LocalizedStringResource
     var bounds: Anchor<CGRect>
 }
 
@@ -199,6 +199,18 @@ nonisolated private struct TooltipPopoverArrow: Shape {
     }
 }
 
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct TooltipPopoverContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
 // MARK: - Demo
 
 struct TooltipPopoverDemo: View {
@@ -236,7 +248,7 @@ struct TooltipPopoverDemo: View {
                     .font(.title2)
             }
             .accessibilityLabel("About \(title)")
-            .tooltipPopoverAnchor(id: id, text: tip)
+            .tooltipPopoverAnchor(id: id, text: "\(tip)")
         }
         .padding(18)
         .background(.background, in: .rect(cornerRadius: 16, style: .continuous))

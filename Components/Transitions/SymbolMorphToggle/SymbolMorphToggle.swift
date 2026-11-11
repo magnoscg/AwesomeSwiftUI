@@ -8,7 +8,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the symbols fade.
 struct SymbolMorphToggle: View {
-    let title: String
+    let title: LocalizedStringResource
     let onSymbol: String
     let offSymbol: String
     @Binding var isOn: Bool

@@ -21,7 +21,7 @@ easy to copy matters as much as the code itself.
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the index between the `catalog` markers | In place |
 | `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
-| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed | In place |
+| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses | In place |
 | `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
 
 Update the State column when a planned part lands.
@@ -133,6 +133,9 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
+   Content drawn over a color the caller chooses takes white or black from
+   that color, with a `<Name>ContrastingForeground` style like the one in
+   `ElasticDragButton`, listed in `ContrastingForegroundTests`.
 8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
    mirrors layout there, which includes offsets, positions, rotations, shapes
    and unit points, but a gesture still reports screen points and a `Canvas`
@@ -170,6 +173,19 @@ anything else:
     number that reads well where it is, like one padding or one opacity, stays
     inline. `make check` rejects the repeats, and leaves out 0, 1, 2, 0.5, 90,
     100, 180 and 360.
+13. **Localizable text.** A text the caller passes to be shown or read aloud,
+    like a title, a label or a prompt, is a `LocalizedStringResource`, not a
+    `String`. A literal at the call site then lands in the String Catalog of
+    the app the component is copied to, and a value that is not a literal is
+    passed as `"\(value)"`.
+    - Data stays a `String`: a person's name, a message, the name of a symbol.
+    - A text fixed inside the component is a literal passed straight to
+      SwiftUI, which already makes it localizable.
+    - Some overloads that take a `LocalizedStringResource` need iOS 26, like
+      the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
+
+    Applied wherever the text is not the identity of an item or part of
+    a `String` the component composes.
 
 ## Recording a preview
 

@@ -8,7 +8,7 @@ import SwiftUI
 /// The list floats over the views below, so use it in a stack where it can overlap
 /// them. It raises itself with `zIndex` while open, and a tap outside closes it.
 struct DropdownSelectMenu<Option: Hashable>: View {
-    let title: String
+    let title: LocalizedStringResource
     let options: [Option]
     @Binding var selection: Option?
     var placeholder = "Choose"

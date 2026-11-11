@@ -6,6 +6,53 @@ on `main`.
 
 ## Unreleased
 
+## 0.5.0 - 2026-11-11
+
+### Added
+
+- The catalog on the site can be searched and filtered by category, by the iOS
+  version your app runs on and by level. The filters stay in the address, so a
+  filtered view can be shared. It also filters by an Apple API, like
+  `TimelineView` or `Canvas`, and by having a Metal shader, and the search
+  finds a component by the APIs it uses.
+- A page of the site shared on a network or in a chat shows a card with six
+  components.
+
+### Changed
+
+- The texts you pass to a component are becoming `LocalizedStringResource`, so
+  a literal lands in your app's String Catalog. A literal keeps working as it
+  is; a `String` variable is now passed as `"\(value)"`. Done in the ten
+  buttons that take a title, a label or a prompt, in five controls (Animated
+  Radio Button, Counter Stepper, Day Night Toggle, Ruler Scroll Picker and
+  Swipe To Confirm Slider) and in six inputs (Floating Label Text Field,
+  Masked Text Field, Multi Step Form, OTP Code Field, Password Strength Field
+  and Validated Text Field), and in eleven components with tabs, bars and
+  navigation titles: Animated Tab Bar, Collapsing Bottom Bar, Floating Dock
+  Bar, Full Screen Menu Overlay, Notched Tab Bar, Prominent Tab Bar, Search
+  Scopes And Suggestions, Sidebar Adaptive Tabs, Tab Navigation State
+  Preserve, Toolbar Overflow Demo and Two Pane Split Layout. Also in Add To
+  Cart Fly Button, Add To Cart Stepper, Download Pill Progress, Empty State
+  Placeholder, Expandable Info Card, Glass Action Menu, Glass Tool Strip, Long
+  Press Radial Menu, Sparkline Stat Tile, Swipe Action Row, Trial Timeline
+  Paywall and Vertical Timeline. And in Blur Up Image, Coach Mark Tour, Color Reveal
+  Image, Double Tap Zoom Image, Dropdown Select Menu, Gooey Floating Menu,
+  Inline Date Picker Disclosure, Ken Burns Image, Keyboard Tracking Input Bar,
+  Map Search Sheet, Onboarding Pager, Paged Grid Launcher, Path Trim Draw On,
+  Photo Multi Select Grid, Symbol Morph Toggle, Toast Banner, Toast Host,
+  Tooltip Popover, Undo Snackbar, What's New Sheet and Wheel Picker.
+- Emoji Reaction Picker identifies each option by its emoji, not by its name.
+
+### Fixed
+
+- Text and icons drawn over a color you choose stay readable on a light one:
+  they turn black on yellow or a pastel and stay white on the system's own
+  colors. It reaches the 19 components that did it: the six buttons that take
+  a tint, Add To Cart Stepper, Animated Badge Count, Completion Swipe Row,
+  Download Pill Progress, Expandable Info Card, Gooey Floating Menu, Keyboard
+  Tracking Input Bar, Liquid Fill Progress, Nested Comment Thread, Scroll To
+  Top Button, Swipe Action Row, Tooltip Popover and Vertical Timeline.
+
 ## 0.4.0 - 2026-11-11
 
 ### Added

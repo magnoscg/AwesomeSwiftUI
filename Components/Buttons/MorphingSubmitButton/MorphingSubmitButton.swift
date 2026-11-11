@@ -12,7 +12,7 @@ private enum MorphingSubmitButtonPhase {
 ///
 /// With Reduce Motion on, the button keeps its shape and only its content crossfades.
 struct MorphingSubmitButton: View {
-    let title: String
+    let title: LocalizedStringResource
     var tint: Color = .blue
     var successColor: Color = .green
     var successDuration: Double = 1.2
@@ -28,7 +28,7 @@ struct MorphingSubmitButton: View {
 
     private var isCollapsed: Bool { phase != .idle && !reduceMotion }
 
-    private var accessibilityTitle: String {
+    private var accessibilityTitle: LocalizedStringResource {
         switch phase {
         case .idle: title
         case .loading: "Submitting"
@@ -48,7 +48,7 @@ struct MorphingSubmitButton: View {
 
                 if phase == .loading {
                     ProgressView()
-                        .tint(.white)
+                        .tint(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
                         .transition(.opacity)
                 }
 
@@ -58,7 +58,7 @@ struct MorphingSubmitButton: View {
                         .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
                 }
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(MorphingSubmitButtonContrastingForeground(background: phase == .success ? successColor : tint))
             .padding(.horizontal, isCollapsed ? 0 : 52)
             .frame(width: isCollapsed ? height : nil, height: height)
             .background(
@@ -82,6 +82,18 @@ struct MorphingSubmitButton: View {
             try? await Task.sleep(for: .seconds(successDuration))
             withAnimation(morph) { phase = .idle }
         }
+    }
+}
+
+/// White or black, whichever reads better on `background`. Black only on a
+/// light color, so the system's own colors keep white.
+nonisolated struct MorphingSubmitButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
     }
 }
 

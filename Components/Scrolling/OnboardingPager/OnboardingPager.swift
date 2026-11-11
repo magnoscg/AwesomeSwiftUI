@@ -5,8 +5,8 @@ import SwiftUI
 
 struct OnboardingPagerPage {
     var symbol: String
-    var title: String
-    var message: String
+    var title: LocalizedStringResource
+    var message: LocalizedStringResource
     var colors: [Color]
 }
 
@@ -14,7 +14,7 @@ struct OnboardingPagerPage {
 /// that advances or finishes. `onFinish` runs once.
 struct OnboardingPager: View {
     let pages: [OnboardingPagerPage]
-    var finishTitle: String = "Get Started"
+    var finishTitle: LocalizedStringResource = "Get Started"
     var onFinish: () -> Void = {}
 
     @State private var page = 0

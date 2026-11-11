@@ -25,8 +25,8 @@ enum SwipeToConfirmSliderMath {
 /// With Reduce Motion on, the thumb returns without bouncing. VoiceOver users
 /// confirm with a double tap.
 struct SwipeToConfirmSlider: View {
-    let title: String
-    var confirmedTitle: String = "Confirmed"
+    let title: LocalizedStringResource
+    var confirmedTitle: LocalizedStringResource = "Confirmed"
     var tint: Color = .indigo
     var resetDelay: Double = 1.4
     let onConfirm: () -> Void

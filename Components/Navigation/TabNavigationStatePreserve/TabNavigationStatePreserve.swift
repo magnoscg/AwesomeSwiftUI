@@ -41,7 +41,7 @@ final class TabNavigationStatePreserveStore<TabID: Hashable> {
 }
 
 struct TabNavigationStatePreserveItem<TabID: Hashable>: Identifiable {
-    let title: String
+    let title: LocalizedStringResource
     let systemImage: String
     let tab: TabID
 
@@ -61,11 +61,14 @@ struct TabNavigationStatePreserve<TabID: Hashable, Route: Hashable, Root: View, 
     var body: some View {
         TabView(selection: selection) {
             ForEach(tabs) { item in
-                Tab(item.title, systemImage: item.systemImage, value: item.tab) {
+                // The initializer that takes the title needs iOS 26 for a localizable one.
+                Tab(value: item.tab) {
                     NavigationStack(path: path(for: item.tab)) {
                         root(item.tab)
                             .navigationDestination(for: Route.self, destination: screen)
                     }
+                } label: {
+                    Label { Text(item.title) } icon: { Image(systemName: item.systemImage) }
                 }
             }
         }
@@ -87,7 +90,7 @@ private enum TabNavigationStatePreserveDemoTab: Hashable {
 }
 
 private struct TabNavigationStatePreserveDemoPage: View {
-    let title: String
+    let title: LocalizedStringResource
     let link: String
     let route: Int
     let colors: [Color]

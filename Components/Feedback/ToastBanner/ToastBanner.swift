@@ -5,7 +5,7 @@ import SwiftUI
 
 /// The capsule shown by the `.toast(isPresented:)` modifier.
 struct ToastBanner: View {
-    let message: String
+    let message: LocalizedStringResource
     var systemImage: String = "checkmark.circle.fill"
     var tint: Color = .green
 
@@ -29,7 +29,7 @@ struct ToastBanner: View {
 
 private struct ToastBannerModifier: ViewModifier {
     @Binding var isPresented: Bool
-    let message: String
+    let message: LocalizedStringResource
     let systemImage: String
     let tint: Color
     let duration: Double
@@ -50,7 +50,7 @@ private struct ToastBannerModifier: ViewModifier {
     }
 
     private func announceAndDismiss() async {
-        AccessibilityNotification.Announcement(message).post()
+        AccessibilityNotification.Announcement(String(localized: message)).post()
         do {
             try await Task.sleep(for: .seconds(duration))
         } catch {
@@ -66,7 +66,7 @@ extension View {
     /// With Reduce Motion on, the banner fades instead of sliding.
     func toast(
         isPresented: Binding<Bool>,
-        message: String,
+        message: LocalizedStringResource,
         systemImage: String = "checkmark.circle.fill",
         tint: Color = .green,
         duration: Double = 2.2

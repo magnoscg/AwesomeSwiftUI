@@ -7,7 +7,7 @@ import SwiftUI
 ///
 /// With Reduce Motion on, the dot appears at once and there is no pulse.
 struct AnimatedRadioButton: View {
-    let title: String
+    let title: LocalizedStringResource
     let isSelected: Bool
     var tint: Color = .indigo
     let action: () -> Void
@@ -68,7 +68,7 @@ struct AnimatedRadioButton: View {
 // MARK: - Demo
 
 struct AnimatedRadioButtonDemo: View {
-    private let options = ["Standard delivery", "Express delivery", "Pick up in store"]
+    private let options: [LocalizedStringResource] = ["Standard delivery", "Express delivery", "Pick up in store"]
 
     @State private var selection = 0
     @State private var isAutoPlaying = true

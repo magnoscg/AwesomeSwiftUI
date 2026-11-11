@@ -456,20 +456,31 @@ function renderDocsIndex(components) {
   ];
   if (components.length === 0) return [...frontmatter, 'No components yet.', ''].join('\n');
 
-  const cards = components.flatMap((component) => [
-    `  <Card title={${JSON.stringify(component.title)}}>`,
-    `    <img src={${JSON.stringify(docsPreview(component))}} alt={${JSON.stringify(`${component.title} preview`)}} width="160" loading="lazy" />`,
-    `    <p>{${JSON.stringify(component.summary)}}</p>`,
-    `    <p><a href={${JSON.stringify(docsPage(component))}}>iOS {${JSON.stringify(component.minIOS)}}+ · {${JSON.stringify(component.category)}}</a></p>`,
-    '  </Card>',
-  ]);
+  // One line per component keeps the page readable. JSON is valid in an MDX
+  // expression, so no text in it can be read as markup.
+  const items = components.map((component) =>
+    JSON.stringify({
+      title: component.title,
+      summary: component.summary,
+      preview: docsPreview(component),
+      href: docsPage(component),
+      category: component.category,
+      minIOS: component.minIOS,
+      difficulty: component.difficulty,
+      keywords: [...component.keywords.en, ...component.keywords.es].join(' '),
+      apis: component.apis,
+      shader: Boolean(component.shader),
+    }),
+  );
   return [
     ...frontmatter,
-    "import { Card, CardGrid } from '@astrojs/starlight/components';",
+    "import CatalogGallery from '../../../components/CatalogGallery.astro';",
     '',
-    '<CardGrid>',
-    ...cards,
-    '</CardGrid>',
+    '<CatalogGallery',
+    '  items={[',
+    ...items.map((item) => `    ${item},`),
+    '  ]}',
+    '/>',
     '',
   ].join('\n');
 }
