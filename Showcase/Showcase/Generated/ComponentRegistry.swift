@@ -2079,6 +2079,15 @@ enum ComponentRegistry {
             demo: { AnyView(SpinWheelRouletteDemo()) }
         ),
         ShowcaseEntry(
+            id: "profile-header-stretchy",
+            title: "Profile Header Stretchy",
+            category: "Profiles",
+            summary: "A profile whose cover stretches when the page is pulled down and closes into a bar with the name as it scrolls, while the avatar on its edge shrinks away.",
+            keywords: ["profile header", "stretchy header", "cover image", "avatar", "collapsing header", "pull to stretch", "social profile", "cabecera de perfil", "cabecera elástica", "imagen de portada", "avatar", "cabecera que se contrae", "tirar para estirar", "perfil social"],
+            minIOS: "18.0",
+            demo: { AnyView(ProfileHeaderStretchyDemo()) }
+        ),
+        ShowcaseEntry(
             id: "stories-viewer",
             title: "Stories Viewer",
             category: "Profiles",
