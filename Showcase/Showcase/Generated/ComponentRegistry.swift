@@ -2316,6 +2316,18 @@ enum ComponentRegistry {
             demo: { AnyView(ScrollingTabStripDemo()) }
         ),
         ShowcaseEntry(
+            id: "tabs-picker-pages",
+            title: "Tabs Picker Pages",
+            category: "Tabs",
+            summary: "A row of tabs over a page that slides in with them, on the tabs picker style of iOS 27.",
+            keywords: ["tabs", "picker style", "segmented", "pages", "sections", "top tabs", "ios 27", "pestañas", "estilo de picker", "segmentado", "páginas", "secciones", "pestañas superiores", "ios 27"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(TabsPickerPagesDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "animated-gradient-text",
             title: "Animated Gradient Text",
             category: "Text",

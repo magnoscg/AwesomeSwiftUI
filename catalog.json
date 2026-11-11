@@ -1,5 +1,5 @@
 {
-  "count": 279,
+  "count": 280,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -10089,6 +10089,48 @@
       "path": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift",
       "preview": "Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/ScrollingTabStrip/ScrollingTabStrip.swift"
+    },
+    {
+      "id": "tabs-picker-pages",
+      "name": "TabsPickerPages",
+      "title": "Tabs Picker Pages",
+      "category": "Tabs",
+      "summary": "A row of tabs over a page that slides in with them, on the tabs picker style of iOS 27.",
+      "keywords": {
+        "en": [
+          "tabs",
+          "picker style",
+          "segmented",
+          "pages",
+          "sections",
+          "top tabs",
+          "ios 27"
+        ],
+        "es": [
+          "pestañas",
+          "estilo de picker",
+          "segmentado",
+          "páginas",
+          "secciones",
+          "pestañas superiores",
+          "ios 27"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "27.0",
+      "apis": [
+        "Picker",
+        "TabsPickerStyle",
+        "pickerStyle",
+        "AnyTransition",
+        "onChange"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Tabs/TabsPickerPages/TabsPickerPages.swift",
+      "preview": "Components/Tabs/TabsPickerPages/TabsPickerPages.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Tabs/TabsPickerPages/TabsPickerPages.swift"
     },
     {
       "id": "animated-gradient-text",

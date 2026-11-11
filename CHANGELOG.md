@@ -62,6 +62,8 @@ on `main`.
   address bar, back, forward and reload.
 - Swipe Action Cards, for iOS 27: a column of cards with the system's swipe
   actions, outside a `List`.
+- Tabs Picker Pages, for iOS 27: a row of tabs over a page that slides in with
+  them, on the new tabs picker style.
 
 ### Changed
 
