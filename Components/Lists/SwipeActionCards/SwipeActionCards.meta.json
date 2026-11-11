@@ -1,0 +1,24 @@
+{
+  "id": "swipe-action-cards",
+  "name": "SwipeActionCards",
+  "title": "Swipe Action Cards",
+  "category": "Lists",
+  "summary": "A column of cards with the system's swipe actions, outside a List.",
+  "keywords": {
+    "en": ["swipe actions", "cards", "swipe to delete", "without list", "lazy stack", "row actions", "ios 27"],
+    "es": ["acciones al deslizar", "tarjetas", "deslizar para borrar", "sin list", "lazy stack", "acciones de fila", "ios 27"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "27.0",
+  "apis": ["swipeActions", "swipeActionsContainer", "LazyVStack", "ScrollView", "ForEach"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.8",
+    "swipe --start-x 320 --start-y 195 --end-x 150 --end-y 195 --duration 0.8 --delta 3",
+    "sleep 1.2",
+    "tap -x 274 -y 198",
+    "sleep 1.6",
+    "swipe --start-x 340 --start-y 285 --end-x 30 --end-y 285 --duration 0.7 --delta 3",
+    "sleep 1.8"
+  ]
+}

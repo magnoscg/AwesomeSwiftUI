@@ -1,5 +1,5 @@
 {
-  "count": 278,
+  "count": 279,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -6631,6 +6631,48 @@
       "path": "Components/Lists/StickySectionHeaders/StickySectionHeaders.swift",
       "preview": "Components/Lists/StickySectionHeaders/StickySectionHeaders.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/StickySectionHeaders/StickySectionHeaders.swift"
+    },
+    {
+      "id": "swipe-action-cards",
+      "name": "SwipeActionCards",
+      "title": "Swipe Action Cards",
+      "category": "Lists",
+      "summary": "A column of cards with the system's swipe actions, outside a List.",
+      "keywords": {
+        "en": [
+          "swipe actions",
+          "cards",
+          "swipe to delete",
+          "without list",
+          "lazy stack",
+          "row actions",
+          "ios 27"
+        ],
+        "es": [
+          "acciones al deslizar",
+          "tarjetas",
+          "deslizar para borrar",
+          "sin list",
+          "lazy stack",
+          "acciones de fila",
+          "ios 27"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "27.0",
+      "apis": [
+        "swipeActions",
+        "swipeActionsContainer",
+        "LazyVStack",
+        "ScrollView",
+        "ForEach"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Lists/SwipeActionCards/SwipeActionCards.swift",
+      "preview": "Components/Lists/SwipeActionCards/SwipeActionCards.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/AwesomeSwiftUI/HEAD/Components/Lists/SwipeActionCards/SwipeActionCards.swift"
     },
     {
       "id": "arc-segments-loader",

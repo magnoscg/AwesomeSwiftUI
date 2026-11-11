@@ -1515,6 +1515,18 @@ enum ComponentRegistry {
             demo: { AnyView(StickySectionHeadersDemo()) }
         ),
         ShowcaseEntry(
+            id: "swipe-action-cards",
+            title: "Swipe Action Cards",
+            category: "Lists",
+            summary: "A column of cards with the system's swipe actions, outside a List.",
+            keywords: ["swipe actions", "cards", "swipe to delete", "without list", "lazy stack", "row actions", "ios 27", "acciones al deslizar", "tarjetas", "deslizar para borrar", "sin list", "lazy stack", "acciones de fila", "ios 27"],
+            minIOS: "27.0",
+            demo: {
+                guard #available(iOS 27.0, *) else { return nil }
+                return AnyView(SwipeActionCardsDemo())
+            }
+        ),
+        ShowcaseEntry(
             id: "arc-segments-loader",
             title: "Arc Segments Loader",
             category: "Loaders",
