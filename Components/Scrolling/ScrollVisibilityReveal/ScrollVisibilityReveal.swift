@@ -58,6 +58,8 @@ struct ScrollVisibilityRevealDemo: View {
     @State private var position = ScrollPosition(y: 0)
     @State private var maxOffset: CGFloat = 0
     @State private var cycle = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -78,6 +80,7 @@ struct ScrollVisibilityRevealDemo: View {
         } action: { _, newValue in
             maxOffset = newValue
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             await replay()
@@ -101,9 +104,9 @@ struct ScrollVisibilityRevealDemo: View {
     // Only the demo scrolls by itself. Each pass scrolls to the end, then starts over.
     private func replay() async {
         var time = 0.0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .milliseconds(16))
-            guard !Task.isCancelled else { return }
+            guard !Task.isCancelled, isAutoPlaying else { return }
             time += 0.016
             if time >= 4 {
                 time = 0

@@ -115,6 +115,8 @@ struct SpinningVinylArt<Artwork: View>: View {
 
 struct SpinningVinylArtDemo: View {
     @State private var isPlaying = true
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -144,11 +146,12 @@ struct SpinningVinylArtDemo: View {
                 .accessibilityLabel(isPlaying ? "Pause" : "Play")
             }
         }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(isPlaying ? 2.2 : 1.4))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 isPlaying.toggle()
             }
         }

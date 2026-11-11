@@ -76,7 +76,6 @@ struct SearchScopesAndSuggestionsDemo: View {
     @State private var text = ""
     @State private var isSearching = false
     @State private var scope = SearchScopesAndSuggestionsDemoScope.all
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private var results: [SearchScopesAndSuggestionsDemoProduce] {
         produce.filter { item in
@@ -105,26 +104,9 @@ struct SearchScopesAndSuggestionsDemo: View {
                     suggestions: produce.map(\.name)
                 )
             )
-        }
-        .task(id: reduceMotion) { await playDemo() }
-    }
-
-    /// Only for this demo: runs a few rounds so the search field is seen working, then leaves it to you.
-    private func playDemo() async {
-        guard !reduceMotion else { return }
-
-        for _ in 0..<3 {
-            let steps: [(seconds: Double, change: () -> Void)] = [
-                (0.5, { isSearching = true }),
-                (0.7, { text = "a" }),
-                (0.7, { text = "ap" }),
-                (0.8, { scope = .fruit }),
-                (0.8, { text = ""; scope = .all; isSearching = false }),
-            ]
-            for step in steps {
-                try? await Task.sleep(for: .seconds(step.seconds))
-                guard !Task.isCancelled else { return }
-                step.change()
+            // The scope bar goes away with the search, so its filter does too.
+            .onChange(of: isSearching) { _, isSearching in
+                if !isSearching { scope = .all }
             }
         }
     }

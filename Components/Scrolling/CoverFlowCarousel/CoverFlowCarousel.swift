@@ -87,6 +87,8 @@ nonisolated enum CoverFlowCarouselMath {
 
 struct CoverFlowCarouselDemo: View {
     @State private var selection: String? = "Midnight"
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -114,13 +116,14 @@ struct CoverFlowCarouselDemo: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.black)
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
         .task(id: reduceMotion) {
             guard !reduceMotion else { return }
             let order = [3, 4, 3, 2, 1, 0, 1, 2]
             var step = 3
-            while !Task.isCancelled {
+            while isAutoPlaying {
                 try? await Task.sleep(for: .seconds(1.3))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled, isAutoPlaying else { return }
                 step = (step + 1) % order.count
                 withAnimation(.smooth(duration: 0.8)) { selection = items[order[step]].id }
             }

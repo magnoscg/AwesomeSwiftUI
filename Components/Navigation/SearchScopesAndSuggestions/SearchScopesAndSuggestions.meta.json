@@ -32,5 +32,18 @@
   ],
   "origin": {
     "kind": "original"
-  }
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap -x 201 -y 822",
+    "sleep 1.0",
+    "type 'ap'",
+    "sleep 1.0",
+    "tap --label Fruit",
+    "sleep 1.0",
+    "tap --label Apple",
+    "sleep 1.2",
+    "tap --label close",
+    "sleep 1.0"
+  ]
 }

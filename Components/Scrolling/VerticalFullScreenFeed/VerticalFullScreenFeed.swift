@@ -86,10 +86,13 @@ struct VerticalFullScreenFeedDemo: View {
         VerticalFullScreenFeedDemo.item("Under the stars", symbol: "moon.stars.fill", colors: [.purple, .indigo, .black], imageLabel: "A moon and stars on a dark sky"),
     ]
     @State private var selection: String?
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VerticalFullScreenFeed(items: items, selection: $selection)
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
             .task(id: reduceMotion) {
                 guard !reduceMotion else { return }
                 await autoAdvance()
@@ -99,9 +102,9 @@ struct VerticalFullScreenFeedDemo: View {
     // Only the demo advances by itself. In an app the user swipes between pages.
     private func autoAdvance() async {
         var index = 0
-        while !Task.isCancelled {
+        while isAutoPlaying {
             try? await Task.sleep(for: .seconds(1.6))
-            guard !Task.isCancelled, !items.isEmpty else { return }
+            guard !Task.isCancelled, isAutoPlaying, !items.isEmpty else { return }
             index = (index + 1) % items.count
             withAnimation(.smooth(duration: 0.6)) {
                 selection = items[index].id
