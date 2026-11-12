@@ -1,5 +1,5 @@
 {
-  "count": 288,
+  "count": 299,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -684,6 +684,138 @@
       "path": "Components/Backgrounds/WavesBackground/WavesBackground.swift",
       "preview": "Components/Backgrounds/WavesBackground/WavesBackground.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/WavesBackground/WavesBackground.swift"
+    },
+    {
+      "id": "async-action-button",
+      "name": "AsyncActionButton",
+      "title": "Async Action Button",
+      "category": "Buttons",
+      "summary": "A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.",
+      "keywords": {
+        "en": [
+          "button",
+          "loading button",
+          "async",
+          "spinner",
+          "progress",
+          "double tap",
+          "submit",
+          "save"
+        ],
+        "es": [
+          "botón",
+          "botón de carga",
+          "asíncrono",
+          "spinner",
+          "cargando",
+          "doble toque",
+          "enviar",
+          "guardar"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Button",
+        "task(id:)",
+        "TimelineView",
+        "async/await"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/AsyncActionButton/AsyncActionButton.swift",
+      "preview": "Components/Buttons/AsyncActionButton/AsyncActionButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/AsyncActionButton/AsyncActionButton.swift"
+    },
+    {
+      "id": "badged-icon-button",
+      "name": "BadgedIconButton",
+      "title": "Badged Icon Button",
+      "category": "Buttons",
+      "summary": "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+      "keywords": {
+        "en": [
+          "badge",
+          "icon button",
+          "notification badge",
+          "bell",
+          "cart",
+          "count",
+          "unread",
+          "toolbar"
+        ],
+        "es": [
+          "insignia",
+          "globo",
+          "botón de icono",
+          "notificaciones",
+          "campana",
+          "carrito",
+          "contador",
+          "no leídos"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "symbolEffect",
+        "contentTransition",
+        "alignmentGuide",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/BadgedIconButton/BadgedIconButton.swift",
+      "preview": "Components/Buttons/BadgedIconButton/BadgedIconButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/BadgedIconButton/BadgedIconButton.swift"
+    },
+    {
+      "id": "button-variant-style",
+      "name": "ButtonVariantStyle",
+      "title": "Button Variant Style",
+      "category": "Buttons",
+      "summary": "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+      "keywords": {
+        "en": [
+          "button",
+          "button style",
+          "filled",
+          "tinted",
+          "outlined",
+          "plain",
+          "destructive",
+          "control size",
+          "primary",
+          "secondary"
+        ],
+        "es": [
+          "botón",
+          "estilo de botón",
+          "relleno",
+          "tintado",
+          "contorno",
+          "destructivo",
+          "tamaño",
+          "primario",
+          "secundario"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ButtonStyle",
+        "ControlSize",
+        "ButtonRole",
+        "ShapeStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift",
+      "preview": "Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift"
     },
     {
       "id": "elastic-drag-button",
@@ -2643,6 +2775,49 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/AnimatedRadioButton/AnimatedRadioButton.swift"
     },
     {
+      "id": "checkmark-box-toggle-style",
+      "name": "CheckmarkBoxToggleStyle",
+      "title": "Checkmark Box Toggle Style",
+      "category": "Controls",
+      "summary": "A checkbox toggle style for iOS whose box fills and draws its checkmark, with a dash for a mixed Toggle(sources:).",
+      "keywords": {
+        "en": [
+          "checkbox",
+          "check box",
+          "checkmark",
+          "toggle style",
+          "mixed",
+          "indeterminate",
+          "form",
+          "terms"
+        ],
+        "es": [
+          "casilla",
+          "casilla de verificación",
+          "check",
+          "marca",
+          "estilo de toggle",
+          "mixto",
+          "indeterminado",
+          "formulario"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ToggleStyle",
+        "Toggle(sources:isOn:)",
+        "Shape",
+        "trim"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/CheckmarkBoxToggleStyle/CheckmarkBoxToggleStyle.swift",
+      "preview": "Components/Controls/CheckmarkBoxToggleStyle/CheckmarkBoxToggleStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/CheckmarkBoxToggleStyle/CheckmarkBoxToggleStyle.swift"
+    },
+    {
       "id": "circular-range-slider",
       "name": "CircularRangeSlider",
       "title": "Circular Range Slider",
@@ -2767,6 +2942,90 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
     },
     {
+      "id": "filter-chip-group",
+      "name": "FilterChipGroup",
+      "title": "Filter Chip Group",
+      "category": "Controls",
+      "summary": "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+      "keywords": {
+        "en": [
+          "chips",
+          "filter chips",
+          "tags",
+          "multi-select",
+          "flow layout",
+          "wrap",
+          "pills",
+          "filters"
+        ],
+        "es": [
+          "chips",
+          "filtros",
+          "etiquetas",
+          "selección múltiple",
+          "flujo",
+          "salto de línea",
+          "píldoras"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "Set",
+        "sensoryFeedback",
+        "Capsule"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/FilterChipGroup/FilterChipGroup.swift",
+      "preview": "Components/Controls/FilterChipGroup/FilterChipGroup.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/FilterChipGroup/FilterChipGroup.swift"
+    },
+    {
+      "id": "icon-switch-toggle-style",
+      "name": "IconSwitchToggleStyle",
+      "title": "Icon Switch Toggle Style",
+      "category": "Controls",
+      "summary": "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+      "keywords": {
+        "en": [
+          "switch",
+          "toggle",
+          "toggle style",
+          "icon",
+          "symbol",
+          "knob",
+          "on off",
+          "settings"
+        ],
+        "es": [
+          "interruptor",
+          "toggle",
+          "estilo de toggle",
+          "icono",
+          "símbolo",
+          "encendido apagado",
+          "ajustes"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ToggleStyle",
+        "contentTransition",
+        "symbolEffect",
+        "accessibilityRepresentation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift",
+      "preview": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift"
+    },
+    {
       "id": "range-slider",
       "name": "RangeSlider",
       "title": "Range Slider",
@@ -2851,6 +3110,91 @@
       "path": "Components/Controls/RulerScrollPicker/RulerScrollPicker.swift",
       "preview": "Components/Controls/RulerScrollPicker/RulerScrollPicker.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
+    },
+    {
+      "id": "select-all-checklist",
+      "name": "SelectAllChecklist",
+      "title": "Select All Checklist",
+      "category": "Controls",
+      "summary": "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+      "keywords": {
+        "en": [
+          "select all",
+          "checklist",
+          "checkbox",
+          "mixed",
+          "indeterminate",
+          "tri-state",
+          "multi-select",
+          "selection"
+        ],
+        "es": [
+          "seleccionar todo",
+          "lista de verificación",
+          "casilla",
+          "mixto",
+          "indeterminado",
+          "tres estados",
+          "selección múltiple"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Identifiable",
+        "Set",
+        "sensoryFeedback",
+        "trim"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/SelectAllChecklist/SelectAllChecklist.swift",
+      "preview": "Components/Controls/SelectAllChecklist/SelectAllChecklist.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SelectAllChecklist/SelectAllChecklist.swift"
+    },
+    {
+      "id": "settings-toggle-row",
+      "name": "SettingsToggleRow",
+      "title": "Settings Toggle Row",
+      "category": "Controls",
+      "summary": "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+      "keywords": {
+        "en": [
+          "settings",
+          "toggle row",
+          "switch",
+          "list row",
+          "form",
+          "preferences",
+          "icon",
+          "Settings app"
+        ],
+        "es": [
+          "ajustes",
+          "fila de ajustes",
+          "interruptor",
+          "fila",
+          "formulario",
+          "preferencias",
+          "icono",
+          "app Ajustes"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Toggle",
+        "List",
+        "symbolEffect",
+        "Color.gradient"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/SettingsToggleRow/SettingsToggleRow.swift",
+      "preview": "Components/Controls/SettingsToggleRow/SettingsToggleRow.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SettingsToggleRow/SettingsToggleRow.swift"
     },
     {
       "id": "sliding-segmented-picker",
@@ -3011,6 +3355,49 @@
       "path": "Components/Controls/TickMarkSlider/TickMarkSlider.swift",
       "preview": "Components/Controls/TickMarkSlider/TickMarkSlider.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
+    },
+    {
+      "id": "weekday-segmented-picker",
+      "name": "WeekdaySegmentedPicker",
+      "title": "Weekday Segmented Picker",
+      "category": "Controls",
+      "summary": "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+      "keywords": {
+        "en": [
+          "weekday picker",
+          "days of the week",
+          "multi-select",
+          "segmented",
+          "alarm",
+          "repeat",
+          "schedule",
+          "recurrence"
+        ],
+        "es": [
+          "selector de días",
+          "días de la semana",
+          "selección múltiple",
+          "segmentado",
+          "alarma",
+          "repetir",
+          "horario",
+          "recurrencia"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Calendar",
+        "veryShortStandaloneWeekdaySymbols",
+        "ListFormatStyle",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift",
+      "preview": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift"
     },
     {
       "id": "drawing-pad-speed-brush",
@@ -5562,6 +5949,91 @@
       "path": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift",
       "preview": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
+    },
+    {
+      "id": "character-count-text-editor",
+      "name": "CharacterCountTextEditor",
+      "title": "Character Count Text Editor",
+      "category": "Inputs",
+      "summary": "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+      "keywords": {
+        "en": [
+          "character count",
+          "character limit",
+          "text editor",
+          "multiline",
+          "counter",
+          "textarea",
+          "bio",
+          "post"
+        ],
+        "es": [
+          "contador de caracteres",
+          "límite de caracteres",
+          "editor de texto",
+          "multilínea",
+          "contador",
+          "biografía",
+          "publicación"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField(axis:)",
+        "lineLimit",
+        "FocusState",
+        "AccessibilityNotification"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift",
+      "preview": "Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift"
+    },
+    {
+      "id": "clearable-text-field",
+      "name": "ClearableTextField",
+      "title": "Clearable Text Field",
+      "category": "Inputs",
+      "summary": "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+      "keywords": {
+        "en": [
+          "text field",
+          "clear button",
+          "input",
+          "icon",
+          "focus",
+          "error",
+          "form",
+          "search"
+        ],
+        "es": [
+          "campo de texto",
+          "botón de borrar",
+          "entrada",
+          "icono",
+          "foco",
+          "error",
+          "formulario",
+          "búsqueda"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField",
+        "FocusState",
+        "transition",
+        "accessibilityHint"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/ClearableTextField/ClearableTextField.swift",
+      "preview": "Components/Inputs/ClearableTextField/ClearableTextField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/ClearableTextField/ClearableTextField.swift"
     },
     {
       "id": "color-swatch-picker",

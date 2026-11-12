@@ -1,0 +1,26 @@
+{
+  "id": "select-all-checklist",
+  "name": "SelectAllChecklist",
+  "title": "Select All Checklist",
+  "category": "Controls",
+  "summary": "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+  "keywords": {
+    "en": ["select all", "checklist", "checkbox", "mixed", "indeterminate", "tri-state", "multi-select", "selection"],
+    "es": ["seleccionar todo", "lista de verificación", "casilla", "mixto", "indeterminado", "tres estados", "selección múltiple"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Identifiable", "Set", "sensoryFeedback", "trim"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label \"Night Trains, 39 MB\"",
+    "sleep 0.8",
+    "tap --label \"All Episodes\"",
+    "sleep 1",
+    "tap --label \"All Episodes\"",
+    "sleep 1",
+    "tap --label \"The Shape of Light, 48 MB\"",
+    "sleep 0.8"
+  ]
+}

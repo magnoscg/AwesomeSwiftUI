@@ -6,6 +6,35 @@ on `main`.
 
 ## Unreleased
 
+## 0.7.0 - 2026-11-12
+
+### Added
+
+- Character Count Text Editor, a multiline field with a ring and a count
+  that turn orange near the limit and red past it, without cutting the text.
+- Clearable Text Field, a text field with a leading symbol, a clear button
+  that keeps the keyboard up and an optional error under it.
+- Filter Chip Group, filter chips that show a checkmark when chosen and wrap
+  onto as many rows as they need.
+- Weekday Segmented Picker, round buttons that pick several days of the week
+  in the order of the calendar, with a summary such as Weekdays.
+- Settings Toggle Row, a row like the ones in the Settings app: a symbol on
+  a colored square, a title, a subtitle and a switch.
+- Icon Switch Toggle Style, a switch whose knob carries a symbol for each
+  state, so on and off do not depend on color alone.
+- Select All Checklist, a list of checkable rows under a select-all box that
+  is mixed when only some rows are checked, with a count.
+- Checkmark Box Toggle Style, a checkbox for any toggle on iOS, whose box
+  fills and draws its checkmark, with a dash when it is mixed.
+- Badged Icon Button, an icon button with a count on its corner that pops
+  in, rolls its number and stops at 99+.
+- Async Action Button, a button that runs an async action with a spinner in
+  place of its label, keeps its width and ignores taps until the action
+  ends.
+- Button Variant Style, a button style with filled, tinted, outlined and
+  plain variants that follows `.controlSize`, `.disabled` and the
+  destructive role, like the system styles.
+
 ## 0.6.0 - 2026-11-12
 
 ### Changed

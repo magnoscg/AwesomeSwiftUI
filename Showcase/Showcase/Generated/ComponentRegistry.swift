@@ -159,6 +159,33 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "async-action-button",
+            title: "Async Action Button",
+            category: "Buttons",
+            summary: "A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.",
+            keywords: ["button", "loading button", "async", "spinner", "progress", "double tap", "submit", "save", "botón", "botón de carga", "asíncrono", "spinner", "cargando", "doble toque", "enviar", "guardar"],
+            minIOS: "18.0",
+            demo: { AnyView(AsyncActionButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "badged-icon-button",
+            title: "Badged Icon Button",
+            category: "Buttons",
+            summary: "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+            keywords: ["badge", "icon button", "notification badge", "bell", "cart", "count", "unread", "toolbar", "insignia", "globo", "botón de icono", "notificaciones", "campana", "carrito", "contador", "no leídos"],
+            minIOS: "18.0",
+            demo: { AnyView(BadgedIconButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "button-variant-style",
+            title: "Button Variant Style",
+            category: "Buttons",
+            summary: "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+            keywords: ["button", "button style", "filled", "tinted", "outlined", "plain", "destructive", "control size", "primary", "secondary", "botón", "estilo de botón", "relleno", "tintado", "contorno", "destructivo", "tamaño", "primario", "secundario"],
+            minIOS: "18.0",
+            demo: { AnyView(ButtonVariantStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "elastic-drag-button",
             title: "Elastic Drag Button",
             category: "Buttons",
@@ -594,6 +621,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedRadioButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "checkmark-box-toggle-style",
+            title: "Checkmark Box Toggle Style",
+            category: "Controls",
+            summary: "A checkbox toggle style for iOS whose box fills and draws its checkmark, with a dash for a mixed Toggle(sources:).",
+            keywords: ["checkbox", "check box", "checkmark", "toggle style", "mixed", "indeterminate", "form", "terms", "casilla", "casilla de verificación", "check", "marca", "estilo de toggle", "mixto", "indeterminado", "formulario"],
+            minIOS: "18.0",
+            demo: { AnyView(CheckmarkBoxToggleStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "circular-range-slider",
             title: "Circular Range Slider",
             category: "Controls",
@@ -621,6 +657,24 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "filter-chip-group",
+            title: "Filter Chip Group",
+            category: "Controls",
+            summary: "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+            keywords: ["chips", "filter chips", "tags", "multi-select", "flow layout", "wrap", "pills", "filters", "chips", "filtros", "etiquetas", "selección múltiple", "flujo", "salto de línea", "píldoras"],
+            minIOS: "18.0",
+            demo: { AnyView(FilterChipGroupDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "icon-switch-toggle-style",
+            title: "Icon Switch Toggle Style",
+            category: "Controls",
+            summary: "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+            keywords: ["switch", "toggle", "toggle style", "icon", "symbol", "knob", "on off", "settings", "interruptor", "toggle", "estilo de toggle", "icono", "símbolo", "encendido apagado", "ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(IconSwitchToggleStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "range-slider",
             title: "Range Slider",
             category: "Controls",
@@ -637,6 +691,24 @@ enum ComponentRegistry {
             keywords: ["ruler", "picker", "scroll", "slider", "weight", "number", "tick marks", "snap", "regla", "selector", "desplazamiento", "deslizador", "peso", "número", "marcas"],
             minIOS: "18.0",
             demo: { AnyView(RulerScrollPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "select-all-checklist",
+            title: "Select All Checklist",
+            category: "Controls",
+            summary: "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+            keywords: ["select all", "checklist", "checkbox", "mixed", "indeterminate", "tri-state", "multi-select", "selection", "seleccionar todo", "lista de verificación", "casilla", "mixto", "indeterminado", "tres estados", "selección múltiple"],
+            minIOS: "18.0",
+            demo: { AnyView(SelectAllChecklistDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "settings-toggle-row",
+            title: "Settings Toggle Row",
+            category: "Controls",
+            summary: "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+            keywords: ["settings", "toggle row", "switch", "list row", "form", "preferences", "icon", "Settings app", "ajustes", "fila de ajustes", "interruptor", "fila", "formulario", "preferencias", "icono", "app Ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(SettingsToggleRowDemo()) }
         ),
         ShowcaseEntry(
             id: "sliding-segmented-picker",
@@ -676,6 +748,15 @@ enum ComponentRegistry {
                 guard #available(iOS 26.0, *) else { return nil }
                 return AnyView(TickMarkSliderDemo())
             }
+        ),
+        ShowcaseEntry(
+            id: "weekday-segmented-picker",
+            title: "Weekday Segmented Picker",
+            category: "Controls",
+            summary: "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+            keywords: ["weekday picker", "days of the week", "multi-select", "segmented", "alarm", "repeat", "schedule", "recurrence", "selector de días", "días de la semana", "selección múltiple", "segmentado", "alarma", "repetir", "horario", "recurrencia"],
+            minIOS: "18.0",
+            demo: { AnyView(WeekdaySegmentedPickerDemo()) }
         ),
         ShowcaseEntry(
             id: "drawing-pad-speed-brush",
@@ -1252,6 +1333,24 @@ enum ComponentRegistry {
             keywords: ["photo board", "polaroid", "scattered", "collage", "drag", "bring to front", "moodboard", "tablero de fotos", "polaroid", "dispersas", "collage", "arrastrar", "traer al frente"],
             minIOS: "18.0",
             demo: { AnyView(ScatteredPhotoBoardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "character-count-text-editor",
+            title: "Character Count Text Editor",
+            category: "Inputs",
+            summary: "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+            keywords: ["character count", "character limit", "text editor", "multiline", "counter", "textarea", "bio", "post", "contador de caracteres", "límite de caracteres", "editor de texto", "multilínea", "contador", "biografía", "publicación"],
+            minIOS: "18.0",
+            demo: { AnyView(CharacterCountTextEditorDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "clearable-text-field",
+            title: "Clearable Text Field",
+            category: "Inputs",
+            summary: "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+            keywords: ["text field", "clear button", "input", "icon", "focus", "error", "form", "search", "campo de texto", "botón de borrar", "entrada", "icono", "foco", "error", "formulario", "búsqueda"],
+            minIOS: "18.0",
+            demo: { AnyView(ClearableTextFieldDemo()) }
         ),
         ShowcaseEntry(
             id: "color-swatch-picker",
