@@ -6,7 +6,7 @@
 
 *Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
 
-<a href="https://magnoscg.github.io/swiftui-components/"><img src=".github/readme/browse-catalog.svg" alt="Browse the catalog" width="560"></a>
+<a href="https://magnoscg.github.io/swiftui-components/"><img src=".github/readme/browse-catalog.svg" alt="Browse the catalog" width="440"></a>
 
 [![Components](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmagnoscg%2Fswiftui-components%2FHEAD%2Fcatalog.json&query=%24.count&label=components&color=5856d6)](https://magnoscg.github.io/swiftui-components/)
 [![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/releases/latest)
