@@ -693,6 +693,15 @@ enum ComponentRegistry {
             demo: { AnyView(SelectAllChecklistDemo()) }
         ),
         ShowcaseEntry(
+            id: "settings-toggle-row",
+            title: "Settings Toggle Row",
+            category: "Controls",
+            summary: "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+            keywords: ["settings", "toggle row", "switch", "list row", "form", "preferences", "icon", "Settings app", "ajustes", "fila de ajustes", "interruptor", "fila", "formulario", "preferencias", "icono", "app Ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(SettingsToggleRowDemo()) }
+        ),
+        ShowcaseEntry(
             id: "sliding-segmented-picker",
             title: "Sliding Segmented Picker",
             category: "Controls",

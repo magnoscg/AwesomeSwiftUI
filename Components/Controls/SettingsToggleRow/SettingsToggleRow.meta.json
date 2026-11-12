@@ -1,0 +1,26 @@
+{
+  "id": "settings-toggle-row",
+  "name": "SettingsToggleRow",
+  "title": "Settings Toggle Row",
+  "category": "Controls",
+  "summary": "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+  "keywords": {
+    "en": ["settings", "toggle row", "switch", "list row", "form", "preferences", "icon", "Settings app"],
+    "es": ["ajustes", "fila de ajustes", "interruptor", "fila", "formulario", "preferencias", "icono", "app Ajustes"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Toggle", "List", "symbolEffect", "Color.gradient"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label \"Airplane Mode\"",
+    "sleep 0.9",
+    "tap --label Wi-Fi",
+    "sleep 0.9",
+    "tap --label \"Low Power Mode, Reduce background activity\"",
+    "sleep 0.9",
+    "tap --label \"Do Not Disturb, Silence calls and alerts\"",
+    "sleep 0.9"
+  ]
+}

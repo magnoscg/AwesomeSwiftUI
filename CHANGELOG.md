@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Settings Toggle Row, a row like the ones in the Settings app: a symbol on
+  a colored square, a title, a subtitle and a switch.
 - Icon Switch Toggle Style, a switch whose knob carries a symbol for each
   state, so on and off do not depend on color alone.
 - Select All Checklist, a list of checkable rows under a select-all box that
