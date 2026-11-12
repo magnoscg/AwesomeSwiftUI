@@ -1,0 +1,28 @@
+{
+  "id": "icon-switch-toggle-style",
+  "name": "IconSwitchToggleStyle",
+  "title": "Icon Switch Toggle Style",
+  "category": "Controls",
+  "summary": "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+  "keywords": {
+    "en": ["switch", "toggle", "toggle style", "icon", "symbol", "knob", "on off", "settings"],
+    "es": ["interruptor", "toggle", "estilo de toggle", "icono", "símbolo", "encendido apagado", "ajustes"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ToggleStyle", "contentTransition", "symbolEffect", "accessibilityRepresentation"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label \"Dark Mode\"",
+    "sleep 0.9",
+    "tap --label Sound",
+    "sleep 0.9",
+    "tap --label \"Share Location\"",
+    "sleep 0.9",
+    "tap --label \"Automatic Updates\"",
+    "sleep 0.9",
+    "tap --label \"Dark Mode\"",
+    "sleep 0.9"
+  ]
+}

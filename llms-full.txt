@@ -11687,6 +11687,132 @@ struct DayNightToggleDemo: View {
 }
 ```
 
+## Icon Switch Toggle Style
+
+A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.
+
+Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// A switch whose knob carries a symbol for each state, a checkmark and a cross
+/// by default, that swaps as the knob slides. The state reads without relying
+/// on the track color alone. The whole row is tappable, and VoiceOver reads it
+/// as a standard switch.
+///
+/// With Reduce Motion on, the knob slides without bouncing and the symbols crossfade.
+struct IconSwitchToggleStyle: ToggleStyle {
+    var onSymbol = "checkmark"
+    var offSymbol = "xmark"
+    var color: Color = .green
+
+    func makeBody(configuration: Configuration) -> some View {
+        Button {
+            configuration.isOn.toggle()
+        } label: {
+            HStack(spacing: 16) {
+                configuration.label
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                IconSwitchToggleStyleTrack(
+                    isOn: configuration.isOn,
+                    symbol: configuration.isOn ? onSymbol : offSymbol,
+                    color: color
+                )
+            }
+            .frame(minHeight: 44)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .accessibilityRepresentation {
+            Toggle(isOn: configuration.$isOn) {
+                configuration.label
+            }
+        }
+    }
+}
+
+extension ToggleStyle where Self == IconSwitchToggleStyle {
+    static var iconSwitch: IconSwitchToggleStyle { IconSwitchToggleStyle() }
+
+    static func iconSwitch(on onSymbol: String, off offSymbol: String, color: Color = .green) -> IconSwitchToggleStyle {
+        IconSwitchToggleStyle(onSymbol: onSymbol, offSymbol: offSymbol, color: color)
+    }
+}
+
+private struct IconSwitchToggleStyleTrack: View {
+    let isOn: Bool
+    let symbol: String
+    let color: Color
+
+    @ScaledMetric(relativeTo: .body) private var height = 32.0
+    @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let inset = 3.0
+
+    var body: some View {
+        let knob = height - inset * 2
+
+        Capsule()
+            .fill(isOn ? color : Color.secondary.opacity(0.35))
+            .frame(width: height * 1.8, height: height)
+            .overlay(alignment: isOn ? .trailing : .leading) {
+                Circle()
+                    .fill(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
+                    .overlay {
+                        Image(systemName: symbol)
+                            .font(.system(size: knob * 0.45, weight: .bold))
+                            .foregroundStyle(isOn ? color : Color.gray)
+                            .contentTransition(reduceMotion ? .opacity : .symbolEffect(.replace))
+                    }
+                    .frame(width: knob, height: knob)
+                    .padding(inset)
+            }
+            .opacity(isEnabled ? 1 : 0.4)
+            .animation(reduceMotion ? .easeInOut(duration: 0.15) : .spring(duration: 0.35, bounce: 0.35), value: isOn)
+            .accessibilityHidden(true)
+    }
+}
+
+// MARK: - Demo
+
+struct IconSwitchToggleStyleDemo: View {
+    @State private var autoUpdates = true
+    @State private var darkMode = false
+    @State private var sound = true
+    @State private var location = false
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Toggle("Automatic Updates", isOn: $autoUpdates)
+                .toggleStyle(.iconSwitch)
+            Toggle("Dark Mode", isOn: $darkMode)
+                .toggleStyle(.iconSwitch(on: "moon.fill", off: "sun.max.fill", color: .indigo))
+            Toggle("Sound", isOn: $sound)
+                .toggleStyle(.iconSwitch(on: "speaker.wave.2.fill", off: "speaker.slash.fill", color: .orange))
+            Toggle("Share Location", isOn: $location)
+                .toggleStyle(.iconSwitch(on: "location.fill", off: "location.slash.fill", color: .blue))
+        }
+        .font(.body.weight(.medium))
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+        .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 24, style: .continuous))
+        .padding(20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    IconSwitchToggleStyleDemo()
+}
+```
+
 ## Range Slider
 
 A slider with two thumbs that picks a range, like the lowest and highest price of a filter.
@@ -12180,6 +12306,333 @@ struct RulerScrollPickerDemo: View {
 
 #Preview {
     RulerScrollPickerDemo()
+}
+```
+
+## Select All Checklist
+
+A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.
+
+Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/SelectAllChecklist/SelectAllChecklist.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+enum SelectAllChecklistState: Equatable {
+    case none, some, all
+
+    /// Counts only the items in the list, so a selection kept from elsewhere does not make it look full.
+    init<ID: Hashable>(selection: Set<ID>, among ids: [ID]) {
+        let selected = ids.filter(selection.contains).count
+        if ids.isEmpty || selected == 0 {
+            self = .none
+        } else {
+            self = selected == ids.count ? .all : .some
+        }
+    }
+
+    /// Selects every item unless all are selected, then deselects them, and leaves any other ID alone.
+    static func toggledAll<ID: Hashable>(_ selection: Set<ID>, among ids: [ID]) -> Set<ID> {
+        if SelectAllChecklistState(selection: selection, among: ids) == .all {
+            return selection.subtracting(ids)
+        }
+        return selection.union(ids)
+    }
+}
+
+/// A list of checkable rows under a "select all" box that is checked when every
+/// row is, shows a dash when only some are, and counts them.
+///
+/// The selection is a `Set` of IDs, like a `List` with selection. With Reduce
+/// Motion on, the checkmarks appear without being drawn.
+struct SelectAllChecklist<Item: Identifiable, Row: View>: View {
+    let title: LocalizedStringResource
+    let items: [Item]
+    @Binding var selection: Set<Item.ID>
+    var color: Color = .accentColor
+    @ViewBuilder let row: (Item) -> Row
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// At accessibility sizes the count goes under the title, so the title is not broken mid-word.
+    private var headerLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
+            : AnyLayout(HStackLayout(spacing: 8))
+    }
+
+    private var ids: [Item.ID] { items.map(\.id) }
+    private var state: SelectAllChecklistState { SelectAllChecklistState(selection: selection, among: ids) }
+    private var selectedCount: Int { ids.filter(selection.contains).count }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Button {
+                selection = SelectAllChecklistState.toggledAll(selection, among: ids)
+            } label: {
+                HStack(spacing: 12) {
+                    SelectAllChecklistBox(state: state, color: color)
+                    headerLayout {
+                        Text(title)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("\(selectedCount) of \(items.count)")
+                            .font(.subheadline)
+                            .monospacedDigit()
+                            .foregroundStyle(.secondary)
+                            .contentTransition(.numericText(value: Double(selectedCount)))
+                    }
+                }
+                .padding(.vertical, 8)
+                .frame(minHeight: 44)
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .accessibilityValue(Text("\(selectedCount) of \(items.count) selected"))
+            .accessibilityAddTraits(state == .all ? .isSelected : [])
+
+            Divider()
+
+            ForEach(items) { item in
+                let isSelected = selection.contains(item.id)
+
+                Button {
+                    if isSelected { selection.remove(item.id) } else { selection.insert(item.id) }
+                } label: {
+                    HStack(spacing: 12) {
+                        SelectAllChecklistBox(state: isSelected ? .all : .none, color: color)
+                        row(item)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(.vertical, 6)
+                    .frame(minHeight: 44)
+                    .contentShape(.rect)
+                }
+                .buttonStyle(.plain)
+                .accessibilityAddTraits(isSelected ? .isSelected : [])
+            }
+        }
+        .sensoryFeedback(.selection, trigger: selection)
+        .animation(.snappy(duration: 0.2), value: selectedCount)
+    }
+}
+
+private struct SelectAllChecklistBox: View {
+    let state: SelectAllChecklistState
+    let color: Color
+
+    @ScaledMetric(relativeTo: .body) private var size = 22.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: size * 0.28, style: .continuous)
+        let mark = SelectAllChecklistContrastingForeground(background: color)
+        let lineWidth = size * 0.12
+        let isFilled = state != .none
+
+        ZStack {
+            shape.fill(isFilled ? color : .clear)
+            shape.strokeBorder(isFilled ? color : Color.secondary.opacity(0.6), lineWidth: lineWidth)
+
+            if state == .some {
+                Capsule()
+                    .fill(mark)
+                    .frame(width: size * 0.5, height: lineWidth)
+                    .transition(.opacity)
+            } else {
+                SelectAllChecklistCheck()
+                    .trim(from: 0, to: state == .all ? 1 : 0)
+                    .stroke(mark, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+            }
+        }
+        .frame(width: size, height: size)
+        // A checkmark is not mirrored right-to-left, like the system symbol.
+        .environment(\.layoutDirection, .leftToRight)
+        .animation(reduceMotion ? nil : .easeOut(duration: 0.22), value: state)
+        .accessibilityHidden(true)
+    }
+}
+
+nonisolated struct SelectAllChecklistCheck: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.width * 0.26, y: rect.height * 0.52))
+        path.addLine(to: CGPoint(x: rect.width * 0.43, y: rect.height * 0.69))
+        path.addLine(to: CGPoint(x: rect.width * 0.75, y: rect.height * 0.33))
+        return path
+    }
+}
+
+nonisolated struct SelectAllChecklistContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+private struct SelectAllChecklistDemoEpisode: Identifiable {
+    let id: Int
+    let title: String
+    let size: String
+}
+
+struct SelectAllChecklistDemo: View {
+    @State private var selection: Set<Int> = [2]
+
+    private let episodes = [
+        SelectAllChecklistDemoEpisode(id: 1, title: "The Shape of Light", size: "48 MB"),
+        SelectAllChecklistDemoEpisode(id: 2, title: "Islands in the Stream", size: "62 MB"),
+        SelectAllChecklistDemoEpisode(id: 3, title: "A Year Without Winter", size: "55 MB"),
+        SelectAllChecklistDemoEpisode(id: 4, title: "Night Trains", size: "39 MB"),
+        SelectAllChecklistDemoEpisode(id: 5, title: "The Last Lighthouse", size: "71 MB"),
+    ]
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Downloads")
+                    .font(.largeTitle.bold())
+
+                SelectAllChecklist(title: "All Episodes", items: episodes, selection: $selection, color: .teal) { episode in
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(episode.title)
+                        Text(episode.size)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 20, style: .continuous))
+            }
+            .padding(20)
+        }
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    SelectAllChecklistDemo()
+}
+```
+
+## Settings Toggle Row
+
+A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.
+
+Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/SettingsToggleRow/SettingsToggleRow.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// A settings row like the ones in the Settings app: a symbol on a colored
+/// rounded square, a title, an optional subtitle and a switch. It is a plain
+/// `Toggle`, so it works in a `List` or a `Form` and reads as one switch in VoiceOver.
+///
+/// The symbol bounces when the switch turns on, except with Reduce Motion on.
+struct SettingsToggleRow: View {
+    let title: LocalizedStringResource
+    var subtitle: LocalizedStringResource?
+    let systemImage: String
+    var iconColor: Color = .blue
+    @Binding var isOn: Bool
+
+    @State private var bounces = 0
+    @ScaledMetric(relativeTo: .body) private var iconSize = 30.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        Toggle(isOn: $isOn) {
+            HStack(spacing: 14) {
+                Image(systemName: systemImage)
+                    .font(.system(size: iconSize * 0.55, weight: .semibold))
+                    .foregroundStyle(SettingsToggleRowContrastingForeground(background: iconColor))
+                    .symbolEffect(.bounce, value: bounces)
+                    .frame(width: iconSize, height: iconSize)
+                    .background(iconColor.gradient, in: .rect(cornerRadius: iconSize * 0.26, style: .continuous))
+                    .accessibilityHidden(true)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                    if let subtitle {
+                        Text(subtitle)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
+        .onChange(of: isOn) { _, on in
+            if on, !reduceMotion { bounces += 1 }
+        }
+    }
+}
+
+nonisolated struct SettingsToggleRowContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct SettingsToggleRowDemo: View {
+    @State private var airplaneMode = false
+    @State private var wifi = true
+    @State private var bluetooth = true
+    @State private var doNotDisturb = false
+    @State private var lowPower = false
+    @State private var previews = true
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    SettingsToggleRow(title: "Airplane Mode", systemImage: "airplane", iconColor: .orange, isOn: $airplaneMode)
+                    SettingsToggleRow(title: "Wi-Fi", systemImage: "wifi", isOn: $wifi)
+                    SettingsToggleRow(title: "Bluetooth", systemImage: "antenna.radiowaves.left.and.right", isOn: $bluetooth)
+                }
+
+                Section {
+                    SettingsToggleRow(
+                        title: "Do Not Disturb",
+                        subtitle: "Silence calls and alerts",
+                        systemImage: "moon.fill",
+                        iconColor: .indigo,
+                        isOn: $doNotDisturb
+                    )
+                    SettingsToggleRow(
+                        title: "Low Power Mode",
+                        subtitle: "Reduce background activity",
+                        systemImage: "battery.25percent",
+                        iconColor: .yellow,
+                        isOn: $lowPower
+                    )
+                    SettingsToggleRow(title: "Show Previews", systemImage: "text.bubble.fill", iconColor: .green, isOn: $previews)
+                }
+            }
+            .navigationTitle("Settings")
+        }
+    }
+}
+
+#Preview {
+    SettingsToggleRowDemo()
 }
 ```
 
@@ -12686,6 +13139,180 @@ struct TickMarkSliderDemo: View {
 @available(iOS 26, *)
 #Preview {
     TickMarkSliderDemo()
+}
+```
+
+## Weekday Segmented Picker
+
+A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.
+
+Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+struct WeekdaySegmentedPickerDay: Identifiable, Equatable {
+    /// The `Calendar` weekday number: 1 is Sunday and 7 is Saturday.
+    let weekday: Int
+    let letter: String
+    let name: String
+    let shortName: String
+
+    var id: Int { weekday }
+}
+
+enum WeekdaySegmentedPickerSummary: Equatable {
+    case never, everyDay, weekdays, weekends
+    case days([Int])
+}
+
+enum WeekdaySegmentedPickerCalendar {
+    /// The seven days in the order of the calendar, starting at its first weekday.
+    static func days(for calendar: Calendar) -> [WeekdaySegmentedPickerDay] {
+        let letters = calendar.veryShortStandaloneWeekdaySymbols
+        let names = calendar.standaloneWeekdaySymbols
+        let shortNames = calendar.shortStandaloneWeekdaySymbols
+
+        return (0..<7).map { offset in
+            let index = (calendar.firstWeekday - 1 + offset) % 7
+            return WeekdaySegmentedPickerDay(weekday: index + 1, letter: letters[index], name: names[index], shortName: shortNames[index])
+        }
+    }
+
+    /// Names a selection the way an alarm does. Saturday and Sunday make the weekend.
+    static func summary(of selection: Set<Int>, order: [Int]) -> WeekdaySegmentedPickerSummary {
+        let chosen = order.filter(selection.contains)
+        switch Set(chosen) {
+        case []: return .never
+        case Set(1...7): return .everyDay
+        case Set(2...6): return .weekdays
+        case [1, 7]: return .weekends
+        default: return .days(chosen)
+        }
+    }
+}
+
+/// A row of round day buttons that picks several days of the week, like the
+/// repeat days of an alarm, with a summary such as "Weekdays" under it.
+/// The days follow the calendar: its first weekday and its own letters.
+///
+/// The selection holds `Calendar` weekday numbers, 1 for Sunday. With Reduce
+/// Motion on, a day changes color without popping.
+struct WeekdaySegmentedPicker: View {
+    @Binding var selection: Set<Int>
+    var calendar: Calendar = .current
+    var color: Color = .accentColor
+    var showsSummary = true
+
+    @ScaledMetric(relativeTo: .body) private var size = 40.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var days: [WeekdaySegmentedPickerDay] {
+        WeekdaySegmentedPickerCalendar.days(for: calendar)
+    }
+
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 0) {
+                ForEach(days) { day in
+                    dayButton(day)
+                }
+            }
+
+            if showsSummary {
+                summaryText
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .contentTransition(.opacity)
+                    .animation(.easeInOut(duration: 0.2), value: selection)
+            }
+        }
+        .sensoryFeedback(.selection, trigger: selection)
+    }
+
+    private func dayButton(_ day: WeekdaySegmentedPickerDay) -> some View {
+        let isSelected = selection.contains(day.weekday)
+
+        return Button {
+            if isSelected { selection.remove(day.weekday) } else { selection.insert(day.weekday) }
+        } label: {
+            Text(day.letter)
+                .font(.subheadline.weight(.semibold))
+                .minimumScaleFactor(0.6)
+                .foregroundStyle(isSelected ? AnyShapeStyle(WeekdaySegmentedPickerContrastingForeground(background: color)) : AnyShapeStyle(.primary))
+                .frame(maxWidth: size, maxHeight: size)
+                .aspectRatio(1, contentMode: .fit)
+                .background(isSelected ? AnyShapeStyle(color) : AnyShapeStyle(.quaternary), in: .circle)
+                .scaleEffect(isSelected && !reduceMotion ? 1.06 : 1)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .animation(reduceMotion ? .easeInOut(duration: 0.15) : .spring(duration: 0.3, bounce: 0.5), value: isSelected)
+        .accessibilityLabel(day.name)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private var summaryText: Text {
+        switch WeekdaySegmentedPickerCalendar.summary(of: selection, order: days.map(\.weekday)) {
+        case .never: Text("Never")
+        case .everyDay: Text("Every day")
+        case .weekdays: Text("Weekdays")
+        case .weekends: Text("Weekends")
+        case .days(let weekdays):
+            Text(days.filter { weekdays.contains($0.weekday) }.map(\.shortName).formatted(.list(type: .and)))
+        }
+    }
+}
+
+nonisolated struct WeekdaySegmentedPickerContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct WeekdaySegmentedPickerDemo: View {
+    @State private var alarmDays: Set<Int> = [2, 4]
+    @State private var gymDays: Set<Int> = [3, 5, 7]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Repeat")
+                .font(.largeTitle.bold())
+
+            VStack(alignment: .leading, spacing: 14) {
+                Label("7:30 Wake Up", systemImage: "alarm.fill")
+                    .font(.headline)
+                WeekdaySegmentedPicker(selection: $alarmDays, color: .orange)
+            }
+            .padding(18)
+            .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 22, style: .continuous))
+
+            VStack(alignment: .leading, spacing: 14) {
+                Label("Workout", systemImage: "figure.run")
+                    .font(.headline)
+                WeekdaySegmentedPicker(selection: $gymDays, color: .mint)
+            }
+            .padding(18)
+            .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 22, style: .continuous))
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    WeekdaySegmentedPickerDemo()
 }
 ```
 

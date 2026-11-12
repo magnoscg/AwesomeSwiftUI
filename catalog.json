@@ -1,5 +1,5 @@
 {
-  "count": 292,
+  "count": 296,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2942,6 +2942,48 @@
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
     },
     {
+      "id": "icon-switch-toggle-style",
+      "name": "IconSwitchToggleStyle",
+      "title": "Icon Switch Toggle Style",
+      "category": "Controls",
+      "summary": "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+      "keywords": {
+        "en": [
+          "switch",
+          "toggle",
+          "toggle style",
+          "icon",
+          "symbol",
+          "knob",
+          "on off",
+          "settings"
+        ],
+        "es": [
+          "interruptor",
+          "toggle",
+          "estilo de toggle",
+          "icono",
+          "símbolo",
+          "encendido apagado",
+          "ajustes"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ToggleStyle",
+        "contentTransition",
+        "symbolEffect",
+        "accessibilityRepresentation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift",
+      "preview": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift"
+    },
+    {
       "id": "range-slider",
       "name": "RangeSlider",
       "title": "Range Slider",
@@ -3026,6 +3068,91 @@
       "path": "Components/Controls/RulerScrollPicker/RulerScrollPicker.swift",
       "preview": "Components/Controls/RulerScrollPicker/RulerScrollPicker.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
+    },
+    {
+      "id": "select-all-checklist",
+      "name": "SelectAllChecklist",
+      "title": "Select All Checklist",
+      "category": "Controls",
+      "summary": "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+      "keywords": {
+        "en": [
+          "select all",
+          "checklist",
+          "checkbox",
+          "mixed",
+          "indeterminate",
+          "tri-state",
+          "multi-select",
+          "selection"
+        ],
+        "es": [
+          "seleccionar todo",
+          "lista de verificación",
+          "casilla",
+          "mixto",
+          "indeterminado",
+          "tres estados",
+          "selección múltiple"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Identifiable",
+        "Set",
+        "sensoryFeedback",
+        "trim"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/SelectAllChecklist/SelectAllChecklist.swift",
+      "preview": "Components/Controls/SelectAllChecklist/SelectAllChecklist.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SelectAllChecklist/SelectAllChecklist.swift"
+    },
+    {
+      "id": "settings-toggle-row",
+      "name": "SettingsToggleRow",
+      "title": "Settings Toggle Row",
+      "category": "Controls",
+      "summary": "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+      "keywords": {
+        "en": [
+          "settings",
+          "toggle row",
+          "switch",
+          "list row",
+          "form",
+          "preferences",
+          "icon",
+          "Settings app"
+        ],
+        "es": [
+          "ajustes",
+          "fila de ajustes",
+          "interruptor",
+          "fila",
+          "formulario",
+          "preferencias",
+          "icono",
+          "app Ajustes"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Toggle",
+        "List",
+        "symbolEffect",
+        "Color.gradient"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/SettingsToggleRow/SettingsToggleRow.swift",
+      "preview": "Components/Controls/SettingsToggleRow/SettingsToggleRow.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SettingsToggleRow/SettingsToggleRow.swift"
     },
     {
       "id": "sliding-segmented-picker",
@@ -3186,6 +3313,49 @@
       "path": "Components/Controls/TickMarkSlider/TickMarkSlider.swift",
       "preview": "Components/Controls/TickMarkSlider/TickMarkSlider.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
+    },
+    {
+      "id": "weekday-segmented-picker",
+      "name": "WeekdaySegmentedPicker",
+      "title": "Weekday Segmented Picker",
+      "category": "Controls",
+      "summary": "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+      "keywords": {
+        "en": [
+          "weekday picker",
+          "days of the week",
+          "multi-select",
+          "segmented",
+          "alarm",
+          "repeat",
+          "schedule",
+          "recurrence"
+        ],
+        "es": [
+          "selector de días",
+          "días de la semana",
+          "selección múltiple",
+          "segmentado",
+          "alarma",
+          "repetir",
+          "horario",
+          "recurrencia"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Calendar",
+        "veryShortStandaloneWeekdaySymbols",
+        "ListFormatStyle",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift",
+      "preview": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift"
     },
     {
       "id": "drawing-pad-speed-brush",

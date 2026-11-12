@@ -657,6 +657,15 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "icon-switch-toggle-style",
+            title: "Icon Switch Toggle Style",
+            category: "Controls",
+            summary: "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+            keywords: ["switch", "toggle", "toggle style", "icon", "symbol", "knob", "on off", "settings", "interruptor", "toggle", "estilo de toggle", "icono", "símbolo", "encendido apagado", "ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(IconSwitchToggleStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "range-slider",
             title: "Range Slider",
             category: "Controls",
@@ -673,6 +682,24 @@ enum ComponentRegistry {
             keywords: ["ruler", "picker", "scroll", "slider", "weight", "number", "tick marks", "snap", "regla", "selector", "desplazamiento", "deslizador", "peso", "número", "marcas"],
             minIOS: "18.0",
             demo: { AnyView(RulerScrollPickerDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "select-all-checklist",
+            title: "Select All Checklist",
+            category: "Controls",
+            summary: "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+            keywords: ["select all", "checklist", "checkbox", "mixed", "indeterminate", "tri-state", "multi-select", "selection", "seleccionar todo", "lista de verificación", "casilla", "mixto", "indeterminado", "tres estados", "selección múltiple"],
+            minIOS: "18.0",
+            demo: { AnyView(SelectAllChecklistDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "settings-toggle-row",
+            title: "Settings Toggle Row",
+            category: "Controls",
+            summary: "A settings row with a symbol on a colored rounded square, a title, an optional subtitle and a switch, like the Settings app.",
+            keywords: ["settings", "toggle row", "switch", "list row", "form", "preferences", "icon", "Settings app", "ajustes", "fila de ajustes", "interruptor", "fila", "formulario", "preferencias", "icono", "app Ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(SettingsToggleRowDemo()) }
         ),
         ShowcaseEntry(
             id: "sliding-segmented-picker",
@@ -712,6 +739,15 @@ enum ComponentRegistry {
                 guard #available(iOS 26.0, *) else { return nil }
                 return AnyView(TickMarkSliderDemo())
             }
+        ),
+        ShowcaseEntry(
+            id: "weekday-segmented-picker",
+            title: "Weekday Segmented Picker",
+            category: "Controls",
+            summary: "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+            keywords: ["weekday picker", "days of the week", "multi-select", "segmented", "alarm", "repeat", "schedule", "recurrence", "selector de días", "días de la semana", "selección múltiple", "segmentado", "alarma", "repetir", "horario", "recurrencia"],
+            minIOS: "18.0",
+            demo: { AnyView(WeekdaySegmentedPickerDemo()) }
         ),
         ShowcaseEntry(
             id: "drawing-pad-speed-brush",

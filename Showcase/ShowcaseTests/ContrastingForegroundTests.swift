@@ -31,10 +31,13 @@ struct ContrastingForegroundTests {
         ("PulseRingButton", { PulseRingButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ScrollToTopButton", { ScrollToTopButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("SlotMachineReels", { SlotMachineReelsContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("SelectAllChecklist", { SelectAllChecklistContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("SettingsToggleRow", { SettingsToggleRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ShrinkingExtendedButton", { ShrinkingExtendedButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("SwipeActionRow", { SwipeActionRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("TooltipPopover", { TooltipPopoverContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("VerticalTimeline", { VerticalTimelineContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("WeekdaySegmentedPicker", { WeekdaySegmentedPickerContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
     ]
 
     @Test(arguments: styles.indices)
