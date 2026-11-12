@@ -168,6 +168,15 @@ enum ComponentRegistry {
             demo: { AnyView(AsyncActionButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "badged-icon-button",
+            title: "Badged Icon Button",
+            category: "Buttons",
+            summary: "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+            keywords: ["badge", "icon button", "notification badge", "bell", "cart", "count", "unread", "toolbar", "insignia", "globo", "botón de icono", "notificaciones", "campana", "carrito", "contador", "no leídos"],
+            minIOS: "18.0",
+            demo: { AnyView(BadgedIconButtonDemo()) }
+        ),
+        ShowcaseEntry(
             id: "button-variant-style",
             title: "Button Variant Style",
             category: "Buttons",

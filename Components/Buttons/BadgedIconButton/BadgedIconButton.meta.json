@@ -1,0 +1,15 @@
+{
+  "id": "badged-icon-button",
+  "name": "BadgedIconButton",
+  "title": "Badged Icon Button",
+  "category": "Buttons",
+  "summary": "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+  "keywords": {
+    "en": ["badge", "icon button", "notification badge", "bell", "cart", "count", "unread", "toolbar"],
+    "es": ["insignia", "globo", "botón de icono", "notificaciones", "campana", "carrito", "contador", "no leídos"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["symbolEffect", "contentTransition", "alignmentGuide", "ScaledMetric"],
+  "origin": { "kind": "original" }
+}

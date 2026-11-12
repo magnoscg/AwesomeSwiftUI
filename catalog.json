@@ -1,5 +1,5 @@
 {
-  "count": 290,
+  "count": 291,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -727,6 +727,49 @@
       "path": "Components/Buttons/AsyncActionButton/AsyncActionButton.swift",
       "preview": "Components/Buttons/AsyncActionButton/AsyncActionButton.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/AsyncActionButton/AsyncActionButton.swift"
+    },
+    {
+      "id": "badged-icon-button",
+      "name": "BadgedIconButton",
+      "title": "Badged Icon Button",
+      "category": "Buttons",
+      "summary": "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+      "keywords": {
+        "en": [
+          "badge",
+          "icon button",
+          "notification badge",
+          "bell",
+          "cart",
+          "count",
+          "unread",
+          "toolbar"
+        ],
+        "es": [
+          "insignia",
+          "globo",
+          "botón de icono",
+          "notificaciones",
+          "campana",
+          "carrito",
+          "contador",
+          "no leídos"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "symbolEffect",
+        "contentTransition",
+        "alignmentGuide",
+        "ScaledMetric"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/BadgedIconButton/BadgedIconButton.swift",
+      "preview": "Components/Buttons/BadgedIconButton/BadgedIconButton.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/BadgedIconButton/BadgedIconButton.swift"
     },
     {
       "id": "button-variant-style",
