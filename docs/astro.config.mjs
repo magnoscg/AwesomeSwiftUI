@@ -15,11 +15,13 @@ export default defineConfig({
         { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
         { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://magnoscg.github.io/swiftui-components/social-card.png' } },
       ],
-      customCss: ['./src/styles/custom.css'],
-      social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/magnoscg/swiftui-components' }],
+      customCss: ['@fontsource-variable/outfit', './src/styles/custom.css'],
+      components: { Header: './src/components/Header.astro' },
       sidebar: [
         { label: 'Start here', items: ['getting-started', 'for-ai-agents'] },
-        { label: 'Catalog', items: [{ autogenerate: { directory: 'catalog' } }] },
+        { label: 'Reference', items: ['rules', 'accessibility', 'contributing', 'changelog'] },
+        // 288 names do not fit in a sidebar: each category opens on demand.
+        { label: 'Catalog', items: [{ autogenerate: { directory: 'catalog', collapsed: true } }] },
       ],
     }),
   ],
