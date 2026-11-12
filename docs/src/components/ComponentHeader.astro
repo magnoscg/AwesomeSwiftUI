@@ -1,0 +1,273 @@
+---
+// The top of the page of a component: its preview on a stage, what it needs,
+// and the three ways to take it. Copying the code reads it from the block
+// below, so the page holds one copy of the source.
+import { components, previewURL, SITE_BASE } from '../lib/catalog';
+
+interface Props {
+  id: string;
+}
+
+const component = components.find((candidate) => candidate.id === Astro.props.id);
+if (!component) throw new Error(`No component with the id "${Astro.props.id}" in catalog.json.`);
+
+const { name, title, summary, category, minIOS, difficulty, apis, origin, rawURL, shaderRawURL } = component;
+const keywords = [...component.keywords.en, ...component.keywords.es];
+// The address of an origin comes from the metadata as written. Only a web address becomes a link.
+const originURL = 'url' in origin && /^https?:\/\//.test(origin.url) ? origin.url : undefined;
+
+// What a coding agent needs to add the component without opening this page.
+const prompt = [
+  `Add the SwiftUI component "${title}" to my project.`,
+  `Download ${rawURL} into a new file named ${name}.swift and keep its license header.`,
+  shaderRawURL
+    ? `It draws with a Metal shader: also download ${shaderRawURL} into ${name}.metal, in the same target.`
+    : undefined,
+  `It needs iOS ${minIOS} or later, so compare that with my deployment target first.`,
+  `Its ${name}Demo view and its #Preview show how it is used. Use it where I ask, then remove the demo and the preview.`,
+]
+  .filter((line) => line !== undefined)
+  .join('\n');
+---
+
+<section class="component-header not-content">
+  <p class="summary">{summary}</p>
+
+  <div class="stage">
+    <img src={previewURL(component)} alt={`${title}, playing`} width="320" height="696" decoding="async" />
+  </div>
+
+  <div class="details">
+    <ul class="facts">
+      <li>
+        <a href={`${SITE_BASE}/catalog/?category=${encodeURIComponent(category)}`}>{category}</a>
+      </li>
+      <li>iOS {minIOS}+</li>
+      <li class="level">{difficulty}</li>
+      {component.shader && <li>Metal shader</li>}
+    </ul>
+
+    <div class="actions">
+      <button type="button" class="primary" data-copy-code data-done="Copied">Copy code</button>
+      <a href={rawURL} download={`${name}.swift`}>Download .swift</a>
+      {shaderRawURL && <a href={shaderRawURL} download={`${name}.metal`}>Download .metal</a>}
+      <button type="button" data-copy={prompt} data-done="Copied">Copy prompt for your agent</button>
+    </div>
+
+    <dl>
+      <div>
+        <dt>Uses</dt>
+        <dd class="apis">
+          {
+            apis.map((api) => (
+              <a href={`${SITE_BASE}/catalog/?api=${encodeURIComponent(api)}`}>
+                <code>{api}</code>
+              </a>
+            ))
+          }
+        </dd>
+      </div>
+      <div>
+        <dt>Origin</dt>
+        <dd>
+          {origin.kind === 'original' && 'Original work'}
+          {
+            origin.kind === 'inspired' && (
+              <>
+                Inspired by {originURL ? <a href={originURL}>{origin.credit}</a> : origin.credit}, written from scratch
+              </>
+            )
+          }
+          {
+            origin.kind === 'adapted' && (
+              <>
+                Adapted from {originURL ? <a href={originURL}>its source</a> : 'its source'}, {origin.license}
+              </>
+            )
+          }
+        </dd>
+      </div>
+      <div>
+        <dt>Found by</dt>
+        <dd class="keywords">{keywords.join(' · ')}</dd>
+      </div>
+    </dl>
+  </div>
+  <p class="sr-only" role="status" data-copy-status></p>
+</section>
+
+<script>
+  import '../lib/copy';
+</script>
+
+<style>
+  .component-header {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .summary {
+    max-width: 44rem;
+    font-size: var(--sl-text-lg);
+    line-height: 1.5;
+    color: var(--sl-color-gray-2);
+  }
+
+  /* The preview stands on a field of dots, lit from above, like a thing on a table. */
+  .stage {
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 1.25rem;
+    background:
+      radial-gradient(24rem 14rem at 50% 0, color-mix(in srgb, var(--sl-color-white) 7%, transparent), transparent 70%),
+      radial-gradient(circle, var(--sl-color-gray-5) 1px, transparent 1.5px) 0 0 / 1.25rem 1.25rem,
+      var(--sl-color-gray-6);
+  }
+
+  .stage img {
+    width: min(100%, 13rem);
+    height: auto;
+    border-radius: 2rem;
+    border: 1px solid var(--sl-color-gray-5);
+    box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  }
+
+  .details {
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .facts,
+  .actions,
+  .apis {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .facts {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .facts li {
+    padding: 0.2rem 0.7rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 999px;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-1);
+  }
+
+  .facts .level {
+    text-transform: capitalize;
+  }
+
+  .facts a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .facts li:has(a):hover {
+    border-color: var(--sl-color-gray-3);
+  }
+
+  .actions > * {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.7rem;
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .actions > *:hover {
+    border-color: var(--sl-color-gray-3);
+  }
+
+  .actions .primary {
+    border-color: var(--sl-color-white);
+    color: var(--sl-color-black);
+    background: var(--sl-color-white);
+  }
+
+  .actions [data-copied] {
+    border-color: var(--brand-2);
+  }
+
+  dl {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+  }
+
+  dt {
+    margin-bottom: 0.3rem;
+    font-size: var(--sl-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sl-color-gray-3);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  dd a {
+    color: var(--sl-color-white);
+  }
+
+  .apis a {
+    text-decoration: none;
+  }
+
+  .apis code {
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.4rem;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-1);
+    background: var(--sl-color-gray-5);
+  }
+
+  .apis a:hover code {
+    color: var(--sl-color-white);
+  }
+
+  .keywords {
+    line-height: 1.7;
+    color: var(--sl-color-gray-3);
+  }
+
+  /* With room, the stage stands beside the details. */
+  @media (min-width: 60rem) {
+    .component-header {
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+      column-gap: 2rem;
+    }
+
+    .summary {
+      grid-column: 1 / -1;
+    }
+
+    .stage img {
+      width: min(100%, 17rem);
+    }
+  }
+</style>

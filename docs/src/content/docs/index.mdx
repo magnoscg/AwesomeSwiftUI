@@ -3,6 +3,10 @@ title: Awesome SwiftUI Components
 description: Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.
 template: splash
 hero:
+  title: Awesome <span>SwiftUI</span> Components
+  image:
+    file: ../../../../.github/readme/logo.svg
+    alt: ""
   tagline: Copy-paste components, animations and transitions for iOS 18 through iOS 27. One Swift file each, and nothing to install.
   actions:
     - text: Browse the catalog
@@ -13,10 +17,14 @@ hero:
       variant: minimal
 ---
 
+import AgentPrompt from '../../components/AgentPrompt.astro';
+import CatalogSearch from '../../components/CatalogSearch.astro';
 import CategoryCloud from '../../components/CategoryCloud.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import LandingStats from '../../components/LandingStats.astro';
 import PreviewMarquee from '../../components/PreviewMarquee.astro';
+
+<CatalogSearch />
 
 <PreviewMarquee />
 
@@ -42,11 +50,7 @@ PulseRingButton(systemImage: "mic.fill", label: "Record") {
 Point your agent at the index and ask for what you need. It reads the
 summary of every component, picks one and fetches its file.
 
-```text
-Find a SwiftUI component for <what you need> in
-https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
-and copy its file into my project.
-```
+<AgentPrompt />
 
 [How agents use the catalog](/swiftui-components/for-ai-agents/)
 

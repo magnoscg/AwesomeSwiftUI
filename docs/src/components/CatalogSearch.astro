@@ -1,0 +1,235 @@
+---
+// A search on the landing page: describe what you need, in English or
+// Spanish, and it lists the components that fit. It reads catalog.json the
+// first time the field is used. Without JavaScript it is a form that opens
+// the catalog with the same words.
+import { count, SITE_BASE } from '../lib/catalog';
+---
+
+<form class="catalog-search not-content" action={`${SITE_BASE}/catalog/`} role="search" data-catalog={`${SITE_BASE}/catalog.json`} data-base={SITE_BASE}>
+  <label for="catalog-search-field">Describe what you need</label>
+  <div class="field">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="m20 20-3.5-3.5"></path>
+    </svg>
+    <input id="catalog-search-field" type="search" name="q" autocomplete="off" placeholder={`${count} components: “wallet cards”, “botón que brilla”…`} />
+  </div>
+  <p class="sr-only" role="status" data-status></p>
+  <ul data-results hidden></ul>
+</form>
+
+<script>
+  interface Entry {
+    id: string;
+    title: string;
+    summary: string;
+    category: string;
+    minIOS: string;
+    apis: string[];
+    keywords: { en: string[]; es: string[] };
+  }
+
+  const form = document.querySelector<HTMLFormElement>('.catalog-search');
+  const input = form?.querySelector<HTMLInputElement>('input');
+  const results = form?.querySelector<HTMLUListElement>('[data-results]');
+  const status = form?.querySelector<HTMLElement>('[data-status]');
+
+  if (form && input && results && status) {
+    // "botón" and "boton" are the same word to someone typing.
+    const plain = (text: string) =>
+      text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+
+    const EMPTY_WORDS = new Set(['que', 'de', 'la', 'el', 'un', 'una', 'con', 'para', 'the', 'that', 'with', 'for', 'and', 'of']);
+
+    let entries: { entry: Entry; title: string; keywords: string; rest: string }[] | undefined;
+    const load = async () => {
+      if (entries) return entries;
+      const response = await fetch(form.dataset.catalog!);
+      const catalog = (await response.json()) as { components: Entry[] };
+      entries = catalog.components.map((entry) => ({
+        entry,
+        title: plain(entry.title),
+        keywords: plain([...entry.keywords.en, ...entry.keywords.es].join(' ')),
+        rest: plain([entry.summary, entry.category, ...entry.apis].join(' ')),
+      }));
+      return entries;
+    };
+
+    const search = async () => {
+      // Words that say nothing are left out, and an ending is dropped so "brilla" finds "brillo".
+      const words = plain(input.value)
+        .split(/\s+/)
+        .filter((word) => word.length > 1 && !EMPTY_WORDS.has(word))
+        .map((word) => (word.length > 4 ? word.replace(/(es|s|a|o|e)$/, '') : word));
+      if (words.length === 0) {
+        results.hidden = true;
+        status.textContent = '';
+        return;
+      }
+      let found;
+      try {
+        found = (await load())
+          .map((candidate) => {
+            let score = 0;
+            let matched = 0;
+            for (const word of words) {
+              const points =
+                (candidate.title.includes(word) ? 3 : 0) +
+                (candidate.keywords.includes(word) ? 2 : 0) +
+                (candidate.rest.includes(word) ? 1 : 0);
+              if (points > 0) matched += 1;
+              score += points;
+            }
+            return { entry: candidate.entry, score, matched };
+          })
+          .filter((candidate) => candidate.matched > 0)
+          .sort((a, b) => b.matched - a.matched || b.score - a.score)
+          .slice(0, 6);
+      } catch {
+        // The form still opens the catalog with these words.
+        return;
+      }
+
+      results.replaceChildren(
+        ...found.map(({ entry }) => {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `${form.dataset.base}/catalog/${entry.category.toLowerCase()}/${entry.id}/`;
+          const title = document.createElement('strong');
+          title.textContent = entry.title;
+          const summary = document.createElement('span');
+          summary.textContent = entry.summary;
+          const facts = document.createElement('small');
+          facts.textContent = `${entry.category} · iOS ${entry.minIOS}+`;
+          link.append(title, facts, summary);
+          item.append(link);
+          return item;
+        }),
+      );
+      if (found.length === 0) {
+        const item = document.createElement('li');
+        item.className = 'none';
+        item.textContent = 'Nothing fits those words. Try others, or browse the catalog.';
+        results.append(item);
+      }
+      results.hidden = false;
+      status.textContent = found.length === 1 ? '1 component' : `${found.length} components`;
+    };
+
+    input.addEventListener('focus', () => void load().catch(() => {}), { once: true });
+    input.addEventListener('input', () => void search());
+  }
+</script>
+
+<style is:global>
+  /* Global, under the form: the results are built in the browser, where scoped styles do not reach. */
+  .catalog-search {
+    max-width: 40rem;
+    margin: 2rem auto 0;
+  }
+
+  .catalog-search label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .catalog-search .field {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-inline: 1rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.9rem;
+    color: var(--sl-color-gray-3);
+    background: var(--sl-color-gray-6);
+    transition: border-color 0.2s ease;
+  }
+
+  .catalog-search .field:focus-within {
+    border-color: var(--sl-color-gray-3);
+  }
+
+  .catalog-search input {
+    flex: 1;
+    min-width: 0;
+    height: 3.25rem;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    font-size: var(--sl-text-base);
+    color: var(--sl-color-white);
+    background: none;
+  }
+
+  .catalog-search input::placeholder {
+    color: var(--sl-color-gray-3);
+  }
+
+  .catalog-search ul {
+    display: grid;
+    gap: 1px;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.9rem;
+    background: var(--sl-color-gray-5);
+    overflow: hidden;
+    text-align: start;
+  }
+
+  .catalog-search ul[hidden] {
+    display: none;
+  }
+
+  .catalog-search li {
+    background: var(--sl-color-black);
+  }
+
+  .catalog-search li.none {
+    padding: 0.9rem 1rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .catalog-search li a {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.1rem 1rem;
+    padding: 0.7rem 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .catalog-search li a:hover,
+  .catalog-search li a:focus-visible {
+    background: var(--sl-color-gray-6);
+  }
+
+  .catalog-search li strong {
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .catalog-search li small {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+
+  .catalog-search li span {
+    grid-column: 1 / -1;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

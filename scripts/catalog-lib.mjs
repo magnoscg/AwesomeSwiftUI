@@ -34,8 +34,8 @@ export const CATEGORY_PAGES = 'catalog';
 const SITE_BASE = '/swiftui-components';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
-// Longer than any run of backticks a Swift file is likely to hold.
-const SOURCE_FENCE = '`````';
+const BASELINE_IOS = 18;
+const SHORTEST_FENCE = 5;
 const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
 const REGISTRY_PATH ='Showcase/Showcase/Generated/ComponentRegistry.swift';
 const README_START = '<!-- catalog:start -->';
@@ -115,6 +115,12 @@ function reportUntranslatedCounts(root, components, errors) {
 }
 
 function loadComponent(root, relative, category, name, files, errors, requirePreview) {
+  // The name becomes a type, a file and text in the pages of the site, which
+  // are MDX: anything but letters and numbers could be run when it is built.
+  if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {
+    errors.push(`${relative}: the component folder must be one word of letters and numbers, got "${name}"`);
+    return null;
+  }
   const metaFile = `${name}.meta.json`;
   const sourceFile = `${name}.swift`;
   const shaderFile = `${name}.metal`;
@@ -232,6 +238,10 @@ function validateOrigin(origin, fail) {
   if (origin.kind === 'adapted') {
     if (!isText(origin.url)) fail('"origin.url" must link the adapted source');
     if (!isText(origin.license)) fail('"origin.license" must name the license of the source');
+  }
+  // The site turns it into a link, so it has to be one a person can follow safely.
+  if (isText(origin.url) && !/^https?:\/\/\S+$/.test(origin.url)) {
+    fail(`"origin.url" must be a web address that starts with https:// or http://, got "${origin.url}"`);
   }
 }
 
@@ -472,7 +482,7 @@ export function componentsNewerThan(components, major) {
 export function renderDocsPages(components) {
   const pages = new Map([[`${DOCS_CATALOG}/index.mdx`, renderDocsIndex(components)]]);
   for (const component of components) {
-    pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.md`, renderDocsPage(component));
+    pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.mdx`, renderDocsPage(component));
   }
   return pages;
 }
@@ -519,27 +529,23 @@ function renderDocsIndex(components) {
   ].join('\n');
 }
 
+// The page of a component. What it shows above the code, the preview, the
+// details and the buttons, is drawn by a component of the site from
+// catalog.json, so the page only names the component and carries its source.
 function renderDocsPage(component) {
-  const keywords = [...component.keywords.en, ...component.keywords.es].map(escapeHTML).join(', ');
-  const apis = component.apis.map((api) => `\`${api}\``).join(', ');
+  const major = Number(component.minIOS.split('.')[0]);
+  // The sidebar marks what does not run on the baseline.
+  const badge = major > BASELINE_IOS ? ['sidebar:', '  badge:', `    text: iOS ${major}`] : [];
   return [
     '---',
     `title: ${JSON.stringify(component.title)}`,
     `description: ${JSON.stringify(component.summary)}`,
+    ...badge,
     '---',
     '',
-    escapeHTML(component.summary),
+    "import ComponentHeader from '../../../../components/ComponentHeader.astro';",
     '',
-    `<img src="${docsPreview(component)}" alt="${escapeAttribute(component.title)} preview" width="320" loading="lazy">`,
-    '',
-    '| | |',
-    '|---|---|',
-    `| Category | ${component.category} |`,
-    `| Minimum iOS | ${component.minIOS} |`,
-    `| Level | ${component.difficulty} |`,
-    `| APIs | ${apis} |`,
-    `| Origin | ${renderDocsOrigin(component.origin)} |`,
-    `| Keywords | ${escapeCell(keywords)} |`,
+    `<ComponentHeader id="${component.id}" />`,
     '',
     '## Use it',
     '',
@@ -547,8 +553,17 @@ function renderDocsPage(component) {
   ].join('\n');
 }
 
+// A fence longer than any run of backticks in the source it holds. The pages
+// are MDX, where a source that closed its own block would be run as code
+// when the site is built.
+function sourceFence(source) {
+  const longest = Math.max(0, ...(source.match(/`+/g) ?? []).map((run) => run.length));
+  return '`'.repeat(Math.max(SHORTEST_FENCE, longest + 1));
+}
+
 function renderDocsSource(component) {
-  const swift = [`${SOURCE_FENCE}swift title="${component.name}.swift"`, component.source.trimEnd(), SOURCE_FENCE, ''];
+  const swiftFence = sourceFence(component.source);
+  const swift = [`${swiftFence}swift title="${component.name}.swift"`, component.source.trimEnd(), swiftFence, ''];
   if (!component.shader) {
     return [`Copy this code into your project, or [download the file](${RAW_BASE}/${component.path}).`, '', ...swift];
   }
@@ -557,17 +572,11 @@ function renderDocsSource(component) {
     '',
     ...swift,
     // The site has no grammar for Metal, which is C++.
-    `${SOURCE_FENCE}cpp title="${component.name}.metal"`,
+    `${sourceFence(component.shaderSource)}cpp title="${component.name}.metal"`,
     component.shaderSource.trimEnd(),
-    SOURCE_FENCE,
+    sourceFence(component.shaderSource),
     '',
   ];
-}
-
-function renderDocsOrigin(origin) {
-  if (origin.kind === 'original') return 'Original';
-  if (origin.kind === 'adapted') return `Adapted from [the source](${origin.url}), ${escapeHTML(origin.license)}`;
-  return `Inspired by [${escapeHTML(origin.credit)}](${origin.url})`;
 }
 
 // Served from the repository, not the site: the previews make the site too big
@@ -718,10 +727,6 @@ function withoutLineComments(source) {
 
 function escapeCell(text) {
   return text.replaceAll('|', '\\|');
-}
-
-function escapeHTML(text) {
-  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
 function escapeAttribute(text) {
