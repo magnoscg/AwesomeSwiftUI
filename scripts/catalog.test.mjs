@@ -704,7 +704,7 @@ describe('components for an older SDK', () => {
 
 describe('the documentation site', () => {
   const INDEX = 'docs/src/content/docs/catalog/index.mdx';
-  const PAGE = 'docs/src/content/docs/catalog/Buttons/glow-button.md';
+  const PAGE = 'docs/src/content/docs/catalog/Buttons/glow-button.mdx';
 
   function docsFor(metadata = meta(), source = swift()) {
     const root = makeRoot();
@@ -754,17 +754,28 @@ describe('the documentation site', () => {
     assert.equal(galleryItems(index)[0].summary, 'Uses {braces} and <tags>.');
   });
 
-  it('gives each component a page with its keywords and source', () => {
+  it('gives each component a page that names it and carries its source', () => {
     const page = docsFor().pages.get(PAGE);
 
     assert.match(page, /^---\ntitle: "Glow Button"\ndescription: "A button that glows\."\n---/);
-    assert.match(
-      page,
-      /<img src="https:\/\/raw\.githubusercontent\.com\/magnoscg\/swiftui-components\/HEAD\/Components\/Buttons\/GlowButton\/GlowButton\.webp"/,
-    );
-    assert.match(page, /\| Keywords \| button, boton \|/);
-    assert.match(page, /\| Minimum iOS \| 18\.0 \|/);
+    assert.match(page, /import ComponentHeader from '\.\.\/\.\.\/\.\.\/\.\.\/components\/ComponentHeader\.astro';/);
+    assert.match(page, /\n<ComponentHeader id="glow-button" \/>\n/);
     assert.match(page, /`````swift title="GlowButton\.swift"\n\/\/ SPDX-License-Identifier: MIT/);
+  });
+
+  it('leaves the details of a component to the site, which reads them from catalog.json', () => {
+    const page = docsFor(meta({ summary: 'Uses {braces} and <tags>.' })).pages.get(PAGE);
+
+    assert.match(page, /\ndescription: "Uses \{braces\} and <tags>\."\n/);
+    assert.equal(page.split('Uses {braces}').length, 2);
+  });
+
+  it('marks in the sidebar a component that needs more than the baseline', () => {
+    const source = swift().replace('struct GlowButton', '@available(iOS 26.0, *)\nstruct GlowButton');
+    const page = docsFor(meta({ minIOS: '26.0' }), source).pages.get(PAGE);
+
+    assert.match(page, /\nsidebar:\n  badge:\n    text: iOS 26\n---/);
+    assert.doesNotMatch(docsFor().pages.get(PAGE), /badge/);
   });
 
   it('offers one file to copy when there is no shader', () => {
@@ -785,34 +796,6 @@ describe('the documentation site', () => {
     assert.match(page, /`````cpp title="GlowButton\.metal"\n\/\/ SPDX-License-Identifier: MIT\n#include/);
     assert.ok(page.indexOf('title="GlowButton.swift"') < page.indexOf('title="GlowButton.metal"'));
   });
-
-  it('escapes HTML in the text of a page', () => {
-    const page = docsFor(meta({ summary: 'A <b> tag.' })).pages.get(PAGE);
-
-    assert.match(page, /\nA &lt;b&gt; tag\.\n/);
-  });
-
-  const origins = [
-    ['original work', { kind: 'original' }, /\| Origin \| Original \|/],
-    [
-      'linked inspiration',
-      { kind: 'inspired', credit: 'A talk', url: 'https://x.dev' },
-      /\| Origin \| Inspired by \[A talk\]\(https:\/\/x\.dev\) \|/,
-    ],
-    [
-      'adapted code',
-      { kind: 'adapted', url: 'https://x.dev', license: 'Apache-2.0' },
-      /\| Origin \| Adapted from \[the source\]\(https:\/\/x\.dev\), Apache-2\.0 \|/,
-    ],
-  ];
-
-  for (const [label, origin, expected] of origins) {
-    it(`states ${label}`, () => {
-      const source = origin.kind === 'adapted' ? swift().replace('MIT', 'Apache-2.0') : swift();
-
-      assert.match(docsFor(meta({ origin }), source).pages.get(PAGE), expected);
-    });
-  }
 
   it('copies the indexes into the site and leaves the previews out', () => {
     const { assets } = docsFor();

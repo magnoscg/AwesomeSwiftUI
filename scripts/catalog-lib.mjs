@@ -34,6 +34,7 @@ export const CATEGORY_PAGES = 'catalog';
 const SITE_BASE = '/swiftui-components';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
+const BASELINE_IOS = 18;
 // Longer than any run of backticks a Swift file is likely to hold.
 const SOURCE_FENCE = '`````';
 const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
@@ -472,7 +473,7 @@ export function componentsNewerThan(components, major) {
 export function renderDocsPages(components) {
   const pages = new Map([[`${DOCS_CATALOG}/index.mdx`, renderDocsIndex(components)]]);
   for (const component of components) {
-    pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.md`, renderDocsPage(component));
+    pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.mdx`, renderDocsPage(component));
   }
   return pages;
 }
@@ -519,27 +520,23 @@ function renderDocsIndex(components) {
   ].join('\n');
 }
 
+// The page of a component. What it shows above the code, the preview, the
+// details and the buttons, is drawn by a component of the site from
+// catalog.json, so the page only names the component and carries its source.
 function renderDocsPage(component) {
-  const keywords = [...component.keywords.en, ...component.keywords.es].map(escapeHTML).join(', ');
-  const apis = component.apis.map((api) => `\`${api}\``).join(', ');
+  const major = Number(component.minIOS.split('.')[0]);
+  // The sidebar marks what does not run on the baseline.
+  const badge = major > BASELINE_IOS ? ['sidebar:', '  badge:', `    text: iOS ${major}`] : [];
   return [
     '---',
     `title: ${JSON.stringify(component.title)}`,
     `description: ${JSON.stringify(component.summary)}`,
+    ...badge,
     '---',
     '',
-    escapeHTML(component.summary),
+    "import ComponentHeader from '../../../../components/ComponentHeader.astro';",
     '',
-    `<img src="${docsPreview(component)}" alt="${escapeAttribute(component.title)} preview" width="320" loading="lazy">`,
-    '',
-    '| | |',
-    '|---|---|',
-    `| Category | ${component.category} |`,
-    `| Minimum iOS | ${component.minIOS} |`,
-    `| Level | ${component.difficulty} |`,
-    `| APIs | ${apis} |`,
-    `| Origin | ${renderDocsOrigin(component.origin)} |`,
-    `| Keywords | ${escapeCell(keywords)} |`,
+    `<ComponentHeader id="${component.id}" />`,
     '',
     '## Use it',
     '',
@@ -562,12 +559,6 @@ function renderDocsSource(component) {
     SOURCE_FENCE,
     '',
   ];
-}
-
-function renderDocsOrigin(origin) {
-  if (origin.kind === 'original') return 'Original';
-  if (origin.kind === 'adapted') return `Adapted from [the source](${origin.url}), ${escapeHTML(origin.license)}`;
-  return `Inspired by [${escapeHTML(origin.credit)}](${origin.url})`;
 }
 
 // Served from the repository, not the site: the previews make the site too big
@@ -718,10 +709,6 @@ function withoutLineComments(source) {
 
 function escapeCell(text) {
   return text.replaceAll('|', '\\|');
-}
-
-function escapeHTML(text) {
-  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
 function escapeAttribute(text) {
