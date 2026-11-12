@@ -2,7 +2,7 @@
 // The top of the page of a component: its preview on a stage, what it needs,
 // and the three ways to take it. Copying the code reads it from the block
 // below, so the page holds one copy of the source.
-import { components, previewURL, SITE_BASE } from '../lib/catalog';
+import { categoryURL, components, previewURL, SITE_BASE } from '../lib/catalog';
 
 interface Props {
   id: string;
@@ -40,7 +40,7 @@ const prompt = [
   <div class="details">
     <ul class="facts">
       <li>
-        <a href={`${SITE_BASE}/catalog/?category=${encodeURIComponent(category)}`}>{category}</a>
+        <a href={categoryURL(category)}>{category}</a>
       </li>
       <li>iOS {minIOS}+</li>
       <li class="level">{difficulty}</li>

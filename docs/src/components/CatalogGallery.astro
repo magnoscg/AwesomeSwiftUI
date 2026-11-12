@@ -1,7 +1,8 @@
 ---
 // The catalog as a grid of previews that can be searched and filtered: by
 // category, iOS version, level, an Apple API and having a Metal shader. The
-// generated catalog index passes it every component. Without JavaScript the
+// generated catalog index passes it every component, and the page of a
+// category its own, with no category to choose. Without JavaScript the
 // filters stay hidden and every card shows.
 interface Item {
   title: string;
@@ -18,9 +19,10 @@ interface Item {
 
 interface Props {
   items: Item[];
+  category?: string;
 }
 
-const { items } = Astro.props;
+const { items, category: fixedCategory } = Astro.props;
 const categories = [...new Set(items.map((item) => item.category))].sort();
 const versions = [...new Set(items.map((item) => item.minIOS))].sort((a, b) => Number(a) - Number(b));
 const levels = ['beginner', 'intermediate', 'advanced'];
@@ -42,13 +44,17 @@ const major = (version: string) => version.replace(/\.0$/, '');
       <span>Search</span>
       <input type="search" name="q" placeholder="button, sheet, gráfico…" autocomplete="off" />
     </label>
-    <label>
-      <span>Category</span>
-      <select name="category">
-        <option value="">All categories</option>
-        {categories.map((category) => <option value={category}>{category}</option>)}
-      </select>
-    </label>
+    {
+      !fixedCategory && (
+        <label>
+          <span>Category</span>
+          <select name="category">
+            <option value="">All categories</option>
+            {categories.map((category) => <option value={category}>{category}</option>)}
+          </select>
+        </label>
+      )
+    }
     <label>
       <span>Runs on</span>
       <select name="ios">
@@ -282,16 +288,17 @@ const major = (version: string) => version.replace(/\.0$/, '');
       apis: (element.dataset.apis ?? '').split('|'),
       shader: element.dataset.shader === '1',
     }));
-    const names = ['q', 'category', 'ios', 'level', 'api'];
-    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | null;
+    const names = ['q', 'category', 'ios', 'level', 'api'].filter((name) => field(name));
+    const value = (name: string) => field(name)?.value ?? '';
     const shader = form.elements.namedItem('shader') as HTMLInputElement | null;
 
     const apply = () => {
-      const words = plain(field('q').value).split(/\s+/).filter(Boolean);
-      const category = field('category').value;
-      const ios = field('ios').value;
-      const level = field('level').value;
-      const api = field('api').value;
+      const words = plain(value('q')).split(/\s+/).filter(Boolean);
+      const category = value('category');
+      const ios = value('ios');
+      const level = value('level');
+      const api = value('api');
       const onlyShaders = shader?.checked ?? false;
       let shown = 0;
       for (const item of items) {
@@ -310,7 +317,7 @@ const major = (version: string) => version.replace(/\.0$/, '');
       empty.hidden = shown > 0;
 
       const query = new URLSearchParams();
-      for (const name of names) if (field(name).value) query.set(name, field(name).value);
+      for (const name of names) if (value(name)) query.set(name, value(name));
       if (onlyShaders) query.set('shader', '1');
       const search = query.toString();
       history.replaceState(null, '', search ? `?${search}` : location.pathname);
@@ -318,8 +325,8 @@ const major = (version: string) => version.replace(/\.0$/, '');
 
     const query = new URLSearchParams(location.search);
     for (const name of names) {
-      const value = query.get(name);
-      if (value) field(name).value = value;
+      const stored = query.get(name);
+      if (stored) field(name)!.value = stored;
     }
     if (shader) shader.checked = query.get('shader') === '1';
     form.hidden = false;
