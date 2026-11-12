@@ -239,6 +239,10 @@ function validateOrigin(origin, fail) {
     if (!isText(origin.url)) fail('"origin.url" must link the adapted source');
     if (!isText(origin.license)) fail('"origin.license" must name the license of the source');
   }
+  // The site turns it into a link, so it has to be one a person can follow safely.
+  if (isText(origin.url) && !/^https?:\/\/\S+$/.test(origin.url)) {
+    fail(`"origin.url" must be a web address that starts with https:// or http://, got "${origin.url}"`);
+  }
 }
 
 function validateSource(meta, source, relative, name, errors) {

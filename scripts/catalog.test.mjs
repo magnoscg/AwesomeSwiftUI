@@ -275,6 +275,16 @@ describe('invalid components', () => {
     ['inspiration without a link', { origin: { kind: 'inspired', credit: 'A talk' } }, /"origin\.url"/],
     ['adapted code without a source', { origin: { kind: 'adapted', license: 'MIT' } }, /"origin\.url"/],
     ['adapted code without a license', { origin: { kind: 'adapted', url: 'https://x.dev' } }, /"origin\.license"/],
+    [
+      'inspiration linked with an address that is not of the web',
+      { origin: { kind: 'inspired', credit: 'A talk', url: 'javascript:alert(1)' } },
+      /"origin\.url" must be a web address/,
+    ],
+    [
+      'adapted code linked with an address that is not of the web',
+      { origin: { kind: 'adapted', url: ' https://x.dev', license: 'MIT' } },
+      /"origin\.url" must be a web address/,
+    ],
   ];
 
   for (const [label, overrides, expected] of invalidMetadata) {
@@ -803,6 +813,19 @@ describe('the documentation site', () => {
     assert.match(page, /\n``````swift title="GlowButton\.swift"\n/);
     assert.ok(page.endsWith('\n``````\n'));
     assert.equal(page.match(/^``````/gm).length, 2);
+  });
+
+  it('keeps a shader with a long run of backticks inside its block too', () => {
+    const root = makeRoot();
+    const shader = metal(`// \`\`\`\`\`\`\n// export const stolen = process.env;\n${SHADER_FUNCTION}`);
+    addComponent(root, { source: swiftWithShader(), shader });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    const page = renderDocsPages(components).get(PAGE);
+
+    assert.match(page, /\n```````cpp title="GlowButton\.metal"\n/);
+    assert.ok(page.endsWith('\n```````\n'));
+    assert.match(page, /\n`````swift title="GlowButton\.swift"\n/);
   });
 
   it('shows the shader as a second file to copy', () => {
