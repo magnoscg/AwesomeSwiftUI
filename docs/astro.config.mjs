@@ -19,6 +19,7 @@ export default defineConfig({
       components: {
         Header: './src/components/Header.astro',
         Sidebar: './src/components/Sidebar.astro',
+        PageTitle: './src/components/PageTitle.astro',
       },
       sidebar: [
         { label: 'Start here', items: ['getting-started', 'for-ai-agents'] },
