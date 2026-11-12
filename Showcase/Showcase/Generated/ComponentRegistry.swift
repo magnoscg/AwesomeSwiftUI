@@ -657,6 +657,15 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "filter-chip-group",
+            title: "Filter Chip Group",
+            category: "Controls",
+            summary: "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+            keywords: ["chips", "filter chips", "tags", "multi-select", "flow layout", "wrap", "pills", "filters", "chips", "filtros", "etiquetas", "selección múltiple", "flujo", "salto de línea", "píldoras"],
+            minIOS: "18.0",
+            demo: { AnyView(FilterChipGroupDemo()) }
+        ),
+        ShowcaseEntry(
             id: "icon-switch-toggle-style",
             title: "Icon Switch Toggle Style",
             category: "Controls",

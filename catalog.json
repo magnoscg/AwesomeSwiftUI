@@ -1,5 +1,5 @@
 {
-  "count": 296,
+  "count": 297,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2940,6 +2940,48 @@
       "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
       "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+    },
+    {
+      "id": "filter-chip-group",
+      "name": "FilterChipGroup",
+      "title": "Filter Chip Group",
+      "category": "Controls",
+      "summary": "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+      "keywords": {
+        "en": [
+          "chips",
+          "filter chips",
+          "tags",
+          "multi-select",
+          "flow layout",
+          "wrap",
+          "pills",
+          "filters"
+        ],
+        "es": [
+          "chips",
+          "filtros",
+          "etiquetas",
+          "selección múltiple",
+          "flujo",
+          "salto de línea",
+          "píldoras"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "Set",
+        "sensoryFeedback",
+        "Capsule"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/FilterChipGroup/FilterChipGroup.swift",
+      "preview": "Components/Controls/FilterChipGroup/FilterChipGroup.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/FilterChipGroup/FilterChipGroup.swift"
     },
     {
       "id": "icon-switch-toggle-style",
