@@ -159,6 +159,15 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "async-action-button",
+            title: "Async Action Button",
+            category: "Buttons",
+            summary: "A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.",
+            keywords: ["button", "loading button", "async", "spinner", "progress", "double tap", "submit", "save", "botón", "botón de carga", "asíncrono", "spinner", "cargando", "doble toque", "enviar", "guardar"],
+            minIOS: "18.0",
+            demo: { AnyView(AsyncActionButtonDemo()) }
+        ),
+        ShowcaseEntry(
             id: "button-variant-style",
             title: "Button Variant Style",
             category: "Buttons",

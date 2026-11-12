@@ -8,6 +8,9 @@ on `main`.
 
 ### Added
 
+- Async Action Button, a button that runs an async action with a spinner in
+  place of its label, keeps its width and ignores taps until the action
+  ends.
 - Button Variant Style, a button style with filled, tinted, outlined and
   plain variants that follows `.controlSize`, `.disabled` and the
   destructive role, like the system styles.

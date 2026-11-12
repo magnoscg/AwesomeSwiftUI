@@ -1,0 +1,51 @@
+{
+  "id": "async-action-button",
+  "name": "AsyncActionButton",
+  "title": "Async Action Button",
+  "category": "Buttons",
+  "summary": "A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.",
+  "keywords": {
+    "en": [
+      "button",
+      "loading button",
+      "async",
+      "spinner",
+      "progress",
+      "double tap",
+      "submit",
+      "save"
+    ],
+    "es": [
+      "botón",
+      "botón de carga",
+      "asíncrono",
+      "spinner",
+      "cargando",
+      "doble toque",
+      "enviar",
+      "guardar"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Button",
+    "task(id:)",
+    "TimelineView",
+    "async/await"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap -x 201 -y 466",
+    "sleep 0.4",
+    "tap -x 201 -y 466",
+    "sleep 1.6",
+    "tap -x 141 -y 532",
+    "sleep 0.3",
+    "tap -x 252 -y 532",
+    "sleep 2.2"
+  ]
+}

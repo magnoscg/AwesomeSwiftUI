@@ -4,6 +4,7 @@
 
 | Preview | Component | What it does | iOS | Level |
 |---|---|---|---|---|
+| <img src="../Components/Buttons/AsyncActionButton/AsyncActionButton.webp" width="120" alt="Async Action Button preview"> | [Async Action Button](../Components/Buttons/AsyncActionButton/AsyncActionButton.swift) | A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends. | 18.0+ | beginner |
 | <img src="../Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.webp" width="120" alt="Button Variant Style preview"> | [Button Variant Style](../Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift) | A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role. | 18.0+ | beginner |
 | <img src="../Components/Buttons/ElasticDragButton/ElasticDragButton.webp" width="120" alt="Elastic Drag Button preview"> | [Elastic Drag Button](../Components/Buttons/ElasticDragButton/ElasticDragButton.swift) | A round button that stretches toward the finger and springs back on release. | 18.0+ | intermediate |
 | <img src="../Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.webp" width="120" alt="Emoji Reaction Picker preview"> | [Emoji Reaction Picker](../Components/Buttons/EmojiReactionPicker/EmojiReactionPicker.swift) | A long-press control that reveals a row of reaction emoji, magnifies the one under the finger and selects it on release. | 18.0+ | advanced |
