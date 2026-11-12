@@ -81,19 +81,27 @@ h4 {
   border-radius: 0.75rem;
 }
 
-/* The sidebar: quiet names, and the open page as a solid pill. */
+/* Changing page, only the mark of the open page in the sidebar moves: it
+   slides to its new place. Browsers that cannot do it change page as before. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(sidebar-marker) {
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The sidebar is drawn by Sidebar and SidebarList. */
 .sidebar-pane {
   border-inline-end: 1px solid var(--sl-color-hairline);
-}
-
-.sidebar-content a {
-  border-radius: 0.5rem;
-}
-
-.sidebar-content .large,
-.sidebar-content summary .large {
-  font-family: var(--font-display);
-  font-weight: 600;
 }
 
 .sidebar-content .sl-badge {
@@ -102,11 +110,6 @@ h4 {
   font-weight: 600;
   color: var(--sl-color-gray-2);
   background: var(--sl-color-gray-5);
-}
-
-.sidebar-content [aria-current='page'] .sl-badge {
-  color: var(--sl-color-text-invert);
-  background: color-mix(in srgb, var(--sl-color-text-invert) 18%, transparent);
 }
 
 /* The landing page. Starlight keeps a column for an image beside the hero.

@@ -1,0 +1,257 @@
+---
+// Starlight's list of the sidebar, as a rail: a line down each group, with a
+// mark on it at the open page. A group headed by the page of its category
+// shows the name of the category as a link to that page, and the arrow beside
+// it opens and closes the group. A link inside <summary> would be read as
+// part of the button that toggles it, so the two stay apart.
+import { Badge, Icon } from '@astrojs/starlight/components';
+import SidebarRestorePoint from '@astrojs/starlight/components/SidebarRestorePoint.astro';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
+
+type Entry = StarlightRouteData['sidebar'][number];
+type Group = Extract<Entry, { type: 'group' }>;
+type Link = Extract<Entry, { type: 'link' }>;
+
+interface Props {
+  sublist: Entry[];
+  nested?: boolean;
+}
+
+const { sublist, nested } = Astro.props;
+
+const hasCurrent = (group: Group): boolean =>
+  group.entries.some((entry) => (entry.type === 'link' ? entry.isCurrent : hasCurrent(entry)));
+const pageOf = (group: Group) =>
+  group.entries.find((entry): entry is Link => entry.type === 'link' && 'data-category-page' in entry.attrs);
+---
+
+<ul class:list={{ 'top-level': !nested }}>
+  {
+    sublist.map((entry) => {
+      if (entry.type === 'link') {
+        const { class: className, ...attrs } = entry.attrs;
+        return (
+          <li>
+            <a
+              href={entry.href}
+              aria-current={entry.isCurrent ? 'page' : undefined}
+              class:list={[{ large: !nested }, className]}
+              {...attrs}
+            >
+              {entry.isCurrent && <span class="marker" aria-hidden="true" />}
+              <span>{entry.label}</span>
+              {entry.badge && <Badge variant={entry.badge.variant} class={entry.badge.class} text={entry.badge.text} />}
+            </a>
+          </li>
+        );
+      }
+
+      const page = pageOf(entry);
+      const open = hasCurrent(entry) || !entry.collapsed;
+      if (!page) {
+        return (
+          <li>
+            <details open={open}>
+              <summary>
+                <span class="group-label">
+                  <span class="large">{entry.label}</span>
+                  {entry.badge && <Badge variant={entry.badge.variant} class={entry.badge.class} text={entry.badge.text} />}
+                </span>
+                <Icon name="right-caret" class="caret" size="1.25rem" />
+              </summary>
+              <SidebarRestorePoint />
+              <Astro.self sublist={entry.entries} nested />
+            </details>
+          </li>
+        );
+      }
+
+      return (
+        <li class="category">
+          <a
+            class:list={['category-link', { large: !nested }]}
+            href={page.href}
+            aria-current={page.isCurrent ? 'page' : undefined}
+          >
+            {page.isCurrent && <span class="marker" aria-hidden="true" />}
+            <span>{entry.label}</span>
+          </a>
+          <details open={open}>
+            <summary aria-label={`${entry.label} components`}>
+              <Icon name="right-caret" class="caret" size="1.25rem" />
+            </summary>
+            <SidebarRestorePoint />
+            <Astro.self sublist={entry.entries.filter((child) => child !== page)} nested />
+          </details>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    overflow-wrap: anywhere;
+  }
+
+  .top-level > li + li {
+    margin-top: 0.75rem;
+  }
+
+  /* The rail: each item of a group draws its part of the line. */
+  ul ul {
+    margin-inline-start: 0.5rem;
+  }
+
+  ul ul > li {
+    margin: 0;
+    padding-inline-start: 0.5rem;
+    border-inline-start: 1px solid var(--sl-color-hairline);
+  }
+
+  ul ul > li.category + li.category {
+    margin-top: 0.125rem;
+  }
+
+  /* The mark of the open page sits on the rail. Changing page, it slides
+     where the browser supports moving an element between pages. */
+  .marker {
+    position: absolute;
+    inset-block: 0.3rem;
+    inset-inline-start: calc(-0.5rem - 1px);
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(var(--brand-1), var(--brand-2), var(--brand-3));
+    view-transition-name: sidebar-marker;
+  }
+
+  .top-level > li > a > .marker {
+    display: none;
+  }
+
+  a {
+    position: relative;
+    display: block;
+    padding: 0.3em 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--sl-color-gray-2);
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--sl-color-white);
+  }
+
+  a > :not(:last-child):not(.marker),
+  .group-label > :not(:last-child) {
+    margin-inline-end: 0.25em;
+  }
+
+  [aria-current='page'] {
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .top-level > li > [aria-current='page'] {
+    background: var(--sl-color-gray-6);
+  }
+
+  .large {
+    font-family: var(--font-display);
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2em 0.5rem;
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  summary::marker,
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The name of a category is the link; the arrow at the end of its row is
+     the toggle, as wide as a finger. */
+  .category-link {
+    padding-inline-end: 2.75rem;
+    color: var(--sl-color-gray-1);
+    font-weight: 500;
+  }
+
+  .category > details > summary {
+    position: absolute;
+    top: 0;
+    inset-inline-end: 0;
+    justify-content: center;
+    width: 2.75rem;
+    height: 1.9rem;
+    padding: 0;
+    border-radius: 0.5rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  .category > details > summary:hover {
+    color: var(--sl-color-white);
+  }
+
+  summary:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: -2px;
+  }
+
+  .caret {
+    flex-shrink: 0;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  :global([dir='rtl']) .caret {
+    transform: rotateZ(180deg);
+  }
+
+  [open] > summary .caret {
+    transform: rotateZ(90deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a,
+    .caret {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 50rem) {
+    .top-level > li + li {
+      margin-top: 0.5rem;
+    }
+
+    .large {
+      font-size: var(--sl-text-base);
+    }
+
+    a {
+      font-size: var(--sl-text-sm);
+    }
+
+    .category-link.large {
+      font-size: var(--sl-text-base);
+    }
+  }
+</style>

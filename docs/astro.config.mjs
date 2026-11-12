@@ -16,7 +16,10 @@ export default defineConfig({
         { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://magnoscg.github.io/swiftui-components/social-card.png' } },
       ],
       customCss: ['@fontsource-variable/outfit', './src/styles/custom.css'],
-      components: { Header: './src/components/Header.astro' },
+      components: {
+        Header: './src/components/Header.astro',
+        Sidebar: './src/components/Sidebar.astro',
+      },
       sidebar: [
         { label: 'Start here', items: ['getting-started', 'for-ai-agents'] },
         { label: 'Reference', items: ['rules', 'accessibility', 'contributing', 'changelog'] },
