@@ -6,6 +6,12 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Button Variant Style, a button style with filled, tinted, outlined and
+  plain variants that follows `.controlSize`, `.disabled` and the
+  destructive role, like the system styles.
+
 ## 0.6.0 - 2026-11-12
 
 ### Changed

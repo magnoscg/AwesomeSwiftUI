@@ -1,5 +1,5 @@
 {
-  "count": 288,
+  "count": 289,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -684,6 +684,52 @@
       "path": "Components/Backgrounds/WavesBackground/WavesBackground.swift",
       "preview": "Components/Backgrounds/WavesBackground/WavesBackground.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Backgrounds/WavesBackground/WavesBackground.swift"
+    },
+    {
+      "id": "button-variant-style",
+      "name": "ButtonVariantStyle",
+      "title": "Button Variant Style",
+      "category": "Buttons",
+      "summary": "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+      "keywords": {
+        "en": [
+          "button",
+          "button style",
+          "filled",
+          "tinted",
+          "outlined",
+          "plain",
+          "destructive",
+          "control size",
+          "primary",
+          "secondary"
+        ],
+        "es": [
+          "botón",
+          "estilo de botón",
+          "relleno",
+          "tintado",
+          "contorno",
+          "destructivo",
+          "tamaño",
+          "primario",
+          "secundario"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ButtonStyle",
+        "ControlSize",
+        "ButtonRole",
+        "ShapeStyle"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift",
+      "preview": "Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift"
     },
     {
       "id": "elastic-drag-button",

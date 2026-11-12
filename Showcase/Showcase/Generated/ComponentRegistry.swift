@@ -159,6 +159,15 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "button-variant-style",
+            title: "Button Variant Style",
+            category: "Buttons",
+            summary: "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+            keywords: ["button", "button style", "filled", "tinted", "outlined", "plain", "destructive", "control size", "primary", "secondary", "botón", "estilo de botón", "relleno", "tintado", "contorno", "destructivo", "tamaño", "primario", "secundario"],
+            minIOS: "18.0",
+            demo: { AnyView(ButtonVariantStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "elastic-drag-button",
             title: "Elastic Drag Button",
             category: "Buttons",

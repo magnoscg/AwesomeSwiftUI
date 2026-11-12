@@ -1,0 +1,24 @@
+{
+  "id": "button-variant-style",
+  "name": "ButtonVariantStyle",
+  "title": "Button Variant Style",
+  "category": "Buttons",
+  "summary": "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+  "keywords": {
+    "en": ["button", "button style", "filled", "tinted", "outlined", "plain", "destructive", "control size", "primary", "secondary"],
+    "es": ["botón", "estilo de botón", "relleno", "tintado", "contorno", "destructivo", "tamaño", "primario", "secundario"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ButtonStyle", "ControlSize", "ButtonRole", "ShapeStyle"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Large",
+    "sleep 1",
+    "tap --label Small",
+    "sleep 1",
+    "tap --label Medium",
+    "sleep 0.8"
+  ]
+}
