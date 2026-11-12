@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Character Count Text Editor, a multiline field with a ring and a count
+  that turn orange near the limit and red past it, without cutting the text.
 - Clearable Text Field, a text field with a leading symbol, a clear button
   that keeps the keyboard up and an optional error under it.
 - Filter Chip Group, filter chips that show a checkmark when chosen and wrap

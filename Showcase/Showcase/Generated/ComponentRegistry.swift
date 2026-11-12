@@ -1335,6 +1335,15 @@ enum ComponentRegistry {
             demo: { AnyView(ScatteredPhotoBoardDemo()) }
         ),
         ShowcaseEntry(
+            id: "character-count-text-editor",
+            title: "Character Count Text Editor",
+            category: "Inputs",
+            summary: "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+            keywords: ["character count", "character limit", "text editor", "multiline", "counter", "textarea", "bio", "post", "contador de caracteres", "límite de caracteres", "editor de texto", "multilínea", "contador", "biografía", "publicación"],
+            minIOS: "18.0",
+            demo: { AnyView(CharacterCountTextEditorDemo()) }
+        ),
+        ShowcaseEntry(
             id: "clearable-text-field",
             title: "Clearable Text Field",
             category: "Inputs",

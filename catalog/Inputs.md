@@ -4,6 +4,7 @@
 
 | Preview | Component | What it does | iOS | Level |
 |---|---|---|---|---|
+| <img src="../Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.webp" width="120" alt="Character Count Text Editor preview"> | [Character Count Text Editor](../Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift) | A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it. | 18.0+ | beginner |
 | <img src="../Components/Inputs/ClearableTextField/ClearableTextField.webp" width="120" alt="Clearable Text Field preview"> | [Clearable Text Field](../Components/Inputs/ClearableTextField/ClearableTextField.swift) | A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message. | 18.0+ | beginner |
 | <img src="../Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.webp" width="120" alt="Color Swatch Picker preview"> | [Color Swatch Picker](../Components/Inputs/ColorSwatchPicker/ColorSwatchPicker.swift) | A grid of selectable color swatches where the chosen one grows a ring. | 18.0+ | beginner |
 | <img src="../Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.webp" width="120" alt="Floating Label Text Field preview"> | [Floating Label Text Field](../Components/Inputs/FloatingLabelTextField/FloatingLabelTextField.swift) | A text field whose placeholder floats up when it gains focus or has text. | 18.0+ | beginner |

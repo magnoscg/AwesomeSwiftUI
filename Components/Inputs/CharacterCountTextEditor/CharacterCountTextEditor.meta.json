@@ -1,0 +1,26 @@
+{
+  "id": "character-count-text-editor",
+  "name": "CharacterCountTextEditor",
+  "title": "Character Count Text Editor",
+  "category": "Inputs",
+  "summary": "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+  "keywords": {
+    "en": ["character count", "character limit", "text editor", "multiline", "counter", "textarea", "bio", "post"],
+    "es": ["contador de caracteres", "límite de caracteres", "editor de texto", "multilínea", "contador", "biografía", "publicación"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["TextField(axis:)", "lineLimit", "FocusState", "AccessibilityNotification"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label \"What's on your mind?\"",
+    "sleep 0.4",
+    "type 'Walking along the river this morning and the fog '",
+    "sleep 0.5",
+    "type 'was so thick the bridges vanished'",
+    "sleep 0.8",
+    "type ' halfway across.'",
+    "sleep 1.2"
+  ]
+}
