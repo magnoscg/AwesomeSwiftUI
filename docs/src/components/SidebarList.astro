@@ -189,7 +189,7 @@ const pageOf = (group: Group) =>
   }
 
   /* The name of a category is the link; the arrow at the end of its row is
-     the toggle, as wide as a finger. */
+     the toggle, as wide as a finger, and as tall as one on a touch screen. */
   .category-link {
     padding-inline-end: 2.75rem;
     color: var(--sl-color-gray-1);
@@ -206,6 +206,18 @@ const pageOf = (group: Group) =>
     padding: 0;
     border-radius: 0.5rem;
     color: var(--sl-color-gray-3);
+  }
+
+  @media (pointer: coarse) {
+    .category-link {
+      display: flex;
+      align-items: center;
+      min-height: 2.75rem;
+    }
+
+    .category > details > summary {
+      height: 2.75rem;
+    }
   }
 
   .category > details > summary:hover {

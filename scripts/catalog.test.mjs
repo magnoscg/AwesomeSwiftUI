@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import {
+  categoryCollisions,
   componentsNewerThan,
   docsAssets,
   findStale,
@@ -227,6 +228,17 @@ describe('the order of the catalog', () => {
     const names = loadCatalog(root).components.map((component) => component.name);
 
     assert.deepEqual(names, ['Beta', 'Zeta', 'Alpha']);
+  });
+});
+
+describe('category names', () => {
+  it('rejects two categories that differ only in case, which share a page on the site', () => {
+    const components = [{ category: 'Buttons' }, { category: 'ButTons' }, { category: 'Cards' }];
+
+    assert.deepEqual(categoryCollisions(components), [
+      'Components/ButTons and Components/Buttons differ only in case and would share a page on the site',
+    ]);
+    assert.deepEqual(categoryCollisions([{ category: 'Buttons' }, { category: 'Buttons' }]), []);
   });
 });
 

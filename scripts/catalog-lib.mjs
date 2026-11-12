@@ -76,6 +76,7 @@ export function loadCatalog(root, { requirePreview = true } = {}) {
   }
 
   reportDuplicateIds(components, errors);
+  errors.push(...categoryCollisions(components));
   reportUntranslatedCounts(root, components, errors);
   components.sort(byCategoryThenName);
   return { components, errors };
@@ -364,6 +365,22 @@ export function renderOutputs(root, components) {
     [REGISTRY_PATH, renderRegistry(components)],
     ...renderCategoryPages(components),
   ]);
+}
+
+// The site serves a category at its name in lower case, so two folders that
+// differ only in case would share a page. macOS cannot hold both; Linux can.
+export function categoryCollisions(components) {
+  const seen = new Map();
+  const errors = [];
+  for (const category of [...new Set(components.map((component) => component.category))].sort()) {
+    const key = category.toLowerCase();
+    if (seen.has(key)) {
+      errors.push(`Components/${seen.get(key)} and Components/${category} differ only in case and would share a page on the site`);
+    } else {
+      seen.set(key, category);
+    }
+  }
+  return errors;
 }
 
 function categoriesOf(components) {
