@@ -19,6 +19,7 @@ struct ContrastingForegroundTests {
         ("DownloadPillProgress", { DownloadPillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ElasticDragButton", { ElasticDragButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("ExpandableInfoCard", { ExpandableInfoCardContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("FilterChipGroup", { FilterChipGroupContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("FloatingActionMenu", { FloatingActionMenuContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("GooeyFloatingMenu", { GooeyFloatingMenuContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("HoldToConfirmButton", { HoldToConfirmButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

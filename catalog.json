@@ -1,5 +1,5 @@
 {
-  "count": 296,
+  "count": 299,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2940,6 +2940,48 @@
       "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
       "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+    },
+    {
+      "id": "filter-chip-group",
+      "name": "FilterChipGroup",
+      "title": "Filter Chip Group",
+      "category": "Controls",
+      "summary": "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+      "keywords": {
+        "en": [
+          "chips",
+          "filter chips",
+          "tags",
+          "multi-select",
+          "flow layout",
+          "wrap",
+          "pills",
+          "filters"
+        ],
+        "es": [
+          "chips",
+          "filtros",
+          "etiquetas",
+          "selección múltiple",
+          "flujo",
+          "salto de línea",
+          "píldoras"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Layout",
+        "Set",
+        "sensoryFeedback",
+        "Capsule"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/FilterChipGroup/FilterChipGroup.swift",
+      "preview": "Components/Controls/FilterChipGroup/FilterChipGroup.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/FilterChipGroup/FilterChipGroup.swift"
     },
     {
       "id": "icon-switch-toggle-style",
@@ -5907,6 +5949,91 @@
       "path": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift",
       "preview": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
+    },
+    {
+      "id": "character-count-text-editor",
+      "name": "CharacterCountTextEditor",
+      "title": "Character Count Text Editor",
+      "category": "Inputs",
+      "summary": "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+      "keywords": {
+        "en": [
+          "character count",
+          "character limit",
+          "text editor",
+          "multiline",
+          "counter",
+          "textarea",
+          "bio",
+          "post"
+        ],
+        "es": [
+          "contador de caracteres",
+          "límite de caracteres",
+          "editor de texto",
+          "multilínea",
+          "contador",
+          "biografía",
+          "publicación"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField(axis:)",
+        "lineLimit",
+        "FocusState",
+        "AccessibilityNotification"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift",
+      "preview": "Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift"
+    },
+    {
+      "id": "clearable-text-field",
+      "name": "ClearableTextField",
+      "title": "Clearable Text Field",
+      "category": "Inputs",
+      "summary": "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+      "keywords": {
+        "en": [
+          "text field",
+          "clear button",
+          "input",
+          "icon",
+          "focus",
+          "error",
+          "form",
+          "search"
+        ],
+        "es": [
+          "campo de texto",
+          "botón de borrar",
+          "entrada",
+          "icono",
+          "foco",
+          "error",
+          "formulario",
+          "búsqueda"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField",
+        "FocusState",
+        "transition",
+        "accessibilityHint"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/ClearableTextField/ClearableTextField.swift",
+      "preview": "Components/Inputs/ClearableTextField/ClearableTextField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/ClearableTextField/ClearableTextField.swift"
     },
     {
       "id": "color-swatch-picker",

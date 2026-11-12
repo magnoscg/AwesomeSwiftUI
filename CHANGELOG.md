@@ -8,6 +8,12 @@ on `main`.
 
 ### Added
 
+- Character Count Text Editor, a multiline field with a ring and a count
+  that turn orange near the limit and red past it, without cutting the text.
+- Clearable Text Field, a text field with a leading symbol, a clear button
+  that keeps the keyboard up and an optional error under it.
+- Filter Chip Group, filter chips that show a checkmark when chosen and wrap
+  onto as many rows as they need.
 - Weekday Segmented Picker, round buttons that pick several days of the week
   in the order of the calendar, with a summary such as Weekdays.
 - Settings Toggle Row, a row like the ones in the Settings app: a symbol on

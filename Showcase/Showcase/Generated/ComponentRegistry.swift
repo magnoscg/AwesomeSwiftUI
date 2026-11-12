@@ -657,6 +657,15 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "filter-chip-group",
+            title: "Filter Chip Group",
+            category: "Controls",
+            summary: "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+            keywords: ["chips", "filter chips", "tags", "multi-select", "flow layout", "wrap", "pills", "filters", "chips", "filtros", "etiquetas", "selección múltiple", "flujo", "salto de línea", "píldoras"],
+            minIOS: "18.0",
+            demo: { AnyView(FilterChipGroupDemo()) }
+        ),
+        ShowcaseEntry(
             id: "icon-switch-toggle-style",
             title: "Icon Switch Toggle Style",
             category: "Controls",
@@ -1324,6 +1333,24 @@ enum ComponentRegistry {
             keywords: ["photo board", "polaroid", "scattered", "collage", "drag", "bring to front", "moodboard", "tablero de fotos", "polaroid", "dispersas", "collage", "arrastrar", "traer al frente"],
             minIOS: "18.0",
             demo: { AnyView(ScatteredPhotoBoardDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "character-count-text-editor",
+            title: "Character Count Text Editor",
+            category: "Inputs",
+            summary: "A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.",
+            keywords: ["character count", "character limit", "text editor", "multiline", "counter", "textarea", "bio", "post", "contador de caracteres", "límite de caracteres", "editor de texto", "multilínea", "contador", "biografía", "publicación"],
+            minIOS: "18.0",
+            demo: { AnyView(CharacterCountTextEditorDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "clearable-text-field",
+            title: "Clearable Text Field",
+            category: "Inputs",
+            summary: "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+            keywords: ["text field", "clear button", "input", "icon", "focus", "error", "form", "search", "campo de texto", "botón de borrar", "entrada", "icono", "foco", "error", "formulario", "búsqueda"],
+            minIOS: "18.0",
+            demo: { AnyView(ClearableTextFieldDemo()) }
         ),
         ShowcaseEntry(
             id: "color-swatch-picker",

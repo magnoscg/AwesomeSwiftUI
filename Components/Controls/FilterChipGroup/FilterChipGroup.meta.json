@@ -1,0 +1,28 @@
+{
+  "id": "filter-chip-group",
+  "name": "FilterChipGroup",
+  "title": "Filter Chip Group",
+  "category": "Controls",
+  "summary": "Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.",
+  "keywords": {
+    "en": ["chips", "filter chips", "tags", "multi-select", "flow layout", "wrap", "pills", "filters"],
+    "es": ["chips", "filtros", "etiquetas", "selección múltiple", "flujo", "salto de línea", "píldoras"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["Layout", "Set", "sensoryFeedback", "Capsule"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label Vegan",
+    "sleep 0.7",
+    "tap --label Japanese",
+    "sleep 0.7",
+    "tap --label \"Top Rated\"",
+    "sleep 0.7",
+    "tap --label Delivery",
+    "sleep 0.9",
+    "tap --label Clear",
+    "sleep 1"
+  ]
+}

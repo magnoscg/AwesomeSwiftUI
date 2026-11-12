@@ -11687,6 +11687,202 @@ struct DayNightToggleDemo: View {
 }
 ```
 
+## Filter Chip Group
+
+Selectable filter chips that show a checkmark when chosen and wrap onto as many rows as they need.
+
+Category: Controls. Minimum: iOS 18.0. Path: Components/Controls/FilterChipGroup/FilterChipGroup.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// Flows chips into rows, starting a new row when the next chip does not fit.
+nonisolated struct FilterChipGroupFlowLayout: Layout {
+    var spacing: CGFloat = 8
+
+    /// The indices of the items in each row. An item wider than the row gets a row of its own.
+    static func rows(for widths: [CGFloat], maxWidth: CGFloat, spacing: CGFloat) -> [[Int]] {
+        var rows: [[Int]] = []
+        var current: [Int] = []
+        var used: CGFloat = 0
+
+        for (index, width) in widths.enumerated() {
+            let needed = current.isEmpty ? width : used + spacing + width
+            if needed > maxWidth, !current.isEmpty {
+                rows.append(current)
+                current = [index]
+                used = width
+            } else {
+                current.append(index)
+                used = needed
+            }
+        }
+        if !current.isEmpty { rows.append(current) }
+        return rows
+    }
+
+    /// Measures each chip at no more than the row, so a long one truncates instead of overflowing.
+    private func sizes(of subviews: Subviews, maxWidth: CGFloat) -> [CGSize] {
+        subviews.map { subview in
+            let natural = subview.sizeThatFits(.unspecified)
+            return natural.width > maxWidth ? subview.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil)) : natural
+        }
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let maxWidth = proposal.width ?? .infinity
+        let sizes = sizes(of: subviews, maxWidth: maxWidth)
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+
+        for (number, row) in Self.rows(for: sizes.map(\.width), maxWidth: maxWidth, spacing: spacing).enumerated() {
+            let rowWidths = row.map { sizes[$0].width }
+            let rowWidth = rowWidths.reduce(0, +) + spacing * CGFloat(row.count - 1)
+            let rowHeight = row.map { sizes[$0].height }.max() ?? 0
+            width = max(width, rowWidth)
+            height += number == 0 ? rowHeight : spacing + rowHeight
+        }
+        return CGSize(width: min(width, maxWidth), height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let sizes = sizes(of: subviews, maxWidth: bounds.width)
+        var y = bounds.minY
+
+        for row in Self.rows(for: sizes.map(\.width), maxWidth: bounds.width, spacing: spacing) {
+            var x = bounds.minX
+            let rowHeight = row.map { sizes[$0].height }.max() ?? 0
+            for index in row {
+                subviews[index].place(at: CGPoint(x: x, y: y + rowHeight / 2), anchor: .leading, proposal: ProposedViewSize(sizes[index]))
+                x += sizes[index].width + spacing
+            }
+            y += rowHeight + spacing
+        }
+    }
+}
+
+/// Chips that filter a list: each one toggles on its own, shows a checkmark
+/// when selected, and the group wraps onto as many rows as it needs.
+///
+/// With Reduce Motion on, the checkmark fades in instead of growing.
+struct FilterChipGroup<Option: Hashable>: View {
+    let options: [Option]
+    @Binding var selection: Set<Option>
+    var color: Color = .accentColor
+    let title: (Option) -> LocalizedStringResource
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        FilterChipGroupFlowLayout {
+            ForEach(options, id: \.self) { option in
+                chip(option)
+            }
+        }
+        .sensoryFeedback(.selection, trigger: selection)
+    }
+
+    private func chip(_ option: Option) -> some View {
+        let isSelected = selection.contains(option)
+
+        return Button {
+            if isSelected { selection.remove(option) } else { selection.insert(option) }
+        } label: {
+            HStack(spacing: 6) {
+                if isSelected {
+                    Image(systemName: "checkmark")
+                        .font(.caption.weight(.bold))
+                        .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
+                }
+                Text(title(option))
+                    .lineLimit(1)
+            }
+            .font(.subheadline.weight(.medium))
+            .foregroundStyle(isSelected ? AnyShapeStyle(FilterChipGroupContrastingForeground(background: color)) : AnyShapeStyle(.primary))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+            .background(isSelected ? AnyShapeStyle(color) : AnyShapeStyle(.clear), in: .capsule)
+            .overlay {
+                Capsule().strokeBorder(isSelected ? AnyShapeStyle(color) : AnyShapeStyle(.quaternary), lineWidth: 1)
+            }
+            .padding(.vertical, 4)
+            .contentShape(.rect)
+            .padding(.vertical, -4)
+        }
+        .buttonStyle(.plain)
+        .animation(reduceMotion ? .easeInOut(duration: 0.15) : .spring(duration: 0.3, bounce: 0.35), value: isSelected)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+}
+
+nonisolated struct FilterChipGroupContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+private enum FilterChipGroupDemoFilter: CaseIterable {
+    case openNow, delivery, vegan, glutenFree, italian, japanese, mexican, indian, cheap, topRated
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .openNow: "Open Now"
+        case .delivery: "Delivery"
+        case .vegan: "Vegan"
+        case .glutenFree: "Gluten-Free"
+        case .italian: "Italian"
+        case .japanese: "Japanese"
+        case .mexican: "Mexican"
+        case .indian: "Indian"
+        case .cheap: "Under $15"
+        case .topRated: "Top Rated"
+        }
+    }
+}
+
+struct FilterChipGroupDemo: View {
+    @State private var filters: Set<FilterChipGroupDemoFilter> = [.openNow]
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Restaurants")
+                        .font(.largeTitle.bold())
+                    Spacer()
+                    Button("Clear") {
+                        filters.removeAll()
+                    }
+                    .disabled(filters.isEmpty)
+                }
+
+                FilterChipGroup(options: FilterChipGroupDemoFilter.allCases, selection: $filters, color: .pink) { $0.title }
+
+                Text("Filters applied: \(filters.count)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .contentTransition(.numericText(value: Double(filters.count)))
+                    .animation(.snappy, value: filters.count)
+            }
+            .padding(20)
+        }
+    }
+}
+
+#Preview {
+    FilterChipGroupDemo()
+}
+```
+
 ## Icon Switch Toggle Style
 
 A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.
@@ -24004,6 +24200,288 @@ private func demoPhoto(_ caption: String, _ colors: [Color], _ symbol: String) -
 
 #Preview {
     ScatteredPhotoBoardDemo()
+}
+```
+
+## Character Count Text Editor
+
+A multiline text field with a placeholder, a ring that fills toward the limit and a count that turns orange near it and red past it.
+
+Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/CharacterCountTextEditor/CharacterCountTextEditor.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+enum CharacterCountTextEditorLevel: Equatable {
+    case normal, warning, over
+
+    /// Warns from `warningFraction` of the limit, and is over only past it.
+    init(count: Int, limit: Int, warningFraction: Double = 0.9) {
+        if count > limit {
+            self = .over
+        } else if Double(count) >= Double(limit) * warningFraction {
+            self = .warning
+        } else {
+            self = .normal
+        }
+    }
+
+    /// Characters as people see them: an emoji or an accented letter counts once.
+    static func count(of text: String) -> Int {
+        text.count
+    }
+}
+
+/// A multiline text field with a placeholder, a ring that fills toward the
+/// limit and a count that turns orange near it and red past it.
+///
+/// It counts characters as people see them, so an emoji counts once, and it
+/// never cuts the text: cutting it as it changes breaks typing in Japanese or
+/// Chinese and pasting, so the caller disables sending instead. The ring and
+/// the count change without motion, so Reduce Motion needs nothing different.
+struct CharacterCountTextEditor: View {
+    let title: LocalizedStringResource
+    @Binding var text: String
+    var limit = 280
+    var lineLimit: ClosedRange<Int> = 3...8
+
+    @FocusState private var isFocused: Bool
+    @ScaledMetric(relativeTo: .footnote) private var ringSize = 18.0
+
+    private var count: Int { CharacterCountTextEditorLevel.count(of: text) }
+    private var level: CharacterCountTextEditorLevel { CharacterCountTextEditorLevel(count: count, limit: limit) }
+
+    private var levelColor: Color {
+        switch level {
+        case .normal: .accentColor
+        case .warning: .orange
+        case .over: .red
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 8) {
+            TextField(text: $text, axis: .vertical) { Text(title) }
+                .lineLimit(lineLimit)
+                .focused($isFocused)
+                .accessibilityLabel(Text(title))
+                .accessibilityHint(Text("\(count) of \(limit) characters"))
+                .padding(14)
+                .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 16, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .strokeBorder(level == .over ? AnyShapeStyle(.red) : isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(.quaternary), lineWidth: 1.5)
+                }
+
+            HStack(spacing: 8) {
+                Text("\(count)/\(limit)")
+                    .font(.footnote.weight(level == .normal ? .regular : .semibold))
+                    .monospacedDigit()
+                    .foregroundStyle(level == .normal ? AnyShapeStyle(.secondary) : AnyShapeStyle(levelColor))
+                    .contentTransition(.numericText(value: Double(count)))
+
+                ZStack {
+                    Circle()
+                        .stroke(.quaternary, lineWidth: ringSize / 6)
+                    Circle()
+                        .trim(from: 0, to: min(Double(count) / Double(max(limit, 1)), 1))
+                        .stroke(levelColor, style: StrokeStyle(lineWidth: ringSize / 6, lineCap: .round))
+                        .rotationEffect(.degrees(-90))
+                }
+                .frame(width: ringSize, height: ringSize)
+            }
+            .accessibilityHidden(true)
+            .animation(.easeOut(duration: 0.15), value: count)
+        }
+        .onChange(of: level) { old, new in
+            if new == .over, old != .over {
+                AccessibilityNotification.Announcement(String(localized: "Over the character limit")).post()
+            }
+        }
+    }
+}
+
+// MARK: - Demo
+
+struct CharacterCountTextEditorDemo: View {
+    @State private var status = ""
+    @State private var bio = "Coffee, trains and old maps."
+    @State private var postedStatus: String?
+
+    private var canPost: Bool {
+        !status.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && status.count <= 80
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Profile")
+                    .font(.largeTitle.bold())
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Status")
+                        .font(.headline)
+                    CharacterCountTextEditor(title: "What's on your mind?", text: $status, limit: 80)
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Bio")
+                        .font(.headline)
+                    CharacterCountTextEditor(title: "Tell people about yourself", text: $bio, limit: 160, lineLimit: 2...4)
+                }
+
+                Button {
+                    postedStatus = status
+                    status = ""
+                } label: {
+                    Text("Post Status").frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .disabled(!canPost)
+
+                if let postedStatus {
+                    Text(verbatim: postedStatus)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(20)
+        }
+        .scrollDismissesKeyboard(.interactively)
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    CharacterCountTextEditorDemo()
+}
+```
+
+## Clearable Text Field
+
+A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.
+
+Category: Inputs. Minimum: iOS 18.0. Path: Components/Inputs/ClearableTextField/ClearableTextField.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// A text field with a leading symbol and a button that clears it. The border
+/// and the symbol take the tint while it has focus, and both turn red with a
+/// message under the field when the caller passes an error.
+///
+/// Clearing keeps the focus, so the keyboard stays up for the next text.
+/// With Reduce Motion on, the clear button and the error fade instead of moving.
+struct ClearableTextField: View {
+    let title: LocalizedStringResource
+    @Binding var text: String
+    var systemImage: String?
+    var errorMessage: LocalizedStringResource?
+
+    @FocusState private var isFocused: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var accent: AnyShapeStyle {
+        if errorMessage != nil { return AnyShapeStyle(.red) }
+        return isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary)
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 10) {
+                if let systemImage {
+                    Image(systemName: systemImage)
+                        .foregroundStyle(accent)
+                        .accessibilityHidden(true)
+                }
+
+                TextField(text: $text) { Text(title) }
+                    .focused($isFocused)
+                    .accessibilityLabel(Text(title))
+                    .accessibilityHint(errorMessage.map { Text($0) } ?? Text(""))
+
+                if !text.isEmpty {
+                    Button {
+                        text = ""
+                        isFocused = true
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.tertiary)
+                            .padding(13)
+                            .contentShape(.rect)
+                            .padding(-13)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Clear text")
+                    .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
+                }
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 13)
+            .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 14, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(accent, lineWidth: isFocused || errorMessage != nil ? 1.5 : 0.5)
+            }
+            .contentShape(.rect)
+            .onTapGesture { isFocused = true }
+
+            if let errorMessage {
+                Label { Text(errorMessage) } icon: { Image(systemName: "exclamationmark.circle.fill") }
+                    .font(.footnote)
+                    .foregroundStyle(.red)
+                    .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .top)))
+                    .accessibilityHidden(true)
+            }
+        }
+        .animation(reduceMotion ? .easeInOut(duration: 0.15) : .snappy(duration: 0.25), value: text.isEmpty)
+        .animation(reduceMotion ? .easeInOut(duration: 0.15) : .snappy(duration: 0.25), value: errorMessage == nil)
+        .animation(.easeInOut(duration: 0.15), value: isFocused)
+    }
+}
+
+// MARK: - Demo
+
+struct ClearableTextFieldDemo: View {
+    @State private var search = "Coffee near me"
+    @State private var name = ""
+    @State private var email = ""
+
+    private var emailError: LocalizedStringResource? {
+        !email.isEmpty && !email.contains("@") ? "Enter a valid email address." : nil
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Contact")
+                    .font(.largeTitle.bold())
+
+                ClearableTextField(title: "Search", text: $search, systemImage: "magnifyingglass")
+                ClearableTextField(title: "Name", text: $name, systemImage: "person")
+                    .textContentType(.name)
+                ClearableTextField(title: "Email", text: $email, systemImage: "envelope", errorMessage: emailError)
+                    .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+            }
+            .padding(20)
+        }
+        .tint(.indigo)
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    ClearableTextFieldDemo()
 }
 ```
 
