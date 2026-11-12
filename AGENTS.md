@@ -13,18 +13,32 @@ easy to copy matters as much as the code itself.
 
 ## Map
 
-| Path | What lives there | State |
-|---|---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, and `<Name>.metal` when it draws with a Metal shader | In place |
-| `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata | In place |
-| `scripts/` | Validates the components and generates the files below | In place |
-| `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
-| `README.md` | Written by hand, except the index between the `catalog` markers | In place |
-| `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
-| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. In `src/components/`: `Header.astro` replaces the bar of Starlight, `ComponentHeader.astro` draws the top of the page of a component from `catalog.json`, `CatalogGallery.astro` is the gallery with filters of the generated index, and the rest build the landing page, `src/content/docs/index.mdx`. They read `catalog.json` through `src/lib/catalog.ts`. The pages written by hand are next to the landing page, and the changelog page shows `CHANGELOG.md`. `src/styles/custom.css` holds the look of the site: neutral black and white, with the gradient of the logo as the only accent | In place |
-| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot. `readme/` has the logo and the button of the README, two animated SVG files | In place |
+| Path | What lives there |
+|---|---|
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, and `<Name>.metal` when it draws with a Metal shader |
+| `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata |
+| `scripts/` | Validates the components and generates the files below |
+| `catalog.json`, `llms.txt`, `llms-full.txt`, `catalog/` | Generated: the indexes for agents and tools, and a page per category with every preview |
+| `README.md` | Written by hand, except the index between the `catalog` markers |
+| `docs/` | The site, built with Astro Starlight. See [The site](#the-site) |
+| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot. `readme/` has the logo and the button of the README, two animated SVG files |
 
-Update the State column when a planned part lands.
+Never edit a generated file by hand: change the component and run
+`make catalog`.
+
+## Adding a component
+
+1. Branch from `develop`: `feature/<short-name>`.
+2. Write `Components/<Category>/<Name>/<Name>.swift` and `<Name>.meta.json`,
+   keeping the [rules](#rules-for-every-component).
+3. `make catalog`, so the Showcase and the indexes know it.
+4. Add `Showcase/ShowcaseTests/<Name>Tests.swift` when it has logic.
+5. `make record COMPONENT=<Category>/<Name>`, and look at the `.webp`.
+6. Add a line under "Unreleased" in `CHANGELOG.md`.
+7. `make verify`.
+
+While you iterate, `make check` takes seconds and names the rule a component
+breaks. Leave `make verify` for the end.
 
 ## Commands
 
@@ -57,23 +71,33 @@ A change is done when `make verify` passes. A component that claims an older
 iOS should also pass `make showcase-test` on that runtime, and a change to the
 site should also pass `make docs`.
 
-The site uses pnpm. Pin dependencies to exact versions.
-
 ## CI
 
 Every pull request runs `make check`, `make test` and `make docs`, and the
-Showcase tests and the main-actor build on iOS 26. GitHub's macOS runners stop
-at Xcode 26.6, so that job removes components that need iOS 27 before
-compiling. Those are verified only by `make verify` on a machine with
-Xcode 27.2 or later, so run it before opening the pull request. Revisit this
-when a runner offers Xcode 27. The job also downloads the Metal toolchain,
-which the runners do not always have, and creates its own simulator, because
-some runners start before theirs are ready.
+Showcase tests and the main-actor build on iOS 26 and on iOS 18, the baseline.
+The iOS 18 job downloads its simulator first, which makes it the slow one.
 
-A second job runs the same tests on iOS 18, the baseline. The runners have no
-iOS 18 simulator, so it downloads one first, which makes it the slow job.
+GitHub's macOS runners stop at Xcode 26.6, so CI removes the components that
+need iOS 27 before compiling. Only `make verify` on a machine with Xcode 27.2
+or later covers them: run it before opening the pull request. Revisit this
+when a runner offers Xcode 27.
 
 Pages deploys the site on every push to `main`.
+
+## The site
+
+`docs/` uses pnpm, with dependencies pinned to exact versions. Its catalog
+pages and `public/` files are generated by `make docs` and not committed.
+
+- `src/components/` reads `catalog.json` through `src/lib/catalog.ts`.
+  `Header.astro` replaces the bar of Starlight, `ComponentHeader.astro` draws
+  the top of the page of a component, `CatalogGallery.astro` is the gallery
+  with filters of the generated index, and the rest build the landing page,
+  `src/content/docs/index.mdx`.
+- The pages written by hand are next to the landing page. The changelog page
+  shows `CHANGELOG.md`.
+- `src/styles/custom.css` holds the look: neutral black and white, with the
+  gradient of the logo as the only accent.
 
 ## Component metadata
 
@@ -93,29 +117,32 @@ anything else:
 | `apis` | The main Apple APIs it uses: `["MeshGradient", "TimelineView"]` |
 | `origin` | `{ "kind": "original" }`, `{ "kind": "inspired", "credit": "...", "url": "..." }` or `{ "kind": "adapted", "url": "...", "license": "..." }` |
 
+Two more are optional and only steer the recording: `previewSteps` and
+`previewManual`, explained in [Recording a preview](#recording-a-preview).
+
 ## Rules for every component
 
-1. **One file to copy, or two with a shader.** Keep the component, a
+`make check` enforces the ones marked ✓, so its error is the reminder. The
+rest are on you.
+
+1. **One file to copy, or two with a shader.** ✓ Keep the component, a
    `<Name>Demo` view and its `#Preview` in `<Name>.swift`. It may not import
-   another component, a package or an asset. The one exception is a Metal
+   another component, a package or an asset, which the check does not see.
+   The one exception is a Metal
    shader, because SwiftUI's `ShaderLibrary` only loads compiled Metal: a
    component may have exactly one `<Name>.metal` next to its Swift file.
    - The documentation comment of its type says to copy both files.
    - Every function in `<Name>.metal` starts with the name of the component,
      like `RippleShaderEffectDistortion`. Xcode compiles every `.metal` file
-     of a target into one `default.metallib`, in the Showcase and in the app
-     the component is copied to, so two functions with the same name collide.
-
-   `make check` rejects a shader that breaks this, and a Swift file that does
-   not name its shader.
-2. **The copyright header comes first**, so the notice travels with the code:
+     of a target into one `default.metallib`, so two functions with the same
+     name collide, in the Showcase and in the app the component is copied to.
+2. **The copyright header comes first** ✓, in the `.swift` and in the
+   `.metal`, so the notice travels with the code:
 
    ```swift
    // SPDX-License-Identifier: MIT
    // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
    ```
-
-   A `.metal` file starts with the same two lines.
 
 3. **Swift 6 language mode with complete concurrency checking.** A copied
    component has to compile in both kinds of project: one that sets no default
@@ -125,7 +152,7 @@ anything else:
    `nonisolated` when nonisolated code uses it: a `Shape`, the logic a `Layout`
    or a `visualEffect` closure calls, or a value passed to an API that requires
    `Sendable`.
-4. **Observation.** Use `@Observable`, never `ObservableObject`,
+4. **Observation.** ✓ Use `@Observable`, never `ObservableObject`,
    `@StateObject` or `@Published`.
 5. **Nothing deprecated.** Warnings are errors in the Showcase app.
 6. **Availability.** iOS 18 is the baseline. A component that needs a newer
@@ -133,14 +160,14 @@ anything else:
    metadata. Add a fallback only where one is natural.
 7. **Accessibility.** Honour `accessibilityReduceMotion`, scale with Dynamic
    Type and label anything that is not plain text.
-   Content drawn over a color the caller chooses takes white or black from
-   that color, with a `<Name>ContrastingForeground` style like the one in
-   `ElasticDragButton`, listed in `ContrastingForegroundTests`.
-   Anything that takes a tap answers in an area of at least 44 by 44 points.
-   Where that size would break the design, like a line of text or an icon
-   inside a field, widen only what answers to the touch, on the label of the
-   button: `.padding(13).contentShape(.rect).padding(-13)`. A button with a
-   system style at its regular size is left as Apple sized it.
+   - Content drawn over a color the caller chooses takes white or black from
+     that color, with a `<Name>ContrastingForeground` style like the one in
+     `ElasticDragButton`, listed in `ContrastingForegroundTests`.
+   - Anything that takes a tap answers in an area of at least 44 by 44 points.
+     Where that size would break the design, like a line of text or an icon
+     inside a field, widen only what answers to the touch, on the label of the
+     button: `.padding(13).contentShape(.rect).padding(-13)`. A button with a
+     system style at its regular size is left as Apple sized it.
 8. **Right-to-left.** A component works in a right-to-left layout. SwiftUI
    mirrors layout there, which includes offsets, positions, rotations, shapes
    and unit points, but a gesture still reports screen points and a `Canvas`
@@ -153,36 +180,26 @@ anything else:
      crops, zooms or seeks them is not either.
    - Use the `forward` and `backward` symbols, and leading and trailing, for
      anything that follows the direction of reading.
-
-   Try the demo right-to-left in a booted simulator:
-
-   ```sh
-   xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
-     -showcaseComponent <id> \
-     -AppleTextDirection YES -NSForceRightToLeftWritingDirection YES
-   ```
-
-9. **Keep names unique.** Every file name and every non-private top-level type
-   in `Components/` must be unique, because the Showcase app compiles the whole
-   folder as one target. Prefix supporting types with the component's name, or
-   make them `private`.
-10. **Internal by default.** No `public`: the code lands inside someone's app.
-11. **An animated preview.** Every component has a `<Name>.webp` that shows it
-    moving, used by the README and the site. `make check` rejects a missing or
-    still image, and anything over 2 MB. Why WebP and not GIF: a fraction of
-    the size, full color with no banding in gradients or glass, and GitHub
-    renders it in Markdown, which it does not do for a committed video.
-12. **Name what repeats.** A number written four or more times in a component,
-    outside its demo, gets a name: a `private let`, or a parameter with a
-    default when whoever copies the component would want to change it. A
-    number that reads well where it is, like one padding or one opacity, stays
-    inline. `make check` rejects the repeats, and leaves out 0, 1, 2, 0.5, 90,
-    100, 180 and 360.
+9. **Keep names unique.** Every file name and every non-private top-level
+   type in `Components/` must be unique, because the Showcase app compiles the
+   whole folder as one target. `make check` rejects a repeated file name, and
+   the build a repeated type. Prefix supporting types with the component's
+   name, or make them `private`.
+10. **Internal by default.** ✓ No `public`: the code lands inside someone's
+    app.
+11. **An animated preview.** ✓ Every component has a `<Name>.webp` that shows
+    it moving, used by the README and the site: animated, and 2 MB at most.
+12. **Name what repeats.** ✓ A number written four or more times in a
+    component, outside its demo, gets a name: a `private let`, or a parameter
+    with a default when whoever copies the component would want to change it.
+    A number that reads well where it is, like one padding or one opacity,
+    stays inline. The check leaves out 0, 1, 2, 0.5, 90, 100, 180 and 360.
 13. **Localizable text.** A text the caller passes to be shown or read aloud,
     like a title, a label or a prompt, is a `LocalizedStringResource`, not a
     `String`. A literal at the call site then lands in the String Catalog of
     the app the component is copied to, and a value that is not a literal is
-    passed as `"\(value)"`.
+    passed as `"\(value)"`. This applies wherever the text is not the identity
+    of an item or part of a `String` the component composes.
     - Data stays a `String`: a person's name, a message, the name of a symbol.
     - A text fixed inside the component is a literal passed straight to
       SwiftUI, which already makes it localizable.
@@ -191,31 +208,15 @@ anything else:
       a resource, or resolve it with `String(localized:)`.
     - Some overloads that take a `LocalizedStringResource` need iOS 26, like
       the ones of `TextField` and `Tab`. On iOS 18 wrap it: `Text(resource)`.
+    - A text that agrees with its count, `^[\(count) photo](inflect: true)`,
+      needs an entry in `Showcase/Showcase/Localizable.xcstrings` ✓ with its
+      two forms, in English while its demo is not translated. Launched in
+      Spanish it would otherwise lose its plural: "3 photo".
 
-    Applied wherever the text is not the identity of an item or part of
-    a `String` the component composes.
-
-    The Showcase shows the rule at work. Its String Catalog,
-    `Showcase/Showcase/Localizable.xcstrings`, has the Spanish of one demo,
-    Onboarding Pager. The app keeps to English, also on a device in Spanish,
-    where it would otherwise run half translated, and shows the Spanish when
-    it is launched asking for it:
-
-    ```sh
-    xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase \
-      -showcaseComponent onboarding-pager -AppleLanguages "(es)"
-    ```
-
-    Its keys are written by hand. The target does not extract strings into
-    it, so a build in Xcode does not fill it with the texts of every
-    component.
-
-    A text that agrees with its count, `^[\(count) photo](inflect: true)`,
-    needs an entry there too. Launched in Spanish, the English text loses its
-    plural, "3 photo", so the catalog gives it the two forms, in English
-    while its demo is not translated. `make check` rejects one that is
-    missing.
-
+    That String Catalog is written by hand, because the target does not
+    extract strings into it. It has the Spanish of one demo, Onboarding Pager.
+    The app keeps to English, also on a device in Spanish, unless it is
+    launched with `-AppleLanguages "(es)"`.
 14. **A demo stops playing when it is touched.** A demo may move by itself, so
     it looks alive and its preview records without touches, but never against
     the person trying it. Every demo that does uses the same piece:
@@ -238,22 +239,30 @@ anything else:
     Do not present or dismiss a search or a sheet from that task when the
     person can also do it: record those with `previewSteps` instead.
 
+## Trying a demo in the simulator
+
+The Showcase opens one demo alone with `-showcaseComponent <id>`:
+
+```sh
+xcrun simctl launch booted com.magnoscg.AwesomeSwiftUI.Showcase -showcaseComponent <id>
+```
+
+Add `-AppleTextDirection YES -NSForceRightToLeftWritingDirection YES` to try
+it right-to-left, and `-AppleLanguages "(es)"` to try it in Spanish.
+
 ## Recording a preview
 
-You need `ffmpeg`, `webp` and [AXe](https://github.com/cameroncooke/AXe). A new
-component works like this: write its Swift file and metadata, run `make catalog`
-so the Showcase knows it, then boot an iPhone 18 Pro simulator on the newest iOS
-and run:
+You need `ffmpeg`, `webp` and [AXe](https://github.com/cameroncooke/AXe). Boot
+an iPhone 18 Pro simulator on the newest iOS, after `make catalog`, and run:
 
 ```sh
 make record COMPONENT=Buttons/PressableButtonStyle
 ```
 
-It opens the demo alone with `-showcaseComponent <id>`, records it and writes
-the preview, resized to 320 pixels wide at 20 frames per second. A demo that
-animates by itself records for 4 seconds. A demo that needs touches lists them
-in `previewSteps` in its metadata, as `axe batch` steps:
-`["tap --label Like", "sleep 1"]`.
+It opens the demo alone, records it and writes the preview, resized to 320
+pixels wide at 20 frames per second. A demo that animates by itself records
+for 4 seconds. A demo that needs touches lists them in `previewSteps` in its
+metadata, as `axe batch` steps: `["tap --label Like", "sleep 1"]`.
 
 When AXe cannot perform the gesture, such as holding before a drag, record by
 hand, set `"previewManual": true` and convert it:
@@ -287,14 +296,14 @@ Do not trust memory for anything new. Check Apple's documentation or the SDK's
 
 ## Where code may come from
 
-- **Original work** is always welcome.
-- **Code under a compatible license** (MIT, BSD, Apache 2.0) may be adapted.
-  Keep its license and copyright notice next to it, and record the source in
-  the metadata.
-- **Everything else stays out**: paid courses and tutorials, code with no
-  license, and anything else without permission to redistribute. An idea can
-  inspire a new implementation written from scratch, and should be credited
-  with a link, which `make check` requires, but do not copy or closely
+Every line has to be redistributable under the license of the repository.
+[CONTRIBUTING.md](CONTRIBUTING.md#where-code-may-come-from) has the full rule.
+
+- **Original work**, and code under MIT, BSD or Apache 2.0 with its notice
+  kept and its source in the metadata, may come in.
+- **Everything else stays out**: paid courses and tutorials, and code with no
+  license. An idea can inspire a new implementation written from scratch,
+  credited with a link, which `make check` requires. Never copy or closely
   translate its code.
 
 ## Git
