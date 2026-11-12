@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.7.0 - 2026-11-12
+
 ### Added
 
 - Character Count Text Editor, a multiline field with a ring and a count
