@@ -35,8 +35,7 @@ const SITE_BASE = '/swiftui-components';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
 const BASELINE_IOS = 18;
-// Longer than any run of backticks a Swift file is likely to hold.
-const SOURCE_FENCE = '`````';
+const SHORTEST_FENCE = 5;
 const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
 const REGISTRY_PATH ='Showcase/Showcase/Generated/ComponentRegistry.swift';
 const README_START = '<!-- catalog:start -->';
@@ -544,8 +543,17 @@ function renderDocsPage(component) {
   ].join('\n');
 }
 
+// A fence longer than any run of backticks in the source it holds. The pages
+// are MDX, where a source that closed its own block would be run as code
+// when the site is built.
+function sourceFence(source) {
+  const longest = Math.max(0, ...(source.match(/`+/g) ?? []).map((run) => run.length));
+  return '`'.repeat(Math.max(SHORTEST_FENCE, longest + 1));
+}
+
 function renderDocsSource(component) {
-  const swift = [`${SOURCE_FENCE}swift title="${component.name}.swift"`, component.source.trimEnd(), SOURCE_FENCE, ''];
+  const swiftFence = sourceFence(component.source);
+  const swift = [`${swiftFence}swift title="${component.name}.swift"`, component.source.trimEnd(), swiftFence, ''];
   if (!component.shader) {
     return [`Copy this code into your project, or [download the file](${RAW_BASE}/${component.path}).`, '', ...swift];
   }
@@ -554,9 +562,9 @@ function renderDocsSource(component) {
     '',
     ...swift,
     // The site has no grammar for Metal, which is C++.
-    `${SOURCE_FENCE}cpp title="${component.name}.metal"`,
+    `${sourceFence(component.shaderSource)}cpp title="${component.name}.metal"`,
     component.shaderSource.trimEnd(),
-    SOURCE_FENCE,
+    sourceFence(component.shaderSource),
     '',
   ];
 }

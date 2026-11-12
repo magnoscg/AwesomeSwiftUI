@@ -785,6 +785,15 @@ describe('the documentation site', () => {
     assert.equal(page.match(/^`````\w/gm).length, 1);
   });
 
+  it('keeps a source with a long run of backticks inside its block, where MDX cannot run it', () => {
+    const source = swift('GlowButton', '// `````\n// export const stolen = process.env;\n// `````');
+    const page = docsFor(meta(), source).pages.get(PAGE);
+
+    assert.match(page, /\n``````swift title="GlowButton\.swift"\n/);
+    assert.ok(page.endsWith('\n``````\n'));
+    assert.equal(page.match(/^``````/gm).length, 2);
+  });
+
   it('shows the shader as a second file to copy', () => {
     const root = makeRoot();
     addComponent(root, { source: swiftWithShader(), shader: metal() });
