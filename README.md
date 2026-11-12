@@ -1,23 +1,26 @@
 <div align="center">
 
+<img src=".github/readme/logo.svg" alt="" width="160" height="160">
+
 # Awesome SwiftUI Components
 
-**Copy-paste SwiftUI components, animations and transitions.**<br>
-iOS 18 to iOS 27 · Swift 6 · one file each · nothing to install
+*Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
+
+<a href="https://magnoscg.github.io/swiftui-components/"><img src=".github/readme/browse-catalog.svg" alt="Browse the catalog" width="440"></a>
 
 [![Components](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmagnoscg%2Fswiftui-components%2FHEAD%2Fcatalog.json&query=%24.count&label=components&color=5856d6)](https://magnoscg.github.io/swiftui-components/)
-[![iOS](https://img.shields.io/badge/iOS-18%20to%2027-0a84ff)](#at-a-glance)
-[![Swift](https://img.shields.io/badge/Swift-6-f05138)](#the-rules-every-component-keeps)
-[![CI](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/releases/latest)
-[![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-components)](LICENSE)
+[![CI](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml)
 [![Stars](https://img.shields.io/github/stars/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/stargazers)
+[![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-components)](LICENSE)
 
-### [Browse the catalog →](https://magnoscg.github.io/swiftui-components/)
+From a one-line button style to a view drawn by a Metal shader. There is no
+package to install: find a component, copy its file into your project and it
+is your code. Swift 6, nothing deprecated, and a preview of every one.
 
-[Use a component](#use-a-component) · [For AI agents](#for-ai-agents) · [All components](#catalog) · [Contribute](#contributing)
+</div>
 
-<br>
+<div align="center">
 
 <a href="Components/Cards/HolographicCard"><img src="Components/Cards/HolographicCard/HolographicCard.webp" width="150" alt="Holographic Card, a foil that shifts as the card tilts"></a>
 <a href="Components/Effects/VoiceOrb"><img src="Components/Effects/VoiceOrb/VoiceOrb.webp" width="150" alt="Voice Orb, a glowing orb that swells with the voice"></a>
@@ -35,6 +38,55 @@ iOS 18 to iOS 27 · Swift 6 · one file each · nothing to install
 
 </div>
 
+## At a glance
+
+| | |
+|---|---|
+| Install | None. Copy one Swift file into your project, and its Metal shader if it has one |
+| Platforms | iOS 18 to iOS 27. Each component states its own minimum |
+| Language | Swift 6, with complete concurrency checking, with or without the main actor as the default isolation |
+| Technologies | The current Apple API for each iOS version, and nothing deprecated |
+| Accessibility | Reduce Motion, Dynamic Type, VoiceOver and right-to-left layouts |
+| Texts | What you pass to a component is a `LocalizedStringResource`, so it lands in your String Catalog |
+| Search | Keywords on every component, in English and Spanish, for people and for AI agents |
+| For agents | `llms.txt`, `llms-full.txt` and `catalog.json`, generated from the same metadata |
+| License | MIT. Every file carries its notice |
+
+## Contents
+
+- [For AI agents](#for-ai-agents)
+- [Use a component](#use-a-component)
+- [Catalog](#catalog)
+- [How the catalog is organized](#how-the-catalog-is-organized)
+- [The rules every component keeps](#the-rules-every-component-keeps)
+- [Development](#development)
+- [Contributing](#contributing)
+- [Credits](#credits)
+- [License](#license)
+
+## For AI agents
+
+To add a component to an app you only need the index. Point your agent at it
+and ask for what you need:
+
+```text
+Find a SwiftUI component for <what you need> in
+https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
+and copy its file into my project.
+```
+
+| File | What it is for |
+|---|---|
+| [llms.txt](llms.txt) | The short index: every component with its summary and the address of its source |
+| [llms-full.txt](llms-full.txt) | The same index with the source of every component inline |
+| [catalog.json](catalog.json) | Every component as data: keywords in English and Spanish, minimum iOS, APIs, level, and `rawURL` to fetch, with `shaderRawURL` when it has a shader |
+
+- Compare the `minIOS` of a component with the deployment target before you copy it.
+- A component with a `shaderRawURL` is two files. Copy both into the same target: it draws nothing without its shader.
+- Keep the two lines at the top of each file. They are the license notice.
+
+To change the catalog itself, read [AGENTS.md](AGENTS.md).
+
 ## Use a component
 
 1. **Find it.** [Search the catalog](https://magnoscg.github.io/swiftui-components/)
@@ -50,37 +102,9 @@ PulseRingButton(systemImage: "mic.fill", label: "Record") {
 }
 ```
 
-To try them all on a device, open `Showcase/Showcase.xcodeproj` and run it.
-
-## At a glance
-
-| | |
-|---|---|
-| Install | None. Copy one Swift file into your project, and its Metal shader if it has one |
-| Platforms | iOS 18 to iOS 27. Each component states its own minimum |
-| Language | Swift 6, with complete concurrency checking |
-| Technologies | The current Apple API for each iOS version, and nothing deprecated |
-| Accessibility | Reduce Motion, Dynamic Type, VoiceOver and right-to-left layouts |
-| Search | Keywords on every component, in English and Spanish, for people and for AI agents |
-| License | MIT |
-
-## For AI agents
-
-The catalog is built to be read by a coding agent. Point yours at the index
-and ask for what you need:
-
-```text
-Find a SwiftUI component for <what you need> in
-https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
-and copy its file into my project.
-```
-
-| File | What it is for |
-|---|---|
-| [llms.txt](llms.txt) | The short index: every component with its summary and the address of its source |
-| [llms-full.txt](llms-full.txt) | The same index with the source of every component inline |
-| [catalog.json](catalog.json) | Every component as data: keywords in English and Spanish, minimum iOS, APIs, level, and `rawURL` to fetch, with `shaderRawURL` when it has a shader |
-| [AGENTS.md](AGENTS.md) | The map of the repository and the rules a change has to keep |
+The `Demo` view and the `#Preview` at the end of each file show how to use
+it, and you can delete them afterwards. To try every component on a device,
+open `Showcase/Showcase.xcodeproj` and run it.
 
 ## Catalog
 
@@ -159,6 +183,24 @@ Components/
 - **Clean origin.** Original work, or code under a compatible license with its
   notice kept. See [where code may come from](CONTRIBUTING.md#where-code-may-come-from).
 
+## Development
+
+Node 24 or later and Xcode 27.2 or later. The scripts have no dependencies.
+
+```sh
+make catalog         # rewrite the generated files after changing a component
+make check           # fail if a component breaks a rule or a generated file is stale
+make test            # the tests of the catalog tooling
+make record          # record the preview of a component in the simulator
+make docs            # build the site into docs/dist
+make showcase-test   # run the Swift Testing suite in the simulator
+make verify          # check, test, the main-actor build and the Showcase tests
+```
+
+CI runs the checks, the site and the Showcase tests on iOS 26 and iOS 18 for
+every pull request. A change is done when `make verify` passes.
+[AGENTS.md](AGENTS.md) has every command and the rules.
+
 ## Contributing
 
 Ideas, components and fixes are welcome. Start with
@@ -166,8 +208,17 @@ Ideas, components and fixes are welcome. Start with
 [code of conduct](CODE_OF_CONDUCT.md), and vulnerabilities go through
 [SECURITY.md](SECURITY.md).
 
+## Credits
+
+Most components are original. The ones that take an idea from somewhere say
+so in their metadata, with a link: nine from the tutorials of
+[Kavsoft](https://www.youtube.com/@Kavsoft), and others from Apple's own apps,
+two WWDC sessions, Blinkist, Family and Magic UI. No code was taken from any
+of them: each is an implementation written from scratch.
+
 ## License
 
-[MIT](LICENSE). Each Swift and Metal file carries a short copyright header, so
-the notice travels with the code when you copy it. Code imported from other
-projects keeps its original license and notice.
+[MIT](LICENSE) © 2026 Oscar Canton and contributors. Each Swift and Metal file
+carries a short copyright header, so the notice travels with the code when you
+copy it. Code imported from other projects keeps its original license and
+notice.

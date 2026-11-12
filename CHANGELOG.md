@@ -6,6 +6,33 @@ on `main`.
 
 ## Unreleased
 
+## 0.6.0 - 2026-11-12
+
+### Changed
+
+- The README has a logo and an animated button to the catalog, a table of
+  contents, the section for coding agents before the rest, with the three
+  things an agent has to check before copying a component, and sections for
+  development and credits.
+- The site has a new look, in neutral black and white, and a bar with the
+  logo, the sections and the stars of the repository. The sidebar opens one
+  category at a time and marks the components that need iOS 26 or iOS 27.
+- The page of a component opens with its preview on a stage, what it needs
+  as labels, and buttons to copy the code, download its files and copy a
+  prompt that tells a coding agent how to add it.
+- The landing page searches the catalog as you type, in English and Spanish,
+  and has the prompt for coding agents in a box with a button to copy it.
+- The button to the catalog in the README stands alone, without the file
+  names that floated around it.
+- `make check` rejects a component folder that is not one word of letters
+  and numbers, and an origin whose address is not a web address. Both reach
+  the pages of the site, which run code when it is built.
+
+### Added
+
+- Four pages on the site: the rules every component keeps, accessibility,
+  contributing and this changelog.
+
 ## 0.5.3 - 2026-11-11
 
 ### Added

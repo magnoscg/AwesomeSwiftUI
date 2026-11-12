@@ -21,8 +21,8 @@ easy to copy matters as much as the code itself.
 | `catalog.json`, `llms.txt`, `llms-full.txt` | Generated indexes for agents and tools. Never edit them by hand | In place |
 | `README.md` | Written by hand, except the index between the `catalog` markers | In place |
 | `catalog/` | Generated page per category with every preview. Never edit it by hand | In place |
-| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. `src/components/CatalogGallery.astro` is the gallery with filters that the generated index uses. The landing page is `src/content/docs/index.mdx`, built from the other components in that folder, which read `catalog.json` through `src/lib/catalog.ts`. `src/styles/custom.css` holds the look of the site | In place |
-| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot | In place |
+| `docs/` | The site, built with Astro Starlight. Its catalog pages and `public/` files are generated and not committed. In `src/components/`: `Header.astro` replaces the bar of Starlight, `ComponentHeader.astro` draws the top of the page of a component from `catalog.json`, `CatalogGallery.astro` is the gallery with filters of the generated index, and the rest build the landing page, `src/content/docs/index.mdx`. They read `catalog.json` through `src/lib/catalog.ts`. The pages written by hand are next to the landing page, and the changelog page shows `CHANGELOG.md`. `src/styles/custom.css` holds the look of the site: neutral black and white, with the gradient of the logo as the only accent | In place |
+| `.github/` | Issue and pull request templates, CI, the Pages deploy and Dependabot. `readme/` has the logo and the button of the README, two animated SVG files | In place |
 
 Update the State column when a planned part lands.
 

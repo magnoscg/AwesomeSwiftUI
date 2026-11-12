@@ -1,30 +1,135 @@
-/* The look of the site: the system font of Apple platforms, an indigo accent
-   and a landing page with more air than a page of documentation. */
+/* The look of the site: neutral black and white, with no tint, so the
+   previews carry the color. The gradient of the logo is the only accent, and
+   it is kept for a few places: the mark, a word of the headline, the focus
+   of the page. */
 
 :root {
   --sl-font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', sans-serif;
-  --sl-color-accent-low: #1f1b4d;
-  --sl-color-accent: #6d5efc;
-  --sl-color-accent-high: #c9c4ff;
+  --font-display: 'Outfit Variable', var(--sl-font);
+  --brand-1: #ff9f0a;
+  --brand-2: #ff375f;
+  --brand-3: #bf5af2;
+  --brand-gradient: linear-gradient(110deg, var(--brand-1), var(--brand-2) 50%, var(--brand-3));
+
+  --sl-color-white: #fafafa;
+  --sl-color-gray-1: #ededed;
+  --sl-color-gray-2: #b8b8b8;
+  --sl-color-gray-3: #8a8a8a;
+  --sl-color-gray-4: #4d4d4d;
+  --sl-color-gray-5: #262626;
+  --sl-color-gray-6: #161616;
+  --sl-color-black: #0a0a0a;
+  --sl-color-accent-low: #1f1f1f;
+  --sl-color-accent: #d4d4d4;
+  --sl-color-accent-high: #fafafa;
+  --sl-color-bg-nav: color-mix(in srgb, var(--sl-color-black) 78%, transparent);
+  --sl-color-bg-sidebar: var(--sl-color-black);
+  --sl-color-hairline: var(--sl-color-gray-5);
+  --sl-color-hairline-shade: var(--sl-color-gray-5);
 }
 
 :root[data-theme='light'] {
-  --sl-color-accent-low: #e4e1ff;
-  --sl-color-accent: #5244e1;
-  --sl-color-accent-high: #2a2178;
+  --sl-color-white: #0a0a0a;
+  --sl-color-gray-1: #171717;
+  --sl-color-gray-2: #333333;
+  --sl-color-gray-3: #5c5c5c;
+  --sl-color-gray-4: #8a8a8a;
+  --sl-color-gray-5: #d6d6d6;
+  --sl-color-gray-6: #efefef;
+  --sl-color-gray-7: #f7f7f7;
+  --sl-color-black: #ffffff;
+  --sl-color-accent-low: #e8e8e8;
+  --sl-color-accent: #171717;
+  --sl-color-accent-high: #0a0a0a;
+  --sl-color-bg-nav: color-mix(in srgb, var(--sl-color-black) 82%, transparent);
+  --sl-color-hairline: var(--sl-color-gray-6);
+  --sl-color-hairline-shade: var(--sl-color-gray-6);
 }
 
-/* A soft light behind the top of every page. */
-body {
-  background-image: radial-gradient(60rem 26rem at 50% -8rem, color-mix(in srgb, var(--sl-color-accent) 22%, transparent), transparent 70%);
-  background-repeat: no-repeat;
+/* The bar at the top lets the page show through it, blurred. */
+header.header {
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom-color: var(--sl-color-hairline);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+/* A link in running text is the color of the text, with the accent under it. */
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-white);
+  text-decoration-color: var(--brand-2);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: var(--brand-3);
+}
+
+.sl-markdown-content code:not(:where(.not-content *)) {
+  border-radius: 0.35rem;
+}
+
+.expressive-code .frame {
+  border-radius: 0.75rem;
+}
+
+/* The sidebar: quiet names, and the open page as a solid pill. */
+.sidebar-pane {
+  border-inline-end: 1px solid var(--sl-color-hairline);
+}
+
+.sidebar-content a {
+  border-radius: 0.5rem;
+}
+
+.sidebar-content .large,
+.sidebar-content summary .large {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.sidebar-content .sl-badge {
+  border: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--sl-color-gray-2);
+  background: var(--sl-color-gray-5);
+}
+
+.sidebar-content [aria-current='page'] .sl-badge {
+  color: var(--sl-color-text-invert);
+  background: color-mix(in srgb, var(--sl-color-text-invert) 18%, transparent);
 }
 
 /* The landing page. Starlight keeps a column for an image beside the hero.
-   There is none, so the hero takes the whole width, centered. */
+   Here the image is the logo, above the title, and everything is centered. */
+[data-has-hero] body {
+  background-image:
+    radial-gradient(46rem 22rem at 50% -6rem, color-mix(in srgb, var(--brand-2) 16%, transparent), transparent 70%),
+    radial-gradient(30rem 16rem at 72% -4rem, color-mix(in srgb, var(--brand-3) 14%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+}
+
 [data-has-hero] .hero {
   grid-template-columns: 1fr;
-  padding-block: clamp(3rem, 9vw, 6.5rem) 1rem;
+  gap: 1.5rem;
+  padding-block: clamp(2.5rem, 7vw, 5rem) 1rem;
+}
+
+[data-has-hero] .hero > img {
+  order: -1;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin-inline: auto;
+  filter: drop-shadow(0 18px 30px color-mix(in srgb, var(--brand-2) 35%, transparent));
 }
 
 [data-has-hero] .hero > .stack {
@@ -37,24 +142,27 @@ body {
 }
 
 [data-has-hero] .hero h1 {
-  font-size: clamp(2.6rem, 7vw, 4.75rem);
-  font-weight: 800;
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  font-weight: 600;
   line-height: 1.02;
   letter-spacing: -0.035em;
-  background: linear-gradient(120deg, var(--sl-color-white) 30%, var(--sl-color-accent-high) 62%, #ff8ad4 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--sl-color-white);
 }
 
 [data-has-hero] .hero .tagline {
-  max-width: 38rem;
-  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  max-width: 36rem;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
   color: var(--sl-color-gray-2);
 }
 
 [data-has-hero] .hero .actions {
   justify-content: center;
+}
+
+[data-has-hero] .hero .actions .sl-link-button {
+  border-radius: 0.7rem;
+  font-weight: 600;
 }
 
 [data-has-hero] .hero h1,
@@ -63,9 +171,10 @@ body {
 }
 
 [data-has-hero] .sl-markdown-content h2 {
-  margin-top: 4rem;
-  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
-  letter-spacing: -0.02em;
+  margin-top: 4.5rem;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 [data-has-hero] .sl-markdown-content h2 + p {
@@ -73,9 +182,15 @@ body {
   color: var(--sl-color-gray-2);
 }
 
-/* The preview of a component, on its page, framed like the screen it was recorded on. */
-.sl-markdown-content img[src$='.webp'] {
-  border-radius: 1.8rem;
-  border: 1px solid var(--sl-color-gray-5);
-  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.6);
+/* The changelog is the file of the repository, which brings its own title. */
+.changelog > h1:first-child {
+  display: none;
+}
+
+/* One word of the headline carries the gradient of the logo. */
+[data-has-hero] .hero h1 span {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

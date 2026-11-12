@@ -1,0 +1,171 @@
+---
+// The bar at the top of every page, in place of Starlight's: the mark of the
+// catalog, the three places people go, the search, and the repository with
+// its stars. The stars are asked for in the browser and stay hidden when
+// GitHub does not answer.
+import Search from 'virtual:starlight/components/Search';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import { REPOSITORY, SITE_BASE } from '../lib/catalog';
+
+const links = [
+  { label: 'Docs', href: `${SITE_BASE}/getting-started/`, section: /\/(getting-started|rules|accessibility|contributing|changelog)\// },
+  { label: 'Catalog', href: `${SITE_BASE}/catalog/`, section: /\/catalog\// },
+  { label: 'For agents', href: `${SITE_BASE}/for-ai-agents/`, section: /\/for-ai-agents\// },
+];
+const path = Astro.url.pathname;
+---
+
+<div class="site-header">
+  <a class="brand" href={`${SITE_BASE}/`}>
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+      <defs>
+        <linearGradient id="header-mark" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ff9f0a"></stop>
+          <stop offset="0.5" stop-color="#ff375f"></stop>
+          <stop offset="1" stop-color="#bf5af2"></stop>
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="8" fill="url(#header-mark)"></rect>
+      <rect x="7" y="7" width="18" height="6" rx="3" fill="#fff"></rect>
+      <rect x="7" y="15" width="11" height="10" rx="3" fill="#fff" opacity=".88"></rect>
+      <rect x="20" y="15" width="5" height="10" rx="2.5" fill="#fff" opacity=".66"></rect>
+    </svg>
+    <span translate="no">SwiftUI Components</span>
+  </a>
+
+  <nav class="places" aria-label="Sections">
+    {
+      links.map((link) => (
+        <a href={link.href} aria-current={link.section.test(path) ? 'true' : undefined}>
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="tools">
+    <div class="search print:hidden"><Search /></div>
+    <a class="repository" href={REPOSITORY} data-repository>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor">
+        <path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"></path>
+      </svg>
+      <span class="sr-only">GitHub</span>
+      <span class="stars" data-stars hidden></span>
+    </a>
+    <div class="theme sl-hidden md:sl-flex print:hidden"><ThemeSelect /></div>
+  </div>
+</div>
+
+<script>
+  // The count is kept for the visit, so moving between pages asks GitHub once.
+  const KEY = 'repository-stars';
+  const show = (count: string) => {
+    for (const label of document.querySelectorAll<HTMLElement>('[data-stars]')) {
+      label.textContent = `★ ${count}`;
+      label.hidden = false;
+    }
+  };
+  const format = (count: number) => (count >= 1000 ? `${(count / 1000).toFixed(1)}k` : String(count));
+  const link = document.querySelector<HTMLAnchorElement>('[data-repository]');
+  const kept = sessionStorage.getItem(KEY);
+  if (kept) {
+    show(kept);
+  } else if (link) {
+    const repository = new URL(link.href).pathname.slice(1);
+    fetch(`https://api.github.com/repos/${repository}`)
+      .then((response) => (response.ok ? response.json() : Promise.reject()))
+      .then((data: { stargazers_count?: number }) => {
+        if (typeof data.stargazers_count !== 'number') return;
+        const count = format(data.stargazers_count);
+        sessionStorage.setItem(KEY, count);
+        show(count);
+      })
+      .catch(() => {});
+  }
+</script>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--sl-color-white);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .places {
+    display: none;
+    gap: 0.25rem;
+  }
+
+  .places a {
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.5rem;
+    font-size: var(--sl-text-sm);
+    font-weight: 500;
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+
+  .places a:hover {
+    color: var(--sl-color-white);
+  }
+
+  .places a[aria-current] {
+    color: var(--sl-color-white);
+    background: var(--sl-color-gray-6);
+  }
+
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-inline-start: auto;
+  }
+
+  .repository {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    font-size: var(--sl-text-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--sl-color-gray-1);
+    text-decoration: none;
+  }
+
+  .repository:hover {
+    border-color: var(--sl-color-gray-4);
+    color: var(--sl-color-white);
+  }
+
+  @media (max-width: 30rem) {
+    .brand span {
+      display: none;
+    }
+  }
+
+  @media (min-width: 50rem) {
+    .places {
+      display: flex;
+    }
+
+    .search {
+      width: 15rem;
+    }
+  }
+</style>
