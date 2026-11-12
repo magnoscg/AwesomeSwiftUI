@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Checkmark Box Toggle Style, a checkbox for any toggle on iOS, whose box
+  fills and draws its checkmark, with a dash when it is mixed.
 - Badged Icon Button, an icon button with a count on its corner that pops
   in, rolls its number and stops at 99+.
 - Async Action Button, a button that runs an async action with a spinner in

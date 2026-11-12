@@ -621,6 +621,15 @@ enum ComponentRegistry {
             demo: { AnyView(AnimatedRadioButtonDemo()) }
         ),
         ShowcaseEntry(
+            id: "checkmark-box-toggle-style",
+            title: "Checkmark Box Toggle Style",
+            category: "Controls",
+            summary: "A checkbox toggle style for iOS whose box fills and draws its checkmark, with a dash for a mixed Toggle(sources:).",
+            keywords: ["checkbox", "check box", "checkmark", "toggle style", "mixed", "indeterminate", "form", "terms", "casilla", "casilla de verificación", "check", "marca", "estilo de toggle", "mixto", "indeterminado", "formulario"],
+            minIOS: "18.0",
+            demo: { AnyView(CheckmarkBoxToggleStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "circular-range-slider",
             title: "Circular Range Slider",
             category: "Controls",
