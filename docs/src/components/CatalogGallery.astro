@@ -1,8 +1,12 @@
 ---
 // The catalog as a grid of previews that can be searched and filtered: by
 // category, iOS version, level, an Apple API and having a Metal shader. The
-// generated catalog index passes it every component. Without JavaScript the
-// filters stay hidden and every card shows.
+// generated catalog index passes it every component, shown in a section per
+// category, and the page of a category its own, with no category to choose.
+// Without JavaScript the filters stay hidden and every card shows.
+import { Icon } from '@astrojs/starlight/components';
+import { categoryURL } from '../lib/catalog';
+
 interface Item {
   title: string;
   summary: string;
@@ -18,9 +22,10 @@ interface Item {
 
 interface Props {
   items: Item[];
+  category?: string;
 }
 
-const { items } = Astro.props;
+const { items, category: fixedCategory } = Astro.props;
 const categories = [...new Set(items.map((item) => item.category))].sort();
 const versions = [...new Set(items.map((item) => item.minIOS))].sort((a, b) => Number(a) - Number(b));
 const levels = ['beginner', 'intermediate', 'advanced'];
@@ -34,6 +39,9 @@ const apis = [...uses]
 const hasShaders = items.some((item) => item.shader);
 const capitalized = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 const major = (version: string) => version.replace(/\.0$/, '');
+const sections = fixedCategory
+  ? [{ category: undefined, items }]
+  : categories.map((category) => ({ category, items: items.filter((item) => item.category === category) }));
 ---
 
 <div class="catalog-gallery not-content" data-gallery>
@@ -42,13 +50,17 @@ const major = (version: string) => version.replace(/\.0$/, '');
       <span>Search</span>
       <input type="search" name="q" placeholder="button, sheet, gráfico…" autocomplete="off" />
     </label>
-    <label>
-      <span>Category</span>
-      <select name="category">
-        <option value="">All categories</option>
-        {categories.map((category) => <option value={category}>{category}</option>)}
-      </select>
-    </label>
+    {
+      !fixedCategory && (
+        <label>
+          <span>Category</span>
+          <select name="category">
+            <option value="">All categories</option>
+            {categories.map((category) => <option value={category}>{category}</option>)}
+          </select>
+        </label>
+      )
+    }
     <label>
       <span>Runs on</span>
       <select name="ios">
@@ -83,30 +95,48 @@ const major = (version: string) => version.replace(/\.0$/, '');
 
   <p class="count" aria-live="polite" data-count>{items.length} components</p>
 
-  <ul class="grid">
-    {
-      items.map((item) => (
-        <li
-          data-item
-          data-category={item.category}
-          data-ios={item.minIOS}
-          data-level={item.difficulty}
-          data-apis={item.apis.join('|')}
-          data-shader={item.shader ? '1' : undefined}
-          data-search={`${item.title} ${item.summary} ${item.category} ${item.keywords} ${item.apis.join(' ')}`}
-        >
-          <a href={item.href}>
-            <img src={item.preview} alt="" width="160" loading="lazy" />
-            <strong>{item.title}</strong>
-            <span class="summary">{item.summary}</span>
-            <span class="tags">
-              iOS {major(item.minIOS)}+ · {item.category} · {capitalized(item.difficulty)}
-            </span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  {
+    sections.map((section) => (
+      <section data-section aria-labelledby={section.category && `category-${section.category}`}>
+        {section.category && (
+          <h2 class="section-title" id={`category-${section.category}`}>
+            <a href={categoryURL(section.category)}>
+              {section.category}
+              <Icon name="right-arrow" class="arrow" size="1rem" />
+            </a>
+            <span data-section-count>{section.items.length}</span>
+          </h2>
+        )}
+        <ul class="grid">
+          {section.items.map((item) => (
+            <li
+              data-item
+              data-category={item.category}
+              data-ios={item.minIOS}
+              data-level={item.difficulty}
+              data-apis={item.apis.join('|')}
+              data-shader={item.shader ? '1' : undefined}
+              data-search={`${item.title} ${item.summary} ${item.category} ${item.keywords} ${item.apis.join(' ')}`}
+            >
+              <a href={item.href}>
+                <span class="frame">
+                  <img src={item.preview} alt="" width="160" loading="lazy" />
+                </span>
+                <span class="title">
+                  <strong>{item.title}</strong>
+                  <Icon name="right-arrow" class="arrow" size="1rem" />
+                </span>
+                <span class="summary">{item.summary}</span>
+                <span class="tags">
+                  iOS {major(item.minIOS)}+ · {capitalized(item.difficulty)}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 
   <p class="empty" hidden data-empty>No component matches. Try fewer words, or clear the filters.</p>
 </div>
@@ -183,6 +213,39 @@ const major = (version: string) => version.replace(/\.0$/, '');
     color: var(--sl-color-gray-2);
   }
 
+  /* A section per category, headed by its name, a link to its page. */
+  section[hidden] {
+    display: none;
+  }
+
+  section + section {
+    margin-top: 2.5rem;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0 0 1rem;
+    font-size: var(--sl-text-h4);
+  }
+
+  .section-title a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+
+  .section-title span {
+    font-family: var(--sl-font);
+    font-size: var(--sl-text-sm);
+    font-weight: 400;
+    color: var(--sl-color-gray-3);
+    font-variant-numeric: tabular-nums;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
@@ -196,67 +259,119 @@ const major = (version: string) => version.replace(/\.0$/, '');
     display: none;
   }
 
+  /* A card as on animate-ui: the preview inside a frame, and below it the
+     name with an arrow that leans forward under the pointer. */
   .grid a {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
     height: 100%;
-    padding: 1rem;
+    padding: 0.4rem 0.4rem 0.9rem;
     border: 1px solid var(--sl-color-gray-5);
-    border-radius: 0.75rem;
-    background: var(--sl-color-black);
+    border-radius: 1rem;
+    background: var(--sl-color-gray-6);
     color: var(--sl-color-white);
     text-decoration: none;
-  }
-
-  .grid a {
     transition:
       border-color 0.2s ease,
+      background-color 0.2s ease,
       transform 0.2s ease,
       box-shadow 0.2s ease;
   }
 
   .grid a:hover,
   .grid a:focus-visible {
-    border-color: var(--sl-color-accent);
+    border-color: var(--sl-color-gray-4);
     transform: translateY(-3px);
-    box-shadow: 0 18px 36px -22px color-mix(in srgb, var(--sl-color-accent) 70%, transparent);
+    box-shadow: 0 18px 36px -22px color-mix(in srgb, var(--brand-2) 55%, transparent);
+  }
+
+  .frame {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.35rem;
+    padding: 1rem 0;
+    border-radius: 0.75rem;
+    background:
+      radial-gradient(80% 55% at 50% 45%, color-mix(in srgb, var(--sl-color-white) 6%, transparent), transparent),
+      var(--sl-color-black);
+    overflow: hidden;
   }
 
   /* The shape of a phone screen, kept before the preview loads, so the grid does not jump. */
   .grid img {
-    align-self: center;
+    width: min(10rem, 80%);
     height: auto;
     aspect-ratio: 402 / 874;
     object-fit: cover;
     border-radius: 1.4rem;
     border: 1px solid var(--sl-color-gray-5);
     background: var(--sl-color-gray-6);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .grid a:hover img,
+  .grid a:focus-visible img {
+    transform: scale(1.03);
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-inline: 0.6rem;
+  }
+
+  .arrow {
+    flex-shrink: 0;
+    color: var(--sl-color-gray-3);
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .grid a:hover .arrow,
+  .grid a:focus-visible .arrow,
+  .section-title a:hover .arrow,
+  .section-title a:focus-visible .arrow {
+    color: var(--sl-color-white);
+    transform: translateX(3px);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .grid a {
+    .grid a,
+    .grid img,
+    .arrow {
       transition: none;
     }
 
     .grid a:hover,
-    .grid a:focus-visible {
+    .grid a:focus-visible,
+    .grid a:hover img,
+    .grid a:focus-visible img,
+    .grid a:hover .arrow,
+    .grid a:focus-visible .arrow,
+    .section-title a:hover .arrow,
+    .section-title a:focus-visible .arrow {
       transform: none;
     }
   }
 
   .grid strong {
-    font-size: var(--sl-text-lg);
+    font-size: var(--sl-text-base);
     line-height: 1.3;
   }
 
   .summary {
     flex: 1;
+    padding-inline: 0.6rem;
     font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
   }
 
   .tags {
+    padding-inline: 0.6rem;
     font-size: var(--sl-text-xs);
     color: var(--sl-color-gray-3);
   }
@@ -282,16 +397,22 @@ const major = (version: string) => version.replace(/\.0$/, '');
       apis: (element.dataset.apis ?? '').split('|'),
       shader: element.dataset.shader === '1',
     }));
-    const names = ['q', 'category', 'ios', 'level', 'api'];
-    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    const sections = [...gallery.querySelectorAll<HTMLElement>('[data-section]')].map((element) => ({
+      element,
+      items: [...element.querySelectorAll<HTMLElement>('[data-item]')],
+      count: element.querySelector<HTMLElement>('[data-section-count]'),
+    }));
+    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | null;
+    const names = ['q', 'category', 'ios', 'level', 'api'].filter((name) => field(name));
+    const value = (name: string) => field(name)?.value ?? '';
     const shader = form.elements.namedItem('shader') as HTMLInputElement | null;
 
     const apply = () => {
-      const words = plain(field('q').value).split(/\s+/).filter(Boolean);
-      const category = field('category').value;
-      const ios = field('ios').value;
-      const level = field('level').value;
-      const api = field('api').value;
+      const words = plain(value('q')).split(/\s+/).filter(Boolean);
+      const category = value('category');
+      const ios = value('ios');
+      const level = value('level');
+      const api = value('api');
       const onlyShaders = shader?.checked ?? false;
       let shown = 0;
       for (const item of items) {
@@ -305,12 +426,17 @@ const major = (version: string) => version.replace(/\.0$/, '');
         item.element.hidden = !matches;
         if (matches) shown += 1;
       }
+      for (const section of sections) {
+        const visible = section.items.filter((item) => !item.hidden).length;
+        section.element.hidden = visible === 0;
+        if (section.count) section.count.textContent = String(visible);
+      }
       count.textContent =
         shown === items.length ? `${items.length} components` : `${shown} of ${items.length} components`;
       empty.hidden = shown > 0;
 
       const query = new URLSearchParams();
-      for (const name of names) if (field(name).value) query.set(name, field(name).value);
+      for (const name of names) if (value(name)) query.set(name, value(name));
       if (onlyShaders) query.set('shader', '1');
       const search = query.toString();
       history.replaceState(null, '', search ? `?${search}` : location.pathname);
@@ -318,8 +444,8 @@ const major = (version: string) => version.replace(/\.0$/, '');
 
     const query = new URLSearchParams(location.search);
     for (const name of names) {
-      const value = query.get(name);
-      if (value) field(name).value = value;
+      const stored = query.get(name);
+      if (stored) field(name)!.value = stored;
     }
     if (shader) shader.checked = query.get('shader') === '1';
     form.hidden = false;

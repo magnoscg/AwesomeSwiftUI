@@ -39,8 +39,12 @@ export const categories = [...new Set(components.map((component) => component.ca
   .map((name) => ({
     name,
     count: components.filter((component) => component.category === name).length,
-    href: `${SITE_BASE}/catalog/?category=${encodeURIComponent(name)}`,
+    href: categoryURL(name),
   }));
+
+export function categoryURL(category: string) {
+  return `${SITE_BASE}/catalog/${category.toLowerCase()}/`;
+}
 
 export function previewURL(component: Component) {
   return `${RAW_BASE}/${component.preview}`;

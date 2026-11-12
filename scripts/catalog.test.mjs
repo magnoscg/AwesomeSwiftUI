@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import {
+  categoryCollisions,
   componentsNewerThan,
   docsAssets,
   findStale,
@@ -230,6 +231,17 @@ describe('the order of the catalog', () => {
   });
 });
 
+describe('category names', () => {
+  it('rejects two categories that differ only in case, which share a page on the site', () => {
+    const components = [{ category: 'Buttons' }, { category: 'ButTons' }, { category: 'Cards' }];
+
+    assert.deepEqual(categoryCollisions(components), [
+      'Components/ButTons and Components/Buttons differ only in case and would share a page on the site',
+    ]);
+    assert.deepEqual(categoryCollisions([{ category: 'Buttons' }, { category: 'Buttons' }]), []);
+  });
+});
+
 describe('invalid components', () => {
   it('rejects a category name that would break its links', () => {
     assertRejected({ category: 'Cards#Demo', metadata: meta({ category: 'Cards#Demo' }) }, /must be one word/);
@@ -262,6 +274,7 @@ describe('invalid components', () => {
     ['an unknown field', { extra: true }, /unknown field "extra"/],
     ['an empty title', { title: ' ' }, /"title" must be a non-empty string/],
     ['an id that is not kebab-case', { id: 'GlowButton' }, /"id" must be kebab-case/],
+    ['the id the page of its category takes', { id: 'index' }, /"id" cannot be "index"/],
     ['a name that differs from the folder', { name: 'Other' }, /"name" must match the folder/],
     ['a category that differs from the folder', { category: 'Text' }, /"category" must match the folder/],
     ['an unknown difficulty', { difficulty: 'easy' }, /"difficulty" must be one of/],
@@ -726,6 +739,7 @@ describe('components for an older SDK', () => {
 describe('the documentation site', () => {
   const INDEX = 'docs/src/content/docs/catalog/index.mdx';
   const PAGE = 'docs/src/content/docs/catalog/Buttons/glow-button.mdx';
+  const CATEGORY = 'docs/src/content/docs/catalog/Buttons/index.mdx';
 
   function docsFor(metadata = meta(), source = swift()) {
     const root = makeRoot();
@@ -773,6 +787,43 @@ describe('the documentation site', () => {
     const index = docsFor(meta({ summary: 'Uses {braces} and <tags>.' })).pages.get(INDEX);
 
     assert.equal(galleryItems(index)[0].summary, 'Uses {braces} and <tags>.');
+  });
+
+  it('gives each category a page that heads its group in the sidebar', () => {
+    const { pages } = docsFor();
+    const page = pages.get(CATEGORY);
+
+    assert.match(
+      page,
+      /^---\ntitle: "Buttons"\ndescription: "1 component in Buttons, each with an animated preview\."\nsidebar:\n  order: 0\n  attrs:\n    data-category-page: true\n---\n/,
+    );
+    assert.match(page, /import CatalogGallery from '\.\.\/\.\.\/\.\.\/\.\.\/components\/CatalogGallery\.astro';/);
+    assert.match(page, /\n<CatalogGallery\n  category=\{"Buttons"\}\n  items=\{\[\n/);
+    assert.deepEqual(galleryItems(page), galleryItems(pages.get(INDEX)));
+  });
+
+  it('shows on the page of a category only its components', () => {
+    const root = makeRoot();
+    addComponent(root);
+    addComponent(root, { name: 'GhostButton', metadata: meta({ id: 'ghost-button', name: 'GhostButton', title: 'Ghost Button' }) });
+    addComponent(root, {
+      category: 'Cards',
+      name: 'FlipCard',
+      metadata: meta({ id: 'flip-card', name: 'FlipCard', title: 'Flip Card', category: 'Cards' }),
+    });
+    const { components, errors } = loadCatalog(root);
+    assert.deepEqual(errors, []);
+    const pages = renderDocsPages(components);
+
+    assert.deepEqual(
+      galleryItems(pages.get(CATEGORY)).map((item) => item.title),
+      ['Ghost Button', 'Glow Button'],
+    );
+    assert.match(pages.get(CATEGORY), /\ndescription: "2 components in Buttons, each with an animated preview\."\n/);
+    assert.deepEqual(
+      galleryItems(pages.get('docs/src/content/docs/catalog/Cards/index.mdx')).map((item) => item.title),
+      ['Flip Card'],
+    );
   });
 
   it('gives each component a page that names it and carries its source', () => {

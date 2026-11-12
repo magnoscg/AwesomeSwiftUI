@@ -1,0 +1,84 @@
+---
+// Starlight's sidebar, drawn by SidebarList, with a highlight that slides to
+// the link under the mouse. Starlight keeps which groups are open and where
+// the sidebar was scrolled from one page to the next.
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarList from './SidebarList.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+---
+
+<SidebarPersister>
+  <div class="rail" data-rail>
+    <span class="highlight" aria-hidden="true" data-highlight></span>
+    <SidebarList sublist={sidebar} />
+  </div>
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>
+
+<style>
+  .rail {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 0.5rem;
+    background: color-mix(in srgb, var(--sl-color-gray-5) 70%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.15s ease,
+      transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+      width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+      height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .highlight[data-instant] {
+    transition: opacity 0.15s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .highlight,
+    .highlight[data-instant] {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  for (const rail of document.querySelectorAll<HTMLElement>('[data-rail]')) {
+    const highlight = rail.querySelector<HTMLElement>('[data-highlight]')!;
+    let shown = false;
+
+    const hide = () => {
+      shown = false;
+      highlight.style.opacity = '0';
+    };
+
+    rail.addEventListener('pointerover', (event) => {
+      if (event.pointerType !== 'mouse' || !(event.target instanceof Element)) return;
+      const link = event.target.closest('a');
+      if (!link || !rail.contains(link)) return;
+      const box = rail.getBoundingClientRect();
+      const target = link.getBoundingClientRect();
+      // Appearing, it starts where it is shown instead of sliding in from the last link.
+      highlight.toggleAttribute('data-instant', !shown);
+      highlight.style.width = `${target.width}px`;
+      highlight.style.height = `${target.height}px`;
+      highlight.style.transform = `translate(${target.left - box.left}px, ${target.top - box.top}px)`;
+      highlight.style.opacity = '1';
+      shown = true;
+    });
+    rail.addEventListener('pointerleave', hide);
+    rail.addEventListener('toggle', hide, true);
+  }
+</script>

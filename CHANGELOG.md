@@ -6,6 +6,24 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Each category of the catalog has a page on the site with the gallery of its
+  components. Its name in the sidebar, the categories on the landing page and
+  the category of a component lead to it.
+
+### Changed
+
+- The sidebar of the site is a rail: a line down each group with a mark at
+  the open page, which slides to its new place when the page changes, and a
+  highlight that follows the mouse. The arrow of a category opens and closes
+  its list apart from its name.
+- All components shows a section per category, and each card holds its
+  preview in a frame with an arrow beside the name.
+- Arrows beside the title of a page lead to the previous and next pages.
+- `make check` rejects a component whose id is `index`, the page of its
+  category on the site.
+
 ## 0.7.0 - 2026-11-12
 
 ### Added
