@@ -657,6 +657,15 @@ enum ComponentRegistry {
             demo: { AnyView(DayNightToggleDemo()) }
         ),
         ShowcaseEntry(
+            id: "icon-switch-toggle-style",
+            title: "Icon Switch Toggle Style",
+            category: "Controls",
+            summary: "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+            keywords: ["switch", "toggle", "toggle style", "icon", "symbol", "knob", "on off", "settings", "interruptor", "toggle", "estilo de toggle", "icono", "símbolo", "encendido apagado", "ajustes"],
+            minIOS: "18.0",
+            demo: { AnyView(IconSwitchToggleStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "range-slider",
             title: "Range Slider",
             category: "Controls",

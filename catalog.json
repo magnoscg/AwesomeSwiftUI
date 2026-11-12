@@ -1,5 +1,5 @@
 {
-  "count": 293,
+  "count": 294,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -2940,6 +2940,48 @@
       "path": "Components/Controls/DayNightToggle/DayNightToggle.swift",
       "preview": "Components/Controls/DayNightToggle/DayNightToggle.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/DayNightToggle/DayNightToggle.swift"
+    },
+    {
+      "id": "icon-switch-toggle-style",
+      "name": "IconSwitchToggleStyle",
+      "title": "Icon Switch Toggle Style",
+      "category": "Controls",
+      "summary": "A switch toggle style whose knob carries a symbol for each state, like a checkmark and a cross, that swaps as it slides.",
+      "keywords": {
+        "en": [
+          "switch",
+          "toggle",
+          "toggle style",
+          "icon",
+          "symbol",
+          "knob",
+          "on off",
+          "settings"
+        ],
+        "es": [
+          "interruptor",
+          "toggle",
+          "estilo de toggle",
+          "icono",
+          "símbolo",
+          "encendido apagado",
+          "ajustes"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "ToggleStyle",
+        "contentTransition",
+        "symbolEffect",
+        "accessibilityRepresentation"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift",
+      "preview": "Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/IconSwitchToggleStyle/IconSwitchToggleStyle.swift"
     },
     {
       "id": "range-slider",

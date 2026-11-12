@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Icon Switch Toggle Style, a switch whose knob carries a symbol for each
+  state, so on and off do not depend on color alone.
 - Select All Checklist, a list of checkable rows under a select-all box that
   is mixed when only some rows are checked, with a count.
 - Checkmark Box Toggle Style, a checkbox for any toggle on iOS, whose box
