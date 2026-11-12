@@ -76,6 +76,7 @@ export function loadCatalog(root, { requirePreview = true } = {}) {
   }
 
   reportDuplicateIds(components, errors);
+  errors.push(...categoryCollisions(components));
   reportUntranslatedCounts(root, components, errors);
   components.sort(byCategoryThenName);
   return { components, errors };
@@ -201,6 +202,7 @@ function validateMeta(meta, relative, category, name, errors) {
   if (isText(meta.id) && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(meta.id)) {
     fail(`"id" must be kebab-case, got "${meta.id}"`);
   }
+  if (meta.id === 'index') fail('"id" cannot be "index": the site gives that page to the category');
   if (isText(meta.name) && meta.name !== name) {
     fail(`"name" must match the folder ${name}, got "${meta.name}"`);
   }
@@ -365,6 +367,22 @@ export function renderOutputs(root, components) {
   ]);
 }
 
+// The site serves a category at its name in lower case, so two folders that
+// differ only in case would share a page. macOS cannot hold both; Linux can.
+export function categoryCollisions(components) {
+  const seen = new Map();
+  const errors = [];
+  for (const category of [...new Set(components.map((component) => component.category))].sort()) {
+    const key = category.toLowerCase();
+    if (seen.has(key)) {
+      errors.push(`Components/${seen.get(key)} and Components/${category} differ only in case and would share a page on the site`);
+    } else {
+      seen.set(key, category);
+    }
+  }
+  return errors;
+}
+
 function categoriesOf(components) {
   return [...new Set(components.map((component) => component.category))];
 }
@@ -481,6 +499,10 @@ export function componentsNewerThan(components, major) {
 // root. They are built on demand and never committed.
 export function renderDocsPages(components) {
   const pages = new Map([[`${DOCS_CATALOG}/index.mdx`, renderDocsIndex(components)]]);
+  for (const category of categoriesOf(components)) {
+    const members = components.filter((component) => component.category === category);
+    pages.set(`${DOCS_CATALOG}/${category}/index.mdx`, renderDocsCategory(category, members));
+  }
   for (const component of components) {
     pages.set(`${DOCS_CATALOG}/${component.category}/${component.id}.mdx`, renderDocsPage(component));
   }
@@ -500,8 +522,45 @@ function renderDocsIndex(components) {
   ];
   if (components.length === 0) return [...frontmatter, 'No components yet.', ''].join('\n');
 
-  // One line per component keeps the page readable. JSON is valid in an MDX
-  // expression, so no text in it can be read as markup.
+  return [
+    ...frontmatter,
+    "import CatalogGallery from '../../../components/CatalogGallery.astro';",
+    '',
+    '<CatalogGallery',
+    ...galleryItems(components),
+    '/>',
+    '',
+  ].join('\n');
+}
+
+// The page a category of the sidebar opens. It heads its group, so the pages
+// of the site run from a category to its components and on to the next one.
+// The site finds it by its attribute to draw it as the name of the group.
+function renderDocsCategory(category, components) {
+  const count = `${components.length} ${components.length === 1 ? 'component' : 'components'}`;
+  return [
+    '---',
+    `title: ${JSON.stringify(category)}`,
+    `description: ${JSON.stringify(`${count} in ${category}, each with an animated preview.`)}`,
+    'sidebar:',
+    '  order: 0',
+    '  attrs:',
+    '    data-category-page: true',
+    '---',
+    '',
+    "import CatalogGallery from '../../../../components/CatalogGallery.astro';",
+    '',
+    '<CatalogGallery',
+    `  category={${JSON.stringify(category)}}`,
+    ...galleryItems(components),
+    '/>',
+    '',
+  ].join('\n');
+}
+
+// One line per component keeps the page readable. JSON is valid in an MDX
+// expression, so no text in it can be read as markup.
+function galleryItems(components) {
   const items = components.map((component) =>
     JSON.stringify({
       title: component.title,
@@ -516,17 +575,7 @@ function renderDocsIndex(components) {
       shader: Boolean(component.shader),
     }),
   );
-  return [
-    ...frontmatter,
-    "import CatalogGallery from '../../../components/CatalogGallery.astro';",
-    '',
-    '<CatalogGallery',
-    '  items={[',
-    ...items.map((item) => `    ${item},`),
-    '  ]}',
-    '/>',
-    '',
-  ].join('\n');
+  return ['  items={[', ...items.map((item) => `    ${item},`), '  ]}'];
 }
 
 // The page of a component. What it shows above the code, the preview, the
