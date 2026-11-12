@@ -159,6 +159,33 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "async-action-button",
+            title: "Async Action Button",
+            category: "Buttons",
+            summary: "A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.",
+            keywords: ["button", "loading button", "async", "spinner", "progress", "double tap", "submit", "save", "botón", "botón de carga", "asíncrono", "spinner", "cargando", "doble toque", "enviar", "guardar"],
+            minIOS: "18.0",
+            demo: { AnyView(AsyncActionButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "badged-icon-button",
+            title: "Badged Icon Button",
+            category: "Buttons",
+            summary: "An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.",
+            keywords: ["badge", "icon button", "notification badge", "bell", "cart", "count", "unread", "toolbar", "insignia", "globo", "botón de icono", "notificaciones", "campana", "carrito", "contador", "no leídos"],
+            minIOS: "18.0",
+            demo: { AnyView(BadgedIconButtonDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "button-variant-style",
+            title: "Button Variant Style",
+            category: "Buttons",
+            summary: "A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.",
+            keywords: ["button", "button style", "filled", "tinted", "outlined", "plain", "destructive", "control size", "primary", "secondary", "botón", "estilo de botón", "relleno", "tintado", "contorno", "destructivo", "tamaño", "primario", "secundario"],
+            minIOS: "18.0",
+            demo: { AnyView(ButtonVariantStyleDemo()) }
+        ),
+        ShowcaseEntry(
             id: "elastic-drag-button",
             title: "Elastic Drag Button",
             category: "Buttons",

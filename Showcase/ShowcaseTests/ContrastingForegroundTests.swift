@@ -11,6 +11,8 @@ struct ContrastingForegroundTests {
     private static let styles: [(String, @Sendable (Color) -> Color)] = [
         ("AddToCartStepper", { AddToCartStepperContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("AnimatedBadgeCount", { AnimatedBadgeCountContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("BadgedIconButton", { BadgedIconButtonContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("ButtonVariantStyle", { ButtonVariantStyleContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("CompletionSwipeRow", { CompletionSwipeRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("DayScheduleTimeline", { DayScheduleTimelineContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("DownloadPillProgress", { DownloadPillProgressContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),

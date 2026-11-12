@@ -2152,6 +2152,480 @@ struct WavesBackgroundDemo: View {
 }
 ```
 
+## Async Action Button
+
+A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.
+
+Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/AsyncActionButton/AsyncActionButton.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// Knows whether the action is running, so a second tap while it runs does nothing.
+struct AsyncActionButtonRun: Equatable {
+    private(set) var isRunning = false
+
+    /// Returns `false`, and changes nothing, when the action is already running.
+    mutating func start() -> Bool {
+        guard !isRunning else { return false }
+        isRunning = true
+        return true
+    }
+
+    mutating func finish() {
+        isRunning = false
+    }
+}
+
+/// A button that runs an async action and shows a spinner in place of its label
+/// until the action ends. It keeps its width, works with any button style, and
+/// ignores taps while the action runs instead of looking disabled.
+///
+/// Leaving the screen cancels the action. The swap is a short crossfade, so it
+/// needs nothing different with Reduce Motion on.
+struct AsyncActionButton<Label: View>: View {
+    let action: @MainActor () async -> Void
+    let label: Label
+
+    @State private var run = AsyncActionButtonRun()
+    @State private var runID: UUID?
+
+    init(action: @escaping @MainActor () async -> Void, @ViewBuilder label: () -> Label) {
+        self.action = action
+        self.label = label()
+    }
+
+    var body: some View {
+        Button {
+            guard run.start() else { return }
+            runID = UUID()
+        } label: {
+            label
+                .opacity(run.isRunning ? 0 : 1)
+                .overlay {
+                    if run.isRunning {
+                        AsyncActionButtonSpinner()
+                            .transition(.opacity)
+                    }
+                }
+                .animation(.easeInOut(duration: 0.15), value: run)
+        }
+        .accessibilityValue(run.isRunning ? Text("In progress") : Text(""))
+        .task(id: runID) {
+            guard runID != nil else { return }
+            await action()
+            run.finish()
+            runID = nil
+        }
+    }
+}
+
+/// Drawn with the label's foreground style, which a `ProgressView` does not
+/// take, so it is white on a prominent button and tinted on a bordered one.
+private struct AsyncActionButtonSpinner: View {
+    @ScaledMetric(relativeTo: .body) private var size = 18.0
+
+    var body: some View {
+        TimelineView(.animation) { context in
+            let turn = context.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 1)
+            Circle()
+                .trim(from: 0.15, to: 1)
+                .stroke(style: StrokeStyle(lineWidth: size / 7, lineCap: .round))
+                .frame(width: size, height: size)
+                .rotationEffect(.degrees(turn * 360))
+        }
+        .accessibilityHidden(true)
+    }
+}
+
+extension AsyncActionButton where Label == Text {
+    init(_ title: LocalizedStringResource, action: @escaping @MainActor () async -> Void) {
+        self.init(action: action) { Text(title) }
+    }
+}
+
+extension AsyncActionButton where Label == SwiftUI.Label<Text, Image> {
+    init(_ title: LocalizedStringResource, systemImage: String, action: @escaping @MainActor () async -> Void) {
+        self.init(action: action) { SwiftUI.Label { Text(title) } icon: { Image(systemName: systemImage) } }
+    }
+}
+
+// MARK: - Demo
+
+struct AsyncActionButtonDemo: View {
+    @State private var saves = 0
+    @State private var syncs = 0
+
+    var body: some View {
+        VStack(spacing: 24) {
+            VStack(spacing: 6) {
+                Text("Edit Profile")
+                    .font(.largeTitle.bold())
+                Text("Saves: \(saves) · Syncs: \(syncs)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .contentTransition(.numericText())
+            }
+
+            AsyncActionButton {
+                try? await Task.sleep(for: .seconds(1.5))
+                saves += 1
+            } label: {
+                Text("Save Changes")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+
+            HStack(spacing: 12) {
+                AsyncActionButton("Sync", systemImage: "arrow.triangle.2.circlepath") {
+                    try? await Task.sleep(for: .seconds(1))
+                    syncs += 1
+                }
+                .buttonStyle(.bordered)
+
+                AsyncActionButton("Send Invite") {
+                    try? await Task.sleep(for: .seconds(2))
+                }
+                .buttonStyle(.bordered)
+                .tint(.orange)
+            }
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    AsyncActionButtonDemo()
+}
+```
+
+## Badged Icon Button
+
+An icon button with a count badge on its corner that pops in, rolls its number, caps at 99+ and bounces the icon when the count goes up.
+
+Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/BadgedIconButton/BadgedIconButton.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+enum BadgedIconButtonBadge {
+    /// The text of the badge: none at zero, and `99+` past the limit.
+    static func text(for count: Int, limit: Int = 99) -> String? {
+        guard count > 0 else { return nil }
+        return count > limit ? "\(limit)+" : "\(count)"
+    }
+}
+
+/// An icon button, like a bell or a cart, with a count in a badge on its corner.
+/// The badge pops in when the count appears, its number rolls as it changes,
+/// and the icon bounces when the count goes up.
+///
+/// With Reduce Motion on, the badge fades and the icon stays still.
+struct BadgedIconButton: View {
+    let title: LocalizedStringResource
+    let systemImage: String
+    let count: Int
+    var limit = 99
+    var badgeColor: Color = .red
+    let action: () -> Void
+
+    @State private var bounces = 0
+    @ScaledMetric(relativeTo: .title2) private var size = 44.0
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var badgeText: String? {
+        BadgedIconButtonBadge.text(for: count, limit: limit)
+    }
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.title2)
+                .symbolEffect(.bounce, value: bounces)
+                .frame(width: size, height: size)
+                .overlay(alignment: .topTrailing) {
+                    if let badgeText {
+                        Text(badgeText)
+                            .font(.caption2.bold())
+                            .monospacedDigit()
+                            .contentTransition(.numericText(value: Double(count)))
+                            .foregroundStyle(BadgedIconButtonContrastingForeground(background: badgeColor))
+                            .padding(.horizontal, 5)
+                            .frame(minWidth: size * 0.42, minHeight: size * 0.42)
+                            .background(badgeColor, in: .capsule)
+                            .fixedSize()
+                            .alignmentGuide(.top) { $0.height * 0.3 }
+                            .alignmentGuide(.trailing) { $0.width * 0.7 }
+                            .transition(reduceMotion ? .opacity : .scale.combined(with: .opacity))
+                    }
+                }
+                .contentShape(.rect)
+        }
+        .animation(reduceMotion ? .easeInOut(duration: 0.2) : .spring(duration: 0.35, bounce: 0.5), value: count)
+        .accessibilityLabel(title)
+        .accessibilityValue(Text(verbatim: badgeText ?? ""))
+        .onChange(of: count) { old, new in
+            if new > old, !reduceMotion { bounces += 1 }
+        }
+    }
+}
+
+nonisolated struct BadgedIconButtonContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct BadgedIconButtonDemo: View {
+    @State private var notifications = 96
+    @State private var messages = 2
+    @State private var cartItems = 0
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 4) {
+                Text("Inbox")
+                    .font(.largeTitle.bold())
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                Spacer()
+                BadgedIconButton(title: "Messages", systemImage: "bubble.left", count: messages) {
+                    messages = 0
+                }
+                BadgedIconButton(title: "Cart", systemImage: "cart", count: cartItems, badgeColor: .yellow) {
+                    cartItems = 0
+                }
+                BadgedIconButton(title: "Notifications", systemImage: "bell", count: notifications) {
+                    notifications = 0
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+
+            Text("Tap an icon to clear its badge.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task {
+            var step = 0
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(1.3))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                switch step % 3 {
+                case 0: notifications += 2
+                case 1: cartItems += 1
+                default: messages += 1
+                }
+                step += 1
+            }
+        }
+    }
+}
+
+#Preview {
+    BadgedIconButtonDemo()
+}
+```
+
+## Button Variant Style
+
+A button style with filled, tinted, outlined and plain variants that follows the control size, the disabled state and the destructive role.
+
+Category: Buttons. Minimum: iOS 18.0. Path: Components/Buttons/ButtonVariantStyle/ButtonVariantStyle.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+
+import SwiftUI
+
+/// A button style with four variants that reads its size, its enabled state and
+/// its role from the environment, like the system styles: `.controlSize(.small)`
+/// makes it small, `.disabled(true)` fades it, and a destructive role turns it red.
+///
+/// With Reduce Motion on, a press dims the button instead of shrinking it.
+struct ButtonVariantStyle: ButtonStyle {
+    enum Variant {
+        case filled, tinted, outlined, plain
+    }
+
+    var variant: Variant = .filled
+    var color: Color = .accentColor
+
+    func makeBody(configuration: Configuration) -> some View {
+        ButtonVariantStyleBody(
+            configuration: configuration,
+            variant: variant,
+            color: configuration.role == .destructive ? .red : color
+        )
+    }
+}
+
+extension ButtonStyle where Self == ButtonVariantStyle {
+    static func variant(_ variant: ButtonVariantStyle.Variant, color: Color = .accentColor) -> ButtonVariantStyle {
+        ButtonVariantStyle(variant: variant, color: color)
+    }
+}
+
+private struct ButtonVariantStyleBody: View {
+    let configuration: ButtonStyleConfiguration
+    let variant: ButtonVariantStyle.Variant
+    let color: Color
+
+    @Environment(\.controlSize) private var controlSize
+    @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private var metrics: (font: Font, horizontal: Double, vertical: Double, cornerRadius: Double) {
+        switch controlSize {
+        case .mini, .small: (.subheadline.weight(.semibold), 12, 7, 10)
+        case .large, .extraLarge: (.title3.weight(.semibold), 24, 16, 16)
+        default: (.body.weight(.semibold), 18, 12, 12)
+        }
+    }
+
+    /// The small size is shorter than 44 points, so only its touch area grows.
+    private var touchSlop: Double {
+        controlSize == .mini || controlSize == .small ? 6 : 0
+    }
+
+    private var foreground: AnyShapeStyle {
+        variant == .filled ? AnyShapeStyle(ButtonVariantStyleContrastingForeground(background: color)) : AnyShapeStyle(color)
+    }
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: metrics.cornerRadius, style: .continuous)
+        let isPressed = configuration.isPressed
+
+        configuration.label
+            .font(metrics.font)
+            .foregroundStyle(foreground)
+            .padding(.horizontal, metrics.horizontal)
+            .padding(.vertical, metrics.vertical)
+            .background {
+                switch variant {
+                case .filled:
+                    shape.fill(color).brightness(isPressed ? -0.08 : 0)
+                case .tinted:
+                    shape.fill(color.opacity(isPressed ? 0.25 : 0.15))
+                case .outlined, .plain:
+                    shape.fill(color.opacity(isPressed ? 0.12 : 0))
+                }
+            }
+            .overlay {
+                if variant == .outlined {
+                    shape.strokeBorder(color, lineWidth: 1.5)
+                }
+            }
+            .padding(.vertical, touchSlop)
+            .contentShape(.rect)
+            .padding(.vertical, -touchSlop)
+            .scaleEffect(isPressed && !reduceMotion ? 0.96 : 1)
+            .opacity(isEnabled ? (isPressed && reduceMotion ? 0.7 : 1) : 0.4)
+            .animation(reduceMotion ? nil : .spring(duration: 0.25, bounce: 0.4), value: isPressed)
+    }
+}
+
+nonisolated struct ButtonVariantStyleContrastingForeground: ShapeStyle {
+    let background: Color
+
+    func resolve(in environment: EnvironmentValues) -> Color {
+        let color = background.resolve(in: environment)
+        let luminance = 0.2126 * color.linearRed + 0.7152 * color.linearGreen + 0.0722 * color.linearBlue
+        return luminance > 0.5 ? .black : .white
+    }
+}
+
+// MARK: - Demo
+
+struct ButtonVariantStyleDemo: View {
+    @State private var controlSize = ControlSize.regular
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private var rowLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(spacing: 12)) : AnyLayout(HStackLayout(spacing: 12))
+    }
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 28) {
+                Picker("Size", selection: $controlSize) {
+                    Text("Small").tag(ControlSize.small)
+                    Text("Medium").tag(ControlSize.regular)
+                    Text("Large").tag(ControlSize.large)
+                }
+                .pickerStyle(.segmented)
+
+                VStack(spacing: 16) {
+                    Button {} label: {
+                        Text("Continue").frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.variant(.filled))
+
+                    rowLayout {
+                        Button("Save", systemImage: "bookmark") {}
+                            .buttonStyle(.variant(.tinted))
+                        Button("Share", systemImage: "square.and.arrow.up") {}
+                            .buttonStyle(.variant(.outlined))
+                    }
+
+                    Button("Not Now") {}
+                        .buttonStyle(.variant(.plain))
+
+                    Divider()
+
+                    rowLayout {
+                        Button("Delete", role: .destructive) {}
+                            .buttonStyle(.variant(.filled))
+                        Button("Remove", role: .destructive) {}
+                            .buttonStyle(.variant(.tinted))
+                    }
+
+                    rowLayout {
+                        Button("Follow") {}
+                            .buttonStyle(.variant(.filled, color: .orange))
+                        Button("Sold Out") {}
+                            .buttonStyle(.variant(.filled))
+                            .disabled(true)
+                    }
+                }
+                .controlSize(controlSize)
+                .padding(20)
+                .background(Color(uiColor: .secondarySystemGroupedBackground), in: .rect(cornerRadius: 24, style: .continuous))
+            }
+            .padding(20)
+            .animation(reduceMotion ? nil : .snappy, value: controlSize)
+        }
+        .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
+    }
+}
+
+#Preview {
+    ButtonVariantStyleDemo()
+}
+```
+
 ## Elastic Drag Button
 
 A round button that stretches toward the finger and springs back on release.
