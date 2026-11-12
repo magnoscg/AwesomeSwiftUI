@@ -243,6 +243,17 @@ describe('invalid components', () => {
     assertRejected({ source: null }, /missing GlowButton\.swift/);
   });
 
+  // The name of the folder is written into the pages of the site, which are MDX.
+  const hostileFolders = ['Glow {globalThis.stolen=1}', 'Glow`', 'Glow <b>', 'Glow)', 'glowButton'];
+
+  for (const name of hostileFolders) {
+    it(`rejects the component folder "${name}"`, () => {
+      const errors = errorsFor({ name, metadata: meta({ name }) });
+
+      assert.match(errors.join('\n'), /the component folder must be one word of letters and numbers/);
+    });
+  }
+
   it('rejects metadata that is not JSON', () => {
     assertRejected({ metadata: '{ nope' }, /not valid JSON/);
   });

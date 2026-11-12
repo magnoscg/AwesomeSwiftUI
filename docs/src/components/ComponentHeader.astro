@@ -13,6 +13,8 @@ if (!component) throw new Error(`No component with the id "${Astro.props.id}" in
 
 const { name, title, summary, category, minIOS, difficulty, apis, origin, rawURL, shaderRawURL } = component;
 const keywords = [...component.keywords.en, ...component.keywords.es];
+// The address of an origin comes from the metadata as written. Only a web address becomes a link.
+const originURL = 'url' in origin && /^https?:\/\//.test(origin.url) ? origin.url : undefined;
 
 // What a coding agent needs to add the component without opening this page.
 const prompt = [
@@ -72,14 +74,14 @@ const prompt = [
           {
             origin.kind === 'inspired' && (
               <>
-                Inspired by <a href={origin.url}>{origin.credit}</a>, written from scratch
+                Inspired by {originURL ? <a href={originURL}>{origin.credit}</a> : origin.credit}, written from scratch
               </>
             )
           }
           {
             origin.kind === 'adapted' && (
               <>
-                Adapted from <a href={origin.url}>its source</a>, {origin.license}
+                Adapted from {originURL ? <a href={originURL}>its source</a> : 'its source'}, {origin.license}
               </>
             )
           }

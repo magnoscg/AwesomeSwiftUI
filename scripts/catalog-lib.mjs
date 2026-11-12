@@ -115,6 +115,12 @@ function reportUntranslatedCounts(root, components, errors) {
 }
 
 function loadComponent(root, relative, category, name, files, errors, requirePreview) {
+  // The name becomes a type, a file and text in the pages of the site, which
+  // are MDX: anything but letters and numbers could be run when it is built.
+  if (!/^[A-Z][A-Za-z0-9]*$/.test(name)) {
+    errors.push(`${relative}: the component folder must be one word of letters and numbers, got "${name}"`);
+    return null;
+  }
   const metaFile = `${name}.meta.json`;
   const sourceFile = `${name}.swift`;
   const shaderFile = `${name}.metal`;
