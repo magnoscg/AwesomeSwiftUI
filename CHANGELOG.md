@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.6.0 - 2026-11-12
+
 ### Changed
 
 - The README has a logo and an animated button to the catalog, a table of
@@ -22,6 +24,9 @@ on `main`.
   and has the prompt for coding agents in a box with a button to copy it.
 - The button to the catalog in the README stands alone, without the file
   names that floated around it.
+- `make check` rejects a component folder that is not one word of letters
+  and numbers, and an origin whose address is not a web address. Both reach
+  the pages of the site, which run code when it is built.
 
 ### Added
 
