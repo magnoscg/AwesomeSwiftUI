@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Select All Checklist, a list of checkable rows under a select-all box that
+  is mixed when only some rows are checked, with a count.
 - Checkmark Box Toggle Style, a checkbox for any toggle on iOS, whose box
   fills and draws its checkmark, with a dash when it is mixed.
 - Badged Icon Button, an icon button with a count on its corner that pops

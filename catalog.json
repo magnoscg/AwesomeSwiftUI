@@ -1,5 +1,5 @@
 {
-  "count": 292,
+  "count": 293,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3026,6 +3026,48 @@
       "path": "Components/Controls/RulerScrollPicker/RulerScrollPicker.swift",
       "preview": "Components/Controls/RulerScrollPicker/RulerScrollPicker.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/RulerScrollPicker/RulerScrollPicker.swift"
+    },
+    {
+      "id": "select-all-checklist",
+      "name": "SelectAllChecklist",
+      "title": "Select All Checklist",
+      "category": "Controls",
+      "summary": "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+      "keywords": {
+        "en": [
+          "select all",
+          "checklist",
+          "checkbox",
+          "mixed",
+          "indeterminate",
+          "tri-state",
+          "multi-select",
+          "selection"
+        ],
+        "es": [
+          "seleccionar todo",
+          "lista de verificación",
+          "casilla",
+          "mixto",
+          "indeterminado",
+          "tres estados",
+          "selección múltiple"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Identifiable",
+        "Set",
+        "sensoryFeedback",
+        "trim"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/SelectAllChecklist/SelectAllChecklist.swift",
+      "preview": "Components/Controls/SelectAllChecklist/SelectAllChecklist.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/SelectAllChecklist/SelectAllChecklist.swift"
     },
     {
       "id": "sliding-segmented-picker",

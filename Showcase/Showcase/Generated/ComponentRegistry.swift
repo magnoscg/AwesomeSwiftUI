@@ -675,6 +675,15 @@ enum ComponentRegistry {
             demo: { AnyView(RulerScrollPickerDemo()) }
         ),
         ShowcaseEntry(
+            id: "select-all-checklist",
+            title: "Select All Checklist",
+            category: "Controls",
+            summary: "A list of checkable rows under a select-all box that turns mixed when only some rows are checked and counts the selection.",
+            keywords: ["select all", "checklist", "checkbox", "mixed", "indeterminate", "tri-state", "multi-select", "selection", "seleccionar todo", "lista de verificación", "casilla", "mixto", "indeterminado", "tres estados", "selección múltiple"],
+            minIOS: "18.0",
+            demo: { AnyView(SelectAllChecklistDemo()) }
+        ),
+        ShowcaseEntry(
             id: "sliding-segmented-picker",
             title: "Sliding Segmented Picker",
             category: "Controls",
