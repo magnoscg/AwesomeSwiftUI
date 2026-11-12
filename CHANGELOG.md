@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Clearable Text Field, a text field with a leading symbol, a clear button
+  that keeps the keyboard up and an optional error under it.
 - Filter Chip Group, filter chips that show a checkmark when chosen and wrap
   onto as many rows as they need.
 - Weekday Segmented Picker, round buttons that pick several days of the week

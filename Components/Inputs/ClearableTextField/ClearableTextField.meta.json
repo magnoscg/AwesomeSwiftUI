@@ -1,0 +1,53 @@
+{
+  "id": "clearable-text-field",
+  "name": "ClearableTextField",
+  "title": "Clearable Text Field",
+  "category": "Inputs",
+  "summary": "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+  "keywords": {
+    "en": [
+      "text field",
+      "clear button",
+      "input",
+      "icon",
+      "focus",
+      "error",
+      "form",
+      "search"
+    ],
+    "es": [
+      "campo de texto",
+      "botón de borrar",
+      "entrada",
+      "icono",
+      "foco",
+      "error",
+      "formulario",
+      "búsqueda"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "TextField",
+    "FocusState",
+    "transition",
+    "accessibilityHint"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label 'Clear text'",
+    "sleep 0.8",
+    "type 'Bakery'",
+    "sleep 0.6",
+    "tap -x 201 -y 291",
+    "sleep 0.5",
+    "type 'ana.example'",
+    "sleep 0.9",
+    "type '@mail.com'",
+    "sleep 1"
+  ]
+}

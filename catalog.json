@@ -1,5 +1,5 @@
 {
-  "count": 297,
+  "count": 298,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -5949,6 +5949,49 @@
       "path": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift",
       "preview": "Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Images/ScatteredPhotoBoard/ScatteredPhotoBoard.swift"
+    },
+    {
+      "id": "clearable-text-field",
+      "name": "ClearableTextField",
+      "title": "Clearable Text Field",
+      "category": "Inputs",
+      "summary": "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+      "keywords": {
+        "en": [
+          "text field",
+          "clear button",
+          "input",
+          "icon",
+          "focus",
+          "error",
+          "form",
+          "search"
+        ],
+        "es": [
+          "campo de texto",
+          "botón de borrar",
+          "entrada",
+          "icono",
+          "foco",
+          "error",
+          "formulario",
+          "búsqueda"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "TextField",
+        "FocusState",
+        "transition",
+        "accessibilityHint"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Inputs/ClearableTextField/ClearableTextField.swift",
+      "preview": "Components/Inputs/ClearableTextField/ClearableTextField.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Inputs/ClearableTextField/ClearableTextField.swift"
     },
     {
       "id": "color-swatch-picker",

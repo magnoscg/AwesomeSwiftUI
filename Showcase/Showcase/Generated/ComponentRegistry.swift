@@ -1335,6 +1335,15 @@ enum ComponentRegistry {
             demo: { AnyView(ScatteredPhotoBoardDemo()) }
         ),
         ShowcaseEntry(
+            id: "clearable-text-field",
+            title: "Clearable Text Field",
+            category: "Inputs",
+            summary: "A text field with a leading symbol, a clear button that keeps the focus, a tinted border while editing and an optional error message.",
+            keywords: ["text field", "clear button", "input", "icon", "focus", "error", "form", "search", "campo de texto", "botón de borrar", "entrada", "icono", "foco", "error", "formulario", "búsqueda"],
+            minIOS: "18.0",
+            demo: { AnyView(ClearableTextFieldDemo()) }
+        ),
+        ShowcaseEntry(
             id: "color-swatch-picker",
             title: "Color Swatch Picker",
             category: "Inputs",
