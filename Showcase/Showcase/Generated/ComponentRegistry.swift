@@ -741,6 +741,15 @@ enum ComponentRegistry {
             }
         ),
         ShowcaseEntry(
+            id: "weekday-segmented-picker",
+            title: "Weekday Segmented Picker",
+            category: "Controls",
+            summary: "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+            keywords: ["weekday picker", "days of the week", "multi-select", "segmented", "alarm", "repeat", "schedule", "recurrence", "selector de días", "días de la semana", "selección múltiple", "segmentado", "alarma", "repetir", "horario", "recurrencia"],
+            minIOS: "18.0",
+            demo: { AnyView(WeekdaySegmentedPickerDemo()) }
+        ),
+        ShowcaseEntry(
             id: "drawing-pad-speed-brush",
             title: "Drawing Pad Speed Brush",
             category: "Drawing",

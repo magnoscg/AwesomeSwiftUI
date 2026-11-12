@@ -1,5 +1,5 @@
 {
-  "count": 295,
+  "count": 296,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -3313,6 +3313,49 @@
       "path": "Components/Controls/TickMarkSlider/TickMarkSlider.swift",
       "preview": "Components/Controls/TickMarkSlider/TickMarkSlider.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/TickMarkSlider/TickMarkSlider.swift"
+    },
+    {
+      "id": "weekday-segmented-picker",
+      "name": "WeekdaySegmentedPicker",
+      "title": "Weekday Segmented Picker",
+      "category": "Controls",
+      "summary": "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+      "keywords": {
+        "en": [
+          "weekday picker",
+          "days of the week",
+          "multi-select",
+          "segmented",
+          "alarm",
+          "repeat",
+          "schedule",
+          "recurrence"
+        ],
+        "es": [
+          "selector de días",
+          "días de la semana",
+          "selección múltiple",
+          "segmentado",
+          "alarma",
+          "repetir",
+          "horario",
+          "recurrencia"
+        ]
+      },
+      "difficulty": "beginner",
+      "minIOS": "18.0",
+      "apis": [
+        "Calendar",
+        "veryShortStandaloneWeekdaySymbols",
+        "ListFormatStyle",
+        "sensoryFeedback"
+      ],
+      "origin": {
+        "kind": "original"
+      },
+      "path": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift",
+      "preview": "Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Controls/WeekdaySegmentedPicker/WeekdaySegmentedPicker.swift"
     },
     {
       "id": "drawing-pad-speed-brush",

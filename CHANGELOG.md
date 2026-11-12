@@ -8,6 +8,8 @@ on `main`.
 
 ### Added
 
+- Weekday Segmented Picker, round buttons that pick several days of the week
+  in the order of the calendar, with a summary such as Weekdays.
 - Settings Toggle Row, a row like the ones in the Settings app: a symbol on
   a colored square, a title, a subtitle and a switch.
 - Icon Switch Toggle Style, a switch whose knob carries a symbol for each

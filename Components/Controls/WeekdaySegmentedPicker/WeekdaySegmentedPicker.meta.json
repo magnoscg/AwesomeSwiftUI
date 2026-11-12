@@ -1,0 +1,53 @@
+{
+  "id": "weekday-segmented-picker",
+  "name": "WeekdaySegmentedPicker",
+  "title": "Weekday Segmented Picker",
+  "category": "Controls",
+  "summary": "A row of round day buttons that picks several days of the week in the calendar's order, with a summary like Weekdays under it.",
+  "keywords": {
+    "en": [
+      "weekday picker",
+      "days of the week",
+      "multi-select",
+      "segmented",
+      "alarm",
+      "repeat",
+      "schedule",
+      "recurrence"
+    ],
+    "es": [
+      "selector de días",
+      "días de la semana",
+      "selección múltiple",
+      "segmentado",
+      "alarma",
+      "repetir",
+      "horario",
+      "recurrencia"
+    ]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": [
+    "Calendar",
+    "veryShortStandaloneWeekdaySymbols",
+    "ListFormatStyle",
+    "sensoryFeedback"
+  ],
+  "origin": {
+    "kind": "original"
+  },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap -x 109 -y 220",
+    "sleep 0.7",
+    "tap -x 201 -y 220",
+    "sleep 0.7",
+    "tap -x 247 -y 220",
+    "sleep 1.2",
+    "tap -x 293 -y 389",
+    "sleep 0.7",
+    "tap -x 339 -y 389",
+    "sleep 1.1"
+  ]
+}

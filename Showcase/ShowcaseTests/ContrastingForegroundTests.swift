@@ -37,6 +37,7 @@ struct ContrastingForegroundTests {
         ("SwipeActionRow", { SwipeActionRowContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("TooltipPopover", { TooltipPopoverContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
         ("VerticalTimeline", { VerticalTimelineContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
+        ("WeekdaySegmentedPicker", { WeekdaySegmentedPickerContrastingForeground(background: $0).resolve(in: EnvironmentValues()) }),
     ]
 
     @Test(arguments: styles.indices)
