@@ -1,0 +1,28 @@
+{
+  "id": "checkmark-box-toggle-style",
+  "name": "CheckmarkBoxToggleStyle",
+  "title": "Checkmark Box Toggle Style",
+  "category": "Controls",
+  "summary": "A checkbox toggle style for iOS whose box fills and draws its checkmark, with a dash for a mixed Toggle(sources:).",
+  "keywords": {
+    "en": ["checkbox", "check box", "checkmark", "toggle style", "mixed", "indeterminate", "form", "terms"],
+    "es": ["casilla", "casilla de verificación", "check", "marca", "estilo de toggle", "mixto", "indeterminado", "formulario"]
+  },
+  "difficulty": "beginner",
+  "minIOS": "18.0",
+  "apis": ["ToggleStyle", "Toggle(sources:isOn:)", "Shape", "trim"],
+  "origin": { "kind": "original" },
+  "previewSteps": [
+    "sleep 0.6",
+    "tap --label \"Email me about new features\"",
+    "sleep 0.8",
+    "tap --label \"I agree to the Terms of Service and the Privacy Policy\"",
+    "sleep 0.8",
+    "tap --label \"All toppings\"",
+    "sleep 0.9",
+    "tap --label Mushrooms",
+    "sleep 0.9",
+    "tap --label \"Remember me\"",
+    "sleep 0.8"
+  ]
+}
