@@ -3,7 +3,7 @@
 // and the three ways to take it. Copying the code reads it from the block
 // titled with the name of the Swift file, below, so the page holds one copy
 // of the source.
-import { categoryURL, components, previewURL, SITE_BASE } from '../lib/catalog';
+import { categoryURL, components, pageURL, previewURL, REPOSITORY, SITE_BASE } from '../lib/catalog';
 
 interface Props {
   id: string;
@@ -29,7 +29,44 @@ const prompt = [
 ]
   .filter((line) => line !== undefined)
   .join('\n');
+
+// What search engines read about the component: its code, and where it sits in the catalog.
+const pageAddress = new URL(pageURL(component), Astro.site).href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareSourceCode',
+      name: title,
+      description: summary,
+      url: pageAddress,
+      image: previewURL(component),
+      codeRepository: REPOSITORY,
+      programmingLanguage: 'Swift',
+      runtimePlatform: `iOS ${minIOS}`,
+      license: 'https://opensource.org/licenses/MIT',
+      keywords: keywords.join(', '),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { name: 'Catalog', path: `${SITE_BASE}/catalog/` },
+        { name: category, path: categoryURL(category) },
+        { name: title, path: pageURL(component) },
+      ].map(({ name, path }, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name,
+        item: new URL(path, Astro.site).href,
+      })),
+    },
+  ],
+};
+// A summary holding "</script>" would otherwise close the block early.
+const structuredDataJSON = JSON.stringify(structuredData).replaceAll('<', '\\u003c');
 ---
+
+<script type="application/ld+json" is:inline set:html={structuredDataJSON} />
 
 <section class="component-header not-content">
   <p class="summary">{summary}</p>
