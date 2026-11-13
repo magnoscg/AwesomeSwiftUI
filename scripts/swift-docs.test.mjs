@@ -355,7 +355,7 @@ describe('the API of a component', () => {
     );
   });
 
-  it('reads a view its demo only shows through a modifier as that modifier', () => {
+  it('reads a view its demo only shows through a modifier as that modifier, and the view after it', () => {
     const source = [
       HEADER,
       'extension View {',
@@ -384,8 +384,17 @@ describe('the API of a component', () => {
 
     const docs = componentDocs(source, 'Toast');
 
-    assert.deepEqual(docs.overview, [{ type: 'paragraph', text: 'Shows a toast.' }]);
-    assert.deepEqual(docs.api.map((table) => table.title), ['toast(isPresented:duration:)']);
+    assert.deepEqual(docs.overview, [
+      { type: 'paragraph', text: 'Shows a toast.' },
+      { type: 'paragraph', text: 'The capsule the modifier shows.' },
+    ]);
+    assert.deepEqual(
+      docs.api.map((table) => [table.title, table.rows.map((row) => row.name)]),
+      [
+        ['toast(isPresented:duration:)', ['isPresented', 'duration']],
+        ['Toast', ['message']],
+      ],
+    );
   });
 
   it('has no table when the main type takes nothing', () => {
@@ -497,6 +506,12 @@ describe('the components of the catalog', () => {
         ['systemImage', 'String', '"checkmark.circle.fill"'],
         ['tint', 'Color', '.green'],
         ['duration', 'Double', '2.2'],
+      ],
+      [
+        'ToastBanner',
+        ['message', 'LocalizedStringResource', null],
+        ['systemImage', 'String', '"checkmark.circle.fill"'],
+        ['tint', 'Color', '.green'],
       ],
     ],
   };

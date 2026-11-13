@@ -17,15 +17,25 @@ export function componentDocs(source, name) {
   const type = findType(declarations, name);
   const modifiers = modifierFunctions(declarations);
   const demo = demoStart === -1 ? '' : lines.slice(demoStart).join('\n');
-  // A view its demo never builds is shown through its modifier, like a toast.
-  const isModifier =
-    modifiers.length > 0 &&
-    (!type || /\bViewModifier\b/.test(type.declaration) || !new RegExp(`\\b${name}\\s*[({]`).test(demo));
-  const doc = isModifier ? (modifiers.find((modifier) => modifier.doc.length)?.doc ?? type?.doc) : type?.doc;
+  const isViewModifier = type && /\bViewModifier\b/.test(type.declaration);
+  // A view its demo never builds is shown through its modifier first, like a
+  // toast, and then as the view, which a caller can still place by itself.
+  const showsThroughModifier =
+    modifiers.length > 0 && type && !isViewModifier && !new RegExp(`\\b${name}\\s*[({]`).test(demo);
+  const isModifier = modifiers.length > 0 && (!type || isViewModifier || showsThroughModifier);
+  const modifierDoc = modifiers.find((modifier) => modifier.doc.length)?.doc;
+  const doc = !isModifier
+    ? type?.doc
+    : showsThroughModifier
+      ? [...(modifierDoc ?? []), ...(modifierDoc?.length && type.doc.length ? [''] : []), ...type.doc]
+      : (modifierDoc ?? type?.doc);
+  const viewTables = showsThroughModifier
+    ? typeTables(declarations, type, name).map((table) => ({ ...table, title: table.title ?? name }))
+    : [];
   return {
     overview: doc?.length ? overviewOf(doc) : null,
     usage: demoStart === -1 ? null : usageOf(lines, demoStart),
-    api: isModifier ? modifiers.map(functionTable) : typeTables(declarations, type, name),
+    api: isModifier ? [...modifiers.map(functionTable), ...viewTables] : typeTables(declarations, type, name),
   };
 }
 
