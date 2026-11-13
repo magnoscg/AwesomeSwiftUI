@@ -58,7 +58,10 @@ const isCategory = Boolean(entry.data.sidebar.attrs?.['data-category-page']);
   const atEnd = (links: HTMLAnchorElement[]) => (inView(followed(links)) ? followed(links) : links.at(-1));
   // Starlight's observer reports after the scroll event of the same frame, so this waits for it.
   const later = (pick: Parameters<typeof mark>[0]) => setTimeout(() => mark(pick), 100);
-  addEventListener('scroll', () => atBottom() && later(atEnd), { passive: true });
+  const last = (links: HTMLAnchorElement[]) => (atBottom() ? links.at(-1) : undefined);
+  addEventListener('scroll', () => atBottom() && later(last), { passive: true });
+  // Starlight rebuilds its observer about 200 ms after a resize, plus an idle callback.
+  addEventListener('resize', () => setTimeout(() => mark(last), 600));
   addEventListener('hashchange', () => later((links) => (atBottom() ? atEnd(links) : followed(links))));
   addEventListener('load', () =>
     setTimeout(() => mark((links) => (atBottom() ? atEnd(links) : followed(links))), 300),
