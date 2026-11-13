@@ -137,7 +137,8 @@ rest are on you.
    The one exception is a Metal
    shader, because SwiftUI's `ShaderLibrary` only loads compiled Metal: a
    component may have exactly one `<Name>.metal` next to its Swift file.
-   - The documentation comment of its type says to copy both files.
+   - The documentation comment of its type, or of its modifier, says to
+     copy both files.
    - Every function in `<Name>.metal` starts with the name of the component,
      like `RippleShaderEffectDistortion`. Xcode compiles every `.metal` file
      of a target into one `default.metallib`, so two functions with the same
@@ -244,6 +245,30 @@ rest are on you.
 
     Do not present or dismiss a search or a sheet from that task when the
     person can also do it: record those with `previewSteps` instead.
+15. **Document what a caller uses.** What a caller reaches first has a `///`
+    comment in the style of Swift's
+    [API Design Guidelines](https://www.swift.org/documentation/api-design-guidelines/#write-doc-comment):
+    the main type, or the function in `extension View` when the component is
+    applied as a modifier, and every property or parameter a caller sets.
+    Xcode shows it in Quick Help, and the site builds the page of the
+    component from it.
+    - Start with a summary: one sentence fragment that ends with a period. A
+      type or a property says what it is, a function what it does or
+      returns, an initializer what it creates:
+      `/// A round button that fires after being held.`
+    - Then a blank `///` line and the details: what changes with Reduce
+      Motion or right-to-left, ranges and units, what happens at the edges.
+    - `- Parameters:` on the modifier or the initializer a caller uses, whose
+      parameters have no property to carry their comment, and on any function
+      whose arguments are not obvious. `- Returns:` where the result needs
+      saying, and `- Important:` for what a copier must not miss, like the
+      `.metal` file.
+    - Two backticks link a type or a member declared in the same file,
+      ``` ``HolographicCard`` ```. Anything else takes one: an Apple type, a
+      parameter, a file name, a piece of code.
+    - Do not restate the name or the type. Leave out `body`, a `private`
+      member whose name already says it, and the demo, apart from the comment
+      rule 14 gives it.
 
 ## Trying a demo in the simulator
 
