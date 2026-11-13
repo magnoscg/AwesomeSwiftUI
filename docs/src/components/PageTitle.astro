@@ -38,6 +38,22 @@ const isCategory = Boolean(entry.data.sidebar.attrs?.['data-category-page']);
 </div>
 {isCategory && entry.data.description && <p class="lead">{entry.data.description}</p>}
 
+<script>
+  // Starlight marks the section whose heading crosses the top of the window, which the
+  // last one never reaches when it is shorter than the window: it goes to the bottom
+  // of the page, and to whichever link was followed.
+  const tocs = () => [...document.querySelectorAll<HTMLElement & { current: HTMLAnchorElement }>('starlight-toc, mobile-starlight-toc')];
+  const mark = (pick: (links: HTMLAnchorElement[]) => HTMLAnchorElement | undefined) => {
+    for (const toc of tocs()) {
+      const link = pick([...toc.querySelectorAll('a')]);
+      if (link) toc.current = link;
+    }
+  };
+  const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  addEventListener('scroll', () => atBottom() && mark((links) => links.at(-1)), { passive: true });
+  addEventListener('hashchange', () => mark((links) => links.find((link) => link.hash === location.hash)));
+</script>
+
 <style>
   .page-title {
     display: flex;

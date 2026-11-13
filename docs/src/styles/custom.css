@@ -204,3 +204,8 @@ h4 {
   background-clip: text;
   color: transparent;
 }
+
+/* A page of previews has no outline, so its grid takes the room the outline leaves. */
+.main-pane:has(.catalog-gallery) {
+  --sl-content-width: 90rem;
+}

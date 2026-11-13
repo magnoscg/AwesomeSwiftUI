@@ -795,7 +795,7 @@ describe('the documentation site', () => {
 
     assert.match(
       page,
-      /^---\ntitle: "Buttons"\ndescription: "1 component in Buttons, each with an animated preview\."\nsidebar:\n  order: 0\n  attrs:\n    data-category-page: true\n---\n/,
+      /^---\ntitle: "Buttons"\ndescription: "1 component in Buttons, each with an animated preview\."\ntableOfContents: false\nsidebar:\n  order: 0\n  attrs:\n    data-category-page: true\n---\n/,
     );
     assert.match(page, /import CatalogGallery from '\.\.\/\.\.\/\.\.\/\.\.\/components\/CatalogGallery\.astro';/);
     assert.match(page, /\n<CatalogGallery\n  category=\{"Buttons"\}\n  items=\{\[\n/);
