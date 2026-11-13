@@ -1,7 +1,8 @@
 ---
 // The top of the page of a component: its preview on a stage, what it needs,
 // and the three ways to take it. Copying the code reads it from the block
-// below, so the page holds one copy of the source.
+// titled with the name of the Swift file, below, so the page holds one copy
+// of the source.
 import { categoryURL, components, previewURL, SITE_BASE } from '../lib/catalog';
 
 interface Props {
@@ -48,7 +49,7 @@ const prompt = [
     </ul>
 
     <div class="actions">
-      <button type="button" class="primary" data-copy-code data-done="Copied">Copy code</button>
+      <button type="button" class="primary" data-copy-code={`${name}.swift`} data-done="Copied">Copy code</button>
       <a href={rawURL} download={`${name}.swift`}>Download .swift</a>
       {shaderRawURL && <a href={shaderRawURL} download={`${name}.metal`}>Download .metal</a>}
       <button type="button" data-copy={prompt} data-done="Copied">Copy prompt for your agent</button>
@@ -98,6 +99,7 @@ const prompt = [
 
 <script>
   import '../lib/copy';
+  import '../lib/code-scroll';
 </script>
 
 <style>

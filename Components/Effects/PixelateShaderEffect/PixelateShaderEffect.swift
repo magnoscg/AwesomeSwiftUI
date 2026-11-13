@@ -29,7 +29,8 @@ extension View {
     /// `amount` goes from 0, untouched, to 1, in blocks of `blockSize` points, and animates:
     /// the blocks shrink until the view comes into focus.
     ///
-    /// Copy two files into the same target: `PixelateShaderEffect.swift` and `PixelateShaderEffect.metal`.
+    /// - Important: Copy two files into the same target: `PixelateShaderEffect.swift` and `PixelateShaderEffect.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
     ///
     /// It only changes how the view looks: hide it from VoiceOver yourself while it is a secret.

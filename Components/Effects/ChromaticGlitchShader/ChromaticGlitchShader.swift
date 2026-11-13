@@ -30,7 +30,8 @@ extension View {
     /// bands jump sideways and scan lines cross it. `amount` goes from 0, untouched, to 1, and
     /// animates.
     ///
-    /// Copy two files into the same target: `ChromaticGlitchShader.swift` and `ChromaticGlitchShader.metal`.
+    /// - Important: Copy two files into the same target: `ChromaticGlitchShader.swift` and `ChromaticGlitchShader.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
     ///
     /// The bands change ten times a second. With Reduce Motion on they stand still, and only

@@ -1,0 +1,45 @@
+---
+// What the documentation comment of a component says: its paragraphs, its
+// lists and its callouts, read from the Swift file by scripts/swift-docs.mjs.
+import { Aside } from '@astrojs/starlight/components';
+import InlineCode from './InlineCode.astro';
+
+type Block =
+  | { type: 'paragraph'; text: string }
+  | { type: 'list'; items: string[] }
+  | { type: 'aside'; variant: 'note' | 'tip' | 'caution' | 'danger'; title: string; text: string };
+
+interface Props {
+  blocks: Block[];
+}
+---
+
+{
+  Astro.props.blocks.map((block) => {
+    if (block.type === 'paragraph') {
+      return (
+        <p>
+          <InlineCode text={block.text} />
+        </p>
+      );
+    }
+    if (block.type === 'list') {
+      return (
+        <ul>
+          {block.items.map((item) => (
+            <li>
+              <InlineCode text={item} />
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    return (
+      <Aside type={block.variant} title={block.title}>
+        <p>
+          <InlineCode text={block.text} />
+        </p>
+      </Aside>
+    );
+  })
+}

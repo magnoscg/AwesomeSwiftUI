@@ -854,7 +854,65 @@ describe('the documentation site', () => {
     const page = docsFor().pages.get(PAGE);
 
     assert.match(page, /Copy this code into your project, or \[download the file\]\(/);
-    assert.equal(page.match(/^`````\w/gm).length, 1);
+    assert.equal(page.match(/^`````\w+ title="\w/gm).length, 1);
+  });
+
+  const DOCUMENTED = swift(
+    'GlowButton',
+    [
+      '/// A button that glows.',
+      '///',
+      '/// - Important: Keep `{braces}` and <Tag> as text.',
+      'struct GlowButton: View {',
+      '    /// From 0 to 1.',
+      '    var range: Range<Double> = 0..<1',
+      '    @ViewBuilder var label: () -> Text',
+      '}',
+      '',
+      '// MARK: - Demo',
+      '',
+    ].join('\n'),
+  );
+
+  function propsOf(page, component, prop) {
+    const match = page.match(new RegExp(`\\n<${component} ${prop}=\\{(.*)\\} />\\n`));
+    assert.ok(match, `${component} is on the page`);
+    return JSON.parse(match[1]);
+  }
+
+  it('heads each part of the page of a component, so the outline lists them', () => {
+    const page = docsFor(meta(), DOCUMENTED).pages.get(PAGE);
+    const headings = page.match(/^## .+$/gm);
+
+    assert.deepEqual(headings, ['## Description', '## Usage', '## API reference', '## Code']);
+    assert.match(page, /## Usage\n\n`````swift title=""\nstruct GlowButtonDemo: View \{\}\n`````\n/);
+  });
+
+  it('leaves out the parts a component has nothing for', () => {
+    const page = docsFor().pages.get(PAGE);
+
+    assert.deepEqual(page.match(/^## .+$/gm), ['## Code']);
+    assert.doesNotMatch(page, /ComponentOverview|ComponentApi/);
+  });
+
+  it('passes the text read from the Swift file as data, where MDX cannot run it', () => {
+    const page = docsFor(meta(), DOCUMENTED).pages.get(PAGE);
+
+    assert.deepEqual(propsOf(page, 'ComponentOverview', 'blocks'), [
+      { type: 'paragraph', text: 'A button that glows.' },
+      { type: 'aside', variant: 'caution', title: 'Important', text: 'Keep `{braces}` and <Tag> as text.' },
+    ]);
+    assert.deepEqual(propsOf(page, 'ComponentApi', 'tables'), [
+      {
+        title: null,
+        rows: [
+          { name: 'range', type: 'Range<Double>', default: '0..<1', description: 'From 0 to 1.' },
+          { name: 'label', type: '() -> Text', default: null, description: '' },
+        ],
+      },
+    ]);
+    const outsideCode = page.split(/^`````[\s\S]*?^`````$/m).join('');
+    assert.equal(outsideCode.split('<Tag>').length, 2);
   });
 
   it('keeps a source with a long run of backticks inside its block, where MDX cannot run it', () => {
