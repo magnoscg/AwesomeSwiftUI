@@ -17,9 +17,12 @@ function watch() {
   if (!document.querySelector('.component-header')) return;
   const blocks = document.querySelectorAll<HTMLElement>('.expressive-code pre');
   const observer = new MutationObserver((changes) => changes.forEach((change) => reachable(change.target as HTMLElement)));
+  // A block that fits a tall window overflows once the window shrinks.
+  const resizes = new ResizeObserver((entries) => entries.forEach((entry) => reachable(entry.target as HTMLElement)));
   blocks.forEach((pre) => {
     reachable(pre);
     observer.observe(pre, { attributes: true, attributeFilter: ['tabindex'] });
+    resizes.observe(pre);
   });
 }
 

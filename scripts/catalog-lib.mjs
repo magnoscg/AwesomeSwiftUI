@@ -605,7 +605,9 @@ function renderDocsPage(component) {
     `<ComponentHeader id="${component.id}" />`,
     '',
     ...(overview ? ['## Description', '', `<ComponentOverview blocks={${JSON.stringify(overview)}} />`, ''] : []),
-    ...(usage ? ['## Usage', '', `${sourceFence(usage)}swift`, usage, sourceFence(usage), ''] : []),
+    // An empty title keeps Expressive Code from taking one from a comment such as
+    // `// GlowButton.swift`, which Copy code would then take for the file.
+    ...(usage ? ['## Usage', '', `${sourceFence(usage)}swift title=""`, usage, sourceFence(usage), ''] : []),
     ...(api.length ? ['## API reference', '', `<ComponentApi tables={${JSON.stringify(api)}} />`, ''] : []),
     '## Code',
     '',

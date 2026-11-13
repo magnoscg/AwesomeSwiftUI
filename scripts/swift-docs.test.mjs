@@ -269,6 +269,125 @@ describe('the API of a component', () => {
     ]);
   });
 
+  it('follows the memberwise initializer: an optional var defaults to nil and a built view is a closure', () => {
+    const docs = componentDocs(
+      file(
+        [
+          'struct GlowButton<Content: View>: View {',
+          '    var subtitle: String?',
+          '    let badge: Int?',
+          '    @Binding var selection: Int?',
+          '    @ViewBuilder var content: Content',
+          '}',
+        ].join('\n'),
+      ),
+      'GlowButton',
+    );
+
+    assert.deepEqual(docs.api[0].rows, [
+      { name: 'subtitle', type: 'String?', default: 'nil', description: '' },
+      { name: 'badge', type: 'Int?', default: null, description: '' },
+      { name: 'selection', type: 'Binding<Int?>', default: null, description: '' },
+      { name: 'content', type: '() -> Content', default: null, description: '' },
+    ]);
+  });
+
+  it('keeps generics apart from range and comparison operators in a signature', () => {
+    const docs = componentDocs(
+      file(
+        'struct GlowButton: View {\n    init(range: Range<Double> = 0..<1, isOn: Bool = 1 > 0, tint: Color = .red) {}\n}\n',
+      ),
+      'GlowButton',
+    );
+
+    assert.deepEqual(
+      docs.api[0].rows.map((row) => [row.name, row.type, row.default]),
+      [
+        ['range', 'Range<Double>', '0..<1'],
+        ['isOn', 'Bool', '1 > 0'],
+        ['tint', 'Color', '.red'],
+      ],
+    );
+  });
+
+  it('reads failable and nonisolated initializers, and gives no table when every initializer is private', () => {
+    const failable = componentDocs(
+      file('struct GlowButton: View {\n    nonisolated init(level: Int) {}\n    init?(name: String) {}\n}\n'),
+      'GlowButton',
+    );
+    const hidden = componentDocs(
+      file('struct GlowButton: View {\n    var level = 1\n    private init(level: Int) {}\n}\n'),
+      'GlowButton',
+    );
+
+    assert.deepEqual(
+      failable.api.map((table) => table.title),
+      ['init(level:)', 'init(name:)'],
+    );
+    assert.deepEqual(hidden.api, []);
+  });
+
+  it('keeps the memberwise initializer when the only initializers are in extensions', () => {
+    const docs = componentDocs(
+      file(
+        [
+          'struct GlowButton<Controls: View>: View {',
+          '    let title: String',
+          '    @ViewBuilder var controls: Controls',
+          '}',
+          '',
+          'extension GlowButton where Controls == EmptyView {',
+          '    init(title: String) {',
+          '        self.init(title: title) { EmptyView() }',
+          '    }',
+          '}',
+        ].join('\n'),
+      ),
+      'GlowButton',
+    );
+
+    assert.deepEqual(
+      docs.api.map((table) => [table.title, table.rows.map((row) => row.name)]),
+      [
+        [null, ['title', 'controls']],
+        ['init(title:)', ['title']],
+      ],
+    );
+  });
+
+  it('reads a view its demo only shows through a modifier as that modifier', () => {
+    const source = [
+      HEADER,
+      'extension View {',
+      '    /// Shows a toast.',
+      '    func toast(isPresented: Binding<Bool>, duration: Double = 2) -> some View {',
+      '        overlay { Toast() }',
+      '    }',
+      '}',
+      '',
+      '/// The capsule the modifier shows.',
+      'struct Toast: View {',
+      '    var message = "Saved"',
+      '}',
+      '',
+      '// MARK: - Demo',
+      '',
+      'struct ToastDemo: View {',
+      '    @State private var shown = false',
+      '    var body: some View { Text("Hi").toast(isPresented: $shown) }',
+      '}',
+      '',
+      '#Preview {',
+      '    ToastDemo()',
+      '}',
+    ].join('\n');
+
+    const docs = componentDocs(source, 'Toast');
+
+    assert.deepEqual(docs.overview, [{ type: 'paragraph', text: 'Shows a toast.' }]);
+    assert.deepEqual(docs.api.map((table) => table.title), ['toast(isPresented:duration:)']);
+  });
+
   it('has no table when the main type takes nothing', () => {
     const docs = componentDocs(file('struct GlowButton: View {\n    var body: some View { Text("Hi") }\n}\n'), 'GlowButton');
 
@@ -351,6 +470,35 @@ describe('the components of the catalog', () => {
     ],
     PressableButtonStyle: [[null, ['pressedScale', 'CGFloat', '0.94'], ['pressedOpacity', 'Double', '0.8']]],
     ToastHost: [['toastHost()']],
+    ShimmerButton: [
+      [
+        null,
+        ['title', 'LocalizedStringResource', null],
+        ['systemImage', 'String?', 'nil'],
+        ['colors', '[Color]', '[.indigo, .purple]'],
+        ['sweepDuration', 'Double', '1.1'],
+        ['pause', 'Double', '0.9'],
+        ['action', '() -> Void', null],
+      ],
+    ],
+    BottomDrawer: [
+      [
+        null,
+        ['detent', 'Binding<CGFloat>', null],
+        ['detents', '[CGFloat]', '[0.16, 0.5, 0.88]'],
+        ['content', '() -> Content', null],
+      ],
+    ],
+    ToastBanner: [
+      [
+        'toast(isPresented:message:systemImage:tint:duration:)',
+        ['isPresented', 'Binding<Bool>', null],
+        ['message', 'LocalizedStringResource', null],
+        ['systemImage', 'String', '"checkmark.circle.fill"'],
+        ['tint', 'Color', '.green'],
+        ['duration', 'Double', '2.2'],
+      ],
+    ],
   };
 
   for (const [name, tables] of Object.entries(expected)) {

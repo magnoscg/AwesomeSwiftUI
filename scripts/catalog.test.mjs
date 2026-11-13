@@ -854,7 +854,7 @@ describe('the documentation site', () => {
     const page = docsFor().pages.get(PAGE);
 
     assert.match(page, /Copy this code into your project, or \[download the file\]\(/);
-    assert.equal(page.match(/^`````\w+ title=/gm).length, 1);
+    assert.equal(page.match(/^`````\w+ title="\w/gm).length, 1);
   });
 
   const DOCUMENTED = swift(
@@ -885,7 +885,7 @@ describe('the documentation site', () => {
     const headings = page.match(/^## .+$/gm);
 
     assert.deepEqual(headings, ['## Description', '## Usage', '## API reference', '## Code']);
-    assert.match(page, /## Usage\n\n`````swift\nstruct GlowButtonDemo: View \{\}\n`````\n/);
+    assert.match(page, /## Usage\n\n`````swift title=""\nstruct GlowButtonDemo: View \{\}\n`````\n/);
   });
 
   it('leaves out the parts a component has nothing for', () => {

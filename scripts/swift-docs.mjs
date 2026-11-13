@@ -7,6 +7,7 @@ const DEMO_MARK = '// MARK: - Demo';
 const ASIDES = { Important: 'caution', Note: 'note', Tip: 'tip', Warning: 'danger' };
 const PARAMETER_CALLOUTS = /^- (?:Parameters?|Returns|Throws)\b/;
 // Wrappers whose value the view owns, so no caller sets it.
+const INITIALIZER = /^ {4}(?:(?:private|fileprivate|nonisolated|convenience|@\w+)\s+)*init[?!]?\s*[(<]/;
 const OWNED_WRAPPERS = /@(?:State|Environment|GestureState|ScaledMetric|Namespace|FocusState|AppStorage|SceneStorage)\b/;
 
 export function componentDocs(source, name) {
@@ -15,7 +16,11 @@ export function componentDocs(source, name) {
   const declarations = demoStart === -1 ? lines : lines.slice(0, demoStart);
   const type = findType(declarations, name);
   const modifiers = modifierFunctions(declarations);
-  const isModifier = modifiers.length > 0 && (!type || /\bViewModifier\b/.test(type.declaration));
+  const demo = demoStart === -1 ? '' : lines.slice(demoStart).join('\n');
+  // A view its demo never builds is shown through its modifier, like a toast.
+  const isModifier =
+    modifiers.length > 0 &&
+    (!type || /\bViewModifier\b/.test(type.declaration) || !new RegExp(`\\b${name}\\s*[({]`).test(demo));
   const doc = isModifier ? (modifiers.find((modifier) => modifier.doc.length)?.doc ?? type?.doc) : type?.doc;
   return {
     overview: doc?.length ? overviewOf(doc) : null,
@@ -166,19 +171,23 @@ function typeTables(lines, type, name) {
   const extensions = lines.flatMap((line, index) =>
     new RegExp(`^extension ${name}\\b`).test(line) ? [[index, blockEnd(lines, index)]] : [],
   );
-  const initializers = [[type.index, type.end], ...extensions].flatMap(([start, end]) => {
+  const initializersIn = ([start, end]) => {
     const found = [];
     for (let member = start + 1; member < end; member += 1) {
-      if (/^ {4}(?:@\w+\s+)*(?:convenience\s+)?init\s*[(<]/.test(lines[member])) {
-        found.push({ ...signature(lines, member, /(init)\b/), doc: docAbove(lines, member) });
-      }
+      const line = lines[member];
+      if (!INITIALIZER.test(line)) continue;
+      found.push({ ...signature(lines, member, /(init)\b/), doc: docAbove(lines, member), hidden: /^\s*(?:private|fileprivate)\b/.test(line) });
     }
     return found;
-  });
-  if (initializers.length) return initializers.map(functionTable);
+  };
+  const inBody = initializersIn([type.index, type.end]);
+  const inExtensions = extensions.flatMap(initializersIn).filter((initializer) => !initializer.hidden);
+  const visible = inBody.filter((initializer) => !initializer.hidden);
+  // An initializer in the body takes the memberwise one away, even a private one.
+  if (inBody.length) return [...visible, ...inExtensions].map(functionTable);
 
   const rows = storedProperties(lines, type);
-  return rows.length ? [{ title: null, rows }] : [];
+  return [...(rows.length ? [{ title: null, rows }] : []), ...inExtensions.map(functionTable)];
 }
 
 // MARK: - Signatures
@@ -210,10 +219,12 @@ function closing(text, start, open, close) {
 }
 
 // Splits at a separator that is outside brackets, generics and strings, and is
-// not part of `->` or of an operator such as `==`.
+// not part of `->` or of an operator such as `==`. A `<` opens a generic only
+// right after a name, so `0..<1` and `1 > 0` are not taken for one.
 function splitTopLevel(text, separator) {
   const parts = [];
   let depth = 0;
+  let generics = 0;
   let quoted = false;
   let start = 0;
   for (let index = 0; index < text.length; index += 1) {
@@ -225,12 +236,17 @@ function splitTopLevel(text, separator) {
       quoted = true;
     } else if (character === '-' && text[index + 1] === '>') {
       index += 1;
-    } else if ('([{<'.includes(character)) {
+    } else if (character === '<' && /\w/.test(text[index - 1] ?? '')) {
+      generics += 1;
+    } else if (character === '>' && generics > 0) {
+      generics -= 1;
+    } else if ('([{'.includes(character)) {
       depth += 1;
-    } else if (')]}>'.includes(character)) {
+    } else if (')]}'.includes(character)) {
       depth -= 1;
     } else if (
       depth === 0 &&
+      generics === 0 &&
       character === separator &&
       !(separator === '=' && /[=!<>]/.test(text[index - 1] ?? '')) &&
       !(separator === '=' && text[index + 1] === '=')
@@ -305,6 +321,9 @@ function propertyOf(text, doc) {
   if (kind === 'let' && value !== null) return null;
 
   type = type ? collapse(type) : inferredType(value);
+  // What the memberwise initializer takes: nil for an optional var, and a closure for a view built by @ViewBuilder.
+  if (kind === 'var' && value === null && !attributes.trim() && /[?!]$/.test(type)) value = 'nil';
+  if (/@ViewBuilder\b/.test(attributes) && type && !type.includes('->')) type = `() -> ${type}`;
   if (/@Binding\b/.test(attributes)) type = `Binding<${type}>`;
   return { name, type, default: value, description: plainDoc(doc) };
 }
