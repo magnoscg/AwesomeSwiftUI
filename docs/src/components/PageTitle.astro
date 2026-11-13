@@ -40,32 +40,22 @@ const isCategory = Boolean(entry.data.sidebar.attrs?.['data-category-page']);
 
 <script>
   // Starlight marks the section whose heading crosses the top of the window, which the
-  // last one never reaches when it is shorter than the window: it goes to the bottom
-  // of the page, and to whichever link was followed.
-  const tocs = () => [...document.querySelectorAll<HTMLElement & { current: HTMLAnchorElement }>('starlight-toc, mobile-starlight-toc')];
-  const mark = (pick: (links: HTMLAnchorElement[]) => HTMLAnchorElement | undefined) => {
-    for (const toc of tocs()) {
-      const link = pick([...toc.querySelectorAll('a')]);
-      if (link) toc.current = link;
+  // last one never reaches when it is shorter than the window. At the end of the page
+  // the last section is marked, corrected as soon as Starlight writes, so nothing races.
+  const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  const tocs = [...document.querySelectorAll<HTMLElement & { current: HTMLAnchorElement }>('starlight-toc, mobile-starlight-toc')];
+  const markLast = () => {
+    if (!atBottom()) return;
+    for (const toc of tocs) {
+      const last = [...toc.querySelectorAll('a')].at(-1);
+      if (last && toc.querySelector('a[aria-current="true"]') !== last) toc.current = last;
     }
   };
-  const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  const followed = (links: HTMLAnchorElement[]) => links.find((link) => link.hash && link.hash === location.hash);
-  const inView = (link: HTMLAnchorElement | undefined) => {
-    const top = link && document.getElementById(decodeURIComponent(link.hash.slice(1)))?.getBoundingClientRect().top;
-    return top !== undefined && top >= 0 && top < window.innerHeight;
-  };
-  const atEnd = (links: HTMLAnchorElement[]) => (inView(followed(links)) ? followed(links) : links.at(-1));
-  // Starlight's observer reports after the scroll event of the same frame, so this waits for it.
-  const later = (pick: Parameters<typeof mark>[0]) => setTimeout(() => mark(pick), 100);
-  const last = (links: HTMLAnchorElement[]) => (atBottom() ? links.at(-1) : undefined);
-  addEventListener('scroll', () => atBottom() && later(last), { passive: true });
-  // Starlight rebuilds its observer about 200 ms after a resize, plus an idle callback.
-  addEventListener('resize', () => setTimeout(() => mark(last), 600));
-  addEventListener('hashchange', () => later((links) => (atBottom() ? atEnd(links) : followed(links))));
-  addEventListener('load', () =>
-    setTimeout(() => mark((links) => (atBottom() ? atEnd(links) : followed(links))), 300),
-  );
+  for (const toc of tocs) {
+    new MutationObserver(markLast).observe(toc, { subtree: true, attributeFilter: ['aria-current'] });
+  }
+  addEventListener('scroll', markLast, { passive: true });
+  addEventListener('load', markLast);
 </script>
 
 <style>
