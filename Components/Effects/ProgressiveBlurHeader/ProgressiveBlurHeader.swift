@@ -28,7 +28,8 @@ extension View {
     /// Metal shader, so what scrolls under a header melts away instead of meeting a hard bar.
     /// Put it on the content of a `ScrollView`, not on the scroll view.
     ///
-    /// Copy two files into the same target: `ProgressiveBlurHeader.swift` and `ProgressiveBlurHeader.metal`.
+    /// - Important: Copy two files into the same target: `ProgressiveBlurHeader.swift` and `ProgressiveBlurHeader.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map or the
     /// scroll view itself, comes out empty.
     ///

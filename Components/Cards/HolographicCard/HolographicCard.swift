@@ -29,7 +29,8 @@ nonisolated enum HolographicCardMath {
 
 /// A card with a holographic foil that shifts as you tilt it by dragging, drawn by a Metal shader.
 ///
-/// Copy two files into the same target: `HolographicCard.swift` and `HolographicCard.metal`.
+/// - Important: Copy two files into the same target: `HolographicCard.swift` and `HolographicCard.metal`.
+///
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
 ///
 /// With Reduce Motion on, the card stays flat and the foil stays still.

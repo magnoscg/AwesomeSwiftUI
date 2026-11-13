@@ -44,7 +44,8 @@ nonisolated enum RippleShaderEffectMath {
 
 /// A wave that spreads from a point and bends the view as it passes, drawn by a Metal shader.
 ///
-/// Copy two files into the same target: `RippleShaderEffect.swift` and `RippleShaderEffect.metal`.
+/// - Important: Copy two files into the same target: `RippleShaderEffect.swift` and `RippleShaderEffect.metal`.
+///
 /// `.rippleShaderEffect()` starts a wave wherever the view is tapped, and
 /// `.rippleShaderEffect(at:trigger:)` starts one from code.
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
