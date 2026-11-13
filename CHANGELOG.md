@@ -6,6 +6,19 @@ on `main`.
 
 ## Unreleased
 
+## 0.9.1 - 2026-11-13
+
+### Changed
+
+- The catalog and the page of each category drop their empty outline and
+  spread their grid of previews, with larger cards, across the width it
+  leaves.
+
+### Fixed
+
+- The outline of a component's page marks Code when that section is opened
+  or the page is scrolled to its end.
+
 ## 0.9.0 - 2026-11-13
 
 ### Added

@@ -783,6 +783,12 @@ describe('the documentation site', () => {
     ]);
   });
 
+  it('leaves the outline out of the catalog index, which only holds previews', () => {
+    const index = docsFor().pages.get(INDEX);
+
+    assert.match(index, /^---\ntitle: Catalog\ndescription: [^\n]+\ntableOfContents: false\nsidebar:\n/);
+  });
+
   it('keeps braces in the text from being read as MDX', () => {
     const index = docsFor(meta({ summary: 'Uses {braces} and <tags>.' })).pages.get(INDEX);
 
@@ -795,7 +801,7 @@ describe('the documentation site', () => {
 
     assert.match(
       page,
-      /^---\ntitle: "Buttons"\ndescription: "1 component in Buttons, each with an animated preview\."\nsidebar:\n  order: 0\n  attrs:\n    data-category-page: true\n---\n/,
+      /^---\ntitle: "Buttons"\ndescription: "1 component in Buttons, each with an animated preview\."\ntableOfContents: false\nsidebar:\n  order: 0\n  attrs:\n    data-category-page: true\n---\n/,
     );
     assert.match(page, /import CatalogGallery from '\.\.\/\.\.\/\.\.\/\.\.\/components\/CatalogGallery\.astro';/);
     assert.match(page, /\n<CatalogGallery\n  category=\{"Buttons"\}\n  items=\{\[\n/);
