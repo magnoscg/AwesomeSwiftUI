@@ -81,6 +81,13 @@ h4 {
   border-radius: 0.75rem;
 }
 
+/* On the page of a component, a long file scrolls inside its block, so the
+   parts below it stay within reach. lib/code-scroll.ts lets the keyboard in. */
+.sl-markdown-content:has(.component-header) .expressive-code pre {
+  max-height: min(37.5rem, 70vh);
+  overflow: auto;
+}
+
 /* Changing page, only the mark of the open page in the sidebar moves: it
    slides to its new place. Browsers that cannot do it change page as before. */
 @media (prefers-reduced-motion: no-preference) {

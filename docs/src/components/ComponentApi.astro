@@ -1,0 +1,83 @@
+---
+// What a caller sets on a component, read from the Swift file by
+// scripts/swift-docs.mjs: the parameters of each initializer or modifier, or
+// the properties of the main type. The column of descriptions shows only when
+// some parameter has one.
+import InlineCode from './InlineCode.astro';
+
+interface Row {
+  name: string;
+  type: string;
+  default: string | null;
+  description: string;
+}
+
+interface Props {
+  tables: { title: string | null; rows: Row[] }[];
+}
+---
+
+{
+  Astro.props.tables.map(({ title, rows }) => {
+    const described = rows.some((row) => row.description);
+    return (
+      <>
+        {title && (
+          <p class="api-title">
+            <code>{title}</code>
+          </p>
+        )}
+        {rows.length === 0 ? (
+          <p>Takes no parameters.</p>
+        ) : (
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th scope="col">Parameter</th>
+                <th scope="col">Type</th>
+                <th scope="col">Default</th>
+                {described && <th scope="col">Description</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr>
+                  <th scope="row">
+                    <code>{row.name}</code>
+                  </th>
+                  <td>{row.type ? <code>{row.type}</code> : <span class="none">Not written</span>}</td>
+                  <td>{row.default === null ? <span class="none">Required</span> : <code>{row.default}</code>}</td>
+                  {described && (
+                    <td>
+                      <InlineCode text={row.description} />
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </>
+    );
+  })
+}
+
+<style>
+  .api-title {
+    margin-top: 1.5rem;
+  }
+
+  .api-table th[scope='row'] {
+    font-weight: normal;
+    white-space: nowrap;
+  }
+
+  .api-table code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .none {
+    color: var(--sl-color-gray-3);
+  }
+</style>

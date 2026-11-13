@@ -3,6 +3,7 @@
 // so the same code serves `generate`, `check` and the tests.
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { componentDocs } from './swift-docs.mjs';
 
 const REPOSITORY = 'magnoscg/swiftui-components';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPOSITORY}/HEAD`;
@@ -581,10 +582,15 @@ function galleryItems(components) {
 // The page of a component. What it shows above the code, the preview, the
 // details and the buttons, is drawn by a component of the site from
 // catalog.json, so the page only names the component and carries its source.
+// Each part of the page is a heading of the MDX, so Starlight lists it in the
+// outline. What comes from the Swift file reaches a component as JSON, never
+// as Markdown, which MDX could run when the site is built.
 function renderDocsPage(component) {
   const major = Number(component.minIOS.split('.')[0]);
   // The sidebar marks what does not run on the baseline.
   const badge = major > BASELINE_IOS ? ['sidebar:', '  badge:', `    text: iOS ${major}`] : [];
+  const { overview, usage, api } = componentDocs(component.source, component.name);
+  const components = '../../../../components';
   return [
     '---',
     `title: ${JSON.stringify(component.title)}`,
@@ -592,11 +598,18 @@ function renderDocsPage(component) {
     ...badge,
     '---',
     '',
-    "import ComponentHeader from '../../../../components/ComponentHeader.astro';",
+    `import ComponentHeader from '${components}/ComponentHeader.astro';`,
+    ...(overview ? [`import ComponentOverview from '${components}/ComponentOverview.astro';`] : []),
+    ...(api.length ? [`import ComponentApi from '${components}/ComponentApi.astro';`] : []),
     '',
     `<ComponentHeader id="${component.id}" />`,
     '',
-    '## Use it',
+    ...(overview ? ['## Description', '', `<ComponentOverview blocks={${JSON.stringify(overview)}} />`, ''] : []),
+    // An empty title keeps Expressive Code from taking one from a comment such as
+    // `// GlowButton.swift`, which Copy code would then take for the file.
+    ...(usage ? ['## Usage', '', `${sourceFence(usage)}swift title=""`, usage, sourceFence(usage), ''] : []),
+    ...(api.length ? ['## API reference', '', `<ComponentApi tables={${JSON.stringify(api)}} />`, ''] : []),
+    '## Code',
     '',
     ...renderDocsSource(component),
   ].join('\n');

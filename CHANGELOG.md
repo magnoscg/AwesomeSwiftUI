@@ -6,6 +6,22 @@ on `main`.
 
 ## Unreleased
 
+## 0.9.0 - 2026-11-13
+
+### Added
+
+- The page of a component has an outline with four parts: a description
+  from its documentation comment, its demo as an example of use, an API
+  reference with the parameters a caller sets, and the code. Long files
+  scroll inside their block and can be reached with the keyboard.
+- Rule 15 in AGENTS.md: how to write the documentation comments of a
+  component, following Swift's API Design Guidelines.
+
+### Changed
+
+- The six components drawn with a Metal shader say to copy both files in an
+  `- Important:` callout, which Xcode and the site show apart.
+
 ## 0.8.1 - 2026-11-13
 
 ### Fixed

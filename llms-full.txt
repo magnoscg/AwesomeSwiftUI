@@ -5877,7 +5877,8 @@ nonisolated enum HolographicCardMath {
 
 /// A card with a holographic foil that shifts as you tilt it by dragging, drawn by a Metal shader.
 ///
-/// Copy two files into the same target: `HolographicCard.swift` and `HolographicCard.metal`.
+/// - Important: Copy two files into the same target: `HolographicCard.swift` and `HolographicCard.metal`.
+///
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
 ///
 /// With Reduce Motion on, the card stays flat and the foil stays still.
@@ -14493,7 +14494,8 @@ extension View {
     /// bands jump sideways and scan lines cross it. `amount` goes from 0, untouched, to 1, and
     /// animates.
     ///
-    /// Copy two files into the same target: `ChromaticGlitchShader.swift` and `ChromaticGlitchShader.metal`.
+    /// - Important: Copy two files into the same target: `ChromaticGlitchShader.swift` and `ChromaticGlitchShader.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
     ///
     /// The bands change ten times a second. With Reduce Motion on they stand still, and only
@@ -16468,7 +16470,8 @@ extension View {
     /// `amount` goes from 0, untouched, to 1, in blocks of `blockSize` points, and animates:
     /// the blocks shrink until the view comes into focus.
     ///
-    /// Copy two files into the same target: `PixelateShaderEffect.swift` and `PixelateShaderEffect.metal`.
+    /// - Important: Copy two files into the same target: `PixelateShaderEffect.swift` and `PixelateShaderEffect.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
     ///
     /// It only changes how the view looks: hide it from VoiceOver yourself while it is a secret.
@@ -16625,7 +16628,8 @@ extension View {
     /// Metal shader, so what scrolls under a header melts away instead of meeting a hard bar.
     /// Put it on the content of a `ScrollView`, not on the scroll view.
     ///
-    /// Copy two files into the same target: `ProgressiveBlurHeader.swift` and `ProgressiveBlurHeader.metal`.
+    /// - Important: Copy two files into the same target: `ProgressiveBlurHeader.swift` and `ProgressiveBlurHeader.metal`.
+    ///
     /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map or the
     /// scroll view itself, comes out empty.
     ///
@@ -16825,7 +16829,8 @@ nonisolated enum RippleShaderEffectMath {
 
 /// A wave that spreads from a point and bends the view as it passes, drawn by a Metal shader.
 ///
-/// Copy two files into the same target: `RippleShaderEffect.swift` and `RippleShaderEffect.metal`.
+/// - Important: Copy two files into the same target: `RippleShaderEffect.swift` and `RippleShaderEffect.metal`.
+///
 /// `.rippleShaderEffect()` starts a wave wherever the view is tapped, and
 /// `.rippleShaderEffect(at:trigger:)` starts one from code.
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
@@ -45881,7 +45886,8 @@ nonisolated enum DissolveShaderTransitionMath {
 /// A transition that dissolves a view through noise, with a glowing edge where it burns away,
 /// drawn by a Metal shader. Use it as `.transition(.dissolveShader)`.
 ///
-/// Copy two files into the same target: `DissolveShaderTransition.swift` and `DissolveShaderTransition.metal`.
+/// - Important: Copy two files into the same target: `DissolveShaderTransition.swift` and `DissolveShaderTransition.metal`.
+///
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
 ///
 /// With Reduce Motion on, the view fades instead.

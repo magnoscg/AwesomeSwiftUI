@@ -28,7 +28,8 @@ nonisolated enum DissolveShaderTransitionMath {
 /// A transition that dissolves a view through noise, with a glowing edge where it burns away,
 /// drawn by a Metal shader. Use it as `.transition(.dissolveShader)`.
 ///
-/// Copy two files into the same target: `DissolveShaderTransition.swift` and `DissolveShaderTransition.metal`.
+/// - Important: Copy two files into the same target: `DissolveShaderTransition.swift` and `DissolveShaderTransition.metal`.
+///
 /// A shader draws what SwiftUI draws itself: a view backed by UIKit, such as a map, shows a placeholder.
 ///
 /// With Reduce Motion on, the view fades instead.
