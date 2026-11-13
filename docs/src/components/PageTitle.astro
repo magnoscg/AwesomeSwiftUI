@@ -40,22 +40,47 @@ const isCategory = Boolean(entry.data.sidebar.attrs?.['data-category-page']);
 
 <script>
   // Starlight marks the section whose heading crosses the top of the window, which the
-  // last one never reaches when it is shorter than the window. At the end of the page
-  // the last section is marked, corrected as soon as Starlight writes, so nothing races.
-  const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  const tocs = [...document.querySelectorAll<HTMLElement & { current: HTMLAnchorElement }>('starlight-toc, mobile-starlight-toc')];
-  const markLast = () => {
-    if (!atBottom()) return;
+  // last one never reaches when it is shorter than the window. At the end of a page that
+  // scrolls, the last section is marked as soon as Starlight writes, so nothing races,
+  // and what Starlight would mark comes back when the reader leaves the end.
+  type Toc = HTMLElement & { current: HTMLAnchorElement; getRootMargin(): string };
+  const atBottom = () => {
+    const height = document.documentElement.scrollHeight;
+    return height > window.innerHeight && window.innerHeight + window.scrollY >= height - 2;
+  };
+  const tocs = [...document.querySelectorAll<Toc>('starlight-toc, mobile-starlight-toc')];
+  const links = (toc: Toc) => [...toc.querySelectorAll('a')];
+  const current = (toc: Toc) => toc.querySelector<HTMLAnchorElement>('a[aria-current="true"]');
+  // What Starlight would mark: the last heading that has reached the 53 px band it watches.
+  const starlightChoice = (toc: Toc) => {
+    const bandEnd = -parseFloat(toc.getRootMargin()) + 53;
+    const reached = links(toc).filter((link) => {
+      const heading = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+      return heading && heading.getBoundingClientRect().top <= bandEnd;
+    });
+    return reached.at(-1) ?? links(toc)[0];
+  };
+  const forced = new Set<Toc>();
+  const sync = () => {
     for (const toc of tocs) {
-      const last = [...toc.querySelectorAll('a')].at(-1);
-      if (last && toc.querySelector('a[aria-current="true"]') !== last) toc.current = last;
+      const end = links(toc).at(-1);
+      if (!end) continue;
+      if (atBottom()) {
+        if (current(toc) !== end) {
+          forced.add(toc);
+          toc.current = end;
+        }
+      } else if (forced.delete(toc)) {
+        const choice = starlightChoice(toc);
+        if (choice) toc.current = choice;
+      }
     }
   };
   for (const toc of tocs) {
-    new MutationObserver(markLast).observe(toc, { subtree: true, attributeFilter: ['aria-current'] });
+    new MutationObserver(sync).observe(toc, { subtree: true, attributeFilter: ['aria-current'] });
   }
-  addEventListener('scroll', markLast, { passive: true });
-  addEventListener('load', markLast);
+  addEventListener('scroll', sync, { passive: true });
+  addEventListener('load', sync);
 </script>
 
 <style>
