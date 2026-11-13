@@ -19,6 +19,14 @@ on `main`.
 
 - The six components drawn with a Metal shader say to copy both files in an
   `- Important:` callout, which Xcode and the site show apart.
+- The catalog and the page of each category drop their empty outline and
+  spread their grid of previews, with larger cards, across the width it
+  leaves.
+
+### Fixed
+
+- The outline of a component's page marks Code when that section is opened
+  or the page is scrolled to its end.
 
 ## 0.8.1 - 2026-11-13
 
