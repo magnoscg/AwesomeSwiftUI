@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.8.0 - 2026-11-13
+
 ### Added
 
 - Each category of the catalog has a page on the site with the gallery of its
