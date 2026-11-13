@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.9.0 - 2026-11-13
+
 ### Added
 
 - The page of a component has an outline with four parts: a description
