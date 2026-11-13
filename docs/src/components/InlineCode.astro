@@ -1,0 +1,12 @@
+---
+// A line of a documentation comment, with its code in <code>.
+import { inlineCode } from '../lib/inline-code';
+
+interface Props {
+  text: string;
+}
+
+const pieces = inlineCode(Astro.props.text);
+---
+
+{pieces.map((piece) => (piece.code ? <code>{piece.text}</code> : piece.text))}
