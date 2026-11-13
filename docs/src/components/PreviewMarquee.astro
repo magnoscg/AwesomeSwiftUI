@@ -1,7 +1,9 @@
 ---
 // Two rows of previews that drift in opposite directions under the hero.
-// Each row holds its previews twice, so the loop has no seam. With Reduce
-// Motion on, the rows stand still and scroll by hand.
+// Every preview runs the whole loop on its own, with a delay that spreads them
+// one slot apart: the one that leaves one edge comes back at the other, so a
+// row needs no copies. With Reduce Motion on, the rows stand still and scroll
+// by hand.
 import { components, pageURL, previewBytes, previewURL } from '../lib/catalog';
 
 const picks = [
@@ -16,34 +18,45 @@ const shown = picks
   .map((name) => components.find((component) => component.name === name))
   .filter((component) => component !== undefined)
   .filter((component) => previewBytes(component) <= maximumBytes);
+// Both rows play every preview, so each spans the widest screens without a
+// download more. The second starts halfway through, so they never line up.
 const half = Math.ceil(shown.length / 2);
-const rows = [shown.slice(0, half), shown.slice(half)];
+const rows = [shown, [...shown.slice(half), ...shown.slice(0, half)]];
+const count = shown.length;
+// The fraction of the loop each preview has already run, so that preview i
+// starts in slot i whichever way its row drifts.
+const offset = (index: number, reverse: boolean) => (reverse ? index + 1 : count - 1 - index) / count;
 ---
 
-<div class="preview-marquee not-content" aria-label="Some of the components, playing">
+<div class="preview-marquee not-content" aria-label="Some of the components, playing" style={`--count: ${count}`}>
   {
-    rows.map((row, index) => (
-      <div class:list={['row', { reverse: index === 1 }]}>
-        {[0, 1].map((copy) => (
-          <ul aria-hidden={copy === 1 ? 'true' : undefined}>
-            {row.map((component) => (
-              <li>
-                <a href={pageURL(component)} tabindex={copy === 1 ? -1 : undefined}>
+    rows.map((row, rowIndex) => {
+      const reverse = rowIndex === 1;
+      return (
+        <div class:list={['row', { reverse }]} aria-hidden={reverse ? 'true' : undefined}>
+          <ul>
+            {row.map((component, index) => (
+              <li style={`--offset: ${offset(index, reverse)}`}>
+                <a href={pageURL(component)} tabindex={reverse ? -1 : undefined}>
                   <img src={previewURL(component)} alt={component.title} width="160" height="348" loading="lazy" decoding="async" />
                 </a>
               </li>
             ))}
           </ul>
-        ))}
-      </div>
-    ))
+        </div>
+      );
+    })
   }
 </div>
 
 <style>
   .preview-marquee {
     --gap: 1rem;
-    --duration: 70s;
+    --card-width: 160px;
+    --card-height: calc(var(--card-width) * 874 / 402);
+    --slot: calc(var(--card-width) + var(--gap));
+    --loop: calc(var(--count) * var(--slot));
+    --duration: calc(var(--count) * 7.8s);
     display: grid;
     gap: var(--gap);
     margin: 2.5rem calc(50% - 50vw) 1rem;
@@ -52,28 +65,29 @@ const rows = [shown.slice(0, half), shown.slice(half)];
     mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   }
 
-  .row {
-    display: flex;
-    gap: var(--gap);
-    width: max-content;
-  }
-
   .row ul {
-    display: flex;
-    flex-shrink: 0;
-    gap: var(--gap);
+    position: relative;
+    height: var(--card-height);
     margin: 0;
     padding: 0;
     list-style: none;
-    animation: drift var(--duration) linear infinite;
   }
 
-  .row.reverse ul {
+  .row li {
+    position: absolute;
+    inset-block-start: 0;
+    left: 0;
+    width: var(--card-width);
+    animation: drift var(--duration) linear infinite;
+    animation-delay: calc(var(--duration) * var(--offset) * -1);
+  }
+
+  .row.reverse li {
     animation-direction: reverse;
   }
 
-  .preview-marquee:hover ul,
-  .preview-marquee:focus-within ul {
+  .preview-marquee:hover li,
+  .preview-marquee:focus-within li {
     animation-play-state: paused;
   }
 
@@ -85,7 +99,7 @@ const rows = [shown.slice(0, half), shown.slice(half)];
 
   .row img {
     display: block;
-    width: 160px;
+    width: var(--card-width);
     height: auto;
     aspect-ratio: 402 / 874;
     object-fit: cover;
@@ -102,8 +116,11 @@ const rows = [shown.slice(0, half), shown.slice(half)];
   }
 
   @keyframes drift {
+    from {
+      transform: translateX(calc(var(--loop) - var(--slot)));
+    }
     to {
-      transform: translateX(calc(-100% - var(--gap)));
+      transform: translateX(calc(var(--slot) * -1));
     }
   }
 
@@ -114,11 +131,15 @@ const rows = [shown.slice(0, half), shown.slice(half)];
     }
 
     .row ul {
-      animation: none;
+      display: flex;
+      gap: var(--gap);
+      width: max-content;
+      height: auto;
     }
 
-    .row ul[aria-hidden='true'] {
-      display: none;
+    .row li {
+      position: static;
+      animation: none;
     }
 
     .row img {

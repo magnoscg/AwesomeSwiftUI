@@ -6,6 +6,14 @@ on `main`.
 
 ## Unreleased
 
+## 0.8.1 - 2026-11-13
+
+### Fixed
+
+- The two rows of previews on the landing page fill the whole width of any
+  screen. Each preview that leaves one edge comes back at the other, and both
+  rows play every preview, in opposite directions.
+
 ## 0.8.0 - 2026-11-13
 
 ### Added
