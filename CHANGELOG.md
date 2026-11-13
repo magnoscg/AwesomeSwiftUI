@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.8.1 - 2026-11-13
+
 ### Fixed
 
 - The two rows of previews on the landing page fill the whole width of any
