@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.9.1 - 2026-11-13
+
 ### Changed
 
 - The catalog and the page of each category drop their empty outline and
