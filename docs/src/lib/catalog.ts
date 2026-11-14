@@ -50,6 +50,11 @@ export function previewURL(component: Component) {
   return `${RAW_BASE}/${component.preview}`;
 }
 
+/** The still image a page shows when it is shared, kept next to the preview it is made from. */
+export function cardURL(component: Component) {
+  return `${RAW_BASE}/${component.preview.replace(/\.webp$/, '.jpg')}`;
+}
+
 export function pageURL(component: Component) {
   return `${SITE_BASE}/catalog/${component.category.toLowerCase()}/${component.id}/`;
 }

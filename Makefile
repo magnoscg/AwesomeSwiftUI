@@ -1,4 +1,4 @@
-.PHONY: catalog check test preview record docs docs-dev showcase-build showcase-build-mainactor showcase-test verify
+.PHONY: catalog check test preview cards record docs docs-dev showcase-build showcase-build-mainactor showcase-test verify
 
 PROJECT = Showcase/Showcase.xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 18 Pro
@@ -19,6 +19,12 @@ test:
 # make preview INPUT=recording.mov COMPONENT=Buttons/PressableButtonStyle
 preview:
 	sh scripts/make-preview.sh '$(INPUT)' 'Components/$(COMPONENT)/$(notdir $(COMPONENT)).webp'
+
+# make cards COMPONENT=Buttons/PressableButtonStyle, or every component, from the preview it has.
+cards:
+	@for preview in $(if $(COMPONENT),'Components/$(COMPONENT)/$(notdir $(COMPONENT)).webp',Components/*/*/*.webp); do \
+		sh scripts/make-card.sh "$$preview" "$${preview%.webp}.jpg" || exit 1; \
+	done
 
 # make record COMPONENT=Buttons/PressableButtonStyle, or every component without it.
 record: showcase-build

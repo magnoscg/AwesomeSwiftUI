@@ -1,5 +1,6 @@
 #!/bin/sh
-# Turns a recording into the animated WebP preview of a component. It goes
+# Turns a recording into the animated WebP preview of a component, and that
+# into its social card. It goes
 # through PNG frames because many ffmpeg builds have no WebP encoder.
 set -eu
 
@@ -17,3 +18,4 @@ ffmpeg -y -loglevel error -i "$recording" \
   -vf "fps=20,scale=320:-2:flags=lanczos" "$frames/frame%04d.png"
 # Frequent key frames and -exact keep gradients free of blocks and ghost rectangles.
 img2webp -loop 0 -kmax 2 -lossy -q 60 -exact -d 50 "$frames"/frame*.png -o "$output"
+sh "$(dirname "$0")/make-card.sh" "$output" "${output%.webp}.jpg"

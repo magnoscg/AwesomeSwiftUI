@@ -6,6 +6,16 @@ on `main`.
 
 ## Unreleased
 
+## 0.10.0 - 2026-11-14
+
+### Added
+
+- Each component has a social card, a still of its preview that its page
+  shows when it is shared, and its page describes it to search engines as
+  source code with a breadcrumb to its category. `make preview` and
+  `make record` write the card, `make cards` remakes it, and `make check`
+  requires it.
+
 ## 0.9.1 - 2026-11-13
 
 ### Changed

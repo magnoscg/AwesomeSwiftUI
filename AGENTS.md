@@ -15,7 +15,7 @@ easy to copy matters as much as the code itself.
 
 | Path | What lives there |
 |---|---|
-| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, and `<Name>.metal` when it draws with a Metal shader |
+| `Components/<Category>/<Name>/` | One component: `<Name>.swift`, `<Name>.meta.json`, `<Name>.webp`, `<Name>.jpg`, and `<Name>.metal` when it draws with a Metal shader |
 | `Showcase/` | The iOS 18 app that compiles every component and hosts the tests. `Generated/ComponentRegistry.swift` comes from the metadata |
 | `scripts/` | Validates the components and generates the files below |
 | `catalog.json`, `llms.txt`, `llms-full.txt`, `catalog/` | Generated: the indexes for agents and tools, and a page per category with every preview |
@@ -33,7 +33,8 @@ Never edit a generated file by hand: change the component and run
    keeping the [rules](#rules-for-every-component).
 3. `make catalog`, so the Showcase and the indexes know it.
 4. Add `Showcase/ShowcaseTests/<Name>Tests.swift` when it has logic.
-5. `make record COMPONENT=<Category>/<Name>`, and look at the `.webp`.
+5. `make record COMPONENT=<Category>/<Name>`, and look at the `.webp` and
+   the `.jpg`.
 6. Add a line under "Unreleased" in `CHANGELOG.md`.
 7. `make verify`.
 
@@ -51,7 +52,8 @@ make catalog                   # rewrite the generated files after changing a co
 make check                     # fail if a component breaks a rule or a generated file is stale
 make test                      # the tests of the catalog tooling
 make record                    # record the previews of one component or all of them
-make preview                   # turn a recording into a component's preview
+make preview                   # turn a recording into a component's preview and social card
+make cards                     # remake the social cards of one component or all of them
 make docs                      # build the site into docs/dist
 make docs-dev                  # run the site locally
 make showcase-build            # compile the Showcase app and every component
@@ -204,6 +206,10 @@ rest are on you.
     app.
 11. **An animated preview.** ✓ Every component has a `<Name>.webp` that shows
     it moving, used by the README and the site: animated, and 2 MB at most.
+    Next to it, a `<Name>.jpg` of 1200 by 630 pixels and 300 KB at most is
+    the card its page shows when it is shared. `make preview` and
+    `make record` write it from the middle frame of the preview, and
+    `make cards` remakes it from the preview there is.
 12. **Name what repeats.** ✓ A number written four or more times in a
     component, outside its demo, gets a name: a `private let`, or a parameter
     with a default when whoever copies the component would want to change it.
@@ -299,7 +305,7 @@ make record COMPONENT=Buttons/PressableButtonStyle
 ```
 
 It opens the demo alone, records it and writes the preview, resized to 320
-pixels wide at 20 frames per second. A demo that animates by itself records
+pixels wide at 20 frames per second, and the social card. A demo that animates by itself records
 for 4 seconds. A demo that needs touches lists them in `previewSteps` in its
 metadata, as `axe batch` steps: `["tap --label Like", "sleep 1"]`.
 
