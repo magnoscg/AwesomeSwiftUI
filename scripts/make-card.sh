@@ -12,8 +12,15 @@ fi
 
 preview=$1
 output=$2
-frames=$(webpmux -info "$preview" | sed -n 's/^Number of frames: *//p')
-middle=$(( ${frames:-1} / 2 ))
+info=$(webpmux -info "$preview")
+frames=$(printf '%s\n' "$info" | sed -n 's/^Number of frames: *//p')
+case $frames in
+  '' | *[!0-9]*)
+    echo "make-card.sh: cannot count the frames of $preview" >&2
+    exit 1
+    ;;
+esac
+middle=$(( frames / 2 ))
 frame=$(mktemp -d)
 trap 'rm -rf "$frame"' EXIT
 
