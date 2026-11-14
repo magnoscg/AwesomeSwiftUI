@@ -7,6 +7,12 @@ on `main`.
 
 ## Unreleased
 
+## 0.11.1 - 2026-11-14
+
+### Fixed
+
+- The bar at the top of the site names the project SwiftUI Blocks.
+
 ## 0.11.0 - 2026-11-14
 
 ### Changed
