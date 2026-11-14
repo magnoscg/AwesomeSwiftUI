@@ -2,17 +2,17 @@
 
 <img src=".github/readme/logo.svg" alt="" width="160" height="160">
 
-# Awesome SwiftUI Components
+# SwiftUI Blocks
 
 *Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27.*
 
-<a href="https://magnoscg.github.io/swiftui-components/"><img src=".github/readme/browse-catalog.svg" alt="Browse the catalog" width="440"></a>
+<a href="https://swiftuiblocks.dev/"><img src=".github/readme/browse-catalog.svg" alt="Browse the catalog" width="440"></a>
 
-[![Components](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmagnoscg%2Fswiftui-components%2FHEAD%2Fcatalog.json&query=%24.count&label=components&color=5856d6)](https://magnoscg.github.io/swiftui-components/)
-[![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/releases/latest)
-[![CI](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-components/actions/workflows/ci.yml)
-[![Stars](https://img.shields.io/github/stars/magnoscg/swiftui-components)](https://github.com/magnoscg/swiftui-components/stargazers)
-[![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-components)](LICENSE)
+[![Components](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmagnoscg%2Fswiftui-blocks%2FHEAD%2Fcatalog.json&query=%24.count&label=components&color=5856d6)](https://swiftuiblocks.dev/)
+[![Release](https://img.shields.io/github/v/release/magnoscg/swiftui-blocks)](https://github.com/magnoscg/swiftui-blocks/releases/latest)
+[![CI](https://github.com/magnoscg/swiftui-blocks/actions/workflows/ci.yml/badge.svg)](https://github.com/magnoscg/swiftui-blocks/actions/workflows/ci.yml)
+[![Stars](https://img.shields.io/github/stars/magnoscg/swiftui-blocks)](https://github.com/magnoscg/swiftui-blocks/stargazers)
+[![License: MIT](https://img.shields.io/github/license/magnoscg/swiftui-blocks)](LICENSE)
 
 From a one-line button style to a view drawn by a Metal shader. There is no
 package to install: find a component, copy its file into your project and it
@@ -71,7 +71,7 @@ and ask for what you need:
 
 ```text
 Find a SwiftUI component for <what you need> in
-https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/llms.txt
+https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD/llms.txt
 and copy its file into my project.
 ```
 
@@ -89,7 +89,7 @@ To change the catalog itself, read [AGENTS.md](AGENTS.md).
 
 ## Use a component
 
-1. **Find it.** [Search the catalog](https://magnoscg.github.io/swiftui-components/)
+1. **Find it.** [Search the catalog](https://swiftuiblocks.dev/)
    by name, category, iOS version, level or the Apple API it uses, or look in
    [the table below](#catalog).
 2. **Copy its file.** One `.swift` file holds the component, a demo and a

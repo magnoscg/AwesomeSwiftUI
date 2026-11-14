@@ -810,8 +810,8 @@ describe('the documentation site', () => {
         title: 'Glow Button',
         summary: 'A button that glows.',
         preview:
-          'https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD/Components/Buttons/GlowButton/GlowButton.webp',
-        href: '/swiftui-components/catalog/buttons/glow-button/',
+          'https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD/Components/Buttons/GlowButton/GlowButton.webp',
+        href: '/catalog/buttons/glow-button/',
         category: 'Buttons',
         minIOS: '18.0',
         difficulty: 'beginner',

@@ -9,7 +9,7 @@ report affects it.
 ## Reporting a vulnerability
 
 Report it privately through GitHub:
-[open a private report](https://github.com/magnoscg/swiftui-components/security/advisories/new),
+[open a private report](https://github.com/magnoscg/swiftui-blocks/security/advisories/new),
 or use "Report a vulnerability" in the Security tab. Please do not open a
 public issue, pull request or discussion about it.
 
