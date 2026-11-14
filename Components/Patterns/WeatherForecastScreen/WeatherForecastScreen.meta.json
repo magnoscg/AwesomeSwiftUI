@@ -1,0 +1,15 @@
+{
+  "id": "weather-forecast-screen",
+  "name": "WeatherForecastScreen",
+  "title": "Weather Forecast Screen",
+  "category": "Patterns",
+  "summary": "A weather screen with a header that shrinks to one line as it scrolls, an hourly strip, a ten-day list of temperature range bars over the week and an animated sky with rain or snow.",
+  "keywords": {
+    "en": ["weather", "forecast", "temperature", "hourly forecast", "daily forecast", "range bar", "sky", "rain", "snow", "collapsing header"],
+    "es": ["tiempo", "clima", "previsión", "temperatura", "previsión por horas", "previsión diaria", "barra de rango", "cielo", "lluvia", "nieve"]
+  },
+  "difficulty": "advanced",
+  "minIOS": "18.0",
+  "apis": ["onScrollGeometryChange", "Measurement", "Canvas", "TimelineView", "Color.mix"],
+  "origin": { "kind": "inspired", "credit": "Apple's Weather app", "url": "https://support.apple.com/guide/iphone/check-the-weather-iph2ae23a29b/ios" }
+}
