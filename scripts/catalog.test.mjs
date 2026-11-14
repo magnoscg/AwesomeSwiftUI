@@ -61,6 +61,18 @@ function animatedWebP() {
   return Buffer.concat([Buffer.from('RIFF\0\0\0\0WEBPVP8X'), Buffer.alloc(14), Buffer.from('ANIM')]);
 }
 
+// The start of a baseline JPEG up to the frame header that holds its size.
+function socialCard(width = 1200, height = 630) {
+  const size = Buffer.alloc(4);
+  size.writeUInt16BE(height, 0);
+  size.writeUInt16BE(width, 2);
+  return Buffer.concat([
+    Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0x00, 0x04, 0x00, 0x00, 0xff, 0xc0, 0x00, 0x11, 0x08]),
+    size,
+    Buffer.alloc(12),
+  ]);
+}
+
 function addComponent(
   root,
   {
@@ -69,12 +81,14 @@ function addComponent(
     metadata = meta(),
     source = swift(name),
     preview = animatedWebP(),
+    card = socialCard(),
     shader = null,
   } = {},
 ) {
   const directory = join(root, 'Components', category, name);
   mkdirSync(directory, { recursive: true });
   if (preview !== null) writeFileSync(join(directory, `${name}.webp`), preview);
+  if (card !== null) writeFileSync(join(directory, `${name}.jpg`), card);
   if (metadata !== null) {
     const text = typeof metadata === 'string' ? metadata : JSON.stringify(metadata);
     writeFileSync(join(directory, `${name}.meta.json`), text);
@@ -373,6 +387,31 @@ describe('invalid previews', () => {
     addComponent(root, { preview: null });
 
     assert.deepEqual(loadCatalog(root).components, []);
+  });
+});
+
+describe('invalid social cards', () => {
+  it('rejects a component without one', () => {
+    assertRejected({ card: null }, /missing GlowButton\.jpg/);
+  });
+
+  it('allows a new component without one when asked to', () => {
+    const root = makeRoot();
+    addComponent(root, { preview: null, card: null });
+
+    assert.deepEqual(loadCatalog(root, { requirePreview: false }).errors, []);
+  });
+
+  it('rejects a file that is not JPEG', () => {
+    assertRejected({ card: Buffer.from('GIF89a') }, /GlowButton\.jpg is not a 1200×630 JPEG/);
+  });
+
+  it('rejects a JPEG of another size', () => {
+    assertRejected({ card: socialCard(320, 696) }, /GlowButton\.jpg is not a 1200×630 JPEG/);
+  });
+
+  it('rejects a file over the size limit', () => {
+    assertRejected({ card: Buffer.concat([socialCard(), Buffer.alloc(300 * 1024)]) }, /GlowButton\.jpg is larger than 300 KB/);
   });
 });
 
