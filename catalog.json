@@ -1,5 +1,5 @@
 {
-  "count": 300,
+  "count": 301,
   "components": [
     {
       "id": "breathing-guide-circle",
@@ -684,6 +684,58 @@
       "path": "Components/Backgrounds/WavesBackground/WavesBackground.swift",
       "preview": "Components/Backgrounds/WavesBackground/WavesBackground.webp",
       "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD/Components/Backgrounds/WavesBackground/WavesBackground.swift"
+    },
+    {
+      "id": "weather-effects-background",
+      "name": "WeatherEffectsBackground",
+      "title": "Weather Effects Background",
+      "category": "Backgrounds",
+      "summary": "An animated sky for seven kinds of weather, with a turning sun, twinkling stars, drifting clouds, rain with splashes, lightning, swaying snow and fog, that fades from one to the next.",
+      "keywords": {
+        "en": [
+          "weather",
+          "rain",
+          "snow",
+          "lightning",
+          "thunderstorm",
+          "clouds",
+          "fog",
+          "sun",
+          "stars",
+          "sky",
+          "particles"
+        ],
+        "es": [
+          "tiempo",
+          "clima",
+          "lluvia",
+          "nieve",
+          "relámpago",
+          "tormenta",
+          "nubes",
+          "niebla",
+          "sol",
+          "estrellas",
+          "cielo",
+          "partículas"
+        ]
+      },
+      "difficulty": "advanced",
+      "minIOS": "18.0",
+      "apis": [
+        "Canvas",
+        "TimelineView",
+        "GraphicsContext",
+        "accessibilityReduceMotion"
+      ],
+      "origin": {
+        "kind": "inspired",
+        "credit": "The animated backgrounds of Apple's Weather app",
+        "url": "https://support.apple.com/guide/iphone/check-the-weather-iph2ae23a29b/ios"
+      },
+      "path": "Components/Backgrounds/WeatherEffectsBackground/WeatherEffectsBackground.swift",
+      "preview": "Components/Backgrounds/WeatherEffectsBackground/WeatherEffectsBackground.webp",
+      "rawURL": "https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD/Components/Backgrounds/WeatherEffectsBackground/WeatherEffectsBackground.swift"
     },
     {
       "id": "async-action-button",
