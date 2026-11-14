@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 import {
+  builtPageErrors,
+  cardStamp,
   categoryCollisions,
   componentsNewerThan,
   docsAssets,
@@ -14,6 +17,7 @@ import {
   renderDocsPages,
   renderOutputs,
   simulatorSupports,
+  stampCard,
 } from './catalog-lib.mjs';
 
 const README = 'Intro\n\n<!-- catalog:start -->\n\nold\n\n<!-- catalog:end -->\n\nOutro\n';
@@ -81,10 +85,11 @@ function addComponent(
     metadata = meta(),
     source = swift(name),
     preview = animatedWebP(),
-    card = socialCard(),
+    card,
     shader = null,
   } = {},
 ) {
+  if (card === undefined) card = stampCard(socialCard(), preview ?? animatedWebP());
   const directory = join(root, 'Components', category, name);
   mkdirSync(directory, { recursive: true });
   if (preview !== null) writeFileSync(join(directory, `${name}.webp`), preview);
@@ -390,7 +395,48 @@ describe('invalid previews', () => {
   });
 });
 
+describe('social card stamp', () => {
+  it('reads back the hash of the preview it was made from', () => {
+    const card = stampCard(socialCard(), animatedWebP());
+
+    assert.equal(cardStamp(card), createHash('sha256').update(animatedWebP()).digest('hex'));
+  });
+
+  it('keeps the size of the image readable', () => {
+    const root = makeRoot();
+    addComponent(root, { card: stampCard(socialCard(), animatedWebP()) });
+
+    assert.deepEqual(loadCatalog(root).errors, []);
+  });
+
+  it('replaces an older stamp instead of adding a second one', () => {
+    const once = stampCard(socialCard(), animatedWebP());
+    const twice = stampCard(once, Buffer.from('another preview'));
+
+    assert.equal(twice.length, once.length);
+    assert.notEqual(cardStamp(twice), cardStamp(once));
+  });
+
+  it('finds no stamp on a card that has none', () => {
+    assert.equal(cardStamp(socialCard()), null);
+  });
+});
+
 describe('invalid social cards', () => {
+  it('rejects a card without a stamp', () => {
+    assertRejected(
+      { card: socialCard() },
+      /GlowButton\.jpg was not made from the current GlowButton\.webp: run make cards COMPONENT=Buttons\/GlowButton/,
+    );
+  });
+
+  it('rejects a card made from another preview', () => {
+    assertRejected(
+      { card: stampCard(socialCard(), Buffer.from('an older preview')) },
+      /GlowButton\.jpg was not made from the current GlowButton\.webp/,
+    );
+  });
+
   it('rejects a component without one', () => {
     assertRejected({ card: null }, /missing GlowButton\.jpg/);
   });
@@ -411,7 +457,10 @@ describe('invalid social cards', () => {
   });
 
   it('rejects a file over the size limit', () => {
-    assertRejected({ card: Buffer.concat([socialCard(), Buffer.alloc(300 * 1024)]) }, /GlowButton\.jpg is larger than 300 KB/);
+    assertRejected(
+      { card: stampCard(Buffer.concat([socialCard(), Buffer.alloc(300 * 1024)]), animatedWebP()) },
+      /GlowButton\.jpg is larger than 300 KB/,
+    );
   });
 });
 
@@ -1049,3 +1098,27 @@ describe('generated files', () => {
     assert.deepEqual(findStale(root, second), []);
   });
 });
+
+describe('built component pages', () => {
+  const component = { name: 'GlowButton', category: 'Buttons', preview: 'Components/Buttons/GlowButton/GlowButton.webp' };
+  const card = 'https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD/Components/Buttons/GlowButton/GlowButton.jpg';
+  const page = (image, twitter = image) =>
+    `<head><meta property="og:image" content="${image}"/><meta name="twitter:image" content="${twitter}"/></head>`;
+
+  it('accepts a page that shares its own card', () => {
+    assert.deepEqual(builtPageErrors(page(card), component), []);
+  });
+
+  it('rejects a page that shares the card of the site', () => {
+    assert.match(builtPageErrors(page('https://swiftuiblocks.dev/social-card.png'), component).join('\n'), /og:image/);
+  });
+
+  it('rejects a page whose twitter card differs', () => {
+    assert.match(builtPageErrors(page(card, 'https://swiftuiblocks.dev/social-card.png'), component).join('\n'), /twitter:image/);
+  });
+
+  it('rejects a page with two images', () => {
+    assert.match(builtPageErrors(page(card) + page(card), component).join('\n'), /exactly one og:image/);
+  });
+});
+

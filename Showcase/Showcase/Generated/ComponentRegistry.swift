@@ -159,6 +159,15 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "weather-effects-background",
+            title: "Weather Effects Background",
+            category: "Backgrounds",
+            summary: "An animated sky for seven kinds of weather, with a turning sun, twinkling stars, drifting clouds, rain with splashes, lightning, swaying snow and fog, that fades from one to the next.",
+            keywords: ["weather", "rain", "snow", "lightning", "thunderstorm", "clouds", "fog", "sun", "stars", "sky", "particles", "tiempo", "clima", "lluvia", "nieve", "relámpago", "tormenta", "nubes", "niebla", "sol", "estrellas", "cielo", "partículas"],
+            minIOS: "18.0",
+            demo: { AnyView(WeatherEffectsBackgroundDemo()) }
+        ),
+        ShowcaseEntry(
             id: "async-action-button",
             title: "Async Action Button",
             category: "Buttons",
@@ -2113,6 +2122,15 @@ enum ComponentRegistry {
             keywords: ["timeline", "steps", "progress", "order tracking", "stepper", "history", "status", "línea de tiempo", "pasos", "progreso", "seguimiento de pedido", "historial", "estado"],
             minIOS: "18.0",
             demo: { AnyView(VerticalTimelineDemo()) }
+        ),
+        ShowcaseEntry(
+            id: "weather-forecast-screen",
+            title: "Weather Forecast Screen",
+            category: "Patterns",
+            summary: "A weather screen with a header that shrinks to one line as it scrolls, an hourly strip, a ten-day list of temperature range bars over the week and an animated sky with rain or snow.",
+            keywords: ["weather", "forecast", "temperature", "hourly forecast", "daily forecast", "range bar", "sky", "rain", "snow", "collapsing header", "tiempo", "clima", "previsión", "temperatura", "previsión por horas", "previsión diaria", "barra de rango", "cielo", "lluvia", "nieve"],
+            minIOS: "18.0",
+            demo: { AnyView(WeatherForecastScreenDemo()) }
         ),
         ShowcaseEntry(
             id: "country-picker",

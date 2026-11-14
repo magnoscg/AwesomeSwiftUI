@@ -1,6 +1,7 @@
 // Reads Components/, checks every component against the rules in AGENTS.md and
 // renders the files generated from the metadata. Nothing here writes to disk,
 // so the same code serves `generate`, `check` and the tests.
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { componentDocs } from './swift-docs.mjs';
@@ -182,6 +183,57 @@ function validatePreview(root, relative, name, files, errors, requirePreview) {
   }
 }
 
+const STAMP_PREFIX = 'preview-sha256=';
+const JPEG_COMMENT = 0xfe;
+
+// Returns the card with a JPEG comment naming the SHA-256 of the preview it was
+// made from, in place of an earlier stamp. It goes after the JFIF header,
+// which strict readers expect right after the start marker.
+export function stampCard(card, preview) {
+  const body = Buffer.from(STAMP_PREFIX + createHash('sha256').update(preview).digest('hex'), 'latin1');
+  const segment = Buffer.alloc(4);
+  segment.writeUInt8(0xff, 0);
+  segment.writeUInt8(JPEG_COMMENT, 1);
+  segment.writeUInt16BE(body.length + 2, 2);
+  const start = stampOffset(card);
+  const old = stampSegment(card);
+  const tail = card.subarray(old ? old.end : start);
+  return Buffer.concat([card.subarray(0, start), segment, body, tail]);
+}
+
+// Returns the SHA-256 a card was stamped with, or null.
+export function cardStamp(card) {
+  const stamp = stampSegment(card);
+  return stamp ? stamp.text.slice(STAMP_PREFIX.length) : null;
+}
+
+// Where the stamp sits: after the start marker and the JFIF header, if there is one.
+function stampOffset(card) {
+  const hasJfif = card.length >= 6 && card[2] === 0xff && card[3] === 0xe0;
+  return hasJfif ? 4 + card.readUInt16BE(4) : 2;
+}
+
+function stampSegment(card) {
+  const at = stampOffset(card);
+  if (card.length < at + 4 || card[at] !== 0xff || card[at + 1] !== JPEG_COMMENT) return null;
+  const end = at + 2 + card.readUInt16BE(at + 2);
+  const text = card.toString('latin1', at + 4, Math.min(end, card.length));
+  if (!text.startsWith(STAMP_PREFIX)) return null;
+  return { text, end };
+}
+
+// Returns what is wrong with the built page of a component, which must share its own card.
+export function builtPageErrors(html, component) {
+  const card = `${RAW_BASE}/${component.preview.replace(/\.webp$/, '.jpg')}`;
+  const errors = [];
+  for (const [attribute, key] of [['property', 'og:image'], ['name', 'twitter:image']]) {
+    const contents = [...html.matchAll(new RegExp(`<meta ${attribute}="${key}" content="([^"]*)"`, 'g'))].map((match) => match[1]);
+    if (contents.length !== 1) errors.push(`${component.name}: the page needs exactly one ${key}, found ${contents.length}`);
+    else if (contents[0] !== card) errors.push(`${component.name}: its ${key} is ${contents[0]}, not ${card}`);
+  }
+  return errors;
+}
+
 function validateCard(root, relative, name, files, errors, requirePreview) {
   const cardFile = `${name}.jpg`;
   if (!files.includes(cardFile)) {
@@ -194,6 +246,12 @@ function validateCard(root, relative, name, files, errors, requirePreview) {
     errors.push(`${relative}: ${cardFile} is not a ${CARD_WIDTH}×${CARD_HEIGHT} JPEG`);
   }
   if (bytes.length > MAX_CARD_BYTES) errors.push(`${relative}: ${cardFile} is larger than ${MAX_CARD_BYTES / 1024} KB`);
+  const previewFile = `${name}.webp`;
+  if (!files.includes(previewFile)) return;
+  const preview = readFileSync(join(root, relative, previewFile));
+  if (cardStamp(bytes) !== createHash('sha256').update(preview).digest('hex')) {
+    errors.push(`${relative}: ${cardFile} was not made from the current ${previewFile}: run make cards COMPONENT=${relative.replace(/^Components\//, '')}`);
+  }
 }
 
 // Walks the segments of a JPEG up to its first frame header, which holds the size.

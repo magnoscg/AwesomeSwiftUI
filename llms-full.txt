@@ -2152,6 +2152,485 @@ struct WavesBackgroundDemo: View {
 }
 ```
 
+## Weather Effects Background
+
+An animated sky for seven kinds of weather, with a turning sun, twinkling stars, drifting clouds, rain with splashes, lightning, swaying snow and fog, that fades from one to the next.
+
+Category: Backgrounds. Minimum: iOS 18.0. Path: Components/Backgrounds/WeatherEffectsBackground/WeatherEffectsBackground.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and SwiftUI Blocks contributors
+
+import SwiftUI
+
+/// An animated sky for a kind of weather: sun, stars, clouds, rain, storm, snow or fog.
+///
+/// Changing ``weather`` fades the sky and its effects into the new ones. Lightning follows a
+/// fixed schedule of at most two flashes every few seconds, never more than three a second.
+/// With Reduce Motion on, everything holds still and lightning never flashes. The sun sits in
+/// the top trailing corner, so it moves to the left in a right-to-left layout.
+///
+/// It draws behind content, ignores the safe area and takes no touches, and VoiceOver skips it.
+struct WeatherEffectsBackground: View {
+    /// The weather to draw.
+    var weather: WeatherEffectsBackgroundWeather
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    /// The weather fading out after a change, drawn under the new one until it is gone.
+    @State private var leaving: WeatherEffectsBackgroundWeather?
+    /// How far the change has gone, from 0 when it starts to 1 when only the new weather shows.
+    @State private var arrival: Double = 1
+    /// Counts the changes, so the end of an earlier fade does not clear a later one.
+    @State private var change = 0
+
+    private let fade: Animation = .easeInOut(duration: 1)
+
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: weather.skyColors, startPoint: .top, endPoint: .bottom)
+                .animation(fade, value: weather)
+
+            // Each weather keeps its own clock, so the effects that leave go on moving while they fade.
+            if let leaving {
+                effects(of: leaving)
+                    .opacity(1 - arrival)
+            }
+            effects(of: weather)
+                .opacity(arrival)
+        }
+        .onChange(of: weather) { previous, _ in
+            change += 1
+            let current = change
+            leaving = previous
+            arrival = 0
+            withAnimation(fade) {
+                arrival = 1
+            } completion: {
+                if change == current { leaving = nil }
+            }
+        }
+        .ignoresSafeArea()
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+}
+
+/// A kind of weather the background can draw.
+nonisolated enum WeatherEffectsBackgroundWeather: String, CaseIterable, Sendable {
+    case clearDay, clearNight, cloudy, rain, thunderstorm, snow, fog
+
+    /// The name of the weather, for a label next to it.
+    var title: LocalizedStringResource {
+        switch self {
+        case .clearDay: "Clear"
+        case .clearNight: "Clear Night"
+        case .cloudy: "Cloudy"
+        case .rain: "Rain"
+        case .thunderstorm: "Thunderstorm"
+        case .snow: "Snow"
+        case .fog: "Fog"
+        }
+    }
+
+    /// Falling rain and snow need every frame; slow clouds, fog, the sun and the stars do with half.
+    fileprivate var frameInterval: Double {
+        switch self {
+        case .rain, .thunderstorm, .snow: 1.0 / 60.0
+        case .clearDay, .clearNight, .cloudy, .fog: 1.0 / 30.0
+        }
+    }
+
+    fileprivate var skyColors: [Color] {
+        switch self {
+        case .clearDay: [Color(red: 0.11, green: 0.38, blue: 0.80), Color(red: 0.46, green: 0.72, blue: 0.96)]
+        case .clearNight: [Color(red: 0.02, green: 0.03, blue: 0.13), Color(red: 0.10, green: 0.13, blue: 0.34)]
+        case .cloudy: [Color(red: 0.33, green: 0.40, blue: 0.52), Color(red: 0.62, green: 0.68, blue: 0.76)]
+        case .rain: [Color(red: 0.14, green: 0.19, blue: 0.27), Color(red: 0.33, green: 0.40, blue: 0.49)]
+        case .thunderstorm: [Color(red: 0.06, green: 0.07, blue: 0.13), Color(red: 0.20, green: 0.22, blue: 0.34)]
+        case .snow: [Color(red: 0.36, green: 0.44, blue: 0.58), Color(red: 0.70, green: 0.76, blue: 0.85)]
+        case .fog: [Color(red: 0.46, green: 0.49, blue: 0.56), Color(red: 0.70, green: 0.72, blue: 0.75)]
+        }
+    }
+}
+
+// MARK: - Math
+
+/// The timing of the effects: where a moving thing wraps around, and when lightning flashes.
+nonisolated enum WeatherEffectsBackgroundMath {
+    /// The seconds after which the lightning schedule repeats.
+    static let lightningCycle: Double = 6
+
+    /// A position moved back inside `0..<travel`, so what leaves one edge comes back at the other.
+    static func wrap(_ position: Double, over travel: Double) -> Double {
+        guard travel > 0 else { return 0 }
+        let remainder = position.truncatingRemainder(dividingBy: travel)
+        guard remainder < 0 else { return remainder }
+        // A tiny negative remainder rounds up to `travel` itself, which belongs at the start.
+        let wrapped = remainder + travel
+        return wrapped < travel ? wrapped : 0
+    }
+
+    /// The brightness of the lightning at a moment, from 0 when dark to 1 at the peak of a flash.
+    static func flash(at time: Double) -> Double {
+        let moment = wrap(time, over: lightningCycle)
+        for strike in strikes where moment >= strike.start && moment < strike.start + strike.duration {
+            return sin(.pi * (moment - strike.start) / strike.duration)
+        }
+        return 0
+    }
+
+    /// Two strikes close together, as lightning often comes, early in each cycle.
+    private static let strikes: [(start: Double, duration: Double)] = [(0.4, 0.18), (0.75, 0.22)]
+}
+
+extension WeatherEffectsBackground {
+    private func effects(of weather: WeatherEffectsBackgroundWeather) -> some View {
+        TimelineView(.animation(minimumInterval: weather.frameInterval, paused: reduceMotion)) { timeline in
+            WeatherEffectsBackgroundLayers(
+                weather: weather,
+                time: reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate,
+                flashes: !reduceMotion
+            )
+        }
+        .id(weather)
+    }
+}
+
+// MARK: - Layers
+
+/// The effects of one weather at one moment.
+private struct WeatherEffectsBackgroundLayers: View {
+    let weather: WeatherEffectsBackgroundWeather
+    let time: Double
+    let flashes: Bool
+
+    var body: some View {
+        ZStack {
+            switch weather {
+            case .clearDay:
+                WeatherEffectsBackgroundSun(time: time)
+            case .clearNight:
+                canvas { WeatherEffectsBackgroundStars.draw(in: &$0, size: $1, time: time) }
+            case .cloudy:
+                canvas { WeatherEffectsBackgroundClouds.draw(in: &$0, size: $1, time: time, color: .white, opacity: 0.5) }
+            case .rain:
+                canvas { WeatherEffectsBackgroundClouds.draw(in: &$0, size: $1, time: time, color: .white, opacity: 0.25) }
+                canvas { WeatherEffectsBackgroundRain.draw(in: &$0, size: $1, time: time, drops: 110) }
+            case .thunderstorm:
+                canvas { WeatherEffectsBackgroundClouds.draw(in: &$0, size: $1, time: time, color: .black, opacity: 0.5) }
+                if flashes {
+                    canvas { WeatherEffectsBackgroundLightning.draw(in: &$0, size: $1, time: time) }
+                }
+                canvas { WeatherEffectsBackgroundRain.draw(in: &$0, size: $1, time: time, drops: 170) }
+            case .snow:
+                canvas { WeatherEffectsBackgroundSnow.draw(in: &$0, size: $1, time: time) }
+            case .fog:
+                canvas { WeatherEffectsBackgroundFog.draw(in: &$0, size: $1, time: time) }
+            }
+        }
+    }
+
+    private func canvas(_ draw: @escaping (inout GraphicsContext, CGSize) -> Void) -> some View {
+        Canvas { context, size in draw(&context, size) }
+    }
+}
+
+/// The property of a particle a pseudo-random value decides.
+nonisolated private enum WeatherEffectsBackgroundTrait: Double {
+    case x = 1, y, size, speed, phase, offset, extra
+}
+
+/// A repeatable pseudo-random value in 0..<1 for one particle and one of its properties.
+nonisolated private func weatherEffectsBackgroundNoise(_ index: Int, _ trait: WeatherEffectsBackgroundTrait) -> Double {
+    let value = sin(Double(index) * 127.1 + trait.rawValue * 311.7) * 43_758.5453
+    return value - floor(value)
+}
+
+// MARK: - Sun
+
+/// A glow in the top trailing corner with slow rays turning around it.
+private struct WeatherEffectsBackgroundSun: View {
+    let time: Double
+
+    private let diameter: CGFloat = 520
+
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            Color.clear
+
+            Canvas { context, size in
+                let center = CGPoint(x: size.width / 2, y: size.height / 2)
+                let radius = size.width / 2
+                let rays = 14
+
+                context.drawLayer { rayContext in
+                    rayContext.addFilter(.blur(radius: 12))
+                    rayContext.translateBy(x: center.x, y: center.y)
+                    rayContext.rotate(by: .radians(time * 0.05))
+                    for ray in 0..<rays {
+                        let angle = Double(ray) / Double(rays) * 2 * .pi
+                        let spread = 0.07 + weatherEffectsBackgroundNoise(ray, .size) * 0.05
+                        let length = radius * (0.7 + weatherEffectsBackgroundNoise(ray, .extra) * 0.3)
+                        var wedge = Path()
+                        wedge.move(to: .zero)
+                        wedge.addLine(to: CGPoint(x: cos(angle - spread) * length, y: sin(angle - spread) * length))
+                        wedge.addLine(to: CGPoint(x: cos(angle + spread) * length, y: sin(angle + spread) * length))
+                        wedge.closeSubpath()
+                        let shimmer = 0.10 + 0.06 * sin(time * 0.8 + Double(ray))
+                        rayContext.fill(wedge, with: .color(.white.opacity(shimmer)))
+                    }
+                }
+
+                context.fill(
+                    Path(ellipseIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2)),
+                    with: .radialGradient(
+                        Gradient(colors: [.white.opacity(0.9), Color(red: 1, green: 0.93, blue: 0.7).opacity(0.45), .clear]),
+                        center: center,
+                        startRadius: 0,
+                        endRadius: radius * 0.56
+                    )
+                )
+            }
+            .frame(width: diameter, height: diameter)
+            .offset(x: diameter * 0.32, y: -diameter * 0.32)
+        }
+    }
+}
+
+// MARK: - Stars
+
+nonisolated private enum WeatherEffectsBackgroundStars {
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double) {
+        for index in 0..<120 {
+            let x = weatherEffectsBackgroundNoise(index, .x) * size.width
+            let y = weatherEffectsBackgroundNoise(index, .y) * size.height * 0.7
+            let radius = 0.5 + weatherEffectsBackgroundNoise(index, .size) * 1.3
+            let twinkle = 0.55 + 0.45 * sin(time * (0.8 + weatherEffectsBackgroundNoise(index, .speed) * 1.6) + Double(index))
+            let star = Path(ellipseIn: CGRect(x: x - radius, y: y - radius, width: radius * 2, height: radius * 2))
+            context.fill(star, with: .color(.white.opacity(twinkle)))
+        }
+    }
+}
+
+// MARK: - Clouds
+
+nonisolated private enum WeatherEffectsBackgroundClouds {
+    /// The soft ellipses that make up one cloud.
+    private static let puffs = 4
+
+    /// Soft clouds in three bands, the higher ones slower, drifting to the right in any layout.
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double, color: Color, opacity: Double) {
+        let cloudWidth = size.width * 0.9
+        context.drawLayer { layer in
+            layer.addFilter(.blur(radius: 28))
+            for index in 0..<7 {
+                let band = Double(index % 3)
+                let speed = 8 + band * 7
+                let travel = size.width + cloudWidth
+                let x = WeatherEffectsBackgroundMath.wrap(
+                    weatherEffectsBackgroundNoise(index, .x) * travel + time * speed,
+                    over: travel
+                ) - cloudWidth
+                let y = size.height * (0.05 + band * 0.12) + weatherEffectsBackgroundNoise(index, .y) * 40
+                var cloud = Path()
+                for puff in 0..<puffs {
+                    let seed = index * puffs + puff
+                    let puffWidth = cloudWidth * (0.35 + weatherEffectsBackgroundNoise(seed, .size) * 0.25)
+                    let puffX = x + cloudWidth * Double(puff) * 0.18
+                    let puffY = y + weatherEffectsBackgroundNoise(seed, .offset) * 36 - 18
+                    cloud.addEllipse(in: CGRect(x: puffX, y: puffY, width: puffWidth, height: puffWidth * 0.42))
+                }
+                layer.fill(cloud, with: .color(color.opacity(opacity)))
+            }
+        }
+    }
+}
+
+// MARK: - Rain
+
+nonisolated private enum WeatherEffectsBackgroundRain {
+    /// How far drops look: their length and speed against the near ones.
+    private static let farDepth = 0.6
+
+    /// The part of each splash's cycle in which it is seen spreading.
+    private static let splashTime = 0.3
+
+    /// Streaks in two depths, the near ones longer and faster, and splashes where they land.
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double, drops: Int) {
+        var near = Path()
+        var far = Path()
+        let travel = size.height + 60
+
+        for index in 0..<drops {
+            let isNear = index % 3 == 0
+            let depth: Double = isNear ? 1 : farDepth
+            let y = WeatherEffectsBackgroundMath.wrap(
+                weatherEffectsBackgroundNoise(index, .y) * travel + time * 700 * depth,
+                over: travel
+            ) - 30
+            let x = weatherEffectsBackgroundNoise(index, .x) * (size.width + 40) - 20
+            let length = 18 * depth
+            var streak = Path()
+            streak.move(to: CGPoint(x: x, y: y))
+            streak.addLine(to: CGPoint(x: x - length * 0.15, y: y + length))
+            if isNear { near.addPath(streak) } else { far.addPath(streak) }
+        }
+        context.stroke(far, with: .color(.white.opacity(0.22)), lineWidth: 1)
+        context.stroke(near, with: .color(.white.opacity(0.5)), lineWidth: 1.4)
+
+        for index in 0..<(drops / 4) {
+            let phase = WeatherEffectsBackgroundMath.wrap(time * 1.6 + weatherEffectsBackgroundNoise(index, .phase), over: 1)
+            guard phase < splashTime else { continue }
+            let grown = phase / splashTime
+            let x = weatherEffectsBackgroundNoise(index, .offset) * size.width
+            let y = size.height - 8 - weatherEffectsBackgroundNoise(index, .extra) * 70
+            let width = 4 + grown * 14
+            let splash = Path(ellipseIn: CGRect(x: x - width / 2, y: y - width * 0.12, width: width, height: width * 0.24))
+            context.stroke(splash, with: .color(.white.opacity(0.4 * (1 - grown))), lineWidth: 1)
+        }
+    }
+}
+
+// MARK: - Lightning
+
+nonisolated private enum WeatherEffectsBackgroundLightning {
+    /// The width of the blue glow around a bolt, and how far it blurs.
+    private static let glowWidth: CGFloat = 6
+
+    /// A flash over the whole sky and, at its brightest, a jagged bolt from the top.
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double) {
+        let flash = WeatherEffectsBackgroundMath.flash(at: time)
+        guard flash > 0 else { return }
+        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.white.opacity(flash * 0.45)))
+
+        guard flash > 0.3 else { return }
+        let cycle = Int(floor(time / WeatherEffectsBackgroundMath.lightningCycle))
+        var x = size.width * (0.2 + weatherEffectsBackgroundNoise(cycle, .x) * 0.6)
+        var y: Double = 0
+        var bolt = Path()
+        bolt.move(to: CGPoint(x: x, y: y))
+        for step in 0..<9 {
+            x += (weatherEffectsBackgroundNoise(cycle * 10 + step, .offset) - 0.5) * 60
+            y += size.height * 0.065
+            bolt.addLine(to: CGPoint(x: x, y: y))
+        }
+        context.drawLayer { glow in
+            glow.addFilter(.blur(radius: glowWidth))
+            glow.stroke(bolt, with: .color(Color(red: 0.75, green: 0.8, blue: 1).opacity(flash)), lineWidth: glowWidth)
+        }
+        context.stroke(bolt, with: .color(.white.opacity(flash)), lineWidth: 2)
+    }
+}
+
+// MARK: - Snow
+
+nonisolated private enum WeatherEffectsBackgroundSnow {
+    /// Flakes in two depths that fall slowly and sway from side to side.
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double) {
+        var near = Path()
+        var far = Path()
+        let travel = size.height + 20
+
+        for index in 0..<130 {
+            let isNear = index % 3 == 0
+            let depth: Double = isNear ? 1 : 0.5
+            let y = WeatherEffectsBackgroundMath.wrap(
+                weatherEffectsBackgroundNoise(index, .y) * travel + time * 50 * depth,
+                over: travel
+            ) - 10
+            let sway = sin(time * (0.5 + weatherEffectsBackgroundNoise(index, .speed)) + weatherEffectsBackgroundNoise(index, .phase) * 2 * .pi) * 14 * depth
+            let x = weatherEffectsBackgroundNoise(index, .x) * size.width + sway
+            let radius = (1.3 + weatherEffectsBackgroundNoise(index, .size) * 2) * depth
+            let flake = Path(ellipseIn: CGRect(x: x - radius, y: y - radius, width: radius * 2, height: radius * 2))
+            if isNear { near.addPath(flake) } else { far.addPath(flake) }
+        }
+        context.fill(far, with: .color(.white.opacity(0.55)))
+        context.fill(near, with: .color(.white.opacity(0.9)))
+    }
+}
+
+// MARK: - Fog
+
+nonisolated private enum WeatherEffectsBackgroundFog {
+    /// Wide, heavily blurred bands that drift slowly across the lower sky.
+    static func draw(in context: inout GraphicsContext, size: CGSize, time: Double) {
+        let bandWidth = size.width * 1.6
+        context.drawLayer { layer in
+            layer.addFilter(.blur(radius: 30))
+            for index in 0..<8 {
+                let travel = size.width + bandWidth
+                let direction: Double = index.isMultiple(of: 2) ? 1 : -1
+                let x = WeatherEffectsBackgroundMath.wrap(
+                    weatherEffectsBackgroundNoise(index, .x) * travel + time * (5 + Double(index) * 2) * direction,
+                    over: travel
+                ) - bandWidth
+                let y = size.height * (0.18 + Double(index) * 0.1)
+                let band = Path(ellipseIn: CGRect(x: x, y: y, width: bandWidth, height: size.height * 0.14))
+                layer.fill(band, with: .color(.white.opacity(0.5)))
+            }
+        }
+    }
+}
+
+// MARK: - Demo
+
+struct WeatherEffectsBackgroundDemo: View {
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+    @State private var weather = WeatherEffectsBackgroundWeather.clearDay
+
+    /// A choice from the menu also stops the demo, which would otherwise move on from it.
+    private var chosenWeather: Binding<WeatherEffectsBackgroundWeather> {
+        Binding {
+            weather
+        } set: { choice in
+            isAutoPlaying = false
+            weather = choice
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            WeatherEffectsBackground(weather: weather)
+
+            // The background takes no touches, so this layer catches the one that stops the demo.
+            Color.clear
+                .contentShape(.rect)
+                .ignoresSafeArea()
+        }
+        .overlay(alignment: .bottom) {
+            Picker("Weather", selection: chosenWeather) {
+                ForEach(WeatherEffectsBackgroundWeather.allCases, id: \.self) { weather in
+                    Text(weather.title).tag(weather)
+                }
+            }
+            .pickerStyle(.menu)
+            .tint(.white)
+            .padding(.horizontal, 6)
+            .background(.ultraThinMaterial, in: .capsule)
+            .environment(\.colorScheme, .dark)
+            .padding(.bottom, 40)
+        }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task {
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(1.8))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                let all = WeatherEffectsBackgroundWeather.allCases
+                let next = ((all.firstIndex(of: weather) ?? 0) + 1) % all.count
+                weather = all[next]
+            }
+        }
+    }
+}
+
+#Preview {
+    WeatherEffectsBackgroundDemo()
+}
+```
+
 ## Async Action Button
 
 A button that runs an async action, swaps its label for a spinner in the label color without changing width and ignores taps until the action ends.
@@ -36684,6 +37163,686 @@ struct VerticalTimelineDemo: View {
 
 #Preview {
     VerticalTimelineDemo()
+}
+```
+
+## Weather Forecast Screen
+
+A weather screen with a header that shrinks to one line as it scrolls, an hourly strip, a ten-day list of temperature range bars over the week and an animated sky with rain or snow.
+
+Category: Patterns. Minimum: iOS 18.0. Path: Components/Patterns/WeatherForecastScreen/WeatherForecastScreen.swift
+
+```swift
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Oscar Canton and SwiftUI Blocks contributors
+
+import SwiftUI
+
+/// A weather screen: the place and the temperature now, the next hours and the next days over an animated sky.
+///
+/// The large header fades as the forecast scrolls and a single line takes its place at the top.
+/// Each day of the daily forecast draws its low and high as a bar over the span of the whole
+/// week, colored from cold to warm, with a dot at the current temperature on the first day.
+/// Rain and snow fall over the sky; with Reduce Motion on, they hold still. Temperatures are
+/// shown in the unit of the person's region.
+///
+/// The model takes what WeatherKit gives, `Measurement<UnitTemperature>` and `Date`, so a
+/// real forecast fills it without conversions.
+struct WeatherForecastScreen: View {
+    /// The forecast to show.
+    let forecast: WeatherForecastScreenForecast
+    /// How far the forecast scrolls, in points, before the header has become a single line.
+    var collapseDistance: CGFloat = 120
+
+    @State private var collapse: Double = 0
+    @ScaledMetric(relativeTo: .largeTitle) private var temperatureSize: CGFloat = 96
+
+    private let cardSpacing: CGFloat = 12
+
+    var body: some View {
+        ZStack {
+            WeatherForecastScreenSky(condition: forecast.condition, isDaylight: forecast.isDaylight)
+
+            // The single line sits above the scroll view, which clips the cards
+            // under it instead of letting them pass behind the text.
+            VStack(spacing: 0) {
+                compactHeader
+                    .opacity(collapse)
+                    .accessibilityHidden(collapse < 0.5)
+
+                ScrollView {
+                    VStack(spacing: cardSpacing) {
+                        header
+                            .opacity(1 - collapse)
+                            .scaleEffect(1 - collapse * 0.12, anchor: .top)
+                            .accessibilityHidden(collapse >= 0.5)
+
+                        WeatherForecastScreenHourlyCard(hours: forecast.hours)
+                        WeatherForecastScreenDailyCard(days: forecast.days, current: forecast.temperature)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 24)
+                }
+                .scrollIndicators(.hidden)
+                // The transform returns the progress itself, so scrolling past the header stops updating the view.
+                .onScrollGeometryChange(for: Double.self) { geometry in
+                    WeatherForecastScreenMath.collapse(
+                        offset: geometry.contentOffset.y + geometry.contentInsets.top,
+                        distance: collapseDistance
+                    )
+                } action: { _, progress in
+                    collapse = progress
+                }
+            }
+        }
+        .foregroundStyle(.white)
+    }
+
+    private var header: some View {
+        VStack(spacing: 2) {
+            Text(forecast.location)
+                .font(.title.weight(.medium))
+
+            Text(forecast.temperature.weatherText)
+                .font(.system(size: temperatureSize, weight: .thin))
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+
+            Text(forecast.condition.title)
+                .font(.title3.weight(.medium))
+                .foregroundStyle(.white.opacity(0.85))
+
+            if let today = forecast.days.first {
+                Text("H:\(today.high.weatherText)  L:\(today.low.weatherText)")
+                    .font(.title3.weight(.medium))
+            }
+        }
+        .padding(.top, 16)
+        .padding(.bottom, 24)
+        .shadow(color: .black.opacity(0.2), radius: 6, y: 2)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var compactHeader: some View {
+        VStack(spacing: 0) {
+            Text(forecast.location)
+                .font(.title3.weight(.medium))
+
+            Text("\(forecast.temperature.weatherText) · \(Text(forecast.condition.title))")
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(.white.opacity(0.85))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
+        .shadow(color: .black.opacity(0.2), radius: 6, y: 2)
+        .accessibilityElement(children: .combine)
+    }
+}
+
+// MARK: - Model
+
+/// What the sky is doing, which picks its symbol, its colors and what falls from it.
+nonisolated enum WeatherForecastScreenCondition: Sendable, CaseIterable {
+    case clear, partlyCloudy, cloudy, rain, snow, thunderstorm
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .clear: "Clear"
+        case .partlyCloudy: "Partly Cloudy"
+        case .cloudy: "Cloudy"
+        case .rain: "Rain"
+        case .snow: "Snow"
+        case .thunderstorm: "Thunderstorms"
+        }
+    }
+
+    /// The name of the SF Symbol for this sky, by day or by night.
+    func symbolName(isDaylight: Bool = true) -> String {
+        switch self {
+        case .clear: isDaylight ? "sun.max.fill" : "moon.stars.fill"
+        case .partlyCloudy: isDaylight ? "cloud.sun.fill" : "cloud.moon.fill"
+        case .cloudy: "cloud.fill"
+        case .rain: "cloud.rain.fill"
+        case .snow: "cloud.snow.fill"
+        case .thunderstorm: "cloud.bolt.rain.fill"
+        }
+    }
+}
+
+/// The forecast for one hour.
+nonisolated struct WeatherForecastScreenHour: Identifiable, Sendable {
+    /// The start of the hour.
+    let date: Date
+    /// The sky in that hour.
+    let condition: WeatherForecastScreenCondition
+    /// The temperature in that hour, in any unit; it is shown in the region's.
+    let temperature: Measurement<UnitTemperature>
+    /// Whether the sun is up, which picks the day or the night symbol.
+    var isDaylight = true
+
+    var id: Date { date }
+}
+
+/// The forecast for one day.
+nonisolated struct WeatherForecastScreenDay: Identifiable, Sendable {
+    /// Any moment of the day; only its day is shown.
+    let date: Date
+    /// The sky for most of the day.
+    let condition: WeatherForecastScreenCondition
+    /// The lowest temperature of the day, in any unit.
+    let low: Measurement<UnitTemperature>
+    /// The highest temperature of the day, in any unit.
+    let high: Measurement<UnitTemperature>
+    /// The chance of rain or snow, from 0 to 1. Shown under the symbol from ``shownChance`` up.
+    var precipitationChance: Double = 0
+
+    /// The chance of rain or snow from which a day shows it.
+    static let shownChance = 0.2
+
+    var showsPrecipitation: Bool { precipitationChance >= Self.shownChance }
+
+    var id: Date { date }
+}
+
+/// Everything the screen shows.
+nonisolated struct WeatherForecastScreenForecast: Sendable {
+    /// The name of the place, shown as it is.
+    let location: String
+    /// The sky now, which picks the colors of the sky and what falls from it.
+    let condition: WeatherForecastScreenCondition
+    /// Whether the sun is up now, which picks the colors of the sky.
+    var isDaylight = true
+    /// The temperature now.
+    let temperature: Measurement<UnitTemperature>
+    /// The coming hours, the first being now.
+    let hours: [WeatherForecastScreenHour]
+    /// The coming days, the first being today, whose low and high head the screen.
+    let days: [WeatherForecastScreenDay]
+}
+
+nonisolated extension Measurement where UnitType == UnitTemperature {
+    /// The temperature as a weather report writes it, in whole degrees of the region's unit: "21°".
+    fileprivate var weatherText: String {
+        let unit = UnitTemperature(forLocale: .current, usage: .weather)
+        return "\(Int(converted(to: unit).value.rounded()).formatted())°"
+    }
+
+    fileprivate var celsius: Double { converted(to: .celsius).value }
+}
+
+// MARK: - Math
+
+/// The geometry of the range bars and the collapsing header, in degrees Celsius and in fractions.
+nonisolated enum WeatherForecastScreenMath {
+    /// The span of a week: from the lowest low to the highest high, or nil without days.
+    static func span(of days: [WeatherForecastScreenDay]) -> ClosedRange<Double>? {
+        guard let low = days.map(\.low.celsius).min(), let high = days.map(\.high.celsius).max() else { return nil }
+        return min(low, high)...max(low, high)
+    }
+
+    /// Where a temperature falls in a span, from 0 at its low end to 1 at its high end.
+    static func fraction(of value: Double, in span: ClosedRange<Double>) -> Double {
+        let width = span.upperBound - span.lowerBound
+        guard width > 0 else { return 0.5 }
+        return min(max((value - span.lowerBound) / width, 0), 1)
+    }
+
+    /// The part of the track a day covers. A week of one temperature fills the whole track.
+    static func bar(low: Double, high: Double, in span: ClosedRange<Double>) -> ClosedRange<Double> {
+        guard span.upperBound > span.lowerBound else { return 0...1 }
+        let start = fraction(of: min(low, high), in: span)
+        let end = fraction(of: max(low, high), in: span)
+        return start...end
+    }
+
+    /// How collapsed the header is, from 0 at rest to 1 once the forecast has scrolled `distance`.
+    static func collapse(offset: CGFloat, distance: CGFloat) -> Double {
+        guard distance > 0 else { return offset > 0 ? 1 : 0 }
+        return min(max(Double(offset / distance), 0), 1)
+    }
+}
+
+// MARK: - Cards
+
+/// The gap between the parts of a card and around each of its rows.
+private let weatherForecastScreenGap: CGFloat = 10
+
+private struct WeatherForecastScreenCard<Content: View>: View {
+    let title: LocalizedStringResource
+    let systemImage: String
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: weatherForecastScreenGap) {
+            Label { Text(title) } icon: { Image(systemName: systemImage) }
+                .font(.caption.weight(.semibold))
+                .textCase(.uppercase)
+                .foregroundStyle(.white.opacity(0.7))
+
+            Divider()
+                .overlay(.white.opacity(0.25))
+
+            content
+        }
+        .padding(14)
+        // A shade under the material keeps the dimmer text of the cards readable over a light sky.
+        .background(Color.black.opacity(0.18), in: .rect(cornerRadius: 18))
+        .background(.ultraThinMaterial, in: .rect(cornerRadius: 18))
+        .environment(\.colorScheme, .dark)
+    }
+}
+
+private struct WeatherForecastScreenHourlyCard: View {
+    let hours: [WeatherForecastScreenHour]
+
+    /// One height for every symbol, so the temperatures under them line up.
+    @ScaledMetric(relativeTo: .title3) private var symbolHeight: CGFloat = 28
+
+    var body: some View {
+        WeatherForecastScreenCard(title: "Hourly Forecast", systemImage: "clock") {
+            ScrollView(.horizontal) {
+                HStack(spacing: 22) {
+                    ForEach(Array(hours.enumerated()), id: \.element.id) { index, hour in
+                        VStack(spacing: weatherForecastScreenGap) {
+                            Group {
+                                if index == 0 {
+                                    Text("Now")
+                                } else {
+                                    Text(hour.date, format: .dateTime.hour())
+                                }
+                            }
+                            .font(.subheadline.weight(.semibold))
+
+                            Image(systemName: hour.condition.symbolName(isDaylight: hour.isDaylight))
+                                .symbolRenderingMode(.multicolor)
+                                .font(.title3)
+                                .frame(height: symbolHeight)
+                                .accessibilityLabel(Text(hour.condition.title))
+
+                            Text(hour.temperature.weatherText)
+                                .font(.title3.weight(.medium))
+                                .monospacedDigit()
+                        }
+                        .accessibilityElement(children: .combine)
+                    }
+                }
+                .padding(.vertical, 4)
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
+}
+
+private struct WeatherForecastScreenDailyCard: View {
+    let days: [WeatherForecastScreenDay]
+    let current: Measurement<UnitTemperature>
+
+    @ScaledMetric(relativeTo: .body) private var dayWidth: CGFloat = 52
+    @ScaledMetric(relativeTo: .body) private var temperatureWidth: CGFloat = 40
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    /// Dimmer than the high, as the low is the less telling of the two, unless Increase Contrast is on.
+    private var lowColor: Color { contrast == .increased ? .white : .white.opacity(0.72) }
+
+    var body: some View {
+        WeatherForecastScreenCard(title: "10-Day Forecast", systemImage: "calendar") {
+            if let span = WeatherForecastScreenMath.span(of: days) {
+                VStack(spacing: 0) {
+                    ForEach(Array(days.enumerated()), id: \.element.id) { index, day in
+                        row(day, isToday: index == 0, span: span)
+
+                        if index < days.count - 1 {
+                            Divider()
+                                .overlay(.white.opacity(0.18))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func row(_ day: WeatherForecastScreenDay, isToday: Bool, span: ClosedRange<Double>) -> some View {
+        // From xxLarge the columns no longer fit side by side on a narrow iPhone, so the bar takes a line of its own.
+        Group {
+            if dynamicTypeSize >= .xxLarge {
+                VStack(alignment: .leading, spacing: weatherForecastScreenGap) {
+                    HStack {
+                        dayName(of: day, isToday: isToday)
+                        Spacer()
+                        symbol(of: day)
+                    }
+
+                    HStack(spacing: 12) {
+                        Text(day.low.weatherText)
+                            .foregroundStyle(lowColor)
+                        rangeBar(of: day, isToday: isToday, span: span)
+                        Text(day.high.weatherText)
+                    }
+                }
+            } else {
+                HStack(spacing: 12) {
+                    dayName(of: day, isToday: isToday)
+                        .frame(width: dayWidth, alignment: .leading)
+
+                    symbol(of: day)
+                        .frame(width: temperatureWidth)
+
+                    Text(day.low.weatherText)
+                        .foregroundStyle(lowColor)
+                        .frame(width: temperatureWidth, alignment: .trailing)
+
+                    rangeBar(of: day, isToday: isToday, span: span)
+
+                    Text(day.high.weatherText)
+                        .frame(width: temperatureWidth, alignment: .trailing)
+                }
+            }
+        }
+        .font(.body.weight(.medium))
+        .monospacedDigit()
+        .padding(.vertical, weatherForecastScreenGap)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label(for: day, isToday: isToday))
+    }
+
+    private func dayName(of day: WeatherForecastScreenDay, isToday: Bool) -> some View {
+        Group {
+            if isToday {
+                Text("Today")
+            } else {
+                Text(day.date, format: .dateTime.weekday(.abbreviated))
+            }
+        }
+        .font(.body.weight(.semibold))
+    }
+
+    private func symbol(of day: WeatherForecastScreenDay) -> some View {
+        VStack(spacing: 0) {
+            Image(systemName: day.condition.symbolName())
+                .symbolRenderingMode(.multicolor)
+                .font(.title3)
+
+            if day.showsPrecipitation {
+                Text(day.precipitationChance, format: .percent.precision(.fractionLength(0)))
+                    .font(.caption2.weight(.bold))
+                    .foregroundStyle(Color(red: 0.55, green: 0.88, blue: 1))
+            }
+        }
+    }
+
+    private func rangeBar(of day: WeatherForecastScreenDay, isToday: Bool, span: ClosedRange<Double>) -> some View {
+        WeatherForecastScreenRangeBar(
+            range: WeatherForecastScreenMath.bar(low: day.low.celsius, high: day.high.celsius, in: span),
+            span: span,
+            marker: isToday ? WeatherForecastScreenMath.fraction(of: current.celsius, in: span) : nil
+        )
+    }
+
+    private func label(for day: WeatherForecastScreenDay, isToday: Bool) -> Text {
+        let name = isToday ? Text("Today") : Text(day.date, format: .dateTime.weekday(.wide))
+        let temperatures = Text("Low \(day.low.weatherText), high \(day.high.weatherText)")
+        guard day.showsPrecipitation else {
+            return Text("\(name), \(Text(day.condition.title)), \(temperatures)")
+        }
+        let chance = day.precipitationChance.formatted(.percent.precision(.fractionLength(0)))
+        return Text("\(name), \(Text(day.condition.title)), \(chance) chance of precipitation, \(temperatures)")
+    }
+}
+
+/// A day's low to high over the week's track, painted with the week's cold-to-warm gradient.
+private struct WeatherForecastScreenRangeBar: View {
+    let range: ClosedRange<Double>
+    let span: ClosedRange<Double>
+    let marker: Double?
+
+    private let height: CGFloat = 5
+
+    var body: some View {
+        GeometryReader { proxy in
+            let width = proxy.size.width
+
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(.white.opacity(0.15))
+
+                let barWidth = min(width, max(height, width * (range.upperBound - range.lowerBound)))
+
+                LinearGradient(colors: gradientColors, startPoint: .leading, endPoint: .trailing)
+                    .mask(alignment: .leading) {
+                        // A day at the top of the week still shows its whole capsule inside the track.
+                        Capsule()
+                            .frame(width: barWidth)
+                            .offset(x: min(width * range.lowerBound, width - barWidth))
+                    }
+
+                if let marker {
+                    Circle()
+                        .fill(.white)
+                        .overlay(Circle().stroke(.black.opacity(0.35), lineWidth: 1.5))
+                        .frame(width: height + 2, height: height + 2)
+                        .offset(x: width * marker - (height + 2) / 2)
+                }
+            }
+        }
+        .frame(height: height)
+        .frame(minWidth: 60)
+    }
+
+    /// The colors of the temperatures across the week, so a warmer day shows warmer colors.
+    private var gradientColors: [Color] {
+        let samples = 5
+        return (0..<samples).map { index in
+            let fraction = Double(index) / Double(samples - 1)
+            let celsius = span.lowerBound + (span.upperBound - span.lowerBound) * fraction
+            return WeatherForecastScreenRangeBar.color(forCelsius: celsius)
+        }
+    }
+
+    private static let palette: [(celsius: Double, color: Color)] = [
+        (-10, Color(red: 0.45, green: 0.55, blue: 1)),
+        (0, Color(red: 0.35, green: 0.80, blue: 1)),
+        (10, Color(red: 0.42, green: 0.90, blue: 0.70)),
+        (20, Color(red: 1, green: 0.84, blue: 0.30)),
+        (30, Color(red: 1, green: 0.55, blue: 0.20)),
+        (40, Color(red: 1, green: 0.26, blue: 0.24)),
+    ]
+
+    private static func color(forCelsius celsius: Double) -> Color {
+        guard let first = palette.first, let last = palette.last else { return .white }
+        if celsius <= first.celsius { return first.color }
+        if celsius >= last.celsius { return last.color }
+        let upper = palette.firstIndex { $0.celsius >= celsius } ?? palette.count - 1
+        let lower = palette[upper - 1]
+        let fraction = (celsius - lower.celsius) / (palette[upper].celsius - lower.celsius)
+        return lower.color.mix(with: palette[upper].color, by: fraction)
+    }
+}
+
+// MARK: - Sky
+
+/// The sky behind the forecast: a gradient for the condition and the time of day, and what falls from it.
+private struct WeatherForecastScreenSky: View {
+    let condition: WeatherForecastScreenCondition
+    let isDaylight: Bool
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        ZStack {
+            LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
+                .animation(.easeInOut(duration: 0.8), value: colors)
+
+            if let fall = WeatherForecastScreenFall(condition: condition) {
+                TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: reduceMotion)) { timeline in
+                    Canvas { context, size in
+                        let time = reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate
+                        fall.draw(in: &context, size: size, time: time)
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.8), value: condition)
+        .ignoresSafeArea()
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    /// Dark enough down to the header's line of highs and lows for white text to keep a contrast of 4.5:1.
+    private var colors: [Color] {
+        switch (condition, isDaylight) {
+        case (_, false):
+            [Color(red: 0.03, green: 0.05, blue: 0.16), Color(red: 0.13, green: 0.17, blue: 0.36)]
+        case (.clear, true):
+            [Color(red: 0.12, green: 0.36, blue: 0.74), Color(red: 0.33, green: 0.58, blue: 0.89)]
+        case (.partlyCloudy, true):
+            [Color(red: 0.17, green: 0.36, blue: 0.64), Color(red: 0.47, green: 0.62, blue: 0.80)]
+        case (.cloudy, true):
+            [Color(red: 0.24, green: 0.31, blue: 0.41), Color(red: 0.52, green: 0.58, blue: 0.66)]
+        case (.rain, true), (.thunderstorm, true):
+            [Color(red: 0.15, green: 0.20, blue: 0.29), Color(red: 0.33, green: 0.40, blue: 0.50)]
+        case (.snow, true):
+            [Color(red: 0.24, green: 0.32, blue: 0.45), Color(red: 0.58, green: 0.66, blue: 0.78)]
+        }
+    }
+}
+
+/// What falls from the sky: streaks of rain or flakes of snow, in two depths.
+nonisolated private struct WeatherForecastScreenFall {
+    private let isSnow: Bool
+    private let count: Int
+
+    init?(condition: WeatherForecastScreenCondition) {
+        switch condition {
+        case .rain: isSnow = false; count = 90
+        case .thunderstorm: isSnow = false; count = 140
+        case .snow: isSnow = true; count = 70
+        case .clear, .partlyCloudy, .cloudy: return nil
+        }
+    }
+
+    func draw(in context: inout GraphicsContext, size: CGSize, time: Double) {
+        var near = Path()
+        var far = Path()
+        let speed: Double = isSnow ? 45 : 620
+        let travel = size.height + 40
+
+        for index in 0..<count {
+            let isNear = index % 3 == 0
+            let depth: Double = isNear ? 1 : 0.6
+            let fallen = (noise(index, 1) * travel + time * speed * depth).truncatingRemainder(dividingBy: travel) - 20
+            let x = noise(index, 2) * size.width
+
+            if isSnow {
+                let sway = sin(time * (0.6 + noise(index, 3)) + noise(index, 4) * 2 * .pi) * 10 * depth
+                let radius = (1.2 + noise(index, 5) * 1.8) * depth
+                let flake = Path(ellipseIn: CGRect(x: x + sway - radius, y: fallen - radius, width: radius * 2, height: radius * 2))
+                if isNear { near.addPath(flake) } else { far.addPath(flake) }
+            } else {
+                let length = 14 * depth
+                var streak = Path()
+                streak.move(to: CGPoint(x: x, y: fallen))
+                streak.addLine(to: CGPoint(x: x - length * 0.12, y: fallen + length))
+                if isNear { near.addPath(streak) } else { far.addPath(streak) }
+            }
+        }
+
+        if isSnow {
+            context.fill(far, with: .color(.white.opacity(0.5)))
+            context.fill(near, with: .color(.white.opacity(0.9)))
+        } else {
+            context.stroke(far, with: .color(.white.opacity(0.22)), lineWidth: 1)
+            context.stroke(near, with: .color(.white.opacity(0.4)), lineWidth: 1.4)
+        }
+    }
+
+    /// A repeatable pseudo-random value in 0..<1 for one drop and one property.
+    private func noise(_ index: Int, _ salt: Double) -> Double {
+        let value = sin(Double(index) * 127.1 + salt * 311.7) * 43_758.5453
+        return value - floor(value)
+    }
+}
+
+// MARK: - Demo
+
+struct WeatherForecastScreenDemo: View {
+    /// Only for this demo: it plays by itself until someone touches it.
+    @State private var isAutoPlaying = true
+    @State private var step = 0
+
+    private let skies: [(condition: WeatherForecastScreenCondition, isDaylight: Bool, celsius: Double)] = [
+        (.clear, true, 22),
+        (.partlyCloudy, true, 19),
+        (.rain, true, 14),
+        (.snow, true, -1),
+        (.clear, false, 12),
+    ]
+
+    var body: some View {
+        WeatherForecastScreen(forecast: forecast(for: skies[step]))
+            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+            // A scroll view keeps the drag to itself, so the first scroll stops the demo too.
+            .onScrollPhaseChange { _, phase in
+                if phase != .idle { isAutoPlaying = false }
+            }
+            .task {
+                while isAutoPlaying {
+                    try? await Task.sleep(for: .seconds(1.5))
+                    guard !Task.isCancelled, isAutoPlaying else { return }
+                    step = (step + 1) % skies.count
+                }
+            }
+    }
+
+    private func forecast(
+        for sky: (condition: WeatherForecastScreenCondition, isDaylight: Bool, celsius: Double)
+    ) -> WeatherForecastScreenForecast {
+        let calendar = Calendar.current
+        let now = calendar.dateInterval(of: .hour, for: .now)?.start ?? .now
+        let today = calendar.startOfDay(for: now)
+        let offsets: [Double] = [0, 1, 1, 2, 2, 1, 0, -1, -2, -2, -3, -3]
+        let conditions: [WeatherForecastScreenCondition] = [.partlyCloudy, .rain, .cloudy, .clear, .clear, .thunderstorm, .rain, .cloudy, .partlyCloudy, .clear]
+        let lows: [Double] = [-5, -4, -2, -6, -3, -1, -4, -5, -3, -2]
+        let highs: [Double] = [3, 5, 2, 4, 7, 6, 1, 3, 5, 6]
+        let chances: [Double] = [0.1, 0.6, 0.3, 0, 0, 0.8, 0.5, 0.2, 0, 0]
+
+        let hours = (0..<12).map { index in
+            let date = calendar.date(byAdding: .hour, value: index, to: now) ?? now
+            let hour = calendar.component(.hour, from: date)
+            return WeatherForecastScreenHour(
+                date: date,
+                condition: index == 0 ? sky.condition : conditions[index % conditions.count],
+                temperature: Measurement(value: sky.celsius + offsets[index], unit: .celsius),
+                isDaylight: index == 0 ? sky.isDaylight : (7..<20).contains(hour)
+            )
+        }
+
+        let days = (0..<10).map { index in
+            WeatherForecastScreenDay(
+                date: calendar.date(byAdding: .day, value: index, to: today) ?? today,
+                condition: index == 0 ? sky.condition : conditions[index],
+                low: Measurement(value: sky.celsius + lows[index], unit: .celsius),
+                high: Measurement(value: sky.celsius + highs[index], unit: .celsius),
+                precipitationChance: chances[index]
+            )
+        }
+
+        return WeatherForecastScreenForecast(
+            location: "Lisbon",
+            condition: sky.condition,
+            isDaylight: sky.isDaylight,
+            temperature: Measurement(value: sky.celsius, unit: .celsius),
+            hours: hours,
+            days: days
+        )
+    }
+}
+
+#Preview {
+    WeatherForecastScreenDemo()
 }
 ```
 

@@ -35,6 +35,7 @@ docs:
 	node scripts/catalog.mjs docs
 	pnpm --dir docs install --frozen-lockfile
 	pnpm --dir docs build
+	node scripts/catalog.mjs site
 
 docs-dev:
 	node scripts/catalog.mjs docs
