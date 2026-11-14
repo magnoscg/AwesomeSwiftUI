@@ -26,7 +26,9 @@ struct WeatherEffectsBackgroundTests {
     }
 
     @Test func aPositionJustBeforeTheStartStaysInsideTheTravel() {
-        #expect(Math.wrap(-1e-17, over: 6) < 6)
+        let wrapped = Math.wrap(-1e-17, over: 6)
+
+        #expect(wrapped >= 0 && wrapped < 6)
     }
 
     @Test func positionsAtTheScaleOfTheClockStillWrapSmoothly() {

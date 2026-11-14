@@ -2182,6 +2182,8 @@ struct WeatherEffectsBackground: View {
     @State private var leaving: WeatherEffectsBackgroundWeather?
     /// How far the change has gone, from 0 when it starts to 1 when only the new weather shows.
     @State private var arrival: Double = 1
+    /// Counts the changes, so the end of an earlier fade does not clear a later one.
+    @State private var change = 0
 
     private let fade: Animation = .easeInOut(duration: 1)
 
@@ -2199,12 +2201,14 @@ struct WeatherEffectsBackground: View {
                 .opacity(arrival)
         }
         .onChange(of: weather) { previous, _ in
+            change += 1
+            let current = change
             leaving = previous
             arrival = 0
             withAnimation(fade) {
                 arrival = 1
             } completion: {
-                leaving = nil
+                if change == current { leaving = nil }
             }
         }
         .ignoresSafeArea()
@@ -2417,7 +2421,6 @@ nonisolated private enum WeatherEffectsBackgroundClouds {
     private static let puffs = 4
 
     /// Soft clouds in three bands, the higher ones slower, drifting to the right in any layout.
-
     static func draw(in context: inout GraphicsContext, size: CGSize, time: Double, color: Color, opacity: Double) {
         let cloudWidth = size.width * 0.9
         context.drawLayer { layer in
@@ -2595,6 +2598,7 @@ struct WeatherEffectsBackgroundDemo: View {
             // The background takes no touches, so this layer catches the one that stops the demo.
             Color.clear
                 .contentShape(.rect)
+                .ignoresSafeArea()
         }
         .overlay(alignment: .bottom) {
             Picker("Weather", selection: chosenWeather) {
