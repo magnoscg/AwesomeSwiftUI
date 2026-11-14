@@ -7,6 +7,12 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Weather Effects Background: an animated sky for seven kinds of weather,
+  with a turning sun, twinkling stars, drifting clouds, rain with splashes,
+  lightning, swaying snow and fog, that fades from one to the next.
+
 ### Changed
 
 - `make check` fails when a component's social card was not made from its

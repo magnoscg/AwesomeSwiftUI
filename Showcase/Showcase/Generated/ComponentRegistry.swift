@@ -159,6 +159,15 @@ enum ComponentRegistry {
             demo: { AnyView(WavesBackgroundDemo()) }
         ),
         ShowcaseEntry(
+            id: "weather-effects-background",
+            title: "Weather Effects Background",
+            category: "Backgrounds",
+            summary: "An animated sky for seven kinds of weather, with a turning sun, twinkling stars, drifting clouds, rain with splashes, lightning, swaying snow and fog, that fades from one to the next.",
+            keywords: ["weather", "rain", "snow", "lightning", "thunderstorm", "clouds", "fog", "sun", "stars", "sky", "particles", "tiempo", "clima", "lluvia", "nieve", "relámpago", "tormenta", "nubes", "niebla", "sol", "estrellas", "cielo", "partículas"],
+            minIOS: "18.0",
+            demo: { AnyView(WeatherEffectsBackgroundDemo()) }
+        ),
+        ShowcaseEntry(
             id: "async-action-button",
             title: "Async Action Button",
             category: "Buttons",
