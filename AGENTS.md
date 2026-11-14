@@ -158,7 +158,7 @@ rest are on you.
 
    ```swift
    // SPDX-License-Identifier: MIT
-   // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+   // Copyright (c) 2026 Oscar Canton and SwiftUI Blocks contributors
    ```
 
 3. **Swift 6 language mode with complete concurrency checking.** A copied
