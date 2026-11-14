@@ -7,6 +7,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.12.0 - 2026-11-14
+
 ### Added
 
 - Weather Forecast Screen: a weather screen in the style of Apple's Weather
