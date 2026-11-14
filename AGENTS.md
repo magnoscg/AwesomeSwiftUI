@@ -1,6 +1,6 @@
 # AGENTS.md
 
-How to work on Awesome SwiftUI Components, for coding agents and people
+How to work on SwiftUI Blocks, for coding agents and people
 alike. Read it before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md)
 has the workflow for pull requests and releases.
 
@@ -158,7 +158,7 @@ rest are on you.
 
    ```swift
    // SPDX-License-Identifier: MIT
-   // Copyright (c) 2026 Oscar Canton and Awesome SwiftUI Components contributors
+   // Copyright (c) 2026 Oscar Canton and SwiftUI Blocks contributors
    ```
 
 3. **Swift 6 language mode with complete concurrency checking.** A copied

@@ -22,9 +22,9 @@ interface Component {
 
 // `pnpm --dir docs` runs with docs/ as the working directory.
 const root = resolve(process.cwd(), '..');
-const RAW_BASE = 'https://raw.githubusercontent.com/magnoscg/swiftui-components/HEAD';
-export const SITE_BASE = '/swiftui-components';
-export const REPOSITORY = 'https://github.com/magnoscg/swiftui-components';
+const RAW_BASE = 'https://raw.githubusercontent.com/magnoscg/swiftui-blocks/HEAD';
+export const SITE_BASE = '';
+export const REPOSITORY = 'https://github.com/magnoscg/swiftui-blocks';
 
 const catalog = JSON.parse(readFileSync(resolve(root, 'catalog.json'), 'utf8')) as {
   count: number;

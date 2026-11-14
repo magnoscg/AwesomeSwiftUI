@@ -1,10 +1,21 @@
 # Changelog
 
-Every notable change to Awesome SwiftUI Components. Versions follow
+Every notable change to SwiftUI Blocks, called Awesome SwiftUI Components
+until 0.11.0. Versions follow
 [Semantic Versioning](https://semver.org/), and each release is tagged `X.Y.Z`
 on `main`.
 
 ## Unreleased
+
+## 0.11.0 - 2026-11-14
+
+### Changed
+
+- The project is now SwiftUI Blocks. The site moves to
+  `https://swiftuiblocks.dev/`, with a `robots.txt` that points search
+  engines to its sitemap, and the repository to `magnoscg/swiftui-blocks`.
+  Links to the old repository keep working; the old address of the site,
+  `magnoscg.github.io/swiftui-components`, no longer does.
 
 ## 0.10.0 - 2026-11-14
 

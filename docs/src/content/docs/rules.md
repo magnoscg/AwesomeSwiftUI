@@ -43,7 +43,7 @@ only where one is natural, so you decide what older versions see.
 ## Accessible
 
 Reduce Motion, Dynamic Type, VoiceOver, touch areas of 44 points and
-right-to-left layouts. [Accessibility](/swiftui-components/accessibility/)
+right-to-left layouts. [Accessibility](/accessibility/)
 says what each of those means in practice.
 
 ## Ready to localize
