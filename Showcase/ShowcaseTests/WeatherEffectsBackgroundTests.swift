@@ -25,6 +25,20 @@ struct WeatherEffectsBackgroundTests {
         #expect(Math.wrap(42, over: 0) == 0)
     }
 
+    @Test func aPositionJustBeforeTheStartStaysInsideTheTravel() {
+        #expect(Math.wrap(-1e-17, over: 6) < 6)
+    }
+
+    @Test func positionsAtTheScaleOfTheClockStillWrapSmoothly() {
+        let now = 815_000_000.0 * 700
+        let travel = 932.0
+
+        let first = Math.wrap(now, over: travel)
+        let next = Math.wrap(now + 7, over: travel)
+
+        #expect(abs(Math.wrap(next - first, over: travel) - 7) < 0.01)
+    }
+
     // MARK: - Lightning
 
     @Test func mostOfTheCycleHasNoFlash() {
@@ -50,6 +64,10 @@ struct WeatherEffectsBackgroundTests {
             let flash = Math.flash(at: time)
             #expect(flash >= 0 && flash <= 1)
         }
+    }
+
+    @Test func theMomentReduceMotionHoldsIsDark() {
+        #expect(Math.flash(at: 0) == 0)
     }
 
     @Test func theFlashRepeatsEveryCycle() {

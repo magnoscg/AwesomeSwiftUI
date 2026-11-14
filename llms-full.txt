@@ -2178,21 +2178,35 @@ struct WeatherEffectsBackground: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    /// The weather fading out after a change, drawn under the new one until it is gone.
+    @State private var leaving: WeatherEffectsBackgroundWeather?
+    /// How far the change has gone, from 0 when it starts to 1 when only the new weather shows.
+    @State private var arrival: Double = 1
+
+    private let fade: Animation = .easeInOut(duration: 1)
+
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 60.0, paused: reduceMotion)) { timeline in
-            let time = reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate
+        ZStack {
+            LinearGradient(colors: weather.skyColors, startPoint: .top, endPoint: .bottom)
+                .animation(fade, value: weather)
 
-            ZStack {
-                LinearGradient(colors: weather.skyColors, startPoint: .top, endPoint: .bottom)
-
-                // One identity per weather, so a change fades the old effects out and the new ones in.
-                ForEach([weather], id: \.self) { weather in
-                    WeatherEffectsBackgroundLayers(weather: weather, time: time, flashes: !reduceMotion)
-                        .transition(.opacity)
-                }
+            // Each weather keeps its own clock, so the effects that leave go on moving while they fade.
+            if let leaving {
+                effects(of: leaving)
+                    .opacity(1 - arrival)
+            }
+            effects(of: weather)
+                .opacity(arrival)
+        }
+        .onChange(of: weather) { previous, _ in
+            leaving = previous
+            arrival = 0
+            withAnimation(fade) {
+                arrival = 1
+            } completion: {
+                leaving = nil
             }
         }
-        .animation(.easeInOut(duration: 1), value: weather)
         .ignoresSafeArea()
         .allowsHitTesting(false)
         .accessibilityHidden(true)
@@ -2213,6 +2227,14 @@ nonisolated enum WeatherEffectsBackgroundWeather: String, CaseIterable, Sendable
         case .thunderstorm: "Thunderstorm"
         case .snow: "Snow"
         case .fog: "Fog"
+        }
+    }
+
+    /// Falling rain and snow need every frame; slow clouds, fog, the sun and the stars do with half.
+    fileprivate var frameInterval: Double {
+        switch self {
+        case .rain, .thunderstorm, .snow: 1.0 / 60.0
+        case .clearDay, .clearNight, .cloudy, .fog: 1.0 / 30.0
         }
     }
 
@@ -2240,7 +2262,10 @@ nonisolated enum WeatherEffectsBackgroundMath {
     static func wrap(_ position: Double, over travel: Double) -> Double {
         guard travel > 0 else { return 0 }
         let remainder = position.truncatingRemainder(dividingBy: travel)
-        return remainder < 0 ? remainder + travel : remainder
+        guard remainder < 0 else { return remainder }
+        // A tiny negative remainder rounds up to `travel` itself, which belongs at the start.
+        let wrapped = remainder + travel
+        return wrapped < travel ? wrapped : 0
     }
 
     /// The brightness of the lightning at a moment, from 0 when dark to 1 at the peak of a flash.
@@ -2254,6 +2279,19 @@ nonisolated enum WeatherEffectsBackgroundMath {
 
     /// Two strikes close together, as lightning often comes, early in each cycle.
     private static let strikes: [(start: Double, duration: Double)] = [(0.4, 0.18), (0.75, 0.22)]
+}
+
+extension WeatherEffectsBackground {
+    private func effects(of weather: WeatherEffectsBackgroundWeather) -> some View {
+        TimelineView(.animation(minimumInterval: weather.frameInterval, paused: reduceMotion)) { timeline in
+            WeatherEffectsBackgroundLayers(
+                weather: weather,
+                time: reduceMotion ? 0 : timeline.date.timeIntervalSinceReferenceDate,
+                flashes: !reduceMotion
+            )
+        }
+        .id(weather)
+    }
 }
 
 // MARK: - Layers
@@ -2375,9 +2413,10 @@ nonisolated private enum WeatherEffectsBackgroundStars {
 // MARK: - Clouds
 
 nonisolated private enum WeatherEffectsBackgroundClouds {
-    /// Soft clouds in three bands, the higher ones slower, drifting toward the trailing edge.
     /// The soft ellipses that make up one cloud.
     private static let puffs = 4
+
+    /// Soft clouds in three bands, the higher ones slower, drifting to the right in any layout.
 
     static func draw(in context: inout GraphicsContext, size: CGSize, time: Double, color: Color, opacity: Double) {
         let cloudWidth = size.width * 0.9
@@ -2539,31 +2578,47 @@ struct WeatherEffectsBackgroundDemo: View {
     @State private var isAutoPlaying = true
     @State private var weather = WeatherEffectsBackgroundWeather.clearDay
 
+    /// A choice from the menu also stops the demo, which would otherwise move on from it.
+    private var chosenWeather: Binding<WeatherEffectsBackgroundWeather> {
+        Binding {
+            weather
+        } set: { choice in
+            isAutoPlaying = false
+            weather = choice
+        }
+    }
+
     var body: some View {
-        WeatherEffectsBackground(weather: weather)
-            .overlay(alignment: .bottom) {
-                Picker("Weather", selection: $weather) {
-                    ForEach(WeatherEffectsBackgroundWeather.allCases, id: \.self) { weather in
-                        Text(weather.title).tag(weather)
-                    }
-                }
-                .pickerStyle(.menu)
-                .tint(.white)
-                .padding(.horizontal, 6)
-                .background(.ultraThinMaterial, in: .capsule)
-                .environment(\.colorScheme, .dark)
-                .padding(.bottom, 40)
-            }
-            .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
-            .task {
-                while isAutoPlaying {
-                    try? await Task.sleep(for: .seconds(1.8))
-                    guard !Task.isCancelled, isAutoPlaying else { return }
-                    let all = WeatherEffectsBackgroundWeather.allCases
-                    let next = ((all.firstIndex(of: weather) ?? 0) + 1) % all.count
-                    weather = all[next]
+        ZStack {
+            WeatherEffectsBackground(weather: weather)
+
+            // The background takes no touches, so this layer catches the one that stops the demo.
+            Color.clear
+                .contentShape(.rect)
+        }
+        .overlay(alignment: .bottom) {
+            Picker("Weather", selection: chosenWeather) {
+                ForEach(WeatherEffectsBackgroundWeather.allCases, id: \.self) { weather in
+                    Text(weather.title).tag(weather)
                 }
             }
+            .pickerStyle(.menu)
+            .tint(.white)
+            .padding(.horizontal, 6)
+            .background(.ultraThinMaterial, in: .capsule)
+            .environment(\.colorScheme, .dark)
+            .padding(.bottom, 40)
+        }
+        .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged { _ in isAutoPlaying = false })
+        .task {
+            while isAutoPlaying {
+                try? await Task.sleep(for: .seconds(1.8))
+                guard !Task.isCancelled, isAutoPlaying else { return }
+                let all = WeatherEffectsBackgroundWeather.allCases
+                let next = ((all.firstIndex(of: weather) ?? 0) + 1) % all.count
+                weather = all[next]
+            }
+        }
     }
 }
 
