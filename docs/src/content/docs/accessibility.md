@@ -52,4 +52,4 @@ not mirrored either.
 The catalog is built and tested in the simulator. Listening to every
 component with VoiceOver on a device, and feeling its haptics, has not been
 done for all of them. If one reads badly,
-[open an issue](https://github.com/magnoscg/swiftui-components/issues/new/choose).
+[open an issue](https://github.com/magnoscg/swiftui-blocks/issues/new/choose).

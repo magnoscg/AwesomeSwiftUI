@@ -15,7 +15,7 @@ struct CatalogView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle("Awesome SwiftUI Components")
+                .navigationTitle("SwiftUI Blocks")
                 .searchable(text: $query, prompt: "Name or keyword")
         }
     }

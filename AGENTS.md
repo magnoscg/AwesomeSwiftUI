@@ -1,6 +1,6 @@
 # AGENTS.md
 
-How to work on Awesome SwiftUI Components, for coding agents and people
+How to work on SwiftUI Blocks, for coding agents and people
 alike. Read it before changing anything. [CONTRIBUTING.md](CONTRIBUTING.md)
 has the workflow for pull requests and releases.
 

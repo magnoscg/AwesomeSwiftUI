@@ -5,7 +5,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { componentDocs } from './swift-docs.mjs';
 
-const REPOSITORY = 'magnoscg/swiftui-components';
+const REPOSITORY = 'magnoscg/swiftui-blocks';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPOSITORY}/HEAD`;
 const BLOB_BASE = `https://github.com/${REPOSITORY}/blob/HEAD`;
 
@@ -32,7 +32,7 @@ const RECORDING_FIELDS = ['previewSteps', 'previewManual'];
 const DEFAULT_PREVIEW_SECONDS = 4;
 
 export const CATEGORY_PAGES = 'catalog';
-const SITE_BASE = '/swiftui-components';
+const SITE_BASE = '';
 const DOCS_PUBLIC = 'docs/public';
 export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
 const BASELINE_IOS = 18;
@@ -547,7 +547,7 @@ function renderDocsIndex(components) {
   const frontmatter = [
     '---',
     'title: Catalog',
-    'description: Every component in Awesome SwiftUI Components, with an animated preview.',
+    'description: Every component in SwiftUI Blocks, with an animated preview.',
     'tableOfContents: false',
     'sidebar:',
     '  label: All components',
@@ -720,7 +720,7 @@ function renderCatalogJSON(components) {
 
 function renderLLMs(components) {
   const lines = [
-    '# Awesome SwiftUI Components',
+    '# SwiftUI Blocks',
     '',
     '> Copy-paste SwiftUI components, animations and transitions for iOS 18 through iOS 27. Swift 6, MIT. There is no package: download the file of a component and add it to the project. A component drawn by a Metal shader has a second file, which its entry links: add both. Each component states its minimum iOS.',
     '',
@@ -753,7 +753,7 @@ function renderLLMs(components) {
 
 function renderLLMsFull(components) {
   const header =
-    '# Awesome SwiftUI Components: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.\n';
+    '# SwiftUI Blocks: every component with its source\n\nCopy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.\n';
   const sections = components.map((component) => {
     const shader = component.shader
       ? `\nShader: ${component.shader}\n\n\`\`\`metal\n${component.shaderSource.trimEnd()}\n\`\`\`\n`

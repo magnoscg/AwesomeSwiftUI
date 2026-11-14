@@ -4,9 +4,9 @@ description: How to propose a component, fix one and get the change merged.
 ---
 
 Components, fixes and ideas are all welcome. This page is the short version.
-[CONTRIBUTING.md](https://github.com/magnoscg/swiftui-components/blob/HEAD/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/magnoscg/swiftui-blocks/blob/HEAD/CONTRIBUTING.md)
 has the workflow in full, and
-[AGENTS.md](https://github.com/magnoscg/swiftui-components/blob/HEAD/AGENTS.md)
+[AGENTS.md](https://github.com/magnoscg/swiftui-blocks/blob/HEAD/AGENTS.md)
 maps the repository for people and coding agents alike.
 
 ## Before you start
@@ -16,7 +16,7 @@ maps the repository for people and coding agents alike.
 - **A new component**: open an issue with the component form first, so the
   idea can be shaped before the code is written.
 - **A vulnerability**: never in a public issue. See
-  [SECURITY.md](https://github.com/magnoscg/swiftui-components/blob/HEAD/SECURITY.md).
+  [SECURITY.md](https://github.com/magnoscg/swiftui-blocks/blob/HEAD/SECURITY.md).
 
 ## What a component is made of
 
@@ -30,7 +30,7 @@ Components/
       <Name>.metal       Its Metal shader, in the few components that have one
 ```
 
-It keeps [the rules](/swiftui-components/rules/) of the catalog.
+It keeps [the rules](/rules/) of the catalog.
 
 ## Make the change
 

@@ -1,4 +1,4 @@
-# Awesome SwiftUI Components: every component with its source
+# SwiftUI Blocks: every component with its source
 
 Copy-paste SwiftUI components for iOS 18 through iOS 27. Swift 6, MIT. A component with a shader has two files: copy both.
 
