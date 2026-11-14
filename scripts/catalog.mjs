@@ -2,14 +2,16 @@
 // `generate` rewrites the files derived from the metadata. `check` changes
 // nothing and fails if a component breaks a rule or a generated file is stale.
 // `docs` writes the uncommitted files the documentation site is built from.
+// `site` reads the built site and fails if a component page lost its own card.
 // `prune <major>` is for CI runners with an older SDK: it deletes the components
 // that need a newer iOS, so its result must never be committed.
-import { copyFileSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   CATEGORY_PAGES,
   DOCS_CATALOG,
+  builtPageErrors,
   componentsNewerThan,
   docsAssets,
   findStale,
@@ -22,8 +24,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const command = process.argv[2];
 const pruneMajor = Number(process.argv[3]);
 
-if (!['generate', 'check', 'docs', 'prune'].includes(command) || (command === 'prune' && !Number.isInteger(pruneMajor))) {
-  console.error('Usage: node scripts/catalog.mjs <generate|check|docs|prune <major>>');
+if (!['generate', 'check', 'docs', 'site', 'prune'].includes(command) || (command === 'prune' && !Number.isInteger(pruneMajor))) {
+  console.error('Usage: node scripts/catalog.mjs <generate|check|docs|site|prune <major>>');
   process.exit(2);
 }
 
@@ -52,6 +54,17 @@ if (command === 'generate') {
     process.exit(1);
   }
   console.log(`The catalog is valid: ${components.length} component(s).`);
+} else if (command === 'site') {
+  const problems = components.flatMap((component) => {
+    const page = join(root, 'docs/dist/catalog', component.category.toLowerCase(), component.id, 'index.html');
+    return builtPageErrors(readFileSync(page, 'utf8'), component);
+  });
+  if (problems.length > 0) {
+    console.error(`The built site has ${problems.length} problem(s):`);
+    for (const problem of problems) console.error(`- ${problem}`);
+    process.exit(1);
+  }
+  console.log(`Every one of the ${components.length} component pages shares its own card.`);
 } else if (command === 'prune') {
   const removed = componentsNewerThan(components, pruneMajor);
   for (const component of removed) {

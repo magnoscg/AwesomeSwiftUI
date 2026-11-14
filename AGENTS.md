@@ -54,7 +54,7 @@ make test                      # the tests of the catalog tooling
 make record                    # record the previews of one component or all of them
 make preview                   # turn a recording into a component's preview and social card
 make cards                     # remake the social cards of one component or all of them
-make docs                      # build the site into docs/dist
+make docs                      # build the site into docs/dist and check each page shares its own card
 make docs-dev                  # run the site locally
 make showcase-build            # compile the Showcase app and every component
 make showcase-build-mainactor  # compile them with the main actor as the default isolation
@@ -209,7 +209,9 @@ rest are on you.
     Next to it, a `<Name>.jpg` of 1200 by 630 pixels and 300 KB at most is
     the card its page shows when it is shared. `make preview` and
     `make record` write it from the middle frame of the preview, and
-    `make cards` remakes it from the preview there is.
+    `make cards` remakes it from the preview there is. The card carries the
+    SHA-256 of its preview, so `make check` fails when the preview changes
+    and the card does not.
 12. **Name what repeats.** ✓ A number written four or more times in a
     component, outside its demo, gets a name: a `private let`, or a parameter
     with a default when whoever copies the component would want to change it.

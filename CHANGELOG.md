@@ -7,6 +7,12 @@ on `main`.
 
 ## Unreleased
 
+### Changed
+
+- `make check` fails when a component's social card was not made from its
+  current preview, which the card now records, and `make docs` fails when a
+  built component page does not share its own card.
+
 ## 0.11.1 - 2026-11-14
 
 ### Fixed
