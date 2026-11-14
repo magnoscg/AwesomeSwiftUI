@@ -2115,6 +2115,15 @@ enum ComponentRegistry {
             demo: { AnyView(VerticalTimelineDemo()) }
         ),
         ShowcaseEntry(
+            id: "weather-forecast-screen",
+            title: "Weather Forecast Screen",
+            category: "Patterns",
+            summary: "A weather screen with a header that shrinks to one line as it scrolls, an hourly strip, a ten-day list of temperature range bars over the week and an animated sky with rain or snow.",
+            keywords: ["weather", "forecast", "temperature", "hourly forecast", "daily forecast", "range bar", "sky", "rain", "snow", "collapsing header", "tiempo", "clima", "previsión", "temperatura", "previsión por horas", "previsión diaria", "barra de rango", "cielo", "lluvia", "nieve"],
+            minIOS: "18.0",
+            demo: { AnyView(WeatherForecastScreenDemo()) }
+        ),
+        ShowcaseEntry(
             id: "country-picker",
             title: "Country Picker",
             category: "Pickers",

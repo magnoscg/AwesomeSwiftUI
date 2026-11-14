@@ -7,6 +7,13 @@ on `main`.
 
 ## Unreleased
 
+### Added
+
+- Weather Forecast Screen: a weather screen in the style of Apple's Weather
+  app, with a header that shrinks to one line as it scrolls, an hourly strip,
+  a ten-day list of temperature range bars over the week and an animated sky
+  with rain or snow.
+
 ### Changed
 
 - `make check` fails when a component's social card was not made from its
