@@ -6,6 +6,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.10.0 - 2026-11-14
+
 ### Added
 
 - Each component has a social card, a still of its preview that its page
