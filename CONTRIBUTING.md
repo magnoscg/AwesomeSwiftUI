@@ -54,7 +54,7 @@ Pull requests target `develop`, except releases and hotfixes.
 Keep pull requests to one topic. Match the style of the code around you, and
 let comments say why rather than what.
 
-Every component needs an animated preview, as
+Every component needs an animated preview and its social card, as
 [AGENTS.md](AGENTS.md#recording-a-preview) explains. After changing a
 component, run `make catalog` and commit the generated files.
 Then check the change with `make verify`, which needs Node 24 or later and

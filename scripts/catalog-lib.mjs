@@ -38,6 +38,10 @@ export const DOCS_CATALOG = 'docs/src/content/docs/catalog';
 const BASELINE_IOS = 18;
 const SHORTEST_FENCE = 5;
 const MAX_PREVIEW_BYTES = 2 * 1024 * 1024;
+// The image a page of the site shows when it is shared, in the size social networks expect.
+const CARD_WIDTH = 1200;
+const CARD_HEIGHT = 630;
+const MAX_CARD_BYTES = 300 * 1024;
 const REGISTRY_PATH ='Showcase/Showcase/Generated/ComponentRegistry.swift';
 const README_START = '<!-- catalog:start -->';
 const README_END = '<!-- catalog:end -->';
@@ -157,6 +161,7 @@ function loadComponent(root, relative, category, name, files, errors, requirePre
     }
   }
   validatePreview(root, relative, name, files, errors, requirePreview);
+  validateCard(root, relative, name, files, errors, requirePreview);
   if (errors.length !== before) return null;
 
   const component = { ...meta, path: `${relative}/${sourceFile}`, preview: `${relative}/${name}.webp`, source };
@@ -175,6 +180,34 @@ function validatePreview(root, relative, name, files, errors, requirePreview) {
   if (bytes.length > MAX_PREVIEW_BYTES) {
     errors.push(`${relative}: ${previewFile} is larger than ${MAX_PREVIEW_BYTES / 1024 / 1024} MB`);
   }
+}
+
+function validateCard(root, relative, name, files, errors, requirePreview) {
+  const cardFile = `${name}.jpg`;
+  if (!files.includes(cardFile)) {
+    if (requirePreview) errors.push(`${relative}: missing ${cardFile}, made with make cards`);
+    return;
+  }
+  const bytes = readFileSync(join(root, relative, cardFile));
+  const size = jpegSize(bytes);
+  if (size?.width !== CARD_WIDTH || size?.height !== CARD_HEIGHT) {
+    errors.push(`${relative}: ${cardFile} is not a ${CARD_WIDTH}×${CARD_HEIGHT} JPEG`);
+  }
+  if (bytes.length > MAX_CARD_BYTES) errors.push(`${relative}: ${cardFile} is larger than ${MAX_CARD_BYTES / 1024} KB`);
+}
+
+// Walks the segments of a JPEG up to its first frame header, which holds the size.
+function jpegSize(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let offset = 2;
+  while (offset + 9 <= bytes.length) {
+    if (bytes[offset] !== 0xff) return null;
+    const marker = bytes[offset + 1];
+    const isFrame = marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker);
+    if (isFrame) return { height: bytes.readUInt16BE(offset + 5), width: bytes.readUInt16BE(offset + 7) };
+    offset += 2 + bytes.readUInt16BE(offset + 2);
+  }
+  return null;
 }
 
 // The ANIM chunk sits near the start of the file and only exists in animations.
