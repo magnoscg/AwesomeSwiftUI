@@ -7,6 +7,8 @@ on `main`.
 
 ## Unreleased
 
+## 0.11.0 - 2026-11-14
+
 ### Changed
 
 - The project is now SwiftUI Blocks. The site moves to
