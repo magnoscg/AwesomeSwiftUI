@@ -36736,6 +36736,7 @@ struct WeatherForecastScreen: View {
                         header
                             .opacity(1 - collapse)
                             .scaleEffect(1 - collapse * 0.12, anchor: .top)
+                            .accessibilityHidden(collapse >= 0.5)
 
                         WeatherForecastScreenHourlyCard(hours: forecast.hours)
                         WeatherForecastScreenDailyCard(days: forecast.days, current: forecast.temperature)
@@ -36744,10 +36745,14 @@ struct WeatherForecastScreen: View {
                     .padding(.bottom, 24)
                 }
                 .scrollIndicators(.hidden)
-                .onScrollGeometryChange(for: CGFloat.self) { geometry in
-                    geometry.contentOffset.y + geometry.contentInsets.top
-                } action: { _, offset in
-                    collapse = WeatherForecastScreenMath.collapse(offset: offset, distance: collapseDistance)
+                // The transform returns the progress itself, so scrolling past the header stops updating the view.
+                .onScrollGeometryChange(for: Double.self) { geometry in
+                    WeatherForecastScreenMath.collapse(
+                        offset: geometry.contentOffset.y + geometry.contentInsets.top,
+                        distance: collapseDistance
+                    )
+                } action: { _, progress in
+                    collapse = progress
                 }
             }
         }
@@ -36762,6 +36767,8 @@ struct WeatherForecastScreen: View {
             Text(forecast.temperature.weatherText)
                 .font(.system(size: temperatureSize, weight: .thin))
                 .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
 
             Text(forecast.condition.title)
                 .font(.title3.weight(.medium))
@@ -36828,7 +36835,9 @@ nonisolated enum WeatherForecastScreenCondition: Sendable, CaseIterable {
 nonisolated struct WeatherForecastScreenHour: Identifiable, Sendable {
     /// The start of the hour.
     let date: Date
+    /// The sky in that hour.
     let condition: WeatherForecastScreenCondition
+    /// The temperature in that hour, in any unit; it is shown in the region's.
     let temperature: Measurement<UnitTemperature>
     /// Whether the sun is up, which picks the day or the night symbol.
     var isDaylight = true
@@ -36840,8 +36849,11 @@ nonisolated struct WeatherForecastScreenHour: Identifiable, Sendable {
 nonisolated struct WeatherForecastScreenDay: Identifiable, Sendable {
     /// Any moment of the day; only its day is shown.
     let date: Date
+    /// The sky for most of the day.
     let condition: WeatherForecastScreenCondition
+    /// The lowest temperature of the day, in any unit.
     let low: Measurement<UnitTemperature>
+    /// The highest temperature of the day, in any unit.
     let high: Measurement<UnitTemperature>
     /// The chance of rain or snow, from 0 to 1. Shown under the symbol from ``shownChance`` up.
     var precipitationChance: Double = 0
@@ -36858,6 +36870,7 @@ nonisolated struct WeatherForecastScreenDay: Identifiable, Sendable {
 nonisolated struct WeatherForecastScreenForecast: Sendable {
     /// The name of the place, shown as it is.
     let location: String
+    /// The sky now, which picks the colors of the sky and what falls from it.
     let condition: WeatherForecastScreenCondition
     /// Whether the sun is up now, which picks the colors of the sky.
     var isDaylight = true
@@ -36934,6 +36947,8 @@ private struct WeatherForecastScreenCard<Content: View>: View {
             content
         }
         .padding(14)
+        // A shade under the material keeps the dimmer text of the cards readable over a light sky.
+        .background(Color.black.opacity(0.18), in: .rect(cornerRadius: 18))
         .background(.ultraThinMaterial, in: .rect(cornerRadius: 18))
         .environment(\.colorScheme, .dark)
     }
@@ -36941,6 +36956,9 @@ private struct WeatherForecastScreenCard<Content: View>: View {
 
 private struct WeatherForecastScreenHourlyCard: View {
     let hours: [WeatherForecastScreenHour]
+
+    /// One height for every symbol, so the temperatures under them line up.
+    @ScaledMetric(relativeTo: .title3) private var symbolHeight: CGFloat = 28
 
     var body: some View {
         WeatherForecastScreenCard(title: "Hourly Forecast", systemImage: "clock") {
@@ -36960,7 +36978,7 @@ private struct WeatherForecastScreenHourlyCard: View {
                             Image(systemName: hour.condition.symbolName(isDaylight: hour.isDaylight))
                                 .symbolRenderingMode(.multicolor)
                                 .font(.title3)
-                                .frame(height: 28)
+                                .frame(height: symbolHeight)
                                 .accessibilityLabel(Text(hour.condition.title))
 
                             Text(hour.temperature.weatherText)
@@ -36985,8 +37003,10 @@ private struct WeatherForecastScreenDailyCard: View {
     @ScaledMetric(relativeTo: .body) private var temperatureWidth: CGFloat = 40
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    /// Dimmer than the high, as the low is the less telling of the two.
-    private let lowColor = Color.white.opacity(0.6)
+    @Environment(\.colorSchemeContrast) private var contrast
+
+    /// Dimmer than the high, as the low is the less telling of the two, unless Increase Contrast is on.
+    private var lowColor: Color { contrast == .increased ? .white : .white.opacity(0.72) }
 
     var body: some View {
         WeatherForecastScreenCard(title: "10-Day Forecast", systemImage: "calendar") {
@@ -37006,9 +37026,9 @@ private struct WeatherForecastScreenDailyCard: View {
     }
 
     private func row(_ day: WeatherForecastScreenDay, isToday: Bool, span: ClosedRange<Double>) -> some View {
-        // At accessibility sizes the columns no longer fit side by side, so the bar takes a line of its own.
+        // From xxLarge the columns no longer fit side by side on a narrow iPhone, so the bar takes a line of its own.
         Group {
-            if dynamicTypeSize.isAccessibilitySize {
+            if dynamicTypeSize >= .xxLarge {
                 VStack(alignment: .leading, spacing: weatherForecastScreenGap) {
                     HStack {
                         dayName(of: day, isToday: isToday)
@@ -37069,7 +37089,7 @@ private struct WeatherForecastScreenDailyCard: View {
             if day.showsPrecipitation {
                 Text(day.precipitationChance, format: .percent.precision(.fractionLength(0)))
                     .font(.caption2.weight(.bold))
-                    .foregroundStyle(.cyan)
+                    .foregroundStyle(Color(red: 0.55, green: 0.88, blue: 1))
             }
         }
     }
@@ -37084,11 +37104,12 @@ private struct WeatherForecastScreenDailyCard: View {
 
     private func label(for day: WeatherForecastScreenDay, isToday: Bool) -> Text {
         let name = isToday ? Text("Today") : Text(day.date, format: .dateTime.weekday(.wide))
-        var label = name + Text(", ") + Text(day.condition.title)
-        if day.showsPrecipitation {
-            label = label + Text(", ") + Text("\(day.precipitationChance.formatted(.percent.precision(.fractionLength(0)))) chance of precipitation")
+        let temperatures = Text("Low \(day.low.weatherText), high \(day.high.weatherText)")
+        guard day.showsPrecipitation else {
+            return Text("\(name), \(Text(day.condition.title)), \(temperatures)")
         }
-        return label + Text(", ") + Text("Low \(day.low.weatherText), high \(day.high.weatherText)")
+        let chance = day.precipitationChance.formatted(.percent.precision(.fractionLength(0)))
+        return Text("\(name), \(Text(day.condition.title)), \(chance) chance of precipitation, \(temperatures)")
     }
 }
 
@@ -37108,11 +37129,14 @@ private struct WeatherForecastScreenRangeBar: View {
                 Capsule()
                     .fill(.white.opacity(0.15))
 
+                let barWidth = min(width, max(height, width * (range.upperBound - range.lowerBound)))
+
                 LinearGradient(colors: gradientColors, startPoint: .leading, endPoint: .trailing)
                     .mask(alignment: .leading) {
+                        // A day at the top of the week still shows its whole capsule inside the track.
                         Capsule()
-                            .frame(width: max(height, width * (range.upperBound - range.lowerBound)))
-                            .offset(x: width * range.lowerBound)
+                            .frame(width: barWidth)
+                            .offset(x: min(width * range.lowerBound, width - barWidth))
                     }
 
                 if let marker {
